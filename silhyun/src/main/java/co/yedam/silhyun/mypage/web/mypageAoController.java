@@ -1,4 +1,4 @@
-package co.yedam.silhyun.mypageAo;
+package co.yedam.silhyun.mypage.web;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
