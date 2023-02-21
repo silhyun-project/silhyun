@@ -1,4 +1,4 @@
-package co.yedam.silhyun.around.web;
+package co.yedam.silhyun.portfolio.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
