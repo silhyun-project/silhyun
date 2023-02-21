@@ -14,12 +14,12 @@ public class AdminController {
 		return "/admin/eventManage";
 	}
 	
-	@GetMapping("/memberAccept")
+	@GetMapping("/admin/memberAccept")
 	public String memberAccept() {
 		return "/admin/memberAccept";
 	}
 	
-	@GetMapping("/memberManage")
+	@GetMapping("/admin/memberManage")
 	public String memberManage() {
 		return "/admin/memberManage";
 	}

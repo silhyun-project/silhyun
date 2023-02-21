@@ -2,6 +2,10 @@ package co.yedam.silhyun.classes.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -11,7 +15,10 @@ public class ClassesVO {
 	private String ptgId;
 	private String claTtl;
 	private String claCd;
-	private Date claDt;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	private Date claDt;	
 	private String claTime;
 	private String claPlace;
 	private int ydt;
@@ -24,6 +31,9 @@ public class ClassesVO {
 	private String cfmSta;
 	private String ot;
 	private int rati;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date accpDt;
 	
 }
