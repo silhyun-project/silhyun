@@ -10,6 +10,6 @@ public class AroundController {
 	
 	@GetMapping("/around")
 	public String around(Model model) {
-		return "around";
+		return "portfolio/around";
 	}
 }
