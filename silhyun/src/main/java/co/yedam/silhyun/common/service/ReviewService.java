@@ -1,5 +1,5 @@
 package co.yedam.silhyun.common.service;
 
-public interface CommonService {
-
+public interface ReviewService {
+	
 }
