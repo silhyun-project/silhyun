@@ -2,6 +2,7 @@ package co.yedam.silhyun.event.service;
 
 import java.util.Date;
 
+
 public class EventVO {
 	private String eventNum;
 	private String id;
