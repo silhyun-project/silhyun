@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.member.map.PtgMapper">
+	<select id="getPtgLsit" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		SELECT P.*,M.*
+	    FROM PHOTOGRAPHER P, MEMBER M
+	    WHERE P.PTG_ID = M.ID
+	</select>
+</mapper>

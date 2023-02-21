@@ -1,0 +1,58 @@
+
+/* 검색창 */
+.form{
+
+    position: relative;
+}
+
+.form .bi-search{
+
+    position: absolute;
+    top:9px;
+    left: 15px;
+    color: #9ca3af;
+
+}
+
+.form span{
+
+        position: absolute;
+    right: 11px;
+    top: 6px;
+    padding: 2px;
+    border-left: 1px solid #d1d5db;
+
+}
+
+.left-pan{
+    padding-left: 7px;
+}
+
+.left-pan i{
+    
+   padding-left: 10px;
+}
+
+.form-input{
+
+    height: 40px;
+    text-indent: 33px;
+    border-radius: 10px;
+}
+
+.form-input:focus{
+
+    box-shadow: none;
+    border:none;
+}
+
+/* 태그 */
+.btn.btn-sm.active{
+	background-color:white;
+	text-align:center;
+	width:120px;
+   border-radius: 20px;
+    top: 6px;
+    padding: 10px;
+    border-left: 1px solid #d1d5db;
+}
