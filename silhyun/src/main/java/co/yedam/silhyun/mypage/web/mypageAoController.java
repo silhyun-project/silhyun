@@ -26,5 +26,18 @@ public class mypageAoController {
 		
 		return "mypageAo/classManage";
 	}
-
+	@GetMapping("/mypageAoAsk")
+	public String mypageAoAsk() {
+		
+		return "mypageAo/mypageAoAsk";
+	}
+	@GetMapping("/resCalendarAo")
+	public String resCalendarAo() {
+		
+		return "mypageAo/resCalendarAo";
+	}
+	@GetMapping("/mypageStatsAo")
+	public String mypageStatsAo() {
+		return "mypageAo/mypageStatsAo";
+	}
 }
