@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class PhotographerVO {
+public class PhotographerVO extends MemberVO{
 	private String ptgId;
 	private String stId;
 	private String regionCd;

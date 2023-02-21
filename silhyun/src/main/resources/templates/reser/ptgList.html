@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
 
 <head>
     <!-- metas -->
@@ -12,12 +13,21 @@
 <!-- title -->
 <title>지은이의 예약하기</title>
 <!-- Favicon -->
+<style type="text/css">
+label{ display:inline-block; width: 100px;}
+</style>
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
 <link href="/css/swimwear.css" rel="stylesheet">
 </head>
 
 <body>
+<div layout:fragment="content">
+<div>
+<p th:each="ptg : ${ptgList}">
+[[${ptg.ptgId}]] :[[${ptg.profile}]]
+</p>
+</div>
     <!-- Skippy & Prload -->
     <!-- skippy -->
 <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
@@ -72,61 +82,7 @@
                                             <li class="breadcrumb-item text-nowrap active" aria-current="page">예약하기</li>
                                         </ol>
                                     </div>
-                                    <div class="col-md-5 d-flex align-items-center mt-4 mt-md-0">
-                                        <!-- Shop Filter -->
-                                        <button class="ms-md-auto filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#shop_filter" aria-controls="shop_filter" aria-expanded="false" aria-label="Toggle navigation">
-                                            select박스 들어가는 곳 <i class="bi-chevron-down"></i>
-                                        </button>
-                                        <!-- End Shop Filter -->
-                                    </div>
                                 </div>
-                                <!-- Filter -->
-                                <div class="collapse" id="shop_filter">
-                                    <div class="shop-filter-04">
-                                        <div class="row gy-4">
-                                            <div class="col-md-4">
-                                                <h6>Styles</h6>
-                                                <div class="shop-list-tags">
-                                                    <a href="#" class="active">Slim/Straight</a>
-                                                    <a href="#">Relaxed</a>
-                                                    <a href="#">Curvy</a>
-                                                    <a href="#">Way-High Rise</a>
-                                                    <a href="#">Cheeky</a>
-                                                    <a href="#">Slouch</a>
-                                                    <a href="#">Skinny</a>
-                                                    <a href="#">Shorts</a>
-                                                    <a href="#">Denim Jackets</a>
-                                                    <a href="#">Organic Cotton</a>
-                                                    <a href="#">Sale</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <h6>Color</h6>
-                                                <div class="shop-list-colors">
-                                                    <a href="#" class="sb-color" style="background-color: #1c1c1c;"><span>Black</span></a>
-                                                    <a href="#" class="sb-color" style="background-color: #295f9a;"><span>Blue</span></a>
-                                                    <a href="#" class="sb-color" style="background-color: #ffffff;"><span>White</span></a>
-                                                    <a href="#" class="sb-color" style="background-color: #e5e5e7;"><span>Grey</span></a>
-                                                  
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <h6>Size</h6>
-                                                <div class="shop-list-tags-02">
-                                                    <a href="#">XXS</a>
-                                                    <a href="#">S</a>
-                                                    <a href="#" class="active">S</a>
-                                                    <a href="#">M</a>
-                                                    <a href="#">L</a>
-                                                    <a href="#">L</a>
-                                                    <a href="#">23</a>
-                                                    <a href="#">24</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Filter -->
                             </div>
                             <!-- End Shop Topbar -->
                             <div class="row g-3 g-lg-4">
@@ -134,30 +90,103 @@
 				            <section class="section">
 				                <div class="container">
 				                    <div class="row justify-content-center">
-				                        <div class="col-lg-8 col-xl-7 text-center">
-				                            <h2 class="h1 mb-3">How can we help?</h2>
-				                            <p class="mx-lg-8">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.</p>
-				                            <form class="d-flex flex-column flex-md-row mt-4">
-				                                <input type="email" class="form-control me-sm-2 mb-2 mb-sm-0" placeholder="찾는 작가의 이름을 입력하세요">
+				                        <div class="col-lg-8 col-xl-15 text-center">
+				                            <form style="display: inline;">
+				                           	<div class="">
+                                            <h3>지역<span class="text-danger">*</span></h3>
+                                        	</div>
+                                        <div class="form-check form-check-inline">
+                                            
+                                            <label class="form-check-label" for="region01">서울<input class="form-check-input" type="checkbox" name="region01" id="region01" value="01"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            
+                                            <label class="form-check-label" for="region02">경기<input class="form-check-input" type="checkbox" name="region02" id="region02" value="02"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                           
+                                            <label class="form-check-label" for="region03">인천 <input class="form-check-input" type="checkbox" name="region03" id="region03" value="03"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                            
+                                            <label class="form-check-label" for="region04">강원<input class="form-check-input" type="checkbox" name="region04" id="region04" value="04"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                           
+                                            <label class="form-check-label" for="region05">대전/충청 <input class="form-check-input" type="checkbox" name="region05" id="region05" value="05"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                           
+                                            <label class="form-check-label" for="region06">대구 <input class="form-check-input" type="checkbox" name="region06" id="region06" value="06"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                           
+                                            <label class="form-check-label" for="region07">부산/울산 <input class="form-check-input" type="checkbox" name="region07" id="region07" value="07"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                           
+                                            <label class="form-check-label" for="region08">경상 <input class="form-check-input" type="checkbox" name="region08" id="region08" value="08"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                            
+                                            <label class="form-check-label" for="region09">광주/전라<input class="form-check-input" type="checkbox" name="region09" id="region09" value="09"></label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                           
+                                            <label class="form-check-label" for="region10">제주 <input class="form-check-input" type="checkbox" name="region10" id="region10" value="10"></label>
+                                        </div>
+                                        <div class="">
+                                            <h3>분야<span class="text-danger">*</span></h3>
+                                             <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B1">제품<input class="form-check-input" type="checkbox" name="B1" id="B1" value="B1"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B2">음식<input class="form-check-input" type="checkbox" name="B2" id="B2" value="B2"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B3">행사<input class="form-check-input" type="checkbox" name="B3" id="B3" value="B3"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B4">건축/인테리어<input class="form-check-input" type="checkbox" name="B4" id="B4" value="B4"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B5">패션<input class="form-check-input" type="checkbox" name="B5" id="B5" value="B5"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B6">프로필/화보<input class="form-check-input" type="checkbox" name="B6" id="B6" value="B6"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B7">웨딩<input class="form-check-input" type="checkbox" name="B7" id="B7" value="B7"></label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B8">일반스냅<input class="form-check-input" type="checkbox" name="B8" id="B8" value="B8"></label>
+                                        </div>
+                                          <div class="form-check form-check-inline">
+                                            <label class="form-check-label" for="B9">반려동물<input class="form-check-input" type="checkbox" name="B9" id="B9" value="B9"></label>
+                                        </div>
+                                        	</div>
+                                       
+                                                                           
+                                       <div style="display: inline;">
+				                                <input type="text" size="10px" class="form-control me-sm-2 mb-2 mb-sm-1" placeholder="찾는 작가의 이름을 입력하세요">
 				                                <button class="btn btn-primary flex-shrink-0" type="submit">Search</button>
+				                          </div>
 				                            </form>
 				                        </div>
 				                    </div>
 				                </div>
-				              
-                                     <select >
-                                     <option value="">::선택::</option>
-                                     <option value="new">최신순</option>
-                                     <option value="hot">인기순</option>
-                                     </select>
        				            </section>
 				            
 				            <!-- End Section -->
-				            <select >
-                                     <option value="">::선택::</option>
-                                     <option value="new">최신순</option>
-                                     <option value="hot">인기순</option>
-                                     </select>
+                            <div style="size: 100px;">
+                                <select >
+                                    <option value="">::선택::</option>
+                                    <option value="new">최신순</option>
+                                    <option value="hot">인기순</option>
+                                    </select>
+
+                            </div>
+				                
                              
                                 <div class="col-md-4 col-6">
                                     <div class="product-card-9">
@@ -185,6 +214,7 @@
                                             </div>
                                             <h6 class="product-title">
                                                 <a href="#">작가이름이름</a>
+        
                                             </h6>
                      
                                         </div>
@@ -226,6 +256,6 @@
 <script src="../../assets/js/custom.js"></script>
 <script src="../../assets/js/theme.js"></script>
     <!-- End script start -->
+ </div>
 </body>
-
 </html>

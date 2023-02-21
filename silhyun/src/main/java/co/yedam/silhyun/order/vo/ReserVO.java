@@ -1,7 +1,9 @@
 package co.yedam.silhyun.order.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
+import lombok.Data;
+@Data
 public class ReserVO {
 	String resNum;
 	String ptgId;
