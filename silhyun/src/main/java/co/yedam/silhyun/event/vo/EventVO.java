@@ -1,7 +1,10 @@
-package co.yedam.silhyun.event.service;
+package co.yedam.silhyun.event.vo;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class EventVO {
 	private String eventNum;
 	private String id;

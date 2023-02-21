@@ -1,4 +1,4 @@
-package co.yedam.silhyun.coupon.web;
+package co.yedam.silhyun.event.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

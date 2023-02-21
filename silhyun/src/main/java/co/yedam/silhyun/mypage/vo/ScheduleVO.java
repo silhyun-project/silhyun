@@ -1,4 +1,4 @@
-package co.yedam.silhyun.mypageUser.service;
+package co.yedam.silhyun.mypage.vo;
 
 import java.sql.Date;
 

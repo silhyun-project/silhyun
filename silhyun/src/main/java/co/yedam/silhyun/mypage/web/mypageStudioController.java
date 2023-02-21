@@ -1,4 +1,4 @@
-package co.yedam.silhyun.mypageStudio;
+package co.yedam.silhyun.mypage.web;
 
 public class mypageStudioController {
 
