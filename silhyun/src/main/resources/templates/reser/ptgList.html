@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="zxx" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
-
 <head>
     <!-- metas -->
 <meta charset="utf-8">
@@ -23,10 +22,6 @@ label{ display:inline-block; width: 100px;}
 
 <body>
 <div layout:fragment="content">
-<ul th:each="ptg : ${ptgList}">
-<li th:text="${ptg.ptgId}"></li>
-<li th:text="${ptg.profile}"></li>
-</ul>
     <!-- Skippy & Prload -->
     <!-- skippy -->
 <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
@@ -186,7 +181,7 @@ label{ display:inline-block; width: 100px;}
 
                             </div>
 				                                           
-                                <div class="col-md-4 col-6">
+                                <div class="col-md-4 col-6" th:each="ptg : ${ptgList}">
                                     <div class="product-card-9">
                                         <div class="product-card-image">
                                             <div class="product-action">
@@ -194,10 +189,10 @@ label{ display:inline-block; width: 100px;}
                                                     <i class="fi-heart"></i>
                                                 </a>
                                             </div>
-                                            <div class="hover-scale" th:each="ptg : ${ptgList}">
+                                            <div class="hover-scale">
 				                                <div class="hover-scale-in">
 				                                    <a href="#">
-				                                        <img class="img-fluid" src="${ptg.profile}" title="" alt="사진없음">
+				                                        <img class="img-fluid" th:src="${ptg.profile}" title="" alt="사진이 뜨지않는다.." width="700" height="800">
 				                                    </a>
 				                                </div>
 				                            </div>
@@ -211,17 +206,13 @@ label{ display:inline-block; width: 100px;}
                                                 <i class="bi bi-star"></i>
                                             </div>
                                             <h6 class="product-title">
-                                                <a href="#">작가이름이름</a>
+                                                <a href="#" th:text="${ptg.name}"></a>
                                             </h6>
                      
                                         </div>
                                     </div>
                                 </div>
-                                
                                </div>  
-                                
-            
-                          
                         </div>
                         <!-- End Product Box -->
                     </div>
@@ -230,8 +221,6 @@ label{ display:inline-block; width: 100px;}
             <!-- End Shop Section -->
         </main>
         <!-- End Main -->
-
-    
     <!-- 
     ========================
        End Wrapper 
@@ -256,6 +245,21 @@ label{ display:inline-block; width: 100px;}
 <script src="/js/custom.js"></script>
 <script src="/js/theme.js"></script>
     <!-- End script start -->
+ <script>
+
+$(document).ready(function() {
+    $('#submit').click(function() {
+        alert($("input[type=checkbox][name=region01]:checked").val());
+    })
+});
+console.log($("input[type=checkbox][name=region01]:checked").val());
+
+function check(){
+	var region = document.getElementById('region01');
+	
+}
+</script>
  </div>
 </body>
+
 </html>
