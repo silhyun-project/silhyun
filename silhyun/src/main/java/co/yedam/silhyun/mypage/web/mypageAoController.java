@@ -38,6 +38,13 @@ public class mypageAoController {
 	}
 	@GetMapping("/mypageStatsAo")
 	public String mypageStatsAo() {
+		
 		return "mypageAo/mypageStatsAo";
+	}
+	
+	@GetMapping("/reportFormAo")
+	public String reportAo() {
+		
+		return "mypageAo/reportFormAo";
 	}
 }
