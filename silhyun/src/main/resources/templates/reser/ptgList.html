@@ -13,7 +13,7 @@
 <!-- title -->
 <title>지은이의 예약하기</title>
 <!-- Favicon -->
-<style type="text/css">
+<style>
 label{ display:inline-block; width: 100px;}
 </style>
 <link rel="shortcut icon" href="/img/favicon.ico">
@@ -23,11 +23,10 @@ label{ display:inline-block; width: 100px;}
 
 <body>
 <div layout:fragment="content">
-<div>
-<p th:each="ptg : ${ptgList}">
-[[${ptg.ptgId}]] :[[${ptg.profile}]]
-</p>
-</div>
+<ul th:each="ptg : ${ptgList}">
+<li th:text="${ptg.ptgId}"></li>
+<li th:text="${ptg.profile}"></li>
+</ul>
     <!-- Skippy & Prload -->
     <!-- skippy -->
 <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
@@ -186,8 +185,7 @@ label{ display:inline-block; width: 100px;}
                                     </select>
 
                             </div>
-				                
-                             
+				                                           
                                 <div class="col-md-4 col-6">
                                     <div class="product-card-9">
                                         <div class="product-card-image">
@@ -196,10 +194,10 @@ label{ display:inline-block; width: 100px;}
                                                     <i class="fi-heart"></i>
                                                 </a>
                                             </div>
-                                            <div class="hover-scale">
+                                            <div class="hover-scale" th:each="ptg : ${ptgList}">
 				                                <div class="hover-scale-in">
 				                                    <a href="#">
-				                                        <img class="img-fluid" src="img/swimwear/봉구.jpg" title="" alt="">
+				                                        <img class="img-fluid" src="${ptg.profile}" title="" alt="사진없음">
 				                                    </a>
 				                                </div>
 				                            </div>
@@ -214,13 +212,15 @@ label{ display:inline-block; width: 100px;}
                                             </div>
                                             <h6 class="product-title">
                                                 <a href="#">작가이름이름</a>
-        
                                             </h6>
                      
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                
+                               </div>  
+                                
+            
                           
                         </div>
                         <!-- End Product Box -->
@@ -231,7 +231,7 @@ label{ display:inline-block; width: 100px;}
         </main>
         <!-- End Main -->
 
-    </div>
+    
     <!-- 
     ========================
        End Wrapper 
@@ -239,22 +239,22 @@ label{ display:inline-block; width: 100px;}
     -->
     <!-- script start -->
     <!-- jquery -->
-<script src="../../assets/js/jquery-3.5.1.min.js"></script>
+<script src="/js/jquery-3.5.1.min.js"></script>
 <!--bootstrap-->
-<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- slick carousel -->
-<script src="../../assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
 <!-- magnific -->
-<script src="../../assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
 <!-- isotope -->
-<script src="../../assets/vendor/isotope/isotope.pkgd.min.js"></script>
+<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
 <!-- count-down -->
-<script src="../../assets/vendor/count-down/jquery.countdown.min.js"></script>
+<script src="/vendor/count-down/jquery.countdown.min.js"></script>
 <!-- count-down -->
-<script src="../../assets/vendor/jarallax/jarallax-all.js"></script>
+<script src="/vendor/jarallax/jarallax-all.js"></script>
 <!-- Theme Js -->
-<script src="../../assets/js/custom.js"></script>
-<script src="../../assets/js/theme.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/theme.js"></script>
     <!-- End script start -->
  </div>
 </body>
