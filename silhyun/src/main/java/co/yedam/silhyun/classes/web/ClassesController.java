@@ -9,7 +9,7 @@ public class ClassesController {
 
 	@Autowired
 	
-	@GetMapping("/classe/classesInfo")
+	@GetMapping("/classes/classesInfo")
 	public String classesInfo() {
 		return "/classes/classesInfo";
 	}
@@ -19,16 +19,16 @@ public class ClassesController {
 		return "/classes/classesMain";
 	}
 	
-	@GetMapping("/classe/classesVideo")
+	@GetMapping("/classes/classesVideo")
 	public String classesVideo() {
 		return "/classes/classesVideo";
 	}
 	
-	@GetMapping("/classe/myAllClasses")
-	public String myAllClasses() {
-		return "/classes/myAllClasses";
+	@GetMapping("/classes/myClasses")
+	public String myClasses() {
+		return "/classes/myClasses";
 	}
-	@GetMapping("/classe/myClassesVidios")
+	@GetMapping("/classes/myClassesVidios")
 	public String myClassesVidios() {
 		return "/classes/myClassesVidios";
 		
