@@ -1,16 +1,16 @@
 package co.yedam.silhyun.order.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import co.yedam.silhyun.member.service.PtgServiceImpl;
+
+import co.yedam.silhyun.member.service.PtgService;
 @Controller
 public class ReserController {
 
 	@Autowired
-	private PtgServiceImpl ptgService;
+	private PtgService ptgService;
 	
 	@RequestMapping("/ptgList")
 		public String ptgList(Model model) {
