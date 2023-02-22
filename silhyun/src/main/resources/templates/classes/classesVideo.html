@@ -36,14 +36,14 @@ body {
   background-color: #111;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 200px;
 }
 
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 18px;
+  color: #ffffff;
   display: block;
   transition: 0.3s;
 }
@@ -55,9 +55,10 @@ body {
 .sidenav .closebtn {
   position: absolute;
   top: 0;
-  left: 25px;
+  right: 25px;
   font-size: 36px;
-  margin-right: 50px;
+  margin-left: 50px;
+  margin-top:150px;
 }
 
 @media screen and (max-height: 450px) {
@@ -249,7 +250,8 @@ body {
             
                 <br>
      
-                        
+     <!-- video -->
+            
                          <section class="post-details-area mb-80">
         <div class="container">
             <div class="">
@@ -263,26 +265,48 @@ body {
         </div>
     </section>
     
-    
+    <!-- note  style="display:none"-->
     <section>
     <div align="center">추가 내용</div>
     </section>
     
-    <section>
-    <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" id="close">&times;</a>
+                        <div layout:fragment="note">
+<div align="right">
+<div id="mySidenav" class="sidenav" align="left">
+  <a href="javascript:void(0)" class="closebtn" th:onclick="|closeNav()|">&times;</a>
   <a href="#">About</a>
   <a href="#">Services</a>
   <a href="#">Clients</a>
   <a href="#">Contact</a>
 </div>
 
-<div align="right">
-<h3>노트 열기
-<span style="font-size:30px;cursor:pointer" id="open">&#9776; </span></h3>
+<h2>노트 보기</h2>
+<!-- 
+<span style="font-size:30px;cursor:pointer" th:attr="onclick=|openNav()|">&#9776;</span>
+ -->
+<span style="font-size:30px;cursor:pointer" th:attr="onclick=|openCloseNav()|">&#9776;</span>
 </div>
-    </section>
-      
+     
+      <script th:inline="javascript">
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+function openCloseNav(){
+	const nav = document.getElementById("mySidenav");
+	
+	if(nav.style.width !="250px"){
+		nav.style.width = "250px";}
+	else if(nav.style.width =="250px"){
+			nav.style.width=0;
+		}
+	}
+
+</script>
           </div>
                         
                         
@@ -295,37 +319,22 @@ body {
         <!-- End Main -->
      
         <!-- End Footer -->
-    </div>
-    </div>
+
     <!-- 
     ========================
        End Wrapper 
     ========================
     -->
     <!-- script start -->
-    <script>
-    const open = document.getElementById("open");
-    
-    open.addEventListner('click',()=>{
-    	 document.getElementById("mySidenav").style.width = "250px";
-      	
-    });
-    
-    const close = document.getElementById("close");
-    
-    open.addEventListner('click',()=>{
-    	  document.getElementById("mySidenav").style.width = "0";
-      	
-    });
     
 
-</script>
-    
+
+
     
     <!-- jquery -->
 <script src="/js/jquery-3.5.1.min.js"></script>
 <!--bootstrap-->
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 <!-- slick carousel -->
 <script src="/vendor/swiper/swiper-bundle.min.js"></script>
 <!-- magnific -->
@@ -339,6 +348,9 @@ body {
 <!-- Theme Js -->
 <script src="/js/custom.js"></script>
 <script src="/js/theme.js"></script>
+
+
+    
     <!-- End script start -->
 </body>
 
@@ -353,7 +365,5 @@ body {
     
     
     
-    
-    
-
+ 
 
