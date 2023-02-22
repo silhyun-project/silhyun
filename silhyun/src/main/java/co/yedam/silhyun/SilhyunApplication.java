@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "co.yedam.silhyun")
+@MapperScan(basePackages = "co.yedam.silhyun.**.map")
 public class SilhyunApplication {
 
 	public static void main(String[] args) {
