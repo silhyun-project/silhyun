@@ -2,6 +2,7 @@ package co.yedam.silhyun.mypage.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class mypageAoController {
@@ -26,5 +27,26 @@ public class mypageAoController {
 		
 		return "mypageAo/classManage";
 	}
-
+	@GetMapping("/mypageAoAsk")
+	public String mypageAoAsk() {
+		
+		return "mypageAo/mypageAoAsk";
+	}
+	@GetMapping("/resCalendarAo")
+	public String resCalendarAo() {
+		
+		return "mypageAo/resCalendarAo";
+	}
+	@GetMapping("/mypageStatsAo")
+	public String mypageStatsAo() {
+		
+		return "mypageAo/mypageStatsAo";
+	}
+	
+	@GetMapping("/reportFormAo")
+	public String reportAo() {
+		
+		return "mypageAo/reportFormAo";
+	}
+	
 }

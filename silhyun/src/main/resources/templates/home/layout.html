@@ -26,6 +26,7 @@ float: left;
 margin-left: 10px;
 }
 
+
 </style>
 
 <body>
@@ -673,7 +674,7 @@ margin-left: 10px;
                         <!-- Nav User-->
 					            <ul class="list-unstyled link-list-style-02 m-0" id="smMenu">
 					                <li><a href="#"></a></li>
-					                <li><a href="#">관리자</a></li>
+					                <li><a th:href="@{/admin/dashBoard}">관리자</a></li>
 					                <li><a href="#">포트폴리오</a></li>
 					                <li><a href="/mypageAo">마이페이지</a></li>
 					                <li><a href="#">회원가입</a></li>
@@ -1299,7 +1300,7 @@ margin-left: 10px;
                             <a href="#">콘텐츠</a>
                         </li>
                         <li class="pb-2">
-                            <a href="#">클래스</a>
+							<a th:href="@{/classes/classesMain}">클래스</a>
                         </li>
                         <li class="pb-2">
                             <a href="#">Shoes</a>

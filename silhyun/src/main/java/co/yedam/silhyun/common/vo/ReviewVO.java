@@ -19,4 +19,5 @@ public class ReviewVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date revDate;
+	private int hit;
 }
