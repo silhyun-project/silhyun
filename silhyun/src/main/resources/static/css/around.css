@@ -1,58 +1,48 @@
-
 /* 검색창 */
-.form{
-
-    position: relative;
+.form {
+	position: relative;
 }
 
-.form .bi-search{
-
-    position: absolute;
-    top:9px;
-    left: 15px;
-    color: #9ca3af;
-
+.form .bi-search {
+	position: absolute;
+	top: 9px;
+	left: 15px;
+	color: #9ca3af;
 }
 
-.form span{
-
-        position: absolute;
-    right: 11px;
-    top: 6px;
-    padding: 2px;
-    border-left: 1px solid #d1d5db;
-
+.form span {
+	position: absolute;
+	right: 11px;
+	top: 6px;
+	padding: 2px;
+	border-left: 1px solid #d1d5db;
 }
 
-.left-pan{
-    padding-left: 7px;
+.left-pan {
+	padding-left: 110px;
 }
 
-.left-pan i{
-    
-   padding-left: 10px;
+.left-pan i {
+	padding-left: 120px;
 }
 
-.form-input{
-
-    height: 40px;
-    text-indent: 33px;
-    border-radius: 10px;
+.form-input {
+	width:20rem;
+	height: 40px;
+	text-indent: 18px;
+	border-radius: 10px;
 }
 
-.form-input:focus{
-
-    box-shadow: none;
-    border:none;
+.form-input:focus {
+	box-shadow: none;
+	border: 1px solid #d1d5db;
 }
 
-/* 태그 */
-.btn.btn-sm.active{
-	background-color:white;
-	text-align:center;
-	width:120px;
-   border-radius: 20px;
-    top: 6px;
-    padding: 10px;
-    border-left: 1px solid #d1d5db;
+/* 둘러보기 태그 버튼 */
+.btn.btn-sm.active {
+	border-radius: 20px;
+}
+
+.shop-top-bar .layout-change .btn {
+	border-radius: 20px;
 }
