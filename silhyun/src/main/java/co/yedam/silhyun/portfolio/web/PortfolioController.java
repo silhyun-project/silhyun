@@ -5,14 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AroundController {
+public class PortfolioController {
+
 	
-	
-	@GetMapping("/around")
+	@GetMapping("/portfolio")
 	public String around(Model model) {
-		return "portfolio/around";
+		return "portfolio/portfolio";
 	}
-	
-	
-	
 }

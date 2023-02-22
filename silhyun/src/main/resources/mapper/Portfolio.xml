@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.Portfolio">
+	<select id="PortfolioMapper"
+		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
+		SELECT PO.*,PH.*
+		FROM PORTFOLIO PO, PHOTO PH
+		WHERE PO.PORT_NUM = PH.CTGR_NUM
+	</select>
+
+</mapper>
