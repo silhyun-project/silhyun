@@ -98,31 +98,33 @@
 										<div class="w-100 p-3">
 											<!-- Form START -->
 											<form>
+											<div id="classApply" style="display: none;">
 												<div class="mb-3">
-													<label class="form-label" for="exampleInputEmail1">강의명</label> 
+													<label class="form-label" for="claTtl">강의명</label> 
 													<input type="text" class="form-control"
 														id="exampleInputEmail1" placeholder="강의명">
 												</div>
+												
 												<div class="mb-3">
-													<label class="form-label" for="exampleInputPassword1">강의 내용</label> 
-													<input type="text" class="form-control"
-														id="exampleInputPassword1"
-														placeholder="간단하게 설명해주세요">
-												</div>
-												<div class="mb-3">
-													<label class="form-label" for="exampleInputPassword1">가격</label>
+													<label class="form-label" for="claPri">가격</label>
 													<input type="text" class="form-control"
 														id="exampleInputPassword1" placeholder="ex)5000">
 												</div>
 
+												<div class="mb-3">
+													<label class="form-label" for="claDesct">강의 내용</label> 
+													<input type="textarea" class="form-control"
+														id="exampleInputPassword1"
+														placeholder="간단하게 설명해주세요">
+												</div>
 												<div class="row align-items-center">
 													<div class="col-sm-4">
 														<button type="submit" class="btn btn-dark">확인</button>
 													</div>
-													<div class="col-sm-8 text-sm-end">
-														<span class="text-muted"> <a href="/modPfAo">근무
-																가능 요일 정하기</a></span>
-													</div>
+												</div>
+												</div>
+												<div id="eventApply" style="display: none;">
+													<
 												</div>
 											</form>
 										</div>
@@ -140,9 +142,10 @@
 										<th class="fw-600">강의명</th>
 										<th class="fw-600">담당기록가</th>
 										<th class="fw-600">수강일정</th>
-										<th class="fw-600">예약일자/시간</th>
-										<th class="fw-600">예약상태</th>
-										<th class="fw-600 ">대표사진등록</th>
+										<th class="fw-600">구분</th>
+										<th class="fw-600">현재정원</th>
+										<th class="fw-600 ">총정원</th>
+										<th class="fw-600 ">수강자 조회</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -153,8 +156,9 @@
 										<td class="p-3">Delivered</td>
 										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
 										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
-										<td class="p-3 text-end"><span class="btn btn-mini">취소</span></td>
-										<td class="p-3 text-end"><span class="btn btn-mini">사진등록</span></td>
+										<td class="p-3 ">5</span></td>
+										<td class="p-3 ">5</span></td>
+										<td class="p-3 "><span class="btn btn-mini">수강자 조회</span></td>
 
 									</tr>
 
@@ -185,4 +189,16 @@
 		<!-- End Table -->
 		</main>
 </body>
+<script>
+function applyForm(n){
+	if(n == 'c'){
+		document.getElementById('classApply').setAttribute('style','display:block')
+		document.getElementById('eventApply').setAttribute('style','display:none')
+	}else if(n == 'e'){
+		document.getElementById('eventApply').setAttribute('style','display:block')
+		document.getElementById('classApply').setAttribute('style','display:none')
+		
+	}
+}
+</script>
 </html>
