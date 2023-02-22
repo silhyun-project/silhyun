@@ -16,7 +16,5 @@ public class CouponVO {
 	private Date endDate;
 	private String eventNum;
 	
-	//쿠폰이력
-	private String id;		
-	private String cpnSta;
+	
 }
