@@ -6,17 +6,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class mypageUserController {
 	
-	@GetMapping("/mypageOrderList")
-	public String mypageOrderList() {
+	@GetMapping("/mpgOrderList")
+	public String mpgOrderList() {
 		
-		return "mypageUser/mypageOrderList";
+		return "mypageUser/mpgOrderList";
 	}
 	
-	@GetMapping("/mypageCouponList")
-	public String mypageCouponList() {
+	@GetMapping("/mpgCouponList")
+	public String mpgCouponList() {
 		
-		return "mypageUser/mypageCouponList";
+		return "mypageUser/mpgCouponList";
+	}
+	
+	@GetMapping("/mpgQstPage")
+	public String mpgQstPage() {
+		
+		return "mypageUser/mpgQstPage";
 	}
 
+	@GetMapping("/mpgUser")
+	public String mpgUser() {
+		
+		return "mypageUser/mpgUser";
+	}
 
+	@GetMapping("/mpgEditProfile")
+	public String mpgEditProfile() {
+		
+		return "mypageUser/mpgEditProfile";
+	}
+	
+	
 }
