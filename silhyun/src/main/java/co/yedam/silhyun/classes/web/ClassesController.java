@@ -9,28 +9,29 @@ public class ClassesController {
 
 	@Autowired
 	
-	@GetMapping("/classesInfo")
+	@GetMapping("/classes/classesInfo")
 	public String classesInfo() {
 		return "/classes/classesInfo";
 	}
 	
-	@GetMapping("/classesMain")
-	public String classesMain() {
+	@GetMapping("/classes/classesMain")
+	public String classesclassesMain() {
 		return "/classes/classesMain";
 	}
 	
-	@GetMapping("/classesVideo")
+	@GetMapping("/classes/classesVideo")
 	public String classesVideo() {
 		return "/classes/classesVideo";
 	}
 	
-	@GetMapping("/myAllClasses")
-	public String myAllClasses() {
-		return "/classes/myAllClasses";
+	@GetMapping("/classes/myClasses")
+	public String myClasses() {
+		return "/classes/myClasses";
 	}
-	@GetMapping("/myClassesVidios")
+	@GetMapping("/classes/myClassesVidios")
 	public String myClassesVidios() {
 		return "/classes/myClassesVidios";
+		
 	}
 	
 

@@ -9,47 +9,55 @@ public class AdminController {
 		
 	@Autowired
 	
-	@GetMapping("/eventManage")
+	@GetMapping("/admin/eventManage")
 	public String eventManage() {
 		return "/admin/eventManage";
 	}
 	
-	@GetMapping("/memberAccept")
+	@GetMapping("/admin/memberAccept")
 	public String memberAccept() {
 		return "/admin/memberAccept";
 	}
 	
-	@GetMapping("/memberManage")
+	@GetMapping("/admin/memberManage")
 	public String memberManage() {
 		return "/admin/memberManage";
 	}
 	
-	@GetMapping("/orderManage")
+	@GetMapping("/admin/orderManage")
 	public String orderManage() {
 		return "/admin/orderManage";
 	}
 	
-	@GetMapping("/qstManage")
+	@GetMapping("/admin/qstManage")
 	public String qstManage() {
 		return "/admin/qstManage";
 	}
 	
-	@GetMapping("/quitManage")
+	@GetMapping("/admin/quitManage")
 	public String quitManage() {
 		return "/admin/quitManage";
 	}
 	
-	@GetMapping("/rankManage")
+	@GetMapping("/admin/rankManage")
 	public String rankManage() {
 		return "/admin/rankManage";
 	}
 	
-	@GetMapping("/reportManagr")
+	@GetMapping("/admin/reportManage")
 	public String reportManagr() {
-		return "/admin/reportManagr";
+		return "/admin/reportManage";
 	}
 	
-
+	@GetMapping("/admin/adminManage")
+	public String adminManage() {
+		return "/admin/adminManage";
+	}
+	
+	@GetMapping("/admin/dashBoard")
+	public String dashBoard() {
+		return "/admin/dashBoard";
+	}
 	
 }
 

@@ -27078,4 +27078,25 @@ img {
     right: auto;
 }
 
+
+
+.single-video-area {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 60px; }
+  .single-video-area iframe {
+    width: 100%;
+    height: 600px !important;
+    border: none; }
+    @media only screen and (min-width: 992px) and (max-width: 1199px) {
+      .single-video-area iframe {
+        height: 550px !important; } }
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+      .single-video-area iframe {
+        height: 400px !important; } }
+    @media only screen and (max-width: 767px) {
+      .single-video-area iframe {
+        height: 220px !important; } }
+
+
 /*# sourceMappingURL=theme.css.map */
