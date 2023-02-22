@@ -1,71 +1,326 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{home/layout}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- metas -->
+<meta charset="utf-8">
+<meta name="author" content="pxdraft" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
+<meta name="description"
+	content="ShopApp - eCommerce Bootstrap 5 Template" />
+<!-- title -->
+<title>ShopApp - eCommerce Bootstrap 5 Template</title>
+<!-- Favicon -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<!-- CSS Template -->
+<link href="/css/theme.css" rel="stylesheet">
+<!-- modal -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-	<main layout:fragment="content">
-	<!-- Profile Menu -->
-	<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
-		<div class="bg-white border border-bottom-0 shadow-lg">
-			<div class="d-flex p-3 align-items-center">
-				<div class="avatar avatar-lg rounded-circle">
-					<img src="../../assets/img/avatar/1000x1000.jpg" title="" alt="">
-				</div>
-				<div class="col ps-3">
-					<h6 class="m-0">Jennifer Winget</h6>
-					<small><a href="#">your@email.com</a></small>
-				</div>
-			</div>
-			<div class="bg-gray-200 p-3 border-bottom border-top">
-				<h6 class="m-0">Dashboard</h6>
-			</div>
-			<ul class="list-unstyled mb-0 theme-link">
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center p-3"
-					href="/resManage"> <i class="bi bi-bag me-2"></i> 예약관리
-						<div class="ms-auto badge-pill badge bg-secondary">5</div>
-				</a></li>
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center p-3"
-					href="/classManage"> <i class="fi-heart me-2"></i>클래스관리
-						<div class="ms-auto badge-pill badge bg-secondary">5</div>
-				</a></li>
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center p-3"
-					href="/mypageAoAsk"> <i class="bi bi-bookmark me-2"></i>문의내역
-						<div class="ms-auto badge-pill badge bg-secondary">0</div>
-				</a></li>
 
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center active p-3"
-					href="/resCalendarAo"> <i class="fi-user me-2"></i>예약 스케줄 캘린더
-				</a></li>
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center p-3"
-					href="/mypageStatsAo"> <i class="bi bi-map-fill me-2"></i>통계
-				</a></li>
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center p-3"
-					href="account-payment.html"> <i class="bi bi-journal"></i>포토폴리오
-						가기
-				</a></li>
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center p-3"
-					href="/reportFormAo"> <i class="bi bi-messenger"></i>신고
-				</a></li>
-				<li class="border-bottom mb-0"><a
-					class="nav-link-style d-flex align-items-center p-3" href="#">
-						<i class="bi bi-box-arrow-left me-2"></i>탈퇴
-				</a></li>
-			</ul>
+<body>
+	<!-- Skippy & Prload -->
+	<!-- skippy -->
+	<a id="skippy" class="skippy visually-hidden-focusable overflow-hidden"
+		href="#content">
+		<div class="container">
+			<span class="u-skiplink-text">Skip to main content</span>
+		</div>
+	</a>
+	<!-- End skippy -->
+	<!-- Preload -->
+	<div id="loading" class="loading-preloader">
+		<div class="spinner-border text-primary" role="status">
+			<span class="visually-hidden">Loading...</span>
 		</div>
 	</div>
-		</main>
-	<!-- End Profile Menu -->
+	<!-- End Preload -->
+	<!-- Edn Skippy & Prload -->
+	<!-- Size Chart  -->
+	<!-- Ask Form -->
+	<div class="modal-askform-view modal fade" id="px_ask_modal"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Ask about product</h4>
+					<button class="btn-close" type="button" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="mb-3">
+									<label class="form-label">Your Name</label> <input type="text"
+										class="form-control" placeholder="Name">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="mb-3">
+									<label class="form-label">Email address</label> <input
+										type="email" class="form-control" placeholder="E-mail">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label class="form-label" for="exampleInputEmail1">Subject</label>
+									<input type="text" class="form-control" placeholder="Subject">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label class="form-label" for="exampleInputEmail1">Your
+										Message</label>
+									<textarea class="form-control" rows="5"
+										placeholder="Your Message"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="">
+							<button type="submit" class="btn btn-primary">Send
+								Message</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main -->
+	<main layout:fragment="content">
+		<!-- Breadcrumb -->
+		<div class="py-3 bg-gray-100">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-6 my-2">
+						<h1 class="m-0 h4 text-center text-lg-start">Tickets</h1>
+					</div>
+					<div class="col-lg-6 my-2">
+						<ol
+							class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+							<li class="breadcrumb-item"><a class="text-nowrap" href="#"><i
+									class="bi bi-home"></i>마이페이지</a></li>
+							<li class="breadcrumb-item text-nowrap active"
+								aria-current="page">예약관리</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumb -->
+		<!-- Table -->
+		<div class="py-6">
+			<div class="container">
+				<div class="row">
+					<!-- Profile Menu -->
+					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
+						<div class="bg-white border border-bottom-0 shadow-lg">
+							<div class="d-flex p-3 align-items-center">
+								<div class="avatar avatar-lg rounded-circle">
+									<img src="../../assets/img/avatar/1000x1000.jpg" title=""
+										alt="">
+								</div>
+								<div class="col ps-3">
+									<h6 class="m-0">닉네임</h6>
+									<small><a href="#">이름</a></small>
+								</div>
+								<div>
+									<button>회원변경</button>
+								</div>
+							</div>
+							<ul class="list-unstyled mb-0 theme-link">
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3"
+									href="/modPfAo"> <i class="fi-user me-2"></i>회원정보수정
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3"
+									href="/resManage"> <i class="bi bi-card-checklist"></i>예약
+										관리
+										<div class="ms-auto badge-pill badge bg-secondary"></div>
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3"
+									href="/classManage"> <i class="bi-play-btn me-2"></i>클래스 관리
+										<div class="ms-auto badge-pill badge bg-secondary"></div>
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3"
+									href="/mypageAoAsk"> <i class="bi-chat-square-dots me-2"></i>문의내역
+										<div class="ms-auto badge-pill badge bg-secondary"></div>
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3"
+									href="/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3"
+									href="/mypageStatsAo"> <i class="bi bi-pie-chart-fill"></i>통계
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3" href="#">
+										<i class="bi-person-bounding-box me-2"></i>포토폴리오
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3"
+									href="/reportFormAo"> <i class="bi bi-exclamation-diamond"></i>신고
+										<div class="ms-auto badge-pill badge bg-secondary"></div>
+								</a></li>
+								<li class="border-bottom mb-0"><a
+									class="nav-link-style d-flex align-items-center p-3" href="#">
+										<i class="bi bi-box-arrow-left me-2"></i>회원탈퇴
+								</a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- End Profile Menu -->
+					<!-- End Profile Menu -->
+					<!-- Content -->
+					<!-- <div class="col-lg-1 col-xxl-9">
+					</div> -->
+					<div class="col-lg-8 col-xxl-9">
+						<button type="button" class="btn btn-primary"
+							data-bs-toggle="modal" data-bs-target="#workOption">옵션
+							설정</button>
+						<br> <br>
+						<!-- 모달 -->
+						<div class="modal fade" id="workOption">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header bg-primary">
+										<div class="modal-title p-3">
+											<h5 class="m-0 text-white">옵션 설정</h5>
+										</div>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<div class="w-100 p-3">
+											<!-- Form START -->
+											<form>
+												<div class="mb-3">
+													<label class="form-label" for="exampleInputEmail1">옵션
+														이름</label> <input type="text" class="form-control"
+														id="exampleInputEmail1" placeholder="ex)앨범">
+												</div>
+												<div class="mb-3">
+													<label class="form-label" for="exampleInputPassword1">옵션
+														내용</label> <input type="text" class="form-control"
+														id="exampleInputPassword1"
+														placeholder="ex)사진을 특수 제작한 앨범에 넣어드립니다">
+												</div>
+												<div class="mb-3">
+													<label class="form-label" for="exampleInputPassword1">가격</label>
+													<input type="text" class="form-control"
+														id="exampleInputPassword1" placeholder="ex)5000">
+												</div>
+
+												<div class="row align-items-center">
+													<div class="col-sm-4">
+														<button type="submit" class="btn btn-dark">확인</button>
+													</div>
+													<div class="col-sm-8 text-sm-end">
+														<span class="text-muted"> <a href="/modPfAo">근무
+																가능 요일 정하기</a></span>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 모달끝 -->
+
+
+
+						<div class="table-responsive fs-md mb-4">
+							<table class="table table-bordered table-hover mb-0">
+								<thead class="text-700 bg-gray-200">
+									<tr>
+										<th class="fw-600">번호</th>
+										<th class="fw-600">예약자</th>
+										<th class="fw-600">옵션</th>
+										<th class="fw-600">장소</th>
+										<th class="fw-600">예약일자/시간</th>
+										<th class="fw-600">예약상태</th>
+										<th class="fw-600 ">대표사진등록</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="p-3"><span class="fw-500">Order is not
+												delivered</span></td>
+										<td class="p-3">May 21, 2021</td>
+										<td class="p-3">Delivered</td>
+										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
+										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
+										<td class="p-3 text-end"><span class="btn btn-mini">취소</span></td>
+										<td class="p-3 text-end"><span class="btn btn-mini">사진등록</span></td>
+
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+						<div class="d-flex align-items-center mt-3">
+
+							<div class="ms-lg-auto">
+								<ul class="pagination m-0">
+									<li class="page-item"><a class="page-link" href="#"
+										aria-label="Previous"> <span aria-hidden="true">«</span>
+									</a></li>
+									<li class="page-item active"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#"
+										aria-label="Next"> <span aria-hidden="true">»</span>
+									</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- End Content -->
+				</div>
+			</div>
+		</div>
+		<!--Table -->
+	</main>
+	<!-- End Main -->
+
+	<!-- End Footer -->
+	</div>
+	<!-- 
+    ========================
+       End Wrapper 
+    ========================
+    -->
+	<!-- script start -->
+	<!-- jquery -->
+	<script src="/js/jquery-3.5.1.min.js"></script>
+	<!--bootstrap-->
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- slick carousel -->
+	<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+	<!-- magnific -->
+	<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
+	<!-- isotope -->
+	<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
+	<!-- count-down -->
+	<script src="/vendor/count-down/jquery.countdown.min.js"></script>
+	<!-- count-down -->
+	<script src="/vendor/jarallax/jarallax-all.js"></script>
+	<!-- Theme Js -->
+	<script src="/js/custom.js"></script>
+	<script src="/js/theme.js"></script>
+	<!-- End script start -->
 </body>
+
 </html>
