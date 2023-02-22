@@ -7,5 +7,5 @@ import co.yedam.silhyun.common.vo.ReviewVO;
 
 public interface PageTestService {
 	List<ReviewVO> getListReview(Criteria cri);
-	int getTotalCount();
+	int getTotalCount(Criteria cri);
 }

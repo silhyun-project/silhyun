@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>get방식으로 페이지</title>
 </head>
 
@@ -57,19 +57,48 @@
 		</tbody>
 	</table>
 	<div class="pagination">
-		<a th:if="${page.prev}" th:href="@{reviewList(pageNum=${page.startPage-1})}">&laquo;</a>
-		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="@{reviewList(pageNum=${num})}"
+		<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
+		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
 		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
-		<a th:if="${page.next}" th:href="@{reviewList(pageNum=${page.endPage+1})}">&raquo;</a>
+		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
 	</div>
-</div>
-<div class="container">
-	<form action="/reviewList">
-		<select name="type">
-			<option value=""></option>
-			<option value=""></option>
-		</select>
+	<form id="actionFrm" action="reviewList" th:object="${page}">
+		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" name="amount" th:value="*{criteria.amount}">
+		<input type="hidden" name="type" th:value="*{criteria.type}">
+		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
 	</form>
 </div>
+<div class="container">
+	<form id="searchFrm" action="/reviewList" th:object="${page}">
+		<select name="type">
+			<option value="CW" selected>전체</option>
+			<option value="C">내용</option>
+			<option value="W">작성자</option>
+		</select>
+		<input type="text" name="keyword">
+		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" name="amount" th:value="*{criteria.amount}">
+		<button class="btn btn-default">검색</button>
+	</form>
+</div>
+<script>
+history.replaceState({}, null, location.pathname);
+
+$(".pagination a").on("click", function(e){
+	e.preventDefault();
+	console.log($("#actionFrm").find("input[name='pageNum']").val())
+ 	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
+ 	$("#actionFrm").submit();
+})
+
+$('#searchFrm button').on("click", function(e){
+	console.log('click')
+	$('#searchFrm').find("input[name='pageNum']").val(1);
+	e.preventDefault();
+	$('#searchFrm').submit();
+})
+ 
+</script>
 </body>
 </html>

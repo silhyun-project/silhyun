@@ -18,7 +18,7 @@ public class CommonController {
 	@GetMapping("/reviewList")
 	public String reviewList(Criteria cri, Model model) {
 		model.addAttribute("list", pService.getListReview(cri));
-		model.addAttribute("page", new PageVO(pService.getTotalCount(), 10, cri));
+		model.addAttribute("page", new PageVO(pService.getTotalCount(cri), 10, cri));
 		return "home/pagingTest";
 	}
 }
