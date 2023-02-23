@@ -13,7 +13,7 @@ import co.yedam.silhyun.member.service.PtgService;
 @RestController
 public class ReserRestController {
 
-	@Autowired
+	@Autowired  //최신/인기 필터
 	PtgService ptgService;
 	
 	@RequestMapping(value = "/AjaxPtgList", produces ="application/json;charset=UTF-8" )

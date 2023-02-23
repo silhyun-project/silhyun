@@ -36,28 +36,8 @@
 </style>
 <body>
 <div class="container">
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th>no</th>
-				<th>작성자</th>
-				<th>내용</th>
-				<th>작성일</th>
-				<th>조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-				<tr th:each="rev, sts : ${list}">
-					<td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}">
-					<td th:text="${rev.id}"></td>
-					<td th:text="${rev.cntn}"></td>
-					<td th:text="${#dates.format(rev.revDate, 'yyyy년MM월dd일')}"></td>
-					<td th:text="${rev.hit}"></td>
-				</tr>
-		</tbody>
-	</table>
-
+<div id="page">
+</div>
 	<div class="pagination">
 		<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
 		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
@@ -65,48 +45,90 @@
 		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
 	</div>
 	<form id="actionFrm" action="reviewList" th:object="${page}">
-		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
-		<input type="hidden" name="amount" th:value="*{criteria.amount}">
-		<input type="hidden" name="type" th:value="*{criteria.type}">
-		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
+		<input type="hidden" id="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" id="amount" th:value="*{criteria.amount}">
+		<input type="hidden" id="type" th:value="*{criteria.type}">
+		<input type="hidden" id="keyword" th:value="*{criteria.keyword}">
 	</form>
 </div>
 <div class="container">
 	<form id="searchFrm" action="/reviewList" th:object="${page}">
-		<select name="type">
+		<select id="type" name="type">
 			<option value="CW" th:selected="*{criteria.type == 'CW'}">전체</option>
 			<option value="C" th:selected="*{criteria.type == 'C'}">내용</option>
 			<option value="W" th:selected="*{criteria.type == 'W'}">작성자</option>
 		</select>
-		<input type="text" name="keyword" th:value="*{criteria.keyword}">
-		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
-		<input type="hidden" name="amount" th:value="*{criteria.amount}">
+		<input type="text" id="keyword" th:value="*{criteria.keyword}">
 		<button class="btn btn-default">검색</button>
 	</form>
 </div>
-
 <script>
-history.replaceState({}, null, location.pathname);
+
+$.ajax({
+	url:"ajaxList",
+	
+})
+.done(function(res){
+	$('#page').replaceWith(res);
+
+})
 
 $(".pagination a").on("click", function(e){
 	e.preventDefault();
-	console.log($("#actionFrm").find("input[name='pageNum']").val())
  	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
- 	$("#actionFrm").submit();
-})
-
-	console.log($('input[type="checkbox"]:checked').val())
 	
+ 	let pageNum = $("#pageNum").val()
+ 	let amount = $("#amount").val()
+ 	let type = $('#type').val()
+ 	let keyword = $('#keyword').val()
+	
+ 	let obj = {pageNum : pageNum,
+ 		       amount : amount,
+ 		       type : type,
+ 		       keyword : keyword}
+	
+	$.ajax({
+		url:"ajaxList",
+		data: obj
+		
+	})
+	.done(function(res){
+		$('#page').replaceWith(res);
+
+	})
+	.catch
+})
+	
+		
 $('#searchFrm button').on("click", function(e){
 	console.log('click')
 	
-	
 	$('#searchFrm').find("input[name='pageNum']").val(1);
 	e.preventDefault();
-	$('#searchFrm').submit();
+	
+ 	let pageNum = $("#pageNum").val()
+ 	let amount = $("#amount").val()
+ 	let type = $('#type').val()
+ 	let keyword = $('#keyword').val()
+ 	
+ 	let obj = {pageNum : pageNum,
+ 		       amount : amount,
+ 		       type : type,
+ 		       keyword : keyword}
+	
+	$.ajax({
+		url:"ajaxList",
+		data: obj
+		
+	})
+	.done(function(res){
+		$('#page').replaceWith(res);
+
+	})
+
 })
 
- 
+
 </script>
 </body>
 </html>

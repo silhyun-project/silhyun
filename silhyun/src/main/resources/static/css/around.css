@@ -27,7 +27,7 @@
 }
 
 .form-input {
-	width:20rem;
+	width: 20rem;
 	height: 40px;
 	text-indent: 18px;
 	border-radius: 10px;
@@ -45,4 +45,40 @@
 
 .shop-top-bar .layout-change .btn {
 	border-radius: 20px;
+}
+
+/* 포트폴리오 사진 list */
+.col-6 {
+	flex: 0 0 auto;
+	width: 33.3%;
+	
+}
+/* 포트폴리오컨테이너? */
+.col-lg-6.lightbox-gallery.sticky-lg-top.sticky-lg-top-header {
+	flex: 0 0 auto;
+	width: 35%;
+}
+/* 작가사세컨테이너 */
+.col-lg-6.ps-lg-5.pt-5.pt-lg-0 {
+	flex: 0 0 auto;
+	width: 65%;
+}
+/* 작가상세예약리뷰버튼 */
+.cart-button.mb-3.d-flex button {
+
+	border-radius: 2px;
+}
+/* 포트폴리오등록하기버튼 */
+.btn.btn-port.me-3 {
+	background-color: black;
+	color: white;
+	border: none;
+	border-radius: 2px;
+}
+/* 조아요치우기 */
+.rating-star.text.small.pb-4{
+	float: right;
+	width: 10%;
+	text-align:center;
+	font-weight: bolder;
 }
