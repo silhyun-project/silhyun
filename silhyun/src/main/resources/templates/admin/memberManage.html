@@ -1,232 +1,281 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
+
 <body>
-<div layout:fragment="content">
-<div class="page-breadcrumb bg-white">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">회원 관리</h4>
-                    </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                          <li><a> </a></li>
-                            </ol>
+    <div layout:fragment="content">
 
-                        </div>
-                    </div>
+        <!-- 본문 시작 -->
+        <div class="page-breadcrumb bg-white">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h3 class="page-title">회원 관리</h3>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
+        </div>
+
+        <!-- 테이블 시작 -->
+        <div id="memberList">
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row" id="memberList">
+                <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                        <div>
-                            <h3 class="box-title">회원</h3>
-                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" >신규 회원: <code>5</code>
-                            총 회원: <code>500</code></p>
+                            <div>
+                                <!-- 분류 이름 -->
+                                <h3 class="box-title">회원</h3>
+                                <!-- 통계 정보 -->
+                                <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
+                                    신규 회원: <code>5</code>총 회원: <code>500</code></p>
+                                <!-- 검색 -->
                                 <form role="search" class="app-search d-none d-md-block me-3">
-               
-                            <ul style="list-style:none;float:right;">
-								<li>		
-                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">#번호</option>
-                            </select>
-                                <input type="text" placeholder="Search..." class="form-control mt-0"
-                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-								</li>                            
-                            </ul>
-                            </form>
-                        </div>
-	
-	               <br>
-					<hr>
-   
-                            
+                                    <ul style="list-style:none;float:right;">
+                                        <li>
+                                            <select style="width:120px;height:30px;font-size:16px;border:none;">
+                                                <option value="">#번호</option>
+                                                <option value="">아이디</option>
+                                                <option value="">이름</option>
+                                                <option value="">비밀번호</option>
+                                                <option value="">이메일</option>
+                                                <option value="">휴대전화</option>
+                                                <option value="">가입날짜</option>
+                                                <option value="">생년월일</option>
+                                                <option value="">성별</option>
+                                                <option value="">포인트</option>
+                                                <option value="">멤버권한</option>
+                                            </select>
+                                            <input type="text" placeholder="Search..." class="form-control mt-0"
+                                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
+                                            <a href="" class="active"><i class="fa fa-search"></i></a>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                            <br>
+                            <hr>
+                            <!-- 회원 관리 본문 -->
                             <div class="table-responsive">
+                                <!-- 회원 테이블 -->
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">#</th>
-                                            <th class="border-top-0">First Name</th>
-                                            <th class="border-top-0">Last Name</th>
-                                            <th class="border-top-0">Username</th>
-                                            <th class="border-top-0">Role</th>
+                                            <th class="border-top-0">아이디</th>
+                                            <th class="border-top-0">이름</th>
+                                            <th class="border-top-0">비밀번호</th>
+                                            <th class="border-top-0">이메일</th>
+                                            <th class="border-top-0">휴대전화</th>
+                                            <th class="border-top-0">가입날짜</th>
+                                            <th class="border-top-0">생년월일</th>
+                                            <th class="border-top-0">성별</th>
+                                            <th class="border-top-0">포인트</th>
+                                            <th class="border-top-0">멤버권한</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
+                                            <td>IDaaaaaaa</td>
+                                            <td>NAMEEEEEE</td>
+                                            <td>qwer46qw4e6qwe</td>
+                                            <td>EMAIL@EMAIL</td>
+                                            <td>010-1111-11110</td>
+                                            <td>2023-02-23</td>
+                                            <td>1999-09-09</td>
+                                            <td>F</td>
+                                            <td>10000000</td>
+                                            <td>일반</td>
                                         </tr>
+                                        <!-- 삭제할 것 -->
                                         <tr>
-                                            <td>2</td>
-                                            <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                            <td>@Ritesh</td>
-                                            <td>member</td>
+                                            <td>1</td>
+                                            <td>IDaaaaaaa</td>
+                                            <td>NAMEEEEEE</td>
+                                            <td>qwer46qw4e6qwe</td>
+                                            <td>EMAIL@EMAIL</td>
+                                            <td>010-1111-11110</td>
+                                            <td>2023-02-23</td>
+                                            <td>1999-09-09</td>
+                                            <td>F</td>
+                                            <td>10000000</td>
+                                            <td>일반</td>
                                         </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                            <td>@Govinda</td>
-                                            <td>developer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                            <td>@Hritik</td>
-                                            <td>supporter</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            <td>@Maruti</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            <td>@Sonu</td>
-                                            <td>supporter</td>
-                                        </tr>
+                                        <!-- 삭제할 것 끝 -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="row" id="ptgStdList">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                        <div>
-                            <h3 class="box-title">기록가</h3>
-                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" >신규 기록가: <code>5</code>
-                            총 기록가: <code>500</code></p>
-                                <form role="search" class="app-search d-none d-md-block me-3">
-               
-                            <ul style="list-style:none;float:right;">
-								<li>		
-                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">#번호</option>
-                            </select>
-                                <input type="text" placeholder="Search..." class="form-control mt-0"
-                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-								</li>                            
-                            </ul>
-                            </form>
-                        </div>
-	
-	               <br>
-					<hr>
-                            <div class="table-responsive">
-                                <table class="table text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">First Name</th>
-                                            <th class="border-top-0">Last Name</th>
-                                            <th class="border-top-0">Username</th>
-                                            <th class="border-top-0">Role</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                            <td>@Ritesh</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                            <td>@Govinda</td>
-                                            <td>developer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                            <td>@Hritik</td>
-                                            <td>supporter</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            <td>@Maruti</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            <td>@Sonu</td>
-                                            <td>supporter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
+        </div>
 
-</div>
+        <!-- 기록가 테이블  -->
+        <div id="ptgTable">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <div>
+                                <h3 class="box-title">기록가</h3>
+                                <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
+                                    신규 기록가: <code>5</code>총 기록가: <code>500</code></p>
+                                <form role="search" class="app-search d-none d-md-block me-3">
+                                    <ul style="list-style:none;float:right;">
+                                        <li>
+                                            <select style="width:120px;height:30px;font-size:16px;border:none;">
+                                                <option value="">#번호</option>
+                                                <option value="">작가아이디</option>
+                                                <option value="">사진관아이디</option>
+                                                <option value="">지역</option>
+                                                <option value="">사업자등록번호</option>
+                                                <option value="">인스타주소</option>
+                                                <option value="">근무가능요일</option>
+                                                <option value="">등록일자</option>
+                                                <option value="">소속여부</option>
+                                            </select>
+                                            <input type="text" placeholder="Search..." class="form-control mt-0"
+                                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
+                                            <a href="" class="active"><i class="fa fa-search"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+
+                            <br>
+                            <hr>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <!-- 보여줄 부분 -->
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">소속여부</th>
+                                            <th class="border-top-0">등록일자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>IDaaaaaaa</td>
+                                            <td>STUDIOooooo</td>
+                                            <td>대구</td>
+                                            <td>012012012012012</td>
+                                            <td>@insta</td>
+                                            <td>월, 화, 수</td>
+                                            <td>1999-09-09</td>
+                                            <td>O</td>
+                                        </tr>
+                                        <!-- 삭제할 것 -->
+                                        <tr>
+                                            <td>1</td>
+                                            <td>IDaaaaaaa</td>
+                                            <td>STUDIOooooo</td>
+                                            <td>대구</td>
+                                            <td>012012012012012</td>
+                                            <td>@insta</td>
+                                            <td>월, 화, 수</td>
+                                            <td>1999-09-09</td>
+                                            <td>O</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 사진관 테이블 -->
+        <div id="studioTable">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <div>
+                                <h3 class="box-title">사진관</h3>
+                                <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
+                                    신규 사진관: <code>5</code>총 사진관: <code>5</code></p>
+                                <form role="search" class="app-search d-none d-md-block me-3">
+                                    <ul style="list-style:none;float:right;">
+                                        <li>
+                                            <select style="width:120px;height:30px;font-size:16px;border:none;">
+                                                <option value="">#번호</option>
+                                                <option value="">사진관아이디</option>
+                                                <option value="">이름</option>
+                                                <option value="">대표자</option>
+                                                <option value="">전화번호</option>
+                                                <option value="">지역</option>
+                                                <option value="">주소</option>
+                                                <option value="">사업자등록번호</option>
+                                                <option value="">등록일자</option>
+                                            </select>
+                                            <input type="text" placeholder="Search..." class="form-control mt-0"
+                                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
+                                            <a href="" class="active"><i class="fa fa-search"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+
+                            <br>
+                            <hr>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <!-- 보여줄 부분 -->
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">이름</th>
+                                            <th class="border-top-0">대표자</th>
+                                            <th class="border-top-0">전화번호</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">주소</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">등록일자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>IDaaaaaaa</td>
+                                            <td>Nameeeeeee</td>
+                                            <td>DAAAAAAAAA</td>
+                                            <td>010-1111-111111</td>
+                                            <td>대구</td>
+                                            <td>대구의 어느 곳</td>
+                                            <td>2312313231231321</td>
+                                            <td>2023-03-03</td>
+                                        </tr>
+                                        <!-- 삭제할 것 -->
+                                        <tr>
+                                            <td>1</td>
+                                            <td>IDaaaaaaa</td>
+                                            <td>Nameeeeeee</td>
+                                            <td>DAAAAAAAAA</td>
+                                            <td>010-1111-111111</td>
+                                            <td>대구</td>
+                                            <td>대구의 어느 곳</td>
+                                            <td>2312313231231321</td>
+                                            <td>2023-03-03</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
