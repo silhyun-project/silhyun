@@ -2,16 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.common.map.PageTestMapper">
 <sql id="criteria">
-<where>
 	<if test="typeArr != null">
-	<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
 		<foreach collection="typeArr" item="type">
 			<trim prefix="OR">
 				<choose>
-					<when test="type == 'C'">
+					<when test="type == 'C'.toString()">
 						cntn like '%'||#{keyword}||'%'
 					</when>
-					<when test="type == 'W'">
+					<when test="type == 'W'.toString()">
 						id like '%'||#{keyword}||'%'
 					</when>
 				</choose>
@@ -19,7 +18,6 @@
 		</foreach>
 	</trim>
 	</if>
-</where>
 </sql>
 
 <select id="getListReview" resultType="co.yedam.silhyun.common.vo.ReviewVO">
@@ -27,7 +25,9 @@
  
  			select * 
  			from review
+ 			where
 			<include refid="criteria"></include>
+			rev_num > 0
  			order by rev_num
  			
 	<![CDATA[	
@@ -38,7 +38,10 @@
 <select id="getTotalCount" resultType="int">
 	select count(*) 
 	from review
+	where
 	<include refid="criteria"></include>
+	rev_num > 0
+
 </select>
 
 </mapper>
