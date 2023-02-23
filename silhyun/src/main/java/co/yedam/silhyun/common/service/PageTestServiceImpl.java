@@ -21,9 +21,9 @@ public class PageTestServiceImpl implements PageTestService {
 	}
 
 	@Override
-	public int getTotalCount() {
+	public int getTotalCount(Criteria cri) {
 		// TODO Auto-generated method stub
-		return map.getTotalCount();
+		return map.getTotalCount(cri);
 	}
 
 }
