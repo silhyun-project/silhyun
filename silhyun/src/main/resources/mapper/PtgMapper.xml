@@ -7,4 +7,28 @@
 	    WHERE P.PTG_ID = M.ID
 	    ORDER BY P.PTG_ID
 	</select>
+	
+	<select id="ptgSearchList" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		SELECT DISTINCT P.PTG_ID,M.NAME,M.PROFILE
+		FROM PHOTOGRAPHER P, MEMBER M , FIELD F
+		where
+		P.PTG_ID = M.ID 
+        AND P.PTG_ID = F.PTG_ID
+		
+			<if test="chkArray != null and chkArray.length>0">
+					AND P.REGION_CD in <foreach item="region" collection="chkArray" open="(" close=")" separator="," >
+						#{region}
+					</foreach>
+			</if>
+			<if test="chkfldArray != null and chkfldArray.length>0">
+					AND F.FD_CD in <foreach item="field" collection="chkfldArray" open="(" close=")" separator="," >
+						#{field}
+					</foreach>
+			</if>
+			
+       	<if test="searchWord != null">
+       	AND (M.NAME LIKE '%'||${searchWord}||'%')
+       	</if>
+       	ORDER BY M.NAME
+	</select>
 </mapper>

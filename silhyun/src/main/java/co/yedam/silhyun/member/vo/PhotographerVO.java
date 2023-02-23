@@ -27,6 +27,13 @@ public class PhotographerVO{
 	private Date accpDate;
 	private String workDay;
 	
+	private String[] chkArray;  // 지역태그
+	private String[] chkfldArray; //분야태그
+	private String region;
+	private String field;
+	private String searchType;
+	private String searchWord;
+	
 	
 	//조인
 	private String id;
