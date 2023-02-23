@@ -98,33 +98,101 @@
 										<div class="w-100 p-3">
 											<!-- Form START -->
 											<form>
+											<div id="classApply" style="display: none;">
 												<div class="mb-3">
-													<label class="form-label" for="exampleInputEmail1">강의명</label> 
-													<input type="text" class="form-control"
-														id="exampleInputEmail1" placeholder="강의명">
+													<label class="form-label" for="claTtl">강의명
+													<input type="text" class="form-control" id="claTtl" style="width:200px;height:45px;" placeholder="강의명" ></label> 
+													<label class="form-label" for="claPri">가격
+													<input type="text" class="form-control" id="claPri"  style="width:200px;height:45px;" placeholder="150000"></label>
 												</div>
 												<div class="mb-3">
-													<label class="form-label" for="exampleInputPassword1">강의 내용</label> 
-													<input type="text" class="form-control"
-														id="exampleInputPassword1"
-														placeholder="간단하게 설명해주세요">
+													<label class="form-label" for="claDesct">강의 내용</label> 
+													<textarea cols ="40" rows="2" class="form-control"
+														id="claDesct"></textarea>
 												</div>
 												<div class="mb-3">
-													<label class="form-label" for="exampleInputPassword1">가격</label>
-													<input type="text" class="form-control"
-														id="exampleInputPassword1" placeholder="ex)5000">
+												<select name="onOff" id="onOff">
+													<option value="CL1">온라인</option>
+													<option value="CL2">오프라인</option>
+												</select>&nbsp;
+												<label class="form-label" for="rcnt">수강인원  
+												  <input type="text" class="form-control" id="rcnt"  style="width:100px;height:30px;" placeholder="ex)5명"></label>
+												  &nbsp;
+												  <label class="form-label" for="rcnt">강의가격
+												  <input type="text" class="form-control" id="rcnt" style="width:100px;height:30px;"></label>&nbsp;
+												  <label class="form-label" for="rcnt">수강 기간
+												  <input type="text" class="form-control" id="rcnt" style="width:100px;height:30px;"></label>
 												</div>
-
+												<div class="col-sm-6 mb-3">
+													<label for="formFile" class="form-label">썸네일 사진</label>
+													 <input class="form-control" type="file" id="formFile">
+												</div>
+												<div class="col-sm-6 mb-3">
+													<label for="formFile" class="form-label">OT영상</label>
+													 <input class="form-control" type="file" id="formFile">
+												</div>				
 												<div class="row align-items-center">
 													<div class="col-sm-4">
 														<button type="submit" class="btn btn-dark">확인</button>
 													</div>
-													<div class="col-sm-8 text-sm-end">
-														<span class="text-muted"> <a href="/modPfAo">근무
-																가능 요일 정하기</a></span>
+												</div>
+												</div>
+											<div id="eventApply" style="display: none;">
+												<div class="mb-3">
+													<label class="form-label" for="claTtl">활동지역</label>&emsp;
+														<select name="regionCd" id="regionCd">
+															<option value="01">서울</option>
+															<option value="02">경기</option>
+															<option value="03">인천</option>
+															<option value="04">강원</option>
+															<option value="05">대전/충천</option>
+															<option value="06">대구</option>
+															<option value="07">부산/울산</option>
+															<option value="08">경상</option>
+															<option value="09">광주/전라</option>
+															<option value="10">제주</option>
+														</select>&emsp;&emsp;
+													<label class="form-label" for="claPri">이벤트 작품/클래스</label>&nbsp;
+													<select name="ctgrNum" id="ctgrNum">
+															<option value="E">작품</option>
+															<option value="C">클래스</option>
+													</select>&nbsp;
+												</div>
+												<div class="mb-3">
+													<label class="form-label" for="claDesct">이벤트 내용</label> 
+													<textarea cols ="40" rows="2" class="form-control"
+														id="cntn"></textarea>
+												</div>
+												<div class="mb-3">
+												<label class="form-label" for="rcnt">쿠폰 내용  
+												  <input type="text" class="form-control" id="rcnt"  style="width:100px;height:30px;" placeholder="ex)5명"></label>
+												&nbsp;
+												<label class="form-label" for="rcnt">시작날짜  
+												  <input type="text" class="form-control" id="rcnt"  style="width:100px;height:30px;"></label>
+												  &nbsp;
+												  <label class="form-label" for="rcnt">끝날짜
+												  <input type="text" class="form-control" id="rcnt" style="width:100px;height:30px;"></label>&nbsp;
+												  <label class="form-label" for="rcnt">할인율
+												  <input type="text" class="form-control" id="rcnt" style="width:100px;height:30px;"></label>
+												</div>
+												<div class="col-sm-6 mb-3">
+													<label for="formFile" class="form-label">배너 사진</label>
+													 <input class="form-control" type="file" id="formFile">
+												</div>			
+												<div class="row align-items-center">
+													<div class="col-sm-4">
+														<button type="submit" id="event" class="btn btn-dark">확인</button>
+													</div>
+													<div class="col-sm-4">
+														<button type="submit" class="btn btn-dark">임시저장</button>
+													</div>
+													<div class="col-sm-4">
+														<button type="reset" class="btn btn-dark">취소</button>
 													</div>
 												</div>
-											</form>
+												
+											</div>
+										</form>
 										</div>
 									</div>
 								</div>
@@ -132,6 +200,7 @@
 						</div>
 						<!--모달끝  -->
 						<!-- <테이블> -->
+						<div><h1>클래스관리</h1></div>
 						<div class="table-responsive fs-md mb-4">
 							<table class="table table-bordered table-hover mb-0">
 								<thead class="text-700 bg-gray-200">
@@ -140,9 +209,10 @@
 										<th class="fw-600">강의명</th>
 										<th class="fw-600">담당기록가</th>
 										<th class="fw-600">수강일정</th>
-										<th class="fw-600">예약일자/시간</th>
-										<th class="fw-600">예약상태</th>
-										<th class="fw-600 ">대표사진등록</th>
+										<th class="fw-600">구분</th>
+										<th class="fw-600">현재정원</th>
+										<th class="fw-600 ">총정원</th>
+										<th class="fw-600 ">수강자 조회</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -153,8 +223,9 @@
 										<td class="p-3">Delivered</td>
 										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
 										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
-										<td class="p-3 text-end"><span class="btn btn-mini">취소</span></td>
-										<td class="p-3 text-end"><span class="btn btn-mini">사진등록</span></td>
+										<td class="p-3 ">5</span></td>
+										<td class="p-3 ">5</span></td>
+										<td class="p-3 "><span class="btn btn-mini">수강자 조회</span></td>
 
 									</tr>
 
@@ -183,6 +254,18 @@
 			</div>
 		</div>
 		<!-- End Table -->
+<script>
+function applyForm(n){
+	if(n == 'c'){
+		document.getElementById('classApply').setAttribute('style','display:block')
+		document.getElementById('eventApply').setAttribute('style','display:none')
+	}else if(n == 'e'){
+		document.getElementById('eventApply').setAttribute('style','display:block')
+		document.getElementById('classApply').setAttribute('style','display:none')
+		
+	}
+}
+</script>
 		</main>
 </body>
 </html>
