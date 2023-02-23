@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.portfolio.map.AroundMapper">
+
+	<!-- <select id="getAroundList" -->
+	<!-- resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"> -->
+	<!-- SELECT PO.*,PH.* -->
+	<!-- FROM PORTFOLIO PO, PHOTO PH -->
+	<!-- WHERE PO.PORT_NUM = PH.CTGR_NUM -->
+	<!-- </select> 원래 이걸로 mapper햇움 -->
+	<select id="getAroundList"
+		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
+		SELECT PHO_RT, PHO_NUM, CTGR_NUM
+		FROM PHOTO
+		WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
+		FROM PHOTO
+		WHERE CTGR = 'P'
+		GROUP BY CTGR_NUM)
+		ORDER BY PHO_NUM
+	</select>
+</mapper>
