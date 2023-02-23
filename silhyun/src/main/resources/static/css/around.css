@@ -51,6 +51,7 @@
 .col-6 {
 	flex: 0 0 auto;
 	width: 33.3%;
+	
 }
 /* 포트폴리오컨테이너? */
 .col-lg-6.lightbox-gallery.sticky-lg-top.sticky-lg-top-header {
