@@ -1,10 +1,208 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{home/layout}">
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
+<!-- Main -->
+	<main layout:fragment="content">
+	
+		 <!-- Breadcrumb -->
+            <div class="py-3 bg-gray-100">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 my-2">
+                            <h1 class="m-0 h4 text-center text-lg-start">Event</h1>
+                        </div>
+                        <div class="col-lg-6 my-2">
+                            <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+                                <li class="breadcrumb-item"><a class="text-nowrap" href="#"><i class="bi bi-home"></i>Home</a></li>
+                                <li class="breadcrumb-item text-nowrap active" aria-current="page">Event</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="swiper swiper-container" data-swiper-options='{
+                  "slidesPerView": 1,
+                  "spaceBetween": 0,
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "clickable": true
+                  },
+                  "navigation": {
+                    "nextEl": ".swiper-next-01",
+                    "prevEl": ".swiper-prev-01"
+                  },
+                  "autoplay": {
+                    "delay": 10000,
+                    "disableOnInteraction": false
+                  }
+                }'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                    <!-- 사진크기 1600x900 이 적당  -->
+                        <div class="bg-no-repeat bg-cover bg-center" style="background-image: url(/img/fashion/1600x900.jpg);">
+                            <div class="container">
+                                <div class="row min-vh-65 align-items-center justify-content-center py-12">
+                                    <div class="col-lg-8 text-center">
+                                        <h6 class="fw-300 text-uppercase text-white mb-3 letter-spacing-6">You're Looking Good</h6>
+                                        <h1 class="display-1 fw-300 text-white letter-spacing-6 text-uppercase">New LookBook</h1>
+                                        <div class="pt-3">
+                                            <a class="btn btn-outline-white" href="#">Discover More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-no-repeat bg-cover bg-center" style="background-image: url(/img/fashion/dog.jpg);">
+                            <div class="container">
+                                <div class="row min-vh-65 align-items-center justify-content-center py-12">
+                                    <div class="col-lg-8 text-center">
+                                        <h6 class="fw-300 text-uppercase text-white mb-3 letter-spacing-6">You're Looking Good</h6>
+                                        <h1 class="display-1 fw-300 text-white letter-spacing-6 text-uppercase">New LookBook</h1>
+                                        <div class="pt-3">
+                                            <a class="btn btn-outline-white" href="#">Discover More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-arrow-style-01 swiper-next swiper-next-01"><i class="bi-chevron-right"></i> </div>
+                <div class="swiper-arrow-style-01 swiper-prev swiper-prev-01"><i class="bi-chevron-left"></i></div>
+                <div class="swiper-pagination swiper-pagination-white"></div>
+            </div>
+            <!--slide끝  -->
+           <br>
+             <div style="float: right;">
+             	<input type="radio" id="event" name="event" value="c" onchange="classEvent('c')"><label class="m-0 ">클래스</label> &nbsp;&nbsp;
+				<input type="radio" id="event" name="event" value="e" onchange="usEvent('e')"><label class="m-0 ">이벤트</label>
+             </div>
+            <!-- End Breadcrumb -->
+            <!-- blog -->
+            <div class="py-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-20">
+                            <div class="row">
+                            	
+                                <div class="col-sm-6 my-3">
+                                    <div class="hover-top-in">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
+                                        </a>
+                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
+                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
+                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-3">
+                                    <div class="hover-top-in">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
+                                        </a>
+                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
+                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
+                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-3">
+                                    <div class="hover-top-in">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
+                                        </a>
+                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
+                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
+                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-3">
+                                    <div class="hover-top-in">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
+                                        </a>
+                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
+                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
+                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-3">
+                                    <div class="hover-top-in">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
+                                        </a>
+                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
+                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
+                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-3">
+                                    <div class="hover-top-in">
+                                        <a href="#">
+                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
+                                        </a>
+                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
+                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
+                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pagination justify-content-center mt-6">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">»</span>
+                                    </a>
+                                </li>
+                                <li>
+                            </ul>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <!-- blog end -->
+	
+	
+<script>
+	function applyForm(n){
+		if(n == 'c'){
+			document.getElementById('classEvent').setAttribute('style','display:block')
+			document.getElementById('usEvent').setAttribute('style','display:none')
+		}else if(n == 'e'){
+			document.getElementById('classEvent').setAttribute('style','display:block')
+			document.getElementById('usEvent').setAttribute('style','display:none')
+			
+		}
+	}
+</script>
+	</main>
 </body>
 </html>
