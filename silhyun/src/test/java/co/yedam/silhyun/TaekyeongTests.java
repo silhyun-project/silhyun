@@ -24,7 +24,7 @@ public class TaekyeongTests {
 	public void 총갯수() {
 		Criteria cri = new Criteria();
 		cri.setKeyword("리뷰");	
-		cri.setType("C");
+		cri.setType("CW");
 		service.getTotalCount(cri);
 		System.out.println("총갯수는?"  +service.getTotalCount(cri));
 	}

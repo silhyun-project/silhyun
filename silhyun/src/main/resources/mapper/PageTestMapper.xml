@@ -26,9 +26,7 @@
  			select * 
  			from review
  			where
- 			<if test="keyword != null">
 			<include refid="criteria"></include>
-			</if>
 			rev_num > 0
  			order by rev_num
  			
@@ -41,9 +39,7 @@
 	select count(*) 
 	from review
 	where
-	<if test="keyword != null">
 	<include refid="criteria"></include>
-	</if>
 	rev_num > 0
 
 </select>
