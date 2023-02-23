@@ -28,9 +28,9 @@ public class ClassesController {
 	public String myClasses() {
 		return "/classes/myClasses";
 	}
-	@GetMapping("/classes/myClassesVidios")
+	@GetMapping("/classes/myClassesVideos")
 	public String myClassesVidios() {
-		return "/classes/myClassesVidios";
+		return "/classes/myClassesVideos";
 		
 	}
 	
