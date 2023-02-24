@@ -19,9 +19,11 @@
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
 <link href="/css/theme.css" rel="stylesheet">
-<!-- 자체CSS -->
+<!-- 자체어쩌구-->
 <link href="/css/around.css" rel="stylesheet">
-<!-- 자체CSS -->
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<!-- 자체어쩌구 -->
 </head>
 
 <body>
@@ -123,6 +125,7 @@
 							<!-- 검색창 끝-->
 
 							<p class="michin-nom">[[${#lists.size(portfolioList)}]]</p>
+							<p class="michin-nom">[[${portfolioList[0]}]]</p>
 
 							<!-- 태그버튼 -->
 							<div class="shop-top-bar d-flex pb-3">
@@ -153,283 +156,30 @@
 
 
 							<div class="row g-3">
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													th:src="${portfolioList[0].phoRt}" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
+								<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
+								<th:block th:each="portfolio : ${portfolioList}">
+									<div class="col-sm-6 col-lg-3">
+										<div class="product-card-1">
+											<div class="product-card-image">
+												<div class="badge-ribbon"></div>
+												<div class="product-action">
+													<a href="#" class="btn btn-outline-primary"> <i
+														class="fi-heart"></i>
+													</a> <a href="#" class="btn btn-outline-primary"> <i
+														class="fi-repeat"></i>
+													</a> </a>
+												</div>
+												<div class="product-media">
+													<a href="#"> <img class="img-fluid"
+														th:src="${portfolio .phoRt}" title="" alt="">
+													</a>
+												</div>
 											</div>
 										</div>
-
 									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
+								</th:block>
+								<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
 
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- End Product Box -->
-								<!-- Product Box -->
-								<div class="col-sm-6 col-lg-3">
-									<div class="product-card-1">
-										<div class="product-card-image">
-											<div class="badge-ribbon"></div>
-											<div class="product-action">
-												<a href="#" class="btn btn-outline-primary"> <i
-													class="fi-heart"></i>
-												</a> <a href="#" class="btn btn-outline-primary"> <i
-													class="fi-repeat"></i>
-												</a> </a>
-											</div>
-											<div class="product-media">
-												<a href="#"> <img class="img-fluid"
-													src="/img/fashion/1000x1000.jpg" title="" alt="">
-												</a>
-
-											</div>
-										</div>
-
-
-									</div>
-								</div>
-								<!-- End Product Box -->
 							</div>
 							<div class="shop-bottom-bar d-flex align-items-center mt-3">
 								<div>Showing: 1 - 12 of 17</div>
@@ -458,7 +208,7 @@
 		<!-- End Main -->
 		<!-- Footer있던자리 -->
 		<script>
-		
+	
 		let hi =`<div class="col-sm-6 col-lg-3">
 		<div class="product-card-1">
 			<div class="product-card-image">
@@ -480,10 +230,9 @@
 
 		</div>
 	</div>`
-	console.log(hi)
 		</script>
 		<script src="/js/around.js"></script>
-		
+
 		<!-- End Footer있던자리 -->
 	</div>
 	<!-- 
