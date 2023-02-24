@@ -1,134 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
 <head>
-<meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>get방식으로 페이지</title>
 </head>
-
-<style>
-.pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-.pagination a.active {
-  background-color: grey;
-  color: white;
-  border-radius: 5px;
-}
-
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-  border-radius: 5px;
-}
-
-.container {
- text-align: center;
-}
-</style>
 <body>
-<div class="container">
-<div id="page">
+<div layout:fragment="content">
+    본문입니다
+    <button type="button" id="btn">클릭</button>
+    
+    <div id="page">
+    
+    </div>
+    
+    <script>
+    $('#btn').on('click', function(){
+    	apage({pagaNum: 1,
+    		 amount : 10});
+    })
+    
+    function apage(data){
+    	
+	    $.ajax({
+	    	url: "/ajaxList",
+	    	data: data
+	    })
+	    .then(res => {
+	    	$('#page').empty().append(res)
+	    })
+    	
+    }
+    </script>
 </div>
-	<div class="pagination">
-		<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
-		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
-		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
-		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
-	</div>
-	<form id="actionFrm" action="reviewList" th:object="${page}">
-		<input type="hidden" id="pageNum" th:value="*{criteria.pageNum}">
-		<input type="hidden" id="amount" th:value="*{criteria.amount}">
-		<input type="hidden" id="type" th:value="*{criteria.type}">
-		<input type="hidden" id="keyword" th:value="*{criteria.keyword}">
-	</form>
-</div>
-<div class="container">
-	<form id="searchFrm" action="/reviewList" th:object="${page}">
-		<select id="type" name="type">
-			<option value="CW" th:selected="*{criteria.type == 'CW'}">전체</option>
-			<option value="C" th:selected="*{criteria.type == 'C'}">내용</option>
-			<option value="W" th:selected="*{criteria.type == 'W'}">작성자</option>
-		</select>
-		<input type="text" id="keyword" th:value="*{criteria.keyword}">
-		<button class="btn btn-default">검색</button>
-	</form>
-</div>
-<script>
-
-$.ajax({
-	url:"ajaxList",
-	
-})
-.done(function(res){
-	$('#page').replaceWith(res);
-
-})
-
-$(".pagination a").on("click", function(e){
-	e.preventDefault();
- 	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
-	
- 	let pageNum = $("#pageNum").val()
- 	let amount = $("#amount").val()
- 	let type = $('#type').val()
- 	let keyword = $('#keyword').val()
-	
- 	let obj = {pageNum : pageNum,
- 		       amount : amount,
- 		       type : type,
- 		       keyword : keyword}
-	
-	$.ajax({
-		url:"ajaxList",
-		data: obj
-		
-	})
-	.done(function(res){
-		$('#page').replaceWith(res);
-
-	})
-	.catch
-})
-	
-		
-$('#searchFrm button').on("click", function(e){
-	console.log('click')
-	
-	$('#searchFrm').find("input[name='pageNum']").val(1);
-	e.preventDefault();
-	
- 	let pageNum = $("#pageNum").val()
- 	let amount = $("#amount").val()
- 	let type = $('#type').val()
- 	let keyword = $('#keyword').val()
- 	
- 	let obj = {pageNum : pageNum,
- 		       amount : amount,
- 		       type : type,
- 		       keyword : keyword}
-	
-	$.ajax({
-		url:"ajaxList",
-		data: obj
-		
-	})
-	.done(function(res){
-		$('#page').replaceWith(res);
-
-	})
-
-})
-
-
-</script>
 </body>
 </html>

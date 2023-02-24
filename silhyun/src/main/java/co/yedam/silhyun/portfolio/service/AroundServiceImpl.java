@@ -13,8 +13,16 @@ public class AroundServiceImpl implements AroundService {
 	@Autowired
 	private AroundMapper aroundMapper;
 	
-	@Override//포트폴리오 랜덤조회
+	@Override//둘러보기 들어가면 바로 보이는 리스트
 	public List<PortfolioVO> getAroundList(){
 		return aroundMapper.getAroundList();
 	}
+
+	@Override//태그 들어가면 바로 보이는 리스트
+	public List<PortfolioVO> AroundTagList() {
+		// TODO Auto-generated method stub
+		return aroundMapper.AroundTagList();
+	}
+	
+	
 }

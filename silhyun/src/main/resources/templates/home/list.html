@@ -26,6 +26,12 @@
 				</tr>
 		</tbody>
 	</table>
+		<div class="pagination">
+		<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
+		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
+		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+	</div>
 	</div>
 </body>
 </html>
