@@ -25,4 +25,7 @@ public class StudioVO {
 	private Date accpDate;
 	private String detAddr;
 	private String zipAddr;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date regiDate;
 }
