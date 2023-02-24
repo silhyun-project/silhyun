@@ -43,14 +43,14 @@
                     "disableOnInteraction": false
                   }
                 }'>
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper" th:each="banner : ${bannerList}">
                     <div class="swiper-slide">
                     <!-- 사진크기 1600x900 이 적당  -->
                         <div class="bg-no-repeat bg-cover bg-center" style="background-image: url(/img/fashion/1600x900.jpg);">
                             <div class="container">
                                 <div class="row min-vh-65 align-items-center justify-content-center py-12">
                                     <div class="col-lg-8 text-center">
-                                        <h6 class="fw-300 text-uppercase text-white mb-3 letter-spacing-6">You're Looking Good</h6>
+                                        <h6 class="fw-300 text-uppercase text-white mb-3 letter-spacing-6" >You're Looking Good</h6>
                                         <h1 class="display-1 fw-300 text-white letter-spacing-6 text-uppercase">New LookBook</h1>
                                         <div class="pt-3">
                                             <a class="btn btn-outline-white" href="#">Discover More</a>
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>    
                     </div>
                     <div class="swiper-slide">
                         <div class="bg-no-repeat bg-cover bg-center" style="background-image: url(/img/fashion/dog.jpg);">
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="swiper-arrow-style-01 swiper-next swiper-next-01"><i class="bi-chevron-right"></i> </div>
                 <div class="swiper-arrow-style-01 swiper-prev swiper-prev-01"><i class="bi-chevron-left"></i></div>
@@ -93,79 +93,21 @@
                     <div class="row">
                         <div class="col-lg-20">
                             <div class="row">
-                            	
-                                <div class="col-sm-6 my-3">
+                           								<!-- -->
+                                <div class="col-sm-6 my-3" th:each="evP : ${eventPage}" >
                                     <div class="hover-top-in">
                                         <a href="#">
-                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
+                                            <img class="img-fluid" th:src="${evP.bnph}" title="" alt="" width="400" height="500">
                                         </a>
                                         <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
-                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
-                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
-                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2" th:text="${evP.startDate}"></i></div>
+                                            <a class="h5" href="#" th:text="${evP.name}"></a>
+                                            <p class="pt-3" th:text="${evP.cntn}" ></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 my-3">
-                                    <div class="hover-top-in">
-                                        <a href="#">
-                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
-                                        </a>
-                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
-                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
-                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
-                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-3">
-                                    <div class="hover-top-in">
-                                        <a href="#">
-                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
-                                        </a>
-                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
-                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
-                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
-                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-3">
-                                    <div class="hover-top-in">
-                                        <a href="#">
-                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
-                                        </a>
-                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
-                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
-                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
-                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-3">
-                                    <div class="hover-top-in">
-                                        <a href="#">
-                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
-                                        </a>
-                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
-                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
-                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
-                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-3">
-                                    <div class="hover-top-in">
-                                        <a href="#">
-                                            <img class="img-fluid" src="/img/pages/1000x700.jpg" title="" alt="">
-                                        </a>
-                                        <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
-                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2"></i>March 14, 2021</div>
-                                            <a class="h5" href="#">I like the body. I like to design everything to do with the body.</a>
-                                            <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and...</p>
-                                        </div>
-                                    </div>
-                                </div>
+                            
+                               
                             </div>
                             <ul class="pagination justify-content-center mt-6">
                                 <li class="page-item">
@@ -176,11 +118,7 @@
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                                 <li class="page-item active"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                    </a>
-                                </li>
+                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span> </a></li>
                                 <li>
                             </ul>
                         </div>
@@ -202,6 +140,8 @@
 			
 		}
 	}
+	
+	
 </script>
 	</main>
 </body>

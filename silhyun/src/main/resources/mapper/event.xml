@@ -4,7 +4,12 @@
 	<select id="getEventList" resultType="co.yedam.silhyun.event.vo.EventVO">
 		SELECT *
 		FROM event
-		ORDER BY event_num
+		ORDER BY event_num DESC
 	</select>
-
+	<select id="getBannerList" resultType="co.yedam.silhyun.event.vo.EventVO">
+		SELECT *
+		FROM event
+		WHERE BNPH_STA ='Y'
+		ORDER BY event_num DESC
+	</select> 
 </mapper>
