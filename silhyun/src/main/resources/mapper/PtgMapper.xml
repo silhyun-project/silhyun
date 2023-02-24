@@ -26,8 +26,8 @@
 					</foreach>
 			</if>
 			
-       	<if test="searchWord != null">
-       	AND (M.NAME LIKE '%'||${searchWord}||'%')
+       	<if test="searchWord != null and searchWord.length>0">
+       	AND M.NAME LIKE '%'||#{searchWord}||'%'
        	</if>
        	ORDER BY M.NAME
 	</select>
