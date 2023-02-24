@@ -36,5 +36,10 @@ public class mypageUserController {
 		return "mypageUser/mpgEditProfile";
 	}
 	
+	@GetMapping("/commentReply")
+	public String commentReply() {
+		
+		return "mypageUser/commentReply";
+	}
 	
 }
