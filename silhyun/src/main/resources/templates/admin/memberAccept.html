@@ -7,7 +7,7 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">종합 승인 관리</h4>
+                        <h3 class="page-title">종합 승인 관리</h3>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
@@ -30,11 +30,18 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row" id="memberList">
+                <div class="row" id="ptgAccept">
                     <div class="col-sm-12">
                         <div class="white-box">
                         <div>
-                            <h3 class="box-title">기록가</h3>
+                            <span>
+                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관">
+  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스">
+  					   					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트">
+                            <br>
+                            </span>
+                            
                             <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 미승인 요청
                             &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>5</code>
                             </p>
@@ -44,6 +51,17 @@
 								<li>		
                             <select style= "width:80px;height:30px;font-size:16px;border:none;">
                                <option value="">#번호</option>
+                               <option value="">작가아이디</option>
+                               <option value="">사진관아이디</option>
+                               <option value="">지역</option>
+                               <option value="">사업자등록번호</option>
+                               <option value="">소속여부</option>
+                               <option value="">촬영장소</option>
+                               <option value="">자기소개</option>
+                               <option value="">인스타주소</option>
+                               <option value="">근무가능요일</option>
+                               <option value="">승인신청일자</option>
+
                             </select>
                                 <input type="text" placeholder="Search..." class="form-control mt-0"
                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
@@ -63,11 +81,17 @@
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">First Name</th>
-                                            <th class="border-top-0">Last Name</th>
-                                            <th class="border-top-0">Username</th>
-                                            <th class="border-top-0">Role</th>
+                                            <th class="border-top-0">#번호</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">소속여부</th>
+                                            <th class="border-top-0">촬영장소</th>
+                                            <th class="border-top-0">자기소개</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">승인신청일자</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -77,41 +101,12 @@
                                             <td>Prohaska</td>
                                             <td>@Genelia</td>
                                             <td>admin</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
                                             <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                            <td>@Ritesh</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                            <td>@Govinda</td>
-                                            <td>developer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                            <td>@Hritik</td>
-                                            <td>supporter</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            <td>@Maruti</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            <td>@Sonu</td>
-                                            <td>supporter</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -119,6 +114,266 @@
                         </div>
                     </div>
                 </div>
+                
+                                <div class="row" id="stdAccept">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                        <div>
+                            <span>
+                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="사진관">
+  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스">
+  					   					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트">
+                            <br>
+                            </span>
+                            
+                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 미승인 요청
+                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>5</code>
+                            </p>
+                                <form role="search" class="app-search d-none d-md-block me-3">
+               
+                            <ul style="list-style:none;float:right;">
+								<li>		
+                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
+                               <option value="">#번호</option>
+                               <option value="">작가아이디</option>
+                               <option value="">사진관아이디</option>
+                               <option value="">지역</option>
+                               <option value="">사업자등록번호</option>
+                               <option value="">소속여부</option>
+                               <option value="">촬영장소</option>
+                               <option value="">자기소개</option>
+                               <option value="">인스타주소</option>
+                               <option value="">근무가능요일</option>
+                               <option value="">승인신청일자</option>
+
+                            </select>
+                                <input type="text" placeholder="Search..." class="form-control mt-0"
+                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
+                                <a href="" class="active">
+                                    <i class="fa fa-search"></i>
+                                </a>
+								</li>                            
+                            </ul>
+                            </form>
+                        </div>
+	
+	               <br>
+					<hr>
+   
+                            
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#번호</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">소속여부</th>
+                                            <th class="border-top-0">촬영장소</th>
+                                            <th class="border-top-0">자기소개</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">승인신청일자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>admin</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                                <div class="row" id="classAccept">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                        <div>
+                            <span>
+                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관">
+  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="클래스">
+  					   					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트">
+                            <br>
+                            </span>
+                            
+                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 미승인 요청
+                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>5</code>
+                            </p>
+                                <form role="search" class="app-search d-none d-md-block me-3">
+               
+                            <ul style="list-style:none;float:right;">
+								<li>		
+                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
+                               <option value="">#번호</option>
+                               <option value="">작가아이디</option>
+                               <option value="">사진관아이디</option>
+                               <option value="">지역</option>
+                               <option value="">사업자등록번호</option>
+                               <option value="">소속여부</option>
+                               <option value="">촬영장소</option>
+                               <option value="">자기소개</option>
+                               <option value="">인스타주소</option>
+                               <option value="">근무가능요일</option>
+                               <option value="">승인신청일자</option>
+
+                            </select>
+                                <input type="text" placeholder="Search..." class="form-control mt-0"
+                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
+                                <a href="" class="active">
+                                    <i class="fa fa-search"></i>
+                                </a>
+								</li>                            
+                            </ul>
+                            </form>
+                        </div>
+	
+	               <br>
+					<hr>
+   
+                            
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#번호</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">소속여부</th>
+                                            <th class="border-top-0">촬영장소</th>
+                                            <th class="border-top-0">자기소개</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">승인신청일자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>admin</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                                <div class="row" id="eventAccept">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                        <div>
+                            <span>
+                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관">
+  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스">
+  					   					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="이벤트">
+                            <br>
+                            </span>
+                            
+                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 미승인 요청
+                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>5</code>
+                            </p>
+                                <form role="search" class="app-search d-none d-md-block me-3">
+               
+                            <ul style="list-style:none;float:right;">
+								<li>		
+                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
+                               <option value="">#번호</option>
+                               <option value="">작가아이디</option>
+                               <option value="">사진관아이디</option>
+                               <option value="">지역</option>
+                               <option value="">사업자등록번호</option>
+                               <option value="">소속여부</option>
+                               <option value="">촬영장소</option>
+                               <option value="">자기소개</option>
+                               <option value="">인스타주소</option>
+                               <option value="">근무가능요일</option>
+                               <option value="">승인신청일자</option>
+
+                            </select>
+                                <input type="text" placeholder="Search..." class="form-control mt-0"
+                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
+                                <a href="" class="active">
+                                    <i class="fa fa-search"></i>
+                                </a>
+								</li>                            
+                            </ul>
+                            </form>
+                        </div>
+	
+	               <br>
+					<hr>
+   
+                            
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#번호</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">소속여부</th>
+                                            <th class="border-top-0">촬영장소</th>
+                                            <th class="border-top-0">자기소개</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">승인신청일자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>admin</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
                       </div>
                       
                       
