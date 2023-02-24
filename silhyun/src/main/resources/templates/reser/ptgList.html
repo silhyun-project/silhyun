@@ -14,7 +14,7 @@
     <title>지은이의 예약하기</title>
     <script src="https://code.jquery.com/jquery-3.6.3.js"
         integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- Favicon -->
     <style>
         label {
@@ -220,22 +220,27 @@
                                 </section>
                                 <!-- End Section -->
                                 <div style="size: 100px;">
-                                    <select id=selectOp onchange="ptgList()">
+                                    <select id="selectOp" onchange="ptgList()">
                                         <option value="">::선택::</option>
                                         <option value="new">최신순</option>
                                         <option value="hot">인기순</option>
                                     </select>
                                 </div>
-                                
+                            </div>
+
+                            <!-- 작가 리스트 -->
+                            <div class="row g-3 g-lg-4 list">
                                 <div class="col-md-4 col-6" th:each="ptg : ${ptgList}">
-                                    <div class="product-card-9">
+                                    <div class="product-card-9 cList">
                                         <div class="product-card-image">
                                             <div class="product-action">
+                                                <!--하트-->
                                                 <a href="#" class="btn">
                                                     <i class="fi-heart"></i>
                                                 </a>
                                             </div>
                                             <div class="hover-scale">
+                                                <!--작가 사진-->
                                                 <div class="hover-scale-in">
                                                     <a href="#">
                                                         <img class="img-fluid" th:src="${ptg.profile}" title=""
@@ -243,19 +248,21 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="product-card-info">
-                                            <h6 class="product-title">
-                                                <a href="#" th:text="${ptg.name}"></a>
-                                            </h6>
+                                            <div class="product-card-info">
+                                                <!--작가 이름-->
+                                                <h6 class="product-title">
+                                                    <a href="#" th:text="${ptg.name}"></a>
+                                                </h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Product Box -->
                     </div>
+                    <!-- End Product Box -->
                 </div>
+
             </section>
             <!-- End Shop Section -->
         </main>
@@ -267,7 +274,7 @@
     -->
         <!-- script start -->
         <!-- jquery -->
-        <script src="/js/jquery-3.6.3.min.js"></script>
+
         <!--bootstrap-->
         <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- slick carousel -->
@@ -319,6 +326,7 @@
             function ck() {
                 var chkArray = new Array();
                 var chkfldArray = new Array();
+                var schWord = new Array();
 
                 $("input[name='region']:checked").each(function () {
                     var tmpVal = $(this).val();
@@ -328,8 +336,10 @@
                     var fldVal = $(this).val();
                     chkfldArray.push(fldVal);
                 });
-                
-                let list = []; 
+                var word = $("input[name='searchWord']").val();
+                console.log($("input[name='searchWord']").val())
+
+                let list = [];
                 list.push(chkArray);
                 list.push(chkfldArray);
                 //                 if (chkArray.length < 1) {
@@ -341,72 +351,141 @@
                 //                     return;
                 //                 }
                 $.ajax({
-                	url:"/searchPtgList",
-                	type: "post",
-                	data: JSON.stringify({chkArray : chkArray,
-                		                   chkfldArray : chkfldArray}),
-                	
-                	contentType : "application/json"
-
-                })
-                .then(res => {
-                    let resVal = res[0].name
-                    console.log(res)
-                    console.log(resVal)
-                    console.log($('.product-card-9'))
-                    //$('.product-card-9').remove()  //기존에 나온 작가리스트 지우기 
-                    $(res).each(function(idx,item){
-                        console.log(item)
-                        console.log(idx)
-                        $('.col-md-4 col-6').append(
-                            $(`<div class="product-card-9">
-                                            <div class="product-card-image">
-                                                <div class="product-action">
-                                                    <a href="#" class="btn">
-                                                        <i class="fi-heart"></i>
+                        url: "/searchPtgList",
+                        type: "post",
+                        data: JSON.stringify({
+                            chkfldArray: chkfldArray,
+                            searchWord: word
+                        }),
+                        contentType: "application/json"
+                    })
+                    .then(res => {
+                        // let resVal = res[0].name
+                        console.log(res)
+                        // console.log(resVal)
+                        // console.log($('.product-card-9'))
+                        $('.col-md-4.col-6').remove() //기존에 나온 작가리스트 지우기 
+                        //$('.product-card-info').remove()  //기존에 나온 작가리스트 지우기 
+                        $(res).each(function (idx, item) {
+                            console.log(item.profile)
+                            console.log(item.name)
+                            $('.row.g-3.g-lg-4.list').append(
+                                `<div class="col-md-4 col-6">
+                                     <div class="product-card-9">
+                                        <div class="product-card-image">
+                                            <div class="product-action">
+                                                <a href="#" class="btn">
+                                                    <i class="fi-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div class="hover-scale">
+                                                <div class="hover-scale-in">
+                                                    <a href="#">
+                                                        <img class="img-fluid" src="${item.profile}" title=""
+                                                            alt="사진이 뜨지않는다.." width="700" height="800">
                                                     </a>
                                                 </div>
-                                                <div class="hover-scale">
-                                                    <div class="hover-scale-in">
-                                                        <a href="#">
-                                                            <img class="img-fluid" th:src="${item[idx].profile}" title=""
-                                                                alt="사진이 뜨지않는다.." width="700" height="800">
-                                                        </a>
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <div class="product-card-info">
-                                                <h6 class="product-title">
-                                                    <a href="#" th:text="${item[idx].name}"></a>
-                                                </h6>
-                                            </div>
-                                        </div>`)
-                        )
+                                        </div>
+                                        <div class="product-card-info">
+                                            <h6 class="product-title">
+                                                <a href="#">${item.name}</a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                   `)
+                        })
+                        $("input[name='region']:checked").prop('checked', false);
+                        $("input[name='field']:checked").prop('checked', false);
                     })
-
-
-                })
             }
 
-//             //Ajax호출
-//             function ptgList() {
-//                 var op = $("#selectOp").val();
-//                 console.log(op)
-//                 $.ajax({
-//                     url: `AjaxPtgList`,
-//                     dataType: 'json',
-//                     success: function (result) {
-//                         console.log(result)  //리스트 받아 오기 됨!!
-                       
-                        
-//                     },
-//                     error: function(error){
-//                         console.log(error);
-//                     }
-//                 })
-//             }
+            //필터(최신순, 인기순)
+            //Ajax호출
+            function ptgList() {
+                var op = $("#selectOp").val();
+                let allData = [];
+                console.log(op)
+                $.ajax({
+                        url: '/AjaxPtgList',
+                        dataType: 'json',
+                        // success: function (result) {
+                        //     console.log(result)
+
+                        // function sort_new(){
+                        // result.sort(function (first, second) {
+                        //     if (first.regiDate < second.regiDate)
+                        //         return -1;
+                        //     else
+                        //         return 1
+                        // })}
+
+                        // function sort_hot(){
+
+                        // }
+
+
+                        /* $(result).each(function (idx, item) {
+                            var regidate = result[idx].regiDate //리스트 받아 오기 됨!!
+
+                           
+
+                             // regidate.push(item.regiDate)
+                             // console.log(regidate)
+                             // console.log(regidate.sort())
+                         })
+                         console.log(regidate)*/
+
+                        // },
+
+                    })
+                    .then(result => {
+                        allData = result
+                        console.log(allData)
+                        if (op == 'new') {
+                            $('.col-md-4.col-6').remove()
+                            allData.sort(function (first, second) {
+                                return first.regiDate - second.regiDate;
+                            })
+                            // $(allData).each(function (idx, item) {
+                            //     console.log(item.profile)
+                            //     console.log(item.name)
+                            //     console.log(item.regiDate)
+                            //     $('.row.g-3.g-lg-4.list').append(
+                            //         `<div class="col-md-4 col-6">
+                            //             <div class="product-card-9">
+                            //                         <div class="product-card-image">
+                            //                             <div class="product-action">
+                            //                                 <a href="#" class="btn">
+                            //                                     <i class="fi-heart"></i>
+                            //                                 </a>
+                            //                             </div>
+                            //                             <div class="hover-scale">
+                            //                                 <div class="hover-scale-in">
+                            //                                     <a href="#">
+                            //                                         <img class="img-fluid" src="${item.profile}" title=""
+                            //                                             alt="사진이 뜨지않는다.." width="700" height="800">
+                            //                                     </a>
+                            //                                 </div>
+                            //                             </div>
+                            //                         </div>
+                            //                         <div class="product-card-info">
+                            //                             <h6 class="product-title">
+                            //                                 <a href="#">${item.name}</a>
+                            //                             </h6>
+                            //                         </div>
+                            //                     </div>
+                            //                     </div>
+                            //         `)
+                            // })
+                        }
+                    })
+                    .then(srror => console.log(error))
+            }
         </script>
     </div>
+
 </body>
 
 </html>
