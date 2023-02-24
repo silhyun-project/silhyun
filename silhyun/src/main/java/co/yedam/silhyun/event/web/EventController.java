@@ -1,15 +1,23 @@
 package co.yedam.silhyun.event.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import co.yedam.silhyun.event.service.EventService;
 
 @Controller
 public class EventController {
 
-	@GetMapping("/eventPage")
-	public String eventPage(Model model) {
+	@Autowired
+	private EventService eventService;
 	
+	@RequestMapping("/eventPage")
+	public String eventPage(Model model) {
+	model.addAttribute("eventPage",eventService.getEventList());
+	model.addAttribute("bannerList",eventService.getBannerList());
 		return "event/eventPage";
 	}
 	
