@@ -20,4 +20,9 @@
 		order by regi_date
 	</select>
 
+	<select id="qtList" parameterType="QuitVO" resultType="co.yedam.silhyun.member.vo.QuitVO">
+		select *
+		from quit
+		order by quit_date
+	</select>
 </mapper>

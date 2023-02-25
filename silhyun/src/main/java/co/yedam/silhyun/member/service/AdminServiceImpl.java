@@ -9,6 +9,7 @@ import co.yedam.silhyun.member.map.AdminMapper;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
+import co.yedam.silhyun.mypage.vo.QuitVO;
 
 
 @Service
@@ -31,6 +32,12 @@ public class AdminServiceImpl implements AdminSercive {
 	public List<StudioVO> stdList() {
 		// TODO Auto-generated method stub
 		return adminMapper.stdList();
+	}
+
+	@Override
+	public List<QuitVO> qtList() {
+		// TODO Auto-generated method stub
+		return adminMapper.qtList();
 	}
 	
 }

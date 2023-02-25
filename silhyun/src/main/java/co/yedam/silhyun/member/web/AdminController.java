@@ -43,7 +43,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/quitManage")
-	public String quitManage() {
+	public String quitManage(Model model) {
+		model.addAttribute("qtList",adminService.qtList());
 		return "/admin/quitManage";
 	}
 	
