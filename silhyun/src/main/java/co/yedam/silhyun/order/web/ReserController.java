@@ -25,11 +25,7 @@ public class ReserController {
 	@RequestMapping("/searchPtgList")
 	@ResponseBody
 	public List<PhotographerVO> searchPthList(@RequestBody PhotographerVO vo) {
-		
-		System.out.println(vo);
-
 		return ptgService.ptgSearchList(vo);
-	
-		
 	}
+
 }

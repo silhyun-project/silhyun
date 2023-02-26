@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.member.map.AdminMapper">
+
+	<select id="memberList" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
+		select * 
+		from member
+		order by join_date
+	</select>
+
+	<select id="ptgList" parameterType="PhotographerVO" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		select *
+		from photographer
+		order by regi_date
+	</select>
+
+	<select id="stdList" parameterType="StudioVO" resultType="co.yedam.silhyun.member.vo.StudioVO">
+		select *
+		from studio
+		order by regi_date
+	</select>
+
+</mapper>
