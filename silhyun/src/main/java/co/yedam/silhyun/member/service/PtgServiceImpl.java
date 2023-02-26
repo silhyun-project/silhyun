@@ -14,8 +14,8 @@ public class PtgServiceImpl implements PtgService {
 	private PtgMapper ptgMapper;
 	
 	@Override  //작가 전체 조회
-	public List<PhotographerVO> getPtgLsit() {
-		return ptgMapper.getPtgLsit();
+	public List<PhotographerVO> getPtgLsit(String searchType) {
+		return ptgMapper.getPtgLsit(searchType);
 	}
 
 	@Override
@@ -24,10 +24,11 @@ public class PtgServiceImpl implements PtgService {
 		return ptgMapper.ptgSearchList(searchWord);
 	}
 
-//	@Override  //다중 검색
-//	public List<Map> ptgSearchList(searchWord) {
-//		
-//		return ptgMapper.ptgSearchList(searchWord);
-//	}
+	@Override
+	public List<PhotographerVO> getPtg(String ptgId) {
+		
+		return ptgMapper.getPtg(ptgId);
+	}
+
 
 }

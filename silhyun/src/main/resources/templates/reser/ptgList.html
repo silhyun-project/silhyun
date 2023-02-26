@@ -14,7 +14,6 @@
     <title>지은이의 예약하기</title>
     <script src="https://code.jquery.com/jquery-3.6.3.js"
         integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- Favicon -->
     <style>
         label {
@@ -95,7 +94,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-lg-8 col-xl-15 text-center">
                                                 <form style="display: inline;" action="searchPtgList">
-                                                    <div class="">
+                                                    <div class="" style="text-align: left;">
                                                         <h3>지역<span class="text-danger">*</span></h3>
                                                     </div>
                                                     <div class="form-check form-check-inline">
@@ -158,56 +157,57 @@
                                                                 class="form-check-input" type="checkbox" name="region"
                                                                 id="region10" value="10"></label>
                                                     </div>
-                                                    <div class="">
+                                                    <div class="" style="text-align: left;">
                                                         <h3>분야<span class="text-danger">*</span></h3>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B1">제품<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B1" value="B1"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B2">음식<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B2" value="B2"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B3">행사<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B3" value="B3"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B4">건축/인테리어<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B4" value="B4"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B5">패션<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B5" value="B5"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B6">프로필/화보<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B6" value="B6"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B7">웨딩<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B7" value="B7"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B8">일반스냅<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B8" value="B8"></label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <label class="form-check-label" for="B9">반려동물<input
-                                                                    class="form-check-input" type="checkbox"
-                                                                    name="field" id="B9" value="B9"></label>
-                                                        </div>
                                                     </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B1">제품<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B1" value="B1"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B2">음식<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B2" value="B2"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B3">행사<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B3" value="B3"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B4">건축/인테리어<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B4" value="B4"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B5">패션<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B5" value="B5"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B6">프로필/화보<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B6" value="B6"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B7">웨딩<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B7" value="B7"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B8">일반스냅<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B8" value="B8"></label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label" for="B9">반려동물<input
+                                                                class="form-check-input" type="checkbox" name="field"
+                                                                id="B9" value="B9"></label>
+                                                    </div>
+
                                                     <div style="display: inline;">
-                                                        <input type="text" size="10px"
+                                                        <input type="text" size="10px" width="50px"
                                                             class="form-control me-sm-2 mb-2 mb-sm-1" name="searchWord"
                                                             placeholder="찾는 작가의 이름을 입력하세요">
                                                         <button class="btn btn-primary flex-shrink-0" type="button"
@@ -217,15 +217,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div style="size: 100px;">
+                                        <select id="selectOp" onchange="ptgList()">
+                                            <option value="">::선택::</option>
+                                            <option value="new">최신순</option>
+                                            <option value="hot">인기순</option>
+                                            <option value="name">이름순</option>
+                                        </select>
+                                    </div>
                                 </section>
                                 <!-- End Section -->
-                                <div style="size: 100px;">
-                                    <select id="selectOp" onchange="ptgList()">
-                                        <option value="">::선택::</option>
-                                        <option value="new">최신순</option>
-                                        <option value="hot">인기순</option>
-                                    </select>
-                                </div>
                             </div>
 
                             <!-- 작가 리스트 -->
@@ -242,7 +243,7 @@
                                             <div class="hover-scale">
                                                 <!--작가 사진-->
                                                 <div class="hover-scale-in">
-                                                    <a href="#">
+                                                    <a th:href="@{/ptgDetail/{ptgId}(ptgId = ${ptg.ptgId})}">
                                                         <img class="img-fluid" th:src="${ptg.profile}" title=""
                                                             alt="사진이 뜨지않는다.." width="700" height="800">
                                                     </a>
@@ -251,7 +252,7 @@
                                             <div class="product-card-info">
                                                 <!--작가 이름-->
                                                 <h6 class="product-title">
-                                                    <a href="#" th:text="${ptg.name}"></a>
+                                                    <a class="ptgtitle" href="#" th:text="${ptg.name}"></a>
                                                 </h6>
                                             </div>
                                         </div>
@@ -327,17 +328,25 @@
                 var chkArray = new Array();
                 var chkfldArray = new Array();
                 var schWord = new Array();
+                var rgTextAry = new Array();
+                var fldTextAry = new Array();
 
                 $("input[name='region']:checked").each(function () {
                     var tmpVal = $(this).val();
                     chkArray.push(tmpVal);
+                    var rgText = $(this).parent().text()
+                    rgTextAry.push(rgText);
+
                 });
+                console.log(rgTextAry)
+                $("lavel")
                 $("input[name='field']:checked").each(function () {
                     var fldVal = $(this).val();
                     chkfldArray.push(fldVal);
+                    var fldText = $(this).parent().text();
+                    fldTextAry.push(fldText)
                 });
                 var word = $("input[name='searchWord']").val();
-                console.log($("input[name='searchWord']").val())
 
                 let list = [];
                 list.push(chkArray);
@@ -355,6 +364,7 @@
                         type: "post",
                         data: JSON.stringify({
                             chkfldArray: chkfldArray,
+                            chkArray: chkArray,
                             searchWord: word
                         }),
                         contentType: "application/json"
@@ -396,6 +406,9 @@
                                 </div>
                                    `)
                         })
+
+                        $('.col-lg-8.col-xl-15.text-center').append(
+                            `<div>선택 지역 : ${rgTextAry}         선택 분야 : ${fldTextAry}</div>`)
                         $("input[name='region']:checked").prop('checked', false);
                         $("input[name='field']:checked").prop('checked', false);
                     })
@@ -404,82 +417,58 @@
             //필터(최신순, 인기순)
             //Ajax호출
             function ptgList() {
-                var op = $("#selectOp").val();
-                let allData = [];
-                console.log(op)
+                var searchType = $("#selectOp").val(); //셀렉트 박스 
+                //                 let searchType = new Array();
+                //                 searchType.push(op)
+
+                console.log(searchType)
                 $.ajax({
-                        url: '/AjaxPtgList',
-                        dataType: 'json',
-                        // success: function (result) {
-                        //     console.log(result)
-
-                        // function sort_new(){
-                        // result.sort(function (first, second) {
-                        //     if (first.regiDate < second.regiDate)
-                        //         return -1;
-                        //     else
-                        //         return 1
-                        // })}
-
-                        // function sort_hot(){
-
-                        // }
-
-
-                        /* $(result).each(function (idx, item) {
-                            var regidate = result[idx].regiDate //리스트 받아 오기 됨!!
-
-                           
-
-                             // regidate.push(item.regiDate)
-                             // console.log(regidate)
-                             // console.log(regidate.sort())
-                         })
-                         console.log(regidate)*/
-
-                        // },
-
+                        url: '/AjaxPtgList/' + searchType,
                     })
                     .then(result => {
-                        allData = result
-                        console.log(allData)
-                        if (op == 'new') {
+                        function makeList() {
                             $('.col-md-4.col-6').remove()
-                            allData.sort(function (first, second) {
-                                return first.regiDate - second.regiDate;
+                            $(result).each(function (idx, item) {
+                                $('.row.g-3.g-lg-4.list').append(
+                                    `<div class="col-md-4 col-6">
+                                     <div class="product-card-9">
+                                        <div class="product-card-image">
+                                            <div class="product-action">
+                                                <a href="#" class="btn">
+                                                    <i class="fi-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div class="hover-scale">
+                                                <div class="hover-scale-in">
+                                                    <a href="#">
+                                                        <img class="img-fluid" src="${item.profile}" title=""
+                                                            alt="사진이 뜨지않는다.." width="700" height="800">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-info">
+                                            <h6 class="product-title">
+                                                <a href="#">${item.name}</a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                   `
+                                )
                             })
-                            // $(allData).each(function (idx, item) {
-                            //     console.log(item.profile)
-                            //     console.log(item.name)
-                            //     console.log(item.regiDate)
-                            //     $('.row.g-3.g-lg-4.list').append(
-                            //         `<div class="col-md-4 col-6">
-                            //             <div class="product-card-9">
-                            //                         <div class="product-card-image">
-                            //                             <div class="product-action">
-                            //                                 <a href="#" class="btn">
-                            //                                     <i class="fi-heart"></i>
-                            //                                 </a>
-                            //                             </div>
-                            //                             <div class="hover-scale">
-                            //                                 <div class="hover-scale-in">
-                            //                                     <a href="#">
-                            //                                         <img class="img-fluid" src="${item.profile}" title=""
-                            //                                             alt="사진이 뜨지않는다.." width="700" height="800">
-                            //                                     </a>
-                            //                                 </div>
-                            //                             </div>
-                            //                         </div>
-                            //                         <div class="product-card-info">
-                            //                             <h6 class="product-title">
-                            //                                 <a href="#">${item.name}</a>
-                            //                             </h6>
-                            //                         </div>
-                            //                     </div>
-                            //                     </div>
-                            //         `)
-                            // })
                         }
+                        if (searchType == 'new') {
+                            makeList()
+
+                        } else if (searchType == 'hot') {
+                            makeList()
+                        } else if (searchType == 'name') {
+                            makeList()
+                        } else {
+
+                        }
+
                     })
                     .then(srror => console.log(error))
             }

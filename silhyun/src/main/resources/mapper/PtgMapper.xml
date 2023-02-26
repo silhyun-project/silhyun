@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.PtgMapper">
-	<select id="getPtgLsit" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-		SELECT P.*,M.*
-	    FROM PHOTOGRAPHER P, MEMBER M
-	    WHERE P.PTG_ID = M.ID
-	    ORDER BY P.PTG_ID
+	<select id="getPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
+	SELECT Z.ZZIMS,P.*, M.*,S.*
+	FROM PHOTOGRAPHER P, MEMBER M,STUDIO S,(SELECT CTGR_NUM,COUNT(*) ZZIMS FROM ZZIM GROUP BY CTGR_NUM) Z
+	WHERE P.PTG_ID = M.ID
+    AND M.ID = Z.CTGR_NUM(+)
+    AND M.ID = S.ST_ID(+)
+	AND P.PTG_ID = #{ptgId}
+	</select>
+	
+	<select id="getPtgLsit" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
+		SELECT NVL(Z.ZZIMS,0),P.*,M.*
+	    FROM PHOTOGRAPHER P, MEMBER M,(SELECT CTGR_NUM,COUNT(*) ZZIMS FROM ZZIM GROUP BY CTGR_NUM ORDER BY 2 DESC) Z
+	    WHERE P.PTG_ID = M.ID 
+        AND M.ID = Z.CTGR_NUM(+)
+	    <choose>
+	    	<when test="'new'.equals(searchType)"> ORDER BY P.REGI_DATE DESC</when>
+	    	<when test="'name'.equals(searchType)"> ORDER BY M.NAME</when>
+	    </choose>
 	</select>
 	
 	<select id="ptgSearchList" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
