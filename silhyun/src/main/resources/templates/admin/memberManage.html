@@ -18,6 +18,7 @@
         </div>
 
         <!-- 테이블 시작 -->
+        <form id="memberFrm" method="post">
         <div id="memberList">
             <div class="container-fluid">
                 <div class="row">
@@ -32,16 +33,15 @@
   
                                 <!-- 통계 정보 -->
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
-                                    신규 회원: <code>5</code>총 회원: <code>500</code></p>
+                                    신규 회원: <code th:text="${todayMem.size}"></code> &nbsp; 총 회원: <code th:text="${memberList.size}"></code></p>
                                 <!-- 검색 -->
                                 <form role="search" class="app-search d-none d-md-block me-3">
                                     <ul style="list-style:none;float:right;">
                                         <li>
                                             <select style="width:120px;height:30px;font-size:16px;border:none;">
-                                                <option value="">#번호</option>
+                                             	<option value="">전체</option>
                                                 <option value="">아이디</option>
                                                 <option value="">이름</option>
-                                                <option value="">비밀번호</option>
                                                 <option value="">이메일</option>
                                                 <option value="">휴대전화</option>
                                                 <option value="">가입날짜</option>
@@ -62,13 +62,17 @@
                             <!-- 회원 관리 본문 -->
                             <div class="table-responsive">
                                 <!-- 회원 테이블 -->
+                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|deleteSelectMember()|">선택삭제</button>
                                 <table class="table text-nowrap">
+                                    
                                     <thead>
+                                    
                                         <tr>
+                                        
+         									<th><input type="checkbox" id="chkMemAll"></th>
                                             <th class="border-top-0">#</th>
                                             <th class="border-top-0">아이디</th>
                                             <th class="border-top-0">이름</th>
-                                            <th class="border-top-0">비밀번호</th>
                                             <th class="border-top-0">이메일</th>
                                             <th class="border-top-0">휴대전화</th>
                                             <th class="border-top-0">가입날짜</th>
@@ -76,23 +80,28 @@
                                             <th class="border-top-0">성별</th>
                                             <th class="border-top-0">포인트</th>
                                             <th class="border-top-0">멤버권한</th>
+                                                               
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="mem,sts : ${memberList}" th:Class="${sts}">
                                         
+                                    	    <td align="center"><input type="checkbox" name="chkMem"></td>
                                             <td th:text="${sts.count}"></td>
-      
-                                            <td th:text="${mem.id}"></td>
-                                            <td th:text="${mem.name}"></td>
-                                            <td th:text="${mem.pwd}"></td>
-                                            <td th:text="${mem.email}"></td>
-                                            <td th:text="${mem.tel}"></td>
-                                            <td th:text="${mem.joinDate}"></td>
-                                            <td th:text="${mem.birthDate}"></td>
-                                            <td th:text="${mem.genCd}"></td>
-                                            <td th:text="${mem.pointSum}"></td>
-                                            <td th:text="${mem.memCd}"></td>
+                                            <td th:text="${mem.id}" th:value="${mem.id}" th:id="id" th:name="id"></td>
+                                            <td th:text="${mem.name}" th:value="${mem.name}"></td>
+                                            <td th:text="${mem.email}" th:value="${mem.email}"></td>
+                                            <td th:text="${mem.tel}" th:value="${mem.tel}"></td>
+                                            <td th:text="${mem.joinDate}" th:value="${mem.joinDate}"></td>
+                                            <td th:text="${mem.birthDate}" th:value="${mem.birthDate}"></td>
+                                            <td th:text="${mem.genCd}" th:value="${mem.genCd}"></td>
+                                            <td th:text="${mem.pointSum}" th:value="${mem.pointSum}"></td>
+                                            <td th:text="${mem.memCd}" th:value="${mem.memCd}"></td>
+                                            
+                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button>
+                                            &nbsp;
+                                            <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
+                                            style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|">삭제</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -102,6 +111,7 @@
                 </div>
             </div>
         </div>
+</form>
 
         <!-- 기록가 테이블  -->
         <div id="ptgTable">
@@ -111,12 +121,12 @@
                         <div class="white-box">
                             <div>
                             <span>
-                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가">
-  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관">
+                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가" th:attr="onclick=|openPtgList()|">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관" th:attr="onclick=|openStdList()|">
                             </span>
-<br>
+		<br>
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
-                                    신규 기록가: <code>5</code>총 기록가: <code>500</code></p>
+                                    신규 기록가: <code th:text="${todayPtg.size}"></code> &nbsp; 총 기록가: <code th:text="${ptgList.size}"></code></p>
                                 <form role="search" class="app-search d-none d-md-block me-3">
                                     <ul style="list-style:none;float:right;">
                                         <li>
@@ -169,6 +179,8 @@
                                             <td th:text="${ptg.workDay}"></td>
                                             <td th:text="${ptg.ptgCd}"></td>
                                             <td th:text="${ptg.regiDate}"></td>
+                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button></td>
+                                            <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
                                     </tbody>
                                 </table>
                             </div>
@@ -177,20 +189,21 @@
                 </div>
             </div>
         </div>
+        
         <!-- 사진관 테이블 -->
-        <div id="studioTable">
+        <div id="stdTable" style="display:none">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div>
                             <span>
-                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가">
-  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="사진관">
+                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가" th:attr="onclick=|openPtgList()|">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관" th:attr="onclick=|openStdList()|">
                             </span>
                             <br>
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
-                                    신규 사진관: <code>5</code>총 사진관: <code>5</code></p>
+                                    신규 사진관: <code th:text="${todayStd.size}">5</code> &nbsp; 총 사진관: <code th:text="${stdList.size}"></code></p>
                                 <form role="search" class="app-search d-none d-md-block me-3">
                                     <ul style="list-style:none;float:right;">
                                         <li>
@@ -244,6 +257,8 @@
                                             <td th:text="${std.addr}"></td>
                                             <td th:text="${std.crn}"></td>
                                             <td th:text="${std.regiDate}"></td>
+                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button></td>
+                                            <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
                                         </tr>
                                         <!-- 삭제할 것 -->
 
@@ -255,7 +270,37 @@
                 </div>
             </div>
         </div>
+        
+<script th:inline="javascript">
+		const ptgTable = document.getElementById("ptgTable");
+	    const stdTable = document.getElementById("stdTable");
+	    
+		function openPtgList(){
+	    	ptgTable.style.display = 'block';
+	    	stdTable.style.display = 'none';
+	    };
+	    
+		function openStdList(){		
+	    	ptgTable.style.display = 'none';
+	    	stdTable.style.display = 'block';
+	    };
+	
+	    
+	    function deleteMember(id){
+	    	var id = id;
+	    	var str = $('#memberFrm').serialize();
+	    	console.log('str: '+ str);
+	    	if(confirm(id+"님을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
+	      		alert("정상적으로 삭제됐습니다.");
+	    		memberFrm.action = "/admin/deleteMember";
+	    	}else{
+	    		console.log("html에서 실행안됐음");
+	    	}
+	    	memberFrm.submit();
+
+	    }
+	    ;
+</script>
     </div>
 </body>
-
 </html>

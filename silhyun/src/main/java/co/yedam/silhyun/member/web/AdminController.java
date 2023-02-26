@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import co.yedam.silhyun.member.service.AdminSercive;
 import co.yedam.silhyun.member.vo.MemberVO;
@@ -27,10 +28,29 @@ public class AdminController {
 	
 	@RequestMapping("/admin/memberManage")
 	public String memberManage(Model model) {
+		model.addAttribute("todayMem", adminService.todayMem());
+		model.addAttribute("todayPtg", adminService.todayPtg());
+		model.addAttribute("todayStd", adminService.todayStd());
+		
 		model.addAttribute("memberList", adminService.memberList());
 		model.addAttribute("ptgList",adminService.ptgList());
 		model.addAttribute("stdList",adminService.stdList());
 		return "/admin/memberManage";
+	}
+	
+	@PostMapping("/admin/deleteMember")
+	public String deleteMember(MemberVO vo, Model model) {
+		System.out.println("내가 보려는 거 "+vo);
+		System.out.println("내가 보려는 거 "+model);
+		
+//		int n = adminService.deleteMember(vo);
+//		if(n !=0) {
+//			System.out.println(vo+"삭제완료");
+//		}else {
+//			System.out.println("삭제실패");
+//		}
+		return memberManage(model);
+		//test
 	}
 	
 	@GetMapping("/admin/orderManage")
