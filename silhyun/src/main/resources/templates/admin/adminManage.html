@@ -53,60 +53,60 @@
                                         <label class="col-md-12 p-0"><b>이름</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text"
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.name }">
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.name }" th:readonly="readonly">
                               				</div>
                                     </div>
                                        <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>아이디</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" 
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.id }"> </div>
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.id }" th:readonly="readonly"> </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label for="example-email" class="col-md-12 p-0"><b>Email</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="email" 
                                                 class="form-control p-0 border-0" name="example-email"
-                                                id="example-email" data-th-value="${adminInfo.email }">
+                                                id="example-email" data-th-value="${adminInfo.email }" th:readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>비밀번호</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="password" value="password" class="form-control p-0 border-0"
-                                            data-th-value="${adminInfo.pwd }">
+                                            data-th-value="${adminInfo.pwd }" th:readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>TEL</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text"
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.tel }">
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.tel }" th:readonly="readonly">
                                         </div>
                                     </div>
                                       <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>가입일</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" 
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.joinDate }"> </div>
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.joinDate }" th:readonly="readonly"> </div>
                                     </div>
                                                                         <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>생년월일</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" 
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.birthDate }"> </div>
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.birthDate }" th:readonly="readonly"> </div>
                                     </div>
                                                                         <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>성별</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" 
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.genCd }"> </div>
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.genCd }" th:readonly="readonly"> </div>
                                     </div>
 
 
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">정보 수정</button>
+                                            <button class="btn btn-success">수정</button>
                                         </div>
                                     </div>
                                 </form>
