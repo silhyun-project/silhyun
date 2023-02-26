@@ -13,4 +13,6 @@ public interface AdminSercive {
 	List<PhotographerVO> ptgList();
 	
 	List<StudioVO> stdList();
+	
+	MemberVO adminInfo();
 }

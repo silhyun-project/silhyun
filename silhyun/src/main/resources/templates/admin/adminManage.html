@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>      
 <body>
 <div layout:fragment="content">
 
  <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">관리자계정 관리</h4>
+                        <h3 class="page-title">관리자계정 관리</h3>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -26,15 +28,16 @@
                 <div class="row">
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-12">
+
                         <div class="white-box">
                             <div class="user-bg"> 
                                 <div class="overlay-box">
                                     <div class="user-content">
-                                        <a href="javascript:void(0)"><img src="/manage/plugins/images/users/genu.jpg"
+                                        <a href="javascript:void(0)"><img th:src="${adminInfo.profile}"
                                                 class="thumb-lg img-circle" alt="img"></a>
                                                 
-                                        <h4 class="text-white mt-2"><b>ADMIN</b></h4>
-                                        <h5 class="text-white mt-2">2000-01-01</h5>
+                                        <h4 class="text-white mt-2"><b>🤍관리자님🤍</b></h4>
+                                        <h5 class="text-white mt-2">환영합니다</h5>
                                     </div>
                                 </div>
                             </div>
@@ -47,49 +50,57 @@
                             <div class="card-body">
                                 <form class="form-horizontal form-material">
                                     <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">이름</label>
+                                        <label class="col-md-12 p-0"><b>이름</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="Johnathan Doe"
-                                                class="form-control p-0 border-0"> </div>
+                                            <input type="text"
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.name }">
+                              				</div>
                                     </div>
                                        <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">아이디</label>
+                                        <label class="col-md-12 p-0"><b>아이디</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="Johnathan Doe"
-                                                class="form-control p-0 border-0"> </div>
+                                            <input type="text" 
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.id }"> </div>
                                     </div>
                                     <div class="form-group mb-4">
-                                        <label for="example-email" class="col-md-12 p-0">Email</label>
+                                        <label for="example-email" class="col-md-12 p-0"><b>Email</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" placeholder="johnathan@admin.com"
+                                            <input type="email" 
                                                 class="form-control p-0 border-0" name="example-email"
-                                                id="example-email">
+                                                id="example-email" data-th-value="${adminInfo.email }">
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">비밀번호</label>
+                                        <label class="col-md-12 p-0"><b>비밀번호</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="password" value="password" class="form-control p-0 border-0">
+                                            <input type="password" value="password" class="form-control p-0 border-0"
+                                            data-th-value="${adminInfo.pwd }">
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">TEL</label>
+                                        <label class="col-md-12 p-0"><b>TEL</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="123 456 7890"
-                                                class="form-control p-0 border-0">
+                                            <input type="text"
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.tel }">
                                         </div>
                                     </div>
-                                                                        <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">생년월일</label>
+                                      <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0"><b>가입일</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="1999-09-09"
-                                                class="form-control p-0 border-0"> </div>
+                                            <input type="text" 
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.joinDate }"> </div>
                                     </div>
                                                                         <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">성별</label>
+                                        <label class="col-md-12 p-0"><b>생년월일</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="Female"
-                                                class="form-control p-0 border-0"> </div>
+                                            <input type="text" 
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.birthDate }"> </div>
+                                    </div>
+                                                                        <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0"><b>성별</b></label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" 
+                                                class="form-control p-0 border-0" data-th-value="${adminInfo.genCd }"> </div>
                                     </div>
 
 

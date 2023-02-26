@@ -20,4 +20,9 @@
 		order by regi_date
 	</select>
 
+	<select id="adminInfo" parameterType="MemberVO" resultType="co.yedam.silhyun.mypage.vo.QuitVO">
+		select * from member
+		where mem_cd = 'M0'
+	</select>
+	
 </mapper>

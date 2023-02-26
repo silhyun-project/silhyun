@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.yedam.silhyun.member.service.AdminSercive;
+import co.yedam.silhyun.member.vo.MemberVO;
 
 @Controller
 public class AdminController {
@@ -58,7 +59,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/adminManage")
-	public String adminManage() {
+	public String adminManage(Model model) {
+		model.addAttribute("adminInfo", adminService.adminInfo());
 		return "/admin/adminManage";
 	}
 	

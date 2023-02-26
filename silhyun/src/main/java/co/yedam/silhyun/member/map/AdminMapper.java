@@ -13,4 +13,6 @@ public interface AdminMapper {
 	List<PhotographerVO> ptgList();
 	
 	List<StudioVO> stdList();
+
+	MemberVO adminInfo();
 }

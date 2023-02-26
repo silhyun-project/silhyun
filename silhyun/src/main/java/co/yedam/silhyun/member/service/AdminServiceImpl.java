@@ -29,8 +29,12 @@ public class AdminServiceImpl implements AdminSercive {
 
 	@Override
 	public List<StudioVO> stdList() {
-		// TODO Auto-generated method stub
 		return adminMapper.stdList();
+	}
+
+	@Override
+	public MemberVO adminInfo() {
+		return adminMapper.adminInfo();
 	}
 	
 }
