@@ -19,9 +19,9 @@ public class AroundServiceImpl implements AroundService {
 	}
 
 	@Override//태그 들어가면 바로 보이는 리스트
-	public List<PortfolioVO> AroundTagList() {
+	public List<PortfolioVO> aroundTagList(PortfolioVO tagCntn) {
 		// TODO Auto-generated method stub
-		return aroundMapper.AroundTagList();
+		return aroundMapper.aroundTagList(tagCntn);
 	}
 	
 	
