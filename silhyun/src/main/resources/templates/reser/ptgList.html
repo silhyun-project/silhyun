@@ -392,7 +392,7 @@
                                             </div>
                                             <div class="hover-scale">
                                                 <div class="hover-scale-in">
-                                                    <a href="@{/ptgDetail/{ptgId}(ptgId = ${item.ptgId})}">
+                                                    <a href="/ptgDetail/${item.ptgId}">
                                                         <img class="img-fluid" src="${item.profile}" title=""
                                                             alt="사진이 뜨지않는다.." width="700" height="800">
                                                     </a>
@@ -428,6 +428,7 @@
                         function makeList() {
                             $('.col-md-4.col-6').remove()
                             $(result).each(function (idx, item) {
+                                console.log(result)
                                 $('.row.g-3.g-lg-4.list').append(
                                     `<div class="col-md-4 col-6">
                                      <div class="product-card-9">
@@ -439,7 +440,7 @@
                                             </div>
                                             <div class="hover-scale">
                                                 <div class="hover-scale-in">
-                                                    <a href="@{/ptgDetail/{ptgId}(ptgId = ${item.ptgId})}">
+                                                    <a href="/ptgDetail/${item.ptgId}">
                                                         <img class="img-fluid" src="${item.profile}" title=""
                                                             alt="사진이 뜨지않는다.." width="700" height="800">
                                                     </a>

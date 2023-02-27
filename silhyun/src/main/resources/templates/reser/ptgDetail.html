@@ -251,18 +251,19 @@
                                 </div>
                             </div>
                             <!--Portfolio-->
+                        
                             <div class="tab-pane fade" id="px_information_02" role="tabpanel" aria-labelledby="pd_information_tab_02">
                                 <div class="row">
-                                    <th:block th:each="num: ${#numbers.sequence(0,5)}">
-                                    <div class="col-lg-4">
+                                   
+                                    <div class="col-lg-4" th:each="ptgd : ${ptg}">
                                         <div class="position-relative hover-scale">
                                             <div class="hover-scale-in">
-                                               <a href="#"> <img class="w-100" th:src="${ptg[num].phoRt}" title="" alt="" style="width: 200px; height: 400px; padding: 10px;">
-                                            [[${ptg[num].phoRt}]]</a>
+                                               <a href="#"> <img class="w-100" th:src="${ptgd.phoRt}" title="" alt="" style="width: 200px; height: 400px; padding: 10px;">
+                                            [[${ptgd.phoRt}]]</a>
                                             </div>
                                         </div>
                                     </div>
-                                    </th:block>
+                                   
                                 </div>
                                 
                             </div>
