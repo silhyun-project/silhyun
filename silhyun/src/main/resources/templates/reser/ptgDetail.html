@@ -19,6 +19,7 @@
 <!-- CSS Template -->
 <link href="/css/theme.css" rel="stylesheet">
 </head>
+<!-- 사진 크기가 먹히지않는다 -->
 <style>
 
     img{
@@ -56,8 +57,8 @@
     -->
     <div class="wrapper">
         <!-- Main -->
-        <!-- <div >
-            [[${ptg}]]
+    <!--    <div >
+            [[${ptg}]]<br>
         </div> -->
         <main>
             <!-- Page Title -->
@@ -67,8 +68,8 @@
                 <div class="header-height-bar border-bottom opacity-3"></div>
                 <div class="container py-6 position-relative">
                     <div class="row align-items-center">
-                        <div class="col-lg-6 my-2" th:each="ptgd : ${ptg}">
-                            <h1 class="m-0 h4 text-center text-lg-start text-white">[[${ptgd.name}]]</h1>
+                        <div class="col-lg-6 my-2" >
+                            <h1 class="m-0 h4 text-center text-lg-start text-white">[[${ptg[0].name}]]</h1>
                         </div>
                         <div class="col-lg-6 my-2">
                             <ol class="breadcrumb breadcrumb-light m-0 small justify-content-center justify-content-lg-end">
@@ -83,7 +84,7 @@
             <!-- End Page Title -->
             <!-- Product Details -->
             <section class="product-details-02 py-6">
-                <div class="container" th:each="ptgd : ${ptg}">
+                <div class="container" >
                     <div class="row">
                         <!-- Product Gallery -->
                         <div class="col-lg-7 lightbox-gallery product-gallery"> <!--큰 사진-->
@@ -91,9 +92,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="pd-gallery-slide">
-                                            <a class="gallery-link" th:href="${ptgd.profile}"><i class="bi bi-arrows-fullscreen"></i></a>
-                                            <img th:src="${ptgd.profile}" class="img-fluid" title="" alt="">
-
+                                            <img th:src="${ptg[0].profile}" class="img-fluid" title="" alt="">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
@@ -129,43 +128,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="swiper swiper_thumb_gallery_v product-thumb"> <!--옆에 작은 사진 -->
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="pd-gallery-slide-thumb">
-                                            <img src="/img/fashion2/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="pd-gallery-slide-thumb">
-                                            <img src="/img/fashion2/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="pd-gallery-slide-thumb">
-                                            <img src="/img/fashion2/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="pd-gallery-slide-thumb">
-                                            <img src="/img/fashion2/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="pd-gallery-slide-thumb">
-                                            <img src="/img/fashion2/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="pd-gallery-slide-thumb">
-                                            <img src="/img/fashion2/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="swiper-arrow-style-03 swiper-next swiper-next-pd-details_thumb"><i class="bi bi-chevron-up"></i> </div>
-                                <div class="swiper-arrow-style-03 swiper-prev swiper-prev-pd-details_thumb"><i class="bi bi-chevron-down"></i></div>
-                            </div>
+                           
                         </div>
                         <!-- End Product Gallery -->
                         <!-- Product Details -->
@@ -173,18 +136,20 @@
                             <div class="product-detail pt-4 pt-lg-0">
                                 <div class="products-title-box">
                                     <div class="products-title" >
-                                        <h4 class="h4" >[[${ptgd.name}]]</h4>
-                                        <h6>소속 사진관</h6>
+                                        <h4 class="h4" >[[${ptg[0].name}]]</h4>
+                                        <h6 th:if="${ptg[0].stName} != null">[[${ptg[0].stName}]] 소속</h6>
+                                        <h6 th:if="${ptg[0].stName} == null">프리랜서</h6>
                                     </div>
                                     <div class="product-wishlist">
                                         <a href="#" class="btn">
                                             <i class="fi-heart"></i>
                                         </a>
+                                        <p> [[${ptg[0].zzims}]]</p>
                                     </div>
                                 </div>
                                 <div class="product-description">
-                                <p style="height: 300px;">[[${ptgd.itr}]]</p>
-                                <p>인스타그램 [[${ptgd.inst}]]s </p>
+                                <p style="height: 500px;">[[${ptg[0].itr}]]</p>
+                                <p>인스타그램 [[${ptg[0].inst}]] </p>
                                 </div>
                                
                                 <div class="product-detail-actions d-flex flex-wrap">
@@ -193,26 +158,9 @@
                                          예약하러가기 
                                         </button>
                                     </div>
-                                    <div class="ps-3">
-                                        <button class="btn btn-outline-primary">
-                                            <i class="fi-heart"></i>
-                                        </button>
-                                    </div>
                                 </div>
                                 <div class="product-metas small">
-                                    <p class="theme-link mb-2">
-                                        <label class="m-0 text-dark fw-500 w-100">Categories:</label>
-                                        <a href="#">Sunglasses</a>,
-                                        <a href="#">Winter</a>,
-                                        <a href="#">Shorts</a>,
-                                        <a href="#">Cool</a>
-                                    </p>
-                                    <p class="theme-link mb-2">
-                                        <label class="m-0 text-dark fw-500 w-100">Tags:</label>
-                                        <a href="#">Fashion</a>,
-                                        <a href="#">Women</a>,
-                                        <a href="#">Winter</a>
-                                    </p>
+                                    
                                     <p class="theme-link m-0">
                                         <label class="m-0 text-dark fw-500 w-100">Share:</label>
                                         <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
@@ -228,11 +176,6 @@
                                             <i class="bi bi-linkedin"></i>
                                         </a>
                                     </p>
-                                </div>
-                                <div class="product-info-buttons nav">
-                                    <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#px_size_chart_modal"><i class="bi bi-scissors"></i>Size guide</a>
-                                    <a href="#" class="" data-bs-toggle="modal" data-bs-target="#px_shipping_modal"><i class="bi bi-truck me-2"></i>Shipping</a>
-                                    <a href="#" class="ms-auto" data-bs-toggle="modal" data-bs-target="#px_ask_modal"><i class="bi bi-envelope ms-auto"></i>Ask about product</a>
                                 </div>
                             </div>
                         </div>
@@ -259,34 +202,38 @@
                                 <a href="#" class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab" data-bs-target="#pd_reviews_02" role="tab" aria-controls="pd_reviews_02" aria-selected="false">Reviews</a>
                             </li>
                         </ul>
+                       
                         <div class="tab-content" id="myTab_02Content">
                             <div class="tab-pane fade show active" id="pd_description_02" role="tabpanel" aria-labelledby="pd_description_tab_02">
+                                <!--Description-->
                                 <div class="row">
                                     <div class="col-lg-7 pe-lg-10">
-                                        <h5>Details Description</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <h5 class="pt-3">Sample Unordered List</h5>
-                                        <ul class="mb-5">
-                                            <li>Comodous in tempor ullamcorper miaculis</li>
-                                            <li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
-                                            <li>Divamus sit amet purus justo.</li>
-                                            <li>Proin molestie egestas orci ac suscipit risus posuere loremous</li>
-                                        </ul>
-                                        <h5>Sample Ordered Lista</h5>
-                                        <ol>
-                                            <li>Comodous in tempor ullamcorper miaculis</li>
-                                            <li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
-                                            <li>Divamus sit amet purus justo.</li>
-                                            <li>Proin molestie egestas orci ac suscipit risus posuere loremous</li>
-                                        </ol>
                                         <blockquote class="bg-gray-100 p-3 lead fw-400 mt-5 text-dark border-start border-primary border-5">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                                             <ol class="list-type-01 list-unstyled pt-2 mb-4">
+                                            <li><h5>취소 및 환불 규정</h5></li>
+                                            가. 기본 환불 규정<br>
+                                            1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.<br>
+                                            2. 섭외, 대여 등 사전 준비 도중 청약 철회 시, 해당 비용을 공제한 금액을 환불 가능합니다.<br>
+                                            3. 촬영 또는 편집 작업 착수 이후 청약 철회 시, 진행된 작업량 또는 작업 일수를 산정한 금액을 공제한 금액을 환불 가능합니다.<br>
+                                            <br>
+                                            <li><h5>환불 가이드라인</h5></li>
+                                            (1) 기획 단계에서 청약 철회: 총 결제 금액의 최대 80%까지 환불 가능<br>
+                                            (2) 작업 착수 후 청약 철회: 총 결제 금액의 최대 20%까지 환불 가능<br>
+                                            (3) 작업 50% 완료 후 청약 철회: 총 결제 금액의 최대 10%까지 환불 가능<br>
+                                            (4) 작업 100% 완료 후 청약 철회 : 환불 불가<br>
+                                            <br>
+                                            나. 전문가 책임 사유<br>
+                                            1. 소비자 피해 보상 규정에 의거하여 촬영 원본의 멸실 및 재해로 인한 피해 발생 시, 전액 환불합니다.<br>
+                                            2. 작업 기간 미준수, 작업 태만 및 이에 상응하는 전문가 책임으로 인한 청약 철회 시, 환불 및 촬영 원본 제공이 가능합니다.<br>
+                                            <br>
+                                            다. 의뢰인 책임 사유<br>
+                                            작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
+                                            </ol>
                                         </blockquote>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="pb-3">
-                                            <img src="../../assets/img/fashion/1000x1000.jpg" class="img-fluid" title="" alt="">
+                                            <img src="/img/fashion/1000x1000.jpg" class="img-fluid" title="" alt="">
                                         </div>
                                         <div class="row g-3">
                                             <div class="col-sm-6">
@@ -337,54 +284,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--Portfolio-->
                             <div class="tab-pane fade" id="px_information_02" role="tabpanel" aria-labelledby="pd_information_tab_02">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <table class="table text-sm">
-                                            <tbody>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Product #</th>
-                                                    <td class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisic elit</td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Available packaging</th>
-                                                    <td class="text-muted ">consectetur adipisic elit eiusm tempor</td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Weight</th>
-                                                    <td class="text-muted ">Ut enim ad minim venialo quis nostrud</td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Sunt in culpa qui</th>
-                                                    <td class="text-muted ">labore et dolore magna aliqua.</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <th:block th:each="num: ${#numbers.sequence(0,6)}">
+                                    <div class="col-lg-4">
+                                        <div class="position-relative hover-scale">
+                                            <div class="hover-scale-in">
+                                               <a href="#"> <img class="w-100" th:src="${ptg[num].phoRt}" title="" alt="" style="width: 300px; height: 500px;"></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <table class="table text-sm">
-                                            <tbody>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Weight</th>
-                                                    <td class="text-muted">dolor sit amet </td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Sunt in culpa qui</th>
-                                                    <td class="text-muted ">Lorem ipsum dolor sit amet </td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Product #</th>
-                                                    <td class="text-muted ">Lorem ipsum dolor sit amet </td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="fw-500 text-dark">Available packaging</th>
-                                                    <td class="text-muted ">Lorem ipsum dolor sit amet </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    </th:block>
                                 </div>
+                                
                             </div>
+                            <!--Q&A-->
                             <div class="tab-pane fade" id="pd_reviews_02" role="tabpanel" aria-labelledby="pd_reviews_tab_02">
                                 <div class="row">
                                     <div class="col-lg-8 pe-lg-8">

@@ -217,8 +217,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="size: 100px;">
-                                        <select id="selectOp" onchange="ptgList()">
+                                    <div class="dropdown btn btn-white border" style="size: 100px;">
+                                        <select id="selectOp" onchange="ptgList()" style="border: 1px solid white;">
                                             <option value="">::선택::</option>
                                             <option value="new">최신순</option>
                                             <option value="hot">인기순</option>
@@ -414,13 +414,10 @@
                     })
             }
 
-            //필터(최신순, 인기순)
+            //필터(최신순, 인기순,이름순)
             //Ajax호출
             function ptgList() {
                 var searchType = $("#selectOp").val(); //셀렉트 박스 
-                //                 let searchType = new Array();
-                //                 searchType.push(op)
-
                 console.log(searchType)
                 $.ajax({
                         url: '/AjaxPtgList/' + searchType,
@@ -460,7 +457,6 @@
                         }
                         if (searchType == 'new') {
                             makeList()
-
                         } else if (searchType == 'hot') {
                             makeList()
                         } else if (searchType == 'name') {

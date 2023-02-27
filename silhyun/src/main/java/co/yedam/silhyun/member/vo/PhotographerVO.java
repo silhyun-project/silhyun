@@ -34,6 +34,12 @@ public class PhotographerVO{
 	private String searchType;
 	private String searchWord;
 	
+	//찜 개수 
+	private String zzims;
+	
+	private String phoRt;
+	private String stName;
+	
 	
 	//조인
 	private String id;
