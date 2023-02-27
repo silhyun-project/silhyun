@@ -22,7 +22,8 @@
 <!-- 자체어쩌구-->
 <link href="/css/around.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.js"
-        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
 <!-- 자체어쩌구 -->
 </head>
 
@@ -130,12 +131,10 @@
 							<!-- 태그버튼 -->
 							<div class="shop-top-bar d-flex pb-3">
 								<div class="layout-change">
-									<!-- Mobile Toggle -->
-
-									<!-- End Mobile Toggle -->
 									<a class="btn btn-sm active" href="#" align="center"> <i
-										class="bi-hash">생기있는</i>
-									</a> &nbsp;&nbsp; <a class="btn btn-sm" href="#" width="150px">
+										class="bi-hash">안녕</i>
+									</a> &nbsp;&nbsp; 
+									<a class="btn btn-sm" href="#" width="150px">
 										<i class="bi-hash">아련한</i>
 									</a>
 								</div>
@@ -154,31 +153,14 @@
 								</div>
 							</div>
 
-
+							<!-- 사진붙이는 태그 -->
 							<div class="row g-3">
-								<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
-								<th:block th:each="portfolio : ${portfolioList}">
-									<div class="col-sm-6 col-lg-3">
-										<div class="product-card-1">
-											<div class="product-card-image">
-												<div class="badge-ribbon"></div>
-												<div class="product-action">
-													<a href="#" class="btn btn-outline-primary"> <i
-														class="fi-heart"></i>
-													</a> <a href="#" class="btn btn-outline-primary"> <i
-														class="fi-repeat"></i>
-													</a> </a>
-												</div>
-												<div class="product-media">
-													<a href="#"> <img class="img-fluid"
-														th:src="${portfolio .phoRt}" title="" alt="">
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</th:block>
-								<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
+							
+							
+							<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
+								
+								
+								<!-- 사진 자리~~ -->
 
 							</div>
 							<div class="shop-bottom-bar d-flex align-items-center mt-3">
@@ -206,34 +188,94 @@
 			<!-- End Shop -->
 		</main>
 		<!-- End Main -->
-		<!-- Footer있던자리 -->
-		<script>
+		<!-- js -->
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			const portfolio = /*[[${portfolioList}]]*/
+			/*]]>*/
+			console.log(portfolio);
+ 				
+		//첫페이지 포트폴리오 리스트			
+		StandLine(portfolio);
+		
+		//최신순 정렬
+		$("li:contains('최신순')").click(function(){
+			const recentList = portfolio.sort((a, b) => new Date(a.portDate) - new Date(b.portDate));
+		$("div.row.g-3").children().remove();	
+			StandLine(recentList);
+		});
+		
+		//조아요순 정렬
+		$("li:contains('좋아요순')").click(function(){
+			const likeList = portfolio.sort((a, b) => b.likes - a.likes)
+		$("div.row.g-3").children().remove();	
+			StandLine(likeList);
+		});
+		
+		
+		
+		//포트폴리오 사진 리스트 불러오기~
+		function StandLine(aa){
+			for(i=0; i<aa.length; i++){
+				
+				const portPhotoList = `<div class="col-sm-6 col-lg-3">
+								<div class="product-card-1">
+									<div class="product-card-image">
+										<div class="badge-ribbon"></div>
+										<div class="product-action">
+											<a href="#" class="btn btn-outline-primary"> <i
+												class="fi-heart"></i>
+											</a> <a href="#" class="btn btn-outline-primary"> <i
+												class="fi-repeat"></i>
+											</a> </a>
+										</div>
+										<div class="product-media">
+											<a href="#"> <img class="img-fluid"
+												src="`+aa[i].phoRt +`" title="" alt="">
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>`
+			$("div.row.g-3").append(portPhotoList);					
+			}
+		}
+		
+		
+		//태그선택
+		console.log($('div .layout-change').children().eq(0))
+		//태그안에 택스트
+		console.log($('div .layout-change').children().eq(0).children().text())
 	
-		let hi =`<div class="col-sm-6 col-lg-3">
-		<div class="product-card-1">
-			<div class="product-card-image">
-				<div class="badge-ribbon"></div>
-				<div class="product-action">
-					<a href="#" class="btn btn-outline-primary"> <i
-						class="fi-heart"></i>
-					</a> <a href="#" class="btn btn-outline-primary"> <i
-						class="fi-repeat"></i>
-					</a> </a>
-				</div>
-				<div class="product-media">
-					<a href="#"> <img class="img-fluid"
-						src="/img/fashion/1000x1000.jpg" title="" alt="">
-					</a>
+// 		var tagCntn= new Array();
+// 		for(i=0;i<$('div .layout-change').children().length;i++){
+ 		var tag=$('div .layout-change').children().eq(0).children().text();
+	
+// 		}
+		console.log(tagCntn)
+	
+		
+		//let list=[];
+		//list.push(tagCntn);
+		$(document).ready(function(){
+		 $.ajax({
+                        url: "/aroundTagList",
+                        type: "post",
+                        data:JSON.stringify({tagCntn: tag}),
+                        contentType: "application/json"
+                    })
+                    .then(res => {console.log(res)})
+		
+		
+		});
+ 				//$(document).ready(function(){
+		//사진정렬시켜서 붙이는 거...
+//  			});//document.ready
 
-				</div>
-			</div>
-
-		</div>
-	</div>`
 		</script>
-		<script src="/js/around.js"></script>
+		
 
-		<!-- End Footer있던자리 -->
+	<!-- js -->
 	</div>
 	<!-- 
     ========================

@@ -26,7 +26,7 @@
 		'Y'
 	</select>
 
-	<select id="AroundTagList"
+	<select id="aroundTagList"
 		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
 		select*
 		From (SELECT A.PHO_RT, A.PHO_NUM,P.*,L.likes
@@ -45,6 +45,8 @@
 		WHERE A.CTGR_NUM = P.PORT_NUM AND P.PORT_NUM=L.PORT_NUM
 		AND
 		P.UP_STA = 'Y')
+		<if test="tagCntn != null and tagCntn.length>0">
 		WHERE CNTN LIKE '%'||#{tagCntn}||'%'
+		</if>
 	</select>
 </mapper>
