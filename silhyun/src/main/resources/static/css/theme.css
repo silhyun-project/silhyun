@@ -5392,7 +5392,7 @@ textarea.form-control-lg {
     --bs-card-cap-padding-x: 1rem;
     --bs-card-cap-bg: transparent;
     --bs-card-cap-color: ;
-  --bs-card-height: ;
+  --bs-card-height:;
     --bs-card-color: ;
   --bs-card-bg: #fff;
     --bs-card-img-overlay-padding: 1rem;
@@ -26009,7 +26009,7 @@ img {
 ---------------------------*/
 .shop-top-bar .layout-change .btn {
     padding: 0;
-    width: 150px;
+    width: 38px;
     height: 38px;
     display: inline-flex;
     align-items: center;
@@ -27077,26 +27077,5 @@ img {
     left: 0;
     right: auto;
 }
-
-
-
-.single-video-area {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 60px; }
-  .single-video-area iframe {
-    width: 100%;
-    height: 600px !important;
-    border: none; }
-    @media only screen and (min-width: 992px) and (max-width: 1199px) {
-      .single-video-area iframe {
-        height: 550px !important; } }
-    @media only screen and (min-width: 768px) and (max-width: 991px) {
-      .single-video-area iframe {
-        height: 400px !important; } }
-    @media only screen and (max-width: 767px) {
-      .single-video-area iframe {
-        height: 220px !important; } }
-
 
 /*# sourceMappingURL=theme.css.map */
