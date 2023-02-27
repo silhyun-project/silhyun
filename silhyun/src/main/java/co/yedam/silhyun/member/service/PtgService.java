@@ -6,7 +6,8 @@ import java.util.Map;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 
 public interface PtgService {
-	List<PhotographerVO> getPtgLsit();
+	List<PhotographerVO> getPtgLsit(String searchType);
 	List<PhotographerVO> ptgSearchList(PhotographerVO searchWord); //다중 검색
 
+	List<PhotographerVO> getPtg(String ptgId);
 }
