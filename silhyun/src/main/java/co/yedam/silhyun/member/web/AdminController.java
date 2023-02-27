@@ -47,11 +47,10 @@ public class AdminController {
 		System.out.println("내가 보려는 거 "+id);
 		
 		int n = adminService.deleteMember(id);
-		
+
 		if(n !=0) {
 			System.out.println(id+"삭제완료");
 		}else {
-			System.out.println("삭제실패");
 		}
 		return "redirect:/admin/memberManage";
 		//test

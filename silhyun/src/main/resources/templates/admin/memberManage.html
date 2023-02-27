@@ -70,7 +70,7 @@
                                     
                                         <tr>
                                         
-         									<th><input type="checkbox" id="chkMemAll"></th>
+         									<th><input type="checkbox" id="chkMemAllBox" th:attr="onclick=|chkMemAll()|"></th>
                                             <th class="border-top-0">#</th>
                                             <th class="border-top-0">아이디</th>
                                             <th class="border-top-0">이름</th>
@@ -87,7 +87,7 @@
                                     <tbody>
                                         <tr th:each="mem,sts : ${memberList}" th:Class="${sts}">
                                         
-                                    	    <td align="center"><input type="checkbox" name="chkMem"></td>
+                                    	    <td align="center"><input type="checkbox"></td>
                                             <td th:text="${sts.count}"></td>
                                             <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
                                             <td th:text="${mem.name}" th:value="${mem.name}"></td>
@@ -101,14 +101,16 @@
                                             
                                             <td><button type="button" class="btn btn-success" style="color:white;">수정</button>
                                             &nbsp;
-                                            <!--  
+                                              
                                             <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
-                                            style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|">삭제</button></td>
-                                            -->
+                                            style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|" id="delBtn">삭제</button></td>
                                             
+                                            
+                                            <!--  
                                            <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
                                             style="color:white;" th:onclick="|location.href='@{/deleteMember(id=${mem.id})}'|">삭제</button></td>
-                                            
+                                            -->
+                                   
                                         
                                         </tr>
                                     </tbody>
@@ -208,8 +210,8 @@
                         <div class="white-box">
                             <div>
                             <span>
-                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가" th:attr="onclick=|openPtgList()|">
-  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관" th:attr="onclick=|openStdList()|">
+                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가" th:attr="onclick=|openPtgList()|">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="사진관" th:attr="onclick=|openStdList()|">
                             </span>
                             <br>
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
@@ -298,11 +300,36 @@
 	    };
 	
 	    
-//단건 삭제버튼 	    
-
-
-
+//단건 삭제버튼. id값만 넘기면서 페이지 새로고침
 	    function deleteMember(id){
+	
+			var id= id;
+	    	if(confirm(id+"님을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
+		
+		location.replace('/deleteMember?id='+id); 
+		console.log("넘어감");
+	    	}else{
+	    		alert("취소되었습니다.");
+	    	}
+
+	    };
+
+//다건 삭제버튼
+
+		function chkMemAll(){
+         if($("#chkMemAllBox").prop("checked")){
+        	 console.log("클릭은 됨")
+            $("input[type=checkbox]").prop("checked",true); 
+        }else{
+            $("input[type=checkbox]").prop("checked",false); 
+        }
+    };
+
+
+
+
+
+	    function deleteMember2(id){
 	    	var id = id;
 	    	if(confirm(id+"님을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
 	$.ajax({
@@ -321,6 +348,7 @@
 	    	}
 
 	    };
+
 </script>
     </div>
 </body>
