@@ -25,5 +25,5 @@ public interface AdminMapper {
 	
 	List<MemberVO> todayStd();
 	
-	int deleteMember(MemberVO vo);
+	int deleteMember(String id);
 }

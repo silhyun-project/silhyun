@@ -18,7 +18,6 @@
         </div>
 
         <!-- 테이블 시작 -->
-        <form id="memberFrm" method="post">
         <div id="memberList">
             <div class="container-fluid">
                 <div class="row">
@@ -60,6 +59,8 @@
                             <br>
                             <hr>
                             <!-- 회원 관리 본문 -->
+                            
+                                    <form id="memberFrm" method="post" action="/deleteMember">
                             <div class="table-responsive">
                                 <!-- 회원 테이블 -->
                            <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|deleteSelectMember()|">선택삭제</button>
@@ -88,7 +89,7 @@
                                         
                                     	    <td align="center"><input type="checkbox" name="chkMem"></td>
                                             <td th:text="${sts.count}"></td>
-                                            <td th:text="${mem.id}" th:value="${mem.id}" th:id="id" th:name="id"></td>
+                                            <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
                                             <td th:text="${mem.name}" th:value="${mem.name}"></td>
                                             <td th:text="${mem.email}" th:value="${mem.email}"></td>
                                             <td th:text="${mem.tel}" th:value="${mem.tel}"></td>
@@ -100,18 +101,27 @@
                                             
                                             <td><button type="button" class="btn btn-success" style="color:white;">수정</button>
                                             &nbsp;
+                                            <!--  
                                             <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
                                             style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|">삭제</button></td>
+                                            -->
+                                            
+                                           <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
+                                            style="color:white;" th:onclick="|location.href='@{/deleteMember(id=${mem.id})}'|";>삭제</button></td>
+                                            
+                                        
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            </form>
+                            
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</form>
 
         <!-- 기록가 테이블  -->
         <div id="ptgTable">
@@ -272,6 +282,8 @@
         </div>
         
 <script th:inline="javascript">
+
+//클릭으로 테이블 보이기 여부 
 		const ptgTable = document.getElementById("ptgTable");
 	    const stdTable = document.getElementById("stdTable");
 	    
@@ -286,20 +298,29 @@
 	    };
 	
 	    
+//단건 삭제버튼 	    
+
+
+
 	    function deleteMember(id){
 	    	var id = id;
-	    	var str = $('#memberFrm').serialize();
-	    	console.log('str: '+ str);
 	    	if(confirm(id+"님을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
+	$.ajax({
+		url: "/deleteMember",
+		data: 'id=' + id,
+		type: "post",
+		success: function(data){
 	      		alert("정상적으로 삭제됐습니다.");
-	    		memberFrm.action = "/admin/deleteMember";
+		},
+		error: function(){
+			alert("에러")
+		}
+	});           
 	    	}else{
-	    		console.log("html에서 실행안됐음");
+	    		alert("취소되었습니다.");
 	    	}
-	    	memberFrm.submit();
 
-	    }
-	    ;
+	    };
 </script>
     </div>
 </body>

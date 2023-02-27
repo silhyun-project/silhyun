@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import co.yedam.silhyun.member.service.AdminSercive;
@@ -38,18 +41,19 @@ public class AdminController {
 		return "/admin/memberManage";
 	}
 	
-	@PostMapping("/admin/deleteMember")
-	public String deleteMember(MemberVO vo, Model model) {
-		System.out.println("내가 보려는 거 "+vo);
-		System.out.println("내가 보려는 거 "+model);
+	//@ResponseBody
+	@RequestMapping("/deleteMember")
+	public String deleteMember(String id) {
+		System.out.println("내가 보려는 거 "+id);
 		
-//		int n = adminService.deleteMember(vo);
-//		if(n !=0) {
-//			System.out.println(vo+"삭제완료");
-//		}else {
-//			System.out.println("삭제실패");
-//		}
-		return memberManage(model);
+		int n = adminService.deleteMember(id);
+		
+		if(n !=0) {
+			System.out.println(id+"삭제완료");
+		}else {
+			System.out.println("삭제실패");
+		}
+		return "redirect:/admin/memberManage";
 		//test
 	}
 	

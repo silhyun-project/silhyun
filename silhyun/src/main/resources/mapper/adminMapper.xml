@@ -55,8 +55,8 @@
 	</select>
 
 <!-- 삭제 -->
-
-	<delete id="deleteMember">
+<!-- 단건 삭제 -->
+	<delete id="deleteMember" parameterType="String">
 		DELETE from member
 		where id = #{id }
 	</delete>	
@@ -75,5 +75,22 @@
 	<if test="key == 'point'">WHERE point_sum >= #{val } order by point_sum DESC</if>
 	<if test="key == 'code'">WHERE mem_cd LIKE '%'||#{val }||'%'</if>
 </select>
+
+
+<!-- 수정 -->
+<update id="updateAdmin">
+
+	UPDATE MEMBER
+	<set>
+	<if test="noticeDate != null">NOTICE_DATE = #{noticeDate },</if>
+	<if test="noticeTitle != null">NOTICE_TITLE = #{noticeTitle },</if>
+	<if test="noticeSubject != null">NOTICE_SUBJECT = #{noticeSubject },</if>
+	<if test="noticeFile != null">NOTICE_FILE = #{noticeFile },</if>
+	<if test="noticeFileDir != null">NOTICE_FILE_DIR = #{noticeFileDir }</if>
+	</set>
+	WHERE mem_cd = 'M0' 
+
+</update>
+
 
 </mapper>

@@ -58,8 +58,8 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public int deleteMember(MemberVO vo) {
-		return adminMapper.deleteMember(vo);
+	public int deleteMember(String id) {
+		return adminMapper.deleteMember(id);
 	}
 	
 }

@@ -26,6 +26,6 @@ public interface AdminSercive {
 	
 	List<MemberVO> todayStd();
 	
-	int deleteMember(MemberVO vo);
+	int deleteMember(String id);
 
 }
