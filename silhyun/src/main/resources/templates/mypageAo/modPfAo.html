@@ -38,10 +38,19 @@
 					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
+							<!-- 프로필 사진 바꾸기 모달  -->
+							<div class="modalImage" onclick="modalImage()">
 								<div class="avatar avatar-lg rounded-circle">
-									<img src="../../assets/img/avatar/1000x1000.jpg" title=""
+									<img src="/img/avatar/1000x1000.jpg" title=""
 										alt="">
 								</div>
+							</div>
+							<div class="modal">
+								<p>프로필 사진 바꾸기</p>
+								<button onclick="profileImageUpload()">사진 업로드</button>
+								<button onclick="closePopup('.modalImage')">취소</button>
+							</div>	
+							<!-- 프로필 사진 바꾸기 모달 끝 -->				
 								<div class="col ps-3">
 									<h6 class="m-0">닉네임</h6>
 									<small><a href="#">이름</a></small>
@@ -105,9 +114,8 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6 mb-3">
-										<label for="formFile" class="form-label">Change
-											Profile Photo</label> <input class="form-control" type="file"
-											id="formFile">
+										<label ></label> 
+										<input class="form-control" type="file" id="userProfileImageInput">
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">아이디<span class="text-danger">*</span></label>
