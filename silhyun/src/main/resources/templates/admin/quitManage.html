@@ -58,51 +58,36 @@
 	
 	               <br>
 					<hr>
-   
-                            
+
                             <div class="table-responsive">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">#번호</th>
-
                                             <th class="border-top-0">멤버아이디</th>
                                             <th class="border-top-0">탈퇴일자</th>
                                             <th class="border-top-0">탈퇴사유</th>
                                             <th class="border-top-0">탈퇴상세사유</th>
-
-                                            <th class="border-top-0">아이디</th>
-                                            <th class="border-top-0">탈퇴일</th>
-                                            <th class="border-top-0">탈퇴사유</th>
-                                            <th class="border-top-0">상세사유</th>
-       
-                               </tr>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-
                                            <tr th:each="qt,sts : ${qtList}" th:Class="${sts}">                                
                                             <td th:text="${sts.count}"></td>    
                                             <td th:text="${qt.Id}"></td>
                                             <td th:text="${qt.quitDate}"></td>
                                             <td th:text="${qt.quitCd}"></td>
                                             <td th:text="${qt.detaResn}"></td>
-                                        </tr>
-
-                                            <td>1</td>
-                                            <td>IDD</td>
-                                            <td>2023/01/01</td>
-                                            <td>기록삭제</td>
-                                            <td>기록을 남기고 싶지 않아</td>
+                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button></td>
+                                            <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
                                             <td>IDD</td>
                                             <td>2023/01/01</td>
-                                            <td>이용장애</td>
-                                            <td>로딩 한세월</td>
+                                            <td>기록삭제</td>
+                                            <td>기록을 남기고 싶지 않아</td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -110,7 +95,9 @@
                     </div>
                 </div>
                       </div>
-
+                                      <!-- ============================================================== -->
+                <!-- PRODUCTS YEARLY SALES -->
+                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="white-box">

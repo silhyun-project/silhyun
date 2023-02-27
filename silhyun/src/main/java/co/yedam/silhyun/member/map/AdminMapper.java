@@ -14,6 +14,16 @@ public interface AdminMapper {
 	List<PhotographerVO> ptgList();
 	
 	List<StudioVO> stdList();
+
+	MemberVO adminInfo();
 	
 	List<QuitVO> qtList();
+	
+	List<MemberVO> todayMem();
+	
+	List<MemberVO> todayPtg();
+	
+	List<MemberVO> todayStd();
+	
+	int deleteMember(MemberVO vo);
 }

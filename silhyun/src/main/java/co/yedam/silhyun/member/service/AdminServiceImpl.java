@@ -30,14 +30,36 @@ public class AdminServiceImpl implements AdminSercive {
 
 	@Override
 	public List<StudioVO> stdList() {
-		// TODO Auto-generated method stub
 		return adminMapper.stdList();
 	}
 
 	@Override
+	public MemberVO adminInfo() {
+		return adminMapper.adminInfo();
+	}
+	
 	public List<QuitVO> qtList() {
-		// TODO Auto-generated method stub
 		return adminMapper.qtList();
+	}
+
+	@Override
+	public List<MemberVO> todayMem() {
+		return adminMapper.todayMem();
+	}
+
+	@Override
+	public List<MemberVO> todayPtg() {
+		return adminMapper.todayPtg();
+	}
+
+	@Override
+	public List<MemberVO> todayStd() {
+		return adminMapper.todayStd();
+	}
+
+	@Override
+	public int deleteMember(MemberVO vo) {
+		return adminMapper.deleteMember(vo);
 	}
 	
 }
