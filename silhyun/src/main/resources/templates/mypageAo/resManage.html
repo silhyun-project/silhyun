@@ -20,7 +20,8 @@
 <!-- CSS Template -->
 <link href="/css/theme.css" rel="stylesheet">
 <!-- modal -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -95,7 +96,7 @@
 	<!-- Main -->
 	<main layout:fragment="content">
 
-	
+
 		<!-- Breadcrumb -->
 		<div class="py-3 bg-gray-100">
 			<div class="container">
@@ -187,7 +188,8 @@
 					</div> -->
 					<div class="col-lg-8 col-xxl-9">
 						<button type="button" class="btn btn-primary"
-							data-bs-toggle="modal" data-bs-target="#workOption">옵션 설정</button>
+							data-bs-toggle="modal" data-bs-target="#workOption">옵션
+							설정</button>
 						<br> <br>
 						<!-- 모달 -->
 						<div class="modal fade" id="workOption">
@@ -204,32 +206,33 @@
 										<div class="w-100 p-3">
 											<!-- Form START -->
 											<form>
-											<!-- let opNum=document.getElementById('optionSet').value; -->
-											<div class="mb-3">
+												<!-- let opNum=document.getElementById('optionSet').value; -->
+												<div class="mb-3">
 													<label class="form-label" for="optset">옵션 추가</label>
-													<button type="button" class="optionSet" id="optionSet" onclick="makeTr()">+</button>
+													<button type="button" class="optionSet" id="optionSet"
+														onclick="makeTr()">+</button>
 												</div>
-											<!-- 	<table> -->
+												<!-- 	<table> -->
 												<table>
 													<tr>
-													<th>옵션 이름</th>
-													<td> <input type="text" class="form-control" id="ttl" placeholder="ex)앨범"></td>
+														<th>옵션 이름</th>
+														<td><input type="text" class="form-control" id="ttl"
+															placeholder="ex)앨범"></td>
 													</tr>
 													<tr>
-													<th>옵션 내용</th> 
-													<td> <input type="text" class="form-control"
-														id="cntn"
-														placeholder="ex)사진을 특수 제작한 앨범에 넣어드립니다"></td>
+														<th>옵션 내용</th>
+														<td><input type="text" class="form-control" id="cntn"
+															placeholder="ex)사진을 특수 제작한 앨범에 넣어드립니다"></td>
 													</tr>
 													<tr>
-													<th>가격</th>
-													<td><input type="text" class="form-control"
-														id="pri" placeholder="ex)5000"></td>
+														<th>가격</th>
+														<td><input type="text" class="form-control" id="pri"
+															placeholder="ex)5000"></td>
 													</tr>
 												</table>
-												
-<!--========================================================  -->
-												
+
+												<!--========================================================  -->
+
 
 												<div class="row align-items-center">
 													<div class="col-sm-4">
@@ -252,33 +255,33 @@
 
 
 						<div class="table-responsive fs-md mb-4">
-							<table class="table table-bordered table-hover mb-0">
-								<thead class="text-700 bg-gray-200">
-									<tr>
-										<th class="fw-600">번호</th>
-										<th class="fw-600">예약자</th>
-										<th class="fw-600">옵션</th>
-										<th class="fw-600">장소</th>
-										<th class="fw-600">예약일자/시간</th>
-										<th class="fw-600">예약상태</th>
-										<th class="fw-600 ">대표사진등록</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="p-3"><span class="fw-500">Order is not
-												delivered</span></td>
-										<td class="p-3">May 21, 2021</td>
-										<td class="p-3">Delivered</td>
-										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
-										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
-										<td class="p-3 text-end"><span class="btn btn-mini">취소</span></td>
-										<td class="p-3 text-end"><span class="btn btn-mini">사진등록</span></td>
-
-									</tr>
-
-								</tbody>
-							</table>
+							<div th:each="resL : ${resList}">
+								<table class="table table-bordered table-hover mb-0">
+									<thead class="text-700 bg-gray-200">
+										<tr>
+											<th class="fw-600">번호</th>
+											<th class="fw-600">예약자</th>
+											<th class="fw-600">옵션번호</th>
+											<th class="fw-600">촬영날짜</th>
+											<th class="fw-600">예약금액</th>
+											<th class="fw-600">예약상태</th>
+											<th class="fw-600 ">대표사진등록</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="p-3" th:text="${resL.resNum}"/>
+											<td class="p-3" th:text="${resL.id}"/>
+											<td class="p-3"th:text="${resL.resCd}"/>
+											<td class="p-3" th:text="${resL.regiDate}"/>
+											<td class="p-3" th:text="${resL.resPri}"/>
+											<td class="p-3" th:text="${resL.resSta}"/>
+											<td class="p-3"><input type="button" value="사진등록"></td>
+											
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 						<div class="d-flex align-items-center mt-3">
 
@@ -303,7 +306,7 @@
 		</div>
 		<!--Table -->
 		<!--스크립트  -->
-			<script>
+		<script>
 	 function makeTr(obj ={}){
 		/*  let tr = $('<tr />').append(
 				 $('<td />').text(obj.opNum),
