@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.common.map.ReviewMapper">
+<select id="reviewList" resultType="co.yedam.silhyun.common.vo.ReviewVO">
+	SELECT * FROM REVIEW
+	ORDER BY REV_NUM DESC
+</select>
+
+<select id="reviewSelect" resultType="co.yedam.silhyun.common.vo.ReviewVO">
+	SELECT * 
+	FROM REVIEW
+	WHERE REV_NUM = #{revNum}
+</select>
+<update id="reviewHitUpdate">
+	update review 
+	set hit = hit + 1 
+	where rev_num = #{num}
+</update>
+<insert id="reviewInsert">
+		<selectKey keyProperty="revNum" resultType="String" order="BEFORE">
+			SELECT 
+				nvl(MAX(to_number(rev_num)), 0) + 1 END AS "revNum"
+			FROM review
+		</selectKey>
+		insert into review
+		values(#{revNum}, #{ctgr}, #{ctgrNum}, #{id}, #{star}, #{cntn}, #{revDate}, 0}
+</insert>
+<update id="reviewUpdate">
+	update review
+	<set>
+	<if test="star != null">star = #{star},</if>
+	<if test="cntn != null">cntn = #{cntn}</if>
+	</set>
+	where rev_num = #{revNum}
+</update>
+<delete id="reviewDelete">
+	delete from review
+	where rev_num = #{revNum}
+</delete>
+</mapper>

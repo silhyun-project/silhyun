@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.AdminMapper">
 
+<!-- 리스트 보여주기 -->
 	<select id="memberList" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
 		select * 
 		from member
@@ -19,5 +20,77 @@
 		from studio
 		order by regi_date
 	</select>
+
+	<select id="adminInfo" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
+		select * from member
+		where mem_cd = 'M0'
+	</select>
+	
+	<select id="qtList" parameterType="QuitVO" resultType="co.yedam.silhyun.mypage.vo.QuitVO">
+		select *
+		from quit
+		order by quit_date
+	</select>
+	
+<!-- 신규 보여주기 -->
+	<select id="todayMem" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
+		select * 
+		from member
+		where to_char(join_date,'YY/MM/DD') = to_char(SYSDATE,'YY/MM/DD')
+		order by join_date
+	</select>
+	
+	<select id="todayPtg" parameterType="PhotographerVO" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		select * 
+		from photographer
+		where to_char(regi_date,'YY/MM/DD') = to_char(SYSDATE,'YY/MM/DD')
+		order by accp_date
+	</select>
+	
+	<select id="todayStd" parameterType="StudioVO" resultType="co.yedam.silhyun.member.vo.StudioVO">
+		select * 
+		from studio
+		where to_char(regi_date,'YY/MM/DD') = to_char(SYSDATE,'YY/MM/DD')
+		order by accp_date
+	</select>
+
+<!-- 삭제 -->
+<!-- 단건 삭제 -->
+	<delete id="deleteMember" parameterType="String">
+		DELETE from member
+		where id = #{id }
+	</delete>	
+	
+<!-- 조건으로 다중검색 -->
+<select id="searchMember" resultType="co.yedam.silhyun.member.vo.MemberVO">
+	SELECT * FROM MEMBER
+	<if test="key == 'all'">WHERE 1 = 1</if>
+	<if test="key == 'id'">WHERE id LIKE '%'||#{val }||'%'</if>
+	<if test="key == 'name'">WHERE name LIKE '%'||#{val }||'%'</if>
+	<if test="key == 'email'">WHERE email LIKE '%'||#{val }||'%'</if>
+	<if test="key == 'tel'">WHERE tel LIKE '%'||#{val }||'%'</if>
+	<if test="key == 'joinDate'">WHERE join_date LIKE '%'||#{val }||'%'</if>
+	<if test="key == 'birthDate'">WHERE birth_date LIKE '%'||#{val }||'%'</if>
+	<if test="key == 'gender">WHERE gen_cd '%'||#{val }||'%'</if>
+	<if test="key == 'point'">WHERE point_sum >= #{val } order by point_sum DESC</if>
+	<if test="key == 'code'">WHERE mem_cd LIKE '%'||#{val }||'%'</if>
+</select>
+
+
+<!-- 수정 -->
+<update id="updateAdmin">
+
+	UPDATE MEMBER
+	<set>
+	<if test="noticeDate != null">NOTICE_DATE = #{noticeDate },</if>
+	<if test="noticeTitle != null">NOTICE_TITLE = #{noticeTitle },</if>
+	<if test="noticeSubject != null">NOTICE_SUBJECT = #{noticeSubject },</if>
+	<if test="noticeFile != null">NOTICE_FILE = #{noticeFile },</if>
+	<if test="noticeFileDir != null">NOTICE_FILE_DIR = #{noticeFileDir }</if>
+	</set>
+	WHERE mem_cd = 'M0' 
+
+</update>
+
 
 </mapper>
