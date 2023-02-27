@@ -221,7 +221,7 @@
                                         <select id="selectOp" onchange="ptgList()" style="border: 1px solid white;">
                                             <option value="">::선택::</option>
                                             <option value="new">최신순</option>
-                                            <option value="hot">인기순</option>
+                                            <option value="hot" selected>인기순</option>
                                             <option value="name">이름순</option>
                                         </select>
                                     </div>
@@ -338,7 +338,7 @@
                     rgTextAry.push(rgText);
 
                 });
-                console.log(rgTextAry)
+                
                 $("lavel")
                 $("input[name='field']:checked").each(function () {
                     var fldVal = $(this).val();
@@ -359,6 +359,8 @@
                 //                     alert("분야을 선택해주시기 바랍니다.")
                 //                     return;
                 //                 }
+                console.log(chkArray)
+                console.log(chkfldArray)
                 $.ajax({
                         url: "/searchPtgList",
                         type: "post",
@@ -390,7 +392,7 @@
                                             </div>
                                             <div class="hover-scale">
                                                 <div class="hover-scale-in">
-                                                    <a href="#">
+                                                    <a href="@{/ptgDetail/{ptgId}(ptgId = ${item.ptgId})}">
                                                         <img class="img-fluid" src="${item.profile}" title=""
                                                             alt="사진이 뜨지않는다.." width="700" height="800">
                                                     </a>
@@ -437,7 +439,7 @@
                                             </div>
                                             <div class="hover-scale">
                                                 <div class="hover-scale-in">
-                                                    <a href="#">
+                                                    <a href="@{/ptgDetail/{ptgId}(ptgId = ${item.ptgId})}">
                                                         <img class="img-fluid" src="${item.profile}" title=""
                                                             alt="사진이 뜨지않는다.." width="700" height="800">
                                                     </a>
