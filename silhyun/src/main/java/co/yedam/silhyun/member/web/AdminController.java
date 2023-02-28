@@ -1,14 +1,15 @@
 package co.yedam.silhyun.member.web;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import co.yedam.silhyun.member.service.AdminSercive;
 import co.yedam.silhyun.member.vo.MemberVO;
@@ -41,7 +42,7 @@ public class AdminController {
 		return "/admin/memberManage";
 	}
 	
-	//@ResponseBody
+	//멤버 삭제 단건
 	@RequestMapping("/deleteMember")
 	public String deleteMember(String id) {
 		System.out.println("내가 보려는 거 "+id);
@@ -50,11 +51,15 @@ public class AdminController {
 
 		if(n !=0) {
 			System.out.println(id+"삭제완료");
+			adminService.insertQuitMember(id);
+			System.out.println(id+"탈퇴등록완료");
 		}else {
 		}
 		return "redirect:/admin/memberManage";
 		//test
 	}
+	
+	
 	
 	@GetMapping("/admin/orderManage")
 	public String orderManage() {

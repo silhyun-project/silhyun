@@ -52,8 +52,8 @@
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>이름</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text"
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.name }" th:name="name" th:readonly="true">
+                                            <input type="text" id="updateEl"
+                                                class="form-control p-0 border-0 updateEl" data-th-value="${adminInfo.name }" th:name="name" th:readonly="true">
                               				</div>
                                     </div>
                                        <div class="form-group mb-4">
@@ -65,22 +65,22 @@
                                     <div class="form-group mb-4">
                                         <label for="example-email" class="col-md-12 p-0"><b>Email</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" 
+                                            <input type="email" id="updateEl"
                                                 class="form-control p-0 border-0" name="example-email"
-                                                id="example-email" data-th-value="${adminInfo.email }" th:name="email" th:readonly="true">
+                                                 data-th-value="${adminInfo.email }" th:name="email" th:readonly="true">
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>비밀번호</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="password" value="password" class="form-control p-0 border-0"
-                                            data-th-value="${adminInfo.pwd }" th:name="pwd" th:readonly="true">
+                                            <input type="password" value="password" id="updateEl"
+                                            class="form-control p-0 border-0" data-th-value="${adminInfo.pwd }" th:name="pwd" th:readonly="true">
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>TEL</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text"
+                                            <input type="text" id="updateEl"
                                                 class="form-control p-0 border-0" data-th-value="${adminInfo.tel }" th:name="tel" th:readonly="true">
                                         </div>
                                     </div>
@@ -99,14 +99,15 @@
                                                                         <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>성별</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" 
+                                            <input type="text" id="updateEl"
                                                 class="form-control p-0 border-0" data-th-value="${adminInfo.genCd }" th:name="genCd" th:readonly="true"> </div>
                                     </div>
 
 
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success" type="button" th:onclick="updateAdminFrm()">수정</button>
+                                            <button class="btn btn-success" type="button" id ="updateBtn" th:onclick="updateAdminFrm()">수정</button>
+                                        
                                         </div>
                                     </div>
                                 </form>
@@ -116,6 +117,46 @@
                     <!-- Column -->
                 </div>
                 <!-- Row -->
+                <div class="modal fade" id="topbarlogin">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <div class="modal-title p-3">
+                    <h5 class="m-0 text-white">Sign in to your account!</h5>
+                    <p class="m-0 text-white">Nice to see you! Please log in with your account.</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="w-100 p-3">
+                    <!-- Form START -->
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label" for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="*********">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">keep me signed in</label>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-sm-4">
+                                <button type="submit" class="btn btn-dark">Login</button>
+                            </div>
+                            <div class="col-sm-8 text-sm-end">
+                                <span class="text-muted">Don't have an account? <a href="sign-up.html">Signup here</a></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -130,10 +171,12 @@
             <script th:inline="javascript">
             function updateAdminFrm(){
             	const input = document.getElementsByTagName('input');
-            	if(input.readonly=true){
+            	if($("input[id*='updateEl']").readonly=true){
             	alert("실행은 됏음")
-            	input.attr('readonly',false);
+            	$("input[id*='updateEl']").attr('readonly',false);
             	}
+            	const updateBtn = document.getElementById("updateBtn");
+            	updateBtn.innerText = '변경완료';
             		
             }
             </script>
