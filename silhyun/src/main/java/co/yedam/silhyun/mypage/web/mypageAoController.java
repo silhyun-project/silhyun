@@ -12,7 +12,7 @@ public class mypageAoController {
 	@Autowired
 	private MypageAoService mypageAoService;
 	
-	@GetMapping("/mypageAo")
+	@GetMapping(" /photo/mypageAo")
 	public String mypageAo() {
 		return "mypageAo/mypageAo";
 	}
