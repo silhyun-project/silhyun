@@ -19,7 +19,8 @@ public class CommonController {
 	@Autowired PageTestService pService;
 	
 	@GetMapping("/reviewList")
-	public String reviewList(Criteria cri, Model model) {
+	public String reviewList(Criteria cri, ReviewVO vo, Model model) {
+		cri.setAmount(5);
 		model.addAttribute("list", pService.getListReview(cri));
 		model.addAttribute("page", new PageVO(pService.getTotalCount(cri), 10, cri));
 		return "home/pagingTest";
@@ -27,6 +28,7 @@ public class CommonController {
 	
 	@GetMapping("/list")
 	public String list(Criteria cri, Model model) {
+		cri.setAmount(5);
 		model.addAttribute("list", pService.getListReview(cri));
 		model.addAttribute("page", new PageVO(pService.getTotalCount(cri), 10, cri));
 		return "home/ajaxPagingTest";
@@ -34,6 +36,7 @@ public class CommonController {
 
 	@GetMapping("/ajaxList")
 	public String ajaxList(Criteria cri, Model model) {
+		cri.setAmount(5);
 		model.addAttribute("list", pService.getListReview(cri));
 		model.addAttribute("page", new PageVO(pService.getTotalCount(cri), 10, cri));
 		return "home/pagingTest";

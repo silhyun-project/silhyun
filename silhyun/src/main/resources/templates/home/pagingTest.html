@@ -72,7 +72,7 @@
 	</form>
 </div>
 <div class="container">
-	<form id="searchFrm" action="/reviewList" th:object="${page}">
+	<form id="searchFrm" action="reviewList" th:object="${page}">
 		<select name="type">
 			<option value="CW" th:selected="*{criteria.type == 'CW'}">전체</option>
 			<option value="C" th:selected="*{criteria.type == 'C'}">내용</option>

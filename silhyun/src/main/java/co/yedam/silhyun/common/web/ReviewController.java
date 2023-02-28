@@ -15,17 +15,17 @@ public class ReviewController {
 	
 	@Autowired ReviewService rService;
 	
-	@GetMapping("/review/form")
+	@GetMapping("silhyun/reviewform")
 	public String reviewForm() {
 		return "review/reviewForm";
 	}
 
-	@GetMapping("/review")
+	@GetMapping("silhyun/review")
 	public String test() {
 		return "review/test";
 	}
 	
-	@PostMapping("/review")
+	@PostMapping("silhyun/review")
 	public String reviewInsert(ReviewVO vo) {
 		vo.setCtgr("A");
 		rService.reviewInsert(vo);
