@@ -45,18 +45,18 @@
 		<ul class="list-unstyled pt-4">
 			<li class="media d-flex">
 				<div class="avatar rounded-circle">
-					<img class="img-fluid" src="../../assets/img/pages/1000x1000.jpg"
-						title="" alt="">
 				</div>
-				<div class="col ps-3">
-					<h6 class="mt-0 mb-1">{댓글작성자}</h6>
-					<label class="mb-2 small">{작성시간(몇분전)}</label>
-					<p>{댓글 내용}</p>
+				<div class="col ps-3" th:each="comm : ${CommentList}">
+				<div id="commentBox">
+					<h6 class="mt-0 mb-1" th:text=${comm.id}></h6>
+					<label class="mb-2 small" th:text="${#dates.format(com_date, 'yyyy-MM-dd hh:mm')}"></label>
+					<p th:text=${comm.cntn}></p>
 					<div class="nav dark-link small">
 						<a class="ms-3" href="#"> 답글 달기
 						</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
 						<button id="btn1" style="border:none; background-color: white;">
 						답글 보기</button>
+					</div>
 					</div>
 					<div id="popup" style="display:none;">
 					<ul class="list-unstyled mt-5 pt-5 border-top">
@@ -65,25 +65,7 @@
 								<img class="img-fluid"
 									src="../../assets/img/pages/1000x1000.jpg" title="" alt="">
 							</div>
-							<div class="col ps-3">
-								<h6 class="mt-0 mb-1">{답글작성자}</h6>
-								<label class="mb-2 small">{작성시간(몇분전)}</label>
-								<p>{댓글 내용}</p>
-								<div class="nav dark-link small">
-									<a class="ms-3" href="#"> <i class="bi bi-reply"></i>
-										답글 달기
-									</a>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<ul class="list-unstyled mt-5 pt-5 border-top">
-						<li class="media d-flex">
-							<div class="avatar rounded-circle">
-								<img class="img-fluid"
-									src="../../assets/img/pages/1000x1000.jpg" title="" alt="">
-							</div>
-							<div class="col ps-3">
+							<div class="col ps-3" id="replyBox">
 								<h6 class="mt-0 mb-1">{답글작성자}</h6>
 								<label class="mb-2 small">{작성시간(몇분전)}</label>
 								<p>{댓글 내용}</p>
@@ -101,16 +83,14 @@
 		</ul>
 	</div>
 	<div class="mt-8 border p-4">
-		<h4 class="mb-4">댓글을 남겨주세요</h4>
 		<form method="post">
 			<div class="row">
 
 				<div class="col-12">
 					<div class="form-group mb-3">
-						<label class="form-label rd-input-label" for="contact-message">당신의
-							댓글</label>
+						<label class="form-label rd-input-label" for="contact-message">당신의 댓글 : </label>							
 						<textarea class="form-control" id="contact-message" name="message"
-							style="height: 50px"></textarea>
+							style="height: 50px" placeholder="댓글 작성해주세요"></textarea>
 					</div>
 				</div>
 				<div class="col-12">
@@ -152,21 +132,24 @@
 	<!-- End script start -->
 	
 	<script>
+		// 답글목록 숨기기
 		$(document).ready(function(){
-			isShow = false; //변수 하나를 설정, 화면에 보이면 true, 보이지 않으면 false;
+			isShow = false; //기본값으로 안보이기 false
 			$('#btn1').click(function(){
 			if(isShow){ //보이니까 숨기고
 		    		isShow = false;
-		    		$('#popup').hide();		//요소를 안보이게 한다.
-		        	$('#btn1').text('답글 보기');
+		    		$('#popup').hide();		
+		        	$('#btn1').text('답글 보기'); //버튼 텍스트 변환
 		    	}else{	//안보이니까 보이게 한다
 		    		isShow = true;
 				$('#popup').show();		//요소를 보이게 한다
-		        	$('#btn1').text('답글 숨기기');
+		        	$('#btn1').text('답글 숨기기'); //버튼 텍스트 변환
 		    	}
 			})
 		})
-</script>
+
+		
+	</script>
 	
 	</div>
 </body>
