@@ -25,9 +25,11 @@
  
  			select * 
  			from review
+ 			
  			where
 			<include refid="criteria"></include>
 			rev_num > 0
+			
  			order by rev_num
  			
 	<![CDATA[	
@@ -38,6 +40,7 @@
 <select id="getTotalCount" resultType="int">
 	select count(*) 
 	from review
+	
 	where
 	<include refid="criteria"></include>
 	rev_num > 0
