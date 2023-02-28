@@ -34,7 +34,7 @@
 <!-- title -->
 <title>ShopApp - eCommerce Bootstrap 5 Template</title>
 <!-- Favicon -->
-<link rel="shortcut icon" href="../../assets/img/favicon.ico">
+<link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
 <link href="/css/theme.css" rel="stylesheet">
 </head>
@@ -45,6 +45,11 @@
 		<ul class="list-unstyled pt-4">
 			<li class="media d-flex">
 				<div class="avatar rounded-circle">
+<<<<<<< HEAD
+=======
+					<img class="img-fluid" src="/img/pages/1000x1000.jpg"
+						title="" alt="">
+>>>>>>> branch 'main' of https://github.com/silhyun-project/silhyun.git
 				</div>
 				<div class="col ps-3" th:each="comm : ${CommentList}">
 				<div id="commentBox">
@@ -63,9 +68,28 @@
 						<li class="media d-flex">
 							<div class="avatar rounded-circle">
 								<img class="img-fluid"
-									src="../../assets/img/pages/1000x1000.jpg" title="" alt="">
+									src="/img/pages/1000x1000.jpg" title="" alt="">
 							</div>
-							<div class="col ps-3" id="replyBox">
+
+							<div class="col ps-3">
+								<h6 class="mt-0 mb-1">{답글작성자}</h6>
+								<label class="mb-2 small">{작성시간(몇분전)}</label>
+								<p>{댓글 내용}</p>
+								<div class="nav dark-link small">
+									<a class="ms-3" href="#"> <i class="bi bi-reply"></i>
+										답글 달기
+									</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="list-unstyled mt-5 pt-5 border-top">
+						<li class="media d-flex">
+							<div class="avatar rounded-circle">
+								<img class="img-fluid"
+									src="/img/pages/1000x1000.jpg" title="" alt="">
+							</div>
+							<div class="col ps-3">
 								<h6 class="mt-0 mb-1">{답글작성자}</h6>
 								<label class="mb-2 small">{작성시간(몇분전)}</label>
 								<p>{댓글 내용}</p>
@@ -113,22 +137,22 @@
     -->
 	<!-- script start -->
 	<!-- jquery -->
-	<script src="../../assets/js/jquery-3.5.1.min.js"></script>
+	<script src="/js/jquery-3.5.1.min.js"></script>
 	<!--bootstrap-->
-	<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- slick carousel -->
-	<script src="../../assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="/vendor/swiper/swiper-bundle.min.js"></script>
 	<!-- magnific -->
-	<script src="../../assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+	<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
 	<!-- isotope -->
-	<script src="../../assets/vendor/isotope/isotope.pkgd.min.js"></script>
+	<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
 	<!-- count-down -->
-	<script src="../../assets/vendor/count-down/jquery.countdown.min.js"></script>
+	<script src="/vendor/count-down/jquery.countdown.min.js"></script>
 	<!-- count-down -->
-	<script src="../../assets/vendor/jarallax/jarallax-all.js"></script>
+	<script src="/vendor/jarallax/jarallax-all.js"></script>
 	<!-- Theme Js -->
-	<script src="../../assets/js/custom.js"></script>
-	<script src="../../assets/js/theme.js"></script>
+	<script src="/js/custom.js"></script>
+	<script src="/js/theme.js"></script>
 	<!-- End script start -->
 	
 	<script>
