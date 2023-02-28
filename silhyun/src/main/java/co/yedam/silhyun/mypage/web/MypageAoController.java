@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import co.yedam.silhyun.mypage.service.MypageAoService;
 
 @Controller
-public class mypageAoController {
+public class MypageAoController {
 	@Autowired
 	private MypageAoService mypageAoService;
 	
