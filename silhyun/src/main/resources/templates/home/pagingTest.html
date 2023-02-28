@@ -93,7 +93,7 @@ $(".pagination a").on("click", function(e){
 	console.log($("#actionFrm").find("input[name='pageNum']").val())
  	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
 	
-	apage($("#actionFrm").serialize()) //폼태그값을 스트링으로 
+	actionFrm.submit(); //폼태그값을 스트링으로 
 })
 
 	console.log($('input[type="checkbox"]:checked').val())
@@ -104,7 +104,7 @@ $('#searchFrm button').on("click", function(e){
 	
 	$('#searchFrm').find("input[name='pageNum']").val(1);
 	e.preventDefault();
-	apage($("#searchFrm").serialize()) //폼태그값을 스트링으로 
+	searchFrm.submit();
 })
 
  
