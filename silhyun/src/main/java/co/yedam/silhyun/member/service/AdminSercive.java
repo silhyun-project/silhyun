@@ -27,5 +27,8 @@ public interface AdminSercive {
 	List<MemberVO> todayStd();
 	
 	int deleteMember(String id);
+	
+	
+	int insertQuitMember(String id);
 
 }

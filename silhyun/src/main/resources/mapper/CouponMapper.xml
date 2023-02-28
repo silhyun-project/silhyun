@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.event.map.CouponMapper">
+	<select id="couponSelectList" resultType="co.yedam.silhyun.event.vo.CouponVO">
+		SELECT *
+		FROM coupon
+		ORDER BY cpn_num DESC
+	</select>
+	
+	<insert id="insertCoupon">
+		INSERT INTO COUPONHISTORY
+			(id,cpn_num,cpn_sta)
+		VALUES(#{id},#{cpnNum},#{cpnSta})
+	</insert>
+	
+</mapper>

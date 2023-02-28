@@ -61,5 +61,10 @@ public class AdminServiceImpl implements AdminSercive {
 	public int deleteMember(String id) {
 		return adminMapper.deleteMember(id);
 	}
+
+	@Override
+	public int insertQuitMember(String id) {
+		return adminMapper.insertQuitMember(id);
+	}
 	
 }
