@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import co.yedam.silhyun.common.vo.Criteria;
 import lombok.Data;
 
 @Data

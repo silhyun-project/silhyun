@@ -18,11 +18,7 @@ public class JieunTests {
 	public void 검색() {
 		
 		
-		PhotographerVO vo = new PhotographerVO();
-		String[] chkArray = {"06"};
-		vo.setChkArray(chkArray);
-		
-		System.out.println("작가정보들"+ ptgService.ptgSearchList(vo));
+	
 
 		
 	}
