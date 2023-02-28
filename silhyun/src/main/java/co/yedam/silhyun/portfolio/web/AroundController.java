@@ -18,13 +18,13 @@ public class AroundController {
 	@Autowired
 	private AroundService aroundService;
 
-	@RequestMapping("/around")
+	@RequestMapping("/silhyun/around")
 	public String around(Model model) {
 		model.addAttribute("portfolioList", aroundService.getAroundList());
 		return "portfolio/around";
 	}
 
-	@RequestMapping("/aroundTagList")
+	@RequestMapping("/silhyun/aroundTagList")
 	@ResponseBody
 	public List<PortfolioVO> aroundTagList(@RequestBody PortfolioVO tagCntn) {
 		
