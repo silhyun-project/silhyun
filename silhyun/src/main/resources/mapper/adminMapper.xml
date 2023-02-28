@@ -54,9 +54,23 @@
 		order by accp_date
 	</select>
 
+
+
+	<!-- 추가 -->
+	
+	<insert id="insertQuitMember" parameterType="String">
+		insert into quit
+		values(#{id }, to_char(SYSDATE,'YY/MM/DD'), 'T0', '')
+	</insert>
+
+
+
+
+
+
 <!-- 삭제 -->
 <!-- 단건 삭제 -->
-	<delete id="deleteMember" parameterType="String">
+	<delete id="deleteMember">
 		DELETE from member
 		where id = #{id }
 	</delete>	

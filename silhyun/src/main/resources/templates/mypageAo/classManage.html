@@ -167,15 +167,15 @@
 												</div>
 												<div class="mb-3">
 												<label class="form-label" for="rcnt">쿠폰 내용  
-												  <input type="text" class="form-control" id="couponCntn"  style="width:100px;height:30px;" placeholder="ex)5명"></label>
+												  <input type="text" class="form-control" id="couponCntn"  style="width:300px;height:30px;" placeholder="ex)5명"></label>
 												&nbsp;
-												<label class="form-label" for="rcnt">시작날짜  
-												  <input type="text" class="form-control" id="couponStartDate"  style="width:100px;height:30px;"></label>
+												  <label class="form-label" for="rcnt">할인율
+												  <input type="text" class="form-control" id="couponDis" style="width:100px;height:30px;"></label><br>
+												  <label class="form-label" for="rcnt">시작날짜  
+												  <input type="date" class="form-control" id="couponStartDate"  style="width:200px;height:30px;"></label>
 												  &nbsp;
 												  <label class="form-label" for="rcnt">끝날짜
-												  <input type="text" class="form-control" id="couponEndDate" style="width:100px;height:30px;"></label>&nbsp;
-												  <label class="form-label" for="rcnt">할인율
-												  <input type="text" class="form-control" id="couponDis" style="width:100px;height:30px;"></label>
+												  <input type="date" class="form-control" id="couponEndDate" style="width:200px;height:30px;"></label>&nbsp;
 												</div>
 												<div class="col-sm-6 mb-3">
 													<label for="formFile" class="form-label">배너 사진</label>
@@ -266,15 +266,18 @@ function applyForm(n){
 		document.getElementById('classApply').setAttribute('style','display:none')
 		
 	}
-}
+} 
 
-function uploadFile(){
+/* function uploadFile(){
+	var 
+	
 	$.ajax({
-		
+		type:'POST',
+		data:
 		
 	})
 }
-
+ */
 
 </script>
 		</main>

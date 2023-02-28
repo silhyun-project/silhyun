@@ -14,7 +14,7 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 	
-	@RequestMapping("/eventPage")
+	@RequestMapping("/silhyun/eventPage")
 	public String eventPage(Model model) {
 	model.addAttribute("eventPage",eventService.getEventList());
 	model.addAttribute("bannerList",eventService.getBannerList());

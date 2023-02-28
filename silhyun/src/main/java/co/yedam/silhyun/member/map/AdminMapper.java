@@ -26,4 +26,6 @@ public interface AdminMapper {
 	List<MemberVO> todayStd();
 	
 	int deleteMember(String id);
+
+	int insertQuitMember(String id);
 }
