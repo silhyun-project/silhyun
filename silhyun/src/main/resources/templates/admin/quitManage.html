@@ -82,13 +82,7 @@
                                             <td><button type="button" class="btn btn-success" style="color:white;">수정</button></td>
                                             <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>IDD</td>
-                                            <td>2023/01/01</td>
-                                            <td>기록삭제</td>
-                                            <td>기록을 남기고 싶지 않아</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -96,7 +90,7 @@
                     </div>
                 </div>
                 
-                <canvas id="myChart"></canvas>
+     
                 
                 
                 
@@ -108,45 +102,52 @@
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="white-box">
                             <h3 class="box-title">탈퇴 사유 통계</h3>
-                            <div class="d-md-flex">
-                                <ul class="list-inline d-flex ms-auto">
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-info"></i>기록삭제</h5>
-                                    </li>
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-inverse"></i>이용장애</h5>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="ct-visits" style="height: 405px;">
-                                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
-                                        class="chartist-tooltip-value">6</span>
-                                </div>
-                            </div>
+          <div align="center">
+<canvas id="myChart" width="1200" height="400"></canvas>
+          </div>
+        
                         </div>
                     </div>
                 </div>
                 
+                   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
              <script th:inline="javascript">
 
                 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // 만들기 원하는 차트의 유형
-    type: 'line',
+    type: 'pie',
 
     // 데이터 집합을 위한 데이터
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+		labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
             label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
+        	data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+            	'rgba(255, 99, 132, 0.2)',
+				'rgba(54, 162, 235, 0.2)',
+				'rgba(255, 206, 86, 0.2)',
+				'rgba(75, 192, 192, 0.2)',
+				'rgba(153, 102, 255, 0.2)',
+				'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+				'rgba(255, 99, 132, 1)',
+				'rgba(54, 162, 235, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)',
+				'rgba(153, 102, 255, 1)',
+				'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2,
         }]
     },
 
     // 설정은 여기서 하세요
-    options: {}
+options: {
+			responsive: false,
+		}
 });
 </script>
 </div>

@@ -2,9 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-<style>
-	.green{ background-color: green;}
-</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Favicon -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<!-- CSS Template -->
+<link href="/css/swimwear.css" rel="stylesheet">
+
+</head>
 <body>
     <div layout:fragment="content">
 
@@ -34,27 +40,46 @@
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
                                     신규 회원: <code th:text="${todayMem.size}"></code> &nbsp; 총 회원: <code th:text="${memberList.size}"></code></p>
                                 <!-- 검색 -->
-                                <form role="search" class="app-search d-none d-md-block me-3">
+                                <form id="searchFrm" action="/admin/memberManage" th:object="${page}" class="app-search d-none d-md-block me-3">
                                     <ul style="list-style:none;float:right;">
                                         <li>
-                                            <select style="width:120px;height:30px;font-size:16px;border:none;">
-                                             	<option value="">전체</option>
-                                                <option value="">아이디</option>
-                                                <option value="">이름</option>
-                                                <option value="">이메일</option>
-                                                <option value="">휴대전화</option>
-                                                <option value="">가입날짜</option>
-                                                <option value="">생년월일</option>
-                                                <option value="">성별</option>
-                                                <option value="">포인트</option>
-                                                <option value="">멤버권한</option>
+                                            <select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
+                                             	<option value="all">전체</option>
+                                                <option value="id">아이디</option>
+                                                <option value="name">이름</option>
+                                                <option value="email">이메일</option>
+                                                <option value="tel">휴대전화</option>
+                                                <option value="joinDate">가입날짜</option>
+                                                <option value="birthDate">생년월일</option>
+                                                <option value="genCd">성별</option>
+                                                <option value="pointSum">포인트</option>
+                                                <option value="memCd">멤버권한</option>
                                             </select>
-                                            <input type="text" placeholder="Search..." class="form-control mt-0"
+		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" name="amount" th:value="*{criteria.amount}">
+
+                                            <input type="text" name="keyward" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                            <a href="" class="active"><i class="fa fa-search"></i></a>
+				<button class="btn btn-default">검색</button>
                                         </li>
                                     </ul>
                                 </form>
+                                
+                                
+                              
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                             </div>
                             <br>
                             <hr>
@@ -87,7 +112,7 @@
                                     <tbody>
                                         <tr th:each="mem,sts : ${memberList}" th:Class="${sts}">
                                         
-                                    	    <td align="center"><input type="checkbox" id="memberBox"></td>
+                                    	    <td align="center"><input type="checkbox" th:if="${#strings.equals(mem.memCd, 'M1')}" id="memberBox" ></td>
                                             <td th:text="${sts.count}"></td>
                                             <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
                                             <td th:text="${mem.name}" th:value="${mem.name}"></td>
@@ -105,12 +130,6 @@
                                             <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
                                             style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|" id="delBtn">삭제</button></td>
                                             
-                                            
-                                            <!--  
-                                           <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
-                                            style="color:white;" th:onclick="|location.href='@{/deleteMember(id=${mem.id})}'|">삭제</button></td>
-                                            -->
-                                   
                                         
                                         </tr>
                                     </tbody>
@@ -118,6 +137,24 @@
                             </div>
                             </form>
                             
+                            <!-- 회원리스트 페이징  -->
+                            <div>
+                            
+   <div class="pagination">
+		<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
+		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
+		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+	</div>
+	<form id="actionFrm" action="/admin/memberManage" th:object="${page}">
+		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" name="amount" th:value="*{criteria.amount}">
+		<input type="hidden" name="type" th:value="*{criteria.type}">
+		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
+	</form>
+</div>
+
+<!-- 페이징 끝 -->
                             
                         </div>
                     </div>
@@ -155,7 +192,7 @@
                                             </select>
                                             <input type="text" placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                            <a href="" class="active"><i class="fa fa-search"></i>
+                                          <button class="btn btn-default">검색</button>
                                             </a>
                                         </li>
                                     </ul>
@@ -268,9 +305,20 @@
                                             <td th:text="${std.regionCd}"></td>
                                             <td th:text="${std.addr}"></td>
                                             <td th:text="${std.crn}"></td>
-                                            <td th:text="${std.regiDate}"></td>
-                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button></td>
-                                            <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
+                                            
+                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button>
+                                            &nbsp;
+                                             
+                                             
+                                            <button type="button" class="btn btn-danger" th:if="${#strings.equals(std.stCd, 'S')}"
+                                            style="color:white;" id="delBtn">삭제</button>
+                                            <button class="btn btn-secondary" th:if="${#strings.equals(std.stCd, 'G')}" style="color:white;" type="button" id ="updateBtn"  data-bs-toggle="modal" 
+                                            data-bs-target="#StdsPtgList"  th:attr="onclick=|belongAjax('${std.stId}')|">소속작가</button>    
+                                            
+                                           
+                                            <!-- |location.href='@{belongPtg(stId=${std.stId})}' 
+                                            'belongAjax(${std.stId})"-->
+                                            </td>
                                         </tr>
                                         <!-- 삭제할 것 -->
 
@@ -282,6 +330,68 @@
                 </div>
             </div>
         </div>
+        
+        
+        <!-- Std ->PtgList Popup  -->
+<div class="modal fade" id="StdsPtgList">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <div class="modal-title p-3">
+                    <h5 class="m-0 text-white"  id="blStd"></h5>
+                  
+                   <p class="m-0 text-white"></p>
+                  
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="w-100 p-3">
+                    <!-- Form START -->
+                    <form>
+                                <table class="table text-nowrap" id="blTable">
+                                    <thead>
+                                        <tr>
+                                            <!-- 보여줄 부분 -->
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="blBody">
+
+                                    </tbody>
+                                </table>
+                                
+                                
+<!-- 
+                                
+                                    <tbody>
+                                        <tr>                               
+                                            <td id="blNum"></td>    
+                                            <td id="blPtgId"></td>
+                                            <td id="blPtgCrn"></td>                                          
+                                        </tr>
+
+                                    </tbody>
+                                </table>         
+ -->                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+  
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Login Popup  -->
         
 <script th:inline="javascript">
 
@@ -363,7 +473,76 @@
     		 
 
     };
+    
+    
 
+    function belongAjax(stId){
+
+    var stId = stId;
+    	console.log("stId는 "+stId);
+	$('#blBody').empty();
+    	
+      $.ajax({
+        type: "POST",
+        url: "/belongPtg",
+        data: "stId=" + stId,
+      }).then(map =>{
+
+	
+		document.createElement('tbody').setAttribute('id','blBody');
+    	$("#blTable").append($("#blBody"));
+    	
+    	
+		var Stbelong = map.STbelong;
+    	  $("#blStd").text(Stbelong+"님의 소속작가");
+    	  console.log("Stbelong은요"+ Stbelong);
+    	  
+    	  var results = map.belongPtg;
+    	  var str ='<TR>';
+    	  
+    	  $.each(results, function(i){
+    		  str += '<TD>'+(i+1)+'</TD><TD>' + results[i].ptgId + '</TD><TD>'+ results[i].crn + '</TD>';
+    		  str +='</tr>';
+    	  });
+    	  $("#blBody").append(str);
+    	  
+    	});
+    };
+      
+      
+   //   <tr th:each="bl,sts : ${belongPtg}" th:Class="${sts}">                               
+    //  <td th:text="${sts.count}"></td>    
+    //  <td th:text="${bl.ptgId}"></td>
+    //  <td th:text="${bl.crn}"></td>                                          
+  //</tr>
+
+  //페이징 스크립트 
+
+history.replaceState({}, null, location.pathname);
+
+$(".pagination a").on("click", function(e){
+	e.preventDefault();
+	console.log($("#actionFrm").find("input[name='pageNum']").val())
+ 	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
+	
+	actionFrm.submit(); //폼태그값을 스트링으로 
+})
+
+	console.log($('input[type="checkbox"]:checked').val())
+	
+$('#searchFrm button').on("click", function(e){
+	console.log('click')
+	
+	
+	$('#searchFrm').find("input[name='pageNum']").val(1);
+	e.preventDefault();
+	searchFrm.submit();
+})
+
+
+
+
+ 
 </script>
     </div>
 </body>

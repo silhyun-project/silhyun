@@ -32,6 +32,12 @@
 		order by quit_date
 	</select>
 	
+	<select id="belongPtg" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		select *
+		from photographer
+		where st_id = #{st_id}
+	</select>
+	
 <!-- 신규 보여주기 -->
 	<select id="todayMem" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
 		select * 
@@ -56,7 +62,7 @@
 
 
 
-	<!-- 추가 -->
+	<!-- 등록 -->
 	
 	<insert id="insertQuitMember" parameterType="String">
 		insert into quit
@@ -75,7 +81,31 @@
 		where id = #{id }
 	</delete>	
 	
-<!-- 조건으로 다중검색 -->
+
+
+<!-- 수정 -->
+<update id="updateAdmin">
+
+	UPDATE MEMBER
+	<set>
+	<if test="name!=null and !name.equals('')">name = #{name },</if>
+	<if test="email!=null and !email.equals('')">email = #{email },</if>
+	<if test="pwd!=null and !pwd.equals('')">pwd = #{pwd },</if>
+	<if test="tel!=null and !tel.equals('')">tel = #{tel },</if>
+	<if test="birthDate!=null and !birthDate.equals('')">birth_date = #{birthDate },</if>
+	<if test="genCd!=null and !genCd.equals('')">gen_cd = #{genCd }</if>
+	</set>
+	WHERE mem_cd = 'M0' 
+
+</update>
+
+
+<!-- 회원전체리스트 페이징 -->
+
+
+	
+	
+<!-- 조건으로 다중검색
 <select id="searchMember" resultType="co.yedam.silhyun.member.vo.MemberVO">
 	SELECT * FROM MEMBER
 	<if test="key == 'all'">WHERE 1 = 1</if>
@@ -91,20 +121,119 @@
 </select>
 
 
-<!-- 수정 -->
-<update id="updateAdmin">
+ -->
 
-	UPDATE MEMBER
-	<set>
-	<if test="noticeDate != null">NOTICE_DATE = #{noticeDate },</if>
-	<if test="noticeTitle != null">NOTICE_TITLE = #{noticeTitle },</if>
-	<if test="noticeSubject != null">NOTICE_SUBJECT = #{noticeSubject },</if>
-	<if test="noticeFile != null">NOTICE_FILE = #{noticeFile },</if>
-	<if test="noticeFileDir != null">NOTICE_FILE_DIR = #{noticeFileDir }</if>
-	</set>
-	WHERE mem_cd = 'M0' 
 
-</update>
+<select id="getListMember" resultType="co.yedam.silhyun.member.vo.MemberVO">
+	 select * from( select rownum rn, a.* from( 
+ 
+ 			select * 
+ 			from member		
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'id'">WHERE id LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'name'">WHERE name LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'email'">WHERE email LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'tel'">WHERE tel LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'joinDate'">WHERE join_date LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'birthDate'">WHERE birth_date LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'genCd'">WHERE gen_cd '%'||#{val }||'%'</if>
+	<if test="type == 'pointSum'">WHERE point_sum >= #{val } order by point_sum DESC</if>
+	<if test="type == 'memCd'">WHERE mem_cd LIKE '%'||#{val }||'%'</if>
 
+	<![CDATA[	
+	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
+	 ]]>
+</select>
+
+<select id="getTotalCount" resultType="int">
+	select count(*) 
+	from member
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'id'">WHERE id LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'name'">WHERE name LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'email'">WHERE email LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'tel'">WHERE tel LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'joinDate'">WHERE join_date LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'birthDate'">WHERE birth_date LIKE '%'||#{val }||'%'</if>
+	<if test="type == 'genCd'">WHERE gen_cd '%'||#{val }||'%'</if>
+	<if test="type == 'pointSum'">WHERE point_sum >= #{val } order by point_sum DESC</if>
+	<if test="type == 'memCd'">WHERE mem_cd LIKE '%'||#{val }||'%'</if>
+
+</select>
+<!-- 
+
+
+
+
+
+
+
+<sql id="criteria">
+	<if test="typeArr != null">
+	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+		<foreach collection="typeArr" item="type">
+			<trim prefix="OR">
+				<choose>
+					<when test="type == 'all'.toString()">
+						1 = 1
+					</when>
+					<when test="type == 'id'.toString()">
+						id like '%'||#{keyword}||'%'
+					</when>
+				 <when test="type == 'name'.toString()">
+						name like '%'||#{keyword}||'%'
+					</when>
+									<when test="type == 'email'.toString()">
+						email like '%'||#{keyword}||'%'
+					</when>
+										<when test="type == 'tel'.toString()">
+						tel like '%'||#{keyword}||'%'
+					</when>
+										<when test="type == 'joinDate'.toString()">
+						join_date like '%'||#{keyword}||'%'
+					</when>
+										<when test="type == 'birthDate'.toString()">
+						birth_date like '%'||#{keyword}||'%'
+					</when>
+										<when test="type == 'gender'.toString()">
+						gender like '%'||#{keyword}||'%'
+					</when>
+										<when test="type == 'point'.toString()">
+						point like '%'||#{keyword}||'%'
+					</when>
+										<when test="type == 'code'.toString()">
+						code like '%'||#{keyword}||'%'
+					</when>
+				</choose>
+			</trim>
+		</foreach>
+	</trim>
+	</if>
+</sql>
+
+<select id="getListMember" resultType="co.yedam.silhyun.member.vo.MemberVO">
+	 select * from( select rownum rn, a.* from( 
+ 
+ 			select * 
+ 			from member
+ 			
+ 			where
+			<include refid="criteria"></include>
+		id!="null";
+	<![CDATA[	
+	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
+	 ]]>
+</select>
+
+<select id="getTotalCount" resultType="int">
+	select count(*) 
+	from member
+	
+	where id > 0
+	<include refid="criteria"></include>
+
+
+</select>
+ -->
 
 </mapper>

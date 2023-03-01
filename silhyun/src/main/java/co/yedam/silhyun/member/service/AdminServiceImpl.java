@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.member.map.AdminMapper;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -65,6 +66,26 @@ public class AdminServiceImpl implements AdminSercive {
 	@Override
 	public int insertQuitMember(String id) {
 		return adminMapper.insertQuitMember(id);
+	}
+
+	@Override
+	public int updateAdmin(MemberVO vo) {
+		return adminMapper.updateAdmin(vo);
+	}
+
+	@Override
+	public List<PhotographerVO> belongPtg(String stId) {
+		return adminMapper.belongPtg(stId);
+	}
+
+	@Override
+	public List<MemberVO> getListMember(Criteria cri) {
+		return adminMapper.getListMember(cri);
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return adminMapper.getTotalCount(cri);
 	}
 	
 }
