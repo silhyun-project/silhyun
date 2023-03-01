@@ -28,4 +28,6 @@ public class StudioVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date regiDate;
+	
+	private String searchType;
 }

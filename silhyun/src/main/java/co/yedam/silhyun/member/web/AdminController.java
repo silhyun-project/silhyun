@@ -1,12 +1,18 @@
 package co.yedam.silhyun.member.web;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.yedam.silhyun.member.service.AdminSercive;
+import co.yedam.silhyun.member.vo.MemberVO;
 
 @Controller
 public class AdminController {
@@ -26,11 +32,34 @@ public class AdminController {
 	
 	@RequestMapping("/admin/memberManage")
 	public String memberManage(Model model) {
+		model.addAttribute("todayMem", adminService.todayMem());
+		model.addAttribute("todayPtg", adminService.todayPtg());
+		model.addAttribute("todayStd", adminService.todayStd());
+		
 		model.addAttribute("memberList", adminService.memberList());
 		model.addAttribute("ptgList",adminService.ptgList());
 		model.addAttribute("stdList",adminService.stdList());
 		return "/admin/memberManage";
 	}
+	
+	//멤버 삭제 단건
+	@RequestMapping("/deleteMember")
+	public String deleteMember(String id) {
+		System.out.println("내가 보려는 거 "+id);
+		
+		int n = adminService.deleteMember(id);
+
+		if(n !=0) {
+			System.out.println(id+"삭제완료");
+			adminService.insertQuitMember(id);
+			System.out.println(id+"탈퇴등록완료");
+		}else {
+		}
+		return "redirect:/admin/memberManage";
+		//test
+	}
+	
+	
 	
 	@GetMapping("/admin/orderManage")
 	public String orderManage() {
@@ -43,7 +72,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/quitManage")
-	public String quitManage() {
+	public String quitManage(Model model) {
+		model.addAttribute("qtList",adminService.qtList());
 		return "/admin/quitManage";
 	}
 	
@@ -58,7 +88,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/adminManage")
-	public String adminManage() {
+	public String adminManage(Model model) {
+		model.addAttribute("adminInfo", adminService.adminInfo());
 		return "/admin/adminManage";
 	}
 	

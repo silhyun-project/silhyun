@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{classes/classesMainLayout}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{home/home}">
 <head>
     <!-- metas -->
     <meta charset="utf-8">
@@ -32,7 +33,7 @@
             background-color: #111;
             overflow-x: hidden;
             transition: 0.5s;
-            padding-top: 200px;
+            padding-top: 300px;
         }
 
         .sidenav a {
@@ -187,7 +188,7 @@
                     <section>
                         <div class="container">
                             <div class="row g-0 px-4 px-lg-5 py-5 rounded bg-cover bg-fiex bg-center border"
-                                style="background-image: url(/img/grocery/1600x900.jpg);">
+                                style="background-image: url(/img/grocery/1600x900.jpg);width:854px;">
                                 <div class="col-md-8 my-3 text-center text-md-start">
                                     <h3 class="h2 m-0">Eat clean &amp; green. Eat Organic.</h3>
                                 </div>
@@ -204,14 +205,15 @@
 
                     <section class="post-details-area mb-80">
                         <div class="container">
-                            <div class="">
+                
                                 <div class="col-12">
-                                    <div class="single-video-area">
-                                        <iframe src="https://www.youtube.com/embed/1nI-GMmHMHs"
+                                  
+                                        <iframe src="https://www.youtube.com/embed/1nI-GMmHMHs" 
+                                        style="width:854px;height:480px;"
                                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen></iframe>
-                                    </div>
-                                </div>
+                        
+               
                             </div>
 
                         </div>
@@ -225,11 +227,15 @@
                     <div layout:fragment="note">
                         <div align="right">
                             <div id="mySidenav" class="sidenav" align="left">
-                                <a href="javascript:void(0)" class="closebtn" th:onclick="|closeNav()|">&times;</a>
+
                                 <a href="#">About</a>
                                 <a href="#">Services</a>
                                 <a href="#">Clients</a>
                                 <a href="#">Contact</a>
+                                
+                                <!-- 
+                                                                <a href="javascript:void(0)" class="closebtn" th:onclick="|closeNav()|">&times;</a>
+                                 -->
                             </div>
 
                             <h2>노트 보기</h2>

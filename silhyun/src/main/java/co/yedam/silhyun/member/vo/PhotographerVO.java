@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import co.yedam.silhyun.common.vo.Criteria;
 import lombok.Data;
 
 @Data
@@ -33,6 +34,12 @@ public class PhotographerVO{
 	private String field;
 	private String searchType;
 	private String searchWord;
+	
+	//찜 개수 
+	private String zzims;
+	
+	private String phoRt;
+	private String stName;
 	
 	
 	//조인

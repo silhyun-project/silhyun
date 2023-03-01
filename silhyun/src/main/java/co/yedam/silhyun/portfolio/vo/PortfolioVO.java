@@ -37,7 +37,7 @@ public class PortfolioVO {
 	private String id;
 	
 	//tag별 정렬용
-	//private String tagCntn;
+	private String tagCntn;
 	
 	//comment 댓글순
 //	private String comNum;

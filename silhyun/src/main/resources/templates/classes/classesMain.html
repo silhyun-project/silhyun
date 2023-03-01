@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{classes/classesMainLayout}">
+      layout:decorate="~{home/home}">
 <body>
 <div layout:fragment="content">
             <section class="section">
@@ -9,34 +9,34 @@
                     <div class="row gy-4">
                         <div class="col-lg-4">
                             <div class="px-4 position-relative pt-5 text-center rounded"
-                                style="background-color: #ffe1db;">
+                                style="background-color: #FFE088;">
                                 <div class="pb-1">
                                     <h6 style="color: #f62b22;">무슨 강의 들을지 고민이라면?</h6>
                                     <h3 class="m-0">TOP 10 강의보기 <br>👑</h3>
                                 </div>
-                                <a href="#" class="stretched-link"><img src="/assets/img/grocery/1000x1000.jpg" title=""
+                                <a href="/bestClasses" class="stretched-link"><img src="/assets/img/grocery/1000x1000.jpg" title=""
                                         alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="px-4 position-relative pt-5 text-center rounded"
-                                style="background-color: #e6ffd6;">
+                                style="background-color: #E5AF79;">
                                 <div class="pb-1">
                                     <h6 style="color: #2e6b1c;">무료 강의부터 가볍게 시작해 보세요.</h6>
                                     <h3 class="m-0">무료 강의보기 <br>😋</h3>
                                 </div>
-                                <a href="#" class="stretched-link"><img src="/assets/img/grocery/1000x1000.jpg" title=""
+                                <a href="/freeClasses" class="stretched-link"><img src="/assets/img/grocery/1000x1000.jpg" title=""
                                         alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="px-4 position-relative pt-5 text-center rounded"
-                                style="background-color: #ffdee1;">
+                                style="background-color: #A2806B;">
                                 <div class="pb-1">
                                     <h6 style="color: #fe0d25;">다양한 이벤트를 확인하세요.</h6>
                                     <h3 class="m-0">이벤트중인 강의보기 <br>🎈</h3>
                                 </div>
-                                <a href="#" class="stretched-link"><img src="/assets/img/grocery/1000x1000.jpg" title=""
+                                <a href="/eventClasses" class="stretched-link"><img src="/assets/img/grocery/1000x1000.jpg" title=""
                                         alt=""></a>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                                                     <i class="bi bi-star"></i>
                                                 </div>
                                                 <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
+                                                    <a href="/classesInfo">Fine-knit sweater</a>
                                                 </h6>
                                                 <div class="product-price">
                                                     <span class="text-primary">$28.<small>50</small></span>

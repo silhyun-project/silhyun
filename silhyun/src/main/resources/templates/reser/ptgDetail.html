@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{home/layout}">
+
+<head>
+    <!-- metas -->
+<meta charset="utf-8">
+<meta name="author" content="pxdraft" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
+<meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
+<!-- title -->
+<title>작가 디테일 페이지</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<!-- Favicon -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<!-- CSS Template -->
+<!-- <link href="/css/theme.css" rel="stylesheet"> -->
+</head>
+<!-- 사진 크기가 먹히지않는다 -->
+<style>
+
+</style>
+
+<body>
+    <div layout:fragment="content">
+    <!-- Skippy & Prload -->
+    <!-- skippy -->
+    <!-- <input id="pthVal" type="hidden" th:text="__${ptgId}__"> -->
+<a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
+    <div class="container">
+        <span class="u-skiplink-text">Skip to main content</span>
+    </div>
+</a>
+<!-- End skippy -->
+<!-- Preload -->
+<!-- <div id="loading" class="loading-preloader"> -->
+<!--     <div class="spinner-border text-primary" role="status"> -->
+<!--         <span class="visually-hidden">Loading...</span> -->
+<!--     </div> -->
+<!-- </div> -->
+<!-- End Preload -->
+    <!-- Edn Skippy & Prload -->
+
+
+    <!-- End Size Chart  -->
+    <!-- 
+    ========================
+        Wrapper 
+    ========================
+    -->
+    <div class="wrapper">
+        <!-- Main -->
+    <!--    <div >
+            [[${ptg}]]<br>
+        </div> -->
+        <main>
+            <!-- Page Title -->
+            <div class="bg-no-repeat bg-cover bg-right-center position-relative">
+                <div class="position-absolute top-0 end-0 start-0 bottom-0 opacity-3 bg-dark"></div>
+                <!-- Header Height Bar -->
+                <div class="header-height-bar border-bottom opacity-3"></div>
+                <div class="container py-6 position-relative">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 my-2" >
+                            <h1 class="m-0 h4 text-center text-lg-start text-white">🍓 [[${ptg[0].name}]] 🍓</h1>
+                        </div>
+                        <div class="col-lg-6 my-2">
+                            <ol class="breadcrumb breadcrumb-light m-0 small justify-content-center justify-content-lg-end">
+                                <li class="breadcrumb-item"><a class="text-nowrap" href="#">Home</a></li>
+                                <li class="breadcrumb-item text-nowrap active" aria-current="page">예약하기</li>
+                                <li class="breadcrumb-item text-nowrap active" aria-current="page">작가</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Page Title -->
+            <!-- Product Details -->
+            <section class="product-details-02 py-6">
+                <div class="container" >
+                    <div class="row">
+                        <!-- Product Gallery -->
+                        <div class="col-lg-7 lightbox-gallery product-gallery"> <!--큰 사진-->
+                            <div class="swiper swiper_gallery_v">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="pd-gallery-slide">
+                                            <img th:src="${ptg[0].profile}" class="img-fluid" title="" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <!-- End Product Gallery -->
+                        <!-- Product Details -->
+                        <div class="col-lg-5 ps-lg-5">
+                            <div class="product-detail pt-4 pt-lg-0">
+                                <div class="products-title-box">
+                                    <div class="products-title" >
+                                        <h6 th:if="${ptg[0].stName} != null">[[${ptg[0].stName}]] 소속</h6>
+                                        <h6 th:if="${ptg[0].stName} == null">프리랜서</h6>
+                                        <h4 class="h4" >[[${ptg[0].name}]]</h4><br>
+                                    </div>
+                                    <div class="product-wishlist">
+                                        <a href="#" class="btn">
+                                            <i class="fi-heart"></i>
+                                        </a>
+                                        <p> [[${ptg[0].zzims}]]</p>
+                                    </div>
+                                </div>
+                                <div class="product-description">
+                                <p style="height: 500px;">[[${ptg[0].itr}]]</p>
+                                <p>인스타그램 [[${ptg[0].inst}]] </p>
+                                </div>
+                               
+                                <div class="product-detail-actions d-flex flex-wrap">
+                                    <div class="cart-button">
+                                        <button class="btn btn-primary pd-cart-btn">
+                                         예약하러가기 
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-metas small">
+                                    
+                                    <p class="theme-link m-0">
+                                        <label class="m-0 text-dark fw-500 w-100">Share:</label>
+                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
+                                            <i class="bi bi-facebook"></i>
+                                        </a>
+                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
+                                            <i class="bi bi-twitter"></i>
+                                        </a>
+                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
+                                            <i class="bi bi-instagram"></i>
+                                        </a>
+                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
+                                            <i class="bi bi-linkedin"></i>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Product Details -->
+                    </div>
+                </div>
+            </section>
+            <!-- End Product Details -->
+            <!-- Product Tabs -->
+            <section class="product-detail-tab-02">
+                <div class="container">
+                    <div class="product-tabs">
+                        <ul class="nav product-nav-tabs-02" id="myTab_02" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link active" id="pd_description_tab_02" data-bs-toggle="tab" data-bs-target="#pd_description_02" role="tab" aria-controls="pd_description_02" aria-selected="true">Description</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pd_information_tab_02" data-bs-toggle="tab" data-bs-target="#px_information_02" role="tab" aria-controls="px_information_02" aria-selected="false">Portfolio</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pd_QA_tab_02" data-bs-toggle="tab" data-bs-target="#pd_QA_02" role="tab" aria-controls="pd_QA_02" aria-selected="false">Q&A</a>
+
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab" data-bs-target="#pd_reviews_02" role="tab" aria-controls="pd_reviews_02" aria-selected="false">Reviews</a>
+                            </li>
+                        </ul>
+                       
+                        <div class="tab-content" id="myTab_02Content">
+                            <div class="tab-pane fade show active" id="pd_description_02" role="tabpanel" aria-labelledby="pd_description_tab_02">
+                                <!--Description-->
+                                <div class="row">
+                                    <div class="col-lg-7 pe-lg-10">
+                                        <blockquote class="bg-gray-100 p-3 lead fw-400 mt-5 text-dark border-start border-primary border-5">
+                                             <ol class="list-type-01 list-unstyled pt-2 mb-4">
+                                            <li><h5>취소 및 환불 규정</h5></li>
+                                            가. 기본 환불 규정<br>
+                                            1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.<br>
+                                            2. 섭외, 대여 등 사전 준비 도중 청약 철회 시, 해당 비용을 공제한 금액을 환불 가능합니다.<br>
+                                            3. 촬영 또는 편집 작업 착수 이후 청약 철회 시, 진행된 작업량 또는 작업 일수를 산정한 금액을 공제한 금액을 환불 가능합니다.<br>
+                                            <br>
+                                            <li><h5>환불 가이드라인</h5></li>
+                                            (1) 기획 단계에서 청약 철회: 총 결제 금액의 최대 80%까지 환불 가능<br>
+                                            (2) 작업 착수 후 청약 철회: 총 결제 금액의 최대 20%까지 환불 가능<br>
+                                            (3) 작업 50% 완료 후 청약 철회: 총 결제 금액의 최대 10%까지 환불 가능<br>
+                                            (4) 작업 100% 완료 후 청약 철회 : 환불 불가<br>
+                                            <br>
+                                            나. 전문가 책임 사유<br>
+                                            1. 소비자 피해 보상 규정에 의거하여 촬영 원본의 멸실 및 재해로 인한 피해 발생 시, 전액 환불합니다.<br>
+                                            2. 작업 기간 미준수, 작업 태만 및 이에 상응하는 전문가 책임으로 인한 청약 철회 시, 환불 및 촬영 원본 제공이 가능합니다.<br>
+                                            <br>
+                                            다. 의뢰인 책임 사유<br>
+                                            작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
+                                            </ol>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="pb-3">
+                                            <img src="/img/fashion/1000x1000.jpg" class="img-fluid" title="" alt="">
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-sm-6">
+                                                <div class="d-flex border p-3">
+                                                    <div class="fs-1 text-primary">
+                                                        <i class="bi bi-truck"></i>
+                                                    </div>
+                                                    <div class="col ps-3">
+                                                        <h6 class="mb-1">Free shipping</h6>
+                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="d-flex border p-3">
+                                                    <div class="fs-1 text-primary">
+                                                        <i class="bi bi-headphones"></i>
+                                                    </div>
+                                                    <div class="col ps-3">
+                                                        <h6 class="mb-1">Contact us 24/7</h6>
+                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="d-flex border p-3">
+                                                    <div class="fs-1 text-primary">
+                                                        <i class="bi bi-box-arrow-in-left"></i>
+                                                    </div>
+                                                    <div class="col ps-3">
+                                                        <h6 class="mb-1">30 Days Return</h6>
+                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="d-flex border p-3">
+                                                    <div class="fs-1 text-primary">
+                                                        <i class="bi bi-shield-lock"></i>
+                                                    </div>
+                                                    <div class="col ps-3">
+                                                        <h6 class="mb-1">100% Secure Payment</h6>
+                                                        <p class="m-0">서비스 제공이 완료된 이후에 전문가에게 결제 대금이 전달됩니다.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Portfolio-->
+                            <div class="tab-pane fade" id="px_information_02" role="tabpanel" aria-labelledby="pd_information_tab_02">
+                                <div class="row">
+                                    <div class="col-lg-4" th:each="ptgd : ${ptg}">
+                                        <div class="position-relative hover-scale">
+                                            <div class="hover-scale-in">
+                                               <a href="#"> <img class="w-100" th:src="${ptgd.phoRt}" title="" alt="" style="width: 200px; height: 400px; padding: 10px;">
+                                            [[${ptgd.phoRt}]]</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Q&A-->
+                            <div class="tab-pane fade" id="pd_QA_02" role="tabpanel" aria-labelledby="pd_QA_tab_02">
+                                <div class="row">
+                                    <div class="col-lg-8 pe-lg-8">
+                                      <h2>Q&A 들어오는 곳</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--후기-->
+                            <div class="tab-pane fade" id="pd_reviews_02" role="tabpanel" aria-labelledby="pd_reviews_tab_02">
+                                <div class="row">
+                                    <div class="col-lg-8 pe-lg-8">
+                                      <h2>후기 들어오는 곳</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End Product Tabs -->
+        </main>
+        <!-- End Main -->
+
+    </div>
+    <!-- 
+    ========================
+       End Wrapper 
+    ========================
+    -->
+    <!-- script start -->
+    <!-- jquery -->
+<!-- <script src="/js/jquery-3.5.1.min.js"></script> -->
+<!--bootstrap-->
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- slick carousel -->
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+<!-- magnific -->
+<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
+<!-- isotope -->
+<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
+<!-- count-down -->
+<script src="/vendor/count-down/jquery.countdown.min.js"></script>
+<!-- count-down -->
+<script src="/vendor/jarallax/jarallax-all.js"></script>
+<!-- Theme Js -->
+<script src="/js/custom.js"></script>
+<script src="/assets/js/theme.js"></script>
+    <!-- End script start -->
+    <script>
+    //    let ptgId = $("#pthVal").text();
+    //    console.log(ptgId);
+       
+    //        $.ajax({
+    //            url:"/ptgDetail/"+ptgId
+
+    //        })
+    //        .then(result =>{
+    //            console.log(result)
+    //        })
+
+    
+
+    </script>
+    </div>
+</body>
+
+</html>

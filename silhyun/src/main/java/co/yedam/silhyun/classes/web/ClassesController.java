@@ -9,30 +9,43 @@ public class ClassesController {
 
 	@Autowired
 	
-	@GetMapping("/classes/classesInfo")
+	@GetMapping("/classesInfo")
 	public String classesInfo() {
 		return "/classes/classesInfo";
 	}
 	
-	@GetMapping("/classes/classesMain")
-	public String classesclassesMain() {
+	@GetMapping("/classesMain")
+	public String classesMain() {
 		return "/classes/classesMain";
 	}
 	
-	@GetMapping("/classes/classesVideo")
+	@GetMapping("/classesVideo")
 	public String classesVideo() {
 		return "/classes/classesVideo";
 	}
 	
-	@GetMapping("/classes/myClasses")
+	@GetMapping("/myClasses")
 	public String myClasses() {
 		return "/classes/myClasses";
 	}
-	@GetMapping("/classes/myClassesVideos")
+	@GetMapping("/myClassesVideos")
 	public String myClassesVidios() {
-		return "/classes/myClassesVideos";
-		
+		return "/classes/myClassesVideos";	
 	}
 	
+	@GetMapping("/bestClasses")
+	public String bestClasses() {
+		return "/classes/bestClasses";
+	}
+	
+	@GetMapping("/freeClasses")
+	public String freeClasses() {
+		return "/classes/freeClasses";
+	}
+	
+	@GetMapping("/eventClasses")
+	public String eventClasses() {
+		return "/classes/eventClasses";
+	}
 
 }

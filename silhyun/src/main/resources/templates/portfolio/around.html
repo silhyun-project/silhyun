@@ -22,36 +22,14 @@
 <!-- 자체어쩌구-->
 <link href="/css/around.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.js"
-        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
 <!-- 자체어쩌구 -->
 </head>
 
 <body>
 	<div layout:fragment="content">
-		<!-- Skippy & Prload -->
-		<!-- skippy -->
-		<a id="skippy"
-			class="skippy visually-hidden-focusable overflow-hidden"
-			href="#content">
-			<div class="container">
-				<span class="u-skiplink-text">Skip to main content</span>
-			</div>
-		</a>
-		<!-- End skippy -->
-		<!-- <!-- Preload -->
-		<!-- <div id="loading" class="loading-preloader"> -->
-		<!--     <div class="spinner-border text-primary" role="status"> -->
-		<!--         <span class="visually-hidden">Loading...</span> -->
-		<!--     </div> -->
-		<!-- </div> -->
-		<!-- End Preload -->
-		<!-- Edn Skippy & Prload -->
-		<!-- Size Chart  -->
-		<!-- Ask Form -->
-
-		<!-- Header -->
-
-		<!-- End Header -->
+	
 		<!-- Main -->
 		<main>
 			<!-- Breadcrumb -->
@@ -130,13 +108,11 @@
 							<!-- 태그버튼 -->
 							<div class="shop-top-bar d-flex pb-3">
 								<div class="layout-change">
-									<!-- Mobile Toggle -->
-
-									<!-- End Mobile Toggle -->
 									<a class="btn btn-sm active" href="#" align="center"> <i
-										class="bi-hash">생기있는</i>
-									</a> &nbsp;&nbsp; <a class="btn btn-sm" href="#" width="150px">
-										<i class="bi-hash">아련한</i>
+										class="bi-hash">네임</i>
+									</a> &nbsp;&nbsp; 
+									<a class="btn btn-sm" href="#" width="150px">
+										<i class="bi-hash">하이</i>
 									</a>
 								</div>
 								<!-- 태그버튼 -->
@@ -154,31 +130,14 @@
 								</div>
 							</div>
 
-
-							<div class="row g-3">
-								<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
-								<th:block th:each="portfolio : ${portfolioList}">
-									<div class="col-sm-6 col-lg-3">
-										<div class="product-card-1">
-											<div class="product-card-image">
-												<div class="badge-ribbon"></div>
-												<div class="product-action">
-													<a href="#" class="btn btn-outline-primary"> <i
-														class="fi-heart"></i>
-													</a> <a href="#" class="btn btn-outline-primary"> <i
-														class="fi-repeat"></i>
-													</a> </a>
-												</div>
-												<div class="product-media">
-													<a href="#"> <img class="img-fluid"
-														th:src="${portfolio .phoRt}" title="" alt="">
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</th:block>
-								<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
+							<!-- 사진붙이는 태그 -->
+							<div class="row g-3" id="rowg-3">
+							
+							
+							<!-- 첨에 들어갔을 때 포트폴리오 저장된 사진 보여주는 ~ Product Box -->
+								
+								
+								<!-- 사진 자리~~ -->
 
 							</div>
 							<div class="shop-bottom-bar d-flex align-items-center mt-3">
@@ -206,34 +165,133 @@
 			<!-- End Shop -->
 		</main>
 		<!-- End Main -->
-		<!-- Footer있던자리 -->
-		<script>
+		<!-- js -->
+		
+<!-- 		포트폴리오리스트띄우는 -->
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			const portfolio = /*[[${portfolioList}]]*/
+			/*]]>*/
+			console.log(portfolio);
+ 				
+		//첫페이지 포트폴리오 리스트			
+		StandLine(portfolio);
+		
+		//최신순 정렬
+		$("li:contains('최신순')").click(function(){
+			const recentList = portfolio.sort((a, b) => new Date(a.portDate) - new Date(b.portDate));
+		$("div#rowg-3").children().remove();	
+			StandLine(recentList);
+		});
+		
+		//조아요순 정렬
+		$("li:contains('좋아요순')").click(function(){
+			const likeList = portfolio.sort((a, b) => b.likes - a.likes)
+		$("div#rowg-3").children().remove();	
+			StandLine(likeList);
+		});
+		
+		
+		
+		//포트폴리오 사진 리스트 불러오기~
+		function StandLine(aa){
+			for(i=0; i<aa.length; i++){
+				
+				const portPhotoList = `<div class="col-sm-6 col-lg-3">
+								<div class="product-card-1">
+									<div class="product-card-image">
+										<div class="badge-ribbon"></div>
+										<div class="product-action">
+											<a href="#" class="btn btn-outline-primary"> <i
+												class="fi-heart"></i>
+											</a> <a href="#" class="btn btn-outline-primary"> <i
+												class="fi-repeat"></i>
+											</a> </a>
+										</div>
+										<div class="product-media">
+											<a href="#"> <img class="img-fluid"
+												src="`+aa[i].phoRt +`" title="" alt="">
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>`
+			$("div#rowg-3").append(portPhotoList);					
+			}
+		}
+		
+		
+		//태그선택
+		console.log('1111111111111111111')
+		console.log($('a .btn.btn-sm'))
+		//태그안에 택스트
+		$('a .btn.btn-sm').click(function(){
+		console.log($(this).children().text())
+		})
+ 		
+ 			$('div .layout-change').children().eq(1).click(function(){
+ 			
+ 			
+ 			tagCntn=$('div .layout-change').children().eq(1).children().text();
+		
+ 			
+ 			$.ajax({
+                        url: "/aroundTagList",
+                        type: "post",
+                        data:JSON.stringify({tagCntn: tagCntn}),
+                        contentType: "application/json"
+                    })
+                    .then(res => {
+                    	console.log(res)
+                    	$("div#rowg-3").children().remove();	
+                    
+                    	for(j=0; i<res.length; i++){
+            				
+            				const portPhotoList = `<div class="col-sm-6 col-lg-3">
+            								<div class="product-card-1">
+            									<div class="product-card-image">
+            										<div class="badge-ribbon"></div>
+            										<div class="product-action">
+            											<a href="#" class="btn btn-outline-primary"> <i
+            												class="fi-heart"></i>
+            											</a> <a href="#" class="btn btn-outline-primary"> <i
+            												class="fi-repeat"></i>
+            											</a> </a>
+            										</div>
+            										<div class="product-media">
+            											<a href="#"> <img class="img-fluid"
+            												src="`+res[i].phoRt +`" title="" alt="">
+            											</a>
+            										</div>
+            									</div>
+            								</div>
+            							</div>`
+            			$("div#rowg-3").append(portPhotoList);					
+            			}	
+                    
+                    	
+                    
+                    })
+ 			})
+		
+ 		
+ 		
 	
-		let hi =`<div class="col-sm-6 col-lg-3">
-		<div class="product-card-1">
-			<div class="product-card-image">
-				<div class="badge-ribbon"></div>
-				<div class="product-action">
-					<a href="#" class="btn btn-outline-primary"> <i
-						class="fi-heart"></i>
-					</a> <a href="#" class="btn btn-outline-primary"> <i
-						class="fi-repeat"></i>
-					</a> </a>
-				</div>
-				<div class="product-media">
-					<a href="#"> <img class="img-fluid"
-						src="/img/fashion/1000x1000.jpg" title="" alt="">
-					</a>
+		
+		//let list=[];
+		//list.push(tagCntn);
+		//$(document).ready(function(){
+		
+		
+		//});
+ 				//$(document).ready(function(){
+		//사진정렬시켜서 붙이는 거...
+//  			});//document.ready
 
-				</div>
-			</div>
-
-		</div>
-	</div>`
 		</script>
-		<script src="/js/around.js"></script>
+		
 
-		<!-- End Footer있던자리 -->
+	<!-- js -->
 	</div>
 	<!-- 
     ========================

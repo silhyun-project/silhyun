@@ -12,4 +12,9 @@
 		WHERE BNPH_STA ='Y'
 		ORDER BY event_num DESC
 	</select> 
+	<insert id="applyEvent" parameterType="co.yedam.silhyun.event.vo.EventVO">
+	INSERT INTO 
+	</insert>
+	
+	
 </mapper>
