@@ -96,8 +96,9 @@
 									</div>
 									<div class="modal-body">
 										<div class="w-100 p-3">
-											<!-- Form START -->
-											<form>
+										 <script src="/js/imagePreview.js"></script>
+								<!-- Form START -->
+										<form id="uploadClass">
 											<div id="classApply" style="display: none;">
 												<div class="mb-3">
 													<label class="form-label" for="claTtl">강의명
@@ -137,6 +138,9 @@
 													</div>
 												</div>
 												</div>
+										</form>
+									<!-- Form START -->
+										<form id="uploadEvent">
 											<div id="eventApply" style="display: none;">
 												<div class="mb-3">
 													<label class="form-label" for="claTtl">활동지역</label>&emsp;
@@ -177,20 +181,26 @@
 												</div>
 												<div class="col-sm-6 mb-3">
 													<label for="formFile" class="form-label">배너 사진</label>
-													 <input class="form-control" type="file" id="formFile">
+													 <input class="form-control" type="file" name="uploadBanner" id="uploadBanner"
+													 		onchange="previewImage(this,'View_area')" style="display:none;" multiple>
+													 <span id="View_area" style="position:relative; color: black; border: 0px solid black;">
+													 </span>
 												</div>			
 												<div class="row align-items-center">
 													<div class="col-sm-4">
-														<button type="submit" id="event" class="btn btn-dark">확인</button>
+														<input type="button" id="event" class="btn btn-dark" onclick="dataSubmit()" value="확인">
 													</div>
 													<div class="col-sm-4">
-														<button type="submit" class="btn btn-dark">임시저장</button>
+														<input type="button" class="btn btn-dark" value="임시저장">
 													</div>
 													<div class="col-sm-4">
 														<button type="reset" class="btn btn-dark">취소</button>
 													</div>
 												</div>
-												
+											</div>
+											<!-- 서버에서 받은 결과 값 확인 -->
+											<div id="resultDiv">
+												<p th:text="${log}"></p>
 											</div>
 										</form>
 										</div>
@@ -254,6 +264,7 @@
 			</div>
 		</div>
 		<!-- End Table -->
+
 <script>
 function applyForm(n){
 	if(n == 'c'){
@@ -265,6 +276,30 @@ function applyForm(n){
 		
 	}
 }
+
+//form데이터 전송
+function dataSubmit() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+ 
+    var data=new FormData($("#storeAddForm")[0]);
+ 
+    $.ajax({
+        beforeSend: function(xhr){
+            xhr.setRequestHeader(header,token);
+        },
+        url: "url",
+        data: data,
+        processData:false,
+        contentType:false,
+        enctype:'multipart/form-data',
+        type:"POST",
+    }).done(function (fragment) {
+        $("#resultDiv").replaceWith(fragment);
+    });
+}
+
+
 </script>
 		</main>
 </body>
