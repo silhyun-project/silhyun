@@ -20,6 +20,30 @@
             display: inline-block;
             width: 100px;
         }
+        .pagination {
+	display: inline-block;
+	text-align: center;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.pagination a.active {
+	background-color: grey;
+	color: white;
+	border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+	border-radius: 5px;
+}
+
+
     </style>
     <link rel="shortcut icon" href="/img/favicon.ico">
     <!-- CSS Template -->
@@ -61,10 +85,10 @@
                                     </ul>
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">사진 작가</a>
+                                            <a href="/silhyun/ptgList" class="nav-link">사진 작가</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link active">사진관</a>
+                                            <a href="/silhyun/stdList" class="nav-link active">사진관</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -80,7 +104,7 @@
                                     <div class="col-md-7">
                                         <ol
                                             class="breadcrumb dark-link m-0 small justify-content-center justify-content-md-start">
-                                            <li class="breadcrumb-item"><a class="text-nowrap" href="#">Home</a></li>
+                                            <li class="breadcrumb-item"><a class="text-nowrap" href="/">Home</a></li>
                                             <li class="breadcrumb-item text-nowrap active" aria-current="page">예약하기</li>
                                         </ol>
                                     </div>
@@ -93,68 +117,68 @@
                                     <div class="container">
                                         <div class="row justify-content-center">
                                             <div class="col-lg-8 col-xl-15 text-center">
-                                                <form style="display: inline;" action="searchPtgList">
+                                                <form id="searchFrm" style="display: inline;" action="/silhyun/stdList">
                                                     <div class="" style="text-align: left;">
                                                         <h3>지역<span class="text-danger">*</span></h3>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region01">서울<input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region01" value="01"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region02">경기<input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region02" value="02"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region03">인천 <input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region03" value="03"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region04">강원<input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region04" value="04"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region05">대전/충청 <input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region05" value="05"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region06">대구 <input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region06" value="06"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region07">부산/울산 <input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region07" value="07"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region08">경상 <input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region08" value="08"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region09">광주/전라<input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region09" value="09"></label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
 
                                                         <label class="form-check-label" for="region10">제주 <input
-                                                                class="form-check-input" type="checkbox" name="region"
+                                                                class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region10" value="10"></label>
                                                     </div>
                                                     
@@ -174,7 +198,7 @@
                                         <select id="selectOp" onchange="ptgList()" style="border: 1px solid white;">
                                             <option value="">::선택::</option>
                                             <option value="new">최신순</option>
-                                            <option value="hot" selected>인기순</option>
+                                            <option value="hot">인기순</option>
                                             <option value="name">이름순</option>
                                         </select>
                                     </div>
@@ -184,28 +208,22 @@
 
                             <!-- 사진관 리스트 -->
                             <div class="row g-3 g-lg-4 list">
-                                <div class="col-md-4 col-6" th:each="ptg : ${ptgList}">
+                                <div class="col-md-4 col-6" th:each="std : ${stdList}">
                                     <div class="product-card-9 cList">
                                         <div class="product-card-image">
-                                            <div class="product-action">
-                                                <!--하트-->
-                                                <a href="#" class="btn">
-                                                    <i class="fi-heart"></i>
-                                                </a>
-                                            </div>
                                             <div class="hover-scale">
-                                                <!--작가 사진-->
+                                                <!--사진관 사진-->
                                                 <div class="hover-scale-in">
-                                                    <a th:href="@{/ptgDetail/{ptgId}(ptgId = ${ptg.ptgId})}">
-                                                        <img class="img-fluid" th:src="${ptg.profile}" title=""
+                                                    <a th:href="@{/silhyun/stdDetail/{stId}(stId = ${std.stId})}">
+                                                        <img class="img-fluid" th:src="${std.profile}" title=""
                                                             alt="사진이 뜨지않는다.." width="700" height="800">
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="product-card-info">
-                                                <!--작가 이름-->
+                                                <!--사진관 이름-->
                                                 <h6 class="product-title">
-                                                    <a class="ptgtitle" href="#" th:text="${ptg.name}"></a>
+                                                    <a class="ptgtitle" href="#" th:text="${std.stName}"></a>
                                                 </h6>
                                             </div>
                                         </div>
@@ -216,8 +234,20 @@
                     </div>
                     <!-- End Product Box -->
                 </div>
-
             </section>
+            <div class="pagination">
+                <a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
+                <a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
+                    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+                <a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+            </div>
+            <form id="actionFrm" action="/silhyun/ptgList" th:object="${page}">
+                <input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+                <input type="hidden" name="amount" th:value="*{criteria.amount}">
+                <input type="hidden" name="searchType" th:value="${studioVO.searchType}">
+                <input type="hidden" name="chkArray" th:value="${studioVO.chkArray}">
+                <input type="hidden" name="searchWord" th:value="${studioVO.searchWord}">
+            </form>
             <!-- End Shop Section -->
         </main>
         <!-- End Main -->
@@ -246,184 +276,23 @@
         <script src="/js/theme.js"></script>
         <!-- End script start -->
         <script>
-            //             //▶지역 선택 
-            //             let ckregion = $("input[name='region']");
-            //             // 1. 해당 name과 동일한 모든 체크박스 루프 > 체크된 체크박스만 해당 value 값 콘솔
-            //             ckregion.each(function () {
-            //                 if ($(this).is(":checked") == true) {
-            //                     var tmpVal = $(this).val();
-            //                     console.log(tmpVal);
-            //                 }
-            //             });
-            //             // 2. 해당 name과 동일한 체크박스 중 선택한 것들만 루프 > 해당 value 값 콘솔
-            //             ckregion.each(function () {
-            //                 var tmpVal = $(this).val();
-            //                 console.log(tmpVal);
-            //             });
+              //페이징 관련
+              history.replaceState({}, null, location.pathname);
 
-            //             //▶분야 선택
-            //             let ckfld = $("input[name='field']");
+                $(".pagination a").on("click", function(e){
+                    e.preventDefault();
+                    console.log($("#actionFrm").find("input[name='pageNum']").val())
+                    $("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
+                    actionFrm.submit(); 
+                })
 
-            //             ckfld.each(function () {
-            //                 if ($(this).is(":checked") == true) { 
-            //                     var fldVal = $(this).val();
-            //                     console.log(fldVal);
-            //                 }
-            //             });
-
-            //             ckfld.each(function () {
-            //                 var fldVal = $(this).val();
-            //                 console.log(fldVal);
-            //             });
-
-            //체크된 val 받아와서 배열로 만들기
-            function ck() {
-                var chkArray = new Array();
-                var chkfldArray = new Array();
-                var schWord = new Array();
-                var rgTextAry = new Array();
-                var fldTextAry = new Array();
-
-                $("input[name='region']:checked").each(function () {
-                    var tmpVal = $(this).val();
-                    chkArray.push(tmpVal);
-                    var rgText = $(this).parent().text()
-                    rgTextAry.push(rgText);
-
-                });
-                
-                $("lavel")
-                $("input[name='field']:checked").each(function () {
-                    var fldVal = $(this).val();
-                    chkfldArray.push(fldVal);
-                    var fldText = $(this).parent().text();
-                    fldTextAry.push(fldText)
-                });
-                var word = $("input[name='searchWord']").val();
-
-                let list = [];
-                list.push(chkArray);
-                list.push(chkfldArray);
-                //                 if (chkArray.length < 1) {
-                //                     alert("지역을 선택해주시기 바랍니다.");
-                //                     return;
-                //                 }
-                //                 if (chkfldArray.length < 1) {
-                //                     alert("분야을 선택해주시기 바랍니다.")
-                //                     return;
-                //                 }
-                console.log(chkArray)
-                console.log(chkfldArray)
-                $.ajax({
-                        url: "/searchPtgList",
-                        type: "post",
-                        data: JSON.stringify({
-                            chkfldArray: chkfldArray,
-                            chkArray: chkArray,
-                            searchWord: word
-                        }),
-                        contentType: "application/json"
-                    })
-                    .then(res => {
-                        // let resVal = res[0].name
-                        console.log(res)
-                        // console.log(resVal)
-                        // console.log($('.product-card-9'))
-                        $('.col-md-4.col-6').remove() //기존에 나온 작가리스트 지우기 
-                        //$('.product-card-info').remove()  //기존에 나온 작가리스트 지우기 
-                        $(res).each(function (idx, item) {
-                            console.log(item.profile)
-                            console.log(item.name)
-                            $('.row.g-3.g-lg-4.list').append(
-                                `<div class="col-md-4 col-6">
-                                     <div class="product-card-9">
-                                        <div class="product-card-image">
-                                            <div class="product-action">
-                                                <a href="#" class="btn">
-                                                    <i class="fi-heart"></i>
-                                                </a>
-                                            </div>
-                                            <div class="hover-scale">
-                                                <div class="hover-scale-in">
-                                                    <a href="/ptgDetail/${item.ptgId}">
-                                                        <img class="img-fluid" src="${item.profile}" title=""
-                                                            alt="사진이 뜨지않는다.." width="700" height="800">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-card-info">
-                                            <h6 class="product-title">
-                                                <a href="#">${item.name}</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                   `)
-                        })
-
-                        $('.col-lg-8.col-xl-15.text-center').append(
-                            `<div>선택 지역 : ${rgTextAry}         선택 분야 : ${fldTextAry}</div>`)
-                        $("input[name='region']:checked").prop('checked', false);
-                        $("input[name='field']:checked").prop('checked', false);
-                    })
-            }
-
-            //필터(최신순, 인기순,이름순)
-            //Ajax호출
-            function ptgList() {
-                var searchType = $("#selectOp").val(); //셀렉트 박스 
-                console.log(searchType)
-                $.ajax({
-                        url: '/AjaxPtgList/' + searchType,
-                    })
-                    .then(result => {
-                        function makeList() {
-                            $('.col-md-4.col-6').remove()
-                            $(result).each(function (idx, item) {
-                                console.log(result)
-                                $('.row.g-3.g-lg-4.list').append(
-                                    `<div class="col-md-4 col-6">
-                                     <div class="product-card-9">
-                                        <div class="product-card-image">
-                                            <div class="product-action">
-                                                <a href="#" class="btn">
-                                                    <i class="fi-heart"></i>
-                                                </a>
-                                            </div>
-                                            <div class="hover-scale">
-                                                <div class="hover-scale-in">
-                                                    <a href="/ptgDetail/${item.ptgId}">
-                                                        <img class="img-fluid" src="${item.profile}" title=""
-                                                            alt="사진이 뜨지않는다.." width="700" height="800">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-card-info">
-                                            <h6 class="product-title">
-                                                <a href="#">${item.name}</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                   `
-                                )
-                            })
-                        }
-                        if (searchType == 'new') {
-                            makeList()
-                        } else if (searchType == 'hot') {
-                            makeList()
-                        } else if (searchType == 'name') {
-                            makeList()
-                        } else {
-
-                        }
-
-                    })
-                    .then(srror => console.log(error))
-            }
+                $('#searchFrm button').on("click", function(e) {
+                    console.log('click')
+                    $('#searchFrm').find("input[name='pageNum']").val(1);
+                    e.preventDefault();
+                    searchFrm.submit();
+                })
+                        
         </script>
     </div>
 

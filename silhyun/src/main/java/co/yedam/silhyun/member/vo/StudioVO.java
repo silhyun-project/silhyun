@@ -29,5 +29,10 @@ public class StudioVO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date regiDate;
 	
+	private String searchWord;
 	private String searchType;
+	private String[] chkArray;
+	
+	private String profile; 
+	private String name;
 }

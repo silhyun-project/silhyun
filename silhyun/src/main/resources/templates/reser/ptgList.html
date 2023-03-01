@@ -27,6 +27,7 @@ label {
 
 .pagination {
 	display: inline-block;
+	text-align: center;
 }
 
 .pagination a {
@@ -47,7 +48,7 @@ label {
 	border-radius: 5px;
 }
 
-.container {
+.container{
 	text-align: center;
 }
 </style>
@@ -58,6 +59,8 @@ label {
 
 <body>
 	<div layout:fragment="content">
+	<ul th:each="list : ${photographerVO.chkArray}">
+<li th:text="${list}"></li></ul>
 		<!-- Skippy & Prload -->
 		<!-- skippy -->
 		<a id="skippy"
@@ -92,9 +95,8 @@ label {
 										<h2>Menu</h2>
 									</ul>
 									<ul class="nav flex-column">
-										<li class="nav-item"><a href="#" class="nav-link active">사진
-												작가</a></li>
-										<li class="nav-item"><a href="#" class="nav-link">사진관</a>
+										<li class="nav-item"><a href="/silhyun/ptgList" class="nav-link active">사진 작가</a></li>
+										<li class="nav-item"><a href="/silhyun/stdList" class="nav-link">사진관</a>
 										</li>
 									</ul>
 								</div>
@@ -111,7 +113,7 @@ label {
 										<ol
 											class="breadcrumb dark-link m-0 small justify-content-center justify-content-md-start">
 											<li class="breadcrumb-item"><a class="text-nowrap"
-												href="#">Home</a></li>
+												href="/">Home</a></li>
 											<li class="breadcrumb-item text-nowrap active"
 												aria-current="page">예약하기</li>
 										</ol>
@@ -124,7 +126,7 @@ label {
 								<section class="section">
 									<div class="container">
 										<div class="row justify-content-center">
-											<div class="col-lg-8 col-xl-15 text-center">
+											<div class="col-lg-8 col-xl-15 text-center" >
 												<form id="searchFrm" style="display: inline;" action="/silhyun/ptgList">
 													<div class="" style="text-align: left;">
 														<h3>
@@ -132,10 +134,10 @@ label {
 														</h3>
 													</div>
 													<div class="form-check form-check-inline">
-
-														<label class="form-check-label" for="region01">서울<input
-															class="form-check-input" type="checkbox" name="chkArray"
-															id="region01" value="01"></label>
+														<label class="form-check-label" for="region01">서울
+														<input class="form-check-input" type="checkbox" 
+														name="chkArray" id="region01" value="01">
+														</label>
 													</div>
 													<div class="form-check form-check-inline">
 
@@ -255,17 +257,19 @@ label {
 														<button class="btn btn-primary flex-shrink-0"
 															type="button" onclick="ck()">Search</button>
 													</div>
-													<input type="hidden" name="pageNum" th:value="${page.criteria.pageNum}">
-													<input type="hidden" name="amount" th:value="${page.criteria.amount}">
-									<div class="dropdown btn btn-white border" style="size: 100px; text-align: left;">
-										<select id="selectOp" name="searchType" onchange="ptgList()"
-											style="border: 1px solid white;">
-											<option value="">::선택::</option>
-											<option value="new">최신순</option>
-											<option value="hot" selected>인기순</option>
-											<option value="name">이름순</option>
-										</select>
-									</div>
+														
+													<div class="dropdown btn btn-white border" style="size: 100px; text-align: left;">
+														<select id="selectOp" name="searchType" onchange="ptgList()"
+															style="border: 1px solid white;">
+															<option value="">::선택::</option>
+															<option value="new" th:selected="${photographerVO.searchType =='new'}">최신순</option>
+															<option value="hot" th:selected="${photographerVO.searchType =='hot'}">인기순</option>
+															<option value="name" th:selected="${photographerVO.searchType =='name'}">이름순</option>
+														</select>
+															<input type="hidden" name="pageNum" th:value="${page.criteria.pageNum}">
+															<input type="hidden" name="amount" th:value="${page.criteria.amount}">
+															<input type="hidden" name="searchType" th:value="${photographerVO.searchType}">
+													</div>
 												</form>
 											</div>
 										</div>
@@ -309,8 +313,7 @@ label {
 					<!-- End Product Box -->
 				</div>
 
-			</section>
-			<!-- End Shop Section -->
+			<div class="container" style="text-align: center;">
 				<div class="pagination">
 					<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a> <a
 						th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}"
@@ -318,6 +321,9 @@ label {
 						th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
 					<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
 				</div>
+			</div>
+			</section>
+			<!-- End Shop Section -->
 				<form id="actionFrm" action="/silhyun/ptgList" th:object="${page}">
 					<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
 					<input type="hidden" name="amount" th:value="*{criteria.amount}">
@@ -541,24 +547,25 @@ label {
 //                     .then(srror => console.log(error))
 //             }
             
-//             //페이징 관련
-//             history.replaceState({}, null, location.pathname);
-
-//             $(".pagination a").on("click", function(e){
-//             	e.preventDefault();
-//             	console.log($("#actionFrm").find("input[name='pageNum']").val())
-//              	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
-            	
-//             	actionFrm.submit(); //폼태그값을 스트링으로 
-//             })
-
-
-				    
-				
-
+            console.log($("input[name='chkArray']:checked").val());
             
+//             //페이징 관련
+            history.replaceState({}, null, location.pathname);
 
-        </script>
+            $(".pagination a").on("click", function(e){
+            	e.preventDefault();
+            	console.log($("#actionFrm").find("input[name='pageNum']").val())
+             	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
+            	actionFrm.submit(); //폼태그값을 스트링으로 
+            })
+
+			$('#searchFrm button').on("click", function(e) {
+				console.log('click')
+				$('#searchFrm').find("input[name='pageNum']").val(1);
+				e.preventDefault();
+				searchFrm.submit();
+			})
+		</script>
 	</div>
 
 </body>
