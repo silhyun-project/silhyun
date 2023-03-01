@@ -95,13 +95,13 @@
                                         <label class="col-md-12 p-0"><b>가입일</b></label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" 
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.joinDate }" th:name="joinDate" th:readonly="true"> </div>
+                                                class="form-control p-0 border-0" data-th-value="${#dates.format(adminInfo.joinDate, 'yyyy년 MM월 dd일' )}" th:name="joinDate" th:readonly="true"> </div>
                                     </div>
                                                                         <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>생년월일</b></label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" 
-                                                class="form-control p-0 border-0" data-th-value="${adminInfo.birthDate }" th:name="birthDate" th:readonly="true"> </div>
+                                            <input type="text"  
+                                                class="form-control p-0 border-0" data-th-value="${#dates.format(adminInfo.birthDate, 'yyyy년 MM월 dd일' )}" th:name="birthDate" th:readonly="true"> </div>
                                     </div>
                                                                         <div class="form-group mb-4">
                                         <label class="col-md-12 p-0"><b>성별</b></label>

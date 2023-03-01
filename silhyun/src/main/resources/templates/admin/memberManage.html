@@ -60,7 +60,7 @@
 
                                             <input type="text" name="keyward" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-				<button class="btn btn-default">검색</button>
+				<button class="btn btn-dark">검색</button>
                                         </li>
                                     </ul>
                                 </form>
@@ -118,8 +118,8 @@
                                             <td th:text="${mem.name}" th:value="${mem.name}"></td>
                                             <td th:text="${mem.email}" th:value="${mem.email}"></td>
                                             <td th:text="${mem.tel}" th:value="${mem.tel}"></td>
-                                            <td th:text="${mem.joinDate}" th:value="${mem.joinDate}"></td>
-                                            <td th:text="${mem.birthDate}" th:value="${mem.birthDate}"></td>
+                                            <td th:text="${#dates.format(mem.joinDate,'yyyy/MM/dd')}" th:value="${mem.joinDate}"></td>
+                                            <td th:text="${#dates.format(mem.birthDate,'yyyy/MM/dd')}"></td>
                                             <td th:text="${mem.genCd}" th:value="${mem.genCd}"></td>
                                             <td th:text="${mem.pointSum}" th:value="${mem.pointSum}"></td>
                                             <td th:text="${mem.memCd}" th:value="${mem.memCd}"></td>
@@ -192,7 +192,7 @@
                                             </select>
                                             <input type="text" placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                          <button class="btn btn-default">검색</button>
+                                      				<button class="btn btn-dark">검색</button>
                                             </a>
                                         </li>
                                     </ul>
@@ -227,7 +227,7 @@
                                             <td th:text="${ptg.inst}"></td>
                                             <td th:text="${ptg.workDay}"></td>
                                             <td th:text="${ptg.ptgCd}"></td>
-                                            <td th:text="${ptg.regiDate}"></td>
+                                          <td th:text="${#dates.format(ptg.accpDate,'yyyy/MM/dd')}"></td>
                                             <td><button type="button" class="btn btn-success" style="color:white;">수정</button></td>
                                             <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
                                     </tbody>
@@ -269,7 +269,7 @@
                                             </select>
                                             <input type="text" placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                            <a href="" class="active"><i class="fa fa-search"></i>
+                                        				<button class="btn btn-dark">검색</button>
                                             </a>
                                         </li>
                                     </ul>
@@ -305,7 +305,8 @@
                                             <td th:text="${std.regionCd}"></td>
                                             <td th:text="${std.addr}"></td>
                                             <td th:text="${std.crn}"></td>
-                                            
+                                            <td th:text="${#dates.format(std.accpDate,'yyyy/MM/dd')}"></td>
+                                     
                                             <td><button type="button" class="btn btn-success" style="color:white;">수정</button>
                                             &nbsp;
                                              
