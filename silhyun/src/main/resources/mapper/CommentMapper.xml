@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.common.map.CommentMapper">
+	
+	<!-- 댓글 리스트 -->
+	<select id="getCommentList" parameterType="CommentVO" resultType="co.yedam.silhyun.common.vo.CommentVO">
+		select id, cntn, com_date
+		from commment
+		where ctgr_num = 12
+		and dep = 0
+		order by grp, dep, com_num
+	</select>
+	
+	<!-- 대댓글 리스트 -->
+	<select id="getReplyList" parameterType="CommentVO" resultType="co.yedam.silhyun.common.vo.CommentVO">
+		select id, cntn, com_date
+		from commment
+		where ctgr_num = 12
+		and dep = 1
+		order by grp, com_num
+	</select>
+	
+<!-- 	<insert id="commentInsert" parameterType="co.yedam.silhyun.common.vo.CommentVO">
+		<selectKey keyProperty="comNum" resultType="int" order="BEFORE">
+	        SELECT MAX(com_num) + 1 FROM commment
+	     </selectKey>
+	     <selectKey keyProperty="grp" resultType="int" order="BEFORE">
+	        SELECT MAX(grp) + 1 FROM commment
+	     </selectKey>
+     
+	     insert into commment(com_num, ctgr, ctgr_num, dep, grp, id, cntn, com_date)
+	     			 values(#{comNum}, C, , 0, #{grp}, hi123, #{cntn}, sysdate)
+	 </insert>    
+	 
+	 <delete id="commentDelete" >
+	 
+	 </delete>
+	 
+	 <update id="commentUpdate">
+	 
+	 </update>
+	 
+	 <insert id="replyInsert">
+	 
+	 </insert>
+	 
+	 <delete id="replyDelete">
+	 
+	 </delete>
+	 
+	 <update id="replyUpdate">
+	 
+	 </update> -->
+	 	 
+</mapper>
