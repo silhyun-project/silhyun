@@ -7,9 +7,8 @@
 		ORDER BY cpn_num DESC
 	</select>
 	
-	<insert id="insertCoupon">
+	<insert id="insertCoupon" parameterType="co.yedam.silhyun.event.vo.CouponHistoryVO">
 		INSERT INTO COUPONHISTORY
-			(id,cpn_num,cpn_sta)
 		VALUES(#{id},#{cpnNum},#{cpnSta})
 	</insert>
 	
