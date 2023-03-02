@@ -1,11 +1,23 @@
 package co.yedam.silhyun.common.web;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.crypto.spec.RC2ParameterSpec;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import co.yedam.silhyun.common.service.PhotoService;
 import co.yedam.silhyun.common.service.ReviewService;
 import co.yedam.silhyun.common.vo.ReviewVO;
 
@@ -14,21 +26,27 @@ import co.yedam.silhyun.common.vo.ReviewVO;
 public class ReviewController {
 	
 	@Autowired ReviewService rService;
+	@Autowired PhotoService pService;
 	
-	@GetMapping("silhyun/reviewform")
+	@GetMapping("/silhyun/reviewform")
 	public String reviewForm() {
 		return "review/reviewForm";
 	}
 
-	@GetMapping("silhyun/review")
-	public String test() {
+	@GetMapping("/silhyun/reviewList")
+	public String reviewList() {
+
 		return "review/test";
 	}
 	
-	@PostMapping("silhyun/review")
-	public String reviewInsert(ReviewVO vo) {
+	@PostMapping("/silhyun/review")
+	@ResponseBody
+	public ReviewVO reviewInsert(ReviewVO vo, List<MultipartFile> files) {  //@RequestParam => 필수값임
 		vo.setCtgr("A");
-		rService.reviewInsert(vo);
-		return "review/test";
+		String ctgrNum = rService.reviewInsert(vo);
+		String ctgr = "R";
+		pService.photoInsert(files, ctgrNum, ctgr);
+		return vo;
 	}
+	
 }

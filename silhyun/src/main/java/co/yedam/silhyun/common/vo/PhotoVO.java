@@ -8,6 +8,4 @@ public class PhotoVO {
 	private String ctgr;
 	private String ctgrNum;
 	private String phoRt;
-	private String exten;
-	private int phoSize;
 }

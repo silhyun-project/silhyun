@@ -26,9 +26,10 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int reviewInsert(ReviewVO vo) {
-		
-		return mapper.reviewInsert(vo);
+	public String reviewInsert(ReviewVO vo) {
+		mapper.reviewInsert(vo);
+		System.out.println("리뷰번호가 넘어오는감??? ================"+vo.getRevNum());
+		return vo.getRevNum();
 	}
 
 	@Override
