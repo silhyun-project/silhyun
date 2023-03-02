@@ -10,7 +10,6 @@ import co.yedam.silhyun.common.vo.CommentVO;
 
 @Service
 public class CommentServiceImpl implements CommentService{
-
 	@Autowired CommentMapper mapper;
 	
 	@Override
@@ -18,5 +17,4 @@ public class CommentServiceImpl implements CommentService{
 		// TODO Auto-generated method stub
 		return mapper.getCommentList();
 	}
-
 }
