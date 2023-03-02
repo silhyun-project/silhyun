@@ -1,12 +1,14 @@
 package co.yedam.silhyun.order.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
@@ -20,10 +22,10 @@ public class ReserController {
 	@Autowired PtgService ptgService;
 	@Autowired StdService stdService;
 
+	///▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
 	public String ptgList(Criteria cri, Model model, PhotographerVO vo) {
 		cri.setAmount(3);
-		System.out.println("나와라=============================="+vo.getChkArray());
 		model.addAttribute("ptgList", ptgService.getPtgLsit(cri, vo));
 		model.addAttribute("page", new PageVO(ptgService.getTotalCount(cri, vo), 10, cri));
 //		model.addAttribute("ptgList", ptgService.getPtgLsit(cri, vo));
@@ -58,7 +60,7 @@ public class ReserController {
 		return "reser/ptgDetail";
 	}
 	
-	
+	///▶사진관
 	@RequestMapping("/silhyun/stdList")  //사진관 전체 리스트
 	public String studioList(Criteria cri,Model model,StudioVO vo) {
 		cri.setAmount(3);
@@ -74,5 +76,12 @@ public class ReserController {
 		model.addAttribute("std",stdService.getStd(stId));
 		return "reser/stdDetail";
 	}
+	
+	@RequestMapping("/ajaxStdList/{stdId}")
+	@ResponseBody
+		public List<StudioVO> ajaxStdList(@PathVariable String stdId){
+		System.out.println("호출");
+			return stdService.getReserList(stdId);
+		}
+	}
 
-}

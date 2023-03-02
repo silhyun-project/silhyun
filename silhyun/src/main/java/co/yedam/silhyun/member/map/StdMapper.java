@@ -10,4 +10,5 @@ public interface StdMapper {
 	int getTotalCount(Criteria cri,StudioVO vo);  //페이징
 	
 	List<StudioVO> getStd(String stdId); //사진관 상세
+	List<StudioVO> getReserList(String stdId);
 }

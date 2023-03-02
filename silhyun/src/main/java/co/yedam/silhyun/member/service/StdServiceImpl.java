@@ -27,6 +27,11 @@ public class StdServiceImpl implements StdService {
 	public List<StudioVO> getStd(String stdId) {
 		return stdMapper.getStd(stdId);
 	}
+
+	@Override
+	public List<StudioVO> getReserList(String stdId) {
+		return stdMapper.getReserList(stdId);
+	}
 	
 	
 

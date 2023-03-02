@@ -59,8 +59,6 @@ label {
 
 <body>
 	<div layout:fragment="content">
-	<ul th:each="list : ${photographerVO.chkArray}">
-<li th:text="${list}"></li></ul>
 		<!-- Skippy & Prload -->
 		<!-- skippy -->
 		<a id="skippy"
@@ -136,67 +134,83 @@ label {
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="region01">서울
 														<input class="form-check-input" type="checkbox" 
-														name="chkArray" id="region01" value="01">
+														name="chkArray" id="region01" value="01"
+														th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'01')}">
 														</label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region02">경기<input
 															class="form-check-input" type="checkbox" name="chkArray"
-															id="region02" value="02"></label>
+															id="region02" value="02" th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'02')}"></label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region03">인천
 															<input class="form-check-input" type="checkbox"
-															name="chkArray" id="region03" value="03">
+															name="chkArray" id="region03" value="03"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'03')}">
 														</label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region04">강원<input
 															class="form-check-input" type="checkbox" name="chkArray"
-															id="region04" value="04"></label>
+															id="region04" value="04"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'04')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region05">대전/충청
 															<input class="form-check-input" type="checkbox"
-															name="chkArray" id="region05" value="05">
+															name="chkArray" id="region05" value="05"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'05')}"
+															>
 														</label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region06">대구
 															<input class="form-check-input" type="checkbox"
-															name="chkArray" id="region06" value="06">
+															name="chkArray" id="region06" value="06"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'06')}"
+															>
 														</label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region07">부산/울산
 															<input class="form-check-input" type="checkbox"
-															name="chkArray" id="region07" value="07">
+															name="chkArray" id="region07" value="07"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'07')}"
+															>
 														</label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region08">경상
 															<input class="form-check-input" type="checkbox"
-															name="chkArray" id="region08" value="08">
+															name="chkArray" id="region08" value="08"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'08')}"
+															>
 														</label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region09">광주/전라<input
 															class="form-check-input" type="checkbox" name="chkArray"
-															id="region09" value="09"></label>
+															id="region09" value="09"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'09')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 
 														<label class="form-check-label" for="region10">제주
 															<input class="form-check-input" type="checkbox"
-															name="chkArray" id="region10" value="10">
+															name="chkArray" id="region10" value="10"
+															th:checked="${photographerVO.chkArray != null and #lists.contains(photographerVO.chkArray ,'10')}"
+															>
 														</label>
 													</div>
 													<div class="" style="text-align: left;">
@@ -207,47 +221,65 @@ label {
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B1">제품<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B1" value="B1"></label>
+															id="B1" value="B1"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B1')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B2">음식<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B2" value="B2"></label>
+															id="B2" value="B2"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B2')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B3">행사<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B3" value="B3"></label>
+															id="B3" value="B3"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B3')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B4">건축/인테리어<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B4" value="B4"></label>
+															id="B4" value="B4"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B4')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B5">패션<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B5" value="B5"></label>
+															id="B5" value="B5"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B5')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B6">프로필/화보<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B6" value="B6"></label>
+															id="B6" value="B6"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B6')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B7">웨딩<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B7" value="B7"></label>
+															id="B7" value="B7"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B7')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B8">일반스냅<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B8" value="B8"></label>
+															id="B8" value="B8"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B8')}"
+															></label>
 													</div>
 													<div class="form-check form-check-inline">
 														<label class="form-check-label" for="B9">반려동물<input
 															class="form-check-input" type="checkbox" name="chkfldArray"
-															id="B9" value="B9"></label>
+															id="B9" value="B9"
+															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B9')}"
+															></label>
 													</div>
 
 													<div style="display: inline;">
@@ -255,21 +287,20 @@ label {
 															class="form-control me-sm-2 mb-2 mb-sm-1"
 															name="searchWord" placeholder="찾는 작가의 이름을 입력하세요">
 														<button class="btn btn-primary flex-shrink-0"
-															type="button" onclick="ck()">Search</button>
+															type="submit">Search</button>
 													</div>
-														
-													<div class="dropdown btn btn-white border" style="size: 100px; text-align: left;">
-														<select id="selectOp" name="searchType" onchange="ptgList()"
+														<br>
+														<div class="dropdown btn btn-white border" style="size: 100px; text-align: left;">
+														<select id="selectOp" name="searchType" onchange="searchFrm.submit()"
 															style="border: 1px solid white;">
 															<option value="">::선택::</option>
 															<option value="new" th:selected="${photographerVO.searchType =='new'}">최신순</option>
 															<option value="hot" th:selected="${photographerVO.searchType =='hot'}">인기순</option>
 															<option value="name" th:selected="${photographerVO.searchType =='name'}">이름순</option>
 														</select>
-															<input type="hidden" name="pageNum" th:value="${page.criteria.pageNum}">
-															<input type="hidden" name="amount" th:value="${page.criteria.amount}">
-															<input type="hidden" name="searchType" th:value="${photographerVO.searchType}">
 													</div>
+															<input type="hidden" name="pageNum" th:value="1">
+															<input type="hidden" name="amount" th:value="${page.criteria.amount}">
 												</form>
 											</div>
 										</div>
@@ -277,6 +308,7 @@ label {
 								</section>
 								<!-- End Section -->
 							</div>
+													
 
 							<!-- 작가 리스트 -->
 							<div class="row g-3 g-lg-4 list" id="page">
@@ -307,33 +339,23 @@ label {
 										</div>
 									</div>
 								</div>
+								<div class="container" style="text-align: center;">
+									<div class="pagination">
+										<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a> <a
+											th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}"
+											th:href="${num}"
+											th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+										<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 					</div>
 					<!-- End Product Box -->
 				</div>
 
-			<div class="container" style="text-align: center;">
-				<div class="pagination">
-					<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a> <a
-						th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}"
-						th:href="${num}"
-						th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
-					<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
-				</div>
-			</div>
 			</section>
-			<!-- End Shop Section -->
-				<form id="actionFrm" action="/silhyun/ptgList" th:object="${page}">
-					<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
-					<input type="hidden" name="amount" th:value="*{criteria.amount}">
-					<input type="hidden" name="searchType" th:value="${photographerVO.searchType}">
-					<input type="hidden" name="chkArray" th:value="${photographerVO.chkArray}">
-					<input type="hidden" name="chkfldArray" th:value="${photographerVO.chkfldArray}">
-					<input type="hidden" name="region" th:value="${photographerVO.region}">
-					<input type="hidden" name="field" th:value="${photographerVO.field}">
-					<input type="hidden" name="searchWord" th:value="${photographerVO.searchWord}">
-				</form>
 		</main>
 		<!-- End Main -->
 		<!-- 
@@ -554,17 +576,11 @@ label {
 
             $(".pagination a").on("click", function(e){
             	e.preventDefault();
-            	console.log($("#actionFrm").find("input[name='pageNum']").val())
-             	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
-            	actionFrm.submit(); //폼태그값을 스트링으로 
+             	$("#searchFrm").find("input[name='pageNum']").val($(this).attr("href"));
+
+             	searchFrm.submit(); //폼태그값을 스트링으로 
             })
 
-			$('#searchFrm button').on("click", function(e) {
-				console.log('click')
-				$('#searchFrm').find("input[name='pageNum']").val(1);
-				e.preventDefault();
-				searchFrm.submit();
-			})
 		</script>
 	</div>
 
