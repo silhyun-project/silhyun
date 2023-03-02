@@ -93,11 +93,29 @@ makeDiv = function(img, file){
 }
     
 function insertReview(){
-	var formData = new FormData()
+	///차라리전부 아작스로 보내고 seccess 부분에서 location.href로 하기
+	var formData = new FormData($('#myform')[0])
 	for(let i=0; i<selFiles.length; i++){
 		formData.append("files", selFiles[i])
-	}
+		}
+		
+		
+	$.ajax({
+		url: "/silhyun/review",
+		type:"post",
+		data: formData,
+		contentType: false,
+		processData: false, 
+		success: function(res){
+			console.log(res.revNum)
+			
+		},
+		error: function(err){
+			console.log(err)
+		}
+		
+	})
+	return false;
 	
-	myform.submit();
 }
 
