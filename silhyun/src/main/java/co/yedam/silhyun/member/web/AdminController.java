@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
-import co.yedam.silhyun.common.vo.ReviewVO;
 import co.yedam.silhyun.member.service.AdminSercive;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
+import co.yedam.silhyun.mypage.vo.QuitVO;
 
 @Controller
 public class AdminController {
@@ -44,31 +44,26 @@ public class AdminController {
 		model.addAttribute("todayPtg", adminService.todayPtg());
 		model.addAttribute("todayStd", adminService.todayStd());
 		
-		//model.addAttribute("memberList", adminService.memberList());
+		model.addAttribute("memberList", adminService.memberList());
 		model.addAttribute("ptgList",adminService.ptgList());
 		model.addAttribute("stdList",adminService.stdList());
 		
 		
 		
 		//회원전체리스트 페이징 
-		model.addAttribute("memberList", adminService.getListMember(cri));
+		cri.setAmount(5);
+		model.addAttribute("list", adminService.getListMember(cri));
 		model.addAttribute("page", new PageVO(adminService.getTotalCount(cri), 10, cri));
 		
+		//작가리스트 페이징
+		cri.setAmount(5);
+		model.addAttribute("ptglist", adminService.getListPtg(cri));
+		model.addAttribute("ptgPage", new PageVO(adminService.getTotalPtg(cri), 10, cri));
+
 		return "/admin/memberManage";
 	}
 	
 	
-	//소속 작가 보기
-//	@PostMapping("/belongPtg")
-//	@ResponseBody
-//	public Model belongPtg(String stId, Model model) {
-//		System.out.println("컨트롤러로 온 stId는 =" + stId);
-//		model.addAttribute("belongPtg", adminService.belongPtg(stId));
-//		
-//		System.out.println("컨트롤러의 model은"+model);
-//		model.addAttribute("STbelong", stId);
-//		return model;
-//	}
 	@RequestMapping("/belongPtg")
 	@ResponseBody
 	public Map<String,Object> belongPtg(String stId) {
@@ -119,7 +114,22 @@ public class AdminController {
 		return "redirect:/admin/adminManage";
 	}
 	
-	
+	//회원정보 수정
+	@PostMapping("/updateMember")
+	public String updateMember(MemberVO vo) {
+		
+		
+		System.out.println("컨트롤러 멤버수정 보"+vo);
+		
+		int n = adminService.updateMember(vo); 
+		
+		if(n!=0) {
+			System.out.println("회원정보 수정성공");
+		}else {
+			System.out.println("회원정보 수정실패");
+		}
+		return "redirect:/admin/memberManage";
+	}
 	
 	@GetMapping("/admin/orderManage")
 	public String orderManage() {
@@ -131,10 +141,35 @@ public class AdminController {
 		return "/admin/qstManage";
 	}
 	
+	//탈퇴관리
 	@GetMapping("/admin/quitManage")
-	public String quitManage(Model model) {
+	public String quitManage(Criteria cri, QuitVO vo, Model model) {
 		model.addAttribute("qtList",adminService.qtList());
+		
+		List<Map<String,String>> list = adminService.quitGraph();
+		model.addAttribute("gtGraph",list);
+	
+		//페이징
+		cri.setAmount(5);
+		model.addAttribute("list", adminService.getListQuit(cri));
+		model.addAttribute("page", new PageVO(adminService.getTotalQuit(cri), 10, cri));
+
 		return "/admin/quitManage";
+	}
+	
+	//탈퇴 삭제
+	@RequestMapping("/deleteQMember")
+	public String deleteQMember(String id) {
+		System.out.println("내가 보려는 거 "+id);
+		
+		int n = adminService.deleteQMember(id);
+
+		if(n !=0) {
+			System.out.println(id+"삭제완료");
+		}else {
+		}
+		return "redirect:/admin/quitManage";
+		//test
 	}
 	
 	@GetMapping("/admin/rankManage")
@@ -153,7 +188,6 @@ public class AdminController {
 		return "/admin/adminManage";
 	}
 	
-
 	
 	@GetMapping("/admin/dashBoard")
 	public String dashBoard() {

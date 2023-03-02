@@ -1,6 +1,7 @@
 package co.yedam.silhyun.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,8 @@ public class AdminServiceImpl implements AdminSercive {
 		return adminMapper.belongPtg(stId);
 	}
 
+	
+	//회원리스트 페이징
 	@Override
 	public List<MemberVO> getListMember(Criteria cri) {
 		return adminMapper.getListMember(cri);
@@ -87,5 +90,41 @@ public class AdminServiceImpl implements AdminSercive {
 	public int getTotalCount(Criteria cri) {
 		return adminMapper.getTotalCount(cri);
 	}
-	
+
+	@Override
+	public int updateMember(MemberVO vo) {
+		return adminMapper.updateMember(vo);
+	}
+
+	@Override
+	public List<Map<String, String>> quitGraph() {
+		return adminMapper.quitGraph();
+	}
+
+	@Override
+	public List<QuitVO> getListQuit(Criteria cri) {
+		return adminMapper.getListQuit(cri);
+	}
+
+	@Override
+	public int getTotalQuit(Criteria cri) {
+		return adminMapper.getTotalQuit(cri);
+	}
+
+	@Override
+	public int deleteQMember(String id) {
+		return adminMapper.deleteQMember(id);
+	}
+
+	@Override
+	public List<PhotographerVO> getListPtg(Criteria cri) {
+			return adminMapper.getListPtg(cri);
+	}
+
+	@Override
+	public int getTotalPtg(Criteria cri) {
+			return adminMapper.getTotalPtg(cri);
+	}
+
+
 }

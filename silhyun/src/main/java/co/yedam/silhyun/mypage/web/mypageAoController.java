@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.yedam.silhyun.event.vo.CouponVO;
+import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.mypage.service.MypageAoService;
 
 @Controller
@@ -17,68 +21,49 @@ public class mypageAoController {
 		return "mypageAo/mypageAo";
 	}
 	
-	@GetMapping("/modPfAo")
-	public String modpfAo() {
-			
+	@GetMapping("/photo/modPfAo")
+	public String modpfAo(Model model) {
+		model.addAttribute("ptgInfo",mypageAoService.getPhotoinfo());
+
 			return "mypageAo/modPfAo";
 		}
-	@GetMapping("/resManage")
+	@GetMapping("/photo/resManage")
 	public String resManage(Model model) {
 	model.addAttribute("resList", mypageAoService.getReserList());
 	
 		return "mypageAo/resManage";
 	}
-	@GetMapping("/classManage")
+	@GetMapping("/photo/classManage")
 	public String classManage() {
 		
 		return "mypageAo/classManage";
 	}
-	@GetMapping("/mypageAoAsk")
+	@GetMapping("/photo/mypageAoAsk")
 	public String mypageAoAsk() {
 		
 		return "mypageAo/mypageAoAsk";
 	}
-	@GetMapping("/resCalendarAo")
+	@GetMapping("/photo/resCalendarAo")
 	public String resCalendarAo() {
 		
 		return "mypageAo/resCalendarAo";
 	}
-	@GetMapping("/mypageStatsAo")
+	@GetMapping("/photo/mypageStatsAo")
 	public String mypageStatsAo() {
 		
 		return "mypageAo/mypageStatsAo";
 	}
 	
-	@GetMapping("/reportFormAo")
+	@GetMapping("/photo/reportFormAo")
 	public String reportAo() {
 		
 		return "mypageAo/reportFormAo";
 	}
-	/*
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	@PostMapping("/applyEvent")
 	@ResponseBody
-	public ResponseEntity<?> uploadFile(
-		    @RequestParam("uploadfile") MultipartFile uploadfile) {
-		  
-		  try {
-		    // Get the filename and build the local file path (be sure that the 
-		    // application have write permissions on such directory)
-		    String filename = uploadfile.getOriginalFilename();
-		    String directory = "C:\\saveImg";
-		    String filepath = Paths.get(directory, filename).toString();
-		    
-		    // Save the file locally
-		    BufferedOutputStream stream =
-		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-		    stream.write(uploadfile.getBytes());
-		    stream.close();
-		  }
-		  catch (Exception e) {
-		    System.out.println(e.getMessage());
-		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		  }
-		  
-		  return new ResponseEntity<>(HttpStatus.OK);
-		} // method uploadFile
-*/
+	public boolean applyEvent(EventVO vo, CouponVO cvo) {
+		mypageAoService.applyEvent(vo);
+		mypageAoService.applyECoupon(cvo);
+		return true;
+	}
 }

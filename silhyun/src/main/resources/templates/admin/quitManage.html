@@ -36,61 +36,98 @@
                         <div class="white-box">
                         <div>
                             <h3 class="box-title">탈퇴 회원</h3>
-                                <form role="search" class="app-search d-none d-md-block me-3">
+                            
+                            
+                             <form id="searchFrm" action="/admin/quitManage" th:object="${page}" class="app-search d-none d-md-block me-3">
                
                             <ul style="list-style:none;float:right;">
 								<li>		
-                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">#번호</option>
-                               <option value="">아이디</option>
-                               <option value="">탈퇴일</option>
-                               <option value="">탈퇴사유</option>
-                               <option value="">상세사유</option>
-                            </select>
-                                <input type="text" placeholder="Search..." class="form-control mt-0"
-                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-								</li>                            
-                            </ul>
-                            </form>
+  									<select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
+  
+                                              	<option value="all" th:selected="*{criteria.type == 'all'}">전체</option>
+                                   
+                                   
+                                                <option value="id" th:selected="*{criteria.type == 'id'}">아이디</option>
+                                                <option value="quitDate" th:selected="*{criteria.type == 'quitDate'}">탈퇴일</option>
+                                                <option value="quitCd" th:selected="*{criteria.type == 'quitCd'}">탈퇴사유</option>
+                                                <option value="detaResn" th:selected="*{criteria.type == 'detaResn'}">상세사유</option>
+
+                                            </select>
+                                            <input type="text" name="keyword" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"
+                                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
+											<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+											<input type="hidden" name="amount" th:value="*{criteria.amount}">
+											<button class="btn btn-dark">검색</button>
+                                        </li>
+                                    </ul>
+                                </form>
+                                
+                            
+                            
                         </div>
 	
 	               <br>
 					<hr>
-
-                            <div class="table-responsive">
+	<form id ="quitMFrm" method="post" action="/deleteQuitM">
+	  <div class="table-responsive">
+                                <!-- 회원 테이블 -->
+                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|deleteMemberAll()|">선택삭제</button>
                                 <table class="table text-nowrap">
+                                    
                                     <thead>
+                                    
                                         <tr>
+                                        
+         									<th align="center"><input type="checkbox" id="chkMemAllBox" th:attr="onclick=|chkMemAll()|"></th>
                                             <th class="border-top-0">#번호</th>
                                             <th class="border-top-0">멤버아이디</th>
-                                            <th class="border-top-0">탈퇴일자</th>
+                                            <th class="border-top-0">탈퇴일</th>
                                             <th class="border-top-0">탈퇴사유</th>
                                             <th class="border-top-0">탈퇴상세사유</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                           <tr th:each="qt,sts : ${qtList}" th:Class="${sts}">                                
-                                            <td th:text="${sts.count}"></td>    
-                                            <td th:text="${qt.Id}"></td>
-                                            <td th:text="${qt.quitDate}"></td>
-                                            <td th:text="${qt.quitCd}"></td>
-                                            <td th:text="${qt.detaResn}"></td>
-                                            <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
-                                        </tr>
+                                        <tr th:each="mem,sts : ${list}" th:Class="${sts}">
+                                        
+                                    	    <td><input type="checkbox" id="memberBox" ></td>
+                                            <td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}"></td>
+                                            <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
+                                            <td th:text="${#dates.format(mem.quitDate,'yyyy/MM/dd')}" th:value="${mem.quitDate}"></td>
+                                            <td th:text="${mem.quitCd}" th:value="${mem.quitCd}"></td>
+                                            <td th:text="${mem.detaResn}" th:value="${mem.detaResn}"></td>
 
+                                         
+
+                                            <td><button type="button" class="btn btn-danger" 
+                                            style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|" id="delBtn">삭제</button></td>
+                                            
+                                        
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-     
-                
+</form>
+	
+	                            
+                            <!-- 회원리스트 페이징  -->
+                            <div align="center">
+                            
+   <div class="pagination">
+		<a th:if="${page.prev}" th:href="${page.startPage-1}" style="color:black;float:left;padding:8px16px;text-decoration:none">&laquo;</a>
+		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
+		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+	</div>
+	<form id="actionFrm" action="/admin/quitManage" th:object="${page}">
+		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" name="amount" th:value="*{criteria.amount}">
+		<input type="hidden" name="type" th:value="*{criteria.type}">
+		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
+	</form>
+</div>
+
+<!-- 페이징 끝 -->
+
                 
                 
                       </div>
@@ -109,46 +146,164 @@
                     </div>
                 </div>
                 
-                   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-             <script th:inline="javascript">
+                
+                
+                
+                
+                
+                
+                
+                
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-                var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // 만들기 원하는 차트의 유형
-    type: 'pie',
+<script th:inline="javascript">
 
-    // 데이터 집합을 위한 데이터
-    data: {
-		labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: 'My First dataset',
-        	data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-            	'rgba(255, 99, 132, 0.2)',
-				'rgba(54, 162, 235, 0.2)',
-				'rgba(255, 206, 86, 0.2)',
-				'rgba(75, 192, 192, 0.2)',
-				'rgba(153, 102, 255, 0.2)',
-				'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-				'rgba(255, 99, 132, 1)',
-				'rgba(54, 162, 235, 1)',
-				'rgba(255, 206, 86, 1)',
-				'rgba(75, 192, 192, 1)',
-				'rgba(153, 102, 255, 1)',
-				'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 2,
-        }]
-    },
+var list = /*[[${gtGraph}]]*/ []; // 컨트롤러에서 가져온 List<Map<String,String>> list 값
 
-    // 설정은 여기서 하세요
-options: {
-			responsive: false,
-		}
-});
+    // labels와 data 배열 초기화
+    var labels = [];
+    var data = [];
+
+    // list의 각 Map에서 key와 value를 labels와 data 배열에 추가
+    list.forEach(function(map) {
+        for (var key in map) {
+            labels.push(key);
+            data.push(map[key]);
+        }
+    });
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'My First dataset',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(100, 100, 100, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(25, 25, 25, 0.5)',
+                ],
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            responsive: false,
+        }
+    });
+    
+   
 </script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>        
+<script th:inline="javascript">
+history.replaceState({}, null, location.pathname);
+
+$(".pagination a").on("click", function(e){
+	e.preventDefault();
+	console.log($("#actionFrm").find("input[name='pageNum']").val())
+ 	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
+	
+	actionFrm.submit(); //폼태그값을 스트링으로 
+})
+
+	console.log($('input[type="checkbox"]:checked').val())
+	
+$('#searchFrm button').on("click", function(e){
+	console.log('click')
+	
+	
+	$('#searchFrm').find("input[name='pageNum']").val(1);
+	e.preventDefault();
+	searchFrm.submit();
+});
+
+//단건 삭제버튼. id값만 넘기면서 페이지 새로고침
+function deleteMember(id){
+
+	var id= id;
+	if(confirm(id+"님을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
+
+location.replace('/deleteQMember?id='+id); 
+	alert("삭제 완료");
+	}else{
+		alert("취소되었습니다.");
+	}
+
+};
+
+//다건 삭제버튼
+
+function chkMemAll(){
+ if($("#chkMemAllBox").prop("checked")){
+	 console.log("클릭은 됨")
+    $("input[id*='memberBox']").prop("checked",true); 
+}else{
+    $("input[id*='memberBox']").prop("checked",false); 
+}
+};
+
+
+
+
+
+function deleteMemberAll(){
+	 var ids = '';
+let list = [];
+
+ $("[id='memberBox']:checked").each(function(i, checkbox){
+	 var tr = $(checkbox).parent().parent();
+	 var td = $(tr).children();
+	 
+	 var id = td.eq(2).text();
+
+	 ids+= id+"님 ";
+
+	 var obj = {};
+	 //obj["id"] = id;
+	 
+	 //list.push(obj);
+	 list.push(id);
+	 
+ });
+ 	if(confirm(ids+"을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
+		
+ 		for (const value of list) {
+ 		    console.log("삭제할거얌"+value);
+ 		   location.replace('/deleteQMember?id='+value);
+ 		} 
+
+ 		alert("삭제 완료");
+	    	
+ 	}else{
+	    		alert("취소되었습니다.");
+	    	}
+	 
+
+};
+</script>
+
+
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>

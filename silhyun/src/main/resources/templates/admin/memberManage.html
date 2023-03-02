@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- Favicon -->
-<link rel="shortcut icon" href="/img/favicon.ico">
-<!-- CSS Template -->
-<link href="/css/swimwear.css" rel="stylesheet">
 
 </head>
 <body>
+  
+
+
+
     <div layout:fragment="content">
 
         <!-- 본문 시작 -->
@@ -41,26 +42,29 @@
                                     신규 회원: <code th:text="${todayMem.size}"></code> &nbsp; 총 회원: <code th:text="${memberList.size}"></code></p>
                                 <!-- 검색 -->
                                 <form id="searchFrm" action="/admin/memberManage" th:object="${page}" class="app-search d-none d-md-block me-3">
+
                                     <ul style="list-style:none;float:right;">
                                         <li>
                                             <select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
-                                             	<option value="all">전체</option>
-                                                <option value="id">아이디</option>
-                                                <option value="name">이름</option>
-                                                <option value="email">이메일</option>
-                                                <option value="tel">휴대전화</option>
-                                                <option value="joinDate">가입날짜</option>
-                                                <option value="birthDate">생년월일</option>
-                                                <option value="genCd">성별</option>
-                                                <option value="pointSum">포인트</option>
-                                                <option value="memCd">멤버권한</option>
+                                   
+                                             	<option value="all" th:selected="*{criteria.type == 'all'}">전체</option>
+                                   
+                                   
+                                                <option value="id" th:selected="*{criteria.type == 'id'}">아이디</option>
+                                                <option value="name" th:selected="*{criteria.type == 'name'}">이름</option>
+                                                <option value="email" th:selected="*{criteria.type == 'email'}">이메일</option>
+                                                <option value="tel" th:selected="*{criteria.type == 'tel'}">휴대전화</option>
+                                                <option value="joinDate" th:selected="*{criteria.type == 'joinDate'}">가입날짜</option>
+                                                <option value="birthDate" th:selected="*{criteria.type == 'birthDate'}">생년월일</option>
+                                                <option value="genCd" th:selected="*{criteria.type == 'genCd'}">성별</option>
+                                                <option value="pointSum" th:selected="*{criteria.type == 'pointSum'}">포인트</option>
+                                                <option value="memCd" th:selected="*{criteria.type == 'memCd'}">멤버권한</option>
                                             </select>
-		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
-		<input type="hidden" name="amount" th:value="*{criteria.amount}">
-
-                                            <input type="text" name="keyward" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"
+                                            <input type="text" name="keyword" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-				<button class="btn btn-dark">검색</button>
+											<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+											<input type="hidden" name="amount" th:value="*{criteria.amount}">
+											<button class="btn btn-dark">검색</button>
                                         </li>
                                     </ul>
                                 </form>
@@ -110,10 +114,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="mem,sts : ${memberList}" th:Class="${sts}">
+                                        <tr th:each="mem,sts : ${list}" th:Class="${sts}">
                                         
-                                    	    <td align="center"><input type="checkbox" th:if="${#strings.equals(mem.memCd, 'M1')}" id="memberBox" ></td>
-                                            <td th:text="${sts.count}"></td>
+                                    	    <td><input type="checkbox" th:if="${#strings.equals(mem.memCd, 'M1')}" id="memberBox" ></td>
+                                            <td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}"></td>
                                             <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
                                             <td th:text="${mem.name}" th:value="${mem.name}"></td>
                                             <td th:text="${mem.email}" th:value="${mem.email}"></td>
@@ -124,7 +128,8 @@
                                             <td th:text="${mem.pointSum}" th:value="${mem.pointSum}"></td>
                                             <td th:text="${mem.memCd}" th:value="${mem.memCd}"></td>
                                             
-                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button>
+                                            <td><button type="button" class="btn btn-success"  id ="updateMBtn"  data-bs-toggle="modal" data-bs-target="#updateMModal" style="color:white;" 
+                                            th:attr="onclick=|relayMId('${mem.id}')|">수정</button>
                                             &nbsp;
                                               
                                             <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
@@ -137,11 +142,16 @@
                             </div>
                             </form>
                             
+                            
+                            
+                            
+                            
+                            
                             <!-- 회원리스트 페이징  -->
-                            <div>
+                            <div align="center">
                             
    <div class="pagination">
-		<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
+		<a th:if="${page.prev}" th:href="${page.startPage-1}" style="color:black;float:left;padding:8px16px;text-decoration:none">&laquo;</a>
 		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
 		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
 		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
@@ -176,37 +186,51 @@
 		<br>
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
                                     신규 기록가: <code th:text="${todayPtg.size}"></code> &nbsp; 총 기록가: <code th:text="${ptgList.size}"></code></p>
-                                <form role="search" class="app-search d-none d-md-block me-3">
-                                    <ul style="list-style:none;float:right;">
-                                        <li>
-                                            <select style="width:120px;height:30px;font-size:16px;border:none;">
-                                                <option value="">#번호</option>
-                                                <option value="">작가아이디</option>
-                                                <option value="">사진관아이디</option>
-                                                <option value="">지역</option>
-                                                <option value="">사업자등록번호</option>
-                                                <option value="">인스타주소</option>
-                                                <option value="">근무가능요일</option>
-                                                <option value="">등록일자</option>
-                                                <option value="">소속여부</option>
+                             <form id="searchFrmP" action="/admin/memberManage" th:object="${ptgPage}" class="app-search d-none d-md-block me-3">
+               
+                            <ul style="list-style:none;float:right;">
+								<li>		
+  									<select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
+  
+                                              	<option value="all" th:selected="*{criteria.type == 'all'}">전체</option>
+                                   
+                                   
+                                                <option value="id" th:selected="*{criteria.type == 'id'}">작가아이디</option>
+                                   				<option value="stId" th:selected="*{criteria.type == 'stId'}">사진관아이디</option>
+                                                <option value="regionCd" th:selected="*{criteria.type == 'regionCd'}">지역</option>
+                                                <option value="crn" th:selected="*{criteria.type == 'crn'}">사업자등록번호</option>
+                                                <option value="inst" th:selected="*{criteria.type == 'inst'}">인스타주소</option>
+                                                <option value="workDay" th:selected="*{criteria.type == 'workDay'}">근무가능요일</option>
+                                                <option value="accpDate" th:selected="*{criteria.type == 'accpDate'}">등록일</option>
+                                                <option value="ptgCd" th:selected="*{criteria.type == 'ptgCd'}">소속여부</option>
+
                                             </select>
-                                            <input type="text" placeholder="Search..." class="form-control mt-0"
+                                            <input type="text" name="keyword" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                      				<button class="btn btn-dark">검색</button>
-                                            </a>
+											<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+											<input type="hidden" name="amount" th:value="*{criteria.amount}">
+											<button class="btn btn-dark" id="searchPBtn">검색</button>
                                         </li>
                                     </ul>
                                 </form>
                             </div>
+                                          
+              
 
                             <br>
                             <hr>
+                                   <form id="ptgFrm" method="post" action="/deletePtg">
                             <div class="table-responsive">
+                                <!-- 작가 테이블 -->
+                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|deletePtgAll()|">선택삭제</button>
                                 <table class="table text-nowrap">
+                                    
                                     <thead>
+                                    
                                         <tr>
-                                            <!-- 보여줄 부분 -->
-                                            <th class="border-top-0">#</th>
+                                        
+         									<th><input type="checkbox" id="chkPtgAllBox" th:attr="onclick=|chkPtgAll()|"></th>
+                                                      <th class="border-top-0">#</th>
                                             <th class="border-top-0">작가아이디</th>
                                             <th class="border-top-0">사진관아이디</th>
                                             <th class="border-top-0">지역</th>
@@ -215,24 +239,55 @@
                                             <th class="border-top-0">근무가능요일</th>
                                             <th class="border-top-0">소속여부</th>
                                             <th class="border-top-0">등록일자</th>
+                                                               
                                         </tr>
                                     </thead>
                                     <tbody>
-                                           <tr th:each="ptg,sts : ${ptgList}" th:Class="${sts}">                                
-                                            <td th:text="${sts.count}"></td>    
-                                            <td th:text="${ptg.ptgId}"></td>
-                                            <td th:text="${ptg.stId}"></td>
-                                            <td th:text="${ptg.regionCd}"></td>
-                                            <td th:text="${ptg.crn}"></td>
-                                            <td th:text="${ptg.inst}"></td>
-                                            <td th:text="${ptg.workDay}"></td>
-                                            <td th:text="${ptg.ptgCd}"></td>
-                                          <td th:text="${#dates.format(ptg.accpDate,'yyyy/MM/dd')}"></td>
-                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button></td>
-                                            <td><button type="button" class="btn btn-danger" style="color:white;">삭제</button></td>
+                                        <tr th:each="ptg,sts : ${ptglist}" th:Class="${sts}">
+                                        
+                                    	    <td><input type="checkbox" id="memberBox" ></td>
+                                            <td th:text="${ptgPage.total-(ptgPage.criteria.pageNum-1)*ptgPage.criteria.amount-sts.index}"></td>
+                                            <td th:text="${ptg.ptgId}" th:value="${ptg.ptgId}" id="id" th:name="id"></td>
+                                            <td th:text="${ptg.stId}" th:value="${ptg.stId}"></td>
+                                            <td th:text="${ptg.regionCd}" th:value="${ptg.regionCd}"></td>
+                                            <td th:text="${ptg.crn}" th:value="${ptg.crn}"></td>
+                                            <td th:text="${ptg.inst}" th:value="${ptg.inst}"></td>
+                                            <td th:text="${ptg.workDay}" th:value="${ptg.workDay}"></td>
+                                            <td th:text="${ptg.ptgCd}" th:value="${ptg.ptgCd}"></td>
+                                            <td th:text="${#dates.format(ptg.accpDate,'yyyy/MM/dd')}" th:value="${ptg.accpDate}"></td>
+
+                                            <td><button type="button" class="btn btn-success"  id ="updatePBtn"  data-bs-toggle="modal" data-bs-target="#updatePModal" style="color:white;" 
+                                            th:attr="onclick=|relayPtgId('${ptg.ptgId}')|">수정</button>
+                                            &nbsp;
+                                              
+                                            <button type="button" class="btn btn-danger" 
+                                            style="color:white;" th:attr="onclick=|deletePtg('${ptg.ptgId}')|" id="delPtgBtn">삭제</button></td>
+                              
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            </form>
+                            
+                                                        <!-- 기록가리스트 페이징  -->
+                            <div align="center">
+                            
+   <div class="paginationP">
+		<a th:if="${ptgPage.prev}" th:href="${ptgPage.startPage-1}" style="color:black;float:left;padding:8px16px;text-decoration:none">&laquo;</a>
+		<a th:each="num : ${#numbers.sequence(ptgPage.getStartPage(), ptgPage.getEndPage())}" th:href="${num}"
+		    th:class="${ptgPage.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+		<a th:if="${ptgPage.next}" th:href="${ptgPage.endPage+1}">&raquo;</a>
+	</div>
+	<form id="actionFrmP" action="/admin/memberManage" th:object="${ptgPage}">
+		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" name="amount" th:value="*{criteria.amount}">
+		<input type="hidden" name="type" th:value="*{criteria.type}">
+		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
+	</form>
+</div>
+
+<!-- 페이징 끝 -->
+                            
                         </div>
                     </div>
                 </div>
@@ -333,6 +388,91 @@
         </div>
         
         
+        <!-- UpdateM Popup  -->
+<div class="modal fade" id="updateMModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <div class="modal-title p-3">
+                    <h5 class="m-0 text-white" id="updateMId"></h5>
+                  
+                   <p class="m-0 text-white">아이디와 가입일은 수정할 수 없습니다.</p>
+                  
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="w-100 p-3">
+                    <!-- Form START -->
+                    <form id="updateMFrm" method="post" action="/updateMember">
+                
+                        <input type="hidden" class="form-control" id="id" name="id">
+                      
+                        <div class="mb-3">
+                            <label class="form-label" for="exampleInputEmail1">이름</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="***">
+                        </div>
+                                                <div class="mb-3">
+                            <label class="form-label" for="exampleInputPassword1">Email</label>
+                            <input type="email" class="form-control"  id="email" name="email" placeholder="***@***.***">
+                        </div>
+                                                <div class="mb-3">
+                            <label class="form-label" for="exampleInputPassword1">TEL</label>
+                            <input type="tel" class="form-control"  id="tel" name="tel" placeholder="***-****-****">
+                        </div>
+                                                <div class="mb-3">
+                            <label class="form-label" for="exampleInputPassword1">생년월일</label>
+                            <input type="date" class="form-control"  id="birthDate" name="birthDate">
+                        </div>
+                                                <div class="mb-3">
+                            <label class="form-label" for="exampleInputPassword1">성별</label>
+                            <input type="text" class="form-control"  id="genCd" name="genCd" placeholder="m 또는 f">
+                        </div>
+                             <!-- 
+                                                <div class="mb-3">
+                            <label class="form-label" for="exampleInputPassword1">포인트</label>
+                            <input type="text" class="form-control" id="pointSum" name="pointSum" placeholder="숫자입력">
+                        </div>
+                              -->
+                                                <div class="mb-3">
+                            <label class="form-label" for="exampleInputPassword1">멤버권한</label>
+                            <input type="text" class="form-control"  id="memCd" name="memCd" placeholder="M*">
+                        </div>
+
+                        
+                        <div class="row align-items-center">
+                            <div class="col-sm-4">
+                                <button type="submit" class="btn btn-dark">수정완료</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Login Popup  -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <!-- Std ->PtgList Popup  -->
 <div class="modal fade" id="StdsPtgList">
     <div class="modal-dialog modal-dialog-centered">
@@ -362,30 +502,7 @@
                                     <tbody id="blBody">
 
                                     </tbody>
-                                </table>
-                                
-                                
-<!-- 
-                                
-                                    <tbody>
-                                        <tr>                               
-                                            <td id="blNum"></td>    
-                                            <td id="blPtgId"></td>
-                                            <td id="blPtgCrn"></td>                                          
-                                        </tr>
-
-                                    </tbody>
-                                </table>         
- -->                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-  
+                                </table>                       
                     </form>
                 </div>
             </div>
@@ -393,8 +510,19 @@
     </div>
 </div>
 <!-- End Login Popup  -->
-        
+   
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>        
 <script th:inline="javascript">
+
+
+	function relayMId(id){
+		var id = id;
+  	  $("#updateMId").text(id+"님의 정보 변경");
+	  $("#updateMFrm input[id='id']").val(id);
+	}
+
+
+
 
 //클릭으로 테이블 보이기 여부 
 		const ptgTable = document.getElementById("ptgTable");
@@ -509,15 +637,8 @@
     	  
     	});
     };
-      
-      
-   //   <tr th:each="bl,sts : ${belongPtg}" th:Class="${sts}">                               
-    //  <td th:text="${sts.count}"></td>    
-    //  <td th:text="${bl.ptgId}"></td>
-    //  <td th:text="${bl.crn}"></td>                                          
-  //</tr>
-
-  //페이징 스크립트 
+    
+    
 
 history.replaceState({}, null, location.pathname);
 
@@ -539,12 +660,36 @@ $('#searchFrm button').on("click", function(e){
 	e.preventDefault();
 	searchFrm.submit();
 })
-
-
-
-
  
+ 
+ 
+ //기록가 리스트 페이징 
+
+history.replaceState({}, null, location.pathname);
+
+$(".paginationP a").on("click", function(e){
+	e.preventDefault();
+	console.log($("#actionFrmP").find("input[name='pageNum']").val())
+ 	$("#actionFrmP").find("input[name='pageNum']").val($(this).attr("href"));
+	
+	actionFrmP.submit(); //폼태그값을 스트링으로 
+})
+
+	console.log($('input[type="checkbox"]:checked').val())
+	
+$('#searchPBtn').on("click", function(e){
+	console.log('click')
+	
+	
+	$('#searchFrmP').find("input[name='pageNum']").val(1);
+	e.preventDefault();
+	searchFrmP.submit();
+});
+
+
 </script>
-    </div>
+
+
+</div>
 </body>
 </html>

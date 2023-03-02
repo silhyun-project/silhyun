@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.common.map.PhotoMapper">
+<select id="photoList" resultType="co.yedam.silhyun.common.vo.PhotoVO">
+	select * 
+	from photo
+	where ctgr = #{ctgr} 
+	and ctgr_num = #{ctgrNum}
+</select>
+
+<insert id="photoInsert">
+	<selectKey keyProperty="phoNum" resultType="String" order="BEFORE">
+		SELECT 
+			nvl(MAX(to_number(pho_num)), 0) + 1 AS "phoNum"
+		FROM photo
+	</selectKey>
+	insert into photo
+	values(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt})
+</insert>
+
+<delete id="photoDelete">
+	delete from photo
+	where ctgr = #{ctgr} 
+	and ctgr_num = #{ctgrNum}
+</delete>
+
+</mapper>

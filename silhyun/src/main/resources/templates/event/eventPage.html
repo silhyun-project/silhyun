@@ -43,10 +43,11 @@
                     "disableOnInteraction": false
                   }
                 }'>
+                    
                 <div class="swiper-wrapper" th:each="banner : ${bannerList}">
                     <div class="swiper-slide">
                     <!-- 사진크기 1600x900 이 적당  -->
-                        <div class="bg-no-repeat bg-cover bg-center" style="background-image: url(/img/fashion/1600x900.jpg);">
+                        <div class="bg-no-repeat bg-cover bg-center" th:src="${banner.bnph}">
                             <div class="container">
                                 <div class="row min-vh-65 align-items-center justify-content-center py-12">
                                     <div class="col-lg-8 text-center">
@@ -86,6 +87,7 @@
              	<input type="radio" id="event" name="event" value="c" onchange="classEvent('c')"><label class="m-0 ">클래스</label> &nbsp;&nbsp;
 				<input type="radio" id="event" name="event" value="e" onchange="usEvent('e')"><label class="m-0 ">이벤트</label>
              </div>
+       
             <!-- End Breadcrumb -->
             <!-- blog -->
             <div class="py-10">
@@ -125,7 +127,7 @@
                        
                     </div>
                 </div>
-            </div>
+           
             <!-- blog end -->
 	
 	

@@ -7,5 +7,43 @@
 		WHERE r.ptg_id=o.ptg_id
 		ORDER BY res_num DESC
 	</select>
+	<select id="getPhotoinfo" resultType="co.yedam.silhyun.member.vo.MemberVO">
+		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
+		FROM photographer p, member m
+   		WHERE m.id = p.ptg_id
+        AND id='user1'
+	</select>
+	
+	<insert id="applyEvent" parameterType="co.yedam.silhyun.event.vo.EventVO">
+		INSERT INTO EVENT
+		VALUES(#{eventNum},#{id},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt})
+	</insert>
+	<insert id="applyECoupon" parameterType="co.yedam.silhyun.event.vo.CouponVO">
+		INSERT INTO COUPON
+		VALUES(#{cpnNum},#{ctgr},#{ctgrNum},#{cntn},#{discount},#{cpnCd},#{startDate},#{endDate},#{eventNum})
+	</insert>
 
+	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO"
+		>
+		UPDATE(
+		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
+		FROM photographer p, member m
+   		WHERE m.id = p.ptg_id
+		)
+		<set>
+			<if test="name != null">NAME = #{name},</if>
+			<if test="pwd != null">PWD = #{pwd},</if>
+			<if test="email != null">Email = #{email},</if> 
+			<if test="tel != null">TEL = #{tel},</if>
+			<if test="workDay != null">WORK_DAY = #{workDay}</if>
+		</set>
+			WHERE PTG_ID = #{ptgId}
+	</update>
+	
+	<!-- update (
+    select m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
+    FROM photographer p, member m
+    WHERE m.id = p.ptg_id
+) set work_day = '수'
+where id = 'user1'; -->
 </mapper>
