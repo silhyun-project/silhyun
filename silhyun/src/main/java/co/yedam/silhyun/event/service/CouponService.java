@@ -9,6 +9,6 @@ import co.yedam.silhyun.event.vo.CouponVO;
 
 public interface CouponService {
 	List<CouponVO> couponSelectList(); // 전체조회
-	String insertCoupon(CouponHistoryVO hvo); 		//쿠폰 히스토리 삽입
+	int insertCoupon(CouponHistoryVO hvo); 		//쿠폰 히스토리 삽입
 	
 }

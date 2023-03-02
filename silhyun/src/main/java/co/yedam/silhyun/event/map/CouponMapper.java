@@ -8,5 +8,5 @@ import co.yedam.silhyun.event.vo.CouponVO;
 public interface CouponMapper {
 	
 	 List<CouponVO> couponSelectList();//전체
-	 String insertCoupon(CouponHistoryVO vo); 		//쿠폰 히스토리 삽입
+	 int insertCoupon(CouponHistoryVO vo); 		//쿠폰 히스토리 삽입
 }

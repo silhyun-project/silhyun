@@ -8,4 +8,5 @@ public class CouponHistoryVO {
 		private String id;		
 		private String cpnNum;
 		private String cpnSta;
+		private String cpnNum;
 }

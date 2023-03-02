@@ -23,7 +23,7 @@ public class CouponServiceImpl implements CouponService {
 	}
 
 	@Override
-	public String insertCoupon(CouponHistoryVO hvo) {
+	public int insertCoupon(CouponHistoryVO hvo) {
 		
 		return couponMapper.insertCoupon(hvo);
 	}
