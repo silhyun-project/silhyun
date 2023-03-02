@@ -95,7 +95,7 @@
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<div class="w-100 p-3">
+										<div class="w-100 p-3">								
 											<!-- Form START -->
 										<form id="uploadClass" enctype="multipart/form-data">
 											<div id="classApply" style="display: none;">
@@ -137,8 +137,10 @@
 													</div>
 												</div>
 												</div>
+
 												</form>
 												<form id="uploadEv" enctype="multipart/form-data">
+
 											<div id="eventApply" style="display: none;">
 												<div class="mb-3">
 													<label class="form-label" for="claTtl">활동지역</label>&emsp;
@@ -178,21 +180,27 @@
 												  <input type="date" class="form-control" id="endDate" name="endDate" style="width:200px;height:30px;"></label>&nbsp;
 												</div>
 												<div class="col-sm-6 mb-3">
+
 													<label for="formFile" class="bnph">배너 사진</label>
 													 <input class="form-control" type="file"  name="formFile" id="bnph" accept="*" >
+
 												</div>			
 												<div class="row align-items-center">
 													<div class="col-sm-4">
+
 														<button type="button" name="uploadEv" class="btn btn-dark" onclick="uploadEvent()">확인</button>
+
 													</div>
 													<div class="col-sm-4">
-														<button type="submit" class="btn btn-dark">임시저장</button>
+														<input type="button" class="btn btn-dark" value="임시저장">
 													</div>
 													<div class="col-sm-4">
 														<button type="reset" class="btn btn-dark">취소</button>
 													</div>
 												</div>
+
 												<input type="hidden" id="userId "name="userId" value="user1">
+
 											</div>
 										</form>
 										</div>
@@ -256,6 +264,7 @@
 			</div>
 		</div>
 		<!-- End Table -->
+
 <script>
 function applyForm(n){
 	if(n == 'c'){
@@ -291,6 +300,30 @@ function applyForm(n){
 		
 	});
 }
+
+//form데이터 전송
+function dataSubmit() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+ 
+    var data=new FormData($("#storeAddForm")[0]);
+ 
+    $.ajax({
+        beforeSend: function(xhr){
+            xhr.setRequestHeader(header,token);
+        },
+        url: "url",
+        data: data,
+        processData:false,
+        contentType:false,
+        enctype:'multipart/form-data',
+        type:"POST",
+    }).done(function (fragment) {
+        $("#resultDiv").replaceWith(fragment);
+    });
+}
+
+
 
 </script>
 		</main>
