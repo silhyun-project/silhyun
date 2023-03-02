@@ -11,21 +11,20 @@
 	<h1>쿠폰</h1>
 		<div class="container" >
                     <div class="row gy-4">
-                        <div class="col-lg-4" th:each="cpL:${couponList}">
+                        <div class="col-lg-4 coupon" th:each="cpL:${couponList}">
                             <div class="px-4 position-relative pt-5 text-center rounded"
                                 style="background-color: #FFE088;" onclick="makeData()">
                                 <div class="pb-1">
                                     <h6 style="color: #2e6b1c;" th:text="${cpL.startDate}"></h6>
                                     <h6 style="color: #2e6b1c;" th:text="${cpL.endDate}"></h6>
                                     <h3 class="m-0" th:text=${cpL.cntn}> </h3>
+									<input type="hidden" id="userId "name="userId" value="user1">
+									<input type="hidden" id="cpnNum" name="cpnNum" th:value="${cpL.cpnNum}">
+									<input type="hidden" id="cpnSta "name="cpnSta" value="N">
                                     
                                 </div>
                                <br>
-                            </div>
-                            <div>
-								<input type="hidden" id="userId "name="userId" value="USER1">
-								<input type="hidden" id="cpnNum" name="cpnNum" th:value="${cpL.cpnNum}">
-								<input type="hidden" id="cpnSta "name="cpnSta" value="N">
+                            
 							</div>                            
                         </div>
                     </div>
@@ -33,9 +32,11 @@
 
 <script type="text/javascript">
 function makeData(){
-	let id=document.querySelector('input[name="userId"]').value;
-	let cpnNum=document.querySelector('input[name="cpnNum"]').value;
-	let cpnSta= document.querySelector('input[name="cpnSta"]').value;
+
+	let coupon= event.target.closest('.coupon')
+	let id=coupon.querySelector('input[name="userId"]').value;
+	let cpnNum=coupon.querySelector('input[name="cpnNum"]').value;
+	let cpnSta= coupon.querySelector('input[name="cpnSta"]').value;
 	$.ajax({
 		url:'/silhyun/getCoupon',
 		method: 'post',
@@ -43,13 +44,15 @@ function makeData(){
 			 	cpnNum:cpnNum,
 			 	cpnSta: cpnSta
 				},
-		contentType:"application/json",
+		//contentType:"application/json",
 		dataType:'json',
 		success: function(result){
 			console.log(result);
+			alert("쿠폰등록");
 		},
 		error: function(reject){
 			console.log(reject)
+			alert("이미 등록된 쿠폰입니다.");
 		}
 		
 	});
