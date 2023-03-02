@@ -27,21 +27,21 @@ public class PtgServiceImpl implements PtgService {
 //		return ptgMapper.getPtgLsit(searchType);
 //	}
 
-	@Override
-	public List<PhotographerVO> ptgSearchList(Criteria cri,PhotographerVO vo) {
-		// 
-		return ptgMapper.ptgSearchList(cri,vo);
-	}
+//	@Override
+//	public List<PhotographerVO> ptgSearchList(Criteria cri,PhotographerVO vo) {
+//		// 
+//		return ptgMapper.ptgSearchList(cri,vo);
+//	}
+//	@Override
+//	public int getTotalListCount(Criteria cri, PhotographerVO vo) {
+//		//
+//		return ptgMapper.getTotalListCount(cri, vo);
+//	}
 
 	@Override
 	public List<PhotographerVO> getPtg(String ptgId) {
 		
 		return ptgMapper.getPtg(ptgId);
-	}
-	@Override
-	public int getTotalListCount(Criteria cri, PhotographerVO vo) {
-		//
-		return ptgMapper.getTotalListCount(cri, vo);
 	}
 
 
