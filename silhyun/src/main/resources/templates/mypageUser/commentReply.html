@@ -18,9 +18,6 @@
   width: 100px;
   height:30px;
 }
-#commentReplyBox{
-  display:block;
-}
 
 </style>
 
@@ -46,16 +43,16 @@
 <body>
 <div layout:fragment="content">
 	<div class="pt-4 mt-5 " style="display:block;">
-		<ul class="list-unstyled pt-4">
-			<li class="media d-flex">
-				<div class="avatar rounded-circle">
+		<ul class="list-unstyled pt-4"th:each="comm : ${commentList}" >
+			<li class="media d-flex" style="display: block;">
+				<div class="avatar rounded-circle" style="display: block;">
 					<img class="img-fluid" src="/img/pages/1000x1000.jpg"
 						title="" alt="">
 				</div>
-				<div class="col ps-3"  th:each="comm : ${commentList}" >
-				<div id="commentBox" >
+				<div class="col ps-3"   >
+				<div id="commentBox" style="display:block;">
 					<h6 class="mt-0 mb-1" th:text=${comm.id}></h6>
-					<label class="mb-2 small" th:text="${#dates.format(com_date, 'yyyy-MM-dd hh:mm')}"></label>
+					<label class="mb-2 small" th:text="${#dates.format(comm.comDate, 'yyyy-MM-dd')}"></label>
 					<p th:text=${comm.cntn}></p>
 					<div class="nav dark-link small">
 						<a class="ms-3" href="#"> 답글 달기
@@ -65,17 +62,17 @@
 					</div>
 				</div>
 					<div id="popup" style="display:none;">
-					<ul class="list-unstyled mt-5 pt-5 border-top">
+					<ul class="list-unstyled mt-5 pt-5 border-top" th:each="rep : ${replyList}">
 						<li class="media d-flex">
 							<div class="avatar rounded-circle">
 								<img class="img-fluid"
-									src="/img/pages/1000x1000.jpg" title="" alt="">
+									src="/img/pages/1000x1000.jpg" title="" alt="" >
 							</div>
 
 							<div class="col ps-3">
-								<h6 class="mt-0 mb-1">{답글작성자}</h6>
-								<label class="mb-2 small">{작성시간(몇분전)}</label>
-								<p>{댓글 내용}</p>
+								<h6 class="mt-0 mb-1" th:text=${rep.id}> </h6>
+								<label class="mb-2 small" th:text=${rep.comDate}></label>
+								<p th:text=${rep.cntn}></p>
 								<div class="nav dark-link small">
 									<a class="ms-3" href="#"> <i class="bi bi-reply"></i>
 										답글 달기
@@ -101,7 +98,7 @@
 					</div>
 				</div>
 				<div class="col-12">
-					<button class="btn btn-primary" type="submit" name="send">게시</button>
+					<button class="btn btn-primary" type="submit" id="send">게시</button>
 				</div>
 			</div>
 		</form>
@@ -154,7 +151,42 @@
 		    	}
 			})
 		})
-
+		
+		//게시버튼 클릭 등록 이벤트
+		$("#send").click(function(){
+		let contactMessage =$("#contact-message").val();
+		console.log(comContent)
+		let comId =$("#id").val();
+		console.log(comId)
+		console.log($("#contact-message").val());
+		
+		if(contactMessaged == ""){
+			alert("내용을 입력해 주세요.")
+			return;		// 내용 미입력시 작성 불가
+		}; 
+		
+		
+		$.ajax({
+			url:"/commentInsert",
+			type:"POST",
+			data: JSON.stringify(
+				{
+					"contact-message" :comContent,
+					"id" :comId
+				}
+			),
+			contentType:'application/json',
+			success : function(data){
+				console.log("댓글등록")
+				comContent = ""
+				console.log("====")
+				getCommentList()
+			},
+			error:function(){
+				alert('등록실패');
+			}
+		});
+	});
 		
 	</script>
 	
