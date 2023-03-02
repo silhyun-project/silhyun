@@ -6,7 +6,7 @@ import co.yedam.silhyun.common.vo.CommentVO;
 
 
 public interface CommentMapper {
-	List<CommentVO> CommentList(); // 댓글 리스트
+	List<CommentVO> getCommentList(); // 댓글 리스트
 	
 	
 }
