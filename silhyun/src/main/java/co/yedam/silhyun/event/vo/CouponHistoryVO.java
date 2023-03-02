@@ -6,5 +6,6 @@ import lombok.Data;
 public class CouponHistoryVO {
 	//쿠폰이력
 		private String id;		
+		private String cpnNum;
 		private String cpnSta;
 }

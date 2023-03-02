@@ -33,8 +33,9 @@ public class CouponController {
 	
 	@PostMapping("/silhyun/getCoupon")
 	@ResponseBody
-	public String getCoupon(@RequestBody CouponHistoryVO hvo) {
+	public boolean getCoupon(CouponHistoryVO hvo) {
 		couponService.insertCoupon(hvo);
-		return "redirect:silhyun/eventCoupon";
+	
+		return true;
 	}
 }
