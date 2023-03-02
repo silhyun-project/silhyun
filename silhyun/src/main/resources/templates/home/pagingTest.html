@@ -64,12 +64,6 @@
 		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
 		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
 	</div>
-	<form id="actionFrm" action="reviewList" th:object="${page}">
-		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
-		<input type="hidden" name="amount" th:value="*{criteria.amount}">
-		<input type="hidden" name="type" th:value="*{criteria.type}">
-		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
-	</form>
 </div>
 <div class="container">
 	<form id="searchFrm" action="reviewList" th:object="${page}">
@@ -79,9 +73,9 @@
 			<option value="W" th:selected="*{criteria.type == 'W'}">작성자</option>
 		</select>
 		<input type="text" name="keyword" th:value="*{criteria.keyword}">
-		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+		<input type="hidden" name="pageNum" th:value="1">
 		<input type="hidden" name="amount" th:value="*{criteria.amount}">
-		<button class="btn btn-default">검색</button>
+		<button class="btn btn-default" type="submit">검색</button>
 	</form>
 </div>
 
@@ -90,22 +84,14 @@ history.replaceState({}, null, location.pathname);
 
 $(".pagination a").on("click", function(e){
 	e.preventDefault();
-	console.log($("#actionFrm").find("input[name='pageNum']").val())
- 	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
+ 	$("#searchFrm").find("input[name='pageNum']").val($(this).attr("href"));
+	console.log($("#searchFrm").find("input[name='pageNum']").val())
 	
-	actionFrm.submit(); //폼태그값을 스트링으로 
+	
+	apage($('#searchFrm').seralize()) //form안에있는 name이랑 value값을 들고온다.
+	//searchFrm.submit(); //폼태그값을 스트링으로 
 })
 
-	console.log($('input[type="checkbox"]:checked').val())
-	
-$('#searchFrm button').on("click", function(e){
-	console.log('click')
-	
-	
-	$('#searchFrm').find("input[name='pageNum']").val(1);
-	e.preventDefault();
-	searchFrm.submit();
-})
 
  
 </script>

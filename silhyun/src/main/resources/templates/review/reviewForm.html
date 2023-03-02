@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -51,7 +51,7 @@
 </style>
 <body>
 <div class="container col-5">
-	<form class="mb-3" id="myform" action="/silhyun/review" method="post" enctype="multipart/form-data" onsubmit="return insertReview()"> 
+	<form class="mb-3" id="myform" action="/silhyun/review"> 
 		<div id="grey">
 				<span class="text-bold">별점을 선택해주세요</span><br>
 			<fieldset>
@@ -88,7 +88,7 @@
 		<input type="hidden" name="id" value="user2"> <!-- 섹션이나 시큐리티 아이디값 -->
       	<input type="hidden" name="ctgrNum" value="user1">  <!-- 이전 페이지 작가아이디 -->
       	<div id="btn">
-	      	<button type="submit" class="btn btn-outline-secondary btn-sm">작성</button>
+	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="insertReview()">작성</button>
 	      	<button type="button" class="btn btn-outline-secondary btn-sm">뒤로가기</button> 
       	</div>
 	</form>
