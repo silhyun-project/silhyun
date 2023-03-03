@@ -111,6 +111,7 @@
 							<div class="card-header py-3">
 								<h5 class="m-0">Profile Update</h5>
 							</div>
+							<form method = "post" action="/updateMyAo">
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6 mb-3">
@@ -123,12 +124,12 @@
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">이름<span class="text-danger">*</span></label>
-										<input type="text" class="form-control" th:value="${ptg.name}"  placeholder="이름">
+										<input type="text" class="form-control" id="name" name="name" th:value="${ptg.name}"  placeholder="이름">
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">비밀번호<span
 											class="text-danger">*</span></label> <input type="password"
-											class="form-control"   placeholder="비밀번호">
+											class="form-control" id="pwd" name="pwd"  placeholder="비밀번호">
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">비밀번호확인<span
@@ -138,17 +139,17 @@
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">Email<span
 											class="text-danger">*</span></label> <input type="email"
-											class="form-control" id="exampleInputEmail3"
+											class="form-control" id="email" name="email"
 											placeholder="E-mail">
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">전화번호<span
 											class="text-danger">*</span></label> <input type="text"
-											class="form-control" th:value="${ptg.tel}" placeholder="전화번호">
+											class="form-control" th:value="${ptg.tel}" name="tel" id="tel" placeholder="전화번호">
 									</div>
 									<div class="col-sm-6 mb-3">
-										<label class="form-label">근무요일</label> <input type="text"
-											class="form-control"  readonly>
+										<label class="form-label">생년월일</label> <input type="text"
+											class="form-control"   id="birthDate" name="birthDate">
 									</div>
 									<div class="col-sm-12 mb-3"> 근무 가능 요일</div>
 									<div class="col-sm-12 mb-3">
@@ -170,10 +171,11 @@
 									</div>
 
 									<div class="col-12 pt-2">
-										<button class="btn btn-primary">저장하기</button>
+										<button class="btn btn-primary" type="submit">저장하기</button>
 									</div>
 								</div>
 							</div>
+							</form>
 						</div>
 
 					</div>
@@ -183,6 +185,9 @@
 		</div>
 		<!--Table -->
 	</main>
+	<script>
+	
+	</script>
 	<!-- End Main -->
 </body>
 </html>

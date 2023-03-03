@@ -139,7 +139,7 @@
 												</div>
 
 												</form>
-												<form id="uploadEv" enctype="multipart/form-data">
+											<form id="uploadEv" enctype="multipart/form-data">
 
 											<div id="eventApply" style="display: none;">
 												<div class="mb-3">
@@ -165,7 +165,7 @@
 												<div class="mb-3">
 													<label class="form-label" for="Eventcntn">이벤트 내용</label> 
 													<textarea cols ="40" rows="2" class="form-control"
-														id="eventCntn"></textarea>
+														id="Eventcntn" name="cntn"></textarea>
 												</div>
 												<div class="mb-3">
 												<label class="form-label" for="cntn">쿠폰 내용  
@@ -181,8 +181,15 @@
 												</div>
 												<div class="col-sm-6 mb-3">
 
+
+
+
+
+
+
+
 													<label for="formFile" class="bnph">배너 사진</label>
-													 <input class="form-control" type="file"  name="formFile" id="bnph" accept="*" >
+													 <input class="form-control" type="file"  name="file" id="file" >
 
 												</div>			
 												<div class="row align-items-center">
@@ -199,7 +206,8 @@
 													</div>
 												</div>
 
-												<input type="hidden" id="userId "name="userId" value="user1">
+												<input type="hidden" id="ptgId "name="ptgId" value="author1">
+												<input type="hidden" id="eventNum "name="eventNum" value="50">
 
 											</div>
 										</form>
@@ -279,18 +287,33 @@ function applyForm(n){
 
  function uploadEvent(){
 		//let sel=document.getElementById('regionCd').value;
-	var formData = new FormData();
+	//const bnInput = $("#uploadEv")[0];
+	var formData = new FormData($("#uploadEv")[0]);
+	
 
-	 var inputFile = $("#uploadEv");
-	 var files= inputFile[0].files;
-	 console.log(files);
-	 formData.append()
+	//formData.append('file',$("#bnph"));
+	
+	//const formData = new FormData();
+	//formData.append("banner", bnInput)
+	//formData.append("bnph",$("#bnph")[0].files[0]);
+	
+	/*  var files= inputFile[0].files;
+	 console.log(files); */
+	 for(let key of formData.keys()){
+		 console.log(key+"--------------------키")
+	 }
+	 for(let value of formData.values()){
+		 console.log(value+"************value")
+	 }
+	console.log("++++++++++++"+formData);
+	 
 	$.ajax({
 		url:'/applyEvent',
 		method:'POST',
+ 		enctype: 'multipart/form-data',
 		data:formData,
-		dataType:'json',
-		contentType:"applictaion/json",
+		processData: false,
+		contentType: false,
 		success:function(result){
 			alert("제출이 성공적으로 되었습니다.");
 		},
@@ -301,7 +324,7 @@ function applyForm(n){
 	});
 }
 
-//form데이터 전송
+/* //form데이터 전송 미리보기 사진
 function dataSubmit() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -321,7 +344,7 @@ function dataSubmit() {
     }).done(function (fragment) {
         $("#resultDiv").replaceWith(fragment);
     });
-}
+} */
 
 
 

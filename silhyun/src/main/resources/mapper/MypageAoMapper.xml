@@ -14,25 +14,29 @@
         AND id='user1'
 	</select>
 	
+<!-- 		INSERT INTO EVENT
+		VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
 	<insert id="applyEvent" parameterType="co.yedam.silhyun.event.vo.EventVO">
-		INSERT INTO EVENT
-		VALUES(#{eventNum},#{id},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt})
+		<selectKey>
+					
+		</selectKey>
+		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, region_cd)
+		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph}, #{regionCd})
 	</insert>
 	<insert id="applyECoupon" parameterType="co.yedam.silhyun.event.vo.CouponVO">
-		INSERT INTO COUPON
-		VALUES(#{cpnNum},#{ctgr},#{ctgrNum},#{cntn},#{discount},#{cpnCd},#{startDate},#{endDate},#{eventNum})
+		INSERT INTO COUPON(ctgr_num, cntn, discount, start_date, end_date, event_num)
+		VALUES(#{ctgrNum},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum})
 	</insert>
 
-	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO"
-		>
+	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO">
 		UPDATE(
 		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
 		FROM photographer p, member m
    		WHERE m.id = p.ptg_id
 		)
 		<set>
-			<if test="name != null">NAME = #{name},</if>
-			<if test="pwd != null">PWD = #{pwd},</if>
+			<if test="name != null and !name.equals('')">NAME = #{name},</if>
+			<if test="pwd != null and !name.equals('')">PWD = #{pwd},</if>
 			<if test="email != null">Email = #{email},</if> 
 			<if test="tel != null">TEL = #{tel},</if>
 			<if test="workDay != null">WORK_DAY = #{workDay}</if>
