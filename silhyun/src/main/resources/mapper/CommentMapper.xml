@@ -8,7 +8,9 @@
 		from commment
 		where ctgr_num = 12
 		and dep = 0
-		order by grp, dep, com_num
+		and ctgr = 'C'
+		
+		order by dep, com_num
 	</select>
 	
 	<!-- 대댓글 리스트 -->
@@ -17,20 +19,38 @@
 		from commment
 		where ctgr_num = 12
 		and dep = 1
-		order by grp, com_num
+		and ctgr = 'C'
+		order by com_num
 	</select>
 	
-<!-- 	<insert id="commentInsert" parameterType="co.yedam.silhyun.common.vo.CommentVO">
-		<selectKey keyProperty="comNum" resultType="int" order="BEFORE">
-	        SELECT MAX(com_num) + 1 FROM commment
-	     </selectKey>
-	     <selectKey keyProperty="grp" resultType="int" order="BEFORE">
-	        SELECT MAX(grp) + 1 FROM commment
-	     </selectKey>
-     
-	     insert into commment(com_num, ctgr, ctgr_num, dep, grp, id, cntn, com_date)
-	     			 values(#{comNum}, C, , 0, #{grp}, hi123, #{cntn}, sysdate)
+	<insert id="commentInsert"  parameterType="CommentVO">
+		<selectKey keyProperty="comNum" resultType="String" order="BEFORE">
+			SELECT 
+				nvl(MAX(to_number(com_num)), 0) + 1 AS "comNum"
+			FROM commment
+		</selectKey>
+
+	     insert into commment(com_num
+                    , ctgr
+                    , ctgr_num
+                    , dep
+                    , grp
+                    , id
+                    , cntn
+                    , com_date)
+            values(#{comNum}
+                    , #{ctgr}
+                    , '12'
+                    , #{dep}
+                    <choose>
+						<when test="grp != null and grp != ''">, #{grp} </when>
+						<otherwise> ,#{conNum} </otherwise>
+					</choose>
+                    ,#{id}
+                    , #{cntn}
+                    , sysdate)
 	 </insert>    
+<!-- 	
 	 
 	 <delete id="commentDelete" >
 	 
