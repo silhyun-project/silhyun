@@ -30,4 +30,5 @@ public class TaekyeongTests {
 		service.getTotalCount(cri);
 		System.out.println("총갯수는?"  +service.getTotalCount(cri));
 	}
+
 }
