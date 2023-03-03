@@ -32,6 +32,12 @@
 		order by quit_date
 	</select>
 	
+	<select id="belongPtg" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		select *
+		from photographer
+		where st_id = #{st_id}
+	</select>
+	
 <!-- 신규 보여주기 -->
 	<select id="todayMem" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
 		select * 
@@ -56,7 +62,7 @@
 
 
 
-	<!-- 추가 -->
+	<!-- 등록 -->
 	
 	<insert id="insertQuitMember" parameterType="String">
 		insert into quit
@@ -69,42 +75,172 @@
 
 
 <!-- 삭제 -->
-<!-- 단건 삭제 -->
+<!-- 회원 삭제 -->
 	<delete id="deleteMember">
 		DELETE from member
 		where id = #{id }
 	</delete>	
 	
-<!-- 조건으로 다중검색 -->
-<select id="searchMember" resultType="co.yedam.silhyun.member.vo.MemberVO">
-	SELECT * FROM MEMBER
-	<if test="key == 'all'">WHERE 1 = 1</if>
-	<if test="key == 'id'">WHERE id LIKE '%'||#{val }||'%'</if>
-	<if test="key == 'name'">WHERE name LIKE '%'||#{val }||'%'</if>
-	<if test="key == 'email'">WHERE email LIKE '%'||#{val }||'%'</if>
-	<if test="key == 'tel'">WHERE tel LIKE '%'||#{val }||'%'</if>
-	<if test="key == 'joinDate'">WHERE join_date LIKE '%'||#{val }||'%'</if>
-	<if test="key == 'birthDate'">WHERE birth_date LIKE '%'||#{val }||'%'</if>
-	<if test="key == 'gender">WHERE gen_cd '%'||#{val }||'%'</if>
-	<if test="key == 'point'">WHERE point_sum >= #{val } order by point_sum DESC</if>
-	<if test="key == 'code'">WHERE mem_cd LIKE '%'||#{val }||'%'</if>
-</select>
-
+<!-- 탈퇴 삭제 -->
+	<delete id="deleteQMember">
+		DELETE from quit
+		where id = #{id }
+	</delete>	
 
 <!-- 수정 -->
 <update id="updateAdmin">
 
 	UPDATE MEMBER
 	<set>
-	<if test="noticeDate != null">NOTICE_DATE = #{noticeDate },</if>
-	<if test="noticeTitle != null">NOTICE_TITLE = #{noticeTitle },</if>
-	<if test="noticeSubject != null">NOTICE_SUBJECT = #{noticeSubject },</if>
-	<if test="noticeFile != null">NOTICE_FILE = #{noticeFile },</if>
-	<if test="noticeFileDir != null">NOTICE_FILE_DIR = #{noticeFileDir }</if>
+	<if test="name!=null and !name.equals('')">name = #{name },</if>
+	<if test="email!=null and !email.equals('')">email = #{email },</if>
+	<if test="pwd!=null and !pwd.equals('')">pwd = #{pwd },</if>
+	<if test="tel!=null and !tel.equals('')">tel = #{tel },</if>
+	<if test="birthDate!=null and !birthDate.equals('')">birth_date = #{birthDate },</if>
+	<if test="genCd!=null and !genCd.equals('')">gen_cd = #{genCd }</if>
 	</set>
 	WHERE mem_cd = 'M0' 
 
 </update>
 
+
+<update id="updateMember">
+
+	UPDATE MEMBER
+	<set>
+	<if test="name!=null and !name.equals('')">name = #{name },</if>
+	<if test="email!=null and !email.equals('')">email = #{email },</if>
+	<if test="tel!=null and !tel.equals('')">tel = #{tel },</if>
+	<if test="birthDate!=null and !birthDate.equals('')">birth_date = #{birthDate },</if>
+	<if test="genCd!=null and !genCd.equals('')">gen_cd = #{genCd },</if>
+	 
+	 <!-- 
+	<if test="pointSum!=null and !pointSum.equals('')">point_sum = #{pointSum },</if>
+	  -->
+	 
+	<if test="memCd!=null and !memCd.equals('')">mem_cd = #{memCd }</if>
+	</set>
+	WHERE id = #{id } 
+
+</update>
+
+
+
+<!-- 그래프 -->
+
+<select id="quitGraph" resultType="HashMap">
+  SELECT 
+    COUNT(CASE WHEN quit_cd = 'T0' THEN 1 END) AS "운영자에 의한 강제퇴장",
+    COUNT(CASE WHEN quit_cd = 'T1' THEN 1 END) AS "기록삭제",
+    COUNT(CASE WHEN quit_cd = 'T2' THEN 1 END) AS "이용장애",
+    COUNT(CASE WHEN quit_cd = 'T3' THEN 1 END) AS "타사이트 선호",
+    COUNT(CASE WHEN quit_cd = 'T4' THEN 1 END) AS "사용빈도 낮음",
+    COUNT(CASE WHEN quit_cd = 'T5' THEN 1 END) AS "콘텐츠불만",
+    COUNT(CASE WHEN quit_cd = 'T6' THEN 1 END) AS "기타"
+  FROM quit
+  order by quit_cd
+</select>
+
+
+<!-- 회원전체리스트 페이징 -->
+
+<select id="getListMember" resultType="co.yedam.silhyun.member.vo.MemberVO">
+	 select * from( select rownum rn, a.* from( 
+ 
+ 			select * 
+ 			from member		
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'id'">WHERE id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'name'">WHERE name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'email'">WHERE email LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'tel'">WHERE tel LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'joinDate'">WHERE join_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'birthDate'">WHERE birth_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'genCd'">WHERE gen_cd '%'||#{keyword }||'%'</if>
+	<if test="type == 'pointSum'">WHERE point_sum >= #{keyword } order by point_sum DESC</if>
+	<if test="type == 'memCd'">WHERE mem_cd LIKE '%'||#{keyword }||'%'</if>
+
+	<![CDATA[	
+	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
+	 ]]>
+</select>
+
+<select id="getTotalCount" resultType="int">
+	select count(*) 
+	from member
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'id'">WHERE id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'name'">WHERE name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'email'">WHERE email LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'tel'">WHERE tel LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'joinDate'">WHERE join_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'birthDate'">WHERE birth_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'genCd'">WHERE gen_cd '%'||#{keyword }||'%'</if>
+	<if test="type == 'pointSum'">WHERE point_sum >= #{keyword } order by point_sum DESC</if>
+	<if test="type == 'memCd'">WHERE mem_cd LIKE '%'||#{keyword }||'%'</if>
+
+</select>
+<!-- 기록가리스트 페이징 -->
+<select id="getListPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+	 select * from( select rownum rn, a.* from( 
+ 
+ 			select * 
+ 			from photographer	
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'ptgId'">WHERE ptg_id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'stId'">WHERE st_id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'regionCd'">WHERE region_cd LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'crn'">WHERE ern LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'inst'">WHERE inst LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'workDay'">WHERE work_day LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'accpDate'">WHERE accp_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'ptgCd'">WHERE ptg_cd '%'||#{keyword }||'%'</if>
+
+	<![CDATA[	
+	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
+	 ]]>
+</select>
+
+<select id="getTotalPtg" resultType="int">
+	select count(*) 
+	from photographer
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'ptgId'">WHERE ptg_id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'stId'">WHERE st_id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'regionCd'">WHERE region_cd LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'crn'">WHERE ern LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'inst'">WHERE inst LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'workDay'">WHERE work_day LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'accpDate'">WHERE accp_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'ptgCd'">WHERE ptg_cd '%'||#{keyword }||'%'</if>
+
+</select>
+
+<!-- 탈퇴리스트 페이징 -->
+
+<select id="getListQuit" resultType="co.yedam.silhyun.mypage.vo.QuitVO">
+	 select * from( select rownum rn, a.* from( 
+ 
+ 			select * 
+ 			from quit		
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'id'">WHERE id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'quitDate'">WHERE quit_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'quitCd'">WHERE quit_cd LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'detaResn'">WHERE deta_resn LIKE '%'||#{keyword }||'%'</if>
+	<![CDATA[	
+	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
+	 ]]>
+</select>
+
+<select id="getTotalQuit" resultType="int">
+	select count(*) 
+	from quit
+	<if test="type == 'all'">WHERE 1 = 1</if>
+	<if test="type == 'id'">WHERE id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'quitDate'">WHERE quit_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'quitCd'">WHERE quit_cd LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'detaResn'">WHERE deta_resn LIKE '%'||#{keyword }||'%'</if>
+</select>
 
 </mapper>

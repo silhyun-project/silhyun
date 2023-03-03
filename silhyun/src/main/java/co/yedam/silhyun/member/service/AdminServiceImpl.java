@@ -1,10 +1,12 @@
 package co.yedam.silhyun.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.member.map.AdminMapper;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -66,5 +68,63 @@ public class AdminServiceImpl implements AdminSercive {
 	public int insertQuitMember(String id) {
 		return adminMapper.insertQuitMember(id);
 	}
+
+	@Override
+	public int updateAdmin(MemberVO vo) {
+		return adminMapper.updateAdmin(vo);
+	}
+
+	@Override
+	public List<PhotographerVO> belongPtg(String stId) {
+		return adminMapper.belongPtg(stId);
+	}
+
 	
+	//회원리스트 페이징
+	@Override
+	public List<MemberVO> getListMember(Criteria cri) {
+		return adminMapper.getListMember(cri);
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return adminMapper.getTotalCount(cri);
+	}
+
+	@Override
+	public int updateMember(MemberVO vo) {
+		return adminMapper.updateMember(vo);
+	}
+
+	@Override
+	public List<Map<String, String>> quitGraph() {
+		return adminMapper.quitGraph();
+	}
+
+	@Override
+	public List<QuitVO> getListQuit(Criteria cri) {
+		return adminMapper.getListQuit(cri);
+	}
+
+	@Override
+	public int getTotalQuit(Criteria cri) {
+		return adminMapper.getTotalQuit(cri);
+	}
+
+	@Override
+	public int deleteQMember(String id) {
+		return adminMapper.deleteQMember(id);
+	}
+
+	@Override
+	public List<PhotographerVO> getListPtg(Criteria cri) {
+			return adminMapper.getListPtg(cri);
+	}
+
+	@Override
+	public int getTotalPtg(Criteria cri) {
+			return adminMapper.getTotalPtg(cri);
+	}
+
+
 }
