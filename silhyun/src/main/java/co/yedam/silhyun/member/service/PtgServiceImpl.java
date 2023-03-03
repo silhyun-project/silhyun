@@ -40,8 +40,11 @@ public class PtgServiceImpl implements PtgService {
 
 	@Override
 	public List<PhotographerVO> getPtg(String ptgId) {
-		
 		return ptgMapper.getPtg(ptgId);
+	}
+	@Override
+	public List<PhotographerVO> getReser(String ptgId) {
+		return ptgMapper.getReser(ptgId);
 	}
 
 
