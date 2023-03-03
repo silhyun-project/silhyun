@@ -7,9 +7,10 @@
 </select>
 
 <select id="reviewSelect" resultType="co.yedam.silhyun.common.vo.ReviewVO">
-	SELECT * 
-	FROM REVIEW
-	WHERE REV_NUM = #{revNum}
+	SELECT r.*, p.* 
+	FROM review r, photo p
+	WHERE r.rev_num = p.ctgr_num
+	and r.rev_num = #{revNum}
 </select>
 <update id="reviewHitUpdate">
 	update review 
@@ -19,11 +20,11 @@
 <insert id="reviewInsert">
 		<selectKey keyProperty="revNum" resultType="String" order="BEFORE">
 			SELECT 
-				nvl(MAX(to_number(rev_num)), 0) + 1 END AS "revNum"
+				nvl(MAX(to_number(rev_num)), 0) + 1 AS "revNum"
 			FROM review
 		</selectKey>
 		insert into review
-		values(#{revNum}, #{ctgr}, #{ctgrNum}, #{id}, #{star}, #{cntn}, #{revDate}, 0}
+		values(#{revNum}, #{ctgr}, #{ctgrNum}, #{id}, #{star}, #{cntn}, sysdate, 0)
 </insert>
 <update id="reviewUpdate">
 	update review
