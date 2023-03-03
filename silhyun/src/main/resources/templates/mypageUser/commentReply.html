@@ -33,7 +33,7 @@
 <meta name="description"
 	content="ShopApp - eCommerce Bootstrap 5 Template" />
 <!-- title -->
-<title>ShopApp - eCommerce Bootstrap 5 Template</title>
+<title>댓글 대댓글</title>
 <!-- Favicon -->
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
@@ -43,7 +43,7 @@
 <body>
 <div layout:fragment="content">
 	<div class="pt-4 mt-5 " style="display:block;">
-		<ul class="list-unstyled pt-4"th:each="comm : ${commentList}" >
+		<ul class="list-unstyled pt-4" th:each="comm : ${commentList}" >
 			<li class="media d-flex" style="display: block;">
 				<div class="avatar rounded-circle" style="display: block;">
 					<img class="img-fluid" src="/img/pages/1000x1000.jpg"
@@ -51,17 +51,17 @@
 				</div>
 				<div class="col ps-3"   >
 				<div id="commentBox" style="display:block;">
-					<h6 class="mt-0 mb-1" th:text=${comm.id}></h6>
-					<label class="mb-2 small" th:text="${#dates.format(comm.comDate, 'yyyy-MM-dd')}"></label>
+					<h6 class="mt-0 mb-1 commentId" id="comId" th:text=${comm.id}></h6>
+					<label class="mb-2 small" id="comDate" th:text="${#dates.format(comm.comDate, 'yyyy-MM-dd ')}"></label>
 					<p th:text=${comm.cntn}></p>
 					<div class="nav dark-link small">
 						<a class="ms-3" href="#"> 답글 달기
 						</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-						<button id="btn1" style="border:none; background-color: white;">
+						<button class="replyBtn" style="border:none; background-color: white;">
 						답글 보기</button>
 					</div>
 				</div>
-					<div id="popup" style="display:none;">
+					<div class="popup" style="display:none;">
 					<ul class="list-unstyled mt-5 pt-5 border-top" th:each="rep : ${replyList}">
 						<li class="media d-flex">
 							<div class="avatar rounded-circle">
@@ -71,10 +71,10 @@
 
 							<div class="col ps-3">
 								<h6 class="mt-0 mb-1" th:text=${rep.id}> </h6>
-								<label class="mb-2 small" th:text=${rep.comDate}></label>
+								<label class="mb-2 small" th:text="${#dates.format(rep.comDate, 'yyyy-MM-dd ')}"></label>
 								<p th:text=${rep.cntn}></p>
 								<div class="nav dark-link small">
-									<a class="ms-3" href="#"> <i class="bi bi-reply"></i>
+									<a class="ms-3" href="#">
 										답글 달기
 									</a>
 								</div>
@@ -136,33 +136,35 @@
 	<!-- End script start -->
 	
 	<script>
+			
 		// 답글목록 숨기기
 		$(document).ready(function(){
 			isShow = false; //기본값으로 안보이기 false
-			$('#btn1').click(function(){
+			$('.replyBtn').click(function(){
 			if(isShow){ //보이니까 숨기고
 		    		isShow = false;
-		    		$('#popup').hide();		
-		        	$('#btn1').text('답글 보기'); //버튼 텍스트 변환
+		    		$('.popup').hide();		
+		        	$('.replyBtn').text('답글 보기'); //버튼 텍스트 변환
 		    	}else{	//안보이니까 보이게 한다
 		    		isShow = true;
-				$('#popup').show();		//요소를 보이게 한다
-		        	$('#btn1').text('답글 숨기기'); //버튼 텍스트 변환
+				$('.popup').show();		//요소를 보이게 한다
+		        	$('.replyBtn').text('답글 숨기기'); //버튼 텍스트 변환
 		    	}
 			})
 		})
 		
 		//게시버튼 클릭 등록 이벤트
 		$("#send").click(function(){
-		let contactMessage =$("#contact-message").val();
-		console.log(comContent)
-		let comId =$("#id").val();
-		console.log(comId)
-		console.log($("#contact-message").val());
-		
-		if(contactMessaged == ""){
-			alert("내용을 입력해 주세요.")
-			return;		// 내용 미입력시 작성 불가
+			let contactMessage =$("#contact-message").val();
+			let comId =$("#comId").val();
+			let ctgr = 'C';
+			let ctgrNum = '12';
+			let dep = 0;
+			
+			
+			if(contactMessage == ""){
+				alert("내용을 입력해 주세요.")
+				return;		// 내용 미입력시 작성 불가
 		}; 
 		
 		
@@ -171,14 +173,14 @@
 			type:"POST",
 			data: JSON.stringify(
 				{
-					"contact-message" :comContent,
-					"id" :comId
+					"comId" :comId,
+					"contact-message" : contactMessage
 				}
 			),
 			contentType:'application/json',
 			success : function(data){
 				console.log("댓글등록")
-				comContent = ""
+				contactMessage = ""
 				console.log("====")
 				getCommentList()
 			},
@@ -187,6 +189,20 @@
 			}
 		});
 	});
+		
+		$('.commentId')
+		.on('click', function(){
+			console.log('클릭')
+			console.log($(this).text())// 그룹번호 히튼으로 만들어서 그룹번호가져와서 아작스보냄
+			
+			let text = $(this).text()
+			$('#contact-message').val($(this).text())
+			
+		})
+		
+		
+	
+		
 		
 	</script>
 	

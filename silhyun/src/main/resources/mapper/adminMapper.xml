@@ -127,6 +127,7 @@
 
 
 <!-- 그래프 -->
+<!-- 탈퇴그래프 -->
 
 <select id="quitGraph" resultType="HashMap">
   SELECT 
@@ -140,6 +141,23 @@
   FROM quit
   order by quit_cd
 </select>
+
+<!-- 분야그래프/작가분포  -->
+<select id="ptgGraph" resultType="HashMap">
+  SELECT 
+    COUNT(CASE WHEN fd_cd = 'B1' THEN 1 END) AS "제품",
+    COUNT(CASE WHEN fd_cd = 'B2' THEN 1 END) AS "음식",
+    COUNT(CASE WHEN fd_cd = 'B3' THEN 1 END) AS "행사",
+    COUNT(CASE WHEN fd_cd = 'B4' THEN 1 END) AS "건축/인테리어",
+    COUNT(CASE WHEN fd_cd = 'B5' THEN 1 END) AS "패션",
+    COUNT(CASE WHEN fd_cd = 'B6' THEN 1 END) AS "프로필/화보",
+    COUNT(CASE WHEN fd_cd = 'B7' THEN 1 END) AS "웨딩",
+    COUNT(CASE WHEN fd_cd = 'B8' THEN 1 END) AS "일반스냅",
+    COUNT(CASE WHEN fd_cd = 'B9' THEN 1 END) AS "반려동물"
+  FROM FIELD
+  order by fd_cd
+</select>
+
 
 
 <!-- 회원전체리스트 페이징 -->

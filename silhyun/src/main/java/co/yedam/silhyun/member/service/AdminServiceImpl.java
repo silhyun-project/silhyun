@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.member.map.AdminMapper;
+import co.yedam.silhyun.member.vo.AdminCriteria;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
@@ -82,12 +83,12 @@ public class AdminServiceImpl implements AdminSercive {
 	
 	//회원리스트 페이징
 	@Override
-	public List<MemberVO> getListMember(Criteria cri) {
+	public List<MemberVO> getListMember(AdminCriteria cri) {
 		return adminMapper.getListMember(cri);
 	}
 
 	@Override
-	public int getTotalCount(Criteria cri) {
+	public int getTotalCount(AdminCriteria cri) {
 		return adminMapper.getTotalCount(cri);
 	}
 
@@ -102,12 +103,12 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public List<QuitVO> getListQuit(Criteria cri) {
+	public List<QuitVO> getListQuit(AdminCriteria cri) {
 		return adminMapper.getListQuit(cri);
 	}
 
 	@Override
-	public int getTotalQuit(Criteria cri) {
+	public int getTotalQuit(AdminCriteria cri) {
 		return adminMapper.getTotalQuit(cri);
 	}
 
@@ -117,13 +118,18 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public List<PhotographerVO> getListPtg(Criteria cri) {
+	public List<PhotographerVO> getListPtg(AdminCriteria cri) {
 			return adminMapper.getListPtg(cri);
 	}
 
 	@Override
-	public int getTotalPtg(Criteria cri) {
+	public int getTotalPtg(AdminCriteria cri) {
 			return adminMapper.getTotalPtg(cri);
+	}
+
+	@Override
+	public List<Map<String, String>> ptgGraph() {
+		return adminMapper.ptgGraph();
 	}
 
 

@@ -3,7 +3,7 @@ package co.yedam.silhyun.member.service;
 import java.util.List;
 import java.util.Map;
 
-import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.member.vo.AdminCriteria;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
@@ -37,11 +37,16 @@ public interface AdminSercive {
 	//탈퇴
 	int insertQuitMember(String id);
 	
+	//그래프
+	
 	List<Map<String, String>> quitGraph();
 	
-	List<QuitVO> getListQuit(Criteria cri);
+	List<Map<String, String>> ptgGraph();
 	
-	int getTotalQuit(Criteria cri);
+	
+	List<QuitVO> getListQuit(AdminCriteria cri);
+	
+	int getTotalQuit(AdminCriteria cri);
 	
 	int deleteQMember(String id);
 	
@@ -52,13 +57,13 @@ public interface AdminSercive {
 	int updateMember(MemberVO vo);
 	
 	//회원리스트 페이징
-	List<MemberVO> getListMember(Criteria cri);
+	List<MemberVO> getListMember(AdminCriteria cri);
 	
-	int getTotalCount(Criteria cri);
+	int getTotalCount(AdminCriteria cri);
 	
 	//작가리스트 페이징
-	List<PhotographerVO> getListPtg(Criteria cri);
+	List<PhotographerVO> getListPtg(AdminCriteria cri);
 	
-	int getTotalPtg(Criteria cri);
+	int getTotalPtg(AdminCriteria cri);
 
 }

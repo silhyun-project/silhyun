@@ -208,21 +208,20 @@
                 
                                 <div class="col-12">
                                   
-                                        <iframe src="https://www.youtube.com/embed/1nI-GMmHMHs" 
-                                        style="width:854px;height:480px;"
-                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen></iframe>
-                        
+						         <div id="player"></div>
+						<span id="countWt">0</span>
+						                        
                
                             </div>
 
                         </div>
+                                 
+                        <div align="center">추가 내용</div>
+             
                     </section>
 
                     <!-- note  style="display:none"-->
-                    <section>
-                        <div align="center">추가 내용</div>
-                    </section>
+          
 
                     <div layout:fragment="note">
                         <div align="right">
@@ -234,7 +233,7 @@
                                 <a href="#">Contact</a>
                                 
                                 <!-- 
-                                                                <a href="javascript:void(0)" class="closebtn" th:onclick="|closeNav()|">&times;</a>
+                     <a href="javascript:void(0)" class="closebtn" th:onclick="|closeNav()|">&times;</a>
                                  -->
                             </div>
 
@@ -267,6 +266,61 @@
                 </div>
             </div>
         </div>
+        
+        
+        <!-- 동영상 제어 스크립트  -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script type="text/javascript">
+  var player;
+  var interval;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      height: '480px',
+      width: '854px',
+      videoId: 'iNvYsGKelYs',
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    // 재생이 가능한 상태가 되면 호출됨
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING) {
+      // 재생이 시작되면 호출됨
+      console.log("시작됨");
+      console.log("현재 지점 초단위. 여기서는 클릭시 시작지점" + player.getCurrentTime());
+      console.log("영상 총길이 초단위" + player.getDuration());
+      interval = setInterval(count, 1000);
+    } else if (event.data == YT.PlayerState.PAUSED) {
+      // 재생이 일시정지되면 호출됨
+      clearInterval(interval);
+      console.log("일시정지됨");
+      console.log("현재 지점 초단위. 여기서는 일시정지시 종료지점" + player.getCurrentTime());
+    } else if (event.data == YT.PlayerState.ENDED) {
+      // 재생이 종료되면 호출됨
+      console.log("종료됨");
+      clearInterval(interval);
+      alert("축하합니다!");
+    }
+  }
+
+  function count() {
+    var countWt = document.getElementById('countWt');
+    countWt.innerText = parseInt(countWt.innerText) + 1;
+  }
+</script>
+
+        
+
+        
+        
+        
     </main>
     <!-- End Content -->
 
@@ -284,8 +338,6 @@
     <script src="/vendor/isotope/isotope.pkgd.min.js"></script>
     <!-- count-down -->
     <script src="/vendor/count-down/jquery.countdown.min.js"></script>
-    <!-- count-down -->
-    <script src="/vendor/jarallax/jarallax-all.js"></script>
     <!-- Theme Js -->
     <script src="/js/custom.js"></script>
     <script src="/js/theme.js"></script>

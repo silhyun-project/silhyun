@@ -11,5 +11,5 @@ public interface StdService {
 	
 	List<StudioVO> getStd(String stdId); //사진관 상세
 	
-	List<StudioVO> getReserList(String stdId);
+	List<StudioVO> getReserList(String stdId); //사진관 상세페이지 아작스 호출
 }

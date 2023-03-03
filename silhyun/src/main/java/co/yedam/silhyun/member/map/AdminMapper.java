@@ -3,7 +3,7 @@ package co.yedam.silhyun.member.map;
 import java.util.List;
 import java.util.Map;
 
-import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.member.vo.AdminCriteria;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
@@ -38,11 +38,16 @@ public interface AdminMapper {
 	
 	List<Map<String, String>> quitGraph();
 	
+	List<Map<String, String>> ptgGraph();
+	
+	//
+	
 	int deleteQMember(String id);
 	
-	List<QuitVO> getListQuit(Criteria cri);
+	List<QuitVO> getListQuit(AdminCriteria cri);
 	
-	int getTotalQuit(Criteria cri);
+	int getTotalQuit(AdminCriteria cri);
+	
 	
 	//수정
 	
@@ -51,12 +56,12 @@ public interface AdminMapper {
 	int updateMember(MemberVO vo);
 	
 	//회원리스트 페이징
-	List<MemberVO> getListMember(Criteria cri);
+	List<MemberVO> getListMember(AdminCriteria cri);
 	
-	int getTotalCount(Criteria cri);
+	int getTotalCount(AdminCriteria cri);
 
 	//작가리스트 페이징
-	List<PhotographerVO> getListPtg(Criteria cri);
+	List<PhotographerVO> getListPtg(AdminCriteria cri);
 	
-	int getTotalPtg(Criteria cri);
+	int getTotalPtg(AdminCriteria cri);
 }
