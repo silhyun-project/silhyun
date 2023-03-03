@@ -30,6 +30,7 @@ public class StudioVO {
 	private Date regiDate;
 	private String stProfile;
 	private String stCd;
+	private String stItr;
 	
 	private String searchWord;
 	private String searchType;
@@ -38,4 +39,5 @@ public class StudioVO {
 	private String profile; 
 	private String name;
 	private String workDay;
+	private String id; 
 }
