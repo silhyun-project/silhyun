@@ -279,18 +279,18 @@ function applyForm(n){
 
  function uploadEvent(){
 		//let sel=document.getElementById('regionCd').value;
-	var formData = new FormData();
-
-	 var inputFile = $("#uploadEv");
+/* 	var formData = new FormData(); 
 	 var files= inputFile[0].files;
 	 console.log(files);
-	 formData.append()
+	 var inputFile = $("#uploadEv"); */
+
 	$.ajax({
 		url:'/applyEvent',
 		method:'POST',
-		data:formData,
+		data:new formData($("#uploadEv")[0]),
 		dataType:'json',
-		contentType:"applictaion/json",
+		processData:false,
+	    contentType:false,
 		success:function(result){
 			alert("제출이 성공적으로 되었습니다.");
 		},
@@ -301,7 +301,7 @@ function applyForm(n){
 	});
 }
 
-//form데이터 전송
+/* //form데이터 전송
 function dataSubmit() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -322,7 +322,7 @@ function dataSubmit() {
         $("#resultDiv").replaceWith(fragment);
     });
 }
-
+ */
 
 
 </script>
