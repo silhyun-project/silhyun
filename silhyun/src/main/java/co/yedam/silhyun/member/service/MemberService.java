@@ -1,5 +1,7 @@
 package co.yedam.silhyun.member.service;
 
-public interface MemberService {
+import co.yedam.silhyun.member.vo.MemberVO;
 
+public interface MemberService {
+	MemberVO memeberSelect(MemberVO vo);
 }

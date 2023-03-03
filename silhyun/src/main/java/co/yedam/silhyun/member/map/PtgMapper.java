@@ -15,4 +15,6 @@ public interface PtgMapper {
 //	int getTotalListCount(Criteria cri,PhotographerVO vo);
 	
 	List<PhotographerVO> getPtg(String ptgId);
+	
+	List<PhotographerVO> getReser(String ptgId);
 }

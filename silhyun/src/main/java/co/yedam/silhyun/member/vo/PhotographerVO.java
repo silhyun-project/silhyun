@@ -62,4 +62,9 @@ public class PhotographerVO{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date joinDate;
+	
+	private String ttl;
+	private String cntn;
+	private int pri;
+	private String resTime;
 }

@@ -18,9 +18,8 @@ function fileUpAction(){
     // 미리보기 이미지 속성
     var imgStyle = 'width:100%;height:100%;z-index:none';
     // 이미지안에 표시되는 체크박스의 속성
-    var chkStyle = 'width:30px;height:30px;position:absolute;font-size:24px;'
+    var chkStyle = 'width:30px;height:30px;position:absolute;font-size:10px;'
                   + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
-    var cnt = 0;
   
     btnAtt.onchange = function(e){
 
@@ -29,9 +28,9 @@ function fileUpAction(){
 		
       for(f of fileArr){
         imageLoader(f);
-        cnt++
       }
-      if(cnt > 5){
+      if(selFiles.length > 5){   //이게 제대로 되나???
+      
 		alert("5장 이하의 파일만 업로드 됩니다.")
 		
 	}
@@ -107,7 +106,8 @@ function insertReview(){
 		contentType: false,
 		processData: false, 
 		success: function(res){
-			console.log(res.revNum)
+			console.log(res.revNum)  //썸네일처리도 해주자
+			location.href = "/silhyun/reviewList";
 			
 		},
 		error: function(err){
