@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.portfolio.map.AroundMapper;
 import co.yedam.silhyun.portfolio.vo.PortfolioVO;
+import co.yedam.silhyun.portfolio.vo.TagVO;
+
 @Service
 public class AroundServiceImpl implements AroundService {
 
@@ -23,6 +25,18 @@ public class AroundServiceImpl implements AroundService {
 		// TODO Auto-generated method stub
 		return aroundMapper.aroundTagList(tagCntn);
 	}
+
+	@Override //태그리스트
+	public List<TagVO> tagList() {
+		// TODO Auto-generated method stub
+		return  aroundMapper.tagList();
+	}
+
+	@Override //포트폴리오클릭한거내용;
+	public List<PortfolioVO> detailPortfolio(String portNum) {
+		// TODO Auto-generated method stub
+		return aroundMapper.detailPortfolio(portNum);
+	}
 	
-	
+
 }

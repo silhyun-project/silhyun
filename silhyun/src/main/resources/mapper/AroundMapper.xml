@@ -11,6 +11,64 @@
 	<select id="getAroundList"
 		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
 		SELECT A.PHO_RT, A.PHO_NUM,P.*,L.Likes
+		FROM(SELECT PHO_RT,
+		PHO_NUM, CTGR_NUM
+		FROM PHOTO
+		WHERE PHO_NUM IN (SELECT
+		MIN(TO_NUMBER(PHO_NUM))
+		FROM PHOTO
+		WHERE CTGR = 'P'
+		GROUP BY CTGR_NUM)
+		ORDER BY PHO_NUM) A, PORTFOLIO
+		P,(SELECT PORT_NUM,COUNT(*) LIKES
+		FROM
+		LIKE_PHOTO
+		GROUP BY PORT_NUM) L
+		WHERE A.CTGR_NUM = P.PORT_NUM AND
+		P.PORT_NUM=L.PORT_NUM
+		AND P.UP_STA = 'Y'
+		ORDER BY DBMS_RANDOM.VALUE
+	</select>
+
+	<select id="aroundTagList"
+		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
+		select*
+		From (SELECT A.PHO_RT, A.PHO_NUM,P.*,L.likes
+		FROM(SELECT PHO_RT,
+		PHO_NUM,
+		CTGR_NUM
+		FROM PHOTO
+		WHERE PHO_NUM IN (SELECT
+		MIN(TO_NUMBER(PHO_NUM))
+		FROM PHOTO
+		WHERE CTGR = 'P'
+		GROUP BY CTGR_NUM)
+		ORDER BY PHO_NUM) A,
+		PORTFOLIO P,(SELECT PORT_NUM,COUNT(*)likes
+		FROM
+		LIKE_PHOTO
+		GROUP BY
+		PORT_NUM) L
+		WHERE A.CTGR_NUM = P.PORT_NUM AND
+		P.PORT_NUM=L.PORT_NUM
+		AND
+		P.UP_STA = 'Y')
+		<if test="tagCntn != null and tagCntn.length>0">
+			WHERE CNTN LIKE '%'||#{tagCntn}||'%'
+		</if>
+		ORDER BY DBMS_RANDOM.VALUE
+	</select>
+
+	<select id="tagList"
+		resultType="co.yedam.silhyun.portfolio.vo.TagVO">
+		SELECT *
+		FROM TAG
+		ORDER BY DBMS_RANDOM.VALUE
+	</select>
+
+	<select id="detailPortfolio"
+		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO" parameterType="String">
+		SELECT A.PHO_RT, A.PHO_NUM,P.*,L.Likes
 		FROM(SELECT PHO_RT, PHO_NUM, CTGR_NUM
 		FROM PHOTO
 		WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
@@ -22,31 +80,6 @@
 		FROM LIKE_PHOTO
 		GROUP BY PORT_NUM) L
 		WHERE A.CTGR_NUM = P.PORT_NUM AND P.PORT_NUM=L.PORT_NUM
-		AND P.UP_STA =
-		'Y'
-	</select>
-
-	<select id="aroundTagList"
-		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
-		select*
-		From (SELECT A.PHO_RT, A.PHO_NUM,P.*,L.likes
-		FROM(SELECT PHO_RT, PHO_NUM,
-		CTGR_NUM
-		FROM PHOTO
-		WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
-		FROM PHOTO
-		WHERE CTGR = 'P'
-		GROUP BY CTGR_NUM)
-		ORDER BY PHO_NUM) A,
-		PORTFOLIO P,(SELECT PORT_NUM,COUNT(*)likes
-		FROM LIKE_PHOTO
-		GROUP BY
-		PORT_NUM) L
-		WHERE A.CTGR_NUM = P.PORT_NUM AND P.PORT_NUM=L.PORT_NUM
-		AND
-		P.UP_STA = 'Y')
-		<if test="tagCntn != null and tagCntn.length>0">
-		WHERE CNTN LIKE '%'||#{tagCntn}||'%'
-		</if>
+		AND P.PORT_NUM = #{portNum}
 	</select>
 </mapper>
