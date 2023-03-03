@@ -13,4 +13,6 @@ public interface PtgService {
 //	List<PhotographerVO> ptgSearchList(Criteria cri,PhotographerVO vo); //다중 검색
 //	int getTotalListCount(Criteria cri,PhotographerVO vo);
 	List<PhotographerVO> getPtg(String ptgId);
+	
+	List<PhotographerVO> getReser(String ptgId);
 }

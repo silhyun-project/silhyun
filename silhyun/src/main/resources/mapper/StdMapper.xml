@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="getReserList" resultType="co.yedam.silhyun.member.vo.StudioVO">
-		SELECT DISTINCT M.NAME, M.PROFILE ,P.WORK_DAY, S.*
+		SELECT DISTINCT M.NAME, M.PROFILE ,M.ID,P.WORK_DAY, S.*
 		FROM MEMBER M, PHOTOGRAPHER P, STUDIO S
 		WHERE M.ID = P.PTG_ID
 		AND P.ST_ID = S.ST_ID
