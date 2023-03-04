@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,7 +28,7 @@ public class ReserController {
 	/// ▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
 	public String ptgList(Criteria cri, Model model, PhotographerVO vo) {
-		cri.setAmount(3);
+		cri.setAmount(6);
 		model.addAttribute("ptgList", ptgService.getPtgLsit(cri, vo));
 		model.addAttribute("page", new PageVO(ptgService.getTotalCount(cri, vo), 10, cri));
 //		model.addAttribute("ptgList", ptgService.getPtgLsit(cri, vo));
@@ -65,7 +66,7 @@ public class ReserController {
 	/// ▶사진관
 	@RequestMapping("/silhyun/stdList") // 사진관 전체 리스트
 	public String studioList(Criteria cri, Model model, StudioVO vo) {
-		cri.setAmount(3);
+		cri.setAmount(6);
 		// model.addAttribute("stdList");
 		model.addAttribute("page", new PageVO(stdService.getTotalCount(cri, vo), 10, cri));
 		model.addAttribute("stdList", stdService.getStdList(cri, vo));
@@ -93,5 +94,12 @@ public class ReserController {
 		System.out.println(vo);
 		System.out.println(ptgId);
 		return "reser/reserList";
+	}
+	
+	@RequestMapping("/ajaxResTime/{ptgId}")
+	@ResponseBody
+	public List<PhotographerVO> ajaxResTime(Model model,PhotographerVO vo,@PathVariable String ptgId){
+		System.out.println("호출 되었니");
+		return ptgService.getResTime(ptgId);
 	}
 }

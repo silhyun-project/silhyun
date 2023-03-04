@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.PtgMapper">
+	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		SELECT DISTINCT P.*,RT.*,M.NAME,C.*
+		FROM PHOTOGRAPHER P, RESER_TIME RT, MEMBER M,CODE C
+		WHERE M.ID = P.PTG_ID
+		AND P.PTG_ID ＝ RT.PTG_ID
+		AND C.CD = RT.RES_TIME
+		AND P.PTG_ID = #{ptgId}
+		ORDER BY C.CD
+	</select>
 	<select id="getReser" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
-		SELECT DISTINCT O.*, P.*, M.*,R.*
-		FROM OPTIONS O, PHOTOGRAPHER P, MEMBER M, RESER_TIME R
+		SELECT DISTINCT O.*, P.*, M.*
+		FROM OPTIONS O, PHOTOGRAPHER P, MEMBER M
 		WHERE M.ID = P.PTG_ID
 		AND P.PTG_ID = O.PTG_ID
-		AND O.PTG_ID = R.PTG_ID
-		AND R.PTG_ID = #{ptgId}
+		AND P.PTG_ID = #{ptgId}
+		ORDER BY O.PRI 
 	</select>
 
 	<select id="getPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-		SELECT distinct Z.ZZIMS,P.*, M.*,S.st_name,A.PHO_RT, A.PHO_NUM,pt.up_sta,pt.port_date,pt.port_num
-		FROM PHOTOGRAPHER P, MEMBER M,STUDIO S,(SELECT CTGR_NUM,COUNT(*) ZZIMS FROM ZZIM GROUP BY CTGR_NUM) Z,
-        (SELECT PHO_RT, PHO_NUM, CTGR_NUM
-		FROM PHOTO
-		WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
-		FROM PHOTO
-		WHERE upper(CTGR) = 'P'
-		GROUP BY CTGR_NUM)
-		ORDER BY PHO_NUM) A, PORTFOLIO PT
-		WHERE P.PTG_ID = M.ID
-        and pt.ptg_id = p.ptg_id
-        and A.CTGR_NUM = PT.PORT_NUM
-	    AND M.ID = Z.CTGR_NUM(+)
-	    AND M.ID = S.ST_ID(+)
-		AND P.PTG_ID = #{ptgId}
-        AND UPPER(PT.UP_STA)='Y'
-        ORDER BY PORT_DATE DESC
+			SELECT DISTINCT NVL(Z.ZZIMS,0),P.*, M.*,S.ST_NAME,A.PHO_RT, A.PHO_NUM,PT.UP_STA,PT.PORT_DATE,PT.PORT_NUM
+			FROM PHOTOGRAPHER P, MEMBER M,STUDIO S,(SELECT CTGR_NUM,COUNT(*) ZZIMS FROM ZZIM GROUP BY CTGR_NUM) Z,
+	        (SELECT PHO_RT, PHO_NUM, CTGR_NUM
+			FROM PHOTO
+			WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
+			FROM PHOTO
+			WHERE UPPER(CTGR) = 'P'
+			GROUP BY CTGR_NUM)
+			ORDER BY PHO_NUM) A, PORTFOLIO PT
+			WHERE P.PTG_ID = M.ID
+	        AND PT.PTG_ID = P.PTG_ID
+	        AND A.CTGR_NUM = PT.PORT_NUM
+		    AND M.ID = Z.CTGR_NUM(+)
+		    AND P.ST_ID = S.ST_ID(+)
+			AND P.PTG_ID = #{ptgId}
+	        AND UPPER(PT.UP_STA)='Y'
+	        ORDER BY PORT_DATE DESC
  			<![CDATA[	
 	 	) A WHERE ROWNUM <= 6) B WHERE RN >= 1
 	 	 ]]>

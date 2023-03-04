@@ -17,4 +17,5 @@ public interface PtgMapper {
 	List<PhotographerVO> getPtg(String ptgId);
 	
 	List<PhotographerVO> getReser(String ptgId);
+	List<PhotographerVO> getResTime(String ptgId);
 }

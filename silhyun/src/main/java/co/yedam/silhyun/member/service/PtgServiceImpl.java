@@ -46,6 +46,10 @@ public class PtgServiceImpl implements PtgService {
 	public List<PhotographerVO> getReser(String ptgId) {
 		return ptgMapper.getReser(ptgId);
 	}
+	@Override
+	public List<PhotographerVO> getResTime(String ptgId) {
+		return ptgMapper.getResTime(ptgId);
+	}
 
 
 

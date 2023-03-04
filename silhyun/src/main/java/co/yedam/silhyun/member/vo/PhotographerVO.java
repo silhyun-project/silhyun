@@ -67,4 +67,9 @@ public class PhotographerVO{
 	private String cntn;
 	private int pri;
 	private String resTime;
+	
+	private String cdName;
+	private String cd;
+	private String opNum;
+
 }
