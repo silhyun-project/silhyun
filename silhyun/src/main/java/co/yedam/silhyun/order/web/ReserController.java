@@ -96,10 +96,15 @@ public class ReserController {
 		return "reser/reserList";
 	}
 	
-	@RequestMapping("/ajaxResTime/{ptgId}")
+	@RequestMapping("/ajaxResTime/{ptgId}")  //작가가 등록한 시간 아작스 호출
 	@ResponseBody
 	public List<PhotographerVO> ajaxResTime(Model model,PhotographerVO vo,@PathVariable String ptgId){
 		System.out.println("호출 되었니");
 		return ptgService.getResTime(ptgId);
+	}
+	
+	@RequestMapping("/silhyun/home")
+	public String home() {
+		return "reser/home";
 	}
 }

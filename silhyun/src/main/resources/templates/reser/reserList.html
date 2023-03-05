@@ -1,198 +1,199 @@
 <!doctype html>
-<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{home/layout}">
 
 <head>
-<!-- metas -->
-<meta charset="utf-8">
-<meta name="author" content="pxdraft" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
-<meta name="description"
-	content="ShopApp - eCommerce Bootstrap 5 Template" />
-<!-- title -->
-<title>예약하는 폼</title>
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-	crossorigin="anonymous"></script>
-<!-- Favicon -->
-<link rel="shortcut icon" href="/img/favicon.ico">
-<style>
-html, body {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-}
+	<!-- metas -->
+	<meta charset="utf-8">
+	<meta name="author" content="pxdraft" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
+	<meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
+	<!-- title -->
+	<title>예약하는 폼</title>
+	<script src="https://code.jquery.com/jquery-3.6.3.js"
+		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/img/favicon.ico">
+	<style>
+		html,
+		body {
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0;
+		}
 
-*, *:before, *:after {
-	box-sizing: inherit;
-}
+		*,
+		*:before,
+		*:after {
+			box-sizing: inherit;
+		}
 
-.clearfix:after {
-	content: '';
-	display: block;
-	clear: both;
-	float: none;
-}
+		.clearfix:after {
+			content: '';
+			display: block;
+			clear: both;
+			float: none;
+		}
 
-/* ======== Calendar ======== */
-.my-calendar {
-	width: 100%;
-	height: 400px;
-	/*           margin: 30px; */
-	padding: 20px 20px 10px;
-	text-align: center;
-	font-weight: 800;
-	border: 1px solid #ddd;
-	cursor: default;
-}
+		/* ======== Calendar ======== */
+		.my-calendar {
+			width: 100%;
+			height: 400px;
+			/*           margin: 30px; */
+			padding: 20px 20px 10px;
+			text-align: center;
+			font-weight: 800;
+			border: 1px solid #ddd;
+			cursor: default;
+		}
 
-.my-calendar .clicked-date {
-	border-radius: 25px;
-	margin-top: 1;
-	float: left;
-	width: 1;
-	text-align: center;
-	padding: 46px 0 26px;
-	background: #ddd;
-}
+		.my-calendar .clicked-date {
+			border-radius: 25px;
+			margin-top: 1;
+			float: left;
+			width: 1;
+			text-align: center;
+			padding: 46px 0 26px;
+			background: #ddd;
+		}
 
-.my-calendar .calendar-box {
-	width: 100%;
-	height: 400px;
-}
+		.my-calendar .calendar-box {
+			width: 100%;
+			height: 400px;
+		}
 
-.clicked-date .cal-day {
-	/* font-size: 1px; */
-	font-size: 24px;
-}
+		.clicked-date .cal-day {
+			/* font-size: 1px; */
+			font-size: 24px;
+		}
 
-.clicked-date .cal-date {
-	/* font-size: 1px; */
-	font-size: 130px;
-}
+		.clicked-date .cal-date {
+			/* font-size: 1px; */
+			font-size: 130px;
+		}
 
-.ctr-box {
-	padding: 0 16px;
-	margin-bottom: 20px;
-	font-size: 20px;
-}
+		.ctr-box {
+			padding: 0 16px;
+			margin-bottom: 20px;
+			font-size: 20px;
+		}
 
-.ctr-box .btn-cal {
-	position: relative;
-	float: left;
-	width: 25px;
-	height: 25px;
-	margin-top: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	border: none;
-	background: none;
-}
+		.ctr-box .btn-cal {
+			position: relative;
+			float: left;
+			width: 25px;
+			height: 25px;
+			margin-top: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			border: none;
+			background: none;
+		}
 
-.ctr-box .btn-cal:after {
-	content: '<';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	line-height: 25px;
-	font-weight: bold;
-	font-size: 20px;
-}
+		.ctr-box .btn-cal:after {
+			content: '<';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			line-height: 25px;
+			font-weight: bold;
+			font-size: 20px;
+		}
 
-.ctr-box .btn-cal.next {
-	float: right;
-}
+		.ctr-box .btn-cal.next {
+			float: right;
+		}
 
-.ctr-box .btn-cal.next:after {
-	content: '>';
-}
+		.ctr-box .btn-cal.next:after {
+			content: '>';
+		}
 
-.cal-table {
-	width: 100%;
-}
+		.cal-table {
+			width: 100%;
+		}
 
-.cal-table th {
-	width: 14.2857%;
-	padding-bottom: 5px;
-	font-size: 16px;
-	font-weight: 900;
-}
+		.cal-table th {
+			width: 14.2857%;
+			padding-bottom: 5px;
+			font-size: 16px;
+			font-weight: 900;
+		}
 
-.cal-table td {
-	padding: 3px 0;
-	height: 50px;
-	font-size: 15px;
-	vertical-align: middle;
-}
+		.cal-table td {
+			padding: 3px 0;
+			height: 50px;
+			font-size: 15px;
+			vertical-align: middle;
+		}
 
-.cal-table td.day {
-	position: relative;
-	cursor: pointer;
-	color: lightgray;
-}
+		.cal-table td.day {
+			position: relative;
+			cursor: pointer;
+			color: lightgray;
+		}
 
-.cal-table td.today {
-	background: #ffd255;
-	border-radius: 50%;
-	color: #fff;
-}
+		.cal-table td.today {
+			background: #ffd255;
+			border-radius: 50%;
+			color: #fff;
+		}
 
-.cal-table td.day-active {
-	background: #ff8585;
-	border-radius: 50%;
-	color: #fff;
-}
+		.cal-table td.day-active {
+			background: #ff8585;
+			border-radius: 50%;
+			color: #fff;
+		}
 
-.cal-table td.has-event:after {
-	content: '';
-	display: block;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	height: 4px;
-	background: #FFC107;
-}
+		.cal-table td.has-event:after {
+			content: '';
+			display: block;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 4px;
+			background: #FFC107;
+		}
 
-.res-yes {
-	background-color: black;
-}
+		.res-yes {
+			background-color: black;
+		}
 
-.res-no {
-	background-color: lightgray;
-}
-.form-check-input{
-    width:20px;
-    height:20px;
-    margin-bottom: 7px;
-}
-.form-check-label{
-    font-weight: bold;
-}
-#selectDate{
-    font-size: larger;
-    font-weight: bolder;
-}
-#selectTime{
-    font-size: larger;
-    font-weight: bolder;
-}
-</style>
+		.res-no {
+			background-color: lightgray;
+		}
+
+		.form-check-input {
+			width: 20px;
+			height: 20px;
+			margin-bottom: 7px;
+		}
+
+		.form-check-label {
+			font-weight: bold;
+		}
+
+		#selectDate {
+			font-size: larger;
+			font-weight: bolder;
+		}
+
+		#selectTime {
+			font-size: larger;
+			font-weight: bolder;
+		}
+	</style>
 </head>
 
 <body>
 	<div layout:fragment="content">
 		<!-- Skippy & Prload -->
 		<!-- skippy -->
-		<a id="skippy"
-			class="skippy visually-hidden-focusable overflow-hidden"
-			href="#content">
+		<a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
 			<div class="container">
 				<span class="u-skiplink-text">Skip to main content</span>
 			</div>
@@ -210,7 +211,7 @@ html, body {
 		<div class="wrapper">
 			<!-- heder height -->
 			<div class="header-height-bar"></div>
-<!-- 			<div>[[${res[0]}]]</div> -->
+			<!-- 			<div>[[${res[0]}]]</div> -->
 			<!-- Main -->
 			<main>
 				<!-- Breadcrumb -->
@@ -223,10 +224,9 @@ html, body {
 							<div class="col-lg-6 my-2">
 								<ol
 									class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
-									<li class="breadcrumb-item"><a class="text-nowrap"
-										href="/"><i class="bi bi-home"></i>Home</a></li>
-									<li class="breadcrumb-item text-nowrap active"
-										aria-current="page">Product</li>
+									<li class="breadcrumb-item"><a class="text-nowrap" href="/"><i
+												class="bi bi-home"></i>Home</a></li>
+									<li class="breadcrumb-item text-nowrap active" aria-current="page">Product</li>
 								</ol>
 							</div>
 						</div>
@@ -238,15 +238,13 @@ html, body {
 					<div class="container">
 						<div class="row align-items-start">
 							<!-- Product Gallery -->
-							<div
-								class="col-lg-6 lightbox-gallery product-gallery sticky-lg-top">
+							<div class="col-lg-6 lightbox-gallery product-gallery sticky-lg-top">
 								<!--작가 사진-->
 								<div class="swiper swiper_gallery">
 									<div class="swiper-wrapper">
 										<div class="swiper-slide">
 											<div class="pd-gallery-slide">
-												<img th:src="${res[0].profile}" class="img-fluid" title=""
-													alt=""><br>
+												<img th:src="${res[0].profile}" class="img-fluid" title="" alt=""><br>
 												<h5 style="text-align: center;">[[${res[0].name}]]</h5>
 											</div>
 										</div>
@@ -256,8 +254,10 @@ html, body {
 								<!--작가 옵션-->
 								<div class="card" th:each="resd : ${res}">
 									<div class="card-header py-3 d-flex align-items-center">
-                                        <input class="form-check-input" type="checkbox" th:field="*{res}" th:id="'op'+${resd.opNum}" th:value="${resd.ttl}" >&nbsp;
-										<label class="form-check-label" th:for="'op'+${resd.opNum}"  th:text="${resd.ttl}" style="font-size: large;"></label>
+										<input class="form-check-input" type="checkbox" 
+										th:field="*{res}" th:id="'op'+${resd.opNum}" th:value="${resd.ttl}">&nbsp;
+										<label class="form-check-label" th:for="'op'+${resd.opNum}" 
+										th:text="${resd.ttl}" style="font-size: large;"></label>
 									</div>
 									<div class="card-body">
 										<p class="m-0">[[${resd.cntn}]]</p>
@@ -265,6 +265,9 @@ html, body {
 											<p th:text="${#numbers.formatInteger(resd.pri, 3, 'COMMA') + '원'}"></p>
 										</strong>
 									</div>
+									<form>
+										<input type="hidden" class="hiddenMoney" th:value="${resd.pri}">
+									</form>
 								</div>
 
 
@@ -319,9 +322,39 @@ html, body {
 									<div class="product-description timeTable">
 										
 									</div>
-									<div class="product-description">
-										<h1>선택된 옵션 들어오는 곳</h1>
+									
+									<div class="product-description selectedOp">
+										<div class="card">
+											<div class="card-body">
+												<ul class="list-unstyled m-0 p-0">
+													<h5 class="me-2 border-bottom" >선택 내역</h5>
+													<li class="pb-3 mb-3 border-bottom">
+														<div class="row align-items-center selectOP">
+															<div class="col-8 selectOP">
+															
+																<!-- Title -->
+																<p class="mb-1 selectOPNM"></p>
+																<p class="mb-1 selectOPPRI"></p>
+																<!-- Remove -->
+																<!-- <a class="small link-danger ms-auto" href="#!">
+																	<i class="bi bi-x"></i> Remove
+																</a> -->
+															</div>
+														</div>
+													</li>
+												</ul>
+												<ul class="list-unstyled m-0">
+													<li class="d-flex justify-content-between align-items-center">
+														<h6 class="me-2">Grand Total</h6><span class="text-end text-dark totalMoney"></span>
+													</li>
+												</ul>
+											</div>
+										</div>
+											
+										
 									</div>
+									
+
 									<div class="product-detail-actions d-flex flex-wrap">
 										<div class="cart-button">
 											<button class="btn btn-primary pd-cart-btn"
@@ -562,6 +595,7 @@ html, body {
               url: '/ajaxResTime/' + ptgId,
               datatype: "json"
             }).then(result => {
+				chOpsToOrder()
                 var arr = []
               console.log(result)
               $(result).each(function(idx,item){
@@ -594,10 +628,11 @@ html, body {
                         let cdNameBtn = `<button class="btn btn-primary timeList">${b.cdName}</button> `
                         $('.card-body.time').append(cdNameBtn)
                     })
+					
                 })//end 클릭이벤트
             })
            
-            
+          
            
             
             }).then(error => console.log(error))
@@ -609,8 +644,75 @@ html, body {
             }
             $('#selectTime').text($(this).text())
             // $('.product-description.timeTable').remove()
+			
            })
-            
+		   let totalMoney = Number(0);
+		   function chOpsToOrder(){
+			let ckOps =  $('.card input[type="checkbox"]');
+			let template = `<div class="card">
+								<div class="card-body">
+									<ul class="list-unstyled m-0 p-0">
+										<h5 class="me-2 border-bottom" >선택 내역</h5>
+										<li class="pb-3 mb-3 border-bottom">
+											<div class="row align-items-center">
+												<div class="col-8 selectOP">
+												
+													<!-- Title -->
+													<p class="mb-1">
+														<sapn class="text-dark fw-500"></sapn>
+														<span class="m-0 text-muted w-100 d-block"></span>
+													</p>
+													<!-- Remove -->
+													<a class="small link-danger ms-auto" href="#!">
+														<i class="bi bi-x"></i> Remove
+													</a>
+												</div>
+											</div>
+										</li>
+									</ul>
+									<ul class="list-unstyled m-0">
+										<li class="d-flex justify-content-between align-items-center">
+											<h6 class="me-2">Grand Total</h6><span class="text-end text-dark">$265.00</span>
+										</li>
+									</ul>
+								</div>
+							</div>`
+			console.log(ckOps)
+			for(let ckOp of ckOps){
+				$(ckOp).on('click',function(){
+					if(ckOp.checked == true){
+						// $('.product-description.selectedOp').append(template)
+						$('.row.align-items-center.selectOP').append(
+						$('.col-8.selectOP').attr('id',$(this).attr('id')))
+						$('.mb-1.selectOPNM')
+						.append($('<span class="text-dark fw-500">').text($(this).val()))
+						$('.mb-1.selectOPPRI').append($('<span class="m-0 text-muted w-100 d-block">')).text($('.card-body').find('p').eq(1).text())
+						// $('.mb-1.selectOP').append($('<span>')).addClass('m-0 text-muted w-100 d-block').text($('.card-body').find('p').eq(1).text())
+						.append(`<a class="small link-danger ms-auto" href="#!">
+														<i class="bi bi-x"></i> Remove
+													</a>`)
+						totalMoney += Number($('.hiddenMoney').val());
+						$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
+						// .append($('.m-0.text-muted.w-100.d-block')).text()
+						// $('<span class="selectOpName">').text($(this).val())
+
+						// console.log($(this).attr('id'))
+						// // $('.col-8.selectOP').attr('id',$(this).attr('id'))
+						// console.log($('.card-body').find('p').eq(1).text())
+						
+						console.log(totalMoney)
+						console.log($('.hiddenMoney').val())
+						console.log(Number(totalMoney).toLocaleString())
+
+
+					}else if(ckOp.checked == false && $('.col-8.selectOP').attr('id',$(this).attr('id')) != null){
+						// $('.col-8.selectOP').find('span').remove()
+						console.log($('.col-8.selectOP').find('span'))
+					}
+				})
+			}
+		   }
+		  
           </script>
 	</div>
 	<!--END layout:fragment="content" -->
