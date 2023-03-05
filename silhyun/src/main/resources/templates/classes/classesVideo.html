@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{home/home}">
+      layout:decorate="~{home/layout}">
 <head>
     <!-- metas -->
     <meta charset="utf-8">
@@ -79,52 +79,7 @@
         </div>
     </div>
     <!-- End Preload -->
-    <!-- Edn Skippy & Prload -->
-    <!-- Size Chart  -->
-    <!-- Ask Form -->
-    <div class="modal-askform-view modal fade" id="px_ask_modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Ask about product</h4>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Your Name</label>
-                                    <input type="text" class="form-control" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Email address</label>
-                                    <input type="email" class="form-control" placeholder="E-mail">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="exampleInputEmail1">Subject</label>
-                                    <input type="text" class="form-control" placeholder="Subject">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="exampleInputEmail1">Your Message</label>
-                                    <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="">
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <!-- Main -->
     <main layout:fragment="content">
         <!-- Table -->
@@ -184,22 +139,19 @@
                 <!-- Content -->
 
                 <div class="col-lg-8 col-xxl-9">
-
-                    <section>
-                        <div class="container">
-                            <div class="row g-0 px-4 px-lg-5 py-5 rounded bg-cover bg-fiex bg-center border"
-                                style="background-image: url(/img/grocery/1600x900.jpg);width:854px;">
-                                <div class="col-md-8 my-3 text-center text-md-start">
-                                    <h3 class="h2 m-0">Eat clean &amp; green. Eat Organic.</h3>
+                                                <section>
+                                <div class="container">
+                                    <div class="row g-0 px-4 px-lg-5 py-5 rounded bg-cover bg-fiex bg-center border"
+                                        style="background-image: url(/img/banner4.jpg);width:854px;">
+                                        <div class="col-md-8 my-3 text-center">
+                                            <h1 class="h1 m-0" style="color: black; -webkit-text-stroke-width: 1px;
+                                            -webkit-text-stroke-color: white;"><b>강의 이름</b></h1>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 my-3 text-center text-md-end">
-                                    <a class="btn btn-primary" href="#" tabindex="0">Discover More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
+                            </section>
                     <br>
+
 
                     <!-- video -->
 
@@ -306,7 +258,7 @@
       // 재생이 종료되면 호출됨
       console.log("종료됨");
       clearInterval(interval);
-      alert("축하합니다!");
+      console.log("현재 지점 초단위. 여기서는 영상이 종료돼서 종료+종료지점" + player.getCurrentTime());
     }
   }
 
