@@ -7,10 +7,10 @@
 		ORDER BY event_num DESC
 	</select>
 	<select id="getBannerList" resultType="co.yedam.silhyun.event.vo.EventVO">
-		SELECT *
+		SELECT event_num, bnph
 		FROM event
 		WHERE BNPH_STA ='Y'
-		ORDER BY event_num DESC
+		ORDER BY accp_dt DESC
 	</select> 
 	
 </mapper>

@@ -8,24 +8,35 @@
 		ORDER BY res_num DESC
 	</select>
 	<select id="getPhotoinfo" resultType="co.yedam.silhyun.member.vo.MemberVO">
-		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
-		FROM photographer p, member m
-   		WHERE m.id = p.ptg_id
-        AND id='user1'
+	    SELECT m.id, m.name, m.pwd, m.email, m.tel, p.work_day, m.profile
+	    FROM MEMBER m
+	    INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
+	    WHERE m.id = 'user1'
 	</select>
 	
 <!-- 		INSERT INTO EVENT
 		VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
 	<insert id="applyEvent" parameterType="co.yedam.silhyun.event.vo.EventVO">
-		<selectKey>
-					
-		</selectKey>
+	<!-- 	<selectKey keyProperty="eventNum" resultType="String">
+		  select dbms_random.string('A', 5) as eventNum from dual
+		</selectKey> -->
 		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, region_cd)
 		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph}, #{regionCd})
 	</insert>
 	<insert id="applyECoupon" parameterType="co.yedam.silhyun.event.vo.CouponVO">
-		INSERT INTO COUPON(ctgr_num, cntn, discount, start_date, end_date, event_num)
-		VALUES(#{ctgrNum},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum})
+		INSERT INTO COUPON(ctgr, cntn, discount, start_date, end_date, event_num,cpn_num)
+		VALUES(#{ctgr},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum},#{cpnNum})
+	</insert>
+	
+	<insert id="applyClass" parameterType="co.yedam.silhyun.classes.vo.ClassesVO">
+		INSERT INTO CLASS(class_num,ptg_id,cla_ttl,cla_pri,cla_desct,cla_cd,ypsn,cla_time,cla_dt,thni,ot)
+		VALUES(#{classNum},#{ptgId},#{claTtl},#{claPri},#{claDesct},#{claCd},#{ypsn},#{claTime},#{claDt},#{thni},#{ot})
+	</insert>
+	
+	<!-- 옵션 설정 -->
+	<insert id="insertOption" parameterType="co.yedam.silhyun.member.vo.OptionsVO">
+		INSERT INTO OPTIONS(op_num, ptg_id, ttl, cntn,pri)
+		VALUES(#{opNum},#{ptgId},#{ttl},#{cntn},#{pri})
 	</insert>
 
 	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO">
