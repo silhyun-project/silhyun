@@ -12,5 +12,4 @@ public class SilhyunApplication {
 		SpringApplication.run(SilhyunApplication.class, args);
 	}
 
-
 }
