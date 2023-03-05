@@ -34,7 +34,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #444;
+  background-color: pink;
   border-radius: 10px;
 }
 
@@ -287,4 +287,13 @@ button:hover {
 
 .login > :last-child {
   margin-bottom: 5rem;
+}
+
+.login > div > :last-child > :nth-child(1) {
+    background: none;
+    margin-right: 10px;
+    transition: 0.8s;
+}
+.login > :nth-child(2) > :nth-child(1) {
+    background: none;
 }

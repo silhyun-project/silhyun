@@ -9,10 +9,6 @@
   font-family: "Noto Sans KR", sans-serif;
 }
 
-img {
-  width: 100px;
-}
-
 body {
   font-family: "Noto Sans KR", sans-serif;
   font-size: 0.9rem;
@@ -194,4 +190,11 @@ button {
   font-size: 1.5rem;
   text-decoration: none;
   color: white;
+}
+.login img {
+	width: 300px;
+	height: 200px
+}
+#noline{
+	border: none;
 }

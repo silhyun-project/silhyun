@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,18 +23,20 @@
       
     </head>
 <body>
+<div layout:fragment="content">
     <div id="join-app">
-        <router-link to="/silhyun/join">join</router-link>
+        <router-link to="/silhyun/join/start">join</router-link>
         <router-view></router-view>
     </div>
 
     <script>
         const router = new VueRouter({
+        	 mode: 'history',
              routes : [
-                { path: '/silhyun/join', component: httpVueLoader('join.vue')},
-                { path: '/silhyun/agree', component: httpVueLoader('agree.vue')},
-                { path: '/silhyun/info', component: httpVueLoader('info.vue')},
-                { path: '/silhyun/hello', component: httpVueLoader('hello.vue')}
+                { path: '/silhyun/join/start', component: httpVueLoader('/vue/join.vue')},
+                { path: '/silhyun/join/agree', component: httpVueLoader('/vue/agree.vue')},
+                { path: '/silhyun/join/info', component: httpVueLoader('/vue/info.vue')},
+                { path: '/silhyun/join/hello', component: httpVueLoader('/vue/hello.vue')}
             ]
         })
         new Vue({
@@ -41,5 +44,6 @@
             router
         })
     </script>
+   </div>
 </body>
 </html>

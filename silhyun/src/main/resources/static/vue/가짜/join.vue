@@ -34,10 +34,10 @@ module.exports = {
     },
     methods:{
       goAgree: function(){
-        this.$router.push('/silhyun/agree')
+        this.$router.push('/silhyun/join/agree')
       }
     }
 }
 </script>
 
-<style src="/joinVue/join.css"></style>
+<style src="/css/vue/join.css"></style>

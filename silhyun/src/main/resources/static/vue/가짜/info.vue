@@ -119,7 +119,7 @@
        <!--생년월일 성별끝-->
        <div class="inputInfo">
        <input type="text" placeholder="추천인아이디" class="sm" v-model="rcomr"> 
-       <h4>* 추천인 아이디 작성시 친구추천 포인트 1000p를 드립니다.</h4>
+       <h5>* 추천인 아이디 작성시 친구추천 포인트 1000p를 드립니다.</h5>
        </div>
 
       <div>
@@ -189,11 +189,11 @@ module.exports = {
     },
     methods: {
         goJoin:function(){
-            this.$router.push('/silhyun/join')
+            this.$router.push('/silhyun/join/start')
         },
         goHello:function(){
             //여기에 axios호출해서 중복체크된후 중복값없음 넘어가자
-            this.$router.push('/silhyun/hello')
+            this.$router.push('/silhyun/join/hello')
         }
     },
     watch: {
@@ -205,4 +205,4 @@ module.exports = {
 </script>
 
 
-<style src="/joinVue/info.css"></style>
+<style src="/css/vue/info.css"></style>

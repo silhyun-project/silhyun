@@ -71,12 +71,12 @@ module.exports = {
     }, 
     methods:{
         goJoin: function(){
-            this.$router.push('/silhyun/join')
+            this.$router.push('/silhyun/join/start')
         },
         goInfo: function(){
             console.log(this.select.includes('1'))
             if(this.select.includes('1') && this.select.includes('2')){
-                this.$router.push('/silhyun/info')
+                this.$router.push('/silhyun/join/info')
             }else{
                 alert("필수 동의항목에 동의해 주세요")
             }
@@ -105,4 +105,4 @@ module.exports = {
 }
 </script>
 
-<style src="/joinVue/agree.css"></style>
+<style src="/css/vue/agree.css"></style>

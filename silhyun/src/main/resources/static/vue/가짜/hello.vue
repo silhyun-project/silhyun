@@ -10,16 +10,17 @@
 <a>가입완료</a>
 
 </h4>
-       </div>
+       </div id="noline">
        <h2>회원가입 완료</h2>
-       <img src="/img/joineventcoupon.png" alt="쿠폰사진">
+       <img src="/img/joineventcoupon.png" alt="쿠폰사진" width="800px">
        <h4>실현하다에 가입하신걸 환영합니다. 
-           <br> 회원가입 시 즉시 사용 가능한 10%할인 쿠폰이 발급되었습니다.</h4>
+           <br> 즉시 사용 가능한 10%할인 쿠폰이 발급되었습니다.</h4>
 
 
      </div>
 
-     <div> <button><a href="/silhyun">홈가기</a></button> <button href="/mypage"><a>내쿠폰확인하러가기</a></button></div>
+     <div> <button type="button"><a href="/home">홈가기</a></button> 
+          <button type="button"><a href="/mypage">내쿠폰확인하러가기</a></button></div>
    </article>
 </template>
 
@@ -36,4 +37,4 @@ module.exports = {
 }
 </script>
 
-<style src="/joinVue/hello.css"></style>
+<style src="/css/vue/hello.css"></style>
