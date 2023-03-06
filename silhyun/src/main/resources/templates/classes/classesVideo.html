@@ -161,7 +161,7 @@
                                 <div class="col-12">
                                   
 						         <div id="player"></div>
-						<span id="cumlwTime" style="display: none">0</span>
+
 						                        
                
                             </div>
@@ -218,6 +218,8 @@
                 </div>
             </div>
         </div>
+        
+        						<span id="cumlwTime" style="display: none">0</span>
          <input id="classNum" type="text" th:value="${IV.classNum}">
         <input id="inetNum" type="text" th:value="${IV.inetNum}">
       <input  id="inetVdo" type="text" th:value="${IV.inetVdo}">
@@ -247,7 +249,7 @@
   
   var stwTime;
   
-  var cumlwTime = document.getElementById("cumlwTime").value;
+  var cumlwTime = document.getElementById('cumlwTime');
   
   
   
@@ -290,7 +292,7 @@
       clearInterval(interval);
       console.log("일시정지됨");
       console.log("cumlwTime="+ cumlwTime.innerText);
-     	console.log("stwTime="+stwTime+"/ewTime="+ewTime+"/cumlwTime="+cumlwTime);
+     	console.log("stwTime="+stwTime+"/ewTime="+ewTime+"/cumlwTime="+cumlwTime.innerText);
       
       ewTime = Math.floor(player.getCurrentTime());
       console.log("종료지점 초단위. ewTime = " + ewTime);
@@ -310,11 +312,9 @@
   }
 
   function count() {
-	  cumlwTime = document.getElementById('cumlwTime');
 	  cumlwTime.innerText = parseInt(cumlwTime.innerText) + 1;
 
   }
-  
   
   
   setInterval(function() {
@@ -322,21 +322,21 @@
 	  $.ajax({
 	    url: "/insertWInfo", // 서버 URL
 	    type: 'POST', // HTTP 요청 메소드 (POST)
-	    data: {
+	    contentType: "application/json",
+	    data: JSON.stringify({
 	    	  inetNum: inetNum,
 	    	  classNum: classNum,
 	    	  id: 'catLove',
 	    	  stwTime: stwTime.toString(),
 	    	  ewTime: ewTime.toString(),
-	    	  cumlwTime: cumlwTime.innerText
-	    	}, // 전송할 데이터
-	    dataType: 'json', // 서버에서 반환될 데이터 타입 (JSON)
-	    success: function(response) { // 서버에서 반환된 결과를 처리하는 콜백 함수
-	      console.log("성공"+response);
-	    },
-	    error: function(xhr, status, error) { // AJAX 호출이 실패한 경우 처리하는 콜백 함수
-	      console.error(error);
-	    }
+	    	  cumlwTime: cumlwTime.textContent
+	    	}),
+	    }).then(msg=>{
+	    	console.log(msg);
+	    	console.log("inetNum="+inetNum+"classNum="+classNum+
+	    			"id="+id+
+	    			"stwTime="+stwTime+"ewTime="+ewTime+"cumlwTime="+cumlwTime);
+	   
 	  });
 	}, 10000); // 10초 간격으로 호출
   

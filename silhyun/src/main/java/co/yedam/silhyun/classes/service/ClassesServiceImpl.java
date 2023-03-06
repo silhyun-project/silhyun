@@ -22,7 +22,7 @@ public class ClassesServiceImpl implements ClassesService {
 		return ClassesMapper.selectIV(classNum, inetNum, id);
 	}
 	@Override
-	public int insertWInfo(InetClassesWtchVO iWVo) {
-		return ClassesMapper.insertWInfo(iWVo);
+	public int insertWInfo(InetClassesWtchVO vo) {
+		return ClassesMapper.insertWInfo(vo);
 	}
 }

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -64,24 +66,29 @@ public class ClassesController {
 	}
 	
 	
-    @RequestMapping("/insertWInfo")
     @ResponseBody
-    public String insertWInfo(@RequestParam("inetNum") String inetNum,
-                              @RequestParam("classNum") String classNum,
-                              @RequestParam("id") String id,
-                              @RequestParam("stwTime") String stwTime,
-                              @RequestParam("ewTime") String ewTime,
-                              @RequestParam("cumlwTime") String cumlwTime) {
-        InetClassesWtchVO ICVo = new InetClassesWtchVO();
-        ICVo.setInetNum(inetNum);
-        ICVo.setClassNum(classNum);
-        ICVo.setId(id);
-        ICVo.setStwTime(stwTime);
-        ICVo.setEwTime(ewTime);
-        ICVo.setCumlwTime(cumlwTime);
-        // service 메소드를 호출하여 데이터 삽입 또는 업데이트 수행
-        ClassesService.insertWInfo(ICVo);
-        return "success";
+    @RequestMapping(value = "/insertWInfo", method = RequestMethod.POST)
+    public String insertWInfo(@RequestBody InetClassesWtchVO vo) {
+        
+    	
+		String id = "catLove";
+		String msg;
+		
+		vo.setId(id);
+		
+		System.out.println("컨트롤러로 온 vo"+vo);
+		int n = ClassesService.insertWInfo(vo);
+        
+		if(n !=0) {
+			msg="갱신완료";
+			
+		}else {
+			msg="갱신실패";
+		}
+        
+        
+        return msg;
+        
     }
 	
 }

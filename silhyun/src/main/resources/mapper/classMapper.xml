@@ -47,6 +47,7 @@ ORDER BY i.inet_num
     <result column="class_num" property="classNum"/>
 </resultMap>
 <select id="selectIV" resultMap="selectIV">
+
 <!-- 시청기록이 없어도 나머지 조건 조합해서 리스트에 뜨도록 수정함 -->
 SELECT i.inet_num, i.inet_ttl, i.inet_vdo, i.inet_desct, i.class_num, COALESCE(w.ew_time, '0') as ew_time
 FROM inetclass i 
@@ -57,19 +58,16 @@ WHERE i.class_num = '2' AND i.inet_num = #{inetNum} AND (w.id = 'catLove' OR w.i
 <!-- 강의 보는 중에 정보 보내기 -->
 <insert id="insertWInfo" parameterType="co.yedam.silhyun.classes.vo.InetClassesWtchVO">
     <selectKey keyProperty="inetwtNum" resultType="int" order="BEFORE">
-        select nvl(max(inetwt_num), 0) + 1 from inetclass_wtch
-        where inet_num = #{inetNum} and class_num = #{classNum} and id = #{id}
+        SELECT NVL(MAX(inetwt_num), 0) + 1 FROM inetclass_wtch 
+        WHERE inet_num = #{inetNum} AND class_num = #{classNum} AND id = #{id}
     </selectKey>
-    insert into inetclass_wtch (inetwt_num, inet_num, class_num, id, stw_time, ew_time, cumlw_time)
-    select #{inetwtNum}, #{inetNum}, #{classNum}, #{id}, #{stwTime}, #{ewTime}, #{cumlwTime}
-    from dual
-    where not exists (
-        select 1 from inetclass_wtch
-        where inet_num = #{inetNum} and class_num = #{classNum} and id = #{id}
-    )
-    union all
-    update inetclass_wtch
-    set stw_time = #{stwTime}, ew_time = #{ewTime}, cumlw_time = #{cumlwTime}
-    where inet_num = #{inetNum} and class_num = #{classNum} and id = #{id}
+    MERGE INTO inetclass_wtch i
+    USING dual
+    ON (i.inet_num = #{inetNum} AND i.class_num = #{classNum} AND i.id = #{id})
+    WHEN NOT MATCHED THEN
+    INSERT (inetwt_num, inet_num, class_num, id, stw_time, ew_time, cumlw_time)
+    VALUES (#{inetwtNum}, #{inetNum}, #{classNum}, #{id}, #{stwTime}, #{ewTime}, #{cumlwTime})
+    WHEN MATCHED THEN
+    UPDATE SET stw_time = #{stwTime}, ew_time = #{ewTime}, cumlw_time = #{cumlwTime};
 </insert>
 </mapper>
