@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.portfolio.map.PortfolioMapper">
+    
+    
+    <select id="findLike" parameterType="co.yedam.silhyun.portfolio.vo.LikePhotoVO" resultType="int">
+        SELECT COUNT(*) 
+        FROM LIKE_PHOTO
+        WHERE ID = #{id} AND PORT_NUM = #{portNum}
+    </select>
+
+	<insert id="insertLike"
+		parameterType="co.yedam.silhyun.portfolio.vo.LikePhotoVO">
+		INSERT INTO LIKE_PHOTO (ID, PORT_NUM)
+		VALUES (#{id}, #{portNum})
+	</insert>
+
+	<delete id="deleteLike"
+		parameterType="co.yedam.silhyun.portfolio.vo.LikePhotoVO">
+	DELETE FROM LIKE_PHOTO WHERE ID = #{id} AND PORT_NUM = #{portNum}
+	</delete>
+
+
+
+</mapper>

@@ -257,23 +257,9 @@
 									<!-- 댓글리스트 -->
 									<div class="product-description"
 										style="overflow-y: scroll; height: 100%;">
-										<div class="d-flex review-box border-top mt-4 pt-4">
-											<div>
-												<div class="review-image">
-													<img class="img-fluid" src="/img/fashion/1000x1000.jpg"
-														title="" alt="프로필사진자리~~~~">
-												</div>
-											</div>
-											<div class="col ps-3">
-												<span><strong class="comNick">닉넴</strong></span>&nbsp;&nbsp;
-											</div>
-											<div>
-												<div>작가가 적은 내용</div>
-												<div>
-													<i class="bi bi-heart-fill"></i> <i class="bi bi-heart"></i>
-													<small>(1만개)</small>
-												</div>
-											</div>
+										<div class="d-flex review-box border-top mt-4 pt-4"
+											id="modalContentSit">
+											<!-- 포트폴리오 내용 자리 -->
 										</div>
 										<div class="col-lg-8 pe-lg-8">
 											<div class="products-brand pb-2">
@@ -335,19 +321,6 @@
 												<span class="m-0 pt-3">댓글내용자리요...</span>
 											</div>
 										</div>
-										<div class="d-flex review-box border-top mt-4 pt-4">
-											<div>
-												<div class="review-image">
-													<img class="img-fluid" src="/img/fashion/1000x1000.jpg"
-														title="" alt="프로필사진자리~~~~">
-												</div>
-											</div>
-											<div class="col ps-3">
-												<span><strong class="comNick">닉넴</strong></span>&nbsp;&nbsp;
-												<span class="m-0 pt-3">댓글내용자리요...</span>
-											</div>
-										</div>
-
 									</div>
 									<!-- 댓글리스트 -->
 								</div>
@@ -483,23 +456,6 @@
             })
 		})
 	
-	
-	
-		$("div .col-sm-6.col-lg-3").click(function(){//포트폴리오 모달 띄울려구....
-			var portNum = $(this).children('div .portInfo').text();
-		console.log(portNum)
-			//포트폴리오내용
-			$.ajax({
-				 url:'/silhyun/detailPortfolio/'+portNum,
-				 dataType: 'json',
-	         })
-	         .then(res => {
-	   			console.log(res)
-	   			
-	   			
-	         });
-			
-		});//포트폴리오 클릭 시 모달띄우는 ~
 
 		//let list=[];
 		//list.push(tagCntn);
@@ -518,7 +474,7 @@
 			for(i=0; i<aa.length; i++){
 				
 				const portPhotoList = `<div class="col-sm-6 col-lg-3 btn-modal">
-					<div class='portInfo' style='display:none'>`+aa[i].portNum+`</div>
+					<div class='portInfo' style='display:none'>${aa[i].portNum}</div>
 								<div class="product-card-1">
 									<div class="product-card-image">
 										<div class="badge-ribbon"></div>
@@ -529,7 +485,7 @@
 										</div>
 										<div class="product-media">
 											<a href="#"> <img class="img-fluid"
-												src="`+aa[i].phoRt +`" title="" alt="">
+												src="${aa[i].phoRt}" title="" alt="">
 											</a>
 										</div>
 									</div>
@@ -608,33 +564,33 @@
 
 		<script src="/js/around.js"></script>
 		<!-- js -->
-	</div>
 
-	<!-- 
+
+		<!-- 
     ========================
        End Wrapper 
     ========================
     -->
-	<!-- script start -->
-	<!-- jquery -->
-	<script src="/js/jquery-3.5.1.min.js"></script>
-	<!--bootstrap-->
-	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- slick carousel -->
-	<script src="/vendor/swiper/swiper-bundle.min.js"></script>
-	<!-- magnific -->
-	<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
-	<!-- isotope -->
-	<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
-	<!-- count-down -->
-	<script src="/vendor/count-down/jquery.countdown.min.js"></script>
-	<!-- count-down -->
-	<script src="/vendor/jarallax/jarallax-all.js"></script>
-	<!-- Theme Js -->
-	<script src="/js/custom.js"></script>
-	<script src="/js/theme.js"></script>
+		<!-- script start -->
+		<!-- jquery -->
+		<script src="/js/jquery-3.5.1.min.js"></script>
+		<!--bootstrap-->
+		<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- slick carousel -->
+		<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+		<!-- magnific -->
+		<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
+		<!-- isotope -->
+		<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
+		<!-- count-down -->
+		<script src="/vendor/count-down/jquery.countdown.min.js"></script>
+		<!-- count-down -->
+		<script src="/vendor/jarallax/jarallax-all.js"></script>
+		<!-- Theme Js -->
+		<script src="/js/custom.js"></script>
+		<script src="/js/theme.js"></script>
 
-	<!-- End script start -->
+		<!-- End script start -->
 	</div>
 </body>
 

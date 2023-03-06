@@ -13,8 +13,21 @@ public class PortfolioServiceImpl implements PortfolioService {
 	private PortfolioMapper portfolioMapper;
 
 	@Override
+	 public boolean isLiked(LikePhotoVO like) {
+        int count = portfolioMapper.findLike(like);
+        return count > 0;
+    }
+
+	@Override
 	public void addLike(LikePhotoVO like) {
 		// 조아요 추가하기
 		portfolioMapper.insertLike(like);
 	}
+
+	@Override
+	public void removeLike(LikePhotoVO like) {
+		// 조아요삭제하기
+		portfolioMapper.deleteLike(like);
+	}
+
 }
