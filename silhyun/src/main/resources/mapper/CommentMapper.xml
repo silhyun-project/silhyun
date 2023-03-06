@@ -4,22 +4,12 @@
 	
 	<!-- 댓글 리스트 -->
 	<select id="getCommentList" parameterType="CommentVO" resultType="co.yedam.silhyun.common.vo.CommentVO">
-		select id, cntn, com_date
-		from commment
+		select com_num, dep, id, cntn, com_date, grp, ctgr, ctgr_num, (select count(*) from commment d where d.grp = c.com_num and d.com_num != d.grp ) as rep_cnt
+		from commment c
 		where ctgr_num = 12
 		and ctgr = 'C'
-		and dep = 0
-		order by dep, com_num
-	</select>
+		order by grp desc, dep , com_num
 	
-	<!-- 대댓글 리스트 -->
-	<select id="getReplyList" parameterType="CommentVO" resultType="co.yedam.silhyun.common.vo.CommentVO">
-		select id, cntn, com_date
-		from commment
-		where ctgr_num = 12
-		and dep = 1
-		and ctgr = 'C'
-		order by com_num
 	</select>
 	
 	<insert id="commentInsert"  parameterType="CommentVO">

@@ -24,25 +24,16 @@ public class CommentController {
 	@RequestMapping("/silhyun/commentReply") ///댓글창 이동 silhyun/commentReply{ctgrNum}
 	public String commentReply(Model model) {
 		model.addAttribute("commentList", commentService.getCommentList());
-		model.addAttribute("replyList", commentService.getReplyList());
 		return "mypageUser/commentReply";
 	   }
 	
 	@GetMapping("/commentList")
 	@ResponseBody
-	public List<CommentVO> commentList(CommentVO vo,Model model) {
+	public List<CommentVO> commentList(CommentVO vo, Model model) {
 		List<CommentVO> comList = commentService.getCommentList();
 		return comList;
 	}
 	
-	@GetMapping("/replyList")
-	@ResponseBody
-	public List<CommentVO> replyList(CommentVO vo,Model model) {
-		List<CommentVO> repList = commentService.getReplyList();
-	      return repList;
-	   }
-	
-
 	@PostMapping("/commentInsert")
 	@ResponseBody
 	public String commentInsert(@RequestBody CommentVO vo) {

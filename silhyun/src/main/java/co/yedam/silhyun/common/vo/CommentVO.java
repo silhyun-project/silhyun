@@ -21,4 +21,5 @@ public class CommentVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date comDate;
+	private int repCnt;
 }	

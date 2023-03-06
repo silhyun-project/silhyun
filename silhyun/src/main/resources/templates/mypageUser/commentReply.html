@@ -19,6 +19,13 @@
   height:30px;
 }
 
+ul {
+  overflow: hidden; /* float 요소를 감싸는 부모 요소의 높이 자동 조절 */
+}
+li {
+  float: left;
+}
+
 </style>
 
 
@@ -42,53 +49,14 @@
 
 <body>
 <div layout:fragment="content">
-	<div class="pt-4 mt-5" id="comRepBox"> 
-		<!-- 댓글 -->
-	    <ul class="list-unstyled pt-4"> 
-	        <li class="media d-flex">
-	            <div class="avatar rounded-circle">
-	                <img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">
-	            </div>
-	            <div class="col ps-3">
-	                <h6 class="mt-0 mb-1" id="comId"></h6>
-	                <label class="mb-2 small" id="comDate"></label>
-	                <p></p>
-	                <div class="nav dark-link small">
-						<a class="ms-3" href="#contact-message"> 댓글 달기 </a> 
-						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-						<button id="replyShowBtn" style="border:none; background-color: white;">
-						답글 보기</button>
-					<input type="hidden" id="grp" name="grp">
-	                </div>
-	                
-	                <!-- 대댓글 -->
-	                <div id="replyBox"> 
-	                 <ul class="list-unstyled mt-5 pt-5 border-top">
-	                    <li class="media d-flex">
-	                        <div class="avatar rounded-circle">
-	                            <img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">
-	                        </div>
-	                        <div class="col ps-3">
-	                            <h6 class="mt-0 mb-1"></h6>
-	                            <label class="mb-2 small"></label>
-	                            <p></p>
-	                            <div class="nav dark-link small">
-	                                <a class="ms-3" href="#">
-	                                    답글 달기
-	                                </a>
-	                            </div>
-	                        </div>
-	                    </li>
-	                </ul>
-	                </div>
-	            </div>
-	        </li>
-	    </ul>
+	<div class="pt-4 mt-5"> 
+	<!-- 댓글 대댓글 들어가는 곳 -->		
+	<ul class="list-unstyled pt-4 commentBox" >	
+	</ul>
 	</div>
 	<div class="mt-8 border p-4">
 		<form method="post">
 			<div class="row">
-
 				<div class="col-12">
 					<div class="form-group mb-3">
 						<label class="form-label rd-input-label" for="contact-message">당신의 댓글 : </label>							
@@ -136,7 +104,9 @@
 	
 	<script>
 	$(document).ready(function(){
+		
 		getCommentList()
+		
 	})
 		
 	
@@ -183,39 +153,72 @@
 	});
 	
 	
-		function getCommentList(){
-			
-			let commentArea = $("#comRepBox")
-			$.ajax({
-				url:"/commentList",
-				success : function(result){
-					let str = ''
-					$(result).each(function(index,comm){
-							str += '<ul class="list-unstyled pt-4">'
-							str += '<li class="media d-flex">'
-							str += '<div class="avatar rounded-circle">'
-							str += '<img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">'
-							str += '</div>'
-							str += '<h6 class="mt-0 mb-1 commentId" >'+comm.comId+'</h6>'
-							str += '<label class="mb-2 small" >'+comm.comDate+'</label>'
-							str += '<p>'+comm.cntn+'</p>'
-							str += '<div class="nav dark-link small">'
-							str += '<a class="ms-3" href="#contact-message"> 답글 달기 </a>'
-							str += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-							str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'								
-							str += '<input type="hidden" class="grp" name="grp" value="'+comm.grp+'">'
-							str += '</div>'
-					})
+	function getCommentList(){			
+		let commentArea = $(".commentBox");
+		$.ajax({
+			url: "/commentList",
+			success : function(result) {
+				
+				let str = '';
+				$(result).each(function(c,comm){
+					if(comm.dep == 0 && c != 0 ){
+		                str += '</li>'
+					 	str += '</ul>'
+					}
+					if(comm.dep == 0) {
+						str += '<li class="media d-flex ">'
+						str += '<div class="avatar rounded-circle">'
+						str += '<img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">'
+						str += '</div>'
+						str += '<h6 class="mt-0 mb-1 commentId" >'+comm.id+'</h6>'
+						str += '<label class="mb-2 small" >'+comm.comDate+'</label>'
+						str += '<p>'+comm.cntn+'</p>'
+						str += '<input type="hidden" class="grp" name="grp" value="'+comm.grp+'">'
+						str += '<input type="hidden" class="comNum" name="comNum" value="'+comm.comNum+'">'
+						str += '<div class="nav dark-link small">'
+						str += '<a class="ms-3" href="#contact-message" id=replyWrite> 답글 달기 </a>'
+						str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'								
+						str += '</div>'
+						
+						if(comm.repCnt > 0){
+							str += '<ul class="list-unstyled mt-5 pt-5 border-top">'
+						}
+						
+					} else{
+						str += '<li class="media d-flex">'
+                           str += '<div class="avatar rounded-circle">'
+                           str += '<img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">'
+                           str += '</div>'
+                           str += '<div class="col ps-3">'
+                           str += '<h6 class="mt-0 mb-1 commentId">'+comm.id+'</h6>'
+                           str += '<label class="mb-2 small">'+comm.comDate+'</label>'
+                           str += '<p>'+comm.cntn+'</p>'
+                           str += '<div class="nav dark-link small">'
+                           str += '<a class="ms-3" href="#contact-message" id=replyWrite>답글 달기</a>'
+                           str += '</div>'
+                           str += '</div>'
+                           str += '</li>'	
+                           
+					}
+				})
 					commentArea.html(str);
-				}
-			})
-		}
-			
-			
+			}
+		})
+	}
+	
+	
+    $('.ms-3').on('click', function(){      
+        console.log('클릭')
+        console.log($(this).parent().parent().children('.comId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
+        
+        let text = $(this).parent().parent().children('.comId').text();
+        $('#contact-message').val('@'+$(this).parent().parent().children('.comId').text())        
+     })
+     
+     
 
-		
-
-		
+	
+     
 		
 		
 	</script>
