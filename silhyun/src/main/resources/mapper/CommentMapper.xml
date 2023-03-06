@@ -7,9 +7,8 @@
 		select id, cntn, com_date
 		from commment
 		where ctgr_num = 12
-		and dep = 0
 		and ctgr = 'C'
-		
+		and dep = 0
 		order by dep, com_num
 	</select>
 	
@@ -49,6 +48,7 @@
                     ,#{id}
                     , #{cntn}
                     , sysdate)
+                    
 	 </insert>    
 <!-- 	
 	 

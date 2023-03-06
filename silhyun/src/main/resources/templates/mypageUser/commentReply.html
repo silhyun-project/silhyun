@@ -42,49 +42,48 @@
 
 <body>
 <div layout:fragment="content">
-	<div class="pt-4 mt-5 " style="display:block;">
-		<ul class="list-unstyled pt-4" th:each="comm : ${commentList}" >
-			<li class="media d-flex" style="display: block;">
-				<div class="avatar rounded-circle" style="display: block;">
-					<img class="img-fluid" src="/img/pages/1000x1000.jpg"
-						title="" alt="">
-				</div>
-				<div class="col ps-3"   >
-				<div id="commentBox" style="display:block;">
-					<h6 class="mt-0 mb-1 commentId" id="comId" th:text=${comm.id}></h6>
-					<label class="mb-2 small" id="comDate" th:text="${#dates.format(comm.comDate, 'yyyy-MM-dd ')}"></label>
-					<p th:text=${comm.cntn}></p>
-					<div class="nav dark-link small">
-						<a class="ms-3" href="#"> 답글 달기
-						</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-						<button class="replyBtn" style="border:none; background-color: white;">
+	<div class="pt-4 mt-5" id="comRepBox"> 
+		<!-- 댓글 -->
+	    <ul class="list-unstyled pt-4"> 
+	        <li class="media d-flex">
+	            <div class="avatar rounded-circle">
+	                <img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">
+	            </div>
+	            <div class="col ps-3">
+	                <h6 class="mt-0 mb-1" id="comId"></h6>
+	                <label class="mb-2 small" id="comDate"></label>
+	                <p></p>
+	                <div class="nav dark-link small">
+						<a class="ms-3" href="#contact-message"> 댓글 달기 </a> 
+						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						<button id="replyShowBtn" style="border:none; background-color: white;">
 						답글 보기</button>
-					</div>
-				</div>
-					<div class="popup" style="display:none;">
-					<ul class="list-unstyled mt-5 pt-5 border-top" th:each="rep : ${replyList}">
-						<li class="media d-flex">
-							<div class="avatar rounded-circle">
-								<img class="img-fluid"
-									src="/img/pages/1000x1000.jpg" title="" alt="" >
-							</div>
-
-							<div class="col ps-3">
-								<h6 class="mt-0 mb-1" th:text=${rep.id}> </h6>
-								<label class="mb-2 small" th:text="${#dates.format(rep.comDate, 'yyyy-MM-dd ')}"></label>
-								<p th:text=${rep.cntn}></p>
-								<div class="nav dark-link small">
-									<a class="ms-3" href="#">
-										답글 달기
-									</a>
-								</div>
-							</div>
-						</li>
-					</ul>
-					</div>
-				</div>
-			</li>
-		</ul>
+					<input type="hidden" id="grp" name="grp">
+	                </div>
+	                
+	                <!-- 대댓글 -->
+	                <div id="replyBox"> 
+	                 <ul class="list-unstyled mt-5 pt-5 border-top">
+	                    <li class="media d-flex">
+	                        <div class="avatar rounded-circle">
+	                            <img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">
+	                        </div>
+	                        <div class="col ps-3">
+	                            <h6 class="mt-0 mb-1"></h6>
+	                            <label class="mb-2 small"></label>
+	                            <p></p>
+	                            <div class="nav dark-link small">
+	                                <a class="ms-3" href="#">
+	                                    답글 달기
+	                                </a>
+	                            </div>
+	                        </div>
+	                    </li>
+	                </ul>
+	                </div>
+	            </div>
+	        </li>
+	    </ul>
 	</div>
 	<div class="mt-8 border p-4">
 		<form method="post">
@@ -136,51 +135,44 @@
 	<!-- End script start -->
 	
 	<script>
-			
-		// 답글목록 숨기기
-		$(document).ready(function(){
-			isShow = false; //기본값으로 안보이기 false
-			$('.replyBtn').click(function(){
-			if(isShow){ //보이니까 숨기고
-		    		isShow = false;
-		    		$('.popup').hide();		
-		        	$('.replyBtn').text('답글 보기'); //버튼 텍스트 변환
-		    	}else{	//안보이니까 보이게 한다
-		    		isShow = true;
-				$('.popup').show();		//요소를 보이게 한다
-		        	$('.replyBtn').text('답글 숨기기'); //버튼 텍스트 변환
-		    	}
-			})
-		})
+	$(document).ready(function(){
+		getCommentList()
+	})
 		
-		//게시버튼 클릭 등록 이벤트
-		$("#send").click(function(){
-			let contactMessage =$("#contact-message").val();
-			let comId =$("#comId").val();
-			let ctgr = 'C';
-			let ctgrNum = '12';
-			let dep = 0;
+	
+	$("#send").click(function(){
+			let comId =$("#comId").val(); //댓글작성자
+			let ctgr = 'C'; //카테고리
+			let ctgrNum = '12'; //카테고리번호
+			let contactMessage =$("#contact-message").val(); //댓글내용
+			let dep = 0; //댓글깊이(댓글,대댓글)
+			let grp = $("#grp").val(); //댓글그룹
 			
 			
 			if(contactMessage == ""){
 				alert("내용을 입력해 주세요.")
-				return;		// 내용 미입력시 작성 불가
-		}; 
-		
+				$("#contact-message").focus();
+				return false;		// 내용 미입력시 작성 불가
+			}
 		
 		$.ajax({
 			url:"/commentInsert",
 			type:"POST",
 			data: JSON.stringify(
 				{
+					"comNum" : comNum, 
 					"comId" :comId,
-					"contact-message" : contactMessage
+					"ctgr" : ctgr, 
+					"ctgrNum" : ctgrNum,
+					"contact-message" : contactMessage,
+					"dep" : dep,					
+					"grp": grp
 				}
 			),
 			contentType:'application/json',
 			success : function(data){
 				console.log("댓글등록")
-				contactMessage = ""
+				$("#contactMessage").val("")
 				console.log("====")
 				getCommentList()
 			},
@@ -189,24 +181,44 @@
 			}
 		});
 	});
-		
-		$('.commentId')
-		.on('click', function(){
-			console.log('클릭')
-			console.log($(this).text())// 그룹번호 히튼으로 만들어서 그룹번호가져와서 아작스보냄
-			
-			let text = $(this).text()
-			$('#contact-message').val($(this).text())
-			
-		})
-		
-		
 	
+	
+		function getCommentList(){
+			
+			let commentArea = $("#comRepBox")
+			$.ajax({
+				url:"/commentList",
+				success : function(result){
+					let str = ''
+					$(result).each(function(index,comm){
+							str += '<ul class="list-unstyled pt-4">'
+							str += '<li class="media d-flex">'
+							str += '<div class="avatar rounded-circle">'
+							str += '<img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">'
+							str += '</div>'
+							str += '<h6 class="mt-0 mb-1 commentId" >'+comm.comId+'</h6>'
+							str += '<label class="mb-2 small" >'+comm.comDate+'</label>'
+							str += '<p>'+comm.cntn+'</p>'
+							str += '<div class="nav dark-link small">'
+							str += '<a class="ms-3" href="#contact-message"> 답글 달기 </a>'
+							str += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+							str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'								
+							str += '<input type="hidden" class="grp" name="grp" value="'+comm.grp+'">'
+							str += '</div>'
+					})
+					commentArea.html(str);
+				}
+			})
+		}
+			
+			
+
+		
+
+		
 		
 		
 	</script>
-	
-	</div>
+</div>
 </body>
-
 </html>

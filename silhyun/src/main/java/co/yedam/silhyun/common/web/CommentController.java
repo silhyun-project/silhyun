@@ -1,8 +1,11 @@
 package co.yedam.silhyun.common.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,41 +21,45 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
-	@RequestMapping("/silhyun/commentReply") ///silhyun/commentReply{ctgrNum}
+	@RequestMapping("/silhyun/commentReply") ///댓글창 이동 silhyun/commentReply{ctgrNum}
 	public String commentReply(Model model) {
 		model.addAttribute("commentList", commentService.getCommentList());
 		model.addAttribute("replyList", commentService.getReplyList());
 		return "mypageUser/commentReply";
 	   }
 	
-//	@RequestMapping("/commentList")
-//	public String commentList(Model model) {
-//		
-//		return "mypageUser/commentReply";
-//	}
+	@GetMapping("/commentList")
+	@ResponseBody
+	public List<CommentVO> commentList(CommentVO vo,Model model) {
+		List<CommentVO> comList = commentService.getCommentList();
+		return comList;
+	}
 	
 	@GetMapping("/replyList")
-	   public String replyList(Model model) {
-	      
-	      return "mypageUser/commentReply";
+	@ResponseBody
+	public List<CommentVO> replyList(CommentVO vo,Model model) {
+		List<CommentVO> repList = commentService.getReplyList();
+	      return repList;
 	   }
-//	
+	
+
 	@PostMapping("/commentInsert")
 	@ResponseBody
 	public String commentInsert(@RequestBody CommentVO vo) {
-		vo.setCntn("M");
-		vo.setComNum("1");
+//		vo.setCntn("M");
+//		vo.setComNum("1");
 		commentService.commentInsert(vo);
 		
 		return "seccess";
+	}	
+	
+	@DeleteMapping("/commentDelete")
+	@ResponseBody
+	public String commentDelete(CommentVO vo) {
+		
+		commentService.commentDelete(vo);
+		return "mypageUser/commentReply";
 	}
-//	
-//	@PostMapping("/commentDelete")
-//	public String commentDelete(CommentVO vo) {
-//		
-//		
-//		return "mypageUser/commentReply";
-//	}
 //	@PostMapping("/commentUpdate")
 //	public String commentUpdate(CommentVO vo) {
 //	
