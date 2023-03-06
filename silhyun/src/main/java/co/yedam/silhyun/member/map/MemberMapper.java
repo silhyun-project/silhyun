@@ -1,6 +1,7 @@
 package co.yedam.silhyun.member.map;
 
 import co.yedam.silhyun.member.vo.MemberVO;
+import co.yedam.silhyun.member.vo.UserVO;
 
 public interface MemberMapper {
 	MemberVO memeberSelect(MemberVO vo);

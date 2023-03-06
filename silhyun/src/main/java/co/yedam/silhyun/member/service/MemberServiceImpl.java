@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.member.map.MemberMapper;
 import co.yedam.silhyun.member.vo.MemberVO;
+import co.yedam.silhyun.member.vo.UserVO;
 
 @Service
 public class MemberServiceImpl implements MemberService{
