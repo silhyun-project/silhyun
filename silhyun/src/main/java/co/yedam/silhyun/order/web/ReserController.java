@@ -19,10 +19,12 @@ import co.yedam.silhyun.member.vo.StudioVO;
 
 @Controller
 public class ReserController {
-	@Autowired PtgService ptgService;
-	@Autowired StdService stdService;
+	@Autowired
+	PtgService ptgService;
+	@Autowired
+	StdService stdService;
 
-	///▶작가
+	/// ▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
 	public String ptgList(Criteria cri, Model model, PhotographerVO vo) {
 		cri.setAmount(3);
@@ -53,35 +55,43 @@ public class ReserController {
 
 	@GetMapping("/silhyun/ptgDetail/{ptgId}") // 작가 한명 상세페이지
 	public String ptgDetail(Model model, PhotographerVO vo, @PathVariable String ptgId) {
-		
+
 		model.addAttribute("ptg", ptgService.getPtg(ptgId));
 		System.out.println(vo);
 		System.out.println("호출");
 		return "reser/ptgDetail";
 	}
-	
-	///▶사진관
-	@RequestMapping("/silhyun/stdList")  //사진관 전체 리스트
-	public String studioList(Criteria cri,Model model,StudioVO vo) {
+
+	/// ▶사진관
+	@RequestMapping("/silhyun/stdList") // 사진관 전체 리스트
+	public String studioList(Criteria cri, Model model, StudioVO vo) {
 		cri.setAmount(3);
 		// model.addAttribute("stdList");
 		model.addAttribute("page", new PageVO(stdService.getTotalCount(cri, vo), 10, cri));
-		model.addAttribute("stdList",stdService.getStdList(cri, vo));
+		model.addAttribute("stdList", stdService.getStdList(cri, vo));
 		System.out.println(vo);
 		return "reser/stdList";
 	}
-	
-	@RequestMapping("/silhyun/stdDetail/{stId}") //사진관 상세 보기
-	public String stdDetail(Model model,StudioVO vo, @PathVariable String stId) {
-		model.addAttribute("std",stdService.getStd(stId));
+
+	@RequestMapping("/silhyun/stdDetail/{stId}") // 사진관 상세 보기
+	public String stdDetail(Model model, StudioVO vo, @PathVariable String stId) {
+		model.addAttribute("std", stdService.getStd(stId));
 		return "reser/stdDetail";
 	}
-	
-	@RequestMapping("/ajaxStdList/{stdId}")
+
+	@RequestMapping("/ajaxStdList/{stdId}") // 사진관 아작스 호출
 	@ResponseBody
-		public List<StudioVO> ajaxStdList(@PathVariable String stdId){
+	public List<StudioVO> ajaxStdList(@PathVariable String stdId) {
 		System.out.println("호출");
-			return stdService.getReserList(stdId);
-		}
+		return stdService.getReserList(stdId);
 	}
 
+	// ▶예약 폼
+	@RequestMapping("/silhyun/reserList/{ptgId}")  //선택한 작가 예약하러 가기
+	public String reserList(Model model, PhotographerVO vo, @PathVariable String ptgId) {
+		model.addAttribute("res",ptgService.getReser(ptgId));
+		System.out.println(vo);
+		System.out.println(ptgId);
+		return "reser/reserList";
+	}
+}

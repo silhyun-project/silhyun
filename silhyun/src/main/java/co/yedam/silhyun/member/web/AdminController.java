@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.yedam.silhyun.common.vo.Criteria;
-import co.yedam.silhyun.common.vo.PageVO;
+import co.yedam.silhyun.member.vo.AdminCriteria;
+import co.yedam.silhyun.member.vo.AdminPageVO;
 import co.yedam.silhyun.member.service.AdminSercive;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -39,7 +39,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/memberManage")
-	public String memberManage(Criteria cri, MemberVO vo, Model model) {
+	public String memberManage(AdminCriteria cri, MemberVO vo, Model model) {
 		model.addAttribute("todayMem", adminService.todayMem());
 		model.addAttribute("todayPtg", adminService.todayPtg());
 		model.addAttribute("todayStd", adminService.todayStd());
@@ -53,12 +53,12 @@ public class AdminController {
 		//회원전체리스트 페이징 
 		cri.setAmount(5);
 		model.addAttribute("list", adminService.getListMember(cri));
-		model.addAttribute("page", new PageVO(adminService.getTotalCount(cri), 10, cri));
+		model.addAttribute("page", new AdminPageVO(adminService.getTotalCount(cri), 10, cri));
 		
 		//작가리스트 페이징
 		cri.setAmount(5);
 		model.addAttribute("ptglist", adminService.getListPtg(cri));
-		model.addAttribute("ptgPage", new PageVO(adminService.getTotalPtg(cri), 10, cri));
+		model.addAttribute("ptgPage", new AdminPageVO(adminService.getTotalPtg(cri), 10, cri));
 
 		return "/admin/memberManage";
 	}
@@ -143,7 +143,7 @@ public class AdminController {
 	
 	//탈퇴관리
 	@GetMapping("/admin/quitManage")
-	public String quitManage(Criteria cri, QuitVO vo, Model model) {
+	public String quitManage(AdminCriteria cri, QuitVO vo, Model model) {
 		model.addAttribute("qtList",adminService.qtList());
 		
 		List<Map<String,String>> list = adminService.quitGraph();
@@ -152,7 +152,7 @@ public class AdminController {
 		//페이징
 		cri.setAmount(5);
 		model.addAttribute("list", adminService.getListQuit(cri));
-		model.addAttribute("page", new PageVO(adminService.getTotalQuit(cri), 10, cri));
+		model.addAttribute("page", new AdminPageVO(adminService.getTotalQuit(cri), 10, cri));
 
 		return "/admin/quitManage";
 	}
@@ -173,7 +173,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/rankManage")
-	public String rankManage() {
+	public String rankManage(Model model) {
+		
+		List<Map<String,String>> PGraph = adminService.ptgGraph();
+		model.addAttribute("PGraph",PGraph);
+		
 		return "/admin/rankManage";
 	}
 	

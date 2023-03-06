@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
+
 <body>
 <div layout:fragment="content">
           <div class="page-breadcrumb bg-white">
@@ -81,13 +82,85 @@
                                 </ul>
                             </div>
                             <div id="ct-visits" style="height: 405px;">
-                                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
-                                        class="chartist-tooltip-value">6</span>
-                                </div>
+
+  <canvas id="myChart">하잉</canvas>
+
                             </div>
                         </div>
                     </div>
                 </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script th:inline="javascript">
+
+
+var pList = /*[[${PGraph}]]*/ []; // 컨트롤러에서 가져온 List<Map<String,String>> list 값
+
+    // labels와 data 배열 초기화
+    var labels = [];
+    var data = [];
+
+    // list의 각 Map에서 key와 value를 labels와 data 배열에 추가
+    pList.forEach(function(map) {
+        for (var key in map) {
+            labels.push(key);
+            data.push(map[key]);
+        }
+    });
+
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+         // label: '# 누적 판매량(예약/클래스 통합)',
+          label: '# 작가 등록',
+          data: data,
+          backgroundColor: [
+        	  'rgba(245, 50, 168, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(0, 0, 128, 0.2)',
+              'rgba(153, 102, 255, 0.2)',   
+              'rgba(100, 100, 100, 0.2)',
+            ],
+          borderColor: [
+        	  'rgba(245, 154, 168)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)',
+              'rgba(0, 0, 128, 0.5)',
+              'rgb(153, 102, 255)',      
+              'rgba(25, 25, 25, 0.5)',
+            ],
+            borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+              ticks: {
+                  stepSize: 1,
+                  min: 0
+                     },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+</script>
+
 </div>
 </body>
 </html>

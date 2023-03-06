@@ -6,6 +6,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.check-label {
+	display: inline-block;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.check-label input[type="checkbox"] {
+	display: none;
+	background-color: #ffffff;
+}
+
+.check-label input[type="checkbox"]:checked+span {
+	color: #fff;
+	background-color: #000000;
+	margin-top: 10px;
+}
+</style>
 </head>
 <body>
 	<!-- Main -->
@@ -38,22 +59,21 @@
 					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
-							<!-- 프로필 사진 바꾸기 모달  -->
-							<div class="modalImage" onclick="modalImage()">
-								<div class="avatar avatar-lg rounded-circle">
-									<img src="/img/avatar/1000x1000.jpg" title=""
-										alt="">
+								<!-- 프로필 사진 바꾸기 모달  -->
+								<div class="modalImage" onclick="modalImage()">
+									<div class="avatar avatar-lg rounded-circle">
+										<img th:src="${ptg.profile}" title="" alt="">
+									</div>
 								</div>
-							</div>
-							<div class="modal">
-								<p>프로필 사진 바꾸기</p>
-								<button onclick="profileImageUpload()">사진 업로드</button>
-								<button onclick="closePopup('.modalImage')">취소</button>
-							</div>	
-							<!-- 프로필 사진 바꾸기 모달 끝 -->				
+								<div class="modal">
+									<p>프로필 사진 바꾸기</p>
+									<button onclick="profileImageUpload()">사진 업로드</button>
+									<button onclick="closePopup('.modalImage')">취소</button>
+								</div>
+								<!-- 프로필 사진 바꾸기 모달 끝 -->
 								<div class="col ps-3">
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
-									<small><a href="#"th:text="${ptg.name}"></a></small>
+									<small><a href="#" th:text="${ptg.name}"></a></small>
 								</div>
 								<div>
 									<button>회원변경</button>
@@ -68,17 +88,16 @@
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/resManage"> <i class="bi bi-card-checklist"></i>예약
 										관리
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스 관리
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
+									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스
+										관리
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageAoAsk"> <i class="bi-chat-square-dots me-2"></i>문의내역
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
+									href="/photo/mypageAoAsk"> <i
+										class="bi-chat-square-dots me-2"></i>문의내역
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -86,7 +105,8 @@
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i class="bi bi-pie-chart-fill"></i>통계
+									href="/photo/mypageStatsAo"> <i
+										class="bi bi-pie-chart-fill"></i>통계
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3" href="#">
@@ -94,8 +114,8 @@
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/reportFormAo"> <i class="bi bi-exclamation-diamond"></i>신고
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
+									href="/photo/reportFormAo"> <i
+										class="bi bi-exclamation-diamond"></i>신고
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3" href="#">
@@ -111,78 +131,173 @@
 							<div class="card-header py-3">
 								<h5 class="m-0">Profile Update</h5>
 							</div>
-							<div class="card-body">
-								<div class="row">
-									<div class="col-sm-6 mb-3">
-										<label ></label> 
-										<input class="form-control" type="file" id="userProfileImageInput">
-									</div>
-									<div class="col-sm-6 mb-3">
-										<label class="form-label">아이디</label>
-										<input type="text" class="form-control" th:value="${ptg.Id}" placeholder="아이디" readonly>
-									</div>
-									<div class="col-sm-6 mb-3">
-										<label class="form-label">이름<span class="text-danger">*</span></label>
-										<input type="text" class="form-control" th:value="${ptg.name}"  placeholder="이름">
-									</div>
-									<div class="col-sm-6 mb-3">
-										<label class="form-label">비밀번호<span
-											class="text-danger">*</span></label> <input type="password"
-											class="form-control"   placeholder="비밀번호">
-									</div>
-									<div class="col-sm-6 mb-3">
-										<label class="form-label">비밀번호확인<span
-											class="text-danger">*</span></label> <input type="password"
-											class="form-control" placeholder="비밀번호 확인">
-									</div>
-									<div class="col-sm-6 mb-3">
-										<label class="form-label">Email<span
-											class="text-danger">*</span></label> <input type="email"
-											class="form-control" id="exampleInputEmail3"
-											placeholder="E-mail">
-									</div>
-									<div class="col-sm-6 mb-3">
-										<label class="form-label">전화번호<span
-											class="text-danger">*</span></label> <input type="text"
-											class="form-control" th:value="${ptg.tel}" placeholder="전화번호">
-									</div>
-									<div class="col-sm-6 mb-3">
-										<label class="form-label">근무요일</label> <input type="text"
-											class="form-control"  readonly>
-									</div>
-									<div class="col-sm-12 mb-3"> 근무 가능 요일</div>
-									<div class="col-sm-12 mb-3">
-								
-										<input type="checkbox" class="workDay" id="workDay"> 
-											<label class="form-check-label" for="exampleCheck1">월</label> &emsp;&emsp;
-											<input type="checkbox" class="workDay" id="workDay">
-											<label class="form-check-label" for="exampleCheck1">화</label> &emsp;&emsp;
-											<input type="checkbox" class="workDay" id="workDay"> 
-											<label class="form-check-label" for="exampleCheck1">수</label> &emsp;&emsp;
-											<input type="checkbox" class="workDay" id="workDay"> 
-											<label class="form-check-label" for="exampleCheck1">목</label> &emsp;&emsp;
-											<input type="checkbox" class="workDay" id="workDay"> 
-											<label class="form-check-label" for="exampleCheck1">금</label>&emsp;&emsp;
-											<input type="checkbox" class="workDay" id="workDay"> 
-											<label class="form-check-label" for="exampleCheck1">토</label> &emsp;&emsp;
-											<input type="checkbox" class="workDay" id="workDay"> 
-											<label class="form-check-label" for="exampleCheck1">일</label> &emsp;&emsp;
-									</div>
+							<!-- 폼 시작 -->
+							<form method="post" action="/updateMyPg">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-6 mb-3">
+											<label></label> <input class="form-control" type="file"
+												id="userProfileImageInput">
+										</div>
+										<div class="col-sm-6 mb-3">
+											<label class="form-label">아이디</label> <input type="text"
+												class="form-control" th:value="${ptg.Id}" placeholder="아이디"
+												readonly>
+										</div>
+										<div class="col-sm-6 mb-3">
+											<label class="form-label">이름<span class="text-danger">*</span></label>
+											<input type="text" class="form-control" id="name" name="name"
+												th:value="${ptg.name}" placeholder="이름">
+										</div>
+										<div class="col-sm-6 mb-3">
+											<label class="form-label">비밀번호<span
+												class="text-danger">*</span></label> <input type="password"
+												class="form-control" id="pwd" name="pwd" placeholder="비밀번호">
+										</div>
+										<div class="col-sm-6 mb-3">
+											<label class="form-label">비밀번호확인<span
+												class="text-danger">*</span></label> <input type="password"
+												class="form-control" placeholder="비밀번호 확인">
+										</div>
+										<div class="col-sm-6 mb-3">
+											<label class="form-label">Email<span
+												class="text-danger">*</span></label> <input type="email"
+												class="form-control" id="email" name="email"
+												placeholder="E-mail">
+										</div>
+										<div class="col-sm-6 mb-3">
+											<label class="form-label">전화번호<span
+												class="text-danger">*</span></label> <input type="text"
+												class="form-control" th:value="${ptg.tel}" name="tel"
+												id="tel" placeholder="전화번호">
+										</div>
+										<div class="col-sm-6 mb-3">
+											<label class="form-label">생년월일</label> <input type="text"
+												class="form-control" id="birthDate" name="birthDate">
+										</div>
+										<div class="col-sm-12 mb-3">근무 가능 요일</div>
+										<div class="col-sm-12 mb-3">
 
-									<div class="col-12 pt-2">
-										<button class="btn btn-primary">저장하기</button>
+											<input type="checkbox" class="workDay"> <label
+												class="form-check-label" for="exampleCheck1">월</label>
+											&emsp;&emsp; <input type="checkbox" class="workDay">
+											<label class="form-check-label" for="exampleCheck1">화</label>
+											&emsp;&emsp; <input type="checkbox" class="workDay">
+											<label class="form-check-label" for="exampleCheck1">수</label>
+											&emsp;&emsp; <input type="checkbox" class="workDay">
+											<label class="form-check-label" for="exampleCheck1">목</label>
+											&emsp;&emsp; <input type="checkbox" class="workDay">
+											<label class="form-check-label" for="exampleCheck1">금</label>&emsp;&emsp;
+											<input type="checkbox" class="workDay"> <label
+												class="form-check-label" for="exampleCheck1">토</label>
+											&emsp;&emsp; <input type="checkbox" class="workDay">
+											<label class="form-check-label" for="exampleCheck1">일</label>
+											&emsp;&emsp;
+										</div>
+										<div class="row align-items-center">
+											<div class="col-12 pt-2">
+												<button class="btn btn-primary" type="submit">저장</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!-- 모달 -->
+							<div class="col-sm-12 mb-3">
+								<button type="button" class="btn btn-primary"
+									data-bs-toggle="modal" data-bs-target="#workTimeSel">근무시간</button>
+								<div class="modal fade" id="workTimeSel">
+									<div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header bg-primary">
+												<div class="modal-title p-3">
+													<h5 class="m-0 text-white">근무시간</h5>
+												</div>
+											</div>
+											<div class="modal-body">
+												<div class="w-100 p-3">
+													<!-- Form START -->
+													<form id="upWorkTime" action="/upWorkTime">
+														<!--근무 시간 체크박스  -->
+														<label>오전</label>
+														<div id="resTime">
+															<div class="col-sm-12 mb-3">
+																<label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="A"> <span>AM 10:00</span>
+																</label> &emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="B"> <span>AM 10:30</span>
+																</label> &emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="C"> <span>AM 11:00</span>
+																</label>&emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="D"> <span>AM 11:30</span>
+																</label>&emsp;
+															</div>
+															<label>오후</label>
+															<div class="col-sm-12 mb-3">
+																<label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="E"> <span>PM 2:00</span>
+																</label>&emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="F"> <span>PM 2:30</span>
+																</label>&emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="G"> <span>PM 3:00</span>
+																</label>&emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="H"> <span>PM 3:30</span>
+																</label>&emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="I"> <span>PM 4:00</span>
+																</label>&emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="J"> <span>PM 4:30</span>
+																</label> &emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="K"> <span>PM 5:00</span>
+																</label> &emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="L"> <span>PM 5:30</span>
+																</label> &emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="M"> <span>PM 6:00</span>
+																</label> &emsp; <label class="check-label"> <input
+																	type="checkbox" class="resTime" name="resTime"
+																	value="N"> <span>PM 6:30</span>
+																</label>
+															</div>
+														</div>
+														<div class="row align-items-center">
+															<div class="col-12 pt-2">
+																<button class="btn btn-primary" type="submit">저장</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+
+										</div>
 									</div>
 								</div>
 							</div>
+							<!--모달끝  -->
 						</div>
 
 					</div>
-					<!-- End Content -->
 				</div>
+				<!-- End Content -->
 			</div>
 		</div>
+
 		<!--Table -->
 	</main>
+	<script>
+		
+	</script>
 	<!-- End Main -->
 </body>
 </html>

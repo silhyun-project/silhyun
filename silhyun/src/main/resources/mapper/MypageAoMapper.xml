@@ -2,42 +2,73 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.mypage.map.MypageAoMapper">
 	<select id="getReserList" resultType="co.yedam.silhyun.order.vo.ReserVO">
-		SELECT r.*, o.*
-		FROM RESER r , OPTIONS o
-		WHERE r.ptg_id=o.ptg_id
+		SELECT *
+		FROM RESER  
+		WHERE ptg_id='user1'
 		ORDER BY res_num DESC
 	</select>
 	<select id="getPhotoinfo" resultType="co.yedam.silhyun.member.vo.MemberVO">
-		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
-		FROM photographer p, member m
-   		WHERE m.id = p.ptg_id
-        AND id='user1'
+	    SELECT m.id, m.name, m.pwd, m.email, m.tel, p.work_day, m.profile
+	    FROM MEMBER m
+	    INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
+	    WHERE m.id = 'user1'
 	</select>
 	
+<!-- 		INSERT INTO EVENT
+		VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
 	<insert id="applyEvent" parameterType="co.yedam.silhyun.event.vo.EventVO">
-		INSERT INTO EVENT
-		VALUES(#{eventNum},#{id},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt})
+	<!-- 	<selectKey keyProperty="eventNum" resultType="String">
+		  select dbms_random.string('A', 5) as eventNum from dual
+		</selectKey> -->
+		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, region_cd)
+		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph}, #{regionCd})
 	</insert>
 	<insert id="applyECoupon" parameterType="co.yedam.silhyun.event.vo.CouponVO">
-		INSERT INTO COUPON
-		VALUES(#{cpnNum},#{ctgr},#{ctgrNum},#{cntn},#{discount},#{cpnCd},#{startDate},#{endDate},#{eventNum})
+		INSERT INTO COUPON(ctgr, cntn, discount, start_date, end_date, event_num,cpn_num)
+		VALUES(#{ctgr},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum},#{cpnNum})
 	</insert>
+	
+	<insert id="applyClass" parameterType="co.yedam.silhyun.classes.vo.ClassesVO">
+		INSERT INTO CLASS(class_num,ptg_id,cla_ttl,cla_pri,cla_desct,cla_cd,ypsn,cla_time,cla_dt,thni,ot)
+		VALUES(#{classNum},#{ptgId},#{claTtl},#{claPri},#{claDesct},#{claCd},#{ypsn},#{claTime},#{claDt},#{thni},#{ot})
+	</insert>
+	
+	<!-- 옵션 설정 -->
+	<insert id="insertOption" parameterType="co.yedam.silhyun.member.vo.OptionsVO">
+		<selectKey keyProperty="opNum" resultType="String" order="BEFORE">
+			SELECT 
+				nvl(MAX(to_number(op_num)), 0) + 1 AS "opNum"
+			FROM OPTIONS
+		</selectKey>
+		INSERT INTO OPTIONS(op_num, ptg_id, ttl, cntn,pri)
+		VALUES(#{opNum},#{ptgId},#{ttl},#{cntn},#{pri})
+	</insert>
+	<!-- 작가 예약 시간 수정  -->
+	<update id="upWorkTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
+		UPDATE RESER_TIME
+		<set>
+			<if test="resTime !=null and !resTime.equals('')">RES_TIME = #{resTime },</if>
+			<if test="ptgId !=null and !ptgId.equals('')">PTG_ID = #{ptgID },</if>
+		</set>
+	WHERE PTG_ID = 'user17'
+	LIMIT 1
+	</update>
 
-	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO"
-		>
+
+	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO">
 		UPDATE(
 		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
 		FROM photographer p, member m
    		WHERE m.id = p.ptg_id
 		)
 		<set>
-			<if test="name != null">NAME = #{name},</if>
-			<if test="pwd != null">PWD = #{pwd},</if>
+			<if test="name != null and !name.equals('')">NAME = #{name},</if>
+			<if test="pwd != null and !name.equals('')">PWD = #{pwd},</if>
 			<if test="email != null">Email = #{email},</if> 
 			<if test="tel != null">TEL = #{tel},</if>
 			<if test="workDay != null">WORK_DAY = #{workDay}</if>
 		</set>
-			WHERE PTG_ID = #{ptgId}
+			WHERE PTG_ID = 'user1'
 	</update>
 	
 	<!-- update (
