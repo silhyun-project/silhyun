@@ -218,11 +218,10 @@
                 </div>
             </div>
         </div>
-        
-           <input id="classNum" type="hidden" th:value="${IV.classNum}">
-        <input id="inetNum" type="hidden" th:value="${IV.inetNum}">
-      <input  id="inetVdo" type="hidden" th:value="${IV.inetVdo}">
-            <input  id="ewTime" type="hidden" th:value="${IV.ewTime}">
+         <input id="classNum" type="text" th:value="${IV.classNum}">
+        <input id="inetNum" type="text" th:value="${IV.inetNum}">
+      <input  id="inetVdo" type="text" th:value="${IV.inetVdo}">
+            <input  id="ewTime" type="text" th:value="${IV.ewTime}">
             
         <!-- 동영상 제어 스크립트  -->
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -235,6 +234,8 @@
   console.log(youtubeId);
   
   //영상 시간 당기는 초
+  
+  
   var ewTime = document.getElementById("ewTime").value;
   
   
@@ -245,8 +246,6 @@
   
   
   var stwTime;
-  
-  var ewTime;
   
   var cumlwTime = document.getElementById("cumlwTime").value;
   
@@ -324,20 +323,19 @@
 	    url: "/insertWInfo", // 서버 URL
 	    type: 'POST', // HTTP 요청 메소드 (POST)
 	    data: {
-	      inetNum: '4',
-	      classNum : '2',
-	      id : 'catLove',
-	      stwTime: stwTime, //시작지점
-	      ewTime: ewTime, //마지막지점
-	      cumlwTime: cumlwTime.innerText, //시청누적
-	    }, // 전송할 데이터
+	    	  inetNum: inetNum,
+	    	  classNum: classNum,
+	    	  id: 'catLove',
+	    	  stwTime: stwTime.toString(),
+	    	  ewTime: ewTime.toString(),
+	    	  cumlwTime: cumlwTime.innerText
+	    	}, // 전송할 데이터
 	    dataType: 'json', // 서버에서 반환될 데이터 타입 (JSON)
 	    success: function(response) { // 서버에서 반환된 결과를 처리하는 콜백 함수
 	      console.log("성공"+response);
 	    },
 	    error: function(xhr, status, error) { // AJAX 호출이 실패한 경우 처리하는 콜백 함수
 	      console.error(error);
-	     console.log("실패");
 	    }
 	  });
 	}, 10000); // 10초 간격으로 호출
