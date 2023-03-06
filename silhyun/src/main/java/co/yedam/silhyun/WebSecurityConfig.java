@@ -18,12 +18,6 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 public class WebSecurityConfig{
 
-	//static 폴더 무시
-	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-	}
-	
 //	@Bean
 //	public BCryptPasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
@@ -34,8 +28,9 @@ public class WebSecurityConfig{
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
+			    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				.antMatchers("/", "/home", "/silhyun/**").permitAll() //모든권한
-				.anyRequest().authenticated() //나머지 모든 요청은 로그인
+				//.anyRequest().authenticated() //나머지 모든 요청은 로그인
 			)
 			.formLogin((form) -> form
 				.loginPage("/login")
