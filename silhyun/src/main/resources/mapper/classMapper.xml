@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.classes.map.ClassesMapper">
+
+<!-- 수강중인 강의의 인강 목록  -->
+<resultMap id="IVlist" type="java.util.HashMap">
+  <result column="ttl" property="ttl"/>
+  <result column="inum" property="inum"/>
+  <result column="ittl" property="ittl"/>
+  <result column="itime" property="itime"/>
+  <result column="icount" property="icount"/>
+  <result column="iVrate" property="iVrate"/>
+  <result column="i_state" property="iState"/>
+   <result column="i_state_100" property="iBack"/>
+</resultMap>
+
+<select id="getClassIVInfo" resultMap="IVlist">
+SELECT 
+    c.cla_ttl as ttl, 
+    i.inet_num as inum, 
+    i.inet_ttl as ittl, 
+    i.inet_time as itime, 
+    (SELECT COUNT(*) FROM inetclass WHERE class_num = '2') AS icount,
+    nvl(ROUND((w.ew_time/(i.inet_time*60)), 3) * 100,0) AS "iVrate",
+    nvl(ROUND((w.cumlw_time/(i.inet_time*60)), 3) * 100,0) AS "i_state",
+    (SELECT COUNT(*) FROM inetclass_wtch w2 JOIN inetclass i2 ON i2.class_num = 
+    w2.class_num AND i2.inet_num = w2.inet_num WHERE w2.id = 'catLove' 
+    AND w2.class_num = '2' AND ROUND((w2.cumlw_time/(i2.inet_time*60)), 3) * 100 = 100) 
+    AS "i_state_100"
+FROM 
+    inetclass i
+    LEFT JOIN inetclass_wtch w ON w.class_num = i.class_num AND w.inet_num = i.inet_num AND w.id = 'catLove'
+    JOIN class c ON c.class_num = i.class_num
+WHERE 
+    i.class_num = '2'
+ORDER BY i.inet_num
+</select>
+
+</mapper>
