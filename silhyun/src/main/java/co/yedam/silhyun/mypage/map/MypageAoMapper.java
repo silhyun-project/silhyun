@@ -8,6 +8,7 @@ import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
+import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface MypageAoMapper {
@@ -19,4 +20,6 @@ public interface MypageAoMapper {
 	int applyECoupon(CouponVO vo);	//이벤트 신청 쿠폰부분
 	int applyClass(ClassesVO vo); 	//클래스 신청
 	int insertOption(OptionsVO vo);	//작가 옵션설정
+	
+	int upWorkTime(ReserTimeVO vo);	//작가 예약시간 설정
 }

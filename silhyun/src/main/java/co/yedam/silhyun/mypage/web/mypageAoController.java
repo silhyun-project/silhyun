@@ -23,6 +23,7 @@ import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
+import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.mypage.service.MypageAoService;
 
 @Controller
@@ -42,7 +43,7 @@ public class mypageAoController {
 		return "mypageAo/mypageAo";
 	}
 
-	@PostMapping("/photo/modPfAo")
+	@GetMapping("/photo/modPfAo")
 	public String modpfAo(Model model) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
 
@@ -87,7 +88,30 @@ public class mypageAoController {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
 		return "mypageAo/reportFormAo";
 	}
-
+	
+	//작가 정보수정
+	@PostMapping("/updateMyPg")
+	public String updateMyPg() {
+		
+		return "";
+	}
+	
+	//작가 예약 시간 정보 수정
+	@RequestMapping("/upWorkTime")
+	public String upWorkTime(ReserTimeVO vo) {
+		
+		int n =mypageAoService.upWorkTime(vo);
+		if(n!=0) {
+			System.out.println("수정성공");
+			
+		}else {
+			System.out.println("수정실패");
+		}
+		return "redirect:/photo/modPfAo";
+		
+	}
+	
+	
 	@PostMapping("/applyEvent")
 	@ResponseBody
 	public Map<String, Object> applyEvent(EventVO vo, CouponVO cvo,  MultipartFile file) {
@@ -196,31 +220,13 @@ public class mypageAoController {
 	
 	@PostMapping("/photo/insertOption")
 	@ResponseBody
-	public String insertOption(List<OptionsVO> options) {
-	    //번호 난수 생성
-	    StringBuffer key = new StringBuffer();
-	    Random rnd = new Random();
-
-	    for (int i = 0; i < 6; i++) {
-	        int index = rnd.nextInt(3);
-	        switch (index) {
-	            case 0:
-	                key.append((char) ((rnd.nextInt(26)) + 97));
-	                break;
-	            case 1:
-	                key.append((char) ((rnd.nextInt(26)) + 65));
-	                break;
-	            case 2:
-	                key.append((rnd.nextInt(10)));
-	                break;
-	        }
-	    }
-	    //System.out.println(key+"========================");
+	public String insertOption(@RequestBody List<OptionsVO> options) {
 
 	    // OptionsVO 객체를 반복문을 통해 insertOption 메서드로 전달
 	    for (OptionsVO vo : options) {
 	        vo.setPtgId("user1");
-	        vo.setOpNum(vo.getPtgId() + key.toString());
+//	        vo.setOpNum(vo.getPtgId() + key.toString());
+	        System.out.println("+++~~~~~~"+vo);
 	        mypageAoService.insertOption(vo);
 	    }
 

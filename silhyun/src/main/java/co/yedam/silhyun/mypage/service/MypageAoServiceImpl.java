@@ -11,6 +11,7 @@ import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
+import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.mypage.map.MypageAoMapper;
 import co.yedam.silhyun.order.vo.ReserVO;
 
@@ -59,5 +60,11 @@ public class MypageAoServiceImpl implements MypageAoService {
 	public int insertOption(OptionsVO vo) {
 		// TODO Auto-generated method stub
 		return mypageAoMapper.insertOption(vo);
+	}
+
+	@Override
+	public int upWorkTime(ReserTimeVO vo) {
+
+		return mypageAoMapper.upWorkTime(vo);
 	}
 }
