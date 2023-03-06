@@ -4,7 +4,7 @@
 	<select id="couponSelectList" resultType="co.yedam.silhyun.event.vo.CouponVO">
 		SELECT *
 		FROM coupon
-		ORDER BY cpn_num DESC
+		ORDER BY start_date DESC
 	</select>
 	
 	<insert id="insertCoupon" parameterType="co.yedam.silhyun.event.vo.CouponHistoryVO">

@@ -15,5 +15,15 @@ public class LoginController {
 	public String findInfoForm() {
 		return "login/fingInfoForm";
 	}
+	@GetMapping("/silhyun/joinForm")
+	public String joinForm() {
+		return "join/joinForm";
+	}
+	@GetMapping("/silhyun/joinEnd")
+	public String joinEnd() {
+		return "join/joinCompl";
+	}
+	
+
 
 }

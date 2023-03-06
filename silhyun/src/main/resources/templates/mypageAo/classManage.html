@@ -7,25 +7,46 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- modal -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<main layout:fragment="content">
 		<!-- Table -->
+	<main layout:fragment="content">
+	<!-- Breadcrumb -->
+		<div class="py-3 bg-gray-100">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-6 my-2">
+						<h1 class="m-0 h4 text-center text-lg-start">ClassManage</h1>
+					</div>
+					<div class="col-lg-6 my-2">
+						<ol
+							class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+							<li class="breadcrumb-item"><a class="text-nowrap" href="#"><i
+									class="bi bi-home"></i>마이페이지</a></li>
+							<li class="breadcrumb-item text-nowrap active"
+								aria-current="page">클래스관리</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumb -->
 		<div class="py-6">
 			<div class="container">
-				<div class="row">
+				<div class="row" th:each="ptg : ${ptgInfo}">
 					<!-- Profile Menu -->
 					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
 								<div class="avatar avatar-lg rounded-circle">
-									<img src="/img/avatar/1000x1000.jpg" title=""
+									<img th:src="${ptg.profile}" title=""
 										alt="">
 								</div>
 								<div class="col ps-3">
-									<h6 class="m-0">닉네임</h6>
-									<small><a href="#">이름</a></small>
+									<h6 class="m-0" th:text="${ptg.Id}"></h6>
+									<small><a href="/photo/mypageAo"th:text="${ptg.name}">이름</a></small>
 								</div>
 								<div>
 									<button>회원변경</button>
@@ -44,12 +65,14 @@
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스 관리
+									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스
+										관리
 										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageAoAsk"> <i class="bi-chat-square-dots me-2"></i>문의내역
+									href="/photo/mypageAoAsk"> <i
+										class="bi-chat-square-dots me-2"></i>문의내역
 										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -58,7 +81,8 @@
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i class="bi bi-pie-chart-fill"></i>통계
+									href="/photo/mypageStatsAo"> <i
+										class="bi bi-pie-chart-fill"></i>통계
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3" href="#">
@@ -66,7 +90,8 @@
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/reportFormAo"> <i class="bi bi-exclamation-diamond"></i>신고
+									href="/photo/reportFormAo"> <i
+										class="bi bi-exclamation-diamond"></i>신고
 										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -77,7 +102,7 @@
 						</div>
 					</div>
 					<!-- End Profile Menu -->
-						<div class="col-lg-8 col-xxl-9">
+					<div class="col-lg-8 col-xxl-9">
 						<button type="button" class="btn btn-primary"
 							data-bs-toggle="modal" data-bs-target="#workOption">신청하기</button>
 						<br> <br>
@@ -88,62 +113,69 @@
 									<div class="modal-header bg-primary">
 										<div class="modal-title p-3">
 											<h5 class="m-0 text-white">신청서</h5>
-										</div>&emsp;&emsp;
-										<input type="radio" id="apply" name="apply" value="c" onchange="applyForm('c')"><label class="m-0 text-white">클래스</label> &nbsp;&nbsp;
-										<input type="radio" id="apply" name="apply" value="e" onchange="applyForm('e')"><label class="m-0 text-white">이벤트</label>
+										</div>
+										&emsp;&emsp; <input type="radio" id="apply" name="apply"
+											value="c" onchange="applyForm('c')"><label
+											class="m-0 text-white">클래스</label> &nbsp;&nbsp; <input
+											type="radio" id="apply" name="apply" value="e"
+											onchange="applyForm('e')"><label
+											class="m-0 text-white">이벤트</label>
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<div class="w-100 p-3">								
+										<div class="w-100 p-3">
 											<!-- Form START -->
-										<form id="uploadClass" enctype="multipart/form-data">
-											<div id="classApply" style="display: none;">
-												<div class="mb-3">
-													<label class="form-label" for="claTtl">강의명
-													<input type="text" class="form-control" id="claTtl" style="width:200px;height:45px;" placeholder="강의명" ></label> 
-													<label class="form-label" for="claPri">가격
-													<input type="text" class="form-control" id="claPri"  style="width:200px;height:45px;" placeholder="150000"></label>
-												</div>
-												<div class="mb-3">
-													<label class="form-label" for="claDesct">강의 내용</label> 
-													<textarea cols ="40" rows="2" class="form-control"
-														id="claDesct"></textarea>
-												</div>
-												<div class="mb-3">
-												<select name="onOff" id="onOff">
-													<option value="CL1">온라인</option>
-													<option value="CL2">오프라인</option>
-												</select>&nbsp;
-												<label class="form-label" for="rcnt">수강인원  
-												  <input type="text" class="form-control" id="rcnt"  style="width:100px;height:30px;" placeholder="ex)5명"></label>
-												  &nbsp;
-												  <label class="form-label" for="rcnt">강의가격
-												  <input type="text" class="form-control" id="rcnt" style="width:100px;height:30px;"></label>&nbsp;
-												  <label class="form-label" for="rcnt">수강 기간
-												  <input type="text" class="form-control" id="rcnt" style="width:100px;height:30px;"></label>
-												</div>
-												<div class="col-sm-6 mb-3">
-													<label for="formFile" class="form-label">썸네일 사진</label>
-													 <input class="form-control" type="file" id="formFile">
-												</div>
-												<div class="col-sm-6 mb-3">
-													<label for="formFile" class="form-label">OT영상</label>
-													 <input class="form-control" type="file" id="formFile">
-												</div>				
-												<div class="row align-items-center">
-													<div class="col-sm-4">
-														<button type="submit" class="btn btn-dark" >확인</button>
+											<form id="uploadCl" enctype="multipart/form-data">
+												<div id="classApply" style="display: none;">
+													<div class="mb-3">
+														<label class="form-label" for="claTtl">강의명 
+														<input type="text" class="form-control" id="claTtl" name="claTtl"
+															style="width: 200px; height: 45px;" placeholder="강의명"></label>
+														<label class="form-label" for="claPri">가격 <input
+															type="text" class="form-control" id="claPri" name="claPri"
+															style="width: 200px; height: 45px;" placeholder="150000"></label>
+													</div>
+													<div class="mb-3">
+														<label class="form-label" for="claDesct">강의 내용</label>
+														<textarea cols="40" rows="2" class="form-control" name="claDesct"
+															id="claDesct"></textarea>
+													</div>
+													<div class="mb-3">
+														<select name="claCd" id="claCd">
+															<option value="CL1">온라인</option>
+															<option value="CL2">오프라인</option>
+														</select>&nbsp; <label class="form-label" for="ypsn">수강정원 <input
+															type="text" class="form-control" id="ypsn" name="ypsn"
+															style="width: 100px; height: 30px;" placeholder="ex)5"></label>
+														&nbsp; <label class="form-label" for="rcnt">클래스 시간 <input
+															type="text" class="form-control" id="claTime" name="claTime"
+															style="width: 100px; height: 30px;"></label>&nbsp; <label
+															class="form-label" for="rcnt">클래스 날짜 <input
+															type="date" class="form-control" id="claDt" name="claDt"
+															style="width: 100px; height: 30px;"></label>
+													</div>
+													<label class="form-label" for="claTtl">ot영상주소 
+														<input type="text" class="form-control" id="ot" name="ot"
+															style="width: 200px; height: 45px;"></label>
+													<div class="col-sm-6 mb-3">
+														<label for="formFile" class="form-label">썸네일 사진</label> <input
+															class="form-control" type="file" name="file">
+													</div>
+													<input type="hidden"  name="ptgId" value="author1"> 
+													<div class="row align-items-center">
+														<div class="col-sm-4">
+															<button type="submit" class="btn btn-dark" onclick="uploadClass()">확인</button>
+														</div>
 													</div>
 												</div>
-												</div>
 
-												</form>
+											</form>
 											<form id="uploadEv" enctype="multipart/form-data">
 
-											<div id="eventApply" style="display: none;">
-												<div class="mb-3">
-													<label class="form-label" for="claTtl">활동지역</label>&emsp;
+												<div id="eventApply" style="display: none;">
+													<div class="mb-3">
+														<label class="form-label" for="claTtl">활동지역</label>&emsp;
 														<select name="regionCd" id="regionCd">
 															<option value="01">서울</option>
 															<option value="02">경기</option>
@@ -155,62 +187,59 @@
 															<option value="08">경상</option>
 															<option value="09">광주/전라</option>
 															<option value="10">제주</option>
-														</select>&emsp;&emsp;
-													<label class="form-label" for="claPri">이벤트 작품/클래스</label>&nbsp;
-													<select name="ctgrNum" id="ctgrNum">
+														</select>&emsp;&emsp; <label class="form-label" for="claPri">이벤트
+															작품/클래스</label>&nbsp; <select name="ctgr" id="ctgr">
 															<option value="E">작품</option>
 															<option value="C">클래스</option>
-													</select>&nbsp;
-												</div>
-												<div class="mb-3">
-													<label class="form-label" for="Eventcntn">이벤트 내용</label> 
-													<textarea cols ="40" rows="2" class="form-control"
-														id="Eventcntn" name="cntn"></textarea>
-												</div>
-												<div class="mb-3">
-												<label class="form-label" for="cntn">쿠폰 내용  
-												  <input type="text" class="form-control" id="couponCntn" name="couponCntn" style="width:300px;height:30px;" placeholder="ex)5명"></label>
-												&nbsp;
-												  <label class="form-label" for="discount">할인율
-												  <input type="text" class="form-control" id="discount" name="discount" style="width:100px;height:30px;"></label><br>
-												  <label class="form-label" for="startDate">시작날짜  
-												  <input type="date" class="form-control" id="startDate" name="startDate"  style="width:200px;height:30px;"></label>
-												  &nbsp;
-												  <label class="form-label" for="endDate">끝날짜
-												  <input type="date" class="form-control" id="endDate" name="endDate" style="width:200px;height:30px;"></label>&nbsp;
-												</div>
-												<div class="col-sm-6 mb-3">
-
-
-
-
-
-
-
-
-													<label for="formFile" class="bnph">배너 사진</label>
-													 <input class="form-control" type="file"  name="file" id="file" >
-
-												</div>			
-												<div class="row align-items-center">
-													<div class="col-sm-4">
-
-														<button type="button" name="uploadEv" class="btn btn-dark" onclick="uploadEvent()">확인</button>
+														</select>&nbsp;
+													</div>
+													<div class="mb-3">
+														<label class="form-label" for="Eventcntn">이벤트 내용</label>
+														<textarea cols="40" rows="2" class="form-control"
+															id="Eventcntn" name="cntn"></textarea>
+													</div>
+													<div class="mb-3">
+														<label class="form-label" for="cntn">쿠폰 내용 <input
+															type="text" class="form-control" id="couponCntn"
+															name="couponCntn" style="width: 300px; height: 30px;"
+															placeholder="ex)5명"></label> &nbsp; <label
+															class="form-label" for="discount">할인율 <input
+															type="text" class="form-control" id="discount"
+															name="discount" style="width: 100px; height: 30px;"></label><br>
+														<label class="form-label" for="startDate">시작날짜 <input
+															type="date" class="form-control" id="startDate"
+															name="startDate" style="width: 200px; height: 30px;"></label>
+														&nbsp; <label class="form-label" for="endDate">끝날짜
+															<input type="date" class="form-control" id="endDate"
+															name="endDate" style="width: 200px; height: 30px;">
+														</label>&nbsp;
+													</div>
+													<div class="col-sm-6 mb-3">
+														<label for="formFile" class="bnph">배너 사진</label> <input
+															class="form-control" type="file" name="file" id="file">
 
 													</div>
-													<div class="col-sm-4">
-														<input type="button" class="btn btn-dark" value="임시저장">
+													<div class="row align-items-center">
+														<div class="col-sm-4">
+
+															<button type="submit" name="uploadEv"
+																class="btn btn-dark" onclick="uploadEvent()">확인</button>
+
+														</div>
+														<div class="col-sm-4">
+															<input type="button" class="btn btn-dark" value="임시저장">
+														</div>
+														<div class="col-sm-4">
+															<button type="reset" class="btn btn-dark">취소</button>
+														</div>
 													</div>
-													<div class="col-sm-4">
-														<button type="reset" class="btn btn-dark">취소</button>
-													</div>
+
+													<input type="hidden"  name="ptgId"
+														value="author1"> 
+													<!-- <input type="hidden" id="eventNum " name="eventNum" value="100"> -->
+
 												</div>
-
-												<input type="hidden" id="ptgId "name="ptgId" value="author1">
-												<input type="hidden" id="eventNum "name="eventNum" value="50">
-
-											</div>
-										</form>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -218,7 +247,9 @@
 						</div>
 						<!--모달끝  -->
 						<!-- <테이블> -->
-						<div><h1>클래스관리</h1></div>
+						<div>
+							<h1>클래스관리</h1>
+						</div>
 						<div class="table-responsive fs-md mb-4">
 							<table class="table table-bordered table-hover mb-0">
 								<thead class="text-700 bg-gray-200">
@@ -266,14 +297,14 @@
 								</ul>
 							</div>
 						</div>
-						
-						</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
 		<!-- End Table -->
 
-<script>
+		<script>
 function applyForm(n){
 	if(n == 'c'){
 		document.getElementById('classApply').setAttribute('style','display:block')
@@ -321,34 +352,41 @@ function applyForm(n){
 			alert("전송이 실패하였습니다.");
 		}
 		
-	});
+		});
+ }
+ 
+ function uploadClass(){
+	
+	var formData = new FormData($("#uploadCl")[0]);
+	
+	for(let key of formData.keys()){
+		 console.log(key+"/////키")
+	 }
+	 for(let value of formData.values()){
+		 console.log(value+"+_+_+_value")
+	 }
+	
+	 
+	$.ajax({
+		url:'/applyClass',
+		method:'POST',
+		enctype: 'multipart/form-data',
+		data:formData,
+		processData: false,
+		contentType: false,
+		success:function(result){
+			alert("제출이 성공적으로 되었습니다.");
+		},
+		error:function(reject){
+			alert("전송이 실패하였습니다.");
+		}
+		
+		});
+	
 }
-
-/* //form데이터 전송 미리보기 사진
-function dataSubmit() {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
  
-    var data=new FormData($("#storeAddForm")[0]);
- 
-    $.ajax({
-        beforeSend: function(xhr){
-            xhr.setRequestHeader(header,token);
-        },
-        url: "url",
-        data: data,
-        processData:false,
-        contentType:false,
-        enctype:'multipart/form-data',
-        type:"POST",
-    }).done(function (fragment) {
-        $("#resultDiv").replaceWith(fragment);
-    });
-} */
-
-
 
 </script>
-		</main>
+	</main>
 </body>
 </html>

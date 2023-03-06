@@ -16,8 +16,8 @@ public class ClassesVO {
 	private String claTtl;
 	private String claCd;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date claDt;	
 	private String claTime;
 	private String claPlace;

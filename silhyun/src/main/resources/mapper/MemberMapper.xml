@@ -2,8 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.MemberMapper">
 <select id="memeberSelect" resultType="co.yedam.silhyun.member.vo.MemberVO">
-	select * from member
-	where id = #{memId}
+	select id, '{noop}'||pwd  pwd, name, tel, email, birth_date, gen_cd, rcomr, token, re_token, login_cd,
+	        'ROLE_'|| mem_cd mem_cd
+	  from member
+	where id = #{id}
 </select>
 
+<insert id="memberInsert">
+	Insert into member 
+	(id, pwd, name, tel, email, birth_date, gen_cd, rcomr, token, re_token, login_cd)
+	values
+	(#{id}, #{pwd}, #{name}, #{tel}, #{email}, #{birthDate}, #{genCd}, #{rcomr}, #{token}, #{reToken}, 
+     <choose>
+		<when test="loginCd == null and loginCd == ''">,'LP' </when>
+		<otherwise> ,#{loginCd} </otherwise>
+	</choose>
+	)
+</insert>
+
+<select id="isidCheck" resultType="boolean">
+	select case when count(id) = 1 then 0 
+	                               else 1 
+	       end as id
+	from member
+	where id = #{id}
+</select>
 </mapper>
