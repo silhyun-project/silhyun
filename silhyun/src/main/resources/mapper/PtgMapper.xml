@@ -15,6 +15,7 @@
 		WHERE M.ID = P.PTG_ID
 		AND P.PTG_ID ＝ RT.PTG_ID
 		AND P.PTG_ID = #{ptgId}	
+		ORDER BY REST
 	</select>
 	<select id="getReser" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
 		SELECT DISTINCT O.*, P.*, M.*
