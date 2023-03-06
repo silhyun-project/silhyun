@@ -1,5 +1,6 @@
 package co.yedam.silhyun.order.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ReserController {
 	/// ▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
 	public String ptgList(Criteria cri, Model model, PhotographerVO vo) {
-		cri.setAmount(3);
+		cri.setAmount(6);
 		model.addAttribute("ptgList", ptgService.getPtgLsit(cri, vo));
 		model.addAttribute("page", new PageVO(ptgService.getTotalCount(cri, vo), 10, cri));
 //		model.addAttribute("ptgList", ptgService.getPtgLsit(cri, vo));
@@ -58,6 +59,7 @@ public class ReserController {
 
 		model.addAttribute("ptg", ptgService.getPtg(ptgId));
 		System.out.println(vo);
+		System.out.println(vo.getZzims());
 		System.out.println("호출");
 		return "reser/ptgDetail";
 	}
@@ -65,7 +67,7 @@ public class ReserController {
 	/// ▶사진관
 	@RequestMapping("/silhyun/stdList") // 사진관 전체 리스트
 	public String studioList(Criteria cri, Model model, StudioVO vo) {
-		cri.setAmount(3);
+		cri.setAmount(6);
 		// model.addAttribute("stdList");
 		model.addAttribute("page", new PageVO(stdService.getTotalCount(cri, vo), 10, cri));
 		model.addAttribute("stdList", stdService.getStdList(cri, vo));
@@ -90,8 +92,21 @@ public class ReserController {
 	@RequestMapping("/silhyun/reserList/{ptgId}")  //선택한 작가 예약하러 가기
 	public String reserList(Model model, PhotographerVO vo, @PathVariable String ptgId) {
 		model.addAttribute("res",ptgService.getReser(ptgId));
-		System.out.println(vo);
+		System.out.println("예약폼====="+vo);
 		System.out.println(ptgId);
 		return "reser/reserList";
+	}
+	
+	@RequestMapping("/ajaxResTime/{ptgId}/{redate}")  //작가가 등록한 시간 아작스 호출
+	@ResponseBody
+	public List<PhotographerVO> ajaxResTime(Model model,@PathVariable String redate,@PathVariable String ptgId){
+		System.out.println("호출 되었니");
+		System.out.println("redate====="+redate);
+		return ptgService.getResTime(ptgId,redate);
+	}
+	
+	@RequestMapping("/silhyun/home")
+	public String home() {
+		return "reser/home";
 	}
 }
