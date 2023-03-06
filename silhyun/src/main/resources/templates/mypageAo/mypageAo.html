@@ -33,18 +33,18 @@
 		<!-- Table -->
 		<div class="py-6">
 			<div class="container">
-				<div class="row">
+				<div class="row" th:each="ptg : ${ptgInfo}">
 					<!-- Profile Menu -->
 					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
 								<div class="avatar avatar-lg rounded-circle">
-									<img src="/img/avatar/1000x1000.jpg" title=""
+									<img th:src="${ptg.profile}" title=""
 										alt="">
 								</div>
 								<div class="col ps-3">
-									<h6 class="m-0">닉네임</h6>
-									<small><a href="#">이름</a></small>
+									<h6 class="m-0" th:text="${ptg.Id}"></h6>
+									<small><a href="/photo/mypageAo"th:text="${ptg.name}">이름</a></small>
 								</div>
 								<div>
 									<button>회원변경</button>
@@ -59,17 +59,16 @@
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/resManage"> <i class="bi bi-card-checklist"></i>예약
 										관리
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
+										
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스 관리
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
+									
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/mypageAoAsk"> <i class="bi-chat-square-dots me-2"></i>문의내역
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -86,7 +85,6 @@
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/reportFormAo"> <i class="bi bi-exclamation-diamond"></i>신고
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3" href="#">
@@ -105,7 +103,7 @@
 							<div class="card-body" th:each="ptg : ${ptgInfo}">
 								<div class="row">
 									<div class="col-sm-6 mb-3">
-										<img class="img-fluid border" src="/img/fashion/dog.jpg"
+										<img class="img-fluid border" th:src="${ptg.profile}"
 										 style="width:300px;height:300px" alt="...">
 									</div>
 									<div class="col-sm-6 mb-3">
@@ -118,8 +116,9 @@
 										<label class="form-label">Email</label> 
 											<input type="email"
 											class="form-control" id="exampleInputEmail3"th:value="${ptg.email}" readonly>
+										<!-- <label class="form-label">일하는 요일</label><br>
+										<label th:text="${ptg.workDay}"></label> -->
 									</div>
-									
 								
 								</div>
 							</div>
@@ -128,6 +127,7 @@
 					<!-- End Content -->
 				</div>
 			</div>
+		</div>
 		</div>
 		<!--Table -->
 	</main>
