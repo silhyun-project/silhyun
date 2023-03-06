@@ -13,8 +13,20 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberVO memeberSelect(MemberVO vo) {
-		// TODO Auto-generated method stub
+		
 		return map.memeberSelect(vo);
+	}
+
+	@Override
+	public int memberInsert(MemberVO vo) {
+		
+		return map.memberInsert(vo);
+	}
+
+	@Override
+	public boolean isidCheck(MemberVO vo) {
+		
+		return map.isidCheck(vo);
 	}
 	
 

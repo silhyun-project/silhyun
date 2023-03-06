@@ -6,4 +6,23 @@
 	where id = #{memId}
 </select>
 
+<insert id="memberInsert">
+	Insert into member 
+	(id, pwd, name, tel, email, birth_date, gen_cd, rcomr, token, re_token, login_cd)
+	values
+	(#{id}, #{pwd}, #{name}, #{tel}, #{email}, #{birthDate}, #{genCd}, #{rcomr}, #{token}, #{reToken}, 
+     <choose>
+		<when test="loginCd == null and loginCd == ''">,'LP' </when>
+		<otherwise> ,#{loginCd} </otherwise>
+	</choose>
+	)
+</insert>
+
+<select id="isidCheck" resultType="boolean">
+	select case when count(id) = 1 then 0 
+	                               else 1 
+	       end as id
+	from member
+	where id = #{id}
+</select>
 </mapper>
