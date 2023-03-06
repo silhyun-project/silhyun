@@ -10,6 +10,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
 	<meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
+
+	<script src="
+https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
+"></script>
 	<!-- title -->
 	<title>예약하는 폼</title>
 	<script src="https://code.jquery.com/jquery-3.6.3.js"
@@ -254,19 +258,20 @@
 								<!--작가 옵션-->
 								<div class="card" th:each="resd : ${res}">
 									<div class="card-header py-3 d-flex align-items-center">
-										<input class="form-check-input" type="checkbox" 
-										th:field="*{res}" th:id="'op'+${resd.opNum}" th:value="${resd.ttl}">&nbsp;
-										<label class="form-check-label" th:for="'op'+${resd.opNum}" 
-										th:text="${resd.ttl}" style="font-size: large;"></label>
+										<input class="form-check-input" type="checkbox" th:field="*{res}"
+											th:id="'op'+${resd.opNum}" th:value="${resd.ttl}">&nbsp;
+										<label class="form-check-label" th:for="'op'+${resd.opNum}"
+											th:text="${resd.ttl}" style="font-size: large;"></label>
 									</div>
 									<div class="card-body">
-										<p class="m-0">[[${resd.cntn}]]</p>
+										<span class="m-0">[[${resd.cntn}]]</span><br>
 										<strong>
-											<p th:text="${#numbers.formatInteger(resd.pri, 3, 'COMMA') + '원'}"></p>
+											<span th:text="${#numbers.formatInteger(resd.pri, 3, 'COMMA') + '원'}"></span>
 										</strong>
 									</div>
 									<form>
 										<input type="hidden" class="hiddenMoney" th:value="${resd.pri}">
+										<input type="hidden" name="ptgReYnDate" th:value="${resd.workDay}">
 									</form>
 								</div>
 
@@ -331,10 +336,6 @@
 													<li class="pb-3 mb-3 border-bottom">
 														<div class="row align-items-center selectOP">
 															<div class="col-8 selectOP">
-															
-																<!-- Title -->
-																<p class="mb-1 selectOPNM"></p>
-																<p class="mb-1 selectOPPRI"></p>
 																<!-- Remove -->
 																<!-- <a class="small link-danger ms-auto" href="#!">
 																	<i class="bi bi-x"></i> Remove
@@ -526,7 +527,7 @@
                     trtd += `<td>`
                   } else {
                     let dayList = ['일', '월', '화', '수', '목', '금', '토']
-                    let fullDate = yy + '.' + init.addZero(mm + 1) + '.' + init.addZero(countDay + 1);
+                    let fullDate = yy + '-' + init.addZero(mm + 1) + '-' + init.addZero(countDay + 1);
                     let today = new Date(yy + '-' + init.addZero(mm + 1) + '-' + init.addZero(countDay + 1)).getDay()
                     trtd += '<td class="day';
                     trtd += (markToday && markToday === countDay + 1) ? ' today" ' :
@@ -588,55 +589,57 @@
               
             }
       
-            //ajax호출해서 선택가능한 시간 , 날짜 누르면 달력 하단에 예약 가능시간 띄우기
-            const ptgId = $("input[name='ptgId']").val();
-            console.log(ptgId)
-            $.ajax({
-              url: '/ajaxResTime/' + ptgId,
-              datatype: "json"
-            }).then(result => {
-				chOpsToOrder()
-                var arr = []
-              console.log(result)
-              $(result).each(function(idx,item){
-                console.log(item.resTime)
-                console.log(item.workDay)
-                arr = item.workDay.split(",")
-                })
-            console.log(arr)
-            $(arr).each(function(idx,item){
-                $('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
-                    e.stopPropagation()
-                    //날짜 창에 클릭한 날짜 띄우기
-                    if($('#selectDate') != null){  
+			//달력에 작가 예약 가능한 요일 까만색으로 만들기  -> 그 안에서 아작스 불러서 처리하기(예약 가능한 시간)
+			let ptgReYnDate = $("input[name='ptgReYnDate']").val()
+			var arr = ptgReYnDate.split(',')
+			console.log(arr)
+			$(arr).each(function(idx,item){
+				$('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
+					e.stopPropagation()
+					if($('#selectDate') != null){  
                         $('#selectDate').children().remove()
                     }
-                    $('#selectDate').text($(this).attr('data-fdate'))
+					$('#selectDate').text($(this).attr('data-fdate'))
                     if( $('.product-description.timeTable') !=null){
                         $('.product-description.timeTable').children().remove()
                     }
-                    $('.product-description.timeTable').append(
+					
+					$('.product-description.timeTable').append(
                         `<div class="card">
                             <div class="card-header py-3 d-flex align-items-center">
                                 <h5 class="m-0">예약가능한 시간</h5>
                             </div>
                             <div class="card-body time"></div>
 						</div>`
-
                     )
-                    $(result).each(function(a,b){
-                        let cdNameBtn = `<button class="btn btn-primary timeList">${b.cdName}</button> `
-                        $('.card-body.time').append(cdNameBtn)
-                    })
-					
-                })//end 클릭이벤트
-            })
-           
-          
-           
-            
-            }).then(error => console.log(error))
-           
+					//ajax호출해서 선택가능한 시간 , 날짜 누르면 달력 하단에 예약 가능시간 띄우기
+					const ptgId = $("input[name='ptgId']").val();
+					const redate =$(this).attr('data-fdate')					
+
+					$.ajax({
+						url: '/ajaxResTime/' + ptgId +"/"+ redate,
+             			datatype: "json"
+					}).then(result =>{
+						//console.log(result)
+						$(result).each(function(idx,item){
+							//console.log(item.resyn)
+							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}">${item.rest}</button>`
+							$('.card-body.time').append(cdNameBtn)
+								})
+							//console.log($('.btn.btn-primary.timeList'))
+							$('.btn.btn-primary.timeList').each(function(a,b){
+								//console.log($(b))
+								if($(b).attr('id') == '1'){
+									$(b).prop("disabled", true)
+										//console.log('비활')
+									}
+								
+								})
+					}).then(error => console.log(error))
+				})
+				
+			})
+
             //예약 가능한 시간 클릭하면 시간에 선택한 시간들어가도록 
             $('.product-description.timeTable').on('click','.timeList',function(){  //그룹이벤트 써야함!!
             if($('#selectTime') != null){  
@@ -646,6 +649,9 @@
             // $('.product-description.timeTable').remove()
 			
            })
+		   $(function(){
+			chOpsToOrder()
+		   })
 		   let totalMoney = Number(0);
 		   function chOpsToOrder(){
 			let ckOps =  $('.card input[type="checkbox"]');
@@ -682,40 +688,39 @@
 				$(ckOp).on('click',function(){
 					if(ckOp.checked == true){
 						// $('.product-description.selectedOp').append(template)
-						$('.row.align-items-center.selectOP').append(
-						$('.col-8.selectOP').attr('id',$(this).attr('id')))
-						$('.mb-1.selectOPNM')
-						.append($('<span class="text-dark fw-500">').text($(this).val()))
-						$('.mb-1.selectOPPRI').append($('<span class="m-0 text-muted w-100 d-block">')).text($('.card-body').find('p').eq(1).text())
+						//$('.row.align-items-center.selectOP').append()
+						$('<div />').clone(true).attr('id',$(this).attr('id')).addClass('col-8 selectOP').appendTo($('.row.align-items-center.selectOP'))
+						.append($('<div />').addClass('mb-1 selectOPNM')
+						.append($('<span class="text-dark fw-500">').text($(this).val())))
+						.append($('<div />').addClass('mb-1 selectOPPRI').append($('<span class="m-0 text-muted w-100 d-block">')).text($('.card-body').find('span').eq(1).text()))
 						// $('.mb-1.selectOP').append($('<span>')).addClass('m-0 text-muted w-100 d-block').text($('.card-body').find('p').eq(1).text())
 						.append(`<a class="small link-danger ms-auto" href="#!">
-														<i class="bi bi-x"></i> Remove
-													</a>`)
+									<i class="bi bi-x"></i> Remove
+								</a>`)
 						totalMoney += Number($('.hiddenMoney').val());
 						$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
-						// .append($('.m-0.text-muted.w-100.d-block')).text()
-						// $('<span class="selectOpName">').text($(this).val())
+			
 
-						// console.log($(this).attr('id'))
-						// // $('.col-8.selectOP').attr('id',$(this).attr('id'))
-						// console.log($('.card-body').find('p').eq(1).text())
+
+					}else if(ckOp.checked == false){
+						console.log($(this).attr('id'))
+						let divId = $(this).attr('id')
+						console.log(divId)
+						document.getElementById(divId)
+						console.log($('div #op4'))
+					
 						
-						console.log(totalMoney)
-						console.log($('.hiddenMoney').val())
-						console.log(Number(totalMoney).toLocaleString())
-
-
-					}else if(ckOp.checked == false && $('.col-8.selectOP').attr('id',$(this).attr('id')) != null){
-						// $('.col-8.selectOP').find('span').remove()
-						console.log($('.col-8.selectOP').find('span'))
+// 						$('.mb-1.selectOPPRI').find('span').remove()
+// 						console.log($('.col-8.selectOP').find('span'))
+// 						totalMoney -= Number($('.hiddenMoney').val());
+// 						$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
 					}
 				})
 			}
 		   }
 		  
           </script>
-	</div>
-	<!--END layout:fragment="content" -->
+	</div><!--END layout:fragment="content" -->
 </body>
 
 </html>

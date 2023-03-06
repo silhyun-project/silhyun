@@ -1,5 +1,6 @@
 package co.yedam.silhyun.member.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,9 +47,11 @@ public class PtgServiceImpl implements PtgService {
 	public List<PhotographerVO> getReser(String ptgId) {
 		return ptgMapper.getReser(ptgId);
 	}
+
 	@Override
-	public List<PhotographerVO> getResTime(String ptgId) {
-		return ptgMapper.getResTime(ptgId);
+	public List<PhotographerVO> getResTime(String ptgId, String redate) {
+		// TODO Auto-generated method stub
+		return ptgMapper.getResTime(ptgId,redate);
 	}
 
 

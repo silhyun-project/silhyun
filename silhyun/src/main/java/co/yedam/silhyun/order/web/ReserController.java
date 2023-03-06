@@ -1,5 +1,6 @@
 package co.yedam.silhyun.order.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -59,6 +59,7 @@ public class ReserController {
 
 		model.addAttribute("ptg", ptgService.getPtg(ptgId));
 		System.out.println(vo);
+		System.out.println(vo.getZzims());
 		System.out.println("호출");
 		return "reser/ptgDetail";
 	}
@@ -91,16 +92,17 @@ public class ReserController {
 	@RequestMapping("/silhyun/reserList/{ptgId}")  //선택한 작가 예약하러 가기
 	public String reserList(Model model, PhotographerVO vo, @PathVariable String ptgId) {
 		model.addAttribute("res",ptgService.getReser(ptgId));
-		System.out.println(vo);
+		System.out.println("예약폼====="+vo);
 		System.out.println(ptgId);
 		return "reser/reserList";
 	}
 	
-	@RequestMapping("/ajaxResTime/{ptgId}")  //작가가 등록한 시간 아작스 호출
+	@RequestMapping("/ajaxResTime/{ptgId}/{redate}")  //작가가 등록한 시간 아작스 호출
 	@ResponseBody
-	public List<PhotographerVO> ajaxResTime(Model model,PhotographerVO vo,@PathVariable String ptgId){
+	public List<PhotographerVO> ajaxResTime(Model model,@PathVariable String redate,@PathVariable String ptgId){
 		System.out.println("호출 되었니");
-		return ptgService.getResTime(ptgId);
+		System.out.println("redate====="+redate);
+		return ptgService.getResTime(ptgId,redate);
 	}
 	
 	@RequestMapping("/silhyun/home")

@@ -71,5 +71,10 @@ public class PhotographerVO{
 	private String cdName;
 	private String cd;
 	private String opNum;
+	private int RESYN;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date redate;
+	private String rest; 
 
 }

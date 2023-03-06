@@ -1,7 +1,7 @@
 package co.yedam.silhyun.member.service;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -15,5 +15,5 @@ public interface PtgService {
 	List<PhotographerVO> getPtg(String ptgId);
 	
 	List<PhotographerVO> getReser(String ptgId);
-	List<PhotographerVO> getResTime(String ptgId);
+	List<PhotographerVO> getResTime(String ptgId,String redate);
 }

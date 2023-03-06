@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.PtgMapper">
 	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-		SELECT DISTINCT P.*,RT.*,M.NAME,C.*
-		FROM PHOTOGRAPHER P, RESER_TIME RT, MEMBER M,CODE C
+<!-- 		SELECT DISTINCT P.*,RT.*,M.NAME,C.* -->
+<!-- 		FROM PHOTOGRAPHER P, RESER_TIME RT, MEMBER M,CODE C -->
+<!-- 		WHERE M.ID = P.PTG_ID -->
+<!-- 		AND P.PTG_ID ＝ RT.PTG_ID -->
+<!-- 		AND C.CD = RT.RES_TIME -->
+<!-- 		AND P.PTG_ID = #{ptgId} -->
+<!-- 		ORDER BY C.CD -->
+		SELECT DISTINCT P.*,RT.*,M.NAME,FIND_CD(RES_TIME) REST,
+		(SELECT COUNT(*) FROM RESER R WHERE R.RES_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.RES_TIME AND R.PTG_ID = P.PTG_ID) RESYN
+		FROM PHOTOGRAPHER P, RESER_TIME RT, MEMBER M
 		WHERE M.ID = P.PTG_ID
 		AND P.PTG_ID ＝ RT.PTG_ID
-		AND C.CD = RT.RES_TIME
-		AND P.PTG_ID = #{ptgId}
-		ORDER BY C.CD
+		AND P.PTG_ID = #{ptgId}	
 	</select>
 	<select id="getReser" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
 		SELECT DISTINCT O.*, P.*, M.*
@@ -21,8 +27,8 @@
 
 	<select id="getPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-			SELECT DISTINCT NVL(Z.ZZIMS,0),P.*, M.*,S.ST_NAME,A.PHO_RT, A.PHO_NUM,PT.UP_STA,PT.PORT_DATE,PT.PORT_NUM
-			FROM PHOTOGRAPHER P, MEMBER M,STUDIO S,(SELECT CTGR_NUM,COUNT(*) ZZIMS FROM ZZIM GROUP BY CTGR_NUM) Z,
+			SELECT DISTINCT NVL(Z.ZZIMSS,0) ZZIMS,P.*, M.*,S.ST_NAME,A.PHO_RT, A.PHO_NUM,PT.UP_STA,PT.PORT_DATE,PT.PORT_NUM
+			FROM PHOTOGRAPHER P, MEMBER M,STUDIO S,(SELECT CTGR_NUM,COUNT(*) ZZIMSS FROM ZZIM GROUP BY CTGR_NUM) Z,
 	        (SELECT PHO_RT, PHO_NUM, CTGR_NUM
 			FROM PHOTO
 			WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
@@ -45,8 +51,8 @@
 	
 	<select id="getPtgLsit" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 	 SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-		SELECT DISTINCT NVL(Z.ZZIMS,0),P.*,M.*
-	    FROM PHOTOGRAPHER P, MEMBER M,(SELECT CTGR_NUM,COUNT(*) ZZIMS FROM ZZIM GROUP BY CTGR_NUM ORDER BY 2 DESC) Z, FIELD F
+		SELECT DISTINCT NVL(Z.ZZIMSS,0) ZZIMS,P.*,M.*
+	    FROM PHOTOGRAPHER P, MEMBER M,(SELECT CTGR_NUM,COUNT(*) ZZIMSS FROM ZZIM GROUP BY CTGR_NUM ORDER BY 2 DESC) Z, FIELD F
 	    WHERE P.PTG_ID = M.ID 
         AND M.ID = Z.CTGR_NUM(+)
         AND P.PTG_ID = F.PTG_ID
