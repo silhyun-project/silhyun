@@ -1,5 +1,16 @@
 package co.yedam.silhyun.classes.map;
 
+import java.util.List;
+import java.util.Map;
+
+import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
+
 public interface ClassesMapper {
 
+	
+	List<Map<String, Object>> getClassIVInfo(String id, String Inum); 
+
+	Map<String, Object> selectIV(String classNum, String inetNum, String id);
+	
+	int insertWInfo(InetClassesWtchVO iWVo);
 }

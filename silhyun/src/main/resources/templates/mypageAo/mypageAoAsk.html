@@ -12,18 +12,18 @@
 		<!-- Table -->
 		<div class="py-6">
 			<div class="container">
-				<div class="row">
+				<div class="row" th:each="ptg : ${ptgInfo}">
 					<!-- Profile Menu -->
 					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
 								<div class="avatar avatar-lg rounded-circle">
-									<img src="/img/avatar/1000x1000.jpg" title=""
+									<img th:src="${ptg.profile}" title=""
 										alt="">
 								</div>
 								<div class="col ps-3">
-									<h6 class="m-0">닉네임</h6>
-									<small><a href="#">이름</a></small>
+									<h6 class="m-0" th:text="${ptg.Id}"></h6>
+									<small><a href="/photo/mypageAo"th:text="${ptg.name}">이름</a></small>
 								</div>
 								<div>
 									<button>회원변경</button>

@@ -19,12 +19,6 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public List<CommentVO> getReplyList() {
-		// TODO Auto-generated method stub
-		return mapper.getReplyList();
-	}
-
-	@Override
 	public int commentInsert(CommentVO vo) {
 		// TODO Auto-generated method stub
 		return mapper.commentInsert(vo);
