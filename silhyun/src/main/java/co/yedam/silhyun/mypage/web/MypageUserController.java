@@ -36,5 +36,11 @@ public class MypageUserController {
       return "mypageUser/mpgEditProfile";
    }
    
+   @GetMapping("/silhyun/mpgCalendar")
+   public String mpgCalendar() {
+      
+      return "mypageUser/mpgCalendar";
+   }
+   
    
 }

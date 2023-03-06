@@ -8,8 +8,6 @@ import co.yedam.silhyun.common.vo.CommentVO;
 public interface CommentService {
 	List<CommentVO> getCommentList(); // 댓글 리스트
 	
-	List<CommentVO> getReplyList(); // 대댓글 리스트
-	
 	int commentInsert(CommentVO vo); // 댓글 입력
 	
 	int commentDelete(CommentVO vo); // 댓글 삭제
