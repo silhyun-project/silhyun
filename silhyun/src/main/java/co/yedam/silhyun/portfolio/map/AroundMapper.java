@@ -10,6 +10,6 @@ public interface AroundMapper {
 	List<PortfolioVO> aroundTagList(PortfolioVO tagCntn); //태그별로 보이기
 	List<TagVO> tagList();//태그리스트
 	
-	List<PortfolioVO> detailPortfolio(String portNum);//포트폴리오클릭한거내용;
+	
 	
 }
