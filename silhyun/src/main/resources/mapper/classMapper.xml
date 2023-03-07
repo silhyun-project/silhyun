@@ -2,7 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.classes.map.ClassesMapper">
 
-<!-- 수강중인 강의의 인강 목록  -->
+
+
+<!-- 클래스 메인화면. 기본+조건에 맞는 클래스 리스트 가져오기 -->
+
+
+<resultMap id="CList" type="java.util.HashMap">
+  <result column="c.cla_cd" property="claCd"/>
+  <result column="c.thni" property="thni"/>
+  <result column="r.star" property="star"/>
+  <result column="c.cla_ttl" property="claTtl"/>
+  <result column="m.name" property="name"/>
+  <result column="c.cla_pri" property="claPri"/>
+  <result column="c.ypsn" property="c.ypsn"/>
+   <result column="c.cla_place" property="claPalce"/>
+   <result column="c.cla_time" property="claTime"/>
+   <result column="f.fd_cd" property="fdCd"/>
+</resultMap>
+
+<select id="getCList" parameterType="String" resultMap="CList">
+SELECT c.cla_cd, c.thni, r.star, c.cla_ttl, m.name, c.cla_pri, c.ypsn, c.cla_place, c.cla_time, f.fd_cd
+FROM class c 
+LEFT OUTER JOIN member m ON c.ptg_id = m.id
+LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+<if test="fdCd != null">
+WHERE f.fd_cd = '${fdCd}'
+</if>
+</select>
+
+
+
+
+
+<!-- 수강중인 강의의 인강 리스트  -->
 <resultMap id="IVlist" type="java.util.HashMap">
   <result column="ttl" property="ttl"/>
   <result column="inetNum" property="inetNum"/>
@@ -25,7 +58,7 @@ SELECT
     nvl(ROUND((w.cumlw_time/(i.inet_time*60)), 3) * 100,0) AS "i_state",
     (SELECT COUNT(*) FROM inetclass_wtch w2 JOIN inetclass i2 ON i2.class_num = 
     w2.class_num AND i2.inet_num = w2.inet_num WHERE w2.id = 'catLove' 
-    AND w2.class_num = '2' AND ROUND((w2.cumlw_time/(i2.inet_time*60)), 3) * 100 = 100) 
+    AND w2.class_num = '2' AND ROUND((w2.cumlw_time/(i2.inet_time*60)), 3) * 100 >= 70) 
     AS "i_state_100"
 FROM 
     inetclass i
@@ -55,11 +88,14 @@ LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num
 WHERE i.class_num = '2' AND i.inet_num = #{inetNum} AND (w.id = 'catLove' OR w.id IS NULL)
 </select>
 
-<!-- 강의 보는 중에 정보 보내기 -->
+
+
+<!-- 강의 보는 중에 정보 보내기.-->
 <insert id="insertWInfo" parameterType="co.yedam.silhyun.classes.vo.InetClassesWtchVO">
     <selectKey keyProperty="inetwtNum" resultType="int" order="BEFORE">
-        SELECT NVL(MAX(inetwt_num), 0) + 1 FROM inetclass_wtch 
-        WHERE inet_num = #{inetNum} AND class_num = #{classNum} AND id = #{id}
+    	SELECT CASE WHEN inetwt_num is null THEN (SELECT max(inetwt_num)+1 FROM inetclass_wtch) ELSE inetwt_num END
+		FROM inetclass_wtch RIGHT OUTER JOIN DUAL 
+        ON inet_num = #{inetNum} AND class_num = #{classNum} AND id = #{id}
     </selectKey>
     MERGE INTO inetclass_wtch i
     USING dual
@@ -68,6 +104,6 @@ WHERE i.class_num = '2' AND i.inet_num = #{inetNum} AND (w.id = 'catLove' OR w.i
     INSERT (inetwt_num, inet_num, class_num, id, stw_time, ew_time, cumlw_time)
     VALUES (#{inetwtNum}, #{inetNum}, #{classNum}, #{id}, #{stwTime}, #{ewTime}, #{cumlwTime})
     WHEN MATCHED THEN
-    UPDATE SET stw_time = #{stwTime}, ew_time = #{ewTime}, cumlw_time = #{cumlwTime};
+    UPDATE SET stw_time = #{stwTime}, ew_time = #{ewTime}, cumlw_time = cumlw_time + #{cumlwTime}
 </insert>
 </mapper>

@@ -25,4 +25,9 @@ public class ClassesServiceImpl implements ClassesService {
 	public int insertWInfo(InetClassesWtchVO vo) {
 		return ClassesMapper.insertWInfo(vo);
 	}
+	
+	@Override
+	public List<Map<String, Object>> getCList(String fdCd) {
+		return ClassesMapper.getCList(fdCd);
+	}
 }

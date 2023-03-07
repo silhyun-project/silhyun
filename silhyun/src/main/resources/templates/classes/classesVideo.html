@@ -218,12 +218,11 @@
                 </div>
             </div>
         </div>
-        
         						<span id="cumlwTime" style="display: none">0</span>
-         <input id="classNum" type="text" th:value="${IV.classNum}">
-        <input id="inetNum" type="text" th:value="${IV.inetNum}">
-      <input  id="inetVdo" type="text" th:value="${IV.inetVdo}">
-            <input  id="ewTime" type="text" th:value="${IV.ewTime}">
+         <input id="classNum" type="hidden" th:value="${IV.classNum}">
+        <input id="inetNum" type="hidden" th:value="${IV.inetNum}">
+      <input  id="inetVdo" type="hidden" th:value="${IV.inetVdo}">
+            <input  id="ewTime" type="hidden" th:value="${IV.ewTime}">
             
         <!-- 동영상 제어 스크립트  -->
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -294,7 +293,7 @@
       console.log("cumlwTime="+ cumlwTime.innerText);
      	console.log("stwTime="+stwTime+"/ewTime="+ewTime+"/cumlwTime="+cumlwTime.innerText);
       
-      ewTime = Math.floor(player.getCurrentTime());
+     // ewTime = Math.floor(player.getCurrentTime());
       console.log("종료지점 초단위. ewTime = " + ewTime);
       
       
@@ -303,7 +302,7 @@
       // 재생이 종료되면 호출됨
       console.log("종료됨");
       clearInterval(interval);
-      ewTime = Math.floor(player.getCurrentTime());
+      //ewTime = Math.floor(player.getCurrentTime());
       console.log("ewTime="+ewTime+"cumlwTime="+cumlwTime.innerText);
       //console.log("현재 지점 초단위. 여기서는 영상이 종료돼서 종료+종료지점" + Math.floor(player.getCurrentTime()));
 
@@ -319,25 +318,29 @@
   
   setInterval(function() {
 	  console.log("진행중")
+	   ewTime = Math.floor(player.getCurrentTime());
+	  
 	  $.ajax({
-	    url: "/insertWInfo", // 서버 URL
+	    url: "/silhyun/classes/insertWInfo", // 서버 URL
 	    type: 'POST', // HTTP 요청 메소드 (POST)
-	    contentType: "application/json",
-	    data: JSON.stringify({
+	   // contentType: "application/json",
+	    data:{
 	    	  inetNum: inetNum,
 	    	  classNum: classNum,
 	    	  id: 'catLove',
 	    	  stwTime: stwTime.toString(),
 	    	  ewTime: ewTime.toString(),
 	    	  cumlwTime: cumlwTime.textContent
-	    	}),
-	    }).then(msg=>{
-	    	console.log(msg);
+	    	},
+	    }).then(vo=>{
+	    	console.log(vo);
 	    	console.log("inetNum="+inetNum+"classNum="+classNum+
 	    			"id="+id+
 	    			"stwTime="+stwTime+"ewTime="+ewTime+"cumlwTime="+cumlwTime);
 	   
+	    	
 	  });
+	   	cumlwTime.innerText = "0";
 	}, 10000); // 10초 간격으로 호출
   
   

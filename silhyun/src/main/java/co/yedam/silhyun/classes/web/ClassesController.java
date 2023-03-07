@@ -1,10 +1,10 @@
 package co.yedam.silhyun.classes.web;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +24,15 @@ public class ClassesController {
 		return "/classes/classesInfo";
 	}
 	
-	@GetMapping("/classesMain")
-	public String classesMain() {
+	@RequestMapping("/silhyun/classes/classesMain")
+	public String classesMain(String fdCd, Model model) {
+		System.out.println("컨트롤러에서 클래스메인이 실행은 됐음. ");
+		model.addAttribute("cList", ClassesService.getCList(fdCd)); 
+		System.out.println("컨트롤러로 온 cList가 들어있는 model="+model);
 		return "/classes/classesMain";
 	}
 	
-	@RequestMapping("/classes/classesVideo")
+	@RequestMapping("/silhyun/classes/classesVideo")
 	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum) {
 	    System.out.println("inetNum="+inetNum);
 	    model.addAttribute("IV", ClassesService.selectIV("2", inetNum, "catLove"));
@@ -42,7 +45,7 @@ public class ClassesController {
 		return "/classes/myClasses";
 	}
 	
-	@RequestMapping("classes/myClassVideos")
+	@RequestMapping("/silhyun/classes/myClassVideos")
 	public String myClassesVidios(Model model) {
 		model.addAttribute("IVInfo",ClassesService.getClassIVInfo("2", "catLove"));
 		
@@ -67,27 +70,19 @@ public class ClassesController {
 	
 	
     @ResponseBody
-    @RequestMapping(value = "/insertWInfo", method = RequestMethod.POST)
-    public String insertWInfo(@RequestBody InetClassesWtchVO vo) {
-        
-    	
-		String id = "catLove";
-		String msg;
-		
-		vo.setId(id);
-		
+    @RequestMapping(value = "/silhyun/classes/insertWInfo", method = RequestMethod.POST)
+    public InetClassesWtchVO insertWInfo(InetClassesWtchVO vo) {
+
 		System.out.println("컨트롤러로 온 vo"+vo);
 		int n = ClassesService.insertWInfo(vo);
-        
-		if(n !=0) {
-			msg="갱신완료";
-			
+		if (n != 0) {
+			System.out.println("시청기록 갱신완료");
 		}else {
-			msg="갱신실패";
+			System.out.println("시청기록 갱신실패");
 		}
         
         
-        return msg;
+        return vo;
         
     }
 	
