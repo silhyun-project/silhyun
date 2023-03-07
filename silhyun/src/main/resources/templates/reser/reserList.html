@@ -374,7 +374,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-			<form id="reserTable" action="/pay/orderForm/" method="post">
+			<form id="reserTable" action="/pay/orderForm" method="post">
             <div class="modal-body">
 				
                 <div class="w-100 p-3">
@@ -418,7 +418,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			<input type="hidden" name="shotDate" >
 			<input type="hidden" name="shotTime"> 
 			<input type="hidden" name="opNum">
-		
+			<input type="hidden" name="resPri">
 		
 		</form>
         </div>
@@ -746,7 +746,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						totalMoney += Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,''));
 						$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
 						$('input[name="opNum"]').val($(this).attr('id'))		//////////////////////////////////
-						
+						// $('input[name="resPri"]').val($('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString()))s
+
 						$('.col-8.selectOP').on('click','.small.link-danger.ms-auto',function(){
 							console.log('삭제버튼')
 							console.log($(this).parent())
@@ -772,10 +773,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			   $('.btn.btn-primary.pd-cart-btn').on('click',function(e){
 				   let reserDate = $('#selectDate').text()
 				   let reserTime = $('#selectTime').text()
-				   let resPri =$('.text-end.text-dark.totalMoney').text()
+				   let resPri =Number($('.text-end.text-dark.totalMoney').text().replace(/[^0-9]/g,''))
 				$('input[name="shotDate"]').val(reserDate)
 				$('input[name="shotTime"]').val(reserTime)
-			
+				console.log(typeof resPri)
+				console.log(resPri)
+				$('input[name="resPri"]').val(resPri)
 				
 				//예약 날짜, 예약 시간, 예약 옵션, 최종 가격
 				let reserArry = []

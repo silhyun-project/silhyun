@@ -110,8 +110,8 @@ public class ReserController {
 	}
 	
 	@RequestMapping("/pay/orderForm")
-	public String orderForm(ReserVO vo,SelectedOpVO svo){
-		
+	public String orderForm(ReserVO vo,SelectedOpVO svo,HttpServletRequest request,Model model){
+		model.addAttribute("session",request.getSession()); //세션확인
 		
 		
 		System.out.println("호출 되니");
