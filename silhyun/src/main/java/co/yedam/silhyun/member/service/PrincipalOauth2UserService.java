@@ -47,9 +47,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		vo.setMemCd(role);
 		vo.setId(username);
 		
+		MemberVO mvo = new MemberVO();
 		UserVO uvo = new UserVO();
-		vo = memberService.memeberSelect(vo);
-		if(vo.getId() == null) {
+		mvo = memberService.memeberSelect(vo);
+		if(mvo == null) {
 			memberService.memberInsert(vo);
 			uvo.setId(vo.getId());
 			uvo.setMemCd(vo.getMemCd());
