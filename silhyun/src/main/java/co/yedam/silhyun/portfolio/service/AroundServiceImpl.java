@@ -32,11 +32,7 @@ public class AroundServiceImpl implements AroundService {
 		return  aroundMapper.tagList();
 	}
 
-	@Override //포트폴리오클릭한거내용;
-	public List<PortfolioVO> detailPortfolio(String portNum) {
-		// TODO Auto-generated method stub
-		return aroundMapper.detailPortfolio(portNum);
-	}
+
 	
 
 }

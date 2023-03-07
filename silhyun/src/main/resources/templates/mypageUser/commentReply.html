@@ -49,6 +49,7 @@ li {
 
 <body>
 <div layout:fragment="content">
+
 	<div class="pt-4 mt-5"> 
 	<!-- 댓글 대댓글 들어가는 곳 -->		
 	<ul class="list-unstyled pt-4 commentBox" id="attch">	
@@ -163,12 +164,13 @@ li {
 				$(result).each(function(c,comm){
 					if(comm.dep == 0 && c != 0 ){
 					 	str += '</ul>'
+					 	str += '</div>'
 		                str += '</li>'
 					}
 					if(comm.dep == 0) {
 						str += '<li class="media d-flex ">'
 						str += '<div class="avatar rounded-circle">'
-						str += '<img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">'
+						str += '<img class="img-fluid" src="'+comm.profile+'" title="" alt="">'
 						str += '</div>'
 						str += '<h6 class="mt-0 mb-1 commentId" id="comId" >'+comm.id+'</h6>'
 						str += '<label class="mb-2 small" >'+comm.comDate+'</label>'
@@ -177,32 +179,33 @@ li {
 						str += '<input type="hidden" class="comNum" name="comNum" value="'+comm.comNum+'">'
 						str += '<div class="nav dark-link small">'
 						str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
+						if(comm.repCnt>0){
 						str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'	
+						}
 						str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'	
 						str += '</div>'
-						
 						if(comm.repCnt > 0){
-							str += '<ul class="list-unstyled mt-5 pt-5 border-top">'
+							str += '<div class=popup style="display:none;">'
+							str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
 						}
 						
 					} else{
 						str += '<li class="media d-flex">'
-						
-                           str += '<div class="avatar rounded-circle">'
-                           str += '<img class="img-fluid" src="/img/pages/1000x1000.jpg" title="" alt="">'
-                           str += '</div>'
-                           
-                           str += '<div class="col ps-3">'
-                           str += '<h6 class="mt-0 mb-1 commentId" id="repId">'+comm.id+'</h6>'
-                           str += '<label class="mb-2 small">'+comm.comDate+'</label>'
-                           str += '<p>'+comm.cntn+'</p>'
-                           str += '<div class="nav dark-link small">'
-                           str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
-                           str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
-                           str += '</div>'
-                           str += '</div>'
-                           
-                           str += '</li>'
+                        str += '<div class="avatar rounded-circle">'
+                        str += '<img class="img-fluid" src="'+comm.profile+'" title="" alt="">'
+                        str += '</div>'
+                        str += '<div class="col ps-3">'
+                        str += '<h6 class="mt-0 mb-1 commentId" id="repId">'+comm.id+'</h6>'
+                        str += '<label class="mb-2 small">'+comm.comDate+'</label>'
+                        str += '<p>'+comm.cntn+'</p>'
+                        str += '<input type="hidden" class="grp" name="grp" value="'+comm.grp+'">'
+						str += '<input type="hidden" class="comNum" name="comNum" value="'+comm.comNum+'">'
+                        str += '<div class="nav dark-link small">'
+                        str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
+                        str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
+                        str += '</div>'
+                        str += '</div>'
+                        str += '</li>'
                            
 					}
 				})
@@ -215,21 +218,39 @@ li {
     $(".commentBox").on('click','#replyWrite', function(){      
         console.log('클릭')
         console.log($(this).parent().parent().children('#comId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
-        
         let text = $(this).parent().parent().children('#comId').text();
         $('#contact-message').val('@'+$(this).parent().parent().children('#comId').text())        
      })
      
      $('.commentBox').on('click','#rereplyWrite', function(){      
-        console.log('클릭')
+    	console.log('클릭')
         console.log($(this).parent().parent().children('#repId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
-        
         let text = $(this).parent().parent().children('#repId').text();
+    	let grpNo = 
         $('#contact-message').val('@'+$(this).parent().parent().children('#repId').text())        
      })
+      
      
-     
-	</script>
+     $(".commentBox").on('click', '.replyShowBtn', function(){
+		let parentLi = $(this).closest("li"); // 해당 버튼이 속한 li를 찾음
+		let popup = parentLi.find(".popup"); // 해당 li 엘리먼트에서 popup 클래스를 가진 엘리먼트를 찾음
+		let replyShowBtn = parentLi.find(".replyShowBtn"); // 해당 li 엘리먼트에서 replyShowBtn 클래스를 가진 버튼 엘리먼트를 찾음
+		
+		if(popup.is(":visible")){
+		    popup.hide();
+		    replyShowBtn.text('답글 보기');
+		} else {
+		    popup.show();
+		    replyShowBtn.text('답글 숨기기');
+		}
+	 });
+    
+	
+	$(".commentBox").on('click', 'comDelBtn',function() {
+		let 
+	}) 
+	
+</script>
 </div>
 </body>
 </html>
