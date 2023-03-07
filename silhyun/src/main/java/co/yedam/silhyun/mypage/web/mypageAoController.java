@@ -159,13 +159,14 @@ public class mypageAoController {
 	        voList.add(vo);
 	        System.out.println(vo+"qqqqqqqqqqqqq");
 	    }
-	    System.out.println(voList+"aaaaaaaaaaaa");
+	    System.out.println(voList+"aaaaaaaaaaaa");	//[reserTimeVO(restime='',ptgid=''),...]
+	    System.out.println(voList.size()+"dddddddddddddd");
 //	    // ==ptgId 삭제
 	    mypageAoService.deleteReserTime(ptgId);
 //	    // voList값 추가
-	    for(ReserTimeVO vo : voList) {
-	    	System.out.println(vo+"jjjjjjjjj");
+	    for(int i=0; i<voList.size();i++) {
 	    	mypageAoService.insertReserTime(voList);	    	
+	    	System.out.println("jjjjjjjjj");
 	    }
 //	    mypageAoService.updateReserTime(voList);			//업데이트
 	    map.put("voList", voList);
