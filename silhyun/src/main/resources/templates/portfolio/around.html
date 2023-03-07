@@ -104,7 +104,7 @@
 							<br>
 							<!-- 검색창 끝-->
 
-							<p class="michin-nom">[[${#lists.size(portfolioList)}]]</p>
+							<p class="michin-nom" display:none>[[${#lists.size(portfolioList)}]]</p>
 							<p class="michin-nom">[[${portfolioList[0]}]]</p>
 
 							<!-- 태그버튼 -->
@@ -354,6 +354,7 @@
 		/*<![CDATA[*/
 			const portfolio = /*[[${portfolioList}]]*/
 			/*]]>*/
+			console.log('dkssudgktpdy')
 			console.log(portfolio);
  				
 		$("div#rowg-3").children().remove();//먼저 깔끔희~
