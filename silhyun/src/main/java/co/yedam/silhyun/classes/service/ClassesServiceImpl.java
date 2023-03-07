@@ -27,7 +27,13 @@ public class ClassesServiceImpl implements ClassesService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> getCList(String fdCd) {
-		return ClassesMapper.getCList(fdCd);
+	public List<Map<String, Object>> getC1List() {
+		return ClassesMapper.getC1List();
 	}
+
+	@Override
+	public List<Map<String, Object>> getC2List() {
+		return ClassesMapper.getC2List();
+	}
+
 }

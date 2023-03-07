@@ -13,5 +13,7 @@ public interface ClassesService {
 
 	int insertWInfo(InetClassesWtchVO vo);
 	
-	List<Map<String, Object>> getCList(String fdCd); 
+	List<Map<String, Object>> getC1List(); 
+	
+	List<Map<String, Object>> getC2List(); 
 }

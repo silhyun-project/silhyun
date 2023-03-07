@@ -19,18 +19,23 @@ public class ClassesController {
 	@Autowired
 	private ClassesService ClassesService;
 	
+	//클래스 메인페이지. 클래스 리스트들을 보여줌
+	@RequestMapping("/silhyun/classes/classesMain")
+	public String classesMain(Model model) {
+		model.addAttribute("c1List", ClassesService.getC1List());
+		model.addAttribute("c2List", ClassesService.getC2List());
+		System.out.println("컨트롤러로 온 model"+model.getAttribute("c1List"));
+		//이거 페이지에 값 제대로 담기는데 안 읽힘. 왜지?
+		return "/classes/classesMain";
+	}
+
+	
+	
 	@GetMapping("/classesInfo")
 	public String classesInfo() {
 		return "/classes/classesInfo";
 	}
 	
-	@RequestMapping("/silhyun/classes/classesMain")
-	public String classesMain(String fdCd, Model model) {
-		System.out.println("컨트롤러에서 클래스메인이 실행은 됐음. ");
-		model.addAttribute("cList", ClassesService.getCList(fdCd)); 
-		System.out.println("컨트롤러로 온 cList가 들어있는 model="+model);
-		return "/classes/classesMain";
-	}
 	
 	@RequestMapping("/silhyun/classes/classesVideo")
 	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum) {
@@ -54,17 +59,23 @@ public class ClassesController {
 	}
 	
 	@GetMapping("/bestClasses")
-	public String bestClasses() {
+	public String bestClasses(Model model) {
+		model.addAttribute("c1List", ClassesService.getC1List());
+		model.addAttribute("c2List", ClassesService.getC2List());
 		return "/classes/bestClasses";
 	}
 	
 	@GetMapping("/freeClasses")
-	public String freeClasses() {
+	public String freeClasses(Model model) {
+		model.addAttribute("c1List", ClassesService.getC1List());
+		model.addAttribute("c2List", ClassesService.getC2List());
 		return "/classes/freeClasses";
 	}
 	
 	@GetMapping("/eventClasses")
-	public String eventClasses() {
+	public String eventClasses(Model model) {
+		model.addAttribute("c1List", ClassesService.getC1List());
+		model.addAttribute("c2List", ClassesService.getC2List());
 		return "/classes/eventClasses";
 	}
 	

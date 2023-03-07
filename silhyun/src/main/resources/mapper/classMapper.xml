@@ -5,32 +5,28 @@
 
 
 <!-- 클래스 메인화면. 기본+조건에 맞는 클래스 리스트 가져오기 -->
-
-
-<resultMap id="CList" type="java.util.HashMap">
-  <result column="c.cla_cd" property="claCd"/>
-  <result column="c.thni" property="thni"/>
-  <result column="r.star" property="star"/>
-  <result column="c.cla_ttl" property="claTtl"/>
-  <result column="m.name" property="name"/>
-  <result column="c.cla_pri" property="claPri"/>
-  <result column="c.ypsn" property="c.ypsn"/>
-   <result column="c.cla_place" property="claPalce"/>
-   <result column="c.cla_time" property="claTime"/>
-   <result column="f.fd_cd" property="fdCd"/>
-</resultMap>
-
-<select id="getCList" parameterType="String" resultMap="CList">
-SELECT c.cla_cd, c.thni, r.star, c.cla_ttl, m.name, c.cla_pri, c.ypsn, c.cla_place, c.cla_time, f.fd_cd
+<!-- 컬럼 대문자로 쳐야 출력되는 이슈있음. 확인하기. -->
+<!-- 테스트 중이라 null값인 데이터들이 있음. 처리했지만 추후 데이터 수정할 것 -->
+<select id="getC1List" resultType="map">
+SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, 
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-<if test="fdCd != null">
-WHERE f.fd_cd = '${fdCd}'
-</if>
+WHERE c.cla_cd = 'CL1'
 </select>
 
+
+<select id="getC2List" resultType="map">
+SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd
+FROM class c 
+LEFT OUTER JOIN member m ON c.ptg_id = m.id
+LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+WHERE c.cla_cd = 'CL2'
+</select>
 
 
 
