@@ -22,4 +22,5 @@ public class CommentVO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date comDate;
 	private int repCnt;
+	private String profile;
 }	

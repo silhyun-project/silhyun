@@ -3,6 +3,8 @@ package co.yedam.silhyun.order.web;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.service.StdService;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
+import co.yedam.silhyun.order.vo.ReserVO;
+import co.yedam.silhyun.order.vo.SelectedOpVO;
 
 @Controller
 public class ReserController {
@@ -105,8 +109,14 @@ public class ReserController {
 		return ptgService.getResTime(ptgId,redate);
 	}
 	
-	@RequestMapping("/silhyun/home")
-	public String home() {
-		return "reser/home";
+	@RequestMapping("/pay/orderForm")
+	public String orderForm(ReserVO vo,SelectedOpVO svo){
+		
+		
+		
+		System.out.println("호출 되니");
+		System.out.println(vo+"3333333333333333333333333333");
+		
+		return "order/orderList";
 	}
 }

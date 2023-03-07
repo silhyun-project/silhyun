@@ -105,6 +105,9 @@
                                     +'강'"></h5>
                                       
                                         </div>
+                                      <div align="right">
+                                      <a>*강의 시간의 70%이상을 시청하시면 학습완료가 됩니다.</a>
+                                      </div>
                             <table class="table table-bordered table-hover mb-0">
                                 <thead class="text-700 bg-gray-200">
                                     <tr>
@@ -120,17 +123,17 @@
                                         <td class="p-3" align="center" th:text="${iV.inetNum}"><span class="fw-600"></span></td>
                                         <td class="p-3"><span class="fw-600" th:text="${iV.ittl}"></span></td>
                                         <td class="p-3" align="center" th:text="${iV.itime}+'분'"></td>
-                                        <td class="p-3" align="center" th:text="${iV.iVrate}+'%'"></td>
+                                        <td class="p-3" align="center" th:text="${iV.iState}+'%'"></td>
                                         <td class="p" align="center">
-		                     <button class="btn btn-danger m-0" style="width: 130px" 
-        th:if="${#strings.equals(iV.iState, '0')}"
-       th:onclick="|location.href='@{/classes/classesVideo(inetNum=${iV.inetNum})}'|">학습시작</button>
-        
+					                     <button class="btn btn-danger m-0" style="width: 130px" th:if="${#strings.equals(iV.iState, '0')}"
+								       th:onclick="|location.href='@{/silhyun/classes/classesVideo(inetNum=${iV.inetNum})}'|">학습시작</button>
+			        
+                                        <button class="btn btn-success m-0"  style="width: 130px" th:if="${#strings.substringBefore(iV.iState, '.') >= '70'}"
+                                        th:onclick="|location.href='@{/silhyun/classes/classesVideo(inetNum=${iV.inetNum})}'|">학습완료</button>
 
-                                        <button class="btn btn-info m-0" th:if="!${#strings.equals(iV.iState, '0')} and !${#strings.equals(iV.iState, '100')}"
-                                        th:onclick="|location.href='@{/classes/classesVideo(inetNum=${iV.inetNum})}'|">이어 학습하기</button>
-                                        <button class="btn btn-success m-0"  style="width: 130px" th:if="${#strings.equals(iV.iState, '100')}"
-                                        th:onclick="|location.href='@{/classes/classesVideo(inetNum=${iV.inetNum})}'|">학습완료</button>
+                                        <button class="btn btn-info m-0" th:if="!${#strings.equals(iV.iState, '0')} and ${#strings.substringBefore(iV.iState, '.') < '70'}" 
+                                        th:onclick="|location.href='@{/silhyun/classes/classesVideo(inetNum=${iV.inetNum})}'|">이어 학습하기</button>
+                                        
                                         
                                         </td>
                                     </tr>

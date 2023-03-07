@@ -12,5 +12,7 @@ public interface ClassesMapper {
 
 	Map<String, Object> selectIV(String classNum, String inetNum, String id);
 	
-	int insertWInfo(InetClassesWtchVO iWVo);
+	int insertWInfo(InetClassesWtchVO vo);
+	
+	List<Map<String, Object>> getCList(String fdCd); 
 }

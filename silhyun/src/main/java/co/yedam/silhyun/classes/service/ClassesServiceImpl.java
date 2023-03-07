@@ -22,7 +22,12 @@ public class ClassesServiceImpl implements ClassesService {
 		return ClassesMapper.selectIV(classNum, inetNum, id);
 	}
 	@Override
-	public int insertWInfo(InetClassesWtchVO iWVo) {
-		return ClassesMapper.insertWInfo(iWVo);
+	public int insertWInfo(InetClassesWtchVO vo) {
+		return ClassesMapper.insertWInfo(vo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getCList(String fdCd) {
+		return ClassesMapper.getCList(fdCd);
 	}
 }

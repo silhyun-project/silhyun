@@ -51,16 +51,19 @@ public class CommentController {
 		commentService.commentDelete(vo);
 		return "mypageUser/commentReply";
 	}
+	
+	@DeleteMapping("/replyDelete")
+	public String replyDelete(CommentVO vo) {
+		
+		commentService.replyDelete(vo);
+		return "mypageUser/commentReply";
+	}
+	
 //	@PostMapping("/commentUpdate")
 //	public String commentUpdate(CommentVO vo) {
 //	
 //	
 //		return "mypageUser/commentReply";
 //	}
-//	@PostMapping("/replyInsert")
-//	public String replyInsert(CommentVO vo) {
-//	
-//		return "mypageUser/commentReply";
-//	}
-//	
+	
 }

@@ -68,24 +68,5 @@
 		ORDER BY DBMS_RANDOM.VALUE
 	</select>
 
-	<select id="detailPortfolio"
-		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"
-		parameterType="String">
-		SELECT A.PHO_RT, A.PHO_NUM,
-			   P.*, NVL(L.LIKESS, 0) LIKES
-		FROM (SELECT PHO_RT, PHO_NUM, CTGR_NUM
-			  FROM PHOTO
-			  WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
-								FROM PHOTO
-								WHERE CTGR ='P'
-								GROUP BY CTGR_NUM)
-								ORDER BY PHO_NUM) A
-			  INNER JOIN PORTFOLIO P 
-			  ON A.CTGR_NUM = P.PORT_NUM
-			  LEFT OUTER JOIN (SELECT PORT_NUM, COUNT(*) LIKESS
-							   FROM LIKE_PHOTO
-							   GROUP BY PORT_NUM) L 
-			  ON P.PORT_NUM = L.PORT_NUM
-			  WHERE P.PORT_NUM = #{portNum}
-	</select>
+
 </mapper>

@@ -38,11 +38,5 @@ public class AroundController {
 		return aroundService.tagList();
 	}
 	
-	@RequestMapping("/silhyun/detailPortfolio/{portNum}")//태그리스트 가져오기..
-	@ResponseBody
-	public List<PortfolioVO> detailPort(Model model, PortfolioVO vo, @PathVariable String portNum) {
-		model.addAttribute("detailPortfolio", aroundService.detailPortfolio(portNum));
-		return aroundService.detailPortfolio(portNum);
-	}
 
 }

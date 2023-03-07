@@ -10,7 +10,7 @@ public class InetClassesWtchVO {
 	private String id;
 	
 	//기존항목 일부 삭제, 하단 항목들 추가됐어요
-	private String inetwtNum;
+	private int inetwtNum;
 	private String stwTime;
 	private String ewTime;
 	private String cumlwTime;

@@ -1,10 +1,12 @@
 package co.yedam.silhyun.classes.web;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,12 +24,15 @@ public class ClassesController {
 		return "/classes/classesInfo";
 	}
 	
-	@GetMapping("/classesMain")
-	public String classesMain() {
+	@RequestMapping("/silhyun/classes/classesMain")
+	public String classesMain(String fdCd, Model model) {
+		System.out.println("컨트롤러에서 클래스메인이 실행은 됐음. ");
+		model.addAttribute("cList", ClassesService.getCList(fdCd)); 
+		System.out.println("컨트롤러로 온 cList가 들어있는 model="+model);
 		return "/classes/classesMain";
 	}
 	
-	@RequestMapping("/classes/classesVideo")
+	@RequestMapping("/silhyun/classes/classesVideo")
 	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum) {
 	    System.out.println("inetNum="+inetNum);
 	    model.addAttribute("IV", ClassesService.selectIV("2", inetNum, "catLove"));
@@ -40,7 +45,7 @@ public class ClassesController {
 		return "/classes/myClasses";
 	}
 	
-	@RequestMapping("classes/myClassVideos")
+	@RequestMapping("/silhyun/classes/myClassVideos")
 	public String myClassesVidios(Model model) {
 		model.addAttribute("IVInfo",ClassesService.getClassIVInfo("2", "catLove"));
 		
@@ -64,24 +69,21 @@ public class ClassesController {
 	}
 	
 	
-    @RequestMapping("/insertWInfo")
     @ResponseBody
-    public String insertWInfo(@RequestParam("inetNum") String inetNum,
-                              @RequestParam("classNum") String classNum,
-                              @RequestParam("id") String id,
-                              @RequestParam("stwTime") String stwTime,
-                              @RequestParam("ewTime") String ewTime,
-                              @RequestParam("cumlwTime") String cumlwTime) {
-        InetClassesWtchVO ICVo = new InetClassesWtchVO();
-        ICVo.setInetNum(inetNum);
-        ICVo.setClassNum(classNum);
-        ICVo.setId(id);
-        ICVo.setStwTime(stwTime);
-        ICVo.setEwTime(ewTime);
-        ICVo.setCumlwTime(cumlwTime);
-        // service 메소드를 호출하여 데이터 삽입 또는 업데이트 수행
-        ClassesService.insertWInfo(ICVo);
-        return "success";
+    @RequestMapping(value = "/silhyun/classes/insertWInfo", method = RequestMethod.POST)
+    public InetClassesWtchVO insertWInfo(InetClassesWtchVO vo) {
+
+		System.out.println("컨트롤러로 온 vo"+vo);
+		int n = ClassesService.insertWInfo(vo);
+		if (n != 0) {
+			System.out.println("시청기록 갱신완료");
+		}else {
+			System.out.println("시청기록 갱신실패");
+		}
+        
+        
+        return vo;
+        
     }
 	
 }
