@@ -161,7 +161,7 @@
                                 <div class="col-12">
                                   
 						         <div id="player"></div>
-						<span id="cumlwTime" style="display: none">0</span>
+
 						                        
                
                             </div>
@@ -218,8 +218,8 @@
                 </div>
             </div>
         </div>
-        
-           <input id="classNum" type="hidden" th:value="${IV.classNum}">
+        						<span id="cumlwTime" style="display: none">0</span>
+         <input id="classNum" type="hidden" th:value="${IV.classNum}">
         <input id="inetNum" type="hidden" th:value="${IV.inetNum}">
       <input  id="inetVdo" type="hidden" th:value="${IV.inetVdo}">
             <input  id="ewTime" type="hidden" th:value="${IV.ewTime}">
@@ -235,6 +235,8 @@
   console.log(youtubeId);
   
   //영상 시간 당기는 초
+  
+  
   var ewTime = document.getElementById("ewTime").value;
   
   
@@ -246,9 +248,7 @@
   
   var stwTime;
   
-  var ewTime;
-  
-  var cumlwTime = document.getElementById("cumlwTime").value;
+  var cumlwTime = document.getElementById('cumlwTime');
   
   
   
@@ -291,9 +291,9 @@
       clearInterval(interval);
       console.log("일시정지됨");
       console.log("cumlwTime="+ cumlwTime.innerText);
-     	console.log("stwTime="+stwTime+"/ewTime="+ewTime+"/cumlwTime="+cumlwTime);
+     	console.log("stwTime="+stwTime+"/ewTime="+ewTime+"/cumlwTime="+cumlwTime.innerText);
       
-      ewTime = Math.floor(player.getCurrentTime());
+     // ewTime = Math.floor(player.getCurrentTime());
       console.log("종료지점 초단위. ewTime = " + ewTime);
       
       
@@ -302,7 +302,7 @@
       // 재생이 종료되면 호출됨
       console.log("종료됨");
       clearInterval(interval);
-      ewTime = Math.floor(player.getCurrentTime());
+      //ewTime = Math.floor(player.getCurrentTime());
       console.log("ewTime="+ewTime+"cumlwTime="+cumlwTime.innerText);
       //console.log("현재 지점 초단위. 여기서는 영상이 종료돼서 종료+종료지점" + Math.floor(player.getCurrentTime()));
 
@@ -311,35 +311,36 @@
   }
 
   function count() {
-	  cumlwTime = document.getElementById('cumlwTime');
 	  cumlwTime.innerText = parseInt(cumlwTime.innerText) + 1;
 
   }
   
   
-  
   setInterval(function() {
 	  console.log("진행중")
+	   ewTime = Math.floor(player.getCurrentTime());
+	  
 	  $.ajax({
-	    url: "/insertWInfo", // 서버 URL
+	    url: "/silhyun/classes/insertWInfo", // 서버 URL
 	    type: 'POST', // HTTP 요청 메소드 (POST)
-	    data: {
-	      inetNum: '4',
-	      classNum : '2',
-	      id : 'catLove',
-	      stwTime: stwTime, //시작지점
-	      ewTime: ewTime, //마지막지점
-	      cumlwTime: cumlwTime.innerText, //시청누적
-	    }, // 전송할 데이터
-	    dataType: 'json', // 서버에서 반환될 데이터 타입 (JSON)
-	    success: function(response) { // 서버에서 반환된 결과를 처리하는 콜백 함수
-	      console.log("성공"+response);
-	    },
-	    error: function(xhr, status, error) { // AJAX 호출이 실패한 경우 처리하는 콜백 함수
-	      console.error(error);
-	     console.log("실패");
-	    }
+	   // contentType: "application/json",
+	    data:{
+	    	  inetNum: inetNum,
+	    	  classNum: classNum,
+	    	  id: 'catLove',
+	    	  stwTime: stwTime.toString(),
+	    	  ewTime: ewTime.toString(),
+	    	  cumlwTime: cumlwTime.textContent
+	    	},
+	    }).then(vo=>{
+	    	console.log(vo);
+	    	console.log("inetNum="+inetNum+"classNum="+classNum+
+	    			"id="+id+
+	    			"stwTime="+stwTime+"ewTime="+ewTime+"cumlwTime="+cumlwTime);
+	   
+	    	
 	  });
+	   	cumlwTime.innerText = "0";
 	}, 10000); // 10초 간격으로 호출
   
   

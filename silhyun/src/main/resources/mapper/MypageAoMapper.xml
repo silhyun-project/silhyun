@@ -1,80 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.mypage.map.MypageAoMapper">
-	<select id="getReserList" resultType="co.yedam.silhyun.order.vo.ReserVO">
+	<select id="getReserList"
+		resultType="co.yedam.silhyun.order.vo.ReserVO">
 		SELECT *
-		FROM RESER  
+		FROM RESER
 		WHERE ptg_id='user1'
 		ORDER BY res_num DESC
 	</select>
-	<select id="getPhotoinfo" resultType="co.yedam.silhyun.member.vo.MemberVO">
-	    SELECT m.id, m.name, m.pwd, m.email, m.tel, p.work_day, m.profile
-	    FROM MEMBER m
-	    INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
-	    WHERE m.id = 'user1'
+	<select id="getPhotoinfo"
+		resultType="co.yedam.silhyun.member.vo.MemberVO">
+		SELECT m.id, m.name, m.pwd, m.email, m.tel, p.work_day,
+		m.profile
+		FROM MEMBER m
+		INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
+		WHERE m.id = 'user1'
 	</select>
-	
-<!-- 		INSERT INTO EVENT
-		VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
-	<insert id="applyEvent" parameterType="co.yedam.silhyun.event.vo.EventVO">
-	<!-- 	<selectKey keyProperty="eventNum" resultType="String">
-		  select dbms_random.string('A', 5) as eventNum from dual
-		</selectKey> -->
+
+	<!-- INSERT INTO EVENT VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
+	<insert id="applyEvent"
+		parameterType="co.yedam.silhyun.event.vo.EventVO">
+		<!-- <selectKey keyProperty="eventNum" resultType="String"> select dbms_random.string('A', 
+			5) as eventNum from dual </selectKey> -->
 		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, region_cd)
-		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph}, #{regionCd})
+		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph},
+		#{regionCd})
 	</insert>
-	<insert id="applyECoupon" parameterType="co.yedam.silhyun.event.vo.CouponVO">
-		INSERT INTO COUPON(ctgr, cntn, discount, start_date, end_date, event_num,cpn_num)
+	<insert id="applyECoupon"
+		parameterType="co.yedam.silhyun.event.vo.CouponVO">
+		INSERT INTO COUPON(ctgr, cntn, discount, start_date,
+		end_date, event_num,cpn_num)
 		VALUES(#{ctgr},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum},#{cpnNum})
 	</insert>
-	
-	<insert id="applyClass" parameterType="co.yedam.silhyun.classes.vo.ClassesVO">
+
+	<insert id="applyClass"
+		parameterType="co.yedam.silhyun.classes.vo.ClassesVO">
 		INSERT INTO CLASS(class_num,ptg_id,cla_ttl,cla_pri,cla_desct,cla_cd,ypsn,cla_time,cla_dt,thni,ot)
-		VALUES(#{classNum},#{ptgId},#{claTtl},#{claPri},#{claDesct},#{claCd},#{ypsn},#{claTime},#{claDt},#{thni},#{ot})
+		VALUES (#{classNum},#{ptgId},#{claTtl},#{claPri},#{claDesct},#{claCd},#{ypsn},#{claTime},#{claDt},#{thni},#{ot})
 	</insert>
-	
+
 	<!-- 옵션 설정 -->
-	<insert id="insertOption" parameterType="co.yedam.silhyun.member.vo.OptionsVO">
+	<insert id="insertOption"
+		parameterType="co.yedam.silhyun.member.vo.OptionsVO">
 		<selectKey keyProperty="opNum" resultType="String" order="BEFORE">
-			SELECT 
-				nvl(MAX(to_number(op_num)), 0) + 1 AS "opNum"
+			SELECT
+			nvl(MAX(to_number(op_num)), 0) + 1 AS "opNum"
 			FROM OPTIONS
 		</selectKey>
 		INSERT INTO OPTIONS(op_num, ptg_id, ttl, cntn,pri)
 		VALUES(#{opNum},#{ptgId},#{ttl},#{cntn},#{pri})
 	</insert>
-	<!-- 작가 예약 시간 수정  -->
-	<update id="upWorkTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
-		UPDATE RESER_TIME
-		<set>
-			<if test="resTime !=null and !resTime.equals('')">RES_TIME = #{resTime },</if>
-			<if test="ptgId !=null and !ptgId.equals('')">PTG_ID = #{ptgID },</if>
-		</set>
-	WHERE PTG_ID = 'user17'
-	LIMIT 1
-	</update>
+	<!-- 작가 예약 시간 수정 -->
+	<update id="updateReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
+		UPDATE RESER_TIME 
+		<set> 
+		RES_TIME = #{resTime},
+		<if test="ptgId !=null and !ptgId.equals('')">PTG_ID = #{ptgId},</if> 
+		</set> WHERE PTG_ID = #{voList[0].ptgId}
+	</update> 
 
+	<!-- <update id="upWorkTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
+		UPDATE RESER_TIME <set> <if test="resTime !=null and !resTime.equals('')">RES_TIME 
+		= #{resTime },</if> <if test="ptgId !=null and !ptgId.equals('')">PTG_ID 
+		= #{ptgID },</if> </set> WHERE PTG_ID = 'user17' LIMIT 1 </update> -->
 
-	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO">
+<!-- 	<update id="updateReserTime" parameterType="java.util.List">
+		<foreach collection="voList" item="item" separator=","> 
+			UPDATE RESER_TIME 
+			SET RES_TIME = #{item.resTime}, 
+				PTG_ID = #{item.ptgId}
+			WHERE PTG_ID =
+			#{item.ptgId}
+		</foreach>
+	</update> -->
+	<!-- <update id="updateReserTime" parameterType="java.util.List"> <foreach 
+		collection="list" item="item" separator=","> <foreach collection="item.resTime" 
+		item="resTime" index="index" separator=","> UPDATE RESER_TIME SET RES_TIME 
+		= #{resTime}, PTG_ID = #{item.ptgId.get(index)} WHERE PTG_ID = #{item.ptgId.get(index)} 
+		</foreach> </foreach> </update> -->
+	<!-- <update id="updateReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
+		<foreach collection="resTime" item="resTime" separator=";"> UPDATE RESER_TIME 
+		SET RES_TIME = #{resTime}, PTG_ID = #{ptgId} WHERE PTG_ID = #{ptgId} </foreach> 
+		</update> -->
+
+	<delete id="deleteReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
+		DELETE
+		FROM RESER_TIME
+		WHERE PTG_ID= #{ptgId}
+	</delete>
+	
+<insert id="insertReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
+    INSERT INTO RESER_TIME(res_time,ptg_id)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+        (#{item.resTime},#{item.ptgId})
+    </foreach>
+</insert>
+
+	<update id="ptgInfoUpdate"
+		parameterType="co.yedam.silhyun.member.vo.MemberVO">
 		UPDATE(
 		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
-		FROM photographer p, member m
-   		WHERE m.id = p.ptg_id
+		FROM
+		photographer p, member m
+		WHERE m.id = p.ptg_id
 		)
 		<set>
 			<if test="name != null and !name.equals('')">NAME = #{name},</if>
 			<if test="pwd != null and !name.equals('')">PWD = #{pwd},</if>
-			<if test="email != null">Email = #{email},</if> 
+			<if test="email != null">Email = #{email},</if>
 			<if test="tel != null">TEL = #{tel},</if>
 			<if test="workDay != null">WORK_DAY = #{workDay}</if>
 		</set>
-			WHERE PTG_ID = 'user1'
+		WHERE PTG_ID = 'user1'
 	</update>
-	
-	<!-- update (
-    select m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
-    FROM photographer p, member m
-    WHERE m.id = p.ptg_id
-) set work_day = '수'
-where id = 'user1'; -->
+
+	<!-- update ( select m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day 
+		FROM photographer p, member m WHERE m.id = p.ptg_id ) set work_day = '수' 
+		where id = 'user1'; -->
 </mapper>

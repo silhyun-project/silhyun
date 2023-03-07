@@ -29,14 +29,14 @@
                     , cntn
                     , com_date)
             values(#{comNum}
-                    , #{ctgr}
+                    , 'C'
                     , '12'
                     , #{dep}
                     <choose>
 						<when test="grp != null and grp != ''">, #{grp} </when>
 						<otherwise> ,#{conNum} </otherwise>
 					</choose>
-                    ,#{id}
+                    , 'catLove'
                     , #{cntn}
                     , sysdate)
                     
