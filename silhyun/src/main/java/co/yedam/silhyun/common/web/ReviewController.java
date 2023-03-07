@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.crypto.spec.RC2ParameterSpec;
+import javax.servlet.http.HttpServletRequest;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,8 +36,8 @@ public class ReviewController {
 	}
 
 	@GetMapping("/silhyun/reviewList")
-	public String reviewList() {
-
+	public String reviewList(Model model, HttpServletRequest request) {
+		model.addAttribute("session", request.getSession());
 		return "review/test";
 	}
 	
