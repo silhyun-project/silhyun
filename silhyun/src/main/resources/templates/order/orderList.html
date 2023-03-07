@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{home/layout}">
+
+<head>
+    <!-- metas -->
+    <meta charset="utf-8">
+    <meta name="author" content="pxdraft" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
+    <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
+    <!-- title -->
+    <title>결제까지왔다리</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <!-- Skippy & Prload -->
+        <!-- skippy -->
+        <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
+            <div class="container">
+                <span class="u-skiplink-text">Skip to main content</span>
+            </div>
+        </a>
+        <!-- End skippy -->
+        <!-- Preload -->
+        <!-- <div id="loading" class="loading-preloader"> -->
+        <!--     <div class="spinner-border text-primary" role="status"> -->
+        <!--         <span class="visually-hidden">Loading...</span> -->
+        <!--     </div> -->
+        <!-- </div> -->
+        <!-- End Preload -->
+        <!-- Edn Skippy & Prload -->
+
+        <!-- 
+    ========================
+        Wrapper 
+    ========================
+    -->
+        <div class="wrapper">
+            <!-- heder height -->
+            <div class="header-height-bar"></div>
+
+            <!-- Main -->
+            <main>
+
+                [[${reserVO}]]
+                [[${selectedOpVO}]]
+
+                <!-- Breadcrumb -->
+                <div class="py-3 bg-gray-100">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 my-2">
+                                <h1 class="m-0 h4 text-center text-lg-start">😆결제하기</h1>
+                            </div>
+                            <div class="col-lg-6 my-2">
+                                <ol
+                                    class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+                                    <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i
+                                                class="bi bi-home"></i>Home</a></li>
+                                    <li class="breadcrumb-item text-nowrap active" aria-current="page">결제</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Breadcrumb -->
+                <!-- Table -->
+                <div class="py-6">
+                    <div class="container">
+                        <div class="row flex-row-reverse">
+                            <!-- sidebar -->
+                            <div class="col-lg-5 ps-lg-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <ul class="list-unstyled m-0 p-0">
+                                            <li class="pb-3 mb-3 border-bottom">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4 col-md-2 col-lg-2">
+                                                        <!-- Image -->
+                                                        <a href="#">
+                                                            <img class="img-fluid border"
+                                                                src="/img/fashion/1000x1000.jpg" alt="...">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <!-- Title -->
+                                                        <p class="mb-1">
+                                                            <a class="text-dark fw-500" href="#">Cotton floral print
+                                                                Dress</a>
+                                                            <span class="m-0 text-muted w-100 d-block">$40.00</span>
+                                                        </p>
+                                                        <!-- Remove -->
+                                                        <a class="small link-danger ms-auto" href="#!">
+                                                            <i class="bi bi-x"></i> Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="pb-3 mb-3 border-bottom">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4 col-md-2 col-lg-2">
+                                                        <!-- Image -->
+                                                        <a href="#">
+                                                            <img class="img-fluid border"
+                                                                src="/img/fashion/1000x1000.jpg" alt="...">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <!-- Title -->
+                                                        <p class="mb-1">
+                                                            <a class="text-dark fw-500" href="#">Cotton floral print
+                                                                Dress</a>
+                                                            <span class="m-0 text-muted w-100 d-block">$40.00</span>
+                                                        </p>
+                                                        <!-- Remove -->
+                                                        <a class="small link-danger ms-auto" href="#!">
+                                                            <i class="bi bi-x"></i> Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="pb-3 mb-3 border-bottom">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4 col-md-2 col-lg-2">
+                                                        <!-- Image -->
+                                                        <a href="#">
+                                                            <img class="img-fluid border"
+                                                                src="/img/fashion/1000x1000.jpg" alt="...">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <!-- Title -->
+                                                        <p class="mb-1">
+                                                            <a class="text-dark fw-500" href="#">Cotton floral print
+                                                                Dress</a>
+                                                            <span class="m-0 text-muted w-100 d-block">$40.00</span>
+                                                        </p>
+                                                        <!-- Remove -->
+                                                        <a class="small link-danger ms-auto" href="#!">
+                                                            <i class="bi bi-x"></i> Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="list-unstyled m-0">
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="me-2 text-body">총 서비스 금액</h6><span
+                                                    class="text-end">얼마얼마</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="me-2 text-body">쿠폰 할인</h6><span
+                                                    class="text-end">-얼마얼마</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="me-2 text-body">포인트 사용</h6><span
+                                                    class="text-end">-얼마얼마</span>
+                                            </li>
+                                            <li
+                                                class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                                                <h6 class="me-2">Total</h6><span
+                                                    class="text-end text-dark">얼마원</span>
+                                            </li>
+                                        </ul>
+                                        <label><input type="checkbox">주문 내용을 확인하였으며, 결제에 동의합니다(필수)</label>
+                                        <button style="margin-top: 10px;" type="submit" class="btn btn-primary w-100">결제하기</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7" >
+                                <div class="card">
+                                    <div class="card-header bg-transparent py-3">
+                                        <h6 class="m-0 h5">쿠폰 / 포인트</h6>
+                                    </div>
+                                    <div class="card-body" style="padding: 30px;">
+                                        <ul class="list-unstyled">
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="me-2 text-body">쿠폰</h6>
+                                                <div class="mb-3">
+                                                    <select class="form-select" required="">
+                                                        <option value="">사용가능한 쿠폰</option>
+                                                        <option value="Australia">Australia</option>
+                                                        <option value="Australia">Australia</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Please choose your country!</div>
+                                                </div>
+                                            </li>
+                                            <div class="pt-2 pb-4">
+                                                <div class="d-flex">
+                                                    <input type="text" name="promo" placeholder="사용할 포인트를 입력하세요"
+                                                        class="form-control form-control-sm">
+                                                    <button class="btn btn-primary btn-sm ms-2">Apply</button>
+                                                </div>
+                                            </div>
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="me-2 text-body">사용가능한 포인트</h6><span
+                                                    class="text-end">얼마얼마얼마</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="accordion accordion-alt pt-4" id="payment-methods">
+                                    <div class="card mb-3 shadow-none border">
+                                        <div class="card-header p-0 position-relative bg-transparent">
+                                            <div class="form-check m-3" data-bs-toggle="collapse"
+                                                data-bs-target="#credit-card">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                    id="flexRadioDefault1" checked="">
+                                                <label class="form-check-label h6 m-0 w-100 stretched-link"
+                                                    for="flexRadioDefault1">
+                                                    결제 방법
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="collapse show" id="credit-card" data-bs-parent="#payment-methods">
+                                            <div class="card-body p-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="cc-number">Card number</label>
+                                                    <input class="form-control" type="text" id="cc-number"
+                                                        data-format="card" placeholder="0000 0000 0000 0000">
+                                                </div>
+                                                <div class="g-2 row">
+                                                    <div class="col-7 form-group mb-1">
+                                                        <label class="form-label" for="cc-expiry">Expiry date</label>
+                                                        <input class="form-control" type="text" id="cc-expiry"
+                                                            data-format="date" placeholder="mm/yy">
+                                                    </div>
+                                                    <div class="col-5 form-group mb-1">
+                                                        <label class="form-label" for="cc-cvc">CVC</label>
+                                                        <input class="form-control" type="password" id="cc-cvc"
+                                                            data-format="cvc" placeholder="000">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card shadow-none border">
+                                        <div class="card-header p-0 position-relative bg-transparent">
+                                            <div class="form-check m-3 collapsed" data-bs-toggle="collapse"
+                                                data-bs-target="#paypal">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                    id="paypal-radio1">
+                                                <label class="form-check-label h6 m-0 stretched-link"
+                                                    for="paypal-radio1">
+                                                    Paypal
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="collapse" id="paypal" data-bs-parent="#payment-methods">
+                                            <div class="card-body p-3">
+                                                <p class="mb-0">By clicking on the button below you will be redirected
+                                                    to your PayPal account to complete the payment.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-4">
+                                    <p class="m-0 pt-3">현금영수증(사업자지출증빙) / 신용카드 매입전표는  매입세액공제 사용이 불가능합니다.
+                                        [매입세액공제 안내]<br>
+                                        현금영수증 / 신용카드 영수증은 개인 소득 공제용으로만 사용하실 수 있습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Table -->
+            </main>
+            <!-- End Main -->
+
+        </div>
+        <!-- 
+    ========================
+       End Wrapper 
+    ========================
+    -->
+        <!-- script start -->
+        <!-- jquery -->
+        <!-- <script src="/js/jquery-3.5.1.min.js"></script> -->
+        <!--bootstrap-->
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- slick carousel -->
+        <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+        <!-- magnific -->
+        <script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
+        <!-- isotope -->
+        <script src="/vendor/isotope/isotope.pkgd.min.js"></script>
+        <!-- count-down -->
+        <script src="/vendor/count-down/jquery.countdown.min.js"></script>
+        <!-- count-down -->
+        <script src="/vendor/jarallax/jarallax-all.js"></script>
+        <!-- Theme Js -->
+        <script src="/js/custom.js"></script>
+        <script src="/js/theme.js"></script>
+        <!-- End script start -->
+    </div>
+</body>
+
+</html>
