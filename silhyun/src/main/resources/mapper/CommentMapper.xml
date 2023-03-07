@@ -4,8 +4,9 @@
 	
 	<!-- 댓글 리스트 -->
 	<select id="getCommentList" parameterType="CommentVO" resultType="co.yedam.silhyun.common.vo.CommentVO">
-		select com_num, dep, id, cntn, com_date, grp, ctgr, ctgr_num, (select count(*) from commment d where d.grp = c.com_num and d.com_num != d.grp ) as rep_cnt
-		from commment c
+		select c.com_num, c.dep, c.id, c.cntn, c.com_date, c.grp, c.ctgr, c.ctgr_num, (select count(*) from commment d where d.grp = c.com_num and d.com_num != d.grp ) as rep_cnt, m.profile
+		from commment c join member m
+		on c.id = m.id
 		where ctgr_num = 12
 		and ctgr = 'C'
 		order by grp desc, dep , com_num
@@ -28,24 +29,29 @@
                     , cntn
                     , com_date)
             values(#{comNum}
-                    , #{ctgr}
+                    , 'C'
                     , '12'
                     , #{dep}
                     <choose>
 						<when test="grp != null and grp != ''">, #{grp} </when>
 						<otherwise> ,#{conNum} </otherwise>
 					</choose>
-                    ,#{id}
+                    , 'catLove'
                     , #{cntn}
                     , sysdate)
                     
 	 </insert>    
-<!-- 	
 	 
 	 <delete id="commentDelete" >
-	 
+	 	delete from commment where grp=#{grp}
+	 	<!-- 댓글 삭제시 해당 그룹의 대댓글까지 모두 삭제 -->
 	 </delete>
 	 
+	 <delete id="replyDelete">
+	 	delete from commment where com_num = #{comNum}
+	 	<!-- 대댓글 삭제시 해당 대댓글만 삭제 -->
+	 </delete>
+<!-- 	
 	 <update id="commentUpdate">
 	 
 	 </update>
@@ -54,9 +60,6 @@
 	 
 	 </insert>
 	 
-	 <delete id="replyDelete">
-	 
-	 </delete>
 	 
 	 <update id="replyUpdate">
 	 
