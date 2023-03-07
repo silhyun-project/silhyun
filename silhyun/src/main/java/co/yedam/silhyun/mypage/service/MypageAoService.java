@@ -22,6 +22,10 @@ public interface MypageAoService {
 	int insertOption(OptionsVO vo);	//작가 옵션설정
 	
 	//int updateMyPg()
-	int upWorkTime(ReserTimeVO vo);	//작가 예약시간 설정
+	int updateReserTime(List<ReserTimeVO> voList);	//작가 예약시간 수정설정
+	int updateReserTime(ReserTimeVO vo);	//작가 예약시간 수정
+
+	int deleteReserTime(String ptgId);	// 작가 예약시간정보 삭제
+	int insertReserTime(List<ReserTimeVO> voList );	//작가 예약시간 정보 삽입
 	
 }

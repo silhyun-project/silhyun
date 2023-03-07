@@ -62,9 +62,34 @@ public class MypageAoServiceImpl implements MypageAoService {
 		return mypageAoMapper.insertOption(vo);
 	}
 
-	@Override
-	public int upWorkTime(ReserTimeVO vo) {
+	
+	  @Override public int updateReserTime(ReserTimeVO vo) {
+	  
+	  return mypageAoMapper.updateReserTime(vo);
+	  }
+	 
 
-		return mypageAoMapper.upWorkTime(vo);
+
+	@Override
+	public int updateReserTime(List<ReserTimeVO> voList) {
+		return mypageAoMapper.updateReserTime(voList);
+	}
+
+//	@Override
+//	public int deleteReserTime(ReserTimeVO vo) {
+//
+//		return mypageAoMapper.deleteReserTime(vo);
+//	}
+
+	@Override
+	public int insertReserTime(List<ReserTimeVO> voList) {
+
+		return mypageAoMapper.insertReserTime(voList);
+	}
+
+	@Override
+	public int deleteReserTime(String ptgId) {
+
+		return mypageAoMapper.deleteReserTime(ptgId);
 	}
 }
