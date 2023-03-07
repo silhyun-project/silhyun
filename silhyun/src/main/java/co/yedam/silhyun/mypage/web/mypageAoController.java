@@ -99,7 +99,7 @@ public class mypageAoController {
 	//작가 예약 시간 정보 수정
 	@RequestMapping("/upWorkTime")
 	public String upWorkTime(ReserTimeVO vo) {
-		
+		/*
 		int n =mypageAoService.upWorkTime(vo);
 		if(n!=0) {
 			System.out.println("수정성공");
@@ -108,6 +108,24 @@ public class mypageAoController {
 			System.out.println("수정실패");
 		}
 		return "redirect:/photo/modPfAo";
+		*/
+		int n=mypageAoService.deleteReserTime(vo);
+		int m = mypageAoService.insertReserTime(vo);
+		if(n!=0) {
+			System.out.println("삭제성공");
+			
+		}else {
+			System.out.println("삭제실패");
+		}
+		if(m!=0) {
+			System.out.println("삽입성공");
+			
+		}else {
+			System.out.println("삽입실패");
+		}
+
+		
+		return "";
 		
 	}
 	

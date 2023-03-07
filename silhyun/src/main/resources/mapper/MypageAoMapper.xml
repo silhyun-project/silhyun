@@ -44,17 +44,29 @@
 		VALUES(#{opNum},#{ptgId},#{ttl},#{cntn},#{pri})
 	</insert>
 	<!-- 작가 예약 시간 수정  -->
-	<update id="upWorkTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
+	<!-- <update id="upWorkTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
 		UPDATE RESER_TIME
 		<set>
 			<if test="resTime !=null and !resTime.equals('')">RES_TIME = #{resTime },</if>
 			<if test="ptgId !=null and !ptgId.equals('')">PTG_ID = #{ptgID },</if>
 		</set>
-	WHERE PTG_ID = 'user17'
-	LIMIT 1
-	</update>
+	WHERE PTG_ID = 'user3'
+	</update> -->
+	
+	
+	<!-- 예약시간 삭제 -->
+	<delete id="deleteReserTime">
+		DELETE
+		FROM RESER_TIME
+		WHERE PTG_ID='user3';
+	</delete>
+	<!-- 예약시간 등록  -->
+	<insert id="insertReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
+		INSERT INTO RESER_TIME (RES_TIME, PTG_ID)
+		VALUES (#{resTime}, 'user3')
+	</insert>
 
-
+<!-- 작가 정보 수정  -->
 	<update id="ptgInfoUpdate" parameterType="co.yedam.silhyun.member.vo.MemberVO">
 		UPDATE(
 		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
