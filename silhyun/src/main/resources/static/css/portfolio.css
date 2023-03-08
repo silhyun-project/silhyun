@@ -1,128 +1,6 @@
-/* around 페이지 정렬버튼 */
-.toggleButton {
-	border: solid 1.2px rgb(199, 199, 199);
-	border-radius: 3px;
-	padding: 7px;
-	background-color: rgb(255, 255, 255);
-	float: right;
-	width: 100px;
-	text-align: center;
-	list-style: none;
-	color: black;
-}
-
-.toggleButton:hover {
-	color: rgb(120, 120, 120);
-}
-
-.toggleMenu {
-	border: solid 1px rgb(230, 230, 230);
-	border-radius: 3px;
-	padding: 15px;
-	background-color: rgb(255, 255, 255, 0.95);
-	list-style: none;
-	width: 100px;
-	text-align: center;
-	padding: 8px;
-	display: none;
-	position: absolute;
-	z-index: 10;
-	top: 40px;
-	cursor: pointer;
-}
-/* 정렬아이템마우스오버 */
-.dropdown-item:hover {
-	color: rgb(160, 160, 160);
-}
-
-/* 검색창 */
-.form {
-	position: relative;
-}
-
-.form .bi-search {
-	position: absolute;
-	top: 9px;
-	left: 15px;
-	color: #9ca3af;
-}
-
-.form span {
-	position: absolute;
-	right: 11px;
-	top: 6px;
-	padding: 2px;
-	border-left: 1px solid #d1d5db;
-}
-
-.left-pan {
-	padding-left: 110px;
-}
-
-.left-pan i {
-	padding-left: 120px;
-}
-
-.form-input {
-	width: 20rem;
-	height: 40px;
-	text-indent: 18px;
-	border-radius: 10px;
-}
-
-.form-input:focus {
-	box-shadow: none;
-	border: 1px solid #d1d5db;
-}
-
-/* 둘러보기 태그 버튼 */
-.btn.btn-sm.active {
-	border-radius: 20px;
-	width: 120px;
-}
-
-.shop-top-bar .layout-change .btn {
-	border-radius: 20px;
-	width: 120px;
-}
-
-/* 포트폴리오 사진 list */
-.col-6 {
-	flex: 0 0 auto;
-	width: 33.3%;
-}
-/* 포트폴리오컨테이너? */
-.col-lg-6.lightbox-gallery.sticky-lg-top.sticky-lg-top-header {
-	flex: 0 0 auto;
-	width: 35%;
-}
-/* 작가사세컨테이너 */
-.col-lg-6.ps-lg-5.pt-5.pt-lg-0 {
-	flex: 0 0 auto;
-	width: 65%;
-}
-/* 작가상세예약리뷰버튼 */
-.cart-button.mb-3.d-flex button {
-	border-radius: 2px;
-}
-/* 포트폴리오등록하기버튼 */
-.btn.btn-port.me-3 {
-	background-color: black;
-	color: white;
-	border: none;
-	border-radius: 2px;
-}
-/* 포트폴리오 쪽 조아요치우기 */
-.rating-star.text.small.pb-4 {
-	float: right;
-	width: 20%;
-	text-align: center;
-	font-weight: bolder;
-}
-
 /* ===========================모달창관련? */
 /* 모달 뒷부분 검정 레이아웃 */
-.modal.modal-overlay {
+#modalP.modal-overlay {
 	width: 100%;
 	height: 100%;
 	position: fixed; /* 모달창이 화면에 고정됨 */
@@ -141,7 +19,7 @@
 	z-index: 9000;
 }
 /* 모달 내용 컨테이너 */
-.modal .modal-window {
+#modalP .modal-window {
 	background-color: white;
 	box-shadow: 0 8px 32px 0 rgba(153, 153, 153, 0.37);
 	/* 	backdrop-filter: blur(13.5px); */
@@ -157,7 +35,7 @@
 	margin: 0% auto; /* 모달창이 수직 가운데에 위치함 */
 }
 
-.modal .close-area {
+#modalP .close-area {
 	display: inline;
 	float: right;
 	padding-right: 10px;
@@ -165,7 +43,7 @@
 	color: gray;
 }
 
-.modal .content {
+#modalP .content {
 	margin-top: 20px;
 	padding: 0px 10px;
 	color: gray;
@@ -187,7 +65,7 @@
 	display: block !important;
 }
 /* 모달푸터고정 */
-.modalFooter {
+.modalFooterP {
 	position: absolute;
 	bottom: 0; /* 부모 요소의 맨 아래쪽에 위치 */
 	left: 0;
@@ -199,24 +77,24 @@
 	display: block !important;
 }
 /* 댓글이랑 내용 리스트쪽 */
-.modalConList {
+#modalConListP {
 	/* 	overflow-y: auto; */
 	height: calc(100% -13rem); /* h1의 높이 */
 	display: block !important;
 }
 /* 모달사진쪽size */
-.modalPic {
+#modalPicP {
 	width: 60% !important;
 	padding: 0%;
 }
 
 /* 모달내용쪽size */
-.modalCon {
+#modalConP {
 	width: 40% !important;
 	position: relative;
 }
 
-.modalProfileBox {
+#modalProfileBoxP {
 	border-top: none !important;
 }
 /* 일단모달쪽에 사진크기조정임 */
@@ -255,6 +133,10 @@
 }
 
 /* ---------------------------모달안에 */
+
+
+
+
 
 /* 하트조아요누르기 */
 .heart-icon {
@@ -321,5 +203,3 @@
 	opacity: 1;
 }
 /* 포트폴리오 리스트 사진 마우스 올렸을 때 보이는 정보 끝 */
-
-
