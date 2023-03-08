@@ -116,6 +116,7 @@ public class mypageAoController {
 			System.out.println(vo + "보입니다 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
 			n = mypageAoService.insertReserTime(vo);
 
+
 		}
 		
 		if(n>0) {
@@ -125,6 +126,7 @@ public class mypageAoController {
 			return "실패";
 		}
 	
+
 	}
 
 
