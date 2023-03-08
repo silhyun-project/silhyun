@@ -37,10 +37,8 @@ public class CommentController {
 	@PostMapping("/commentInsert")
 	@ResponseBody
 	public String commentInsert(@RequestBody CommentVO vo) {
-//		vo.setCntn("M");
-//		vo.setComNum("1");
-		commentService.commentInsert(vo);
 		
+		commentService.commentInsert(vo);
 		return "seccess";
 	}	
 	
