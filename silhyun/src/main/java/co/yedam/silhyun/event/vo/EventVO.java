@@ -21,6 +21,7 @@ public class EventVO {
 	private String cntn;
 	private String thni;
 	private String bnph;
+	private String bnphSta;
 	private String cfmCd;
 	private String cpnPubSta;
 	private String regionCd;
