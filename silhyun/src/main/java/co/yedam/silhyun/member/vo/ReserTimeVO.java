@@ -8,10 +8,12 @@ import lombok.Data;
 public class ReserTimeVO {
 
 //    private List<String> ptgId;
-//    private List<String> resTimeList;
+   // private String[] resTimeList;
     
 	private String resTime;
     private String ptgId;
+    
+    
 
 
 }

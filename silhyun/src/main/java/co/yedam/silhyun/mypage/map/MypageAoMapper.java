@@ -24,7 +24,8 @@ public interface MypageAoMapper {
 	int updateReserTime(List<ReserTimeVO> voList);	//작가 예약시간 수정설정
 	int updateReserTime(ReserTimeVO vo);	//작가 예약시간 수정
 	
-	int deleteReserTime(String ptgId);	// 작가 예약시간정보 삭제
-	int insertReserTime(List<ReserTimeVO> voList );	//작가 예약시간 정보 삽입
-
+	//int deleteReserTime();	// 작가 예약시간정보 삭제
+	int insertReserTime(ReserTimeVO vo);	//작가 예약시간 정보 삽입
+	int insertReserTime(List<ReserTimeVO> reserTimeList );
+	int deleteReserTime(String id);
 }

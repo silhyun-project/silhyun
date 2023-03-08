@@ -44,7 +44,7 @@ public class mypageAoController {
 		return "mypageAo/mypageAo";
 	}
 
-	@GetMapping("/photo/modPfAo")
+	@RequestMapping("/photo/modPfAo")
 	public String modpfAo(Model model) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
 
@@ -98,95 +98,36 @@ public class mypageAoController {
 	}
 
 	// 작가 예약 시간 정보 수정
-	/*
-	 * @RequestMapping("/upWorkTime") public Map<String, Object>
-	 * upWorkTime(@RequestBody List<ReserTimeVO> voList) { Map<String, Object> map =
-	 * new HashMap<>();
-	 * 
-	 * mypageAoService.updateReserTime(voList);
-	 * 
-	 * map.put("voList", voList); return map; }
-	 */
 
+	@PostMapping("/upWorkTime")
+	@ResponseBody
+	public String upWorkTime(@RequestBody List<ReserTimeVO> reserTimeList) {
+		//ReserTimeVO vo = new ReserTimeVO();
+		// ptg_id 는 null값으로 보낼까??
+		System.out.println("kkkkkkkkkkkk"+reserTimeList.toString());
+		//mypageAoService.deleteReserTime();
+		//VO 객체를 반복문을 통해 insertReserTime 메서드로 전달
+		System.out.println(reserTimeList.get(0).getPtgId());
+		String ptgId = reserTimeList.get(0).getPtgId();
+		mypageAoService.deleteReserTime(ptgId);
+		int n = 0;
+	
+		for (ReserTimeVO vo : reserTimeList) {
+			System.out.println(vo + "보입니다 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+			n = mypageAoService.insertReserTime(vo);
 
-//	@RequestMapping("/upWorkTime")
-//	public Map<String, Object> upWorkTime(@RequestParam List<String> resTime, @RequestParam String ptgId) {
-//		ReserTimeVO vo = new ReserTimeVO();
-//		Map<String, Object> map = new HashMap<>();
-//		//추가
-//		List<String> ptgIdList = new ArrayList<>();
-//
-//		List<ReserTimeVO> voList = new ArrayList<>(); // 크기가 동적으로 변하기때문에 arraylist를 씀
-//	
-//		
-//		System.out.println(resTime + "resTime" + ptgId + "ptgId" + "qqqqqqqqqqqqqqqqqqqq");
-//		System.out.println(Arrays.asList(resTime)+"wwwwwwwww");
-//		System.out.println(ptgId+"Eeeeeeeeeeeee");
-//		for (int i = 0; i < resTime.size(); i++) { // 예약시간 받은 값 만큼
-//			
-//		    ptgIdList.add(ptgId);
-//			vo.setResTimeList(Arrays.asList(resTime.get(i).split(",")));
-//			// Arrays.aslist->aslist로 반환되는 List도 배열을 갖게됨+원본 배열의 주소값을 가져옴
-//			vo.setPtgId(ptgIdList.get(i));
-//			voList.add(vo);
-//			System.out.println(vo+"aaaaaaaaaaaaaa");
-//			System.out.println(voList+"bbbbbbbbbaaaaaaaaaaaaaa");
-//		}
-//		System.out.println(vo+"vvvvvvvvvva");
-//		//mypageAoService.updateReserTime(voList);
-//		mypageAoService.deleteReserTime(vo);
-//		mypageAoService.insertReserTime(vo);
-//		System.out.println(vo+"ccccccc");
-//		map.put("vo",vo);
-//		
-//		
-//		//map.put("voList", voList);
-//
-//		return map;
-//	}
-	@RequestMapping("/upWorkTime")
-	public Map<String, Object> upWorkTime(@RequestParam List<String> resTime,
-										  @RequestParam String ptgId)
-	{
-	    Map<String, Object> map = new HashMap<>();
-	    List<ReserTimeVO> voList = new ArrayList<>();
-	    for (int i = 0; i < resTime.size(); i++) {
-	        ReserTimeVO vo = new ReserTimeVO();
-	        vo.setResTime(resTime.get(i));
-	        System.out.println(vo.getResTime()+"rrrrrrrrrrrrrrrr");
-	        vo.setPtgId(ptgId);
-	        System.out.println(vo.getPtgId()+"iiiiiiiiiiiiii");
-	        voList.add(vo);
-	        System.out.println(vo+"qqqqqqqqqqqqq");
-	    }
-	    System.out.println(voList+"aaaaaaaaaaaa");
-//	    // ==ptgId 삭제
-	    mypageAoService.deleteReserTime(ptgId);
-//	    // voList값 추가
-	    for(ReserTimeVO vo : voList) {
-	    	System.out.println(vo+"jjjjjjjjj");
-	    	mypageAoService.insertReserTime(voList);	    	
-	    }
-//	    mypageAoService.updateReserTime(voList);			//업데이트
-	    map.put("voList", voList);
-	    System.out.println(voList+"aaaaaaaaaaaa");
-	    return map;
+		}
+		
+		if(n>0) {
+			return "성공";
+		}else {
+			
+			return "실패";
+		}
+	
 	}
 
 
-	
-
-//	
-//	  @RequestMapping("/upWorkTime") public Map<String, Object> 
-//	  upWorkTime(@RequestParam String ptgId, @RequestParam List<String> resTime) {
-//		  ReserTimeVO vo = new ReserTimeVO(); Map<String, Object> map = new
-//		  HashMap<>(); vo.setPtgId(ptgId); vo.setResTime(resTime);
-//		  System.out.println(resTime+"resTime"+ptgId+"ptgId"+"qqqqqqqqqqqqqqqqqqqq");
-//		  System.out.println(vo.getResTime()+"vo.resTime"+vo.getPtgId()+"vo.ptgId"+
-//		  "wwwwwwwwww"); mypageAoService.updateReserTime(vo);
-//		  
-//		  map.put("vo", vo); return map; 
-//	  }
 
 	@PostMapping("/applyEvent")
 	@ResponseBody
@@ -230,10 +171,13 @@ public class mypageAoController {
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getPtgId() + key);
+			
 			mypageAoService.applyEvent(vo); // db에 담음
 			// System.out.println("넘어오니?"+vo.getEventNum());
 			cvo.setEventNum(vo.getEventNum()); // vo에 담긴 eventNum을 들고오기
 			cvo.setCpnNum(vo.getEventNum()); // eventNum이랑 값 같게
+			cvo.setCtgrNum(vo.getPtgId());
+			cvo.setCpnCd("C1");	//개인인지 공통인지 작가는 c1(개인)만
 			mypageAoService.applyECoupon(cvo);
 
 			map.put("vo", vo);

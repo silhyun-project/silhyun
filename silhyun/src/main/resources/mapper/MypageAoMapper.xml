@@ -22,15 +22,15 @@
 		parameterType="co.yedam.silhyun.event.vo.EventVO">
 		<!-- <selectKey keyProperty="eventNum" resultType="String"> select dbms_random.string('A', 
 			5) as eventNum from dual </selectKey> -->
-		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, region_cd)
-		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph},
+		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, bnph_sta,region_cd)
+		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph},#{bnphSta},
 		#{regionCd})
 	</insert>
 	<insert id="applyECoupon"
 		parameterType="co.yedam.silhyun.event.vo.CouponVO">
 		INSERT INTO COUPON(ctgr, cntn, discount, start_date,
-		end_date, event_num,cpn_num)
-		VALUES(#{ctgr},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum},#{cpnNum})
+		end_date, event_num,cpn_num,ctgr_num,cpn_cd)
+		VALUES(#{ctgr},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum},#{cpnNum},#{ctgrNum},#{cpnCd})
 	</insert>
 
 	<insert id="applyClass"
@@ -59,42 +59,17 @@
 		</set> WHERE PTG_ID = #{voList[0].ptgId}
 	</update> 
 
-	<!-- <update id="upWorkTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
-		UPDATE RESER_TIME <set> <if test="resTime !=null and !resTime.equals('')">RES_TIME 
-		= #{resTime },</if> <if test="ptgId !=null and !ptgId.equals('')">PTG_ID 
-		= #{ptgID },</if> </set> WHERE PTG_ID = 'user17' LIMIT 1 </update> -->
-
-<!-- 	<update id="updateReserTime" parameterType="java.util.List">
-		<foreach collection="voList" item="item" separator=","> 
-			UPDATE RESER_TIME 
-			SET RES_TIME = #{item.resTime}, 
-				PTG_ID = #{item.ptgId}
-			WHERE PTG_ID =
-			#{item.ptgId}
-		</foreach>
-	</update> -->
-	<!-- <update id="updateReserTime" parameterType="java.util.List"> <foreach 
-		collection="list" item="item" separator=","> <foreach collection="item.resTime" 
-		item="resTime" index="index" separator=","> UPDATE RESER_TIME SET RES_TIME 
-		= #{resTime}, PTG_ID = #{item.ptgId.get(index)} WHERE PTG_ID = #{item.ptgId.get(index)} 
-		</foreach> </foreach> </update> -->
-	<!-- <update id="updateReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
-		<foreach collection="resTime" item="resTime" separator=";"> UPDATE RESER_TIME 
-		SET RES_TIME = #{resTime}, PTG_ID = #{ptgId} WHERE PTG_ID = #{ptgId} </foreach> 
-		</update> -->
 
 	<delete id="deleteReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
 		DELETE
 		FROM RESER_TIME
-		WHERE PTG_ID= #{ptgId}
+		WHERE PTG_ID= #{id}
 	</delete>
 	
 <insert id="insertReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
     INSERT INTO RESER_TIME(res_time,ptg_id)
-    VALUES
-    <foreach collection="list" item="item" separator=",">
-        (#{item.resTime},#{item.ptgId})
-    </foreach>
+    VALUES (#{resTime},#{ptgId})
+ 
 </insert>
 
 	<update id="ptgInfoUpdate"
