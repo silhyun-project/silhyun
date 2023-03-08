@@ -34,7 +34,7 @@
                     , #{dep}
                     <choose>
 						<when test="grp != null and grp != ''">, #{grp} </when>
-						<otherwise> ,#{conNum} </otherwise>
+						<otherwise> ,#{comNum} </otherwise>
 					</choose>
                     , 'catLove'
                     , #{cntn}
