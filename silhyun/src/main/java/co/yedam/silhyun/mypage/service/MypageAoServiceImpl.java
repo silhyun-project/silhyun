@@ -88,6 +88,12 @@ public class MypageAoServiceImpl implements MypageAoService {
 		return mypageAoMapper.deleteReserTime(id);
 	}
 
+	@Override
+	public int updateProfileImage(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return mypageAoMapper.updateProfileImage(vo);
+	}
+
 
 
 }

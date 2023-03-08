@@ -16,6 +16,14 @@
 		INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
 		WHERE m.id = 'user1'
 	</select>
+	
+	<!-- 프사바꾸기  -->
+	<update id="updateProfileImage" parameterType="co.yedam.silhyun.member.vo.MemberVO">
+		UPDATE MEMBER
+		SET PROFILE = #{profile}
+		WHERE ID = 'user1';
+	</update>
+	
 
 	<!-- INSERT INTO EVENT VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
 	<insert id="applyEvent"

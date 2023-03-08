@@ -28,4 +28,6 @@ public interface MypageAoMapper {
 	int insertReserTime(ReserTimeVO vo);	//작가 예약시간 정보 삽입
 	int insertReserTime(List<ReserTimeVO> reserTimeList );
 	int deleteReserTime(String id);
+	
+	int updateProfileImage(MemberVO vo);//프사 바꾸기
 }
