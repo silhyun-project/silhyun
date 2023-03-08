@@ -32,6 +32,12 @@ public class AroundServiceImpl implements AroundService {
 		return  aroundMapper.tagList();
 	}
 
+	@Override
+	public List<String> searchTags(String tag) {
+		// TODO Auto-generated method stub
+		return aroundMapper.searchTags(tag);
+	}
+
 
 	
 

@@ -65,6 +65,12 @@
 		FROM TAG
 		ORDER BY DBMS_RANDOM.VALUE
 	</select>
+	
+	<select id="searchTags" parameterType="string" resultType="string">
+    SELECT tag_cntn FROM tag
+    WHERE tag_cntn LIKE CONCAT(#{tag}, '%')
+    ORDER BY tag_cntn ASC
+</select>
 
 
 </mapper>

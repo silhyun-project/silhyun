@@ -25,7 +25,7 @@ public class PortfolioController {
 		return "portfolio/portfolio";
 	}
 
-	@RequestMapping("/silhyun/portfolioInsertForm")
+	@RequestMapping("/silhyun/portfolioInsert")
 	public String portfolioInsertForm(Model model) {
 		return "portfolio/portfolioInsertForm";
 	}
