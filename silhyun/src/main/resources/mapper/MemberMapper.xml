@@ -10,9 +10,16 @@
 
 <insert id="memberInsert">
 	Insert into member 
-	(id, pwd, name, tel, email, birth_date, gen_cd, rcomr, token, re_token, login_cd)
+	(id, pwd, name, tel, email, birth_date, gen_cd
+	<if test="rcomr != null and rcomr != ''">, rcomr</if>
+	<if test="token != null and token != ''">, token</if>
+	<if test="reToken != null and reToken != ''">, re_token</if>
+	, login_cd)
 	values
-	(#{id}, #{pwd}, #{name}, #{tel}, #{email}, #{birthDate}, #{genCd}, #{rcomr}, #{token}, #{reToken}, 
+	(#{id}, #{pwd}, #{name}, #{tel}, #{email}, #{birthDate}, #{genCd}
+	<if test="rcomr != null and rcomr != ''">, #{rcomr}</if>
+	<if test="token != null and token != ''">, #{token}</if>
+	<if test="reToken != null and reToken != ''">, #{reToken}</if>
      <choose>
 		<when test="loginCd == null and loginCd == ''">,'LP' </when>
 		<otherwise> ,#{loginCd} </otherwise>
