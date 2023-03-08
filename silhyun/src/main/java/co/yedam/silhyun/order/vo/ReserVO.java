@@ -23,4 +23,25 @@ public class ReserVO {
 	String resSta;
 	int resPri;
 	String mainP;
+	
+	//조인
+	int poNum;
+	int savePo;
+	Date saveDate;
+	int saveNum;
+	private int pointSum;
+	private String cpnNum;
+	private String ctgr;
+	private String ctgrNum;
+	private String cntn;
+	private int discount;
+	private String cpnCd;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date endDate;
+	private String eventNum;
+	private String cpnSta;
 }

@@ -1,9 +1,11 @@
 package co.yedam.silhyun.order.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,14 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
 import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.service.StdService;
+import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
+import co.yedam.silhyun.order.map.OrderMapper;
 import co.yedam.silhyun.order.vo.ReserVO;
 import co.yedam.silhyun.order.vo.SelectedOpVO;
 
@@ -28,6 +33,8 @@ public class ReserController {
 	PtgService ptgService;
 	@Autowired
 	StdService stdService;
+	@Autowired
+	OrderMapper orderMapper;
 
 	/// ▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
@@ -93,8 +100,9 @@ public class ReserController {
 	}
 
 	// ▶예약 폼
-	@RequestMapping("/silhyun/reserList/{ptgId}")  //선택한 작가 예약하러 가기
-	public String reserList(Model model, PhotographerVO vo, @PathVariable String ptgId) {
+	@RequestMapping("/pay/reserList/{ptgId}")  //선택한 작가 예약하러 가기
+	public String reserList(HttpServletRequest request,Model model, PhotographerVO vo, @PathVariable String ptgId) {
+		model.addAttribute("session",request.getSession());
 		model.addAttribute("res",ptgService.getReser(ptgId));
 		System.out.println("예약폼====="+vo);
 		System.out.println(ptgId);
@@ -108,15 +116,14 @@ public class ReserController {
 		System.out.println("redate====="+redate);
 		return ptgService.getResTime(ptgId,redate);
 	}
-	
+
 	@RequestMapping("/pay/orderForm")
-	public String orderForm(ReserVO vo,SelectedOpVO svo,HttpServletRequest request,Model model){
+	public String orderForm(ReserVO vo,SelectedOpVO svo,HttpServletRequest request,Model model,OptionsVO ovo){
 		model.addAttribute("session",request.getSession()); //세션확인
-		
+		model.addAttribute("memInfo", orderMapper.getMemberInfoList(vo));
 		
 		System.out.println("호출 되니");
 		System.out.println(vo+"3333333333333333333333333333");
-		
 		return "order/orderList";
 	}
 }
