@@ -16,4 +16,14 @@ public interface ClassesService {
 	List<Map<String, Object>> getC1List(); 
 	
 	List<Map<String, Object>> getC2List(); 
+	
+	//조건에 맞는 페이지
+	List<Map<String, Object>> cdtC1List(int param1); 
+	
+	List<Map<String, Object>> cdtC2List(int param1);
+	
+	//무료강의 페이지
+	List<Map<String, Object>> getFC1List(); 
+	
+	List<Map<String, Object>> getFC2List();
 }

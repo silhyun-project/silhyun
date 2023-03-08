@@ -1,6 +1,10 @@
 package co.yedam.silhyun.classes.web;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,8 +71,8 @@ public class ClassesController {
 	
 	@GetMapping("/freeClasses")
 	public String freeClasses(Model model) {
-		model.addAttribute("c1List", ClassesService.getC1List());
-		model.addAttribute("c2List", ClassesService.getC2List());
+		model.addAttribute("fC1List", ClassesService.getFC1List());
+		model.addAttribute("fC2List", ClassesService.getFC2List());
 		return "/classes/freeClasses";
 	}
 	
@@ -96,5 +100,19 @@ public class ClassesController {
         return vo;
         
     }
-	
+ 
+
+    @RequestMapping(value = "/silhyun/classes/cdtCList", method = RequestMethod.GET)
+    public @ResponseBody Map<String, Object> cdtCList(@RequestParam("param1") int param1) {
+        List<Map<String, Object>> cdtC1List = ClassesService.cdtC1List(param1);
+        List<Map<String, Object>> cdtC2List = ClassesService.cdtC2List(param1);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("cdtC1List", cdtC1List);
+        result.put("cdtC2List", cdtC2List);
+        
+        return result;
+    }
+    
+    
 }
