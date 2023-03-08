@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{home/layout}">
+
 <body>
 <div layout:fragment="content">
             <section class="section">
@@ -53,27 +54,39 @@
                     </div>
                     <!-- Tabs Nav -->
                     <ul class="nav nav-tabs nav-tabs-02 justify-content-center" id="home-6_tabs" role="tablist">
+                             
+                             
+                              <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="h3_tabnav_5" data-bs-toggle="tab"
+                                data-bs-target="#h6_tab_5" type="button" role="tab" th:onclick="sendCdt(0)">전체</button>
+                        </li>
+                        
+                        
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="h3_tabnav_1" data-bs-toggle="tab"
-                                data-bs-target="#h6_tab_1" type="button" role="tab" aria-controls="h6_tab_1"
-                                aria-selected="true">프로필</button>
+                            <button class="nav-link" id="h3_tabnav_1" data-bs-toggle="tab"
+                                data-bs-target="#h6_tab_1" type="button" role="tab" th:onclick="sendCdt(6)">프로필</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="h3_tabnav_2" data-bs-toggle="tab" data-bs-target="#h6_tab_2"
-                                type="button" role="tab" aria-controls="h6_tab_2" aria-selected="false">웨딩</button>
+                                type="button" role="tab" aria-controls="h6_tab_2" th:onclick="sendCdt(7)">웨딩</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="h3_tabnav_3" data-bs-toggle="tab" data-bs-target="#h6_tab_3"
-                                type="button" role="tab" aria-controls="h6_tab_3" aria-selected="false">동물</button>
+                                type="button" role="tab" aria-controls="h6_tab_3" th:onclick="sendCdt(9)">동물</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="h3_tabnav_4" data-bs-toggle="tab" data-bs-target="#h6_tab_4"
-                                type="button" role="tab" aria-controls="h6_tab_4"
-                                aria-selected="false">사물&인테리어&건축</button>
+                                type="button" role="tab" aria-controls="h6_tab_4" th:onclick="sendCdt(1)">제품&인테리어&건축</button>
                         </li>
                     </ul>
+                    
+                    
+                    
                     <!-- End Tabs Nav -->
                     <!-- Tab Content -->
+
+
+
 
                     <div>
                         <p><b>온라인 강의💻</b></p>
@@ -81,40 +94,35 @@
                     
                     <div>
                         <div class="tab-content" id="home-6_tabsContent">
-                            <!-- Tab pane -->
-                            <div class="tab-pane fade show active" id="h6_tab_1" role="tabpanel"
-                                aria-labelledby="h3_tabnav_1">
-                                <div class="row g-3 g-lg-4">
+                            
+                            
+                            
+                                <div class="row g-3 g-lg-4"  th:each="c2, sts : ${c2List}" th:Class="${sts}">
                                     <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
+                                    <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+                                        <div class="product-card-7" >
+                                            <div class="product-card-image"  style="width: 300px; height: 300px">
                                                 <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
+                                                <!-- IF 해서 이 부분 이벤트 있으면 살리고 없으면 지우면 됨 -->
+                                                    <span class="badge bg-warning">BEST</span>
                                                 </div>
                                                 <div class="product-action">
                                                     <a href="#" class="btn btn-dark">
                                                         <i class="fi-heart"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
+    
                                                 </div>
                                                 <div class="product-media">
                                                     <a href="#">
                                                         <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
+                                                            th:src="${c2.THNI}" title="" 
                                                             alt="">
                                                     </a>
                                                 </div>
                                                 <div class="product-cart-btn">
                                                     <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
+                                                        <i class="fi-eye"></i>
+                                                        상세 보기
                                                     </a>
                                                 </div>
                                             </div>
@@ -125,1685 +133,144 @@
                                                     <i class="bi bi-star-fill active"></i>
                                                     <i class="bi bi-star-fill active"></i>
                                                     <i class="bi bi-star"></i>
+                                                    <a  th:text="${c2.STAR}"></a>
                                                 </div>
-                                                <h6 class="product-title">
-                                                    <a href="/classesInfo">Fine-knit sweater</a>
+                                                <h6 class="product-title">                                         
+                                                     <a href="/classesInfo" th:text="${c2.TTL}"></a>                                                                                           
                                                 </h6>
                                                 <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                                    <span class="text-primary" th:text="${c2.CPRI}"></span><small>원</small>
+                                                  <!-- 세일하면 할 거 
+                                                    <del class="fs-sm text-muted">999999999<small>원</small></del>
+                                                   -->
                                                 </div>
+                                                <a th:text="${c2.NAME}"> </a><br>
+                                                <a th:text="'총 '+ ${c2.CNT}+'강'"> </a>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                </div>
-                            </div>
-                            <!-- Tab Pane -->
-                            <div class="tab-pane fade" id="h6_tab_2" role="tabpanel" aria-labelledby="h3_tabnav_2">
-                                <div class="row g-3 g-lg-4">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                </div>
-                            </div>
-                            <!-- Tab Pane -->
-                            <div class="tab-pane fade" id="h6_tab_3" role="tabpanel" aria-labelledby="h3_tabnav_3">
-                                <div class="row g-3 g-lg-4">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                </div>
-                            </div>
-                            <!-- Tab Pane -->
-                            <div class="tab-pane fade" id="h6_tab_4" role="tabpanel" aria-labelledby="h3_tabnav_4">
-                                <div class="row g-3 g-lg-4">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                </div>
-                            </div>
-                        </div>
+                            	</div>
+                            	
+                            	
+            
+                            	
+                            	
+                            	
+                         <!-- 인라인 블록 줄바꿈용 -->
+                         <p style="clear: both;"></p>	
+                            	
+                    
                         <!-- End Tab Content -->
+               
+                        <p class="ignore-tab"><b>오프라인 강의🚗</b></p>
+                    
+           
+                                 <div class="row g-3 g-lg-4"  th:each="c1, sts : ${c1List}" th:Class="${sts}">
+                                    <!-- Product Box -->
+                                    <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+                                        <div class="product-card-7" >
+                                            <div class="product-card-image"  style="width: 300px; height: 300px">
+                                                <div class="badge-ribbon">
+                                                <!-- IF 해서 이 부분 이벤트 있으면 살리고 없으면 지우면 됨 -->
+                                                    <span class="badge bg-warning">BEST</span>
+                                                </div>
+                                                <div class="product-action">
+                                                    <a href="#" class="btn btn-dark">
+                                                        <i class="fi-heart"></i>
+                                                    </a>
+    
+                                                </div>
+                                                <div class="product-media">
+                                                    <a href="#">
+                                                        <img class="img-fluid"
+                                                            th:src="${c1.THNI}" title="" 
+                                                            alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="product-cart-btn">
+                                                    <a class="btn btn-primary">
+                                                        <i class="fi-eye"></i>
+                                                        상세 보기
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-card-info">
+                                                <div class="rating-star text">
+                                                    <i class="bi bi-star-fill active"></i>
+                                                    <i class="bi bi-star-fill active"></i>
+                                                    <i class="bi bi-star-fill active"></i>
+                                                    <i class="bi bi-star-fill active"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <a  th:text="${c1.STAR}"></a>
+                                                </div>
+                                                <h6 class="product-title">                                         
+                                                     <a href="/classesInfo" th:text="${c1.TTL}"></a>                                                                                           
+                                                </h6>
+                                                <div class="product-price">
+                                                    <span class="text-primary" th:text="${c1.CPRI}"></span><small>원</small>
+                                                  <!-- 세일하면 할 거 
+                                                    <del class="fs-sm text-muted">999999999<small>원</small></del>
+                                                   -->
+                                                </div>
+                                                <a th:text="${c1.NAME}"> </a><br>
+                                                 <a th:text="${#dates.format(c1.CDT,'yyyy년MM월dd일')}"> </a><br>
+                                                <a th:text="${c1.CPLACE}+' / '+${c1.CTIME}"> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Product Box -->
+                            	</div>
+           
+                          </div>
+                          </div>
+            </div>
+                    </section>
+                    
+                    
+                    
+                    
+   <script th:inline="javascript"> 
+
+   function sendCdt(param1){ 
+	    $.ajax({
+	        url: "/silhyun/classes/cdtCList",
+	        type: 'GET',
+	        data: {param1 : param1},
+	        dataType: 'json',
+	    }).then(result => {
+	        var cdtC1List = result.cdtC1List;
+	        var cdtC2List = result.cdtC2List;
+	        
+	        console.log("cdtC1List: " + JSON.stringify(cdtC1List));
+	        console.log("cdtC2List: " + JSON.stringify(cdtC2List));
+	        // cdtC1List와 cdtC2List를 각각 사용하면 됨
+	        
+	        
+for (var i = 0; i < cdtC1List.length; i++) {
+  var data = cdtC1List[i];
+  console.log(data.CDT);
+  console.log(data.CCD);
+}   
+	        
+	    });
+	}
+   
+   
+   
+</script>
+                    
+                    
+                    
                     </div>
-                    <div>
-                        <br>
-                        <p><b>오프라인 강의🚗</b></p>
-                        <div class="tab-content" id="home-6_tabsContent">
-                            <!-- Tab pane -->
-                            <div class="tab-pane fade show active" id="h6_tab_1" role="tabpanel"
-                                aria-labelledby="h3_tabnav_1">
-                                <div class="row g-3 g-lg-4">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                </div>
-                            </div>
-                            <!-- Tab Pane -->
-                            <div class="tab-pane fade" id="h6_tab_2" role="tabpanel" aria-labelledby="h3_tabnav_2">
-                                <div class="row g-3 g-lg-4">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                </div>
-                            </div>
-                            <!-- Tab Pane -->
-                            <div class="tab-pane fade" id="h6_tab_3" role="tabpanel" aria-labelledby="h3_tabnav_3">
-                                <div class="row g-3 g-lg-4">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                </div>
-                            </div>
-                            <!-- Tab Pane -->
-                            <div class="tab-pane fade" id="h6_tab_4" role="tabpanel" aria-labelledby="h3_tabnav_4">
-                                <div class="row g-3 g-lg-4">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3">
-                                        <div class="product-card-7">
-                                            <div class="product-card-image">
-                                                <div class="badge-ribbon">
-                                                    <span class="badge bg-danger">Sale</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-repeat"></i>
-                                                    </a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                        href="javascript:void(0)" class="btn btn-dark">
-                                                        <i class="fi-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            src="../../assets/img/grocery/1000x1000.jpg" title=""
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                </div>
-                                                <h6 class="product-title">
-                                                    <a href="#">Fine-knit sweater</a>
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary">$28.<small>50</small></span>
-                                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+                   
+                   
     <div>
     </div>
     <div>
 </div>
+
+<br>
+<br>
 </body>
 </html>

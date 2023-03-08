@@ -2,47 +2,63 @@ package co.yedam.silhyun.mypage.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MypageUserController {
    
-   @GetMapping("/mpgOrderList")
+   @GetMapping("/mpg/mpgOrderList")
    public String mpgOrderList() {
       
       return "mypageUser/mpgOrderList";
    }
    
-   @GetMapping("/mpgCouponList")
+   @GetMapping("/mpg/mpgCouponList")
    public String mpgCouponList() {
       
       return "mypageUser/mpgCouponList";
    }
    
-   @GetMapping("/mpgQstPage")
+   @GetMapping("/mpg/mpgQstPage")
    public String mpgQstPage() {
       
       return "mypageUser/mpgQstPage";
    }
 
-   @GetMapping("/mpgUser")
+   @GetMapping("/mpg/mpgUser")
    public String mpgUser() {
       
       return "mypageUser/mpgUser";
    }
 
-   @GetMapping("/mpgEditProfile")
+   @GetMapping("/mpg/mpgEditProfile")
    public String mpgEditProfile() {
       
       return "mypageUser/mpgEditProfile";
    }
    
-   @GetMapping("/silhyun/mpgCalendar")
+   @GetMapping("/mpg/mpgCalendar")
    public String mpgCalendar() {
       
       return "mypageUser/mpgCalendar";
    }
    
+   @GetMapping("/mpg/withdrawal")
+   public String withdrawal() {
+      
+      return "mypageUser/withdrawal";
+   }
    
+   @GetMapping("/mpg/checkPassword")
+   public String checkPassword() {
+	   
+	   return "mypageUser/checkPassword";
+   }
    
+   @GetMapping("/mpg/withdrawalComplete")
+   public String withdrawalComplete() {
+	   
+	   return "mypageUser/withdrawalComplete";
+   }
    
 }
