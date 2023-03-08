@@ -12,6 +12,7 @@ import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
 @Service
 public class ClassesServiceImpl implements ClassesService {
 
+	private static final String String = null;
 	@Autowired ClassesMapper ClassesMapper;
 	@Override
 	public List<Map<String, Object>> getClassIVInfo(String id, String Inum) {
@@ -27,7 +28,35 @@ public class ClassesServiceImpl implements ClassesService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> getCList(String fdCd) {
-		return ClassesMapper.getCList(fdCd);
+	public List<Map<String, Object>> getC1List() {
+		return ClassesMapper.getC1List();
 	}
+
+	@Override
+	public List<Map<String, Object>> getC2List() {
+		return ClassesMapper.getC2List();
+	}
+
+	@Override
+	public List<Map<String, Object>> getFC1List() {
+		return ClassesMapper.getFC1List();
+	}
+
+	@Override
+	public List<Map<String, Object>> getFC2List() {
+		return ClassesMapper.getFC2List();
+	}
+	
+	@Override
+	public List<Map<String, Object>> cdtC1List(int param1) {
+		System.out.println("서비스 자체는 실행됨");
+		return ClassesMapper.cdtC1List(param1);
+	}
+
+	@Override
+	public List<Map<String, Object>> cdtC2List(int param1) {
+		System.out.println("서비스 자체는 실행됨2");
+		return ClassesMapper.cdtC2List(param1);
+	}
+
 }
