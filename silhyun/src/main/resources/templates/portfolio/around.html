@@ -95,8 +95,8 @@
 
 								<div class="form">
 									<i class="bi-search"></i> <input type="text"
-										class="form-control form-input" placeholder="태그검색"> <span>
-										
+										class="form-control form-input" placeholder="태그검색"> <span id="text">
+										인스타그램 해시태그를 #사용해서 표현하면 자동으로 링크가 걸리도록 구현해 보세요.
 									</span>
 								</div>
 
@@ -634,6 +634,14 @@
 		}
 		
 	
+		
+		// 사용자가 입력한 텍스트에서 해시태그(#)를 찾아서 해시태그에 a링크 걸기.
+		const text = $('#text').html();
+		const regex = /#(\S+)/g;
+		const replaced = text.replace(regex, `<a href="/hashtag/$1">#$1</a>`);
+
+		// 대체된 텍스트로 교체합니다.
+		$('#text').html(replaced);
 		
 	
 		////////////////////모달~~~
