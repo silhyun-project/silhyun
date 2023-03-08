@@ -18,296 +18,97 @@
 <!-- CSS Template -->
 <link href="/css/theme.css" rel="stylesheet">
 <link href="/css/modal.css" rel="stylesheet">
+
 </head>
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
 
 <body>
 	<div layout:fragment="content">
-		<!-- 
-    ========================
-        Wrapper 
-    ========================
-    -->
-		<div class="wrapper">
-			<!-- heder height -->
-			<div class="header-height-bar"></div>
-			<!-- Header -->
 
-			<!-- End Header -->
-			<!-- 모달들어가는 버튼-->
-			<div class="btn-modal">hey</div>
-			<!-- 모달 시작 -->
-			<modal id="modal"> <!-- 모달배경 시작-->
-			<div class="modal-overlay">
-				<!-- 			모달찐내용컨테이너. -->
-				<div class="close-area">X</div>
-				<div class="modal-window">
-					<div class="modal-picture">
-						<img src="/img/brand/강훈.jpg">
+		<img class="img-fluid" src="/saveImg/portfolio/강훈1.jpg" title=""
+			alt="프로필사진자리~~~~" width="50%">
+
+
+
+		<div class="wrapper">
+			<div class="black-layer">
+				<div class="white-container">
+					<div class="left-box">
+						<div class="slider">
+							<img src="/saveImg/portfolio/강훈4.jpg" alt="image1"> 
+							<img src="/saveImg/portfolio/강훈4.jpg" alt="image2"> 
+							<img src="/saveImg/portfolio/강훈4.jpg" alt="image3"> 
+							<img src="/saveImg/portfolio/강훈4.jpg" alt="image4">
+						</div>
+						<div class="arrow prev"></div>
+						<div class="arrow next"></div>
 					</div>
-					<div class="modal-content">
-						<div class="modal-writer-info">작성자정보칸(작성자프로필사진+작성자아이디+팔로우버튼)fix</div>
-						<div class="modal-content-review">작성자가 쓴 포트폴리오 내용+댓글(내용+구분선+댓글리스트)스크롤바</div>
-						<div class="modal-heart-reviewInsert">하트랑 댓글쓰기버튼 + 조아요개수+글쓴날짜 +구분선+댈글쓰는 창 +게시버튼</div>
+					<div class="right-box">
+						<div class="top-section">
+							<img src="/saveImg/portfolio/강훈4.jpg" alt="small-image">
+							<p>Text content here</p>
+						</div>
+						<div class="middle-section">
+							<div class="scroll-box">
+								<p>Input content here</p>
+							</div>
+						</div>
+						<div class="bottom-section">
+							<input type="text" placeholder="Enter your value">
+							<button>Submit</button>
+						</div>
 					</div>
 				</div>
-				<!-- 			모달찐내용컨테이너. -->
 			</div>
-			<!-- 모달배경 끝--> 
-			</modal>
-			<!-- 모달 끝 -->
-			<!-- Footer -->
-
-			<!-- End Footer -->
 		</div>
-		<!-- 
-    ========================
-       End Wrapper 
-    ========================
-    -->
-		<!--     댓글js -->
 		<script>
-			$(document).ready(function() {
-				isShow = false; //변수 하나를 설정, 화면에 보이면 true, 보이지 않으면 false;
-				$('#btn1').click(function() {
-					if (isShow) { //보이니까 숨기고
-						isShow = false;
-						$('#popup').hide(); //요소를 안보이게 한다.
-						$('#btn1').text('답글 보기');
-					} else { //안보이니까 보이게 한다
-						isShow = true;
-						$('#popup').show(); //요소를 보이게 한다
-						$('#btn1').text('답글 숨기기');
-					}
-				})
-			})
-			
-			
-// 			태경이가알져눅
-class ActionBar extends React.Component {
-  constructor(){
-    super();
-    this.state = {
-      liked: false,
-      marked: false
-    }
-  }
+		$(document).ready(function() {
+			  // 이미지 슬라이더를 위한 변수 설정
+			  var slideIndex = 1;
+			  showSlides(slideIndex);
+			  
+			  // 왼쪽 이미지 슬라이더에 대한 함수
+			  function showSlides(n) {
+			    var i;
+			    var slides = $(".left-box .slider img");
+			    var dots = $(".left-box .dots span");
+			    if (n > slides.length) {
+			      slideIndex = 1;
+			    }
+			    if (n < 1) {
+			      slideIndex = slides.length;
+			    }
+			    for (i = 0; i < slides.length; i++) {
+			      slides[i].style.display = "none";
+			    }
+			    for (i = 0; i < dots.length; i++) {
+			      dots[i].className = dots[i].className.replace(" active", "");
+			    }
+			    slides[slideIndex - 1].style.display = "block";
+			    dots[slideIndex - 1].className += " active";
+			  }
 
-  toggleLike = () => {
-    let self = this;
-    this.props.like(!self.state.liked);
-    this.setState({liked: !self.state.liked});
-  }
-  
-  markPost = () => {
-    let self = this;
-    this.setState({marked: !self.state.marked});
-  }
-  
-  startComment = () => {
-    document.querySelector().focus(); 
-  }
-  
-  render(){
-    return (
-      <div className="card-action-bar">
-        <a onClick={this.toggleLike}><i className={ this.state.liked ? "fas fa-heart" : "far fa-heart" }/></a>
-        <a onClick={this.markPost}><i className={ this.state.marked ? "fas fa-bookmark" : "far fa-bookmark" }/></a>
-      </div>
-    )
-  }
-}
+			  // 다음 이미지 보기 버튼 클릭 이벤트
+			  $(".left-box .next").click(function() {
+			    slideIndex++;
+			    showSlides(slideIndex);
+			  });
 
-class LikeCounter extends React.Component {
-  render(){
-    return (
-      <div className="card-views">
-        <div className="card-view-count">{this.props.likes} likes</div>
-      </div>
-    );
-  }
-}
+			  // 이전 이미지 보기 버튼 클릭 이벤트
+			  $(".left-box .prev").click(function() {
+			    slideIndex--;
+			    showSlides(slideIndex);
+			  });
 
-class Comment extends React.Component {
-  render(){
-    return (
-      <>
-        <div className="comment">
-          <a className="user">{this.props.user}</a>
-          {this.props.comment}
-          <div className="timestamp">{this.props.timestamp}</div>
-        </div>
-      </>
-    ); 
-  }
-}
-
-class CommentBox extends React.Component {
-  constructor(){
-    super();
-    this.state = {
-      user: "codepen.person",
-      comment: null
-    }
-  }
-  
-  updateComment(e) {
-    this.setState({[e.target.name] : e.target.value});
-  }
-  
-  submitComment = () => {
-    let comment = {...this.state};
-    if(comment.comment !== null || comment.comment === ""){
-      this.props.submit(comment);
-      this.setState({comment: ""});
-    }
-  }
-  
-  render() {
-    let buttonClass = this.state.comment === null ||  this.state.comment === ""?  "" : "postable";
-    return (
-      <>
-        <input name="comment" placeholder="Add a comment..." value={this.state.comment} default="comment" onChange={ e => { this.updateComment(e) }}/>
-        <button className={buttonClass} onClick={this.submitComment}>Post</button>
-      </>
-    );
-  }
-}
-
-class CommentController extends React.Component {
-  render() {
-    return (
-      <>
-        <div className="poster-comment"></div>
-        <div className="post-comments">
-          {this.props.comments.map( (comment) => <Comment user={comment.user} comment={comment.comment} />)}
-        </div>
-      </>
-    ); 
-  }
-}
-
-class Card extends React.Component {
-  constructor(){
-    super();
-    this.state = {
-        likes: 0,
-        poster: {
-          name: "",
-          profile_picture: ""
-        },
-        image: "",
-        comments: []
-      }
-  }
-  
-  componentDidMount() {
-    this.setState({...this.props.postData});
-  }
-  
-  likeButton = (liked) => {
-    if (liked) {
-      this.setState({likes: this.state.likes + 1});
-    } else {
-      this.setState({likes: this.state.likes - 1});
-    }
-  }
-  
-  updateComments = (data) => {
-    console.log("updating comments"); 
-    let state = this.state;
-    console.log(data);
-    this.setState({comments: [data, ...state.comments]});
-  }
-
-  render(){
-    return(
-      <div className="card">
-        <div className="card-top">
-          <a className="card-poster-image-container">
-            <img className="user-pfp" src={this.state.poster.profile_picture}/>
-          </a>
-          <a className="card-poster-name">{this.state.poster.name}</a>
-        </div>
-        <div className="card-image-container">
-          <img src={this.state.image}></img>
-        </div>
-        <div className="card-middle">
-          <ActionBar like={this.likeButton}/>
-          <LikeCounter likes={this.state.likes} />
-          <CommentController comments={this.state.comments}/>
-        </div>
-        <div className="card-bottom">
-          <CommentBox submit={this.updateComments}/>
-        </div>
-      </div>
-    );
-  }
-}
-
-class App extends React.Component {
-  state = {
-    posts: [
-      {
-        likes: 100,
-        poster: {
-          name: "turtlegal",
-          profile_picture: "https://placeimg.com/100/100/animals"
-        },
-        image: "https://placeimg.com/650/650/animals/sepia?t=1564211187934",
-        comments: [
-          { user: "comment_dude", comment: "This is a good pic!" },
-          { user: "bruh.guy", comment: "Bruh, what is this picture?" }
-        ]
-      }
-    ]
-  }
-  render(){
-    return (
-      <>
-        <Card postData={this.state.posts[0]}/>
-      </>
-    );
-  }
-}
-
-ReactDOM.render(<App/>, document.getElementById('root'));
-
-
-////////////////////모달~~~
-const modal = document.getElementById("modal")
-
-
-function modalOn() {
-    modal.style.display = "flex"
-}
-function isModalOn() {
-    return modal.style.display === "flex"
-}
-function modalOff() {
-    modal.style.display = "none"
-}
-$('div .btn-modal').on('click',function(){
-	modalOn();
-	});//사진 클릭하면 모달창띄우기 함
-
-$('div .close-area').on('click',function(){
-	modalOff();
-	});//엑스누르면 모달창 닫기
-
-modal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("modal-overlay")) {
-        modalOff()
-    }
-})
-window.addEventListener("keyup", e => {
-    if(isModalOn() && e.key === "Escape") {
-        modalOff()
-    }
-})
-////////////////////모달~~~
-
-</script>
+			  // 오른쪽 하단 input 값 설정 및 확인 버튼 클릭 이벤트
+			  $(".bottom-section button").click(function() {
+			    var inputValue = $(".bottom-section input").val();
+			    $(".middle-section .scroll-box p").text(inputValue);
+			  });
+			});
+		</script>
 
 		<!-- script start -->
 		<!-- jquery -->

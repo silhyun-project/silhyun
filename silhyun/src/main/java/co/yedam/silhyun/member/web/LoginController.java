@@ -24,6 +24,11 @@ public class LoginController {
 		return "join/joinCompl";
 	}
 	
-
+	@GetMapping("/login/naver")
+	public String loginNaver(String code) {
+		System.out.println(code);
+		
+		return "home/home";
+	}
 
 }

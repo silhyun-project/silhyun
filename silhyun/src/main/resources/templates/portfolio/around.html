@@ -95,8 +95,8 @@
 
 								<div class="form">
 									<i class="bi-search"></i> <input type="text"
-										class="form-control form-input" placeholder="태그검색"> <span
-										class="left-pan"> <i class="bi-x-circle-fill"></i>
+										class="form-control form-input" placeholder="태그검색"> <span>
+										
 									</span>
 								</div>
 
@@ -104,7 +104,7 @@
 							<br>
 							<!-- 검색창 끝-->
 
-							<p class="michin-nom">[[${#lists.size(portfolioList)}]]</p>
+							<p class="michin-nom" display:none>[[${#lists.size(portfolioList)}]]</p>
 							<p class="michin-nom">[[${portfolioList[0]}]]</p>
 
 							<!-- 태그버튼 -->
@@ -171,15 +171,13 @@
 
 		<!-- 모달 시작 -->
 		<section class="product-details py-6">
-			<div class="container" id="modalContainer">
-				<div id="modal" class="modal-overlay">
+			<div class="container modalContainer">
+				<div class="modal modal-overlay">
 					<div class="close-area">X</div>
 					<div class="row align-items-start modal-window">
 						<!-- Product Gallery -->
 						<div
-							class="col-lg-6 lightbox-gallery sticky-lg-top sticky-lg-top-header"
-							id="modalPic">
-							<!-- 사진이 더 잇다면 슬라이드...? -->
+							class="col-lg-6 lightbox-gallery sticky-lg-top sticky-lg-top-header modalPic">
 							<div class="swiper swiper-container"
 								data-swiper-options='{
                   "slidesPerView": 1,
@@ -193,8 +191,8 @@
                     "prevEl": ".swiper-prev-01"
                   }
                 }'>
-								<div class="swiper-wrapper" id="slidePhoto">
-									<!-- 사진이랑 사진넘기는 버튼어쩌구 자리-->
+								<div class="swiper-wrapper slidePhoto">
+									<!-- 사진 및 사진넘기는 버튼어쩌구 자리-->
 								</div>
 							</div>
 
@@ -204,37 +202,27 @@
 						<div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0" id="modalCon">
 
 							<!-- 작가프로필 아이디 자리 시작-->
-							<div class="modalHeader">
-								<div class="d-flex review-box border-top mt-4 pt-4">
-									<div>
-										<div class="review-image">
-											<img class="img-fluid" src="/img/fashion/1000x1000.jpg"
-												title="" alt="프로필사진자리~~~~">
-										</div>
-									</div>
-									<div class="col ps-3">
-										<span><strong class="comNick">닉넴</strong></span>&nbsp;&nbsp; <span><button>follow</button></span>&nbsp;&nbsp;
-									</div>
-
-								</div>
-							</div>
+							<div class="modalHeader"></div>
 							<!-- 작가프로필 아이디 자리 끝-->
 							<!-- 내용 및 댓글 시작-->
-							<div id="modalConList">
-								<!-- 내용 붙이는 자리-->
-
-								<!-- 댓글리스트 시작-->
+							<div class="modalConList">
 								<div class="product-description"
 									style="overflow-y: scroll; height: 100%;">
-									<div class="d-flex review-box border-top mt-4 pt-4"
-										id="modalContentSit">
+
+									<div
+										class="d-flex review-box border-top mt-4 pt-4 modalContentSit">
 										<!-- 포트폴리오 내용 자리 -->
 									</div>
+
+									<hr>
+
 									<div class="col-lg-8 pe-lg-8">
 										<div class="products-brand pb-2">
 											<span>댓글</span>
 										</div>
 									</div>
+
+									<!-- 댓글자리 -->
 									<div class="d-flex review-box border-top mt-4 pt-4">
 										<div>
 											<div class="review-image">
@@ -296,23 +284,18 @@
 							<!-- 내용 및 댓글 끝-->
 							<div class="modalFooter">
 								<div class="product-detail-actions d-flex flex-wrap pt-3">
-
 									<div class="heart-icon">
 										<i class="bi bi-heart"></i>
 									</div>
 									<div class="repeat-icon">
 										<i class="bi bi-repeat"></i>
 									</div>
-
 								</div>
-								<div>
-									<div>
-										좋아요 <span>조아요개수~</span>
-									</div>
+								<div class="modalFooterInfo">
+									<!-- 좋아요 숫자랑 작성일 적는 칸 -->
 								</div>
-								<div>글작성일</div>
 
-								<!-- 										댓글작성폼 -->
+								<!-- 댓글작성폼 -->
 								<div class="mt-8 border p-4">
 									<form method="post">
 										<div class="row">
@@ -330,13 +313,8 @@
 										</div>
 									</form>
 								</div>
-								<!-- 										댓글작성폼 -->
+								<!-- 모달푸터끝 -->
 							</div>
-
-
-							<!-- More Details -->
-
-							<!-- End More Details -->
 
 						</div>
 						<!-- End Product Details -->
@@ -354,40 +332,216 @@
 		/*<![CDATA[*/
 			const portfolio = /*[[${portfolioList}]]*/
 			/*]]>*/
+			console.log('dkssudgktpdy')
 			console.log(portfolio);
- 				
+			var loginUserId = 'user2';
+			
+			
 		$("div#rowg-3").children().remove();//먼저 깔끔희~
 		StandLine(portfolio);//첫페이지 포트폴리오 리스트
 		recentStand(portfolio);//최신순
 		likeStand(portfolio);//조아용
 
- 		
+		//사진 클릭하해서 포트폴리오 번호 가져오기 ~>모달
+		$("div .col-sm-6.col-lg-3").click(function() {	
+			var portNum = $(this).children('div .portInfo').text(); 
 		
-		//태그별로 포트폴리오 리스트 가져오기.
-// 		for(i=0;i<$('div .layout-change').children().length;i++){
-//  			$('div .layout-change').children().eq(i).click(function(){
- 			
-//  			var tagCntn=$(this).children().text();
+		// 해당 번호 가진 배열 찾기
+			var selectedPortfolio = portfolio.find(function(findPortfolio) {
+				return findPortfolio.portNum === portNum;
+			});
+		//모달 들어갈자리에 기본 구성 만들어 화면에 붙여주기
+		//<모달들어갈자리1>
+		//	<오른쪽2>
+		//		<사진들어갈자리4></4>
+		//	</2>
+		//	<왼쪽3>
+		//		<5내용헤더></5>
+		//		<6내용중앙></6>
+		//		<7내용푸터></7>==>푸터는 하트하고 다 구성해두기.
+		//	</3>
+		//</1>
+		//모달 들어갈자리에 기본 구성 만들어 화면에 붙여주기
 		
-//  			$.ajax({
-//                       url: "/silhyun/aroundTagList",
-//                        type: "post",
-//                        data:JSON.stringify({tagCntn: tagCntn}),
-//                        contentType: "application/json"
-//                    })
-//                    .then(res => {
-//                    	console.log(res)
-                   	
-//                    	//이전에 리스트 먼저 지워주기
-//                     $("div#rowg-3").children().remove();	
-//                    	StandLine(res);
-//             		recentStand(res);
-//             		likeStand(res); 		                 
-//                    })
-//  			});//클릭펑션~~		
-// 		}//포문닫기
- 			
+		//화면 구성한 모달에 경우에 따른 하트 출력
+		$.ajax({
+			url: `/silhyun/isLiked/${loginUserId}/${portNum}`,
+		}).then(heart => {
+			//(처음화면)값이 있으면 찬하트
+			if (heart) {//값이 있으면 //첨에는 찬 하트 출력
+				if ($(".heart-icon").children().hasClass("bi-heart")) {
+					$(".heart-icon").children().removeClass("bi-heart").addClass("bi-heart-fill");
+				}
+			} else {//(값이 없으면) //첨에는 빈 하트 출력
+				if ($(".heart-icon").children().hasClass("bi-heart-fill")) {
+					$(".heart-icon").children().removeClass("bi-heart-fill").addClass("bi-heart");
+				}
+			}//else끝나는 구간
+		});//조아요 대잇나 확인 완.
+		////////////////////////////기본모달 구성 완료
+		
+		
+		
+		//해당 포트폴리오번호에 맞는 사진 리스트 가져와서 넣어주기 (((1)))시작
+			$.ajax({
+				url: `/silhyun/detailPortfolioPhoto/${portNum}`,
+				dataType: 'json',
+			})
+				.then(dataModalPhoto => {
+					$(".slidePhoto").empty();//이미있는 내용 지우기
+			
+					for (let i = 0; i < dataModalPhoto.length; i++) {
+						//사진 다 만들고 뒤에 슬라이드버튼 만들기
+						var modalPhoto = `<div class="swiper-slide">
+											<div class="bg-no-repeat bg-cover bg-center"
+												style="background-image: url(${dataModalPhoto[i].phoRt});">
+												<div class="container">
+													<div
+														class="row min-vh-85 align-items-center justify-content-center py-12">
 
+													</div>
+												</div>
+											</div>
+										</div>`
+						$(".slidePhoto").append(modalPhoto);//만든사진 붙이기
+					}
+					
+					//슬라이드버튼 추가
+					var modalSlideButton =`	<div class="swiper-arrow-style-01 swiper-next swiper-next-01">
+						<i class="bi-chevron-right"></i>
+					</div>
+					<div class="swiper-arrow-style-01 swiper-prev swiper-prev-01">
+						<i class="bi-chevron-left"></i>
+					</div>
+					<div class="swiper-pagination swiper-pagination-white"></div>`
+					
+					$(".slidePhoto").append(modalSlideButton);
+				});//해당 포트폴리오번호에 맞는 사진 리스트(((1)))끝 미완
+				
+				
+				
+				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))시작
+					var modalheader=`<div class="d-flex review-box border-top mt-4 pt-4">
+									<div>
+										<div class="review-image">
+											<img class="img-fluid" src="${selectedPortfolio.profile}"
+												title="" alt="프로필사진자리~~~~">
+										</div>
+									</div>
+									<div class="col ps-3">
+										<span><strong class="ptgName">${selectedPortfolio.ptgId}</strong></span>&nbsp;&nbsp; 
+										<span><button>follow</button></span>&nbsp;&nbsp;
+									</div>
+								</div>`											
+								$(".modalHeader").empty();
+								$(".modalHeader").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
+				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))끝
+				
+				
+				
+				//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))시작
+				
+				//해당 포트폴리오 쓴 내용 붙이는 거.
+				var modalContentSit = `<div>
+												<div class="review-image">
+													<img class="img-fluid" src="${selectedPortfolio.phoRt}"
+														title="" alt="작가프로필사진">
+												</div>
+											</div>
+											<div class="col ps-3">
+												<span><strong class="ptgName">${selectedPortfolio.ptgId}</strong></span>&nbsp;&nbsp;
+											</div>
+											<div>
+												<p>${selectedPortfolio.cntn}</p>
+												<div>
+													<i class="bi bi-heart-fill"></i>&nbsp;
+													<span><small class="likeCount">${selectedPortfolio.likes}</small></span>
+												</div>
+											</div>`
+
+				$(".modalContentSit").empty();
+				$(".modalContentSit").append(modalContentSit);
+				
+				//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
+				
+				
+				//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))끝
+				
+				//해당 포트폴리오 번호에 맞는 푸터 븥여주기(((4)))시작
+				var modalFooterInfo=`<p>
+									좋아요 <span>${selectedPortfolio.likes}</span>
+								</p>
+							<div>${selectedPortfolio.portDate}</div>작성`
+				$(".modalFooterInfo").empty();
+				$(".modalFooterInfo").append(modalFooterInfo);
+			
+				//해당 포트폴리오 번호에 맞는 푸터 븥여주기(((4)))끝
+				
+				
+				
+				
+				
+				//모달안에서 기능 ==1==하트 시작
+				
+				//모달 하트눌렀을 때 생기는 이벤트
+				$(".heart-icon").click(function() {
+					//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
+					var thisHeart = $(this).children();
+
+					if (thisHeart.hasClass("bi-heart")) {
+						//값 넣는 아작스
+						$.ajax({
+							type: 'POST',
+							url: '/silhyun/addLike',
+							data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
+							contentType: 'application/json',
+							success: function(result) {
+								thisHeart.removeClass("bi-heart").addClass("bi-heart-fill");//찬하트로바꾸기
+
+								//하트 숫자 바꾸기.
+								/*		var likeCountElement = thisHeart.closest('.product-detail').find('.likeCount');
+										likeCount = parseInt(likeCountElement.text());
+										likeCountElement.text(likeCount + 1);*/
+							},
+							error: function(xhr, status, error) {
+								console.log(error);
+								alert('좋아요 실패~');
+							}
+						});
+					} else {
+						//값 지우는 아작스
+						$.ajax({
+							url: '/silhyun/deleteLike',
+							type: 'POST',
+							data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
+							contentType: 'application/json',
+							headers: {
+								'X-HTTP-Method-Override': 'DELETE'
+							},
+							success: function(response) {
+								thisHeart.removeClass("bi-heart-fill").addClass("bi-heart");//빈하트로 바꾸기
+							},
+							error: function(error) {
+								console.log(error);
+								alert('조아요 삭제 실패~');
+							}
+						});
+					}//else부분
+				});//모달 하트눌렀을 때 생기는 이벤트
+				
+				//모달안에서 기능 ==1==하트 끝
+
+		
+		});//사진 클릭했을 때 생기는 이벤트 끝 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		//태그 5개만 가져오긔~~~~~~
 		$.ajax({
@@ -404,7 +558,7 @@
    			}
          });
 		
-		//그룹이벤트어쩌구 주기..........
+		//만든 태그 버튼에 그룹이벤트 주기.
 		$('div .layout-change').on('click','a',function(){//layout-change의 a태그에만 click펑션을 주기.//그룹이벤트
 			$('div .layout-change .active').removeClass('active');//active클래스만 없애기.
 			$(this).addClass('active')
@@ -424,18 +578,6 @@
             })
 		})
 	
-
-		//let list=[];
-		//list.push(tagCntn);
-		//$(document).ready(function(){
-		
-		
-		//});
- 				//$(document).ready(function(){
-		//사진정렬시켜서 붙이는 거...
-//  			});//document.ready
-
-
 
 	//포트폴리오 사진 리스트 불러오기~함수+포트폴리오 번호
 		function StandLine(aa){
@@ -495,37 +637,41 @@
 		
 	
 		////////////////////모달~~~
-		const modal = document.getElementById("modal")
-		
+		const modal = $(".modal");
 		
 		function modalOn() {
-		    modal.style.display = "flex"
+		    modal.css("display", "flex");
 		}
+		
 		function isModalOn() {
-		    return modal.style.display === "flex"
+		    return modal.css("display") === "flex";
 		}
+		
 		function modalOff() {
-		    modal.style.display = "none"
+		    modal.css("display", "none");
 		}
-		$('div .btn-modal').on('click',function(){
-			modalOn();
-			});//사진 클릭하면 모달창띄우기 함
-	
-		$('div .close-area').on('click',function(){
-			modalOff();
-			});//엑스누르면 모달창 닫기
-	
-		modal.addEventListener("click", e => {
-		    const evTarget = e.target
-		    if(evTarget.classList.contains("modal-overlay")) {
-		        modalOff()
+		
+		$('.btn-modal').on('click', function() {
+		    modalOn();
+		});
+		
+		$('.close-area').on('click', function() {
+		    modalOff();
+		});
+		
+		modal.on("click", function(e) {
+		    const evTarget = e.target;
+		    if ($(evTarget).hasClass("modal-overlay")) {
+		        modalOff();
 		    }
-		})
-		window.addEventListener("keyup", e => {
-		    if(isModalOn() && e.key === "Escape") {
-		        modalOff()
+		});
+		
+		$(window).on("keyup", function(e) {
+		    if (isModalOn() && e.key === "Escape") {
+		        modalOff();
 		    }
-		})
+		});
+				
 		////////////////////모달~~~
 
 		</script>
