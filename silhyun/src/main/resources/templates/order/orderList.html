@@ -14,10 +14,15 @@
     <title>결제까지왔다리</title>
     <script src="https://code.jquery.com/jquery-3.6.3.js"
         integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
-
+<script>
+  
+</script>
 <body>
     <div layout:fragment="content">
+    로그인 한 사람 : [[${session.id}]]
         <!-- Skippy & Prload -->
         <!-- skippy -->
         <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
@@ -47,8 +52,10 @@
             <!-- Main -->
             <main>
 
-                [[${reserVO}]]
-                [[${selectedOpVO}]]
+                [[${reserVO}]]<br>
+                [[${selectedOpVO}]]<br>
+                [[${optionsVO}]]<br>
+                [[${memInfo}]]/
 
                 <!-- Breadcrumb -->
                 <div class="py-3 bg-gray-100">
@@ -80,70 +87,14 @@
                                         <ul class="list-unstyled m-0 p-0">
                                             <li class="pb-3 mb-3 border-bottom">
                                                 <div class="row align-items-center">
-                                                    <div class="col-4 col-md-2 col-lg-2">
-                                                        <!-- Image -->
-                                                        <a href="#">
-                                                            <img class="img-fluid border"
-                                                                src="/img/fashion/1000x1000.jpg" alt="...">
-                                                        </a>
-                                                    </div>
+                                                   
                                                     <div class="col-8">
                                                         <!-- Title -->
                                                         <p class="mb-1">
-                                                            <a class="text-dark fw-500" href="#">Cotton floral print
-                                                                Dress</a>
-                                                            <span class="m-0 text-muted w-100 d-block">$40.00</span>
+                                                            <a class="text-dark fw-500 opTtl" href="#">[[${optionsVO.ttl}]]</a><br>
+                                                            <span class="m-0 text-muted w-100 d-block shotD" >[[${reserVO.shotDate}]]</span>
+                                                            <span class="m-0 text-muted w-100 d-block resP">[[${reserVO.resPri}]]</span>
                                                         </p>
-                                                        <!-- Remove -->
-                                                        <a class="small link-danger ms-auto" href="#!">
-                                                            <i class="bi bi-x"></i> Remove
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="pb-3 mb-3 border-bottom">
-                                                <div class="row align-items-center">
-                                                    <div class="col-4 col-md-2 col-lg-2">
-                                                        <!-- Image -->
-                                                        <a href="#">
-                                                            <img class="img-fluid border"
-                                                                src="/img/fashion/1000x1000.jpg" alt="...">
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <!-- Title -->
-                                                        <p class="mb-1">
-                                                            <a class="text-dark fw-500" href="#">Cotton floral print
-                                                                Dress</a>
-                                                            <span class="m-0 text-muted w-100 d-block">$40.00</span>
-                                                        </p>
-                                                        <!-- Remove -->
-                                                        <a class="small link-danger ms-auto" href="#!">
-                                                            <i class="bi bi-x"></i> Remove
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="pb-3 mb-3 border-bottom">
-                                                <div class="row align-items-center">
-                                                    <div class="col-4 col-md-2 col-lg-2">
-                                                        <!-- Image -->
-                                                        <a href="#">
-                                                            <img class="img-fluid border"
-                                                                src="/img/fashion/1000x1000.jpg" alt="...">
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <!-- Title -->
-                                                        <p class="mb-1">
-                                                            <a class="text-dark fw-500" href="#">Cotton floral print
-                                                                Dress</a>
-                                                            <span class="m-0 text-muted w-100 d-block">$40.00</span>
-                                                        </p>
-                                                        <!-- Remove -->
-                                                        <a class="small link-danger ms-auto" href="#!">
-                                                            <i class="bi bi-x"></i> Remove
-                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -151,24 +102,25 @@
                                         <ul class="list-unstyled m-0">
                                             <li class="d-flex justify-content-between align-items-center mb-2">
                                                 <h6 class="me-2 text-body">총 서비스 금액</h6><span
-                                                    class="text-end">얼마얼마</span>
+                                                    class="text-end resPri">[[${reserVO.resPri}]]</span>
                                             </li>
                                             <li class="d-flex justify-content-between align-items-center mb-2">
                                                 <h6 class="me-2 text-body">쿠폰 할인</h6><span
-                                                    class="text-end">-얼마얼마</span>
+                                                    class="text-end cpnPri">-</span>
                                             </li>
                                             <li class="d-flex justify-content-between align-items-center mb-2">
                                                 <h6 class="me-2 text-body">포인트 사용</h6><span
-                                                    class="text-end">-얼마얼마</span>
+                                                    class="text-end pointPri">-</span>
                                             </li>
                                             <li
                                                 class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
                                                 <h6 class="me-2">Total</h6><span
-                                                    class="text-end text-dark">얼마원</span>
+                                                    class="text-end text-dark totalM">얼마원</span>
                                             </li>
                                         </ul>
-                                        <label><input type="checkbox">주문 내용을 확인하였으며, 결제에 동의합니다(필수)</label>
-                                        <button style="margin-top: 10px;" type="submit" class="btn btn-primary w-100">결제하기</button>
+                                        <label class="form-check-label" for="chbox" >
+                                            <input type="checkbox" class="form-check-input" id="chbox" name="orderOK">&nbsp;&nbsp;<span class="text-danger">*</span> 주문 내용을 확인하였으며, 결제에 동의합니다.(필수)</label>
+                                        <button style="margin-top: 10px;" type="button" class="btn btn-primary w-100" onclick="requestPay()" disabled>결제하기</button>
                                     </div>
                                 </div>
                             </div>
@@ -180,86 +132,62 @@
                                     <div class="card-body" style="padding: 30px;">
                                         <ul class="list-unstyled">
                                             <li class="d-flex justify-content-between align-items-center mb-2">
-                                                <h6 class="me-2 text-body">쿠폰</h6>
+                                                <h6 class="me-2 text-body">🎁쿠폰</h6>
                                                 <div class="mb-3">
-                                                    <select class="form-select" required="">
+                                                    <select class="form-select" name="discount" required="">
                                                         <option value="">사용가능한 쿠폰</option>
-                                                        <option value="Australia">Australia</option>
-                                                        <option value="Australia">Australia</option>
+                                                        <option th:each="mem :${memInfo}" th:text="${mem.cntn}"
+                                                        th:value="${mem.discount}" th:selected="${mem.cpnNum}==${reserVO.cpnNum}">
+                                                       
                                                     </select>
                                                     <div class="invalid-feedback">Please choose your country!</div>
                                                 </div>
-                                            </li>
-                                            <div class="pt-2 pb-4">
+                                            </li><li>
+                                            <div class="pt-2 pb-3">
                                                 <div class="d-flex">
-                                                    <input type="text" name="promo" placeholder="사용할 포인트를 입력하세요"
-                                                        class="form-control form-control-sm">
-                                                    <button class="btn btn-primary btn-sm ms-2">Apply</button>
+                                                    <input type="text" placeholder="사용할 포인트를 입력하세요"
+                                                        class="form-control form-control-sm useP">
+                                                    <button type="button" class="btn btn-primary btn-sm ms-2 aapP">Apply</button>
                                                 </div>
                                             </div>
+                                        </li>
                                             <li class="d-flex justify-content-between align-items-center mb-2">
-                                                <h6 class="me-2 text-body">사용가능한 포인트</h6><span
-                                                    class="text-end">얼마얼마얼마</span>
+                                                <h6 class="me-2 text-body">💰사용가능한 포인트</h6><span
+                                                    class="text-end pointSum">원</span>
                                             </li>
 
                                         </ul>
                                     </div>
                                 </div>
-
+                                
                                 <div class="accordion accordion-alt pt-4" id="payment-methods">
                                     <div class="card mb-3 shadow-none border">
                                         <div class="card-header p-0 position-relative bg-transparent">
                                             <div class="form-check m-3" data-bs-toggle="collapse"
                                                 data-bs-target="#credit-card">
                                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault1" checked="">
+                                                    id="flexRadioDefault1" checked>
                                                 <label class="form-check-label h6 m-0 w-100 stretched-link"
                                                     for="flexRadioDefault1">
-                                                    결제 방법
+                                                    통합 결제
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="collapse show" id="credit-card" data-bs-parent="#payment-methods">
-                                            <div class="card-body p-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="cc-number">Card number</label>
-                                                    <input class="form-control" type="text" id="cc-number"
-                                                        data-format="card" placeholder="0000 0000 0000 0000">
-                                                </div>
-                                                <div class="g-2 row">
-                                                    <div class="col-7 form-group mb-1">
-                                                        <label class="form-label" for="cc-expiry">Expiry date</label>
-                                                        <input class="form-control" type="text" id="cc-expiry"
-                                                            data-format="date" placeholder="mm/yy">
-                                                    </div>
-                                                    <div class="col-5 form-group mb-1">
-                                                        <label class="form-label" for="cc-cvc">CVC</label>
-                                                        <input class="form-control" type="password" id="cc-cvc"
-                                                            data-format="cvc" placeholder="000">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="card shadow-none border">
+                                    <div class="card mb-3 shadow-none border">
                                         <div class="card-header p-0 position-relative bg-transparent">
-                                            <div class="form-check m-3 collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#paypal">
+                                            <div class="form-check m-3" data-bs-toggle="collapse"
+                                                data-bs-target="#credit-card">
                                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="paypal-radio1">
-                                                <label class="form-check-label h6 m-0 stretched-link"
-                                                    for="paypal-radio1">
-                                                    Paypal
+                                                    id="flexRadioDefault2">
+                                                <label class="form-check-label h6 m-0 w-100 stretched-link"
+                                                    for="flexRadioDefault2">
+                                                    무통장 입금
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="collapse" id="paypal" data-bs-parent="#payment-methods">
-                                            <div class="card-body p-3">
-                                                <p class="mb-0">By clicking on the button below you will be redirected
-                                                    to your PayPal account to complete the payment.</p>
-                                            </div>
-                                        </div>
                                     </div>
+                            
                                 </div>
                                 <div class="pt-4">
                                     <p class="m-0 pt-3">현금영수증(사업자지출증빙) / 신용카드 매입전표는  매입세액공제 사용이 불가능합니다.
@@ -299,6 +227,152 @@
         <script src="/js/custom.js"></script>
         <script src="/js/theme.js"></script>
         <!-- End script start -->
+        <script>
+            let opTtl = $('.text-dark.fw-500.opTtl').text().replace(',','')
+                function cutByMaxStr(str, maxLength) {  
+                if (str == undefined || str == null) {
+                    return '';
+                }
+
+                if (str.length > maxLength) {
+                    str = str.substring(0, maxLength) + '...'; 
+                    // str을 maxLength 길이만큼 자르고 '.....' 을 뒤에 붙인다
+                }
+                return str;
+                 }
+            let text = cutByMaxStr(opTtl,10)
+            console.log(text)
+            $('.text-dark.fw-500.opTtl').text(text)
+            let shotD = $('.m-0.text-muted.w-100.d-block.shotD').text()
+            console.log(shotD)
+            // function getFormatDate(date){
+            //     var year = date.getFullYear();              //yyyy
+            //     var month = (1 + date.getMonth());          //M
+            //     month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+            //     var day = date.getDate();                   //d
+            //     day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+            //     return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+            // }
+            // let test = getFormatDate(shotD)
+            // console.log(test)
+            
+            //사용가능한 포인트
+            let resp = $('.m-0.text-muted.w-100.d-block.resP').text()
+            let resp2=  Number(resp).toLocaleString()
+            let totalIng = $('.text-end.text-dark.totalM').text()
+              console.log(resp2)
+              $('.m-0.text-muted.w-100.d-block.resP').text(resp2+'원')
+              $('.text-end.resPri').text(resp2+'원')
+             
+              $('.text-end.text-dark.totalM').text(resp2+'원')  //총가격
+              //쿠폰 적용한 할인 금액
+             let discount = 0;
+             $('.form-select').on('change',function(){
+                 discount = $(this).val()
+                 console.log(discount)
+                 let cpnM = (parseInt(resp) * (parseInt(discount) * 0.01))
+                 console.log(resp2)
+                 console.log(cpnM)
+                
+                  $('.text-end.cpnPri').text('-'+Number(cpnM).toLocaleString()+'원')
+                  $('.text-end.text-dark.totalM').text(Number(resp-cpnM).toLocaleString()+'원') 
+                
+              })
+              //포인트 적용
+              
+              $('.aapP').on('click',function(){
+                  let useP = $('.useP').val()
+                  let SumP = $('.pointSum').text().replace(/[^0-9]/g,'')
+                  if(parseInt(SumP) > parseInt(useP)){
+                      $('.text-end.pointPri').text('-'+Number(useP).toLocaleString()+'원')
+                      $('.pointSum').text(Number(SumP-useP).toLocaleString()+'원')  //사용가능한 포인트
+                      
+                      //let realtotal = $('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,'') - Number(useP)
+                      let realtotal = $(totalIng).text().replace(/[^0-9]/g,'') - Number(useP)
+                      console.log(realtotal)
+                      $('.text-end.text-dark.totalM').text(Number(realtotal).toLocaleString()+'원')
+
+                  }else{
+                    alert('사용가능한 포인트를 초과하였습니다.')
+                    console.log($('.useP').val())
+                    $('.useP').val('')
+                  }
+            
+              })
+
+            //토탈 금액
+            //let totalPri = resp - cpnM - (SumP-useP)
+           // console.log(totalPri)
+            $('.text-end.text-dark.totalM').text()
+            
+            //체크박스 클릭해야지 결제버튼 클릭 가능
+            $(document).ready(function(){
+                $("#chbox").change(function(){
+                    if($("#chbox").is(":checked")){
+                        console.log("체크박스 체크했음");
+                        $('.btn.btn-primary.w-100').attr("disabled", false)
+                    }else{
+                        console.log("체크박스 체크 해제");
+                        $('.btn.btn-primary.w-100').attr("disabled", true)
+                    }
+                });
+            });
+
+              //결제
+    const IMP = window.IMP; // 생략 가능
+            IMP.init("imp42851556"); // 예: imp00000000a
+            function requestPay() {
+                IMP.request_pay({
+                pg: 'html5_inicis',
+                pay_method: "card",
+                //merchant_uid: "ORD20180131-00000",   // 주문번호 -> 매퍼에서 증가하도록
+                name: "노르웨이 ",
+                amount: 100,                         // 숫자 타입
+                buyer_email: "gildong@gmail.co",
+                buyer_name: "홍길",
+                buyer_tel: "010-4242-424",
+                buyer_addr: "서울특별시 강남구 신사",
+                buyer_postcode: "0111"
+                }, function (rsp) { // callback
+                if (rsp.success) {
+                    // 결제 성공 시 로직
+                    axios({
+                       // url: "{서버의 결제 정보를 받는 endpoint}",
+                       // method: "post",
+                       // headers: { "Content-Type": "application/json" },
+                       // data: {
+                       // imp_uid: rsp.imp_uid,
+                       // merchant_uid: rsp.merchant_uid
+                      //  }
+                    }).then((data) => {
+                        // 서버 결제 API 성공시 로직
+                    })
+                } else {
+                    // 결제 실패 시 로직
+                    alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+                }
+                 // 이전 단계에서 구현한 결제정보 사후 검증 API 호출
+                  //  const res = await axios({
+                  //  url: "/payments/complete",
+                  //  method: "post",
+                  //  headers: { "Content-Type": "application/json" }, 
+                  //  data: { imp_uid: "...", merchant_uid: "..." },
+                 //   });
+                   // switch (res.status) {
+                  //  case: "vbankIssued":
+                    // 가상계좌 발급 시 로직
+                   //     break;
+                   // case: "success":
+                    // 결제 성공 시 로직
+                  //      break;
+                  //  }
+                
+
+                });
+            }
+            
+            
+        </script>
     </div>
 </body>
 

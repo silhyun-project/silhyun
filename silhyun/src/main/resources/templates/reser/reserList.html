@@ -190,7 +190,6 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			font-size: larger;
 			font-weight: bolder;
 		}
-		
 	</style>
 </head>
 
@@ -212,11 +211,11 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 </div> -->
 		<!-- End Preload -->
 		<!-- Edn Skippy & Prload -->
-
+		로그인 한 사람 : [[${session.id}]]
 		<div class="wrapper">
 			<!-- heder height -->
 			<div class="header-height-bar"></div>
-				<div>[[${res[0]}]]</div>
+			<div>[[${res[0]}]]</div>
 			<!-- Main -->
 			<main>
 				<!-- Breadcrumb -->
@@ -261,8 +260,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 									<div class="card-header py-3 d-flex align-items-center">
 										<input class="form-check-input" type="checkbox" th:field="*{res}"
 											th:id="${resd.opNum}" th:value="${resd.ttl}">&nbsp;
-										<label class="form-check-label" th:for="${resd.opNum}"
-											th:text="${resd.ttl}" style="font-size: large;"></label>
+										<label class="form-check-label" th:for="${resd.opNum}" th:text="${resd.ttl}"
+											style="font-size: large;"></label>
 									</div>
 									<div class="card-body">
 										<span class="m-0">[[${resd.cntn}]]</span><br>
@@ -418,7 +417,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			<input type="hidden" name="shotDate" >
 			<input type="hidden" name="shotTime"> 
 			<input type="hidden" name="opNum">
-		
+			<input type="hidden" name="resPri">
+			<input type="hidden" name="ptgId" th:value="${res[0].ptgId}">
+			<input type="hidden" name="id" th:value="${session.id}">
+			<input type="hidden" name="ttl">
+			
+
 		
 		</form>
         </div>
@@ -519,7 +523,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		<script src="/js/theme.js"></script>
 		<!-- End script start -->
 		<script>
-
+		
             const init = {
               monList: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
                 'November', 'December'
@@ -661,12 +665,39 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 				$('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
 					e.stopPropagation()
 					if($('#selectDate') != null){  
-                        $('#selectDate').children().remove()
+						$('#selectDate').children().remove()
                     }
 					$('#selectDate').text($(this).attr('data-fdate'))
                     if( $('.product-description.timeTable') !=null){
-                        $('.product-description.timeTable').children().remove()
+						$('.product-description.timeTable').children().remove()
                     }
+
+					function leadingZeros(n, digits) {
+						var zero = '';
+						n = n.toString();
+						
+						if (n.length < digits) {
+							for (i = 0; i < digits - n.length; i++)
+							zero += '0';
+						}
+						return zero + n;
+					}	
+					
+					var clickD = $(this).attr('data-fdate').toString()
+					let nowD = new Date();
+						
+					if(clickD){
+						nowD = 
+							leadingZeros(nowD.getFullYear(), 4) + '-' +
+							leadingZeros(nowD.getMonth() + 1, 2) + '-' +
+							leadingZeros(nowD.getDate(), 2);
+						if(clickD < nowD){
+							// reloadTodo()
+							alert("예약날짜는 현재날짜보다 빠를수 없습니다.");
+						}
+						}	
+					
+					
 					
 					$('.product-description.timeTable').append(
                         `<div class="card">
@@ -718,13 +749,21 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		   $(function(){
 			chOpsToOrder()  //체크박스 클릭하면 선택내역으로 들어가도록
 			modalInfo()  // 모달에 고객 정보 담기
-			if($('.col-8.selectOP').next() == null)
+			if($('.col-8.selectOP').next() == null)   ///안됨
 				$('.btn.btn-primary.pd-cart-btn').prop("disabled", true)
 
 		   })
+
+		   $(document).ready(function(){
+                $("#chbox").change(function(){
+                    if($('.col-8.selectOP').next() == null)	
+					$('.btn.btn-primary.pd-cart-btn').prop("disabled", true)
+                });
+            });
 		   let totalMoney = Number(0);
 		   function chOpsToOrder(){
 			let ckOps =  $('.card input[type="checkbox"]');
+			let Array = [];
 			console.log(ckOps)
 			for(let ckOp of ckOps){
 				$(ckOp).on('click',function(){
@@ -745,8 +784,13 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						console.log(Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,'')).toLocaleString())
 						totalMoney += Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,''));
 						$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
-						$('input[name="opNum"]').val($(this).attr('id'))		//////////////////////////////////
 						
+						$('input[name="opNum"]').val($(this).attr('id'))		//////////////////////////////////
+						console.log('----장바구니테스트----')
+						console.log($(this).attr('id'))
+						Array.push($(this).attr('id'))
+						// $('input[name="resPri"]').val($('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString()))s
+
 						$('.col-8.selectOP').on('click','.small.link-danger.ms-auto',function(){
 							console.log('삭제버튼')
 							console.log($(this).parent())
@@ -757,12 +801,14 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 							$(ckOp).prop('checked',false)
 						})
 					}else if(ckOp.checked == false){
-					
-					console.log($(this).attr('id')+'_1')
-					document.getElementById($(this).attr('id')+'_1').remove()
-					totalMoney -= Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,''));
-					$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
-				}
+						console.log($(this).attr('id')+'_1')
+						document.getElementById($(this).attr('id')+'_1').remove()
+						totalMoney -= Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,''));
+						$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
+					}
+					console.log(Array)
+					//let num = Array.splice(',')
+					//console.log(num)
 			})
 			}
 		   }
@@ -772,10 +818,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			   $('.btn.btn-primary.pd-cart-btn').on('click',function(e){
 				   let reserDate = $('#selectDate').text()
 				   let reserTime = $('#selectTime').text()
-				   let resPri =$('.text-end.text-dark.totalMoney').text()
+				   let resPri =Number($('.text-end.text-dark.totalMoney').text().replace(/[^0-9]/g,''))
 				$('input[name="shotDate"]').val(reserDate)
 				$('input[name="shotTime"]').val(reserTime)
-			
+				console.log(typeof resPri)
+				console.log(resPri)
+				$('input[name="resPri"]').val(resPri)
 				
 				//예약 날짜, 예약 시간, 예약 옵션, 최종 가격
 				let reserArry = []
@@ -786,11 +834,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					console.log($(b).find('.selectOPNM').text())
 					reserArry.push($(b).find('.selectOPNM').text())
 				})
+				$('input[name="ttl"]').val(reserArry)
 				$(reserArry).each(function(idx,op){
 					
 					$('.small.letter-spacing-2.op').append(
 						`<h6 class="m-0 mt-1 reserOP">${op}</h6>`
-					).attr('id',$('.text-dark.fw-500'))
+						).attr('id',$('.text-dark.fw-500'))
 						//$('.reserTable').find('.reserOP').text(op)		
 					})
 				})
