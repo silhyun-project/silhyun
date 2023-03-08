@@ -67,7 +67,7 @@ WHERE c.cla_cd = 'CL2'
 
 <select id="cdtC2List" parameterType="int"  resultType="map">
     SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, c.cla_cnt as cnt, 
 case 
     when c.cla_time = '' then '시간미정'
     when TO_NUMBER(c.cla_time) <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
@@ -85,6 +85,36 @@ end as cTime,
 <if test="param1 == 1">and f.fd_cd IN ('B1','B4')</if>
 </select>
 
+
+<!-- 베스트 강의 페이지 -->
+<!-- 무료 강의 페이지 -->
+<select id="getBC1List" resultType="map">
+    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
+    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+    case 
+        when c.cla_time = '' then '시간미정'
+        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
+        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
+    end as cTime, 
+    COALESCE(f.fd_cd, '분류미정')as fCd
+    FROM class c 
+    LEFT OUTER JOIN member m ON c.ptg_id = m.id
+    LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+    WHERE c.cla_cd = 'CL1' and c.cla_pri = '0'
+</select>
+
+
+
+<select id="getBC2List" resultType="map">
+SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd
+FROM class c 
+LEFT OUTER JOIN member m ON c.ptg_id = m.id
+LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+WHERE c.cla_cd = 'CL2'and c.cla_pri = '0'
+</select>
 
 
 

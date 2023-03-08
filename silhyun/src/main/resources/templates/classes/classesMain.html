@@ -89,17 +89,16 @@
                     <div>
                         <p><b>온라인 강의💻</b></p>
                     </div>
+       <div class="row g-3 g-lg-4" id="onHere">
 
                     <div id="onDiv">
 
-
-
                         <div class="row g-3 g-lg-4" th:each="c2, sts : ${c2List}" th:Class="${sts}">
                             <!-- Product Box -->
-                            <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
-                                <div class="product-card-7">
-                                    <div class="product-card-image" style="width: 300px; height: 300px">
-                                        <div class="badge-ribbon">
+                              <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+                                    <div class="product-card-7">
+                                        <div class="product-card-image" style="width: 300px; height: 300px">
+                                            <div class="badge-ribbon">
                                             <!-- IF 해서 이 부분 이벤트 있으면 살리고 없으면 지우면 됨 -->
                                             <span class="badge bg-warning">BEST</span>
                                         </div>
@@ -146,6 +145,11 @@
                             </div>
                             <!-- End Product Box -->
                         </div>
+                        </div>
+                        
+                        
+                        
+                        
                     </div>
 
 
@@ -160,7 +164,7 @@
                     <!-- test용 div -->
 
                     <p class="ignore-tab"><b>오프라인 강의🚗</b></p>
-                    <div id="offHere">
+                    <div class="row g-3 g-lg-4" id="offHere">
 
                         <div class="offDiv">
 
@@ -236,93 +240,151 @@
                     
    <script th:inline="javascript"> 
 
-   function sendCdt(param1){ 
-	    $.ajax({
-	        url: "/silhyun/classes/cdtCList",
-	        type: 'GET',
-	        data: {param1 : param1},
-	        dataType: 'json',
-	    }).then(result => {
-	        var cdtC1List = result.cdtC1List;
-	        var cdtC2List = result.cdtC2List;
-	        
-	        console.log("cdtC1List: " + JSON.stringify(cdtC1List));
-	        console.log("cdtC2List: " + JSON.stringify(cdtC2List));
-	        // cdtC1List와 cdtC2List를 각각 사용하면 됨
-	        
-	        
-	        
-	        
-	        //기존 요소 div 지우고 
-	        	  document.getElementById("offDiv").remove();
-	        	  document.getElementById("onDiv").remove();
-	        	  
+   function sendCdt(param1) { 
+	   $.ajax({
+	     url: "/silhyun/classes/cdtCList",
+	     type: 'GET',
+	     data: {param1 : param1},
+	     dataType: 'json',
+	   }).then(result => {
+	     var cdtC1List = result.cdtC1List;
+	     var cdtC2List = result.cdtC2List;
 
-	        	  
-	        	  
-	        for (var i = 0; i < cdtC1List.length; i++) {
-	        	  var data = cdtC1List[i];
-	        	  console.log(data.CDT);
-	        	  console.log(data.CCD);
+	     console.log("cdtC1List: " + cdtC1List);
+	     console.log("cdtC2List: " + JSON.stringify(cdtC2List));
+	     // cdtC1List와 cdtC2List를 각각 사용하면 됨
 
-	        	  
-	        	  
-	        	  
-	        	  
-	        	  //기존요소 div가지고 있는 새 요소 생성 
-	         var appendOff = `
-	         
-	         <div class="offDiv">
-	         <a>하이</a>
-	             <ul class="nav nav-tabs nav-tabs-02 justify-content-center" id="home-6_tabs" role="tablist">
+	     //기존 요소 div 지우고 
+	     var offHere = document.getElementById("offHere");
+	     offHere.innerHTML = "";
 
+	     //날짜 형태 변경
+	     var options = { year: "numeric", month: "long", day: "numeric" };
 
-                 <li class="nav-item" role="presentation">
-                     <button class="nav-link active" id="h3_tabnav_5" data-bs-toggle="tab" data-bs-target="#h6_tab_5"
-                         type="button" role="tab" th:onclick="sendCdt(0)">전체</button>
-                 </li>
-
-
-                 <li class="nav-item" role="presentation">
-                     <button class="nav-link" id="h3_tabnav_1" data-bs-toggle="tab" data-bs-target="#h6_tab_1"
-                         type="button" role="tab" th:onclick="sendCdt(6)">프로필</button>
-                 </li>
-                 <li class="nav-item" role="presentation">
-                     <button class="nav-link" id="h3_tabnav_2" data-bs-toggle="tab" data-bs-target="#h6_tab_2"
-                         type="button" role="tab" aria-controls="h6_tab_2" th:onclick="sendCdt(7)">웨딩</button>
-                 </li>
-                 <li class="nav-item" role="presentation">
-                     <button class="nav-link" id="h3_tabnav_3" data-bs-toggle="tab" data-bs-target="#h6_tab_3"
-                         type="button" role="tab" aria-controls="h6_tab_3" th:onclick="sendCdt(9)">동물</button>
-                 </li>
-                 <li class="nav-item" role="presentation">
-                     <button class="nav-link" id="h3_tabnav_4" data-bs-toggle="tab" data-bs-target="#h6_tab_4"
-                         type="button" role="tab" aria-controls="h6_tab_4"
-                         th:onclick="sendCdt(1)">제품&인테리어&건축</button>
-                 </li>
-             </ul>
-	         
-	         </div>
-	         
-	         
-	         `; 
-	        	
-	         
+	     
+	     //cdtC1List를 위한 반복문
+	     for (var i = 0; i < cdtC1List.length; i++) {
+	       var cdtC1 = cdtC1List[i];
+	       //새 요소 생성 
+	       var appendOff = `
+	             <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+	               <div class="product-card-7">
+	                 <div class="product-card-image" style="width: 300px; height: 300px">
+	                   <div class="badge-ribbon">
+	                     <span class="badge bg-warning">BEST</span>
+	                   </div>
+	                   <div class="product-action">
+	                     <a href="#" class="btn btn-dark">
+	                       <i class="fi-heart"></i>
+	                     </a>
+	                   </div>
+	                   <div class="product-media">
+	                     <a href="#">
+	                       <img id="c1Thni" class="img-fluid" src="${cdtC1.THNI}" title="" alt="">
+	                     </a>
+	                   </div>
+	                   <div class="product-cart-btn">
+	                     <a class="btn btn-primary">
+	                       <i class="fi-eye"></i>
+	                       상세 보기
+	                     </a>
+	                   </div>
+	                 </div>
+	                 <div class="product-card-info">
+	                   <div class="rating-star text">
+	                     <i class="bi bi-star-fill active"></i>
+	                     <i class="bi bi-star-fill active"></i>
+	                     <i class="bi bi-star-fill active"></i>
+	                     <i class="bi bi-star-fill active"></i>
+	                     <i class="bi bi-star"></i>
+                                     <a id="c1Star">${cdtC1.STAR}</a>
+                                 </div>
+                                 <h6 class="product-title">
+                                     <a id="c1Ttl" href="/classesInfo">${cdtC1.TTL}</a>
+                                 </h6>
+                                 <div class="product-price">
+                                     <span id="c1Cpri" class="text-primary">${cdtC1.CPRI}</span><small>원</small>
+                                     <!-- 세일하면 할 거 
+                                         <del class="fs-sm text-muted">999999999<small>원</small></del>
+                                        -->
+                                 </div>
+                                 <a id="c1Name">${cdtC1.NAME}</a><br>
+                                 <a id="c1Cdt">${new Date(cdtC1.CDT).toLocaleDateString("ko-KR", options)}</a><br>
+                                     <a id = "c1PlTm">${cdtC1.CPLACE} / ${cdtC1.CTIME}</a>
+                                   </div>
+                           </div>
+                 </div> `; 
 	         //붙일 곳 찾아서 
-	         document.getElementById("offHere");
-	         
-	         
-	         offHere.innerHTML += appendOff;
-	         
-	         //appendHere.append(appendOff);
-	        	  
-	        	  
-	        	  
+	         document.getElementById("offHere").innerHTML += appendOff;  
 	        	}
  
+
+	     
+	     //기존 요소 div 지우고 
+	     var onHere = document.getElementById("onHere");
+	     onHere.innerHTML = "";
+	     
+	     //cdtC2List를 위한 반복문
+	     for (var i = 0; i < cdtC2List.length; i++) {
+	       var cdtC2 = cdtC2List[i];
+	       //새 요소 생성 
+	       var appendON = `
+               <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+               <div class="product-card-7">
+                   <div class="product-card-image" style="width: 300px; height: 300px">
+                       <div class="badge-ribbon">
+                       <!-- IF 해서 이 부분 이벤트 있으면 살리고 없으면 지우면 됨 -->
+                       <span class="badge bg-warning">BEST</span>
+                   </div>
+                   <div class="product-action">
+                       <a href="#" class="btn btn-dark">
+                           <i class="fi-heart"></i>
+                       </a>
+
+                   </div>
+                   <div class="product-media">
+                       <a href="#">
+                           <img class="img-fluid" src="${cdtC2.THNI}"  title="" alt="">
+                       </a>
+                   </div>
+                   <div class="product-cart-btn">
+                       <a class="btn btn-primary">
+                           <i class="fi-eye"></i>
+                           상세 보기
+                       </a>
+                   </div>
+               </div>
+               <div class="product-card-info">
+                   <div class="rating-star text">
+                       <i class="bi bi-star-fill active"></i>
+                       <i class="bi bi-star-fill active"></i>
+                       <i class="bi bi-star-fill active"></i>
+                       <i class="bi bi-star-fill active"></i>
+                       <i class="bi bi-star"></i>
+                       <a>${cdtC2.STAR}</a>
+                   </div>
+                   <h6 class="product-title">
+                       <a href="/classesInfo">${cdtC2.TTL}</a>
+                   </h6>
+                   <div class="product-price">
+                       <span class="text-primary">${cdtC2.CPRI}</span><small>원</small>
+                       <!-- 세일하면 할 거 
+                               <del class="fs-sm text-muted">999999999<small>원</small></del>
+                              -->
+                   </div>
+                   <a>${cdtC2.NAME}</a><br>
+                   <a>총 ${cdtC2.CNT}강</a>
+                          </div>
+           </div>
+       </div> 
+                 
+                 `; 
+	         //붙일 곳 찾아서 
+	         document.getElementById("onHere").innerHTML += appendON;  
+	        	}
 	        
 	    });
-	}
+	};
    
    
    
