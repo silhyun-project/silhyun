@@ -21,11 +21,11 @@ public interface MypageAoService {
 	int applyClass(ClassesVO vo); 	//클래스 신청
 	int insertOption(OptionsVO vo);	//작가 옵션설정
 	
-	//int updateMyPg()
 	int updateReserTime(List<ReserTimeVO> voList);	//작가 예약시간 수정설정
 	int updateReserTime(ReserTimeVO vo);	//작가 예약시간 수정
 
-	int deleteReserTime(String ptgId);	// 작가 예약시간정보 삭제
-	int insertReserTime(List<ReserTimeVO> voList );	//작가 예약시간 정보 삽입
+	int deleteReserTime(String id);	// 작가 예약시간정보 삭제
+	int insertReserTime(ReserTimeVO vo );	//작가 예약시간 정보 삽입
+
 	
 }
