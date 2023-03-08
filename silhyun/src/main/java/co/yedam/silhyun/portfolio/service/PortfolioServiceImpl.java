@@ -32,11 +32,6 @@ public class PortfolioServiceImpl implements PortfolioService {
 		portfolioMapper.deleteLike(like);
 	}
 	
-	@Override //포트폴리오클릭한거내용;
-	public List<PortfolioVO> detailPortfolio(String portNum) {
-		return portfolioMapper.detailPortfolio(portNum);
-	}
-	
 	@Override //포트폴리오클릭한거사진리스트;
 	public List<PortfolioVO> detailPortfolioPhoto(String portNum) {
 		return portfolioMapper.detailPortfolioPhoto(portNum);

@@ -35,12 +35,6 @@ public class PortfolioController {
 		return "portfolio/modalTest";
 	}
 	
-	@RequestMapping("/silhyun/detailPortfolio/{portNum}")//포트폴리오 디테일내용 가져오기.
-	@ResponseBody
-	public List<PortfolioVO> detailPort(Model model, PortfolioVO vo, @PathVariable String portNum) {
-		model.addAttribute("detailPortfolio", portfolioService.detailPortfolio(portNum));
-		return portfolioService.detailPortfolio(portNum);
-	}
 	
 	@RequestMapping("/silhyun/detailPortfolioPhoto/{portNum}")// 포트폴리오 번호당 디테일포토 가져오기.
 	@ResponseBody

@@ -20,7 +20,7 @@ public class PortfolioVO {
 	private Date portDate;
 	private String upSta;
 	private int likes;//조아요수
-	
+	private String profile;
 	
 	
 	

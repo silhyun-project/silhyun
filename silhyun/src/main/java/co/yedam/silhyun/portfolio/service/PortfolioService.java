@@ -14,7 +14,7 @@ public interface PortfolioService {
 
 	void removeLike(LikePhotoVO like);// 조아요 삭제하기
 
-	List<PortfolioVO> detailPortfolio(String portNum);//포트폴리오클릭한거내용/사진제외/모달용
+	
 	List<PortfolioVO> detailPortfolioPhoto(String portNum);//포트폴리오사진리스트/모달용
 	
 	List<PhotographerVO> portfolioPtg(String ptgId);//포트폴리오상세페이지작가정보

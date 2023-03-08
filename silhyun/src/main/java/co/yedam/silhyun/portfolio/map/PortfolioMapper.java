@@ -14,7 +14,7 @@ public interface PortfolioMapper {
 
 	void deleteLike(LikePhotoVO like);// 좋아요 삭제하기
 
-	List<PortfolioVO> detailPortfolio(String portNum);//모달포트폴리오클릭한거내용;
+
 	List<PortfolioVO> detailPortfolioPhoto(String portNum);//모달포트폴리오사진
 	
 	

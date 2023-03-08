@@ -6,7 +6,7 @@ var loginUserId = 'user2';
 
 console.log('호출');
 
-//포트폴리오 해당 작가 정보
+//포트폴리오 해당 작가 정보(프로필)
 $.ajax({
 	type: 'GET',
 	url: '/silhyun/portfolioptg/' + ptgId,
@@ -86,18 +86,18 @@ $.ajax({
 		console.log(xhr);
 	}
 });//해당작가정보
-
+//프로필 완.
 
 //해당작가포트폴리오리스트
 $.ajax({
 	type: 'GET',
 	url: '/silhyun/ptgPortfolioList/' + ptgId,
 	success: function(ptgPortList) {
-		console.log(ptgPortList);
+
 
 		$('#ptgPortList').empty();//포폴리스트 붙일 곳 깔끔희~~~
 		for (i = 0; i < ptgPortList.length; i++) {
-			var ptgPort = `<div class="col-6 image-container">
+			var ptgPort = `<div class="col-6 image-container btn-modal">
 								<div class='portInfo' style='display:none'>${ptgPortList[i].portNum}</div>
 									<a class="gallery-link" href="#"> <img
 										src="${ptgPortList[i].phoRt}" class="img-fluid"
@@ -108,14 +108,20 @@ $.ajax({
 									</a>
 								</div>`;
 			$('#ptgPortList').append(ptgPort);//포트폴리오 붙이기)
-		}//포트폴리오 리스트 붙이기 끝
+		}//포트폴리오 리스트 붙이기 끝 화면구성 끝~
 
 
 		//모달관련~
-		$(".col-6.image-container").click(function() {	//사진클릭하면 생기는 이벤트
+		$(".col-6.image-container.btn-modal").click(function() {	//사진클릭하면 생기는 이벤트
 			var portNum = $(this).children('div .portInfo').text(); //포트폴리오 번호 가져오기.
-			console.log(portNum);
 
+			// ptgPortList 배열에서 portNum 값이 portNum과 일치하는 객체를 찾는다.
+			var selectedPortfolio = ptgPortList.find(function(portfolio) {
+				return portfolio.portNum === portNum;
+			});
+
+			// 해당 객체를 사용하여 원하는 동작을 수행한다.
+			console.log(selectedPortfolio);
 
 			//해당 게시글 조아요 대잇나 확인 후 경우에 따른 하트 출력
 			$.ajax({
@@ -141,7 +147,6 @@ $.ajax({
 			})
 				.then(dataModalPhoto => {
 					console.log(dataModalPhoto)
-					$("#slidePhoto").empty();//이미있는 사진 지우기
 					var modalSlideButton = `	<div class="swiper-arrow-style-01 swiper-next swiper-next-01">
 										<i class="bi-chevron-right"></i>
 									</div>
@@ -149,8 +154,10 @@ $.ajax({
 										<i class="bi-chevron-left"></i>
 									</div>
 									<div class="swiper-pagination swiper-pagination-white"></div>`
+					$("#slidePhoto").empty();//이미있는 사진 지우기
 					for (let i = 0; i < dataModalPhoto.length; i++) {
 						const phoRt = dataModalPhoto[i].phoRt;//사진리스트 경로
+						console.log(phoRt)
 						// 슬라이드사진태그 생성
 						var modalPhoto = `<div class="swiper-slide">
 										<div class="bg-no-repeat bg-cover bg-center"
@@ -165,96 +172,82 @@ $.ajax({
 									</div>`
 						$("#slidePhoto").append(modalPhoto);//만든사진 붙이기
 					}
-					$("#slidePhoto").append(modalSlideButton);
+					$("#slidePhoto").append(modalSlideButton);//사진 다 붙이고 슬라이드 버튼 만들기.
 				});
 
 
-			//포트폴리오내용 모달~
-			$.ajax({
-				url: '/silhyun/detailPortfolio/' + portNum,
-				dataType: 'json',
-			})
-				.then(res => {
-					console.log(res)
-					console.log(res[0].ptgId)//작성자.
-					res[0].cntn;//내용		
-					var likeCount = res[0].likes;//조아요
-					res[0].phoNum;//대표사진 넘버		
-					res[0].phoRt;//포트폴리오대표사진경로	
-					res[0].portDate;//포트폴리오 쓴 날짜
-					//포트폴리오내용붙이기//작가사진은 고치기...
 
 
-					//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
-					var modalContentSit = `<div>
+
+			//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
+			var modalContentSit = `<div>
 												<div class="review-image">
-													<img class="img-fluid" src="${res[0].phoRt}"
+													<img class="img-fluid" src="${selectedPortfolio.phoRt}"
 														title="" alt="작가프로필사진자리~~~~">
 												</div>
 											</div>
 											<div class="col ps-3">
-												<span><strong class="comNick">${res[0].ptgId}</strong></span>&nbsp;&nbsp;
+												<span><strong class="comNick">${selectedPortfolio.ptgId}</strong></span>&nbsp;&nbsp;
 											</div>
 											<div>
-												<p>${res[0].cntn}</p>
+												<p>${selectedPortfolio.cntn}</p>
 												<div>
 													<i class="bi bi-heart-fill"></i>&nbsp;
-													<span><small class="likeCount">${likeCount}</small></span>
+													<span><small class="likeCount">likeCount</small></span>
 												</div>
 											</div>`
 
-					$("div #modalContentSit").empty();
-					$("div #modalContentSit").append(modalContentSit);
-					//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
+			$("div #modalContentSitP").empty();
+			$("div #modalContentSitP").append(modalContentSit);
+			//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
 
 
-					//모달 하트눌렀을 때 생기는 이벤트
-					$(".heart-icon").click(function() {
-						//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
-						var thisHeart = $(this).children();
+			//모달 하트눌렀을 때 생기는 이벤트
+			$(".heart-icon").click(function() {
+				//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
+				var thisHeart = $(this).children();
 
-						if (thisHeart.hasClass("bi-heart")) {
-							//값 넣는 아작스
-							$.ajax({
-								type: 'POST',
-								url: '/silhyun/addLike',
-								data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
-								contentType: 'application/json',
-								success: function(result) {
-									thisHeart.removeClass("bi-heart").addClass("bi-heart-fill");//찬하트로바꾸기
+				if (thisHeart.hasClass("bi-heart")) {
+					//값 넣는 아작스
+					$.ajax({
+						type: 'POST',
+						url: '/silhyun/addLike',
+						data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
+						contentType: 'application/json',
+						success: function(result) {
+							thisHeart.removeClass("bi-heart").addClass("bi-heart-fill");//찬하트로바꾸기
 
-									//하트 숫자 바꾸기.
-									/*		var likeCountElement = thisHeart.closest('.product-detail').find('.likeCount');
-											likeCount = parseInt(likeCountElement.text());
-											likeCountElement.text(likeCount + 1);*/
-								},
-								error: function(xhr, status, error) {
-									console.log(error);
-									alert('좋아요 실패~');
-								}
-							});
-						} else {
-							//값 지우는 아작스
-							$.ajax({
-								url: '/silhyun/deleteLike',
-								type: 'POST',
-								data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
-								contentType: 'application/json',
-								headers: {
-									'X-HTTP-Method-Override': 'DELETE'
-								},
-								success: function(response) {
-									thisHeart.removeClass("bi-heart-fill").addClass("bi-heart");//빈하트로 바꾸기
-								},
-								error: function(error) {
-									console.log(error);
-									alert('조아요 삭제 실패~');
-								}
-							});
-						}//else부분
-					});//모달 하트눌렀을 때 생기는 이벤트
+							//하트 숫자 바꾸기.
+							/*		var likeCountElement = thisHeart.closest('.product-detail').find('.likeCount');
+									likeCount = parseInt(likeCountElement.text());
+									likeCountElement.text(likeCount + 1);*/
+						},
+						error: function(xhr, status, error) {
+							console.log(error);
+							alert('좋아요 실패~');
+						}
+					});
+				} else {
+					//값 지우는 아작스
+					$.ajax({
+						url: '/silhyun/deleteLike',
+						type: 'POST',
+						data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
+						contentType: 'application/json',
+						headers: {
+							'X-HTTP-Method-Override': 'DELETE'
+						},
+						success: function(response) {
+							thisHeart.removeClass("bi-heart-fill").addClass("bi-heart");//빈하트로 바꾸기
+						},
+						error: function(error) {
+							console.log(error);
+							alert('조아요 삭제 실패~');
+						}
+					});
+				}//else부분
+			});//모달 하트눌렀을 때 생기는 이벤트
 
-				});//모달 내용쪽에 내용띄아주는 아작스
 		});//사진클릭햇을 때 생기는 이벤트
 		//모달관련 끝
 
@@ -265,14 +258,8 @@ $.ajax({
 	}
 });//해당작가필드
 
-
-
-
-
-
-
 ////////////////////모달~~~기능~~
-const modal = document.getElementById("modal")
+const modal = document.getElementById("modalP")
 
 
 function modalOn() {
@@ -304,4 +291,11 @@ window.addEventListener("keyup", e => {
 	}
 })
 		////////////////////모달~~~
+
+
+
+
+
+
+
 
