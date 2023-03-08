@@ -29,9 +29,9 @@ public class OAuthAttributes {
     private final String loginCd;
     private final String profile;
     
-    public static OAuthAttributes of(String registrationId, Map<String, Object> attributes) {
+    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
        // if("naver".equals(registrationId)) {
-            return ofNaver("id", attributes);
+            return ofNaver(userNameAttributeName, attributes);
         //}
 //        else {
 //            return ofKakao("id", attributes);
@@ -72,6 +72,7 @@ public class OAuthAttributes {
     			.genCd((String) response.get("gender"))
     			.email(email)
     			.tel((String) response.get("mobile"))
+    			.token((String) response.get("resultcode"))
     			.loginCd("M1")
     			.profile((String) response.get("profile_image"))
     			.build();
