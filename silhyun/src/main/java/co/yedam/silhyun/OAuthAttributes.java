@@ -31,7 +31,7 @@ public class OAuthAttributes {
     
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
        // if("naver".equals(registrationId)) {
-            return ofNaver(userNameAttributeName, attributes);
+            return ofNaver("id", attributes);
         //}
 //        else {
 //            return ofKakao("id", attributes);
@@ -54,6 +54,8 @@ public class OAuthAttributes {
 		java.util.Date birthDate = null;
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 		
+		String token = (String) attributes.get("resultcode");
+		
 		try {
 			birthDate = sdf.parse(birth);
 		} catch (ParseException e) {
@@ -72,8 +74,8 @@ public class OAuthAttributes {
     			.genCd((String) response.get("gender"))
     			.email(email)
     			.tel((String) response.get("mobile"))
-    			.token((String) response.get("resultcode"))
-    			.loginCd("M1")
+    			.token(token)
+    			.loginCd(loginCd)
     			.profile((String) response.get("profile_image"))
     			.build();
     }

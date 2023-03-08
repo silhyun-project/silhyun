@@ -37,6 +37,7 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
 		OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
 		UserVO user = saveOrUpdate(attributes);
+		System.out.println(user.getMemCd()+"출력이되나요?????????????????");
 		
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getMemCd())),
@@ -54,6 +55,8 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
         vo.setGenCd(attributes.getGenCd());
         vo.setLoginCd(attributes.getLoginCd());
         vo.setToken(attributes.getToken());
+        vo.setEmail(attributes.getEmail());
+        System.out.println(vo.getToken()+"토큰어케??????????");
         
         MemberVO mvo = new MemberVO();
 		UserVO uvo = new UserVO();
@@ -64,6 +67,10 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
 			uvo.setId(vo.getId());
 			uvo.setMemCd(vo.getMemCd());
 			uvo.setPwd(vo.getPwd());
+		}else {
+			uvo.setId(mvo.getId());
+			uvo.setMemCd(mvo.getMemCd());
+			uvo.setPwd(mvo.getPwd());
 		}
 
         return uvo;
