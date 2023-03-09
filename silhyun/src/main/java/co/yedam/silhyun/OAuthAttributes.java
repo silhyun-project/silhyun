@@ -6,31 +6,32 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import com.nimbusds.oauth2.sdk.id.ClientID;
 
 import lombok.Data;
 
 
 @Data
 public class OAuthAttributes {
-    private final Map<String, Object> attributes;
-    private final String nameAttributeKey;
-    private final String id;
-    private final String name;
-    private final String pwd;
-    private final Date birthDate;
-    private final String genCd;
-    private final String email;
-    private final String tel;
-    private final String token;
-    private final String reToken;
-    private final String loginCd;
-    private final String profile;
+    private Map<String, Object> attributes;
+    private String nameAttributeKey;
+    private String id;
+    private String name;
+    private String pwd;
+    private Date birthDate;
+    private String genCd;
+    private String email;
+    private String tel;
+    private String token;
+    private String reToken;
+    private String loginCd;
+    private String profile;
 
     
+    //생성자 생성
 	public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String id, String name, String pwd,
 			Date birthDate, String genCd, String email, String tel, String token, String reToken, String loginCd,
 			String profile) {
-		super();
 		this.attributes = attributes;
 		this.nameAttributeKey = nameAttributeKey;
 		this.id = id;
@@ -46,6 +47,10 @@ public class OAuthAttributes {
 		this.profile = profile;
 	}
 	
+	public OAuthAttributes() {
+		
+	}
+	
 
     
     // 해당 로그인인 서비스가 kakao인지 google인지 구분하여, 알맞게 매핑을 해주도록 합니다.
@@ -59,10 +64,10 @@ public class OAuthAttributes {
         
     }
     
+    //네이버 필드 값 넣어주기
     private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
     	Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-    	
-    	
+    
     	String loginCd = "LN";
     	String email = (String) response.get("email");
     	String id = "naver"+"_"+email.split("@")[0];
@@ -79,7 +84,6 @@ public class OAuthAttributes {
 		try {
 			birthDate = sdf.parse(birth);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -103,10 +107,13 @@ public class OAuthAttributes {
         		);
     }
     
+    
+    //카카오 필드값 넣어주기
     private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
         Map<String, Object> kakao_account = (Map<String, Object>) attributes.get("kakao_account");  // 카카오로 받은 데이터에서 계정 정보가 담긴 kakao_account 값을 꺼낸다.
         Map<String, Object> profile = (Map<String, Object>) kakao_account.get("profile");   // 마찬가지로 profile(nickname, image_url.. 등) 정보가 담긴 값을 꺼낸다.
 
+        
     	System.out.println(kakao_account);
     	String loginCd = "LK";
     	String email = (String) kakao_account.get("email");
@@ -148,9 +155,6 @@ public class OAuthAttributes {
     			,(String) profile.get("profile_image_url")
         		);
     }
-
-
-
 
 
     

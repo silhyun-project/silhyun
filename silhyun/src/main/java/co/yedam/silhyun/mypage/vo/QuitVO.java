@@ -11,5 +11,6 @@ public class QuitVO {
 	Date quitDate;
 	String quitCd;
 	String detaResn;
+	private String pwd;
 	
 }

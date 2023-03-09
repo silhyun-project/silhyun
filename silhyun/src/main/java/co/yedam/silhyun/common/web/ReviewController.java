@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +25,7 @@ import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.common.service.PhotoService;
 import co.yedam.silhyun.common.service.ReviewService;
 import co.yedam.silhyun.common.vo.ReviewVO;
+import co.yedam.silhyun.member.service.OAuthUserService;
 
 @Controller
 @CrossOrigin(value = "*")
@@ -46,6 +48,8 @@ public class ReviewController {
 			model.addAttribute("id", user.getId());
 			model.addAttribute("role", user.getRole());			
 		}
+		//model.addAttribute("clientId", oAuth2UserRequest.getClientRegistration().getClientId());
+		//model.addAttribute("callbackURL", oAuth2UserRequest.getClientRegistration().getRedirectUri());
 		return "review/test";
 	}
 	
