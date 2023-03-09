@@ -321,5 +321,30 @@
 	opacity: 1;
 }
 /* 포트폴리오 리스트 사진 마우스 올렸을 때 보이는 정보 끝 */
+/* 태그검색 */
+#text-container {
+	position: relative;
+}
 
+#aroundTagList {
+	position: absolute;
+	z-index: 20;
+	top: 100%;
+	left: 0;
+	width: 320px;
+	background-color: white;
+	border: 1px solid rgb(220, 220, 220, 0.9);
+	border-top: none;
+	list-style: none;
+	margin-top: 0;
+	padding-left: 10px;
+}
 
+#aroundTagList li {
+	margin: 10px
+}
+
+#aroundTagList li:hover {
+	font-weight: bold;
+	 text-decoration:underline;
+}
