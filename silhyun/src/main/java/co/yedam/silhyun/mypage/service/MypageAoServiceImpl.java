@@ -91,6 +91,7 @@ public class MypageAoServiceImpl implements MypageAoService {
 	@Override
 	public int updateProfileImage(MemberVO vo) {
 
+
 		return mypageAoMapper.updateProfileImage(vo);
 	}
 
@@ -104,6 +105,7 @@ public class MypageAoServiceImpl implements MypageAoService {
 	public List<ClassesVO> classList() {
 
 		return mypageAoMapper.classList();
+
 	}
 
 

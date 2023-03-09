@@ -188,8 +188,12 @@
 									</div>
 									 <div class="modal_image_upload_pr">	<!-- 파일 드랍 받을곳  -->
 										<div id="input_image" name="image" class="modal_image_upload_content">
+<<<<<<< HEAD
 											<p>파일을 올려주세요</p>
 											 
+=======
+										
+>>>>>>> refs/remotes/origin/hyelim
 										 </div>
         							</div>
         							<div style="width: 100%; text-align: center">
@@ -408,6 +412,7 @@
     const buttonAddProfile = document.getElementById("add_profile");
     buttonAddProfile.addEventListener("click", e => {
         modal.style.display = "flex";		//none->flex
+
         //document.body.style.overflowY = "hidden"; // 스크롤 없애기 필요는 없는데 일단 넣기
         
        // console.log(window.pageYOffset + " 위치"); // 스크롤 위치 보기
@@ -491,6 +496,7 @@
         let fd = new FormData()[0];
 
        // fd.append('profile', file);
+
         fd.append('image', image);
         fd.append('id', id);
 
