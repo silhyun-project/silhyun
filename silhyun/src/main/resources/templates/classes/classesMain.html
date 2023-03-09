@@ -88,6 +88,7 @@
 
                     <div>
                         <p><b>온라인 강의💻</b></p>
+                        <a id="onEmptyMsg"></a>
                     </div>
        <div class="row g-3 g-lg-4" id="onHere">
 
@@ -130,8 +131,17 @@
                                             <a th:text="${c2.STAR}"></a>
                                         </div>
                                         <h6 class="product-title">
-                                            <a href="/classesInfo" th:text="${c2.TTL}"></a>
-                                        </h6>
+<a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM}, id='catLove')}" th:text="${c2.TTL}"></a>
+</h6>
+                                        
+                                        <!-- 
+                                        
+                                        onclick='location.href="memberRegi.do?userName=33&userId=44";'
+<h6 class="product-title">
+    <a th:onclick="|location.href='@{/silhyun/classes/classesInfo(classNum=${c2.CLASSNUM}, id='catLove')}'|" th:text="${c2.TTL}"></a>
+</h6>
+                                         -->
+
                                         <div class="product-price">
                                             <span class="text-primary" th:text="${c2.CPRI}"></span><small>원</small>
                                             <!-- 세일하면 할 거 
@@ -154,7 +164,8 @@
 
 
 
-
+			<br>
+			<br>
 
                     <!-- 인라인 블록 줄바꿈용 -->
                     <p style="clear: both;"></p>
@@ -162,8 +173,10 @@
 
                     <!-- End Tab Content -->
                     <!-- test용 div -->
-
+					<div>
                     <p class="ignore-tab"><b>오프라인 강의🚗</b></p>
+                    <a id="offEmptyMsg"></a>
+					</div>
                     <div class="row g-3 g-lg-4" id="offHere">
 
                         <div class="offDiv">
@@ -261,7 +274,18 @@
 	     //날짜 형태 변경
 	     var options = { year: "numeric", month: "long", day: "numeric" };
 
+
 	     
+	     
+	     
+	     if (cdtC1List.length === 0){
+	    	 document.getElementById("offEmptyMsg");    	 
+	    	offEmptyMsg.text = "준비중입니다.";	 
+	    }
+	    else{
+	     
+	    	offEmptyMsg.text = "";	 
+	    	
 	     //cdtC1List를 위한 반복문
 	     for (var i = 0; i < cdtC1List.length; i++) {
 	       var cdtC1 = cdtC1List[i];
@@ -316,7 +340,7 @@
                  </div> `; 
 	         //붙일 곳 찾아서 
 	         document.getElementById("offHere").innerHTML += appendOff;  
-	        	}
+	        	}}
  
 
 	     
@@ -324,6 +348,13 @@
 	     var onHere = document.getElementById("onHere");
 	     onHere.innerHTML = "";
 	     
+	     if (cdtC2List.length === 0){
+	    	 document.getElementById("onEmptyMsg");    	 
+	    	onEmptyMsg.text = "준비중입니다.";	 
+	    }
+	    else{
+	    	onEmptyMsg.text = "";	 
+
 	     //cdtC2List를 위한 반복문
 	     for (var i = 0; i < cdtC2List.length; i++) {
 	       var cdtC2 = cdtC2List[i];
@@ -378,10 +409,11 @@
            </div>
        </div> 
                  
-                 `; 
+                 `
 	         //붙일 곳 찾아서 
 	         document.getElementById("onHere").innerHTML += appendON;  
-	        	}
+	        	}};
+	        	
 	        
 	    });
 	};

@@ -15,7 +15,7 @@
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
         else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
     end as cTime, 
-    COALESCE(f.fd_cd, '분류미정')as fCd
+    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
     FROM class c 
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
@@ -27,7 +27,8 @@
 
 <select id="getC2List" resultType="map">
 SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime,
+ COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
@@ -53,7 +54,7 @@ WHERE c.cla_cd = 'CL2'
 			    when TO_NUMBER(c.cla_time) <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
 			    else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
           end as cTime,
-          COALESCE(f.fd_cd, '분류미정')as fCd
+          COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
     FROM class c 
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f  ON c.ptg_id = f.ptg_id
@@ -73,7 +74,7 @@ case
     when TO_NUMBER(c.cla_time) <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
     else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
 end as cTime,
-    COALESCE(f.fd_cd, '분류미정')as fCd
+    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
     FROM class c 
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
@@ -96,7 +97,7 @@ end as cTime,
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
         else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
     end as cTime, 
-    COALESCE(f.fd_cd, '분류미정')as fCd
+    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
     FROM class c 
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
@@ -108,7 +109,8 @@ end as cTime,
 
 <select id="getBC2List" resultType="map">
 SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace,
+ COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
@@ -127,7 +129,7 @@ WHERE c.cla_cd = 'CL2'and c.cla_pri = '0'
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
         else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
     end as cTime, 
-    COALESCE(f.fd_cd, '분류미정')as fCd
+    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
     FROM class c 
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
@@ -139,13 +141,45 @@ WHERE c.cla_cd = 'CL2'and c.cla_pri = '0'
 
 <select id="getFC2List" resultType="map">
 SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace,
+ COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
 WHERE c.cla_cd = 'CL2'and c.cla_pri = '0'
 </select>
+
+
+
+
+
+
+
+
+<!-- 메인에서 강의클릭했을때 강의 상세페이지 -->
+<select id="selectClass" parameterType="String" resultType="co.yedam.silhyun.classes.vo.ClassesVO">
+select *
+from class 
+where class_num = #{classNum}
+</select>
+
+<!-- 강의 상세페이지에 함께 보낼 정보. 별점평균, 리뷰총수, 구입여부, 찜여부. 여부들은 숫자로 나오기때문에 숫자로 비교-->
+<select id="CPlusInfo" parameterType="java.util.Map" resultType="map">
+SELECT 
+    (SELECT AVG(star) FROM review WHERE ctgr_num = #{classNum}) AS "stAvg",
+    (SELECT COUNT(*) FROM review WHERE ctgr_num = #{classNum}) AS "rvCnt",
+    (SELECT itr FROM photographer WHERE ptg_id = (SELECT ptg_id FROM class WHERE class_num = #{classNum})) AS "itr",
+    (SELECT count(ctgr_num) FROM payment WHERE ctgr_num = #{classNum} AND id = #{id} AND ord_sta = 'Y') AS "buyYN",
+    (SELECT count(ctgr_num) FROM zzim WHERE ctgr_num = #{classNum} AND id = #{id} and ctgr ='C') AS "zzimYN"
+FROM DUAL
+</select>
+
+
+
+
+
+
 
 
 <!-- 수강중인 강의의 인강 리스트  -->
@@ -181,6 +215,7 @@ WHERE
     i.class_num = '2'
 ORDER BY i.inet_num
 </select>
+
 
 <!-- 수강중인 강의의 인강 비디오(1개 자세히) . classNum, inetNum, id 매개변수 3개 필요 -->
 
@@ -219,4 +254,6 @@ WHERE i.class_num = '2' AND i.inet_num = #{inetNum} AND (w.id = 'catLove' OR w.i
     WHEN MATCHED THEN
     UPDATE SET stw_time = #{stwTime}, ew_time = #{ewTime}, cumlw_time = cumlw_time + #{cumlwTime}
 </insert>
+
+
 </mapper>

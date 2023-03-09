@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.classes.service.ClassesService;
+import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
 
 @Controller
@@ -24,7 +25,7 @@ public class ClassesController {
 	private ClassesService ClassesService;
 	
 	//클래스 메인페이지. 클래스 리스트들을 보여줌
-	@RequestMapping("/silhyun/classes/classesMain")
+	@RequestMapping("/classes/classesMain")
 	public String classesMain(Model model) {
 		model.addAttribute("c1List", ClassesService.getC1List());
 		model.addAttribute("c2List", ClassesService.getC2List());
@@ -35,8 +36,18 @@ public class ClassesController {
 
 	
 	
-	@GetMapping("/classesInfo")
-	public String classesInfo() {
+	@RequestMapping("/silhyun/classes/classesInfo")
+	public String classesInfo(String classNum, String id, Model model) {
+
+		System.out.println("오긴했음 ");
+		System.out.println("컨트롤러로 온 classNum="+classNum+"id는="+id); //확인완료. 모두 잘 온다.
+		//클래스 개별정보
+		model.addAttribute("cInfo", ClassesService.selectClass(classNum));
+		
+		model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum, id));
+		
+		System.out.println("컨트롤러로 온 모델"+model);
+		
 		return "/classes/classesInfo";
 	}
 	
