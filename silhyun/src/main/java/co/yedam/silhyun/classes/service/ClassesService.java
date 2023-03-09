@@ -8,7 +8,7 @@ import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
 
 public interface ClassesService {
 
-	List<Map<String, Object>> getClassIVInfo(String id, String Inum);
+	List<Map<String, Object>> getClassIVInfo(String id, String classNum);
 	
 	Map<String, Object> selectIV(String classNum, String inetNum, String id);
 
@@ -33,4 +33,6 @@ public interface ClassesService {
 	
 	//클래스 개별정보와 함께 보낼 부가 정보
 	Map<String, Object> CPlusInfo(String classNum, String id);
+	
+	List<Map<String, Object>> randomList(String classNum);
 }
