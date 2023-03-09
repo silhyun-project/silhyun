@@ -14,7 +14,7 @@
 	<if test="rcomr != null and rcomr != ''">, rcomr</if>
 	<if test="token != null and token != ''">, token</if>
 	<if test="reToken != null and reToken != ''">, re_token</if>
-	, login_cd)
+	, login_cd, profile)
 	values
 	(#{id}, #{pwd}, #{name}, #{tel}, #{email}, #{birthDate}, #{genCd}
 	<if test="rcomr != null and rcomr != ''">, #{rcomr}</if>
@@ -24,6 +24,7 @@
 		<when test="loginCd == null and loginCd == ''">,'LP' </when>
 		<otherwise> ,#{loginCd} </otherwise>
 	</choose>
+	,#{profile}
 	)
 </insert>
 
