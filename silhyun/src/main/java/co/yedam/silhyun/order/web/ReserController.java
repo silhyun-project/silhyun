@@ -1,6 +1,8 @@
 package co.yedam.silhyun.order.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -136,10 +138,29 @@ public class ReserController {
 	@ResponseBody
 	public ReserVO reserInsert(@RequestBody ReserVO rvo, PaymentVO pvo) {//@RequestBody
 		System.out.println(rvo.getPtgId()+"ddddddddddddddd");
+		String resNum = orderService.reserInsert(rvo);
+		String ctgrNum = orderService.reserInsert(rvo);
 		String id = orderService.reserInsert(rvo);
-		rvo.setCtgrNum(rvo.getResNum());
+		String uCpNum = orderService.reserInsert(rvo);
+//		int uPoint = orderService.reserInsert(rvo);
+//		int paymPri = orderService.reserInsert(rvo);
+//		int ordPri = orderService.reserInsert(rvo);
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put(uCpNum, uCpNum);
+//		map.put(ctgrNum, ctgrNum);
+//		map.put(id, id);
+//		map.put(resNum, resNum);
+//		//map.put(uPoint, uPoint);
+//		List<String >
+//		for(ReserVO item : rvo) {
+//			
+//		}
+		
+		System.out.println("여기는 예약 insert resNum=>"+resNum);  //정상적으로 넘어옴 
+		System.out.println("rvo에 담겼니 =>"+rvo);
+		//rvo.setCtgrNum(rvo.getResNum());
 		//orderService.reserInsert(rvo);
-		paymentService.paymentInsert(pvo,id);
+		paymentService.paymentInsert(pvo,resNum,ctgrNum,id);
 		return rvo;
 	}
 	

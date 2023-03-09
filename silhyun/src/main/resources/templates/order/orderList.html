@@ -313,7 +313,8 @@
             //let totalPri = resp - cpnM - (SumP-useP)
            // console.log(totalPri)
            let paymPri = Number(0)  //총금액
-           
+           let uPoint = Number(0)
+           let uCpNum = null;
            //체크박스 클릭해야지 결제버튼 클릭 가능
            $(document).ready(function(){
                $("#chbox").change(function(){
@@ -322,6 +323,10 @@
                        $('.btn.btn-primary.w-100').attr("disabled", false)
                        paymPri=  Number($('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,''))
                      
+                       uPoint = Number($('.useP').val())
+                    
+                     uCpNum = $('.dis :selected').attr('id')
+                       
                       // return paymPri
                     }else{
                         console.log("체크박스 체크 해제");
@@ -337,15 +342,14 @@
             let shotDate = $('input[name="shotDate"]').val()       
             let ptgId = $('input[name="ptgId"]').val()       
             let shotTime = $('input[name="shotTime"]').val()     
-            let uCpNum = $('.dis :selected').attr('id')
-            let uPoint = Number($('.useP').val())
+           
+           // let uPoint = Number($('.useP').val())
             let ordPri = Number($('.text-end.resPri').text().replace(/[^0-9]/g,''))
             //let resPri = paymPri 
             console.log(id,shotDate,ptgId,shotTime,paymPri)   
             console.log(paymPri)  
             console.log(uCpNum)
             console.log(uPoint,ordPri)
-            
             //결제 테이블에 insert되는 데이터 
             let opNum = $('input[name="opNum"]').val()       
             
@@ -391,6 +395,7 @@
                             ptgId:ptgId,
                             shotTime:shotTime,
                             resPri:paymPri,
+                            
                             ctgrNum:ptgId,
                             uCpNum:uCpNum,
                             uPoint:uPoint,

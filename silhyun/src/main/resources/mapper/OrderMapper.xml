@@ -16,8 +16,12 @@
 	SELECT NVL(MAX(TO_NUMBER(RES_NUM)),0) +1 AS "resNum"
 	FROM RESER
 	</selectKey>
-	INSERT INTO RESER
+		
+	INSERT all INTO RESER
 		VALUES(#{resNum}, #{ptgId}, #{shotDate}, #{id}, #{shotTime}, sysdate, 'R1','Y',#{resPri}, null)
+<!-- 		INTO PAYMENT -->
+<!-- 		VALUES(#{ordNum},'A',#{ctgrNum},#{id},#{resNum},'TO',#{uCpNum},#{uPoint},'Y',sysdate, #{paymPri},#{ordPri}) -->
+<!-- 		select * from duar -->
 </insert>
 
 
