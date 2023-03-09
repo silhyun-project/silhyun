@@ -95,17 +95,14 @@
 
 								<div class="form">
 									<i class="bi-search"></i> <input type="text"
-										class="form-control form-input" placeholder="태그검색"> <span id="text">
-										인스타그램 해시태그를 #사용해서 표현하면 자동으로 링크가 걸리도록 구현해 보세요.
-									</span>
+										class="form-control form-input" id="aroundTagSearch"
+										placeholder="태그검색">
+									<ul id="aroundTagList"></ul>
 								</div>
-
 							</div>
 							<br>
 							<!-- 검색창 끝-->
 
-							<p class="michin-nom" display:none>[[${#lists.size(portfolioList)}]]</p>
-							<p class="michin-nom">[[${portfolioList[0]}]]</p>
 
 							<!-- 태그버튼 -->
 							<div class="shop-top-bar d-flex pb-3">
@@ -206,14 +203,11 @@
 							<!-- 작가프로필 아이디 자리 끝-->
 							<!-- 내용 및 댓글 시작-->
 							<div class="modalConList">
-								<div class="product-description"
-									style="overflow-y: scroll; height: 100%;">
+								<div class="product-description" style="overflow-y: scroll; height: 100%;">
 
-									<div
-										class="d-flex review-box border-top mt-4 pt-4 modalContentSit">
+									<div class="d-flex review-box border-top mt-4 pt-4 modalContentSit">
 										<!-- 포트폴리오 내용 자리 -->
 									</div>
-
 									<hr>
 
 									<div class="col-lg-8 pe-lg-8">
@@ -329,6 +323,9 @@
 		<!-- js -->
 		<!-- 		포트폴리오리스트띄우는 -->
 		<script th:inline="javascript">
+		
+		var loginUserId = 'user2';
+		
 		/*<![CDATA[*/
 			const portfolio = /*[[${portfolioList}]]*/
 			/*]]>*/
@@ -552,7 +549,7 @@
          .then(data => {
    			for(i=0; i<5 && i<data.length; i++){
          	var taag=`<a class="btn btn-sm" href="#" align="center"> <i
-				class="">${data[i].tagCntn}</i>
+				class="bi-hash">${data[i].tagCntn}</i>
 				</a> `
         	$('div .layout-change').append(taag);
    			}

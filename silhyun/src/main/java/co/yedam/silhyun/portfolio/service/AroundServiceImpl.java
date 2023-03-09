@@ -32,7 +32,7 @@ public class AroundServiceImpl implements AroundService {
 		return  aroundMapper.tagList();
 	}
 
-	@Override
+	@Override //태그 ul만들기
 	public List<String> searchTags(String tag) {
 		// TODO Auto-generated method stub
 		return aroundMapper.searchTags(tag);
