@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.silhyun.mypage.map.PointMapper">
+<insert id="pointInsert">
+	insert all
+	into point (po_num, id, save_po, save_date
+	           <if test="saveNum == null and saveNum == ''">, save_num</if>)
+	values(#{poNum}, #{id}, #{savePo}, sysdate
+		 <if test="saveNum == null and saveNum == ''">, #{saveNum}</if>)
+</insert>
+<delete id="pointDelete">
+
+</delete>
+<delete id="pointSumUpdate">
+
+</delete>
+
+</mapper>
