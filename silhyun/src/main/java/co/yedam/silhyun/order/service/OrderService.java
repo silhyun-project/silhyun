@@ -7,4 +7,6 @@ import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface OrderService {
 	List<ReserVO> getMemberInfoList(ReserVO vo);
+	//String reserInsert(ReserVO vo);
+	String reserInsert(ReserVO vo);
 }

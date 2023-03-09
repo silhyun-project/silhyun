@@ -7,4 +7,5 @@ import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface OrderMapper {
 	List<ReserVO> getMemberInfoList(ReserVO vo);
+	int reserInsert(ReserVO vo);  //예약 테이블 등록
 }

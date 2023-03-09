@@ -211,7 +211,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 </div> -->
 		<!-- End Preload -->
 		<!-- Edn Skippy & Prload -->
-		로그인 한 사람 : [[${session.id}]]
+		로그인 한 사람 : [[${id}]]
 		<div class="wrapper">
 			<!-- heder height -->
 			<div class="header-height-bar"></div>
@@ -419,7 +419,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			<input type="hidden" name="opNum">
 			<input type="hidden" name="resPri">
 			<input type="hidden" name="ptgId" th:value="${res[0].ptgId}">
-			<input type="hidden" name="id" th:value="${session.id}">
+			<input type="hidden" name="id" th:value="${id}">
 			<input type="hidden" name="ttl">
 			
 
@@ -718,14 +718,15 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					}).then(result =>{
 						//console.log(result)
 						$(result).each(function(idx,item){
+							console.log(result)
 							//console.log(item.resyn)
-							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}">${item.rest}</button>`
+							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}" timeCD="${item.resTime}" >${item.rest}</button>`
 							$('.card-body.time').append(cdNameBtn)
 								})
 							//console.log($('.btn.btn-primary.timeList'))
 							$('.btn.btn-primary.timeList').each(function(a,b){
 								//console.log($(b))
-								if($(b).attr('id') == '1'){
+								if($(b).attr('id').replace(/[^0-9]/g,'') == '1'){
 									$(b).prop("disabled", true)
 										//console.log('비활')
 									}
@@ -741,7 +742,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             if($('#selectTime') != null){  
                 $('#selectTime').children().remove()
             }
-            $('#selectTime').text($(this).text())
+            $('#selectTime').text($(this).text()).attr('timeCD',$(this).attr('timeCD'))
 			$('.product-description.timeTable').children().remove()
             // $('.product-description.timeTable').remove()
 			
@@ -806,11 +807,13 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						totalMoney -= Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,''));
 						$('.text-end.text-dark.totalMoney').text(totalMoney.toLocaleString())
 					}
-					console.log(Array)
+					
+					//console.log(Array)
 					//let num = Array.splice(',')
 					//console.log(num)
-			})
+				})
 			}
+
 		   }
 		  
 		   //예약 버튼 누르면 모달창에 정보 담기 
@@ -818,9 +821,10 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			   $('.btn.btn-primary.pd-cart-btn').on('click',function(e){
 				   let reserDate = $('#selectDate').text()
 				   let reserTime = $('#selectTime').text()
+				  
 				   let resPri =Number($('.text-end.text-dark.totalMoney').text().replace(/[^0-9]/g,''))
 				$('input[name="shotDate"]').val(reserDate)
-				$('input[name="shotTime"]').val(reserTime)
+				$('input[name="shotTime"]').val($('#selectTime').attr('timeCD'))
 				console.log(typeof resPri)
 				console.log(resPri)
 				$('input[name="resPri"]').val(resPri)
