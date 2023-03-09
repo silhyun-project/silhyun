@@ -681,9 +681,9 @@ background-color: #b96f4a;
 					                <li><a th:href="@{/admin/dashBoard}">관리자</a></li>
 					                <li><a href="#">포트폴리오</a></li>
 					                <li><a href="/mypageAo">마이페이지</a></li>
-					                <li><a href="/silhyun/joinForm">회원가입</a></li>
-					                <li><a href="/login" th:if='${id} eq null'>로그인</a></li>
-					                <li><a href="/logout" th:if='${id} neq null'>로그아웃</a></li>
+					                <li><a href="/silhyun/joinForm" th:if='${id} eq null'>회원가입</a></li>
+					                <li><a href="/login" th:if='${id} eq null'>로그인</a>
+					                <a href="/logout" th:if='${id} neq null'>로그아웃</a></li>
 					            </ul>
 
                         <!-- Mobile Toggle -->

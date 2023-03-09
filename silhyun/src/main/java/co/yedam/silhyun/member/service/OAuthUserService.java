@@ -34,7 +34,7 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
         OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(oAuth2UserRequest);
-
+        
         // 현재 진행중인 서비스를 구분하기 위해 문자열로 받음. oAuth2UserRequest.getClientRegistration().getRegistrationId()에 값이 들어있다. {registrationId='naver'} 이런식으로
         String registrationId = oAuth2UserRequest.getClientRegistration().getRegistrationId();
 
@@ -44,10 +44,12 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
 	// OAuth2 로그인을 통해 가져온 OAuth2User의 attribute를 담아주는 of 메소드.
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
+        //밑의 함수에 담기
 		UserVO user = saveOrUpdate(attributes);
+		
+		//세션보에 담기
 		httpSession.setAttribute("user", new SessionUser(user));
 		
-		System.out.println(attributes.getAttributes()+ "ddfsssssssss");
 		
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getMemCd()))
                 , attributes.getAttributes()
@@ -55,6 +57,7 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
 	}
 	
     private UserVO saveOrUpdate(OAuthAttributes attributes) {
+    	//보에 담아서 인써트
         MemberVO vo = new MemberVO();
         vo.setId(attributes.getId());
         vo.setPwd(attributes.getPwd());
@@ -66,7 +69,6 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
         vo.setToken(attributes.getToken());
         vo.setEmail(attributes.getEmail());
         vo.setProfile(attributes.getProfile());
-        System.out.println(attributes.getProfile()+"ddddddddddddddddddddddddd>????????");
         
         MemberVO mvo = new MemberVO();
 		UserVO uvo = new UserVO();
@@ -78,6 +80,7 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
 			uvo.setMemCd(vo.getMemCd());
 			uvo.setPwd(vo.getPwd());
 		}else {
+			//디비에 값이있음 uvo에만 담아준다.
 			uvo.setId(mvo.getId());
 			uvo.setMemCd(mvo.getMemCd());
 			uvo.setPwd(mvo.getPwd());

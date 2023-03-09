@@ -12,8 +12,12 @@ import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface MypageAoService {
-	List<ReserVO> getReserList();//전체조회
+	List<ReserVO> getReserList();//예약전체조회
+	List<ClassesVO> classList();//클래스 관리 정보 
+	
 	List<MemberVO> getPhotoinfo(); //포토그래퍼 조회
+	MemberVO ptgSelect(MemberVO vo);//회원+작가 한명 조회
+	
 	int ptgInfoUpdate(PhotographerVO vo);	//정보 업데이트
 	
 	int applyEvent(EventVO vo);	//이벤트 신청
@@ -26,6 +30,8 @@ public interface MypageAoService {
 
 	int deleteReserTime(String id);	// 작가 예약시간정보 삭제
 	int insertReserTime(ReserTimeVO vo );	//작가 예약시간 정보 삽입
+	
+	int updateProfileImage(MemberVO vo);//프사 바꾸기
 
 	
 }

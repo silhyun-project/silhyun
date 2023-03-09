@@ -2,11 +2,15 @@ package co.yedam.silhyun.common.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.common.service.PageTestService;
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
@@ -42,4 +46,6 @@ public class CommonController {
 		model.addAttribute("page", new PageVO(pService.getTotalCount(cri), 10, cri));
 		return "home/pagingTest";
 	}
+	
+	
 }

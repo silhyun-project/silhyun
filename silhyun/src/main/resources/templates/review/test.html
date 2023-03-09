@@ -29,11 +29,28 @@ p{
 }
 </style>
 <body>
+<script type="text/javascript">
+$(function(){
+	$('#testBtn').on('click', function(){
+		//요청url 보내자
+		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=CLIENT_ID&state=STATE_STRING&redirect_uri=CALLBACK_URL&auth_type=reauthenticate
+		let cliendId = "Q34TfFpHA2UKwCEqyXu9"
+		let uri = encodeURI("http://localhost:80/login/oauth2/code/naver")
+		let state = (String(Math.floor(Math.random()*100000000000000000000)))
+		console.log(state)
+		
+		location.href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id="+cliendId+"&state="+state+"&redirect_uri="+uri+"&auth_type=reauthenticate"
+	
+	})
+	
+})
+</script>
 
 <div>
 세션보 체크 : [[${id}]]<br>
 세션보 체크 : [[${role}]]
 </div>
+<button onclick="" id="testBtn">네이버 재인증</button>
 <!-- 평균별찍기는 파일 처리 끝낸후 ! -->
 	<div class="container col-7">
 	            <div class="row align-items-end">

@@ -43,6 +43,9 @@
  input:hover{
  border: 1px solid black;
  }
+ select:hover{
+  border: 1px solid black;
+ }
  .pad{
  padding-left: 60px;
  padding-right: 60px;
@@ -68,11 +71,54 @@
 .col-1.sm{
 	margin-top: 10px;
 }
-#chkBtn{
+#birthGen{
+ margin-left: 2px;
+}
+/* 약관동의, 회원정보를 입력해주세요 글씨 */
+   .container > p{
 
-}
-#sendBtn{
-}
+       font-size: x-large;
+   }
+
+   /* <!-- terms and conditions --> */
+   .TandC{
+
+       border: 1px solid gray;
+       padding:16px;
+
+   }
+
+   /* 약관 동의서들  */
+   .TandC > div{
+
+       padding:4px;
+       display: flex;
+       justify-content: space-between;
+   }
+
+   /* 약관 간단 설명에서 (필수)  */
+   .TandC strong{
+
+       color:red;
+       
+   }
+
+   /* 약관 상세보기 버튼  */
+   .TandC button{
+
+       background-color: transparent;
+       border: transparent;
+       text-decoration : underline;
+   }
+
+   /* 약관 상세보기 버튼 hover */
+   .TandC button:hover{
+       cursor: pointer;
+   }
+   .pad{
+   margin-bottom: 100px;
+   }
+
 </style>
 <body>
     <main>
@@ -136,10 +182,10 @@
                                     <label class="form-label col" for="email">이메일<span class="text-danger">*</span></label>
                                 </div>
      							<div class="row" id="email">
-							        <input type="text" class="form-control col mar"><p class="col-1 sm">@</p>
-							        <input type="text" class="form-control col mar">
+							        <input type="text" class="form-control col mar" id="emailId"><p class="col-1 sm">@</p>
+							        <input type="text" class="form-control col mar" id="emailDomain">
      								<div class="col-4 email">
-	                               <select class="form-select col mar">
+	                               <select class="form-select col mar" id="domain">
 	                               		<option>선택</option>
 							        </select>
 							      </div>
@@ -154,31 +200,80 @@
 							    <button type="button" class="btn col-4 btn-primary" id="sendBtn" style="display: none;">인증하기</button>
 							    </div>
                             </div>
-                            
-                            
-                            
+                            <!-- 생년월일 성별 -->                            
+						        <label class="form-label col" >생년월일 및 성별</label>
+						      <div id="birthGen" class="form-group mb-3 row">
+						        <!-- 생년월일 -->
+						        <select  class="form-select col" id="year">
+						            <option value="">연도</option>
+						        </select>
+						        <select class="form-select col" id="month">
+						          <option value="">월</option>
+						        </select>
+						        <select class="form-select col" id="day">
+						          <option value="">일</option>     
+						        </select>
+						        <!--성별-->						
+						        <div id="gender" class="col">
+						          <label for="genf"><input id="genf" type="radio" value="f" name="gen">
+						            여자
+						          </label>
+						          <label for="genm"><input id="genm" type="radio" value="m" name="gen">
+						            남자
+						          </label>
+						        </div>
+						      </div>
+							<!-- 추천인 코드 입력 -->
                             <div class="form-group mb-3">
-                                <label class="form-label col" for="exampleInputPassword_1">생년월일<span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="exampleInputPassword_1" placeholder="*********">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label col" for="exampleInputPassword_1">성별<span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="exampleInputPassword_1" placeholder="*********">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label col" for="exampleInputPassword_1">추천인<span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="exampleInputPassword_1" placeholder="*********">
+                                <label class="form-label col" for="rcomr">추천인</label>
+                                <input type="text" class="form-control" id="rcomr" name="rcomr">
                             </div>
                         </form>
+                        
+                        
+                        	<!-- 약관동의 -->
                             <div class="pad">
-                            <hr>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" value="" id="form2Example3" checked="">
-                                <label class="form-check-label" for="form2Example3">필수약관 어쩌구</label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" value="" id="form2Example3" checked="">
-                                <label class="form-check-label" for="form2Example3">선택약관어쩌꾸</label>
+ 
+                                                
+                                 <!-- 이용약관 -->
+					        <p>    
+					            약관 동의
+					        </p>
+					
+					        <!-- terms and conditions -->
+					        <div class="TandC">
+					
+					            <!-- 전체 동의 -->
+					            <div style="border-bottom: 1px solid gray;">
+					                <span>전체 동의</span>
+					                <input type="checkbox" name="" id="">
+					            </div>
+					            
+					            <!-- 필수 1 -->
+					            <div>
+					                <span><strong>(필수)</strong> 개인회원 약관에 동의 <button>상세 보기</button></span>
+					                <input type="checkbox" name="" id="">
+					            </div>
+					            
+					            <!-- 필수 2 -->
+					            <div>
+					                <span><strong>(필수)</strong> 개인정보 수집 및 이용에 동의 <button>상세 보기</button></span>
+					                <input type="checkbox" name="" id="">
+					            </div>
+					
+					            <!-- 선택 1 -->
+					            <div>
+					                <span>(선택) 마케팅 정보 수신 동의 - 이메일 <button>상세 보기</button></span>
+					                <input type="checkbox" name="" id="">
+					            </div>
+					            
+					            <!-- 선택 2 -->
+					            <div>
+					                <span>(선택) 마케팅 정보 수신 동의 - SMS/MMS <button>상세 보기</button></span>
+					                <input type="checkbox" name="" id="">
+					            </div>
+					
+					        </div> 
                             </div>
                             <hr>
                             <div class="form-group text-center">
@@ -187,6 +282,8 @@
                                 </button>
                             </div>
                             </div>
+                            
+                            
                         <div class="pt-4 text-center">
                             <span class="text-muted">아이디가 있다면? <a href="sign-up.html">Login here</a></span>
                         </div>
