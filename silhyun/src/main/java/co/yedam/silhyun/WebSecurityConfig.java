@@ -40,6 +40,7 @@ public class WebSecurityConfig{
 				.successHandler(new CustomLoginSuccessHandler())
 			.and()
 			.oauth2Login()
+			     .loginPage("/login/oauth")
 				.permitAll()
 				.successHandler(new CustomLoginSuccessHandler())
 				.userInfoEndpoint()
