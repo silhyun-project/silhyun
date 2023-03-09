@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<main layout:fragment="content">
+<div>
 
+    <form method="get" action="/silhyun/chulcheck">
+	<input type="hidden"  name="id" value="${id}"> 
+  
+    <p>Date: <span th:text="${date}"></span></p>
+    <p>실험용 Time: <span th:text="${time}"></span></p>
+
+        <button type="submit">출석체크</button>
+    </form>
+
+
+
+<script type="text/javascript">
+
+</script>
+</div>
+</main>
 </body>
 </html>

@@ -2,8 +2,6 @@ package co.yedam.silhyun.mypage.web;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,13 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
+import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.mypage.service.MypageAoService;
@@ -61,6 +59,7 @@ public class mypageAoController {
 	@GetMapping("/photo/classManage")
 	public String classManage(Model model) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+		model.addAttribute("clManage", mypageAoService.classList());
 
 		return "mypageAo/classManage";
 	}
@@ -129,6 +128,37 @@ public class mypageAoController {
 
 	}
 
+	//프사변경
+	@PostMapping("/uploadProfileImage")
+	@ResponseBody
+	public Map<String,Object> uploadProfileImage(MemberVO vo, MultipartFile image){
+		System.out.println("프사볼려는 멤버보?" + vo);
+		System.out.println("프사 들어오는지 확인" + image);
+		Map<String, Object> map = new HashMap<>();
+		
+		if (image != null && !image.isEmpty()) {
+			String saveImgPath = saveimg + "profil";
+
+			String fileName = UUID.randomUUID().toString(); // UUID생성
+			fileName = fileName + "_" + image.getOriginalFilename(); // 유니크한 아이디
+			File uploadFile = new File(saveImgPath, fileName);
+			
+			try {
+				image.transferTo(uploadFile); // 파일저장
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			vo.setProfile("/saveImg/profil/" + fileName);
+			//
+			map.put("vo", vo);
+			map.put("profile", image);
+		
+		}
+		
+		return map;
+	}
 
 
 	@PostMapping("/applyEvent")
@@ -204,23 +234,23 @@ public class mypageAoController {
 			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
 			File uploadFile = new File(saveImgPath, fileName);
 			// 클래스 번호 난수 생성
-			StringBuffer key = new StringBuffer();
-			Random rnd = new Random();
-
-			for (int i = 0; i < 6; i++) {
-				int index = rnd.nextInt(3);
-				switch (index) {
-				case 0:
-					key.append((char) ((rnd.nextInt(26)) + 97));
-					break;
-				case 1:
-					key.append((char) ((rnd.nextInt(26)) + 65));
-					break;
-				case 2:
-					key.append((rnd.nextInt(10)));
-					break;
-				}
-			}
+//			StringBuffer key = new StringBuffer();
+//			Random rnd = new Random();
+//
+//			for (int i = 0; i < 6; i++) {
+//				int index = rnd.nextInt(3);
+//				switch (index) {
+//				case 0:
+//					key.append((char) ((rnd.nextInt(26)) + 97));
+//					break;
+//				case 1:
+//					key.append((char) ((rnd.nextInt(26)) + 65));
+//					break;
+//				case 2:
+//					key.append((rnd.nextInt(10)));
+//					break;
+//				}
+//			}
 			// System.out.println(key+"========================");
 			try {
 				file.transferTo(uploadFile); // 파일저장
@@ -230,7 +260,7 @@ public class mypageAoController {
 				e.printStackTrace();
 			}
 			vo.setThni("/saveImg/thum/" + fileName);
-			vo.setClassNum(vo.getPtgId() + key);
+//			vo.setClassNum(vo.getPtgId() + key);
 			mypageAoService.applyClass(vo); // db에 담음
 			// System.out.println("넘어오니?"+vo.getEventNum());
 			map.put("vo", vo);

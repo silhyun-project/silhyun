@@ -88,6 +88,24 @@ public class MypageAoServiceImpl implements MypageAoService {
 		return mypageAoMapper.deleteReserTime(id);
 	}
 
+	@Override
+	public int updateProfileImage(MemberVO vo) {
+
+		return mypageAoMapper.updateProfileImage(vo);
+	}
+
+	@Override
+	public MemberVO ptgSelect(MemberVO vo) {
+
+		return mypageAoMapper.ptgSelect(vo);
+	}
+
+	@Override
+	public List<ClassesVO> classList() {
+
+		return mypageAoMapper.classList();
+	}
+
 
 
 }

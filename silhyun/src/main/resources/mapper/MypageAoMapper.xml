@@ -8,6 +8,15 @@
 		WHERE ptg_id='user1'
 		ORDER BY res_num DESC
 	</select>
+	
+	<select id="classList" resultType="co.yedam.silhyun.classes.vo.ClassesVO">
+		SELECT *
+		FROM CLASS
+		WHERE PTG_ID = 'tPtg1'
+		ORDER BY ACCP_DT DESC
+		
+	</select>
+		
 	<select id="getPhotoinfo"
 		resultType="co.yedam.silhyun.member.vo.MemberVO">
 		SELECT m.id, m.name, m.pwd, m.email, m.tel, p.work_day,
@@ -16,6 +25,25 @@
 		INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
 		WHERE m.id = 'user1'
 	</select>
+	
+	<select id="ptgSelect" resultType="co.yedam.silhyun.member.vo.MemberVO">
+		SELECT *
+		FROM MEMBER m
+		INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
+		WHERE m.id = #{ptgId}
+	<!-- 	<if test="pwd != null">
+			AND pwd = #{pwd }
+		</if> -->
+	</select>
+	
+	
+	<!-- 프사바꾸기  -->
+	<update id="updateProfileImage" parameterType="co.yedam.silhyun.member.vo.MemberVO">
+		UPDATE MEMBER
+		SET PROFILE = #{profile}
+		WHERE ID = 'user1'
+	</update>
+	
 
 	<!-- INSERT INTO EVENT VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
 	<insert id="applyEvent"
@@ -35,6 +63,11 @@
 
 	<insert id="applyClass"
 		parameterType="co.yedam.silhyun.classes.vo.ClassesVO">
+		<selectKey keyProperty="classNum" resultType="String" order="BEFORE">
+			SELECT
+			nvl(MAX(to_number(class_num)), 0) + 1 AS "classNum"
+			FROM CLASS
+		</selectKey>
 		INSERT INTO CLASS(class_num,ptg_id,cla_ttl,cla_pri,cla_desct,cla_cd,ypsn,cla_time,cla_dt,thni,ot)
 		VALUES (#{classNum},#{ptgId},#{claTtl},#{claPri},#{claDesct},#{claCd},#{ypsn},#{claTime},#{claDt},#{thni},#{ot})
 	</insert>
@@ -82,10 +115,11 @@
 		)
 		<set>
 			<if test="name != null and !name.equals('')">NAME = #{name},</if>
-			<if test="pwd != null and !name.equals('')">PWD = #{pwd},</if>
-			<if test="email != null">Email = #{email},</if>
-			<if test="tel != null">TEL = #{tel},</if>
-			<if test="workDay != null">WORK_DAY = #{workDay}</if>
+			<if test="pwd != null and !pwd.equals('')">PWD = #{pwd},</if>
+			<if test="email != null and !eamil.equals('')">Email = #{email},</if>
+			<if test="tel != null and ! tel.equals('')">TEL = #{tel},</if>
+			<if test="birthDate != null and !birthDate.equals('')">birth_date = #{birthDate}</if>
+			<!-- <if test="workDay != null">WORK_DAY = #{workDay}</if> -->
 		</set>
 		WHERE PTG_ID = 'user1'
 	</update>
