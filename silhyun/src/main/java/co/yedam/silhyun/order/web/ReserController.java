@@ -1,10 +1,7 @@
 package co.yedam.silhyun.order.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
 import co.yedam.silhyun.member.service.PtgService;
@@ -23,7 +22,9 @@ import co.yedam.silhyun.member.service.StdService;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
-import co.yedam.silhyun.order.map.OrderMapper;
+import co.yedam.silhyun.order.service.OrderService;
+import co.yedam.silhyun.order.service.PaymentService;
+import co.yedam.silhyun.order.vo.PaymentVO;
 import co.yedam.silhyun.order.vo.ReserVO;
 import co.yedam.silhyun.order.vo.SelectedOpVO;
 
@@ -34,7 +35,9 @@ public class ReserController {
 	@Autowired
 	StdService stdService;
 	@Autowired
-	OrderMapper orderMapper;
+	OrderService orderService;
+	@Autowired
+	PaymentService paymentService;
 
 	/// ▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
@@ -101,8 +104,12 @@ public class ReserController {
 
 	// ▶예약 폼
 	@RequestMapping("/pay/reserList/{ptgId}")  //선택한 작가 예약하러 가기
-	public String reserList(HttpServletRequest request,Model model, PhotographerVO vo, @PathVariable String ptgId) {
-		model.addAttribute("session",request.getSession());
+	public String reserList(Model model, PhotographerVO vo, @PathVariable String ptgId,HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+		}
 		model.addAttribute("res",ptgService.getReser(ptgId));
 		System.out.println("예약폼====="+vo);
 		System.out.println(ptgId);
@@ -118,12 +125,26 @@ public class ReserController {
 	}
 
 	@RequestMapping("/pay/orderForm")
-	public String orderForm(ReserVO vo,SelectedOpVO svo,HttpServletRequest request,Model model,OptionsVO ovo){
-		model.addAttribute("session",request.getSession()); //세션확인
-		model.addAttribute("memInfo", orderMapper.getMemberInfoList(vo));
-		
+	public String orderForm(ReserVO vo,SelectedOpVO svo,Model model,OptionsVO ovo){
+		model.addAttribute("memInfo", orderService.getMemberInfoList(vo));
 		System.out.println("호출 되니");
-		System.out.println(vo+"3333333333333333333333333333");
+		System.out.println(vo.getId()+"3333333");
 		return "order/orderList";
+	}
+	
+	@PostMapping("/pay/reserInsert")
+	@ResponseBody
+	public String reserInsert(@RequestBody ReserVO rvo, PaymentVO pvo) {//@RequestBody
+		System.out.println(rvo.getPtgId()+"ddddddddddddddd");
+//		rvo.setCtgr("A");
+		//String id = orderService.reserInsert(rvo);
+		orderService.reserInsert(rvo);
+//		paymentService.paymentInsert(pvo,id);
+		return "결제성공";
+	}
+	
+	@RequestMapping("/pay/orderEnd")  //결제 다 하면 뜨는 창
+	public String orderEnd() {
+		return "order/orderEnd";
 	}
 }
