@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class SessionUser implements Serializable {
 	
+	//세션VO
 	private String id;
 	private String role;
 	

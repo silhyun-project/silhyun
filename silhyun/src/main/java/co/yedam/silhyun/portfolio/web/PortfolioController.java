@@ -25,7 +25,7 @@ public class PortfolioController {
 		return "portfolio/portfolio";
 	}
 
-	@RequestMapping("/silhyun/portfolioInsertForm")
+	@RequestMapping("/silhyun/portfolioInsert")
 	public String portfolioInsertForm(Model model) {
 		return "portfolio/portfolioInsertForm";
 	}
@@ -57,7 +57,7 @@ public class PortfolioController {
 		return portfolioService.ptgField(ptgId);
 	}
 	
-	@RequestMapping("/silhyun/ptgPortfolioList/{ptgId}")//해당작가필드리스트
+	@RequestMapping("/silhyun/ptgPortfolioList/{ptgId}")//작가별 포트폴리오리스트 띄우기
 	@ResponseBody
 	public List<PortfolioVO> ptgPortList(Model model, PortfolioVO vo, @PathVariable String ptgId) {
 		model.addAttribute("ptgField", portfolioService.ptgPortfolioList(ptgId));

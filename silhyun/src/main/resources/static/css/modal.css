@@ -1,135 +1,98 @@
 /* 전체화면 검정색 레이어 */
 .black-layer {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }
 
 /* 양옆아래위로 여백이 있는 하얀색 컨테이너 박스 */
 .white-container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 80%;
-	height: 80%;
-	background-color: white;
-	display: flex;
-	justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  height: 80%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* 왼쪽 박스 */
 .left-box {
-	width: 50%;
-	position: relative;
+  width: 50%;
+  position: relative;
 }
 
 /* 이미지 슬라이드 */
 .slider {
-	width: 100%;
-	height: 100%;
-	position: relative;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .slider img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
 }
 
 .slider img.active {
-	display: block;
+  display: block;
 }
 
 /* 화살표 */
 .arrow {
-	position: absolute;
-	top: 50%;
-	width: 50px;
-	height: 50px;
-	background-color: gray;
-	transform: translateY(-50%);
-	z-index: 1;
-	cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+  transform: translateY(-50%);
+  z-index: 1;
+  cursor: pointer;
 }
 
 .prev {
-	left: 0;
+  left: 0;
 }
 
 .next {
-	right: 0;
+  right: 0;
 }
 
 /* 오른쪽 박스 */
 .right-box {
-	width: 50%;
-	display: flex;
-	flex-direction: row; /* 수정 */
-	justify-content: space-between;
+  display: flex;
+  flex-direction: column; /* Set flex-direction to column */
+  justify-content: space-between;
 }
 
 /* 작은 이미지와 텍스트 */
 .top-section {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
+  position: sticky; /* Set position to sticky */
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .top-section img {
-	width: 50px;
-	height: 50px;
-	object-fit: cover;
-	margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 /* 중간 스크롤박스 */
 .middle-section {
-	flex: 1;
-	overflow: auto;
-	padding: 20px;
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
 }
 
-.scroll-box {
-	width: 100%;
-	height: 100%;
-}
-
-/* 하단 input박스와 버튼 */
-.bottom-section {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end; /* 수정 */
-	align-items: center;
-	position: relative; /* 수정 */
-	width: 100%;
-	padding: 20px;
-	box-sizing: border-box;
-	background-color: white;
-}
-
-.bottom-section input[type="text"] {
-	flex-grow: 1;
-	height: 40px;
-	font-size: 16px;
-	padding: 0 10px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-	margin-right: 10px;
-}
-
-.bottom-section button {
-	height: 40px;
-	background-color: #1e90ff;
-	color: white;
-	font-size: 16px;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	padding: 0 20px;
-}

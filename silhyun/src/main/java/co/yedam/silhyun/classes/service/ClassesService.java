@@ -3,6 +3,7 @@ package co.yedam.silhyun.classes.service;
 import java.util.List;
 import java.util.Map;
 
+import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
 
 public interface ClassesService {
@@ -26,4 +27,10 @@ public interface ClassesService {
 	List<Map<String, Object>> getFC1List(); 
 	
 	List<Map<String, Object>> getFC2List();
+	
+	//클래스 개별정보
+	ClassesVO selectClass(String classNum);
+	
+	//클래스 개별정보와 함께 보낼 부가 정보
+	Map<String, Object> CPlusInfo(String classNum, String id);
 }

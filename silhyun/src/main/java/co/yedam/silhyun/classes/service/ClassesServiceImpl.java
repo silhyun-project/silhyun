@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.classes.map.ClassesMapper;
+import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
+import javassist.ClassMap;
 
 @Service
 public class ClassesServiceImpl implements ClassesService {
@@ -49,14 +51,20 @@ public class ClassesServiceImpl implements ClassesService {
 	
 	@Override
 	public List<Map<String, Object>> cdtC1List(int param1) {
-		System.out.println("서비스 자체는 실행됨");
 		return ClassesMapper.cdtC1List(param1);
 	}
 
 	@Override
 	public List<Map<String, Object>> cdtC2List(int param1) {
-		System.out.println("서비스 자체는 실행됨2");
 		return ClassesMapper.cdtC2List(param1);
+	}
+	@Override
+	public ClassesVO selectClass(java.lang.String classNum) {
+				return ClassesMapper.selectClass(classNum);
+	}
+	@Override
+	public Map<java.lang.String, Object> CPlusInfo(java.lang.String classNum, java.lang.String id) {
+				return ClassesMapper.CPlusInfo(classNum, id);
 	}
 
 }
