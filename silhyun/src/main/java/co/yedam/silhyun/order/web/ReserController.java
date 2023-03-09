@@ -134,13 +134,13 @@ public class ReserController {
 	
 	@PostMapping("/pay/reserInsert")
 	@ResponseBody
-	public String reserInsert(@RequestBody ReserVO rvo, PaymentVO pvo) {//@RequestBody
+	public ReserVO reserInsert(@RequestBody ReserVO rvo, PaymentVO pvo) {//@RequestBody
 		System.out.println(rvo.getPtgId()+"ddddddddddddddd");
-//		rvo.setCtgr("A");
-		//String id = orderService.reserInsert(rvo);
-		orderService.reserInsert(rvo);
-//		paymentService.paymentInsert(pvo,id);
-		return "결제성공";
+		String id = orderService.reserInsert(rvo);
+		rvo.setCtgrNum(rvo.getResNum());
+		//orderService.reserInsert(rvo);
+		paymentService.paymentInsert(pvo,id);
+		return rvo;
 	}
 	
 	@RequestMapping("/pay/orderEnd")  //결제 다 하면 뜨는 창
