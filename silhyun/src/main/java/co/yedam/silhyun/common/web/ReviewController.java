@@ -5,9 +5,11 @@ import java.util.Map;
 
 import javax.crypto.spec.RC2ParameterSpec;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.common.service.PhotoService;
 import co.yedam.silhyun.common.service.ReviewService;
 import co.yedam.silhyun.common.vo.ReviewVO;
+import co.yedam.silhyun.member.service.OAuthUserService;
 
 @Controller
 @CrossOrigin(value = "*")
@@ -36,8 +40,16 @@ public class ReviewController {
 	}
 
 	@GetMapping("/silhyun/reviewList")
-	public String reviewList(Model model, HttpServletRequest request) {
-		model.addAttribute("session", request.getSession());
+	public String reviewList(Model model, /*HttpServletRequest request,*/ HttpSession httpSession) {
+		//model.addAttribute("session", request.getSession());
+		//세션보를 사용할때 세션 사용
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
+		if(user != null) {
+			model.addAttribute("id", user.getId());
+			model.addAttribute("role", user.getRole());			
+		}
+		//model.addAttribute("clientId", oAuth2UserRequest.getClientRegistration().getClientId());
+		//model.addAttribute("callbackURL", oAuth2UserRequest.getClientRegistration().getRedirectUri());
 		return "review/test";
 	}
 	
@@ -50,5 +62,6 @@ public class ReviewController {
 		pService.photoInsert(files, ctgrNum, ctgr);
 		return vo;
 	}
+
 	
 }

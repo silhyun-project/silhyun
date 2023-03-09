@@ -22,7 +22,7 @@
 </script>
 <body>
     <div layout:fragment="content">
-    로그인 한 사람 : [[${session.id}]]
+<!--     로그인 한 사람 : [[${session.id}]] -->
         <!-- Skippy & Prload -->
         <!-- skippy -->
         <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
@@ -137,7 +137,7 @@
                                                     <select class="form-select" name="discount" required="">
                                                         <option value="">사용가능한 쿠폰</option>
                                                         <option th:each="mem :${memInfo}" th:text="${mem.cntn}"
-                                                        th:value="${mem.discount}" th:selected="${mem.cpnNum}==${reserVO.cpnNum}">
+                                                        th:value="${mem.discount}" th:selected="${mem.cpnNum}==${reserVO.cpnNum}" th:id="${mem.cpnNum}">
                                                        
                                                     </select>
                                                     <div class="invalid-feedback">Please choose your country!</div>
@@ -196,6 +196,14 @@
                                 </div>
                             </div>
                         </div>
+                        <form>
+                            <input type="hidden" name="id" th:value="${reserVO.id}">
+                            <input type="hidden" name="shotDate" th:value="${#dates.format(reserVO.shotDate, 'yyyy-MM-dd')}">
+                            <input type="hidden" name="ptgId" th:value="${reserVO.ptgId}">
+                            <input type="hidden" name="shotTime" th:value="${reserVO.shotTime}">
+                            <input type="hidden" name="resPri" th:value="${reserVO.resPri}">
+                            <input type="hidden" name="opNum" th:value="${selectedOpVO.opNum}">
+                        </form>
                     </div>
                 </div>
                 <!--Table -->
@@ -271,15 +279,15 @@
                  discount = $(this).val()
                  console.log(discount)
                  let cpnM = (parseInt(resp) * (parseInt(discount) * 0.01))
+                 console.log(resp)
                  console.log(resp2)
                  console.log(cpnM)
                 
                   $('.text-end.cpnPri').text('-'+Number(cpnM).toLocaleString()+'원')
-                  $('.text-end.text-dark.totalM').text(Number(resp-cpnM).toLocaleString()+'원') 
+                  $('.text-end.text-dark.totalM').text(Number(resp-cpnM).toLocaleString()+'원')   //Totla금액
                 
               })
               //포인트 적용
-              
               $('.aapP').on('click',function(){
                   let useP = $('.useP').val()
                   let SumP = $('.pointSum').text().replace(/[^0-9]/g,'')
@@ -288,9 +296,10 @@
                       $('.pointSum').text(Number(SumP-useP).toLocaleString()+'원')  //사용가능한 포인트
                       
                       //let realtotal = $('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,'') - Number(useP)
-                      let realtotal = $(totalIng).text().replace(/[^0-9]/g,'') - Number(useP)
+                      let realtotal = $('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,'') - Number(useP)
                       console.log(realtotal)
-                      $('.text-end.text-dark.totalM').text(Number(realtotal).toLocaleString()+'원')
+                      console.log(Number(realtotal).toLocaleString()+'원')
+                      $('.text-end.text-dark.totalM').text(Number(realtotal).toLocaleString()+'원') //Totla금액
 
                   }else{
                     alert('사용가능한 포인트를 초과하였습니다.')
@@ -303,70 +312,107 @@
             //토탈 금액
             //let totalPri = resp - cpnM - (SumP-useP)
            // console.log(totalPri)
-            $('.text-end.text-dark.totalM').text()
-            
-            //체크박스 클릭해야지 결제버튼 클릭 가능
-            $(document).ready(function(){
-                $("#chbox").change(function(){
-                    if($("#chbox").is(":checked")){
-                        console.log("체크박스 체크했음");
-                        $('.btn.btn-primary.w-100').attr("disabled", false)
+           let paymPri = Number(0)  //총금액
+           
+           //체크박스 클릭해야지 결제버튼 클릭 가능
+           $(document).ready(function(){
+               $("#chbox").change(function(){
+                   if($("#chbox").is(":checked")){
+                       console.log("체크박스 체크했음");
+                       $('.btn.btn-primary.w-100').attr("disabled", false)
+                       paymPri=  Number($('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,''))
+                       let uCpNum = $('select[name="discount"]:selected').val()  
+                       let uCpNumid = $('select[name="discount"]:selected').attr('id') 
+                       console.log(uCpNum)
+                        console.log(uCpNumid)
+               
+                      // return paymPri
                     }else{
                         console.log("체크박스 체크 해제");
                         $('.btn.btn-primary.w-100').attr("disabled", true)
                     }
+               
                 });
             });
 
+            let list=[];
+            //reser테이블에 insert되는 데이터
+            let id = $('input[name="id"]').val()       
+            let shotDate = $('input[name="shotDate"]').val()       
+            let ptgId = $('input[name="ptgId"]').val()       
+            let shotTime = $('input[name="shotTime"]').val()     
+           
+            //let resPri = paymPri 
+            console.log(id,shotDate,ptgId,shotTime,paymPri)   
+            console.log(paymPri)  
+            
+            //결제 테이블에 insert되는 데이터 
+            let opNum = $('input[name="opNum"]').val()       
+            
+            
+            // obj["id"] = id
+            // obj["shotDate"] = shotDate
+            // obj["ptgId"] = ptgId
+            // obj["shotTime"] = shotTime
+            // obj["resPri"] = resPri
+           // list.push(obj);
+            
+            // let obj={
+            //     id:id,
+            //     shotDate:shotDate,
+            //     ptgId:ptgId,
+            //     shotTime:shotTime,
+            //     resPri:resPri
+            // }
+        
+
+            let pname = $('.text-dark.fw-500.opTtl').text()  //상품 이름   
               //결제
-    const IMP = window.IMP; // 생략 가능
-            IMP.init("imp42851556"); // 예: imp00000000a
+        const IMP = window.IMP; // 생략 가능
+        IMP.init("imp42851556"); // 예: imp00000000a
             function requestPay() {
                 IMP.request_pay({
-                pg: 'html5_inicis',
-                pay_method: "card",
-                //merchant_uid: "ORD20180131-00000",   // 주문번호 -> 매퍼에서 증가하도록
-                name: "노르웨이 ",
-                amount: 100,                         // 숫자 타입
-                buyer_email: "gildong@gmail.co",
-                buyer_name: "홍길",
-                buyer_tel: "010-4242-424",
-                buyer_addr: "서울특별시 강남구 신사",
-                buyer_postcode: "0111"
+                pg: 'html5_inicis',  //이니시스 코드
+                pay_method: "card",   ///결제 팝업창 형태
+                merchant_uid: 'merchant_' + new Date().getTime(),   // 주문번호 -> 매퍼에서 증가하도록
+                name: pname,  //제품이름
+                amount: paymPri,                         // 숫자 타입
+                buyer_email: "silhyun@silhyun.kr",
+                buyer_name: "실현하다",  //판매자 이름
+                buyer_tel: "1231-1231",  
+                buyer_addr: "예담직업전문학교",
+                buyer_postcode: "0327"
                 }, function (rsp) { // callback
                 if (rsp.success) {
                     // 결제 성공 시 로직
-                    axios({
-                       // url: "{서버의 결제 정보를 받는 endpoint}",
-                       // method: "post",
-                       // headers: { "Content-Type": "application/json" },
-                       // data: {
-                       // imp_uid: rsp.imp_uid,
-                       // merchant_uid: rsp.merchant_uid
-                      //  }
+                    let obj={
+                            id:id,
+                            shotDate:shotDate,
+                            ptgId:ptgId,
+                            shotTime:shotTime,
+                            resPri:paymPri,
+                            ctgrNum:ptgId,
+                            imp_uid: rsp.imp_uid
+                        }
+                        console.log(obj)
+                    $.ajax({
+                        url: "/pay/reserInsert",
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        data:JSON.stringify(obj)
+                        
+                       //고유ID
+                    //    merchant_uid: rsp.merchant_uid   
                     }).then((data) => {
                         // 서버 결제 API 성공시 로직
+                        console.log('결제완')
+                        alert("정상적으로 결제되었습니다.")
+                        location.href = "/pay/orderEnd"
                     })
                 } else {
                     // 결제 실패 시 로직
                     alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
                 }
-                 // 이전 단계에서 구현한 결제정보 사후 검증 API 호출
-                  //  const res = await axios({
-                  //  url: "/payments/complete",
-                  //  method: "post",
-                  //  headers: { "Content-Type": "application/json" }, 
-                  //  data: { imp_uid: "...", merchant_uid: "..." },
-                 //   });
-                   // switch (res.status) {
-                  //  case: "vbankIssued":
-                    // 가상계좌 발급 시 로직
-                   //     break;
-                   // case: "success":
-                    // 결제 성공 시 로직
-                  //      break;
-                  //  }
-                
 
                 });
             }

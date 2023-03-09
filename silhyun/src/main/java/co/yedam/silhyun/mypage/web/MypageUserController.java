@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MypageUserController {
    
-   @GetMapping("/mpg/mpgOrderList")
+   @GetMapping("/mpg/mpgOrderList/{ptgId}")
    public String mpgOrderList() {
       
       return "mypageUser/mpgOrderList";
    }
    
-   @GetMapping("/mpg/mpgCouponList")
+   @GetMapping("/mpg/mpgCouponList/{ptgId}")
    public String mpgCouponList() {
       
       return "mypageUser/mpgCouponList";
@@ -25,7 +25,7 @@ public class MypageUserController {
       return "mypageUser/mpgQstPage";
    }
 
-   @GetMapping("/mpg/mpgUser")
+   @GetMapping("/mpg/mpgUser/{ptgId}")
    public String mpgUser() {
       
       return "mypageUser/mpgUser";
@@ -43,22 +43,24 @@ public class MypageUserController {
       return "mypageUser/mpgCalendar";
    }
    
-   @GetMapping("/mpg/withdrawal")
-   public String withdrawal() {
+   @GetMapping("/mpg/mpgQuit/{id}")
+   public String mpgQuit() {
       
-      return "mypageUser/withdrawal";
+      return "mypageUser/mpgQuit";
    }
    
-   @GetMapping("/mpg/checkPassword")
+   @GetMapping("/mpg/checkPwd")
    public String checkPassword() {
 	   
-	   return "mypageUser/checkPassword";
+	   return "mypageUser/checkPwd";
    }
    
-   @GetMapping("/mpg/withdrawalComplete")
+   @GetMapping("/mpg/quitComplete")
    public String withdrawalComplete() {
 	   
-	   return "mypageUser/withdrawalComplete";
+	   return "mypageUser/quitComplete";
    }
+   
+   
    
 }

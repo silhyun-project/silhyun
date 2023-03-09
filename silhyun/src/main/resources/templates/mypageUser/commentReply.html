@@ -28,7 +28,6 @@ li {
 
 </style>
 
-
 <head>
 <!-- metas -->
 <meta charset="utf-8">
@@ -101,8 +100,7 @@ li {
 	<!-- End script start -->
 	
 	<script>
-	$(document).ready(function(){
-		
+	$(document).ready(function(){	
 		getCommentList()
 		
 	})
@@ -147,7 +145,7 @@ li {
 			contentType:'application/json',
 			success : function(data){
 				$("#contact-message").val("");
-				getCommentList()
+				getCommentList();
 			},
 			error:function(){
 				alert('등록실패');
@@ -245,11 +243,10 @@ li {
      })
       
      
-    $(".commentBox").on('click', '.replyShowBtn', function(){
+    $(".commentBox").on('click', '.replyShowBtn', function(e){
 		let parentLi = $(this).closest("li"); // 해당 버튼이 속한 li를 찾음
 		let popup = parentLi.find(".popup"); // 해당 li 엘리먼트에서 popup 클래스를 가진 엘리먼트를 찾음
 		let replyShowBtn = parentLi.find(".replyShowBtn"); // 해당 li 엘리먼트에서 replyShowBtn 클래스를 가진 버튼 엘리먼트를 찾음
-		
 		if(popup.is(":visible")){
 		    popup.hide();
 		    replyShowBtn.text('답글 보기');
