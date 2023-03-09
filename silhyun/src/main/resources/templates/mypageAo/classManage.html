@@ -254,30 +254,29 @@
 						<div>
 							<h1>클래스관리</h1>
 						</div>
-						<div class="table-responsive fs-md mb-4">
+						<div class="table-responsive fs-md mb-4" th:each="clM:${clManage}">
 							<table class="table table-bordered table-hover mb-0">
 								<thead class="text-700 bg-gray-200">
 									<tr>
 										<th class="fw-600">번호</th>
 										<th class="fw-600">강의명</th>
+										<th class="fw-600">강의내용</th>
 										<th class="fw-600">담당기록가</th>
-										<th class="fw-600">수강일정</th>
+										<th class="fw-600">수강일수</th>
 										<th class="fw-600">구분</th>
-										<th class="fw-600">현재정원</th>
 										<th class="fw-600 ">총정원</th>
 										<th class="fw-600 ">수강자 조회</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td class="p-3"><span class="fw-500">Order is not
-												delivered</span></td>
-										<td class="p-3">May 21, 2021</td>
-										<td class="p-3">Delivered</td>
-										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
-										<td class="p-3"><span class="badge bg-danger m-0">High</span></td>
-										<td class="p-3 ">5</span></td>
-										<td class="p-3 ">5</span></td>
+										<td class="p-3" th:text="${clM.classNum}"></td>
+										<td class="p-3" th:text="${clM.claTtl}"></td>
+										<td class="p-3" th:text="${clM.claDesct}"></td>
+										<td class="p-3" th:text="${clM.ptgId}"></td>
+										<td class="p-3" th:text="${clM.ydt}"></td>
+										<td class="p-3" th:text="${clM.claCd}"></td>
+										<td class="p-3 " th:text="${clM.ypsn}"></td>
 										<td class="p-3 "><span class="btn btn-mini">수강자 조회</span></td>
 
 									</tr>
