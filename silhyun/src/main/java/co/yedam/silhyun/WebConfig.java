@@ -18,8 +18,7 @@ public class WebConfig implements WebMvcConfigurer{
 			.addResourceLocations("file:///"+saveimg)
 			.setCachePeriod(20);
 	}
-	
-	
+
 	
 
 }
