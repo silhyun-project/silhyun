@@ -13,4 +13,14 @@
 		ORDER BY accp_dt DESC
 	</select> 
 	
+	<!-- 출쳌  -->
+	<select id="chulIdSelect" resultType="co.yedam.silhyun.mypage.vo.ChulcheckVO">
+		SELECT *
+		FROM CHULCHECK
+		WHERE ID=#{id}
+	</select>
+	<insert id="insertChulcheck" parameterType="co.yedam.silhyun.mypage.vo.ChulcheckVO">
+		INSERT INTO CHULCHECK(CHECK_DATE,ID)
+		VALUES (#{checkDate},#{id})
+	</insert>
 </mapper>

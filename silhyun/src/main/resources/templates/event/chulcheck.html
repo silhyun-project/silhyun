@@ -11,11 +11,12 @@
 <main layout:fragment="content">
 <div>
 
-    <form method="get" action="/silhyun/chulcheck">
-	<input type="hidden"  name="id" value="${id}"> 
-  
-    <p>Date: <span th:text="${date}"></span></p>
-    <p>실험용 Time: <span th:text="${time}"></span></p>
+    <form method="get" action="/chulcheckEv">
+<!-- 	<input type="hidden"  name="id" value="${id}">  -->
+	<input type="hidden"  name="id" value="user1">
+  	<input type="hidden" name="checkDate" th:value="${date}" >
+  <!--   <p>Date: <span th:text="${date}"></span></p> -->
+ <!--    <p>실험용 Time: <span th:text="${time}"></span></p> -->
 
         <button type="submit">출석체크</button>
     </form>
