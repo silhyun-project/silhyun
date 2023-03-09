@@ -16,8 +16,14 @@
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
 <link href="/css/theme.css" rel="stylesheet">
+<script type="text/javascript" src="/js/rememberId.js"></script>
 </head>
-
+<style>
+#rememberUser{
+ width: 78px;
+ height: 26px;
+}
+</style>
 <body>
 <div layout:fragment="content">
         <!-- Main -->
@@ -49,23 +55,27 @@
                                     <h3 class="h4 mb-0">Login </h3>
                                 </div>
                                 <div class="card-body">
-                                    <form action="/login" method="post">
+                                    <form action="/login" method="post" id="frm">
                                         <div class="form-group mb-3">
-                                            <input type="text" id="email_1" name="username" class="form-control" placeholder="아이디">
+                                            <input type="text" name="username" class="form-control" placeholder="아이디" id="username">
                                         </div>
                                         <div class="form-group mb-3">
-                                            <input type="password" class="form-control" name="password" id="exampleInputPassword01" placeholder="비밀번호">
+                                            <input type="password" class="form-control" name="password" placeholder="비밀번호">
                                         </div>
                                         <!-- Checkbox -->
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" value="" id="form2Example3" checked />
-                                            <label class="form-check-label" for="form2Example3"> Remember me </label>
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="" id="rememberId" checked />
+                                            <label class="form-check-label" for="rememberId"> 아이디 저장 </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="rememberUser" name="remember-me"/>
+                                            <label class="form-check-label" for="rememberUser"> 자동로그인 </label>
                                         </div>
                                         <div class="form-group text-center">
-                                            <button type="submit" class="btn btn-primary w-100">
+                                            <button type="button" class="btn btn-primary w-100" id="loginBtn">
                                                 Log in
                                             </button>
-                                            <button type="submit" class="btn btn-outline-secondary w-100">
+                                            <button type="button" class="btn btn-outline-secondary w-100">
                                                 join
                                             </button>
                                         </div>
@@ -93,8 +103,7 @@
             </div>
             <!-- end login -->
         </main>
-        <!-- End Main -->
-
+        <!-- End Main -->	
     </div>
     <!-- 
     ========================
