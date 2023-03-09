@@ -134,7 +134,7 @@
                                             <li class="d-flex justify-content-between align-items-center mb-2">
                                                 <h6 class="me-2 text-body">🎁쿠폰</h6>
                                                 <div class="mb-3">
-                                                    <select class="form-select" name="discount" required="">
+                                                    <select class="form-select dis" name="discount" required="">
                                                         <option value="">사용가능한 쿠폰</option>
                                                         <option th:each="mem :${memInfo}" th:text="${mem.cntn}"
                                                         th:value="${mem.discount}" th:selected="${mem.cpnNum}==${reserVO.cpnNum}" th:id="${mem.cpnNum}">
@@ -321,11 +321,7 @@
                        console.log("체크박스 체크했음");
                        $('.btn.btn-primary.w-100').attr("disabled", false)
                        paymPri=  Number($('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,''))
-                       let uCpNum = $('select[name="discount"]:selected').val()  
-                       let uCpNumid = $('select[name="discount"]:selected').attr('id') 
-                       console.log(uCpNum)
-                        console.log(uCpNumid)
-               
+                     
                       // return paymPri
                     }else{
                         console.log("체크박스 체크 해제");
@@ -341,10 +337,14 @@
             let shotDate = $('input[name="shotDate"]').val()       
             let ptgId = $('input[name="ptgId"]').val()       
             let shotTime = $('input[name="shotTime"]').val()     
-           
+            let uCpNum = $('.dis :selected').attr('id')
+            let uPoint = Number($('.useP').val())
+            let ordPri = Number($('.text-end.resPri').text().replace(/[^0-9]/g,''))
             //let resPri = paymPri 
             console.log(id,shotDate,ptgId,shotTime,paymPri)   
             console.log(paymPri)  
+            console.log(uCpNum)
+            console.log(uPoint,ordPri)
             
             //결제 테이블에 insert되는 데이터 
             let opNum = $('input[name="opNum"]').val()       
@@ -392,6 +392,10 @@
                             shotTime:shotTime,
                             resPri:paymPri,
                             ctgrNum:ptgId,
+                            uCpNum:uCpNum,
+                            uPoint:uPoint,
+                            paymPri:paymPri,
+                            ordPri:ordPri,
                             imp_uid: rsp.imp_uid
                         }
                         console.log(obj)
