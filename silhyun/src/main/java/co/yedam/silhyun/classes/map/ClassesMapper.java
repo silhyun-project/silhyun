@@ -9,7 +9,7 @@ import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
 public interface ClassesMapper {
 
 	
-	List<Map<String, Object>> getClassIVInfo(String id, String Inum); 
+	List<Map<String, Object>> getClassIVInfo(String id, String classNum); 
 
 	Map<String, Object> selectIV(String classNum, String inetNum, String id);
 	
@@ -35,7 +35,8 @@ public interface ClassesMapper {
 	//클래스 개별정보와 함께 보낼 부가 정보
 	Map<String, Object> CPlusInfo(String classNum, String id);
 	
-	//클래스 개별정보 하단에 나오는 랜덤추천 클래스리스트
-	List<Map<String, Object>>randomCList();
+	List<Map<String, Object>> randomList(String classNum);
+
+	
 	
 }

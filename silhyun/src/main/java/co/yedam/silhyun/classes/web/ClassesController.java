@@ -46,7 +46,7 @@ public class ClassesController {
 		
 		model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum, id));
 		
-		model.addAttribute("randomList", ClassesService.randomCList());
+		model.addAttribute("randomList", ClassesService.randomList(classNum));
 		
 		System.out.println("컨트롤러로 온 모델"+model);
 		
@@ -67,9 +67,11 @@ public class ClassesController {
 		return "/classes/myClasses";
 	}
 	
-	@RequestMapping("/silhyun/classes/myClassVideos")
-	public String myClassesVidios(Model model) {
-		model.addAttribute("IVInfo",ClassesService.getClassIVInfo("2", "catLove"));
+	
+	@RequestMapping("/silhyun/classes/myClassesVideos")
+	public String myClassesVidios(String id, @RequestParam("classNum") String classNum, Model model) {
+	System.out.println("비디오 목록으로 가는 클래스넘"+classNum);
+		model.addAttribute("IVInfo",ClassesService.getClassIVInfo("chooga", classNum));
 		
 		System.out.println("컨트롤러로 온 클래스IVInfo"+ model);
 		return "/classes/myClassesVideos";	
