@@ -7,7 +7,13 @@
 			SELECT NVL(MAX(TO_NUMBER(ORD_NUM)),0) +1 AS "ordNum"
 			FROM PAYMENT
 		</selectKey>
-		INSERT INTO PAYMENT
-		VALUES(#{ordNum},'A',#{ctgrNum},#{id},#{resNum},'TO',#{uCpNum},#{uPoint},'Y',sysdate, #{paymPri},#{ordPri})
+			INSERT INTO PAYMENT (ORD_NUM,CTGR,CTGR_NUM,ID,RES_NUM,ORD_MTHD
+			<if test="uCpNum != null and uCpNum != ''">,U_CP_NUM</if>
+			<if test="uPoint != null and uPoint != ''">,U_POINT</if>
+			,ORD_STA,ORD_DATE,PAYM_PRI,ORD_PRI)
+			VALUES(#{ordNum},'A',#{ctgrNum},#{id},#{resNum},'TO'
+			<if test="uCpNum != null and uCpNum != ''">,#{uCpNum}</if>
+			<if test="uPoint != null and uPoint != ''">,#{uPoint}</if>
+			,'Y',sysdate, #{paymPri},#{ordPri})
 	</insert>
 </mapper>

@@ -14,7 +14,6 @@ public class PointServiceImpl implements PointService {
 	
 	@Override
 	public int pointInsert(PointVO vo) {
-		// TODO Auto-generated method stub
 		return map.pointInsert(vo);
 	}
 

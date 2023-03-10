@@ -1,8 +1,7 @@
 package co.yedam.silhyun.order.web;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,34 +11,38 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
+import co.yedam.silhyun.event.service.CouponService;
+import co.yedam.silhyun.event.vo.CouponHistoryVO;
 import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.service.StdService;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
+import co.yedam.silhyun.mypage.service.PointService;
+import co.yedam.silhyun.mypage.vo.PointVO;
+import co.yedam.silhyun.mypage.vo.UsedPointVO;
 import co.yedam.silhyun.order.service.OrderService;
 import co.yedam.silhyun.order.service.PaymentService;
+import co.yedam.silhyun.order.service.SelectedOpService;
 import co.yedam.silhyun.order.vo.PaymentVO;
 import co.yedam.silhyun.order.vo.ReserVO;
 import co.yedam.silhyun.order.vo.SelectedOpVO;
 
 @Controller
 public class ReserController {
-	@Autowired
-	PtgService ptgService;
-	@Autowired
-	StdService stdService;
-	@Autowired
-	OrderService orderService;
-	@Autowired
-	PaymentService paymentService;
+	@Autowired PtgService ptgService;
+	@Autowired StdService stdService;
+	@Autowired OrderService orderService;
+	@Autowired PaymentService paymentService;
+	@Autowired SelectedOpService selectedOpService;
+	@Autowired PointService pointService;
+	@Autowired CouponService couponService;
 
 	/// ▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
@@ -136,36 +139,41 @@ public class ReserController {
 	
 	@PostMapping("/pay/reserInsert")
 	@ResponseBody
-	public ReserVO reserInsert(@RequestBody ReserVO rvo, PaymentVO pvo) {//@RequestBody
-		System.out.println(rvo.getPtgId()+"ddddddddddddddd");
+	public ReserVO reserInsert(ReserVO rvo, PaymentVO pvo,SelectedOpVO svo,PointVO ptvo, UsedPointVO upvo,CouponHistoryVO chvo) {//@RequestBody
 		String resNum = orderService.reserInsert(rvo);
-		String ctgrNum = orderService.reserInsert(rvo);
-		String id = orderService.reserInsert(rvo);
-		String uCpNum = orderService.reserInsert(rvo);
-//		int uPoint = orderService.reserInsert(rvo);
-//		int paymPri = orderService.reserInsert(rvo);
-//		int ordPri = orderService.reserInsert(rvo);
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		map.put(uCpNum, uCpNum);
-//		map.put(ctgrNum, ctgrNum);
-//		map.put(id, id);
-//		map.put(resNum, resNum);
-//		//map.put(uPoint, uPoint);
-//		List<String >
-//		for(ReserVO item : rvo) {
-//			
-//		}
-		
 		System.out.println("여기는 예약 insert resNum=>"+resNum);  //정상적으로 넘어옴 
 		System.out.println("rvo에 담겼니 =>"+rvo);
-		//rvo.setCtgrNum(rvo.getResNum());
-		//orderService.reserInsert(rvo);
-		paymentService.paymentInsert(pvo,resNum,ctgrNum,id);
+		
+		//예약시 paymentInsert 테이블에 추가
+		pvo.setResNum(rvo.getResNum());
+		paymentService.paymentInsert(pvo);  
+
+		//결제 시 SelectedOpVO 테이블에 추가 
+		svo.setResNum(pvo.getResNum());  
+		selectedOpService.selectedOpInsert(svo);
+		
+		//결제시 결제 금액의 10% 포인트로 지급
+		ptvo.setSaveNum(pvo.getOrdNum()); //포인트vo에 pvo에 주문번호 넣어주기(결제금액의 10%)
+		System.out.println("pvo.getOrdNum() ========>>"+pvo.getOrdNum());
+		pointService.pointInsert(ptvo);  //결제하면 멤버 테이블에 pointSum에 증가 
+		
+		//결제시 사용한 포인트가 있으면!
+		if(pvo.getUPoint() != 0) {  
+			upvo.setUsedNum(pvo.getOrdNum()); // 사용된 포인트 vo에 pvo주문 번호 넣어주기
+			pointService.usedPointInsert(upvo);  //결제시 사용한 포인트테이블에 추가하고  멤버테이블에서 차감
+		}
+		//결제 시 사용한 쿠폰이 있으면!
+		if(pvo.getUCpNum() !=null) {  
+			chvo.setId(pvo.getId());
+			chvo.setCpnNum(pvo.getUCpNum());
+			couponService.updateCoupon(chvo);
+		}
 		return rvo;
 	}
 	
-	@RequestMapping("/pay/orderEnd")  //결제 다 하면 뜨는 창
-	public String orderEnd() {
+	@RequestMapping("/pay/orderEnd/{id}")  //결제 다 하면 뜨는 창
+	public String orderEnd(Model model,@PathVariable String id,ReserVO vo) {
+		
 		return "order/orderEnd";
 	}
 }

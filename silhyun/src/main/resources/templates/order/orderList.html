@@ -91,8 +91,9 @@
                                                     <div class="col-8">
                                                         <!-- Title -->
                                                         <p class="mb-1">
-                                                            <a class="text-dark fw-500 opTtl" href="#">[[${optionsVO.ttl}]]</a><br>
-                                                            <span class="m-0 text-muted w-100 d-block shotD" >[[${reserVO.shotDate}]]</span>
+                                                            <a class="text-dark fw-500 opTtl" href="#">선택한 옵션 : [[${optionsVO.ttl}]]</a><br>
+                                                           
+                                                            <div>촬영 일자 : <span class="m-0 text-muted w-100 d-block shotD" th:text="${#dates.format(reserVO.shotDate, 'yyyy/MM/dd')}">촬영 일자</span></div>
                                                             <span class="m-0 text-muted w-100 d-block resP">[[${reserVO.resPri}]]</span>
                                                         </p>
                                                     </div>
@@ -248,7 +249,7 @@
                 }
                 return str;
                  }
-            let text = cutByMaxStr(opTtl,10)
+            let text = cutByMaxStr(opTtl,25)
             console.log(text)
             $('.text-dark.fw-500.opTtl').text(text)
             let shotD = $('.m-0.text-muted.w-100.d-block.shotD').text()
@@ -315,19 +316,21 @@
            let paymPri = Number(0)  //총금액
            let uPoint = Number(0)
            let uCpNum = null;
+           let savePo = Number(0)
            //체크박스 클릭해야지 결제버튼 클릭 가능
            $(document).ready(function(){
                $("#chbox").change(function(){
                    if($("#chbox").is(":checked")){
                        console.log("체크박스 체크했음");
                        $('.btn.btn-primary.w-100').attr("disabled", false)
-                       paymPri=  Number($('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,''))
+                       paymPri=  Number($('.text-end.text-dark.totalM').text().replace(/[^0-9]/g,''))  //아작스에서 사용할 할인 적용 된 결제금액
                      
-                       uPoint = Number($('.useP').val())
+                       uPoint = Number($('.useP').val())  //사용 포인트 
                     
-                     uCpNum = $('.dis :selected').attr('id')
+                       uCpNum = $('.dis :selected').attr('id')  //사용하는 쿠폰 번호
+                       savePo = parseInt(paymPri * 0.01)
+                       console.log("적립예정 포인트 => "+ savePo)
                        
-                      // return paymPri
                     }else{
                         console.log("체크박스 체크 해제");
                         $('.btn.btn-primary.w-100').attr("disabled", true)
@@ -338,40 +341,22 @@
 
             let list=[];
             //reser테이블에 insert되는 데이터
-            let id = $('input[name="id"]').val()       
-            let shotDate = $('input[name="shotDate"]').val()       
-            let ptgId = $('input[name="ptgId"]').val()       
-            let shotTime = $('input[name="shotTime"]').val()     
-           
-           // let uPoint = Number($('.useP').val())
-            let ordPri = Number($('.text-end.resPri').text().replace(/[^0-9]/g,''))
-            //let resPri = paymPri 
+            let id = $('input[name="id"]').val()     //회원 아이디     
+            let shotDate = $('input[name="shotDate"]').val()   //촬영 날짜 
+            let ptgId = $('input[name="ptgId"]').val()  //작가 아이디
+            let shotTime = $('input[name="shotTime"]').val()   //촬영 시간 코드
+            let opNum = $('input[name="opNum"]').val()  //옵션 번호 
+            let pname = $('.text-dark.fw-500.opTtl').text()  //상품 이름   
+            let ordPri = Number($('.text-end.resPri').text().replace(/[^0-9]/g,''))  //주문 가격 (할인 적용전)
+           // let savePo = parseInt(paymPri * 0.01)  // 정수만 추출해서 포인트로 적립하기 위해서 parseInt 사용  // Number()은 소수점 까지 전체를 반환함
+            let usePo = uPoint
             console.log(id,shotDate,ptgId,shotTime,paymPri)   
             console.log(paymPri)  
             console.log(uCpNum)
             console.log(uPoint,ordPri)
-            //결제 테이블에 insert되는 데이터 
-            let opNum = $('input[name="opNum"]').val()       
-            
-            
-            // obj["id"] = id
-            // obj["shotDate"] = shotDate
-            // obj["ptgId"] = ptgId
-            // obj["shotTime"] = shotTime
-            // obj["resPri"] = resPri
-           // list.push(obj);
-            
-            // let obj={
-            //     id:id,
-            //     shotDate:shotDate,
-            //     ptgId:ptgId,
-            //     shotTime:shotTime,
-            //     resPri:resPri
-            // }
-        
-
-            let pname = $('.text-dark.fw-500.opTtl').text()  //상품 이름   
-              //결제
+           
+    
+            //결제
         const IMP = window.IMP; // 생략 가능
         IMP.init("imp42851556"); // 예: imp00000000a
             function requestPay() {
@@ -401,22 +386,27 @@
                             uPoint:uPoint,
                             paymPri:paymPri,
                             ordPri:ordPri,
+
+                            opNum:opNum, 
+
+                            savePo:savePo,
+                            usePo:uPoint,
+                            
                             imp_uid: rsp.imp_uid
                         }
                         console.log(obj)
                     $.ajax({
                         url: "/pay/reserInsert",
                         method: "post",
-                        headers: { "Content-Type": "application/json" },
-                        data:JSON.stringify(obj)
+                       // headers: { "Content-Type": "application/json" },
+                        data:obj
                         
                        //고유ID
-                    //    merchant_uid: rsp.merchant_uid   
                     }).then((data) => {
                         // 서버 결제 API 성공시 로직
-                        console.log('결제완')
+                        let id = $('input[name="id"]').val() 
                         alert("정상적으로 결제되었습니다.")
-                        location.href = "/pay/orderEnd"
+                        location.href = "/pay/orderEnd/"+ id
                     })
                 } else {
                     // 결제 실패 시 로직

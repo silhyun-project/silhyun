@@ -19,11 +19,13 @@ public class PaymentServiceImpl implements PaymentService {
 //	}
 	
 	@Override
-	public int paymentInsert(PaymentVO vo,String resNum,String ctgrNum,String id) {
-		vo.setResNum(resNum);
-		vo.setCtgrNum(ctgrNum);
-		vo.setId(id);
-		return paymentMapper.paymentInsert(vo);
+	public String paymentInsert(PaymentVO vo) {
+		paymentMapper.paymentInsert(vo);  //payment테이블에 넣고 
+//		vo.setResNum(resNum);
+//		vo.setCtgrNum(ctgrNum);
+//		vo.setId(id);
+	
+		return vo.getResNum(); //예약 번호 리턴
 	}
 
 }

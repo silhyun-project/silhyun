@@ -5,7 +5,7 @@ import java.util.List;
 import co.yedam.silhyun.order.vo.PaymentVO;
 
 public interface PaymentService {
-	int paymentInsert(PaymentVO vo,String resNum,String ctgrNum,String id);
-//	int paymentInsert(PaymentVO vo,ReserVO rvo);
+//	int paymentInsert(PaymentVO vo,String resNum,String ctgrNum,String id);
+	String paymentInsert(PaymentVO vo);
 //	List<String> paymentInsert(PaymentVO vo);
 }
