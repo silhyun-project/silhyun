@@ -132,5 +132,15 @@ public class AdminServiceImpl implements AdminSercive {
 		return adminMapper.ptgGraph();
 	}
 
+	@Override
+	public List<Map<String, Object>> ptgRank() {
+			return adminMapper.ptgRank();
+	}
+
+	@Override
+	public List<Map<String, Object>> classRank() {
+		return adminMapper.classRank();
+	}
+
 
 }

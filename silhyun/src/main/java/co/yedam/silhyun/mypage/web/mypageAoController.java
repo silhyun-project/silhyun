@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
+import co.yedam.silhyun.member.service.MemberService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.ReserTimeVO;
@@ -35,6 +36,8 @@ public class mypageAoController {
 
 	@Autowired
 	private MypageAoService mypageAoService;
+	@Autowired
+	private MemberService memberService;
 
 	@GetMapping("/photo/mypageAo")
 	public String mypageAo(Model model) {
@@ -131,29 +134,29 @@ public class mypageAoController {
 	//프사변경
 	@PostMapping("/uploadProfileImage")
 	@ResponseBody
-	public Map<String,Object> uploadProfileImage(MemberVO vo, MultipartFile image){
+	public Map<String,Object> uploadProfileImage(MemberVO vo, MultipartFile file){
 		System.out.println("프사볼려는 멤버보?" + vo);
-		System.out.println("프사 들어오는지 확인" + image);
+		System.out.println("프사 들어오는지 확인" + file);
 		Map<String, Object> map = new HashMap<>();
 		
-		if (image != null && !image.isEmpty()) {
+		if (file != null && !file.isEmpty()) {
 			String saveImgPath = saveimg + "profil";
 
 			String fileName = UUID.randomUUID().toString(); // UUID생성
-			fileName = fileName + "_" + image.getOriginalFilename(); // 유니크한 아이디
+			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
 			File uploadFile = new File(saveImgPath, fileName);
 			
 			try {
-				image.transferTo(uploadFile); // 파일저장
+				file.transferTo(uploadFile); // 파일저장
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			vo.setProfile("/saveImg/profil/" + fileName);
-			//
+			memberService.updateProfileImage(vo);
 			map.put("vo", vo);
-			map.put("profile", image);
+			map.put("profile", file);
 		
 		}
 		

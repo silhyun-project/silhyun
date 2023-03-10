@@ -14,11 +14,11 @@ import javassist.ClassMap;
 @Service
 public class ClassesServiceImpl implements ClassesService {
 
-	private static final String String = null;
+
 	@Autowired ClassesMapper ClassesMapper;
 	@Override
-	public List<Map<String, Object>> getClassIVInfo(String id, String Inum) {
-			return ClassesMapper.getClassIVInfo(id, Inum);
+	public List<Map<String, Object>> getClassIVInfo(String id, String classNum) {
+			return ClassesMapper.getClassIVInfo(id, classNum);
 }
 	@Override
 	public Map<String, Object> selectIV(String classNum, String inetNum, String id) {
@@ -63,8 +63,25 @@ public class ClassesServiceImpl implements ClassesService {
 				return ClassesMapper.selectClass(classNum);
 	}
 	@Override
-	public Map<java.lang.String, Object> CPlusInfo(java.lang.String classNum, java.lang.String id) {
+	public Map<String, Object> CPlusInfo(java.lang.String classNum, java.lang.String id) {
 				return ClassesMapper.CPlusInfo(classNum, id);
 	}
+	@Override
+	public List<Map<String, Object>> randomList(String classNum) {
+				return ClassesMapper.randomList(classNum);
+	}
+	@Override
+	public String getName(String id) {
+			return ClassesMapper.getName(id);
+	}
+	@Override
+	public List<Map<String, Object>> myTakeC1(String id) {
+			return ClassesMapper.myTakeC1(id);
+	}
+	@Override
+	public List<Map<String, Object>> myTakeC2(String id) {
+			return ClassesMapper.myTakeC2(id);
+	}
+
 
 }

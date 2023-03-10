@@ -12,4 +12,10 @@
 		VALUES(#{id},#{cpnNum},#{cpnSta})
 	</insert>
 	
+	<update id="updateCoupon" parameterType="co.yedam.silhyun.event.vo.CouponHistoryVO">
+		UPDATE COUPONHISTORY 
+		SET CPN_STA ='Y' 
+		WHERE ID = #{id}
+		AND CPN_NUM = #{cpnNum}
+	</update>
 </mapper>
