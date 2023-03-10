@@ -9,16 +9,16 @@
 			FROM point
 		</selectKey>
 		insert into point (po_num, id, save_po, save_date
-		           <if test="saveNum == null and saveNum == ''">, save_num</if>)
+		           <if test="saveNum != null and saveNum != ''">, save_num</if>)
 		values(#{poNum}, #{id}, #{savePo}, sysdate
-				 <if test="saveNum == null and saveNum == ''">, #{saveNum}</if>)
+				 <if test="saveNum != null and saveNum != ''">, #{saveNum}</if>);
     
     	update member
     	set point_sum = point_sum + #{savePo}
     	where id = #{id};
 	end;
 </insert>
-<insert id="pointDelete">
+<insert id="usedPointInsert">
 	begin 
    		<selectKey keyProperty="usePoNum" resultType="String" order="BEFORE">
 			SELECT 
@@ -26,10 +26,10 @@
 			FROM used_point
 		</selectKey>
 		insert into used_point 
-		values(#{usePoNum}, #{id}, #{usePo}, sysdate, #{usedNum})
+		values(#{usePoNum}, #{id}, #{usePo}, sysdate, #{usedNum});
     
     	update member
-    	set point_sum = point_sum - #{savePo}
+    	set point_sum = point_sum - #{usePo}
     	where id = #{id};
 	end;
 </insert>

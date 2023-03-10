@@ -68,7 +68,7 @@
 	    <choose>
 	    	<when test="'new'.equals(vo.searchType)"> ORDER BY P.REGI_DATE DESC</when>
 	    	<when test="'name'.equals(vo.searchType)"> ORDER BY M.NAME</when>
-	    	<when test="'hot'.equals(vo.searchType)"> ORDER BY NVL(Z.ZZIMS,0) DESC</when>
+	    	<when test="'hot'.equals(vo.searchType)"> ORDER BY NVL(Z.ZZIMSS,0) DESC</when>
 	    </choose>
 	<![CDATA[	
 	 	) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount}) B WHERE RN > (#{cri.pageNum}-1) * #{cri.amount}
