@@ -29,7 +29,7 @@
 		values(#{usePoNum}, #{id}, #{usePo}, sysdate, #{usedNum})
     
     	update member
-    	set point_sum = point_sum - #{savePo}
+    	set point_sum = point_sum - #{usePo}
     	where id = #{id};
 	end;
 </insert>

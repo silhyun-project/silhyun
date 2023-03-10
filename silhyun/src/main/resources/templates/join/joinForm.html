@@ -10,7 +10,7 @@
 <meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
 <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
 <!-- title -->
-<title>ShopApp - eCommerce Bootstrap 5 Template</title>
+<title>silhyun</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Favicon -->
@@ -34,31 +34,34 @@
                             <div class="form-group mb-3">
                                 <label for="id" class="form-label">아이디<span class="text-danger">*</span></label>
                                 <input type="text" id="id" name="id" placeholder="아이디" class="form-control">
-						        <span class="idChk">아이디를 입력해주세요</span>
+						        <span class="idMsg">아이디를 입력해주세요</span>
 						        <!--회원가입 유효성 검사 위해 //true, false-->
-						        <input type="hidden">                           
+						        <input type="hidden" id="idCk" value="false">                           
                             </div>
                             
                             <!-- 비밀번호 -->
                             <div class="form-group mb-3">
 	                                <label for="pwd" class="form-label">비밀번호<span class="text-danger">*</span></label>
                                     <input type="password" id="pwd" name="pwd" class="form-control" placeholder="비밀번호">
-        							<span class="pwdLengthck">8~15자의 영문, 숫자, 특수문자 조합</span>
+        							<span class="pwdLengtMsg">8~15자의 영문, 숫자, 특수문자 조합</span>
+        							<!-- 비밀번호 길이 체크 -->
+        							<input type="hidden" id="pwLength" value="false">
                             </div>
                             
                             <!-- 비밀번호 확인 -->
                             <div class="form-group mb-3">
                                 <label for="pwdck" class="form-label">비밀번호확인<span class="text-danger">*</span></label>                                
                                 <input type="password" id="pwdck" class="form-control" placeholder="비밀번호 확인">
-						        <span class="pwdChk">비밀번호와 일치해야합니다.</span>
+						        <span class="pwdMgs">비밀번호와 일치해야합니다.</span>
 						        <!--회원가입 유효성 검사 위해 //true, false-->
-						        <input type="hidden">
+						        <input type="hidden" id="pwCk" value="false">
                             </div>
                             
                             <!-- 이름 -->
                             <div class="form-group mb-3">
                                 <label for="name" class="form-label">이름<span class="text-danger">*</span></label>
                                 <input type="text" id="name" name="name" class="form-control" placeholder="이름">
+                                <span class="nameMgs"></span>
                             </div>
                             
                             <!-- 연락처 -->
@@ -76,6 +79,7 @@
 							        <input type="text" class="form-control col mar">
 							        <input type="text" class="form-control col mar">
 						        </div>
+						        <span class="telMgs"></span>
                             </div>
                             <!-- 이메일 -->
                             <div class="form-group mb-3 marList">
@@ -92,6 +96,7 @@
 							        </select>
 							      </div>
 						        </div>
+						        <span class="emailMgs"></span>
                             </div>
                             <!-- 이메일 인증 -->
                             <div class="form-group mb-3">
@@ -99,9 +104,13 @@
                                 <div class="row  marList">
 							    <input type="text" class="form-control col" id="emailchk" placeholder="인증번호">
 							    <button type="button" class="btn col-4 btn-primary" id="chkBtn">인증번호 받기</button>
-							    <button type="button" class="btn col-4 btn-primary" id="sendBtn" style="display: none;">인증하기</button>
+							    <!-- 이메일 본인인증시 true -->
+							    <input type="hidden" id="emailCk" value="true">
+							    <span class="emailCkMgs">인증번호를 입력해 주세요</span>
 							    </div>
-                            </div>
+                            </div><br><br>
+                            
+                            <p>선택정보입력</p>
                             <!-- 생년월일 성별 -->                            
 						        <label class="form-label col" >생년월일 및 성별</label>
 						      <div id="birthGen" class="form-group mb-3 row">
