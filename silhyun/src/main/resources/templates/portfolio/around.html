@@ -22,7 +22,7 @@
 <link href="/css/around.css" rel="stylesheet">
 
 <!-- 자체어쩌구-->
-<link href="/css/around.css" rel="stylesheet">
+<link href="/css/modal.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.js"
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
@@ -138,23 +138,7 @@
 								<!-- 사진 자리~~ -->
 
 							</div>
-							<div class="shop-bottom-bar d-flex align-items-center mt-3">
-								<div>Showing: 1 - 12 of 17</div>
-								<div class="ms-auto">
-									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="#"
-											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-										</a></li>
-										<li class="page-item active"><a class="page-link"
-											href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#"
-											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										</a></li>
-									</ul>
-								</div>
-							</div>
+
 						</div>
 						<!-- End Product Box -->
 					</div>
@@ -167,157 +151,76 @@
 
 
 		<!-- 모달 시작 -->
-		<section class="product-details py-6">
-			<div class="container modalContainer">
-				<div class="modal modal-overlay">
-					<div class="close-area">X</div>
-					<div class="row align-items-start modal-window">
-						<!-- Product Gallery -->
-						<div
-							class="col-lg-6 lightbox-gallery sticky-lg-top sticky-lg-top-header modalPic">
-							<div class="swiper swiper-container"
-								data-swiper-options='{
-                  "slidesPerView": 1,
-                  "spaceBetween": 0,
-                  "pagination": {
-                    "el": ".swiper-pagination",
-                    "clickable": true
-                  },
-                  "navigation": {
-                    "nextEl": ".swiper-next-01",
-                    "prevEl": ".swiper-prev-01"
-                  }
-                }'>
-								<div class="swiper-wrapper slidePhoto">
-									<!-- 사진 및 사진넘기는 버튼어쩌구 자리-->
-								</div>
-							</div>
-
+		<div class="madal">
+			<div class="modalBlacklayer">
+				<div class="modalCloseButton">X</div>
+				<div class="modalContainer">
+					<div class="modalLeftbox">
+						<div class="modalSlider">
+							<img src="/saveImg/portfolio/강훈4.jpg" alt="image1"> <img
+								src="/saveImg/portfolio/강훈3.jpg" alt="image2"> <img
+								src="/saveImg/portfolio/강훈1.jpg" alt="image3"> <img
+								src="/saveImg/portfolio/강훈5.jpg" alt="image4"><img
+								src="/saveImg/portfolio/강훈5.jpg" alt="image6">
 						</div>
-						<!-- End Product Gallery -->
-						<!-- Product Details -->
-						<div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0" id="modalCon">
-
-							<!-- 작가프로필 아이디 자리 시작-->
-							<div class="modalHeader"></div>
-							<!-- 작가프로필 아이디 자리 끝-->
-							<!-- 내용 및 댓글 시작-->
-							<div class="modalConList">
-								<div class="product-description" style="overflow-y: scroll; height: 100%;">
-
-									<div class="d-flex review-box border-top mt-4 pt-4 modalContentSit">
-										<!-- 포트폴리오 내용 자리 -->
-									</div>
-									<hr>
-
-									<div class="col-lg-8 pe-lg-8">
-										<div class="products-brand pb-2">
-											<span>댓글</span>
-										</div>
-									</div>
-
-									<!-- 댓글자리 -->
-									<div class="d-flex review-box border-top mt-4 pt-4">
-										<div>
-											<div class="review-image">
-												<img class="img-fluid" src="/img/fashion/1000x1000.jpg"
-													title="" alt="프로필사진자리~~~~">
-											</div>
-										</div>
-										<div class="col ps-3">
-											<span><strong class="comNick">닉넴</strong></span>&nbsp;&nbsp;
-											<span class="m-0 pt-3">댓글내용자리요...</span> 댓글쓴시간 댓글쓰기
-
-											<!-- 덧댓글자리 -->
-											<div class="product-detail-collapse">
-												<div class="pd-collapse-row">
-													<a class="pd-collapse-h5" data-bs-toggle="collapse"
-														href="#pd_review" role="button" aria-expanded="false"
-														aria-controls="pd_review">댓글더보기(덧댓글개수)이 자체가 잇으면 보여주기.</a>
-													<div class="collapse" id="pd_review">
-														<div class="pd-collapse-box">
-															<div class="row align-items-end"></div>
-															<div class="d-flex review-box border-top mt-4 pt-4">
-																<div>
-																	<div class="review-image">
-																		<img class="img-fluid"
-																			src="/img/fashion/1000x1000.jpg" title=""
-																			alt="프로필사진자리~~~~">
-																	</div>
-																</div>
-																<div class="col ps-3">
-																	<span><strong class="comNick">닉넴</strong></span>&nbsp;&nbsp;
-																	<span class="m-0 pt-3">댓글내용자리요...</span>
-																</div>
-															</div>
-
-														</div>
-													</div>
-												</div>
-											</div>
-											<!-- 덧댓글자리 -->
-
-
-										</div>
-									</div>
-									<div class="d-flex review-box border-top mt-4 pt-4">
-										<div>
-											<div class="review-image">
-												<img class="img-fluid" src="/img/fashion/1000x1000.jpg"
-													title="" alt="프로필사진자리~~~~">
-											</div>
-										</div>
-										<div class="col ps-3">
-											<span><strong class="comNick">닉넴</strong></span>&nbsp;&nbsp;
-											<span class="m-0 pt-3">댓글내용자리요...</span>
-										</div>
-									</div>
-								</div>
-								<!-- 댓글리스트 -->
-							</div>
-							<!-- 내용 및 댓글 끝-->
-							<div class="modalFooter">
-								<div class="product-detail-actions d-flex flex-wrap pt-3">
-									<div class="heart-icon">
-										<i class="bi bi-heart"></i>
-									</div>
-									<div class="repeat-icon">
-										<i class="bi bi-repeat"></i>
-									</div>
-								</div>
-								<div class="modalFooterInfo">
-									<!-- 좋아요 숫자랑 작성일 적는 칸 -->
-								</div>
-
-								<!-- 댓글작성폼 -->
-								<div class="mt-8 border p-4">
-									<form method="post">
-										<div class="row">
-
-											<div class="col-12">
-												<div class="form-group mb-3">
-
-													<textarea class="form-control" id="contact-message"
-														name="message" style="height: 50px" placeholder="댓글작성해주세요"></textarea>
-												</div>
-											</div>
-											<div class="col-12">
-												<button class="btn btn-primary" type="submit" name="send">게시</button>
-											</div>
-										</div>
-									</form>
-								</div>
-								<!-- 모달푸터끝 -->
-							</div>
-
-						</div>
-						<!-- End Product Details -->
+						<div class="bi-chevron-compact-left modalArrow modalprev"></div>
+						<div class="bi-chevron-compact-right modalArrow modalNext"></div>
 					</div>
-
+					<div class="modalRightBox">
+						<div class="modalTopSection">
+							<div class="mTopSectionInfo">
+								<div class="mTopSectionInfoImg">
+									<img src="/saveImg/portfolio/강훈4.jpg" alt="small-image">
+								</div>
+								<div class="mTopSectionImgMaster">
+									<div class="modalMasterId">나는 강훈임</div>
+									&nbsp;&nbsp; <i class="bi-dot"></i>
+									<button>follow</button>
+								</div>
+							</div>
+							<div class="menuButton">
+								<i class="bi-three-dots"></i>
+								<ul class="menuButtonlist">
+									<li class="menuButton-item">수정하기</li>
+									<li class="menuButton-item">삭제하기</li>
+								</ul>
+							</div>
+						</div>
+						<div class="modalMiddleSection">
+							<div class="scroll-box">
+								<div class="mMiddleInfo">
+									<div class="mMiddleInfoImg">
+										<img src="/saveImg/portfolio/강훈4.jpg" alt="small-image">
+									</div>
+									<div class="mMiddleInfoImgMaster">
+										<div class="mMiddleMasterId">나는 강훈임</div>
+										&nbsp;&nbsp;
+										<p class="mMiddleMasterCon">내용이다.</p>
+									</div>
+								</div>
+								<p>댓글자리</p>
+							</div>
+						</div>
+						<div class="modalBottomSection">
+							<div class="modalBottomInfo">
+								<div class="modalClickIcons">
+									<i class="bi-heart"></i><i class="bi-chat"></i>
+								</div>
+								<div class="modalHeartInfo">
+									<small>좋아요</small> <strong><span>15 만</span></strong><small>
+										개</small>
+								</div>
+								<div class="modalInsertDate">20250101</div>
+							</div>
+							<div class="modalBottomInput">
+								<input type="text" placeholder="    댓글을 작성하세요.">
+								<button>입력</button>
+							</div>
+						</div>
+					</div>
 				</div>
-
 			</div>
-		</section>
+		</div>
 		<!-- 모달 끝 -->
 
 		<!-- js -->
@@ -580,7 +483,7 @@
 		function StandLine(aa){
 			for(i=0; i<aa.length; i++){
 				
-				const portPhotoList = `<div class="col-sm-6 col-lg-3 btn-modal">
+				const portPhotoList = `<div class="col-sm-6 col-lg-3 modalButton">
 					<div class='portInfo' style='display:none'>${aa[i].portNum}</div>
 								<div class="product-card-1">
 									<div class="product-card-image">
@@ -632,41 +535,43 @@
 		
 	
 		
-		// 사용자가 입력한 텍스트에서 해시태그(#)를 찾아서 해시태그에 a링크 걸기.
-		const text = $('#text').html();
-		const regex = /#(\S+)/g;
-		const replaced = text.replace(regex, `<a href="/hashtag/$1">#$1</a>`);
+// 		// 사용자가 입력한 텍스트에서 해시태그(#)를 찾아서 해시태그에 a링크 걸기.
+// 		const text = $('#text').html();
+// 		const regex = /#(\S+)/g;
+// 		const replaced = text.replace(regex, `<a href="/hashtag/$1">#$1</a>`);
 
-		// 대체된 텍스트로 교체합니다.
-		$('#text').html(replaced);
+// 		// 대체된 텍스트로 교체합니다.
+// 		$('#text').html(replaced);
 		
 	
 		////////////////////모달~~~
-		const modal = $(".modal");
+		const modal = $(".modalBlacklayer");
 		
 		function modalOn() {
-		    modal.css("display", "flex");
+		    modal.css("display", "block");
 		}
 		
 		function isModalOn() {
-		    return modal.css("display") === "flex";
+		    return modal.css("display") === "block";
 		}
 		
 		function modalOff() {
 		    modal.css("display", "none");
 		}
 		
-		$('.btn-modal').on('click', function() {
+		
+		$('.modalButton').on('click', function() {
+			console.log("hey");
 		    modalOn();
 		});
 		
-		$('.close-area').on('click', function() {
+		$('.modalCloseButton').on('click', function() {
 		    modalOff();
 		});
 		
 		modal.on("click", function(e) {
 		    const evTarget = e.target;
-		    if ($(evTarget).hasClass("modal-overlay")) {
+		    if ($(evTarget).hasClass(".modalBlacklayer")) {
 		        modalOff();
 		    }
 		});
