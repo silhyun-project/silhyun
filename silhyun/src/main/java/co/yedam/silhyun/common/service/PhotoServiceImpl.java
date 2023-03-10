@@ -1,6 +1,7 @@
 package co.yedam.silhyun.common.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.yedam.silhyun.common.map.PhotoMapper;
 import co.yedam.silhyun.common.vo.PhotoVO;
+import net.coobird.thumbnailator.Thumbnailator;
 
 @Service
 public class PhotoServiceImpl implements PhotoService {
@@ -44,6 +46,14 @@ public class PhotoServiceImpl implements PhotoService {
 				
 				try {
 					file.transferTo(uploadFile); //파일저장
+					
+					//섬네일 처리(이미지만 들어오니까 이미지 타입 체크는 생락
+					FileOutputStream thumbnail = new FileOutputStream(new File(saveImgPath, "s_"+ fileName));
+					
+					Thumbnailator.createThumbnail(file.getInputStream(), thumbnail, 100, 100);
+					
+					thumbnail.close();
+					
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {

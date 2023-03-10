@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class PointVO {
 
-	int poNum;
+	String poNum;
 	String id;
 	int savePo;
 	Date saveDate;
-	int saveNum;
+	String saveNum;
 	
 }

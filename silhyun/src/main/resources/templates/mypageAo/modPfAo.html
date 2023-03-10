@@ -3,8 +3,9 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{home/layout}">
-	 <!-- jquery 사용하기 위해 -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"/>
+<!-- jquery 사용하기 위해 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" />
 <head>
 
 <meta charset="UTF-8">
@@ -37,7 +38,7 @@
 	left: 0;
 	top: 0;
 	display: none;
-	flex-direction: column;	
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background: rgba(0, 0, 0, 0.8);
@@ -59,7 +60,7 @@
 
 .modal_title_pr {
 	display: flex;
-	flex-direction: row;				/* 가로정렬 */
+	flex-direction: row; /* 가로정렬 */
 	justify-content: space-between;
 	font-weight: bold;
 	font-size: 20px;
@@ -70,14 +71,14 @@
 	text-align: center;
 }
 
- .modal_image_upload_pr{
-        outline: 2px dashed black ;
-        outline-offset:-10px;
-        text-align: center;
-        transition: all .15s ease-in-out;
-        width:780px;
-        height: 548px;
-    }
+.modal_image_upload_pr {
+	outline: 2px dashed black;
+	outline-offset: -10px;
+	text-align: center;
+	transition: all .15s ease-in-out;
+	width: 780px;
+	height: 548px;
+}
 </style>
 </head>
 <body>
@@ -180,190 +181,186 @@
 							<div id="modal_add_profile" class="modal_overlay_pr">
 								<div class="modal_window_pr">
 									<div class="modal_title_pr">
-										<div class="modal_title_side_pr"></div>	<!-- title과 close가 예쁘게 위치하기 위해서  -->
+										<div class="modal_title_side_pr"></div>
+										<!-- title과 close가 예쁘게 위치하기 위해서  -->
 										<div>새 프로필</div>
 										<div class="modal_title_side_pr">
-											<span id="close_modal" class="material-icons-outlined">close </span>
+											<span id="close_modal" class="material-icons-outlined">close
+											</span>
 										</div>
 									</div>
-									 <div class="modal_image_upload_pr">	<!-- 파일 드랍 받을곳  -->
-										<div id="input_image" name="image" class="modal_image_upload_content">
-<<<<<<< HEAD
-											<p>파일을 올려주세요</p>
-											 
-=======
-										
->>>>>>> refs/remotes/origin/hyelim
-										 </div>
-        							</div>
-        							<div style="width: 100%; text-align: center">
-                    <button id="button_update_profile" type="button" class="btn btn-primary" style="width: 268px"> 바꾸기</button>
-                </div>
-								</div>
-							</div>
-							<!-- 프사 바꾸기 모달 끝 -->
-							<div class="card-header py-3">
-								<h5 class="m-0">Profile Update</h5>
-							</div>
-							<!-- 폼 시작 -->
-							<form method="post" action="/updateMyPg">
-								<div class="card-body">
-									<div class="row">
-									<div class="col-sm-6 mb-3">
-											<label class="form-label">파일</label> <input type="file"
-												class="form-control">
-										</div>
-										<div class="col-sm-6 mb-3">
-											<label class="form-label">아이디</label> <input type="text"
-												class="form-control" th:value="${ptg.Id}" placeholder="아이디"
-												readonly>
-										</div>
-										<div class="col-sm-6 mb-3">
-											<label class="form-label">이름<span class="text-danger">*</span></label>
-											<input type="text" class="form-control" id="name" name="name"
-												th:value="${ptg.name}" placeholder="이름">
-										</div>
-										<div class="col-sm-6 mb-3">
-											<label class="form-label">비밀번호<span
-												class="text-danger">*</span></label> <input type="password"
-												class="form-control" id="pwd" name="pwd" placeholder="비밀번호">
-										</div>
-										<div class="col-sm-6 mb-3">
-											<label class="form-label">Email<span
-												class="text-danger">*</span></label> <input type="email"
-												class="form-control" id="email" name="email"
-												placeholder="E-mail">
-										</div>
-										<div class="col-sm-6 mb-3">
-											<label class="form-label">전화번호<span
-												class="text-danger">*</span></label> <input type="text"
-												class="form-control" th:value="${ptg.tel}" name="tel"
-												id="tel" placeholder="전화번호">
-										</div>
-										<div class="col-sm-6 mb-3">
-											<label class="form-label">생년월일</label> <input type="text"
-												class="form-control" id="birthDate" name="birthDate">
-										</div>
-										<div class="col-sm-12 mb-3">근무 가능 요일</div>
-										<div class="col-sm-12 mb-3">
+									<div class="modal_image_upload_pr">
+										<!-- 파일 드랍 받을곳  -->
+										<span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
 
-											<input type="checkbox" class="workDay"> <label
-												class="form-check-label" for="exampleCheck1">월</label>
-											&emsp;&emsp; <input type="checkbox" class="workDay">
-											<label class="form-check-label" for="exampleCheck1">화</label>
-											&emsp;&emsp; <input type="checkbox" class="workDay">
-											<label class="form-check-label" for="exampleCheck1">수</label>
-											&emsp;&emsp; <input type="checkbox" class="workDay">
-											<label class="form-check-label" for="exampleCheck1">목</label>
-											&emsp;&emsp; <input type="checkbox" class="workDay">
-											<label class="form-check-label" for="exampleCheck1">금</label>&emsp;&emsp;
-											<input type="checkbox" class="workDay"> <label
-												class="form-check-label" for="exampleCheck1">토</label>
-											&emsp;&emsp; <input type="checkbox" class="workDay">
-											<label class="form-check-label" for="exampleCheck1">일</label>
-											&emsp;&emsp;
-										</div>
-										<div class="row align-items-center">
-											<div class="col-12 pt-2">
-												<button class="btn btn-primary" type="submit">저장</button>
-											</div>
-										</div>
 									</div>
+									<input type="hidden" value="${ptgId}">
 								</div>
-							</form>
-							<!-- 모달 -->
-							<div class="col-sm-12 mb-3">
-								<button type="button" class="btn btn-primary"
-									data-bs-toggle="modal" data-bs-target="#workTimeSel">근무시간</button>
-								<div class="modal fade" id="workTimeSel">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header bg-primary">
-												<div class="modal-title p-3">
-													<h5 class="m-0 text-white">근무시간</h5>
-												</div>
-											</div>
-											<div class="modal-body">
-												<div class="w-100 p-3">
-													<!-- Form START -->
-													<form id="upWorkTime">
-														<!-- action="/upWorkTime" -->
-														<!--근무 시간 체크박스  -->
-														<label>오전</label>
-														<div id="resTime">
-															<div class="col-sm-12 mb-3">
-																<label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="A"> <span>AM 10:00</span>
-																</label> &emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="B"> <span>AM 10:30</span>
-																</label> &emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="C"> <span>AM 11:00</span>
-																</label>&emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="D"> <span>AM 11:30</span>
-																</label>&emsp;
-															</div>
-															<label>오후</label>
-															<div class="col-sm-12 mb-3">
-																<label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="E"> <span>PM 2:00</span>
-																</label>&emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="F"> <span>PM 2:30</span>
-																</label>&emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="G"> <span>PM 3:00</span>
-																</label>&emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="H"> <span>PM 3:30</span>
-																</label>&emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="I"> <span>PM 4:00</span>
-																</label>&emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="J"> <span>PM 4:30</span>
-																</label> &emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="K"> <span>PM 5:00</span>
-																</label> &emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="L"> <span>PM 5:30</span>
-																</label> &emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="M"> <span>PM 6:00</span>
-																</label> &emsp; <label class="check-label"> <input
-																	type="checkbox" class="resTime" name="resTime"
-																	value="N"> <span>PM 6:30</span>
-																</label>
-															</div>
-														</div>
-														<div class="row align-items-center">
-															<div class="col-12 pt-2">
-																<button type="submit" class="btn btn-primary"
-																	onclick="sendData()">저장</button>
-															</div>
-														</div>
-														<!-- id숨겨놓음 -->
-														<input type="hidden" name="ptgId" value="user3">
-													</form>
-												</div>
-											</div>
-
-										</div>
-									</div>
+								<div style="width: 100%; text-align: center">
+									<button id="button_update_profile" type="button"
+										class="btn btn-primary" style="width: 268px">바꾸기</button>
 								</div>
 							</div>
-							<!--모달끝  -->
 						</div>
+						<!-- 프사 바꾸기 모달 끝 -->
+						<div class="card-header py-3">
+							<h5 class="m-0">Profile Update</h5>
+						</div>
+						<!-- 폼 시작 -->
+						<form method="post" action="/updateMyPg">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-6 mb-3">
+										<label class="form-label">아이디</label> <input type="text"
+											class="form-control" th:value="${ptg.Id}" placeholder="아이디"
+											readonly>
+									</div>
+									<div class="col-sm-6 mb-3">
+										<label class="form-label">이름<span class="text-danger">*</span></label>
+										<input type="text" class="form-control" id="name" name="name"
+											th:value="${ptg.name}" placeholder="이름">
+									</div>
+									<div class="col-sm-6 mb-3">
+										<label class="form-label">비밀번호<span
+											class="text-danger">*</span></label> <input type="password"
+											class="form-control" id="pwd" name="pwd" placeholder="비밀번호">
+									</div>
+									<div class="col-sm-6 mb-3">
+										<label class="form-label">Email<span
+											class="text-danger">*</span></label> <input type="email"
+											class="form-control" id="email" name="email"
+											placeholder="E-mail">
+									</div>
+									<div class="col-sm-6 mb-3">
+										<label class="form-label">전화번호<span
+											class="text-danger">*</span></label> <input type="text"
+											class="form-control" th:value="${ptg.tel}" name="tel"
+											id="tel" placeholder="전화번호">
+									</div>
+									<div class="col-sm-6 mb-3">
+										<label class="form-label">생년월일</label> <input type="text"
+											class="form-control" id="birthDate" name="birthDate">
+									</div>
+									<div class="col-sm-12 mb-3">근무 가능 요일</div>
+									<div class="col-sm-12 mb-3">
 
+										<input type="checkbox" class="workDay"> <label
+											class="form-check-label" for="exampleCheck1">월</label>
+										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+											class="form-check-label" for="exampleCheck1">화</label>
+										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+											class="form-check-label" for="exampleCheck1">수</label>
+										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+											class="form-check-label" for="exampleCheck1">목</label>
+										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+											class="form-check-label" for="exampleCheck1">금</label>&emsp;&emsp;
+										<input type="checkbox" class="workDay"> <label
+											class="form-check-label" for="exampleCheck1">토</label>
+										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+											class="form-check-label" for="exampleCheck1">일</label>
+										&emsp;&emsp;
+									</div>
+									<div class="row align-items-center">
+										<div class="col-12 pt-2">
+											<button class="btn btn-primary" type="submit">저장</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<!-- 모달 -->
+						<div class="col-sm-12 mb-3">
+							<button type="button" class="btn btn-primary"
+								data-bs-toggle="modal" data-bs-target="#workTimeSel">근무시간</button>
+							<div class="modal fade" id="workTimeSel">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header bg-primary">
+											<div class="modal-title p-3">
+												<h5 class="m-0 text-white">근무시간</h5>
+											</div>
+										</div>
+										<div class="modal-body">
+											<div class="w-100 p-3">
+												<!-- Form START -->
+												<form id="upWorkTime">
+													<!-- action="/upWorkTime" -->
+													<!--근무 시간 체크박스  -->
+													<label>오전</label>
+													<div id="resTime">
+														<div class="col-sm-12 mb-3">
+															<label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="A">
+																<span>AM 10:00</span>
+															</label> &emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="B">
+																<span>AM 10:30</span>
+															</label> &emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="C">
+																<span>AM 11:00</span>
+															</label>&emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="D">
+																<span>AM 11:30</span>
+															</label>&emsp;
+														</div>
+														<label>오후</label>
+														<div class="col-sm-12 mb-3">
+															<label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="E">
+																<span>PM 2:00</span>
+															</label>&emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="F">
+																<span>PM 2:30</span>
+															</label>&emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="G">
+																<span>PM 3:00</span>
+															</label>&emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="H">
+																<span>PM 3:30</span>
+															</label>&emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="I">
+																<span>PM 4:00</span>
+															</label>&emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="J">
+																<span>PM 4:30</span>
+															</label> &emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="K">
+																<span>PM 5:00</span>
+															</label> &emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="L">
+																<span>PM 5:30</span>
+															</label> &emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="M">
+																<span>PM 6:00</span>
+															</label> &emsp; <label class="check-label"> <input
+																type="checkbox" class="resTime" name="resTime" value="N">
+																<span>PM 6:30</span>
+															</label>
+														</div>
+													</div>
+													<div class="row align-items-center">
+														<div class="col-12 pt-2">
+															<button type="submit" class="btn btn-primary"
+																onclick="sendData()">저장</button>
+														</div>
+													</div>
+													<!-- id숨겨놓음 -->
+													<input type="hidden" name="ptgId" value="user3">
+												</form>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--모달끝  -->
 					</div>
+
 				</div>
-				<!-- End Content -->
 			</div>
+			<!-- End Content -->
+		</div>
 		</div>
 
 		<!--Table -->
@@ -455,13 +452,17 @@
         e.preventDefault();
         
         console.log('drop');
+        console.log(  e.originalEvent.dataTransfer+"11111111111111111111111111111111");		//object어쩌구
        
         
         e.dataTransfer = e.originalEvent.dataTransfer; 		//파일가져오기
-        var files =  e.dataTransfer.files;					//list형식
+        files =  e.dataTransfer.files;					//list형식
+        //event.preventDefault();
+        console.log(JSON.stringify(e.originalEvent.dataTransfer));//값이없다
+        console.log(event.dataTransfer.files[0]);	//값이 나옴??? => 고유 오류라고한다
 //추가
-        const file = files[0];
-        const blobUrl = window.URL.createObjectURL(file);	//파일을 blob로
+    /*     const file = files[0];
+        const blobUrl = window.URL.createObjectURL(file);	//파일을 blob로 */
         
         if (files.length > 1) {
             alert('하나만 가능합니다');
@@ -469,10 +470,10 @@
         }
        										// window.URL.createObjectURL 윈도우가 사라지면 사라진다  e.target.css==undfiend
         if (files[0].type.match(/image.*/)) {
-        	$('.modal_image_upload_pr')
-        	
+        	//$('.modal_image_upload_pr')
+     //화면에 놓은 사진 보이게함   	
             $(e.target).css({
-                "background-image": "url(" + blobUrl + ")",
+                "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
                 "outline": "none",
                 "background-size": "100% 100%"});
         }else{
@@ -481,32 +482,34 @@
         }
         	//	alert((e.target).css);
      // extract the blob URL
-  	const urlObject = new URL(blobUrl);
-	const blobPath = urlObject.pathname; 		// remove the first "/" character
-	console.log(blobPath);
+  	//const urlObject = new URL(blobUrl);
+	//const blobPath = urlObject.pathname; 		// remove the first "/" character
+	//console.log(blobPath);
 
 
     }
     $('#button_update_profile').on('click', ()=>{
-        const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+        //const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
         const id = 'user1';
+		
+        
+        const file = files[0];//// 여기까지 값이 들어옴
 
-        const file = files[0];////
-
-        let fd = new FormData()[0];
+        var fd = new FormData();	//fd 가 값이 xxx
 
        // fd.append('profile', file);
 
-        fd.append('image', image);
+       // fd.append('image', image);
         fd.append('id', id);
+        fd.append('file',files[0]);
 
-        if(image.length <= 0)
+        if(file.length <= 0)
         {
             alert("이미지가 비어있습니다.");
         }
         else{
             writeFeed(fd);
-            console.log(files[0]);
+            console.log(files[0].name);
         }
     });
     
@@ -526,7 +529,7 @@
             },
             complete: function() {
                 console.log("무조건실행");
-                closeModal();
+                //closeModal();
                 location.reload();
             }
         })

@@ -8,4 +8,6 @@ public interface MemberService {
 	
 	int memberInsert(MemberVO vo); //회원가입
 	boolean isidCheck(MemberVO vo); //중복검사 
+	
+	int updateProfileImage(MemberVO vo);//프사 바꾸기
 }
