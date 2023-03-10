@@ -27,4 +27,10 @@ public class CouponServiceImpl implements CouponService {
 		
 		return couponMapper.insertCoupon(hvo);
 	}
+
+	@Override  //쿠폰 상태 변경 
+	public int updateCoupon(CouponHistoryVO hvo) {
+		
+		return couponMapper.updateCoupon(hvo);
+	}
 }
