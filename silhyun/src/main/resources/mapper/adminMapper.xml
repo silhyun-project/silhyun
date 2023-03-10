@@ -142,6 +142,34 @@
   order by quit_cd
 </select>
 
+
+<!-- 랭킹 -->
+<!-- 기록가 -->
+<select id="ptgRank" resultType="map">
+select ctgr_num as "ctgrNum", count(*) as cnt, 
+			(select profile from member where id= ctgr_num) as profile
+from payment 
+where ctgr = 'A'
+group by ctgr_num
+order by cnt Desc
+FETCH FIRST 5 ROWS ONLY
+</select>
+
+<!-- 클래스 -->
+<select id="classRank" resultType="map">
+SELECT c.cla_ttl AS "classTitle",
+       COUNT(*) AS "count",
+       c.thni AS "profile",
+       c.ptg_id AS "ptgId"
+FROM payment p
+JOIN class c ON p.ctgr_num = c.class_num
+WHERE p.ctgr = 'C'
+GROUP BY c.class_num, c.cla_ttl, c.thni, c.ptg_id
+ORDER BY "count" DESC
+FETCH FIRST 5 ROWS ONLY
+</select>
+
+
 <!-- 분야그래프/작가분포  -->
 <select id="ptgGraph" resultType="HashMap">
   SELECT 
@@ -157,6 +185,16 @@
   FROM FIELD
   order by fd_cd
 </select>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -260,5 +298,26 @@
 	<if test="type == 'quitCd'">WHERE quit_cd LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'detaResn'">WHERE deta_resn LIKE '%'||#{keyword }||'%'</if>
 </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

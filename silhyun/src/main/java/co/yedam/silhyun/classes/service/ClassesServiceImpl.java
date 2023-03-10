@@ -70,6 +70,18 @@ public class ClassesServiceImpl implements ClassesService {
 	public List<Map<String, Object>> randomList(String classNum) {
 				return ClassesMapper.randomList(classNum);
 	}
+	@Override
+	public String getName(String id) {
+			return ClassesMapper.getName(id);
+	}
+	@Override
+	public List<Map<String, Object>> myTakeC1(String id) {
+			return ClassesMapper.myTakeC1(id);
+	}
+	@Override
+	public List<Map<String, Object>> myTakeC2(String id) {
+			return ClassesMapper.myTakeC2(id);
+	}
 
 
 }

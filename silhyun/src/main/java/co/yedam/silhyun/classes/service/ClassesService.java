@@ -35,4 +35,11 @@ public interface ClassesService {
 	Map<String, Object> CPlusInfo(String classNum, String id);
 	
 	List<Map<String, Object>> randomList(String classNum);
+	
+	//내 수강강의 페이지
+	String getName(String id);
+	
+	List<Map<String, Object>> myTakeC1(String id);
+	
+	List<Map<String, Object>> myTakeC2(String id);
 }

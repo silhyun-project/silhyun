@@ -62,8 +62,21 @@ public class ClassesController {
 	    return "/classes/classesVideo";
 	}
 	
-	@GetMapping("/myClasses")
-	public String myClasses() {
+	@GetMapping("/silhyun/myPage/myClasses")
+	public String myClasses(String id, Model model) {
+		model.addAttribute("myName",ClassesService.getName("catLove"));
+		model.addAttribute("myC1", ClassesService.myTakeC1("catLove"));
+		model.addAttribute("myC2", ClassesService.myTakeC2("catLove"));
+		
+		int count1 = ClassesService.myTakeC1("catLove").size();
+		System.out.println("컨트롤러러로 온 myTakeC1 사이즈"+count1);
+		int count2 = ClassesService.myTakeC2("catLove").size();
+		System.out.println("컨트롤러러로 온 myTakeC2 사이즈"+count2);
+		
+		model.addAttribute("count1",count1);
+		model.addAttribute("count2",count2);
+		
+		System.out.println("컨트롤러로 온 my C"+model);
 		return "/classes/myClasses";
 	}
 	
@@ -71,7 +84,7 @@ public class ClassesController {
 	@RequestMapping("/silhyun/classes/myClassesVideos")
 	public String myClassesVidios(String id, @RequestParam("classNum") String classNum, Model model) {
 	System.out.println("비디오 목록으로 가는 클래스넘"+classNum);
-		model.addAttribute("IVInfo",ClassesService.getClassIVInfo("chooga", classNum));
+		model.addAttribute("IVInfo",ClassesService.getClassIVInfo("catLove", classNum));
 		
 		System.out.println("컨트롤러로 온 클래스IVInfo"+ model);
 		return "/classes/myClassesVideos";	
