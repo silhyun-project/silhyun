@@ -39,4 +39,10 @@ public class EventServiceImpl implements EventService{
 		return eventMapper.chulIdSelect(id);
 	}
 
+	@Override
+	public int updateChulcheck(ChulcheckVO vo) {
+
+		return eventMapper.updateChulcheck(vo);
+	}
+
 }

@@ -23,4 +23,11 @@
 		INSERT INTO CHULCHECK(CHECK_DATE,ID)
 		VALUES (#{checkDate},#{id})
 	</insert>
+	<update id="updateChulcheck">
+		UPDATE CHULCHECK
+		SET CHECK_DATE = sysdate
+		WHERE ID = #{id}
+	
+	</update>
+	
 </mapper>

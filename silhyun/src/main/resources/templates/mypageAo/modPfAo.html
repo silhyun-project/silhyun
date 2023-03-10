@@ -211,10 +211,6 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6 mb-3">
-										<label class="form-label">파일</label> <input type="file"
-											class="form-control">
-									</div>
-									<div class="col-sm-6 mb-3">
 										<label class="form-label">아이디</label> <input type="text"
 											class="form-control" th:value="${ptg.Id}" placeholder="아이디"
 											readonly>
@@ -499,12 +495,13 @@
         
         const file = files[0];//// 여기까지 값이 들어옴
 
-        let fd = new FormData()[0];	//fd 가 값이 xxx
+        var fd = new FormData();	//fd 가 값이 xxx
 
        // fd.append('profile', file);
 
-        fd.append('image', image);
+       // fd.append('image', image);
         fd.append('id', id);
+        fd.append('file',files[0]);
 
         if(file.length <= 0)
         {
@@ -512,7 +509,7 @@
         }
         else{
             writeFeed(fd);
-            console.log(files[0]);
+            console.log(files[0].name);
         }
     });
     
@@ -532,7 +529,7 @@
             },
             complete: function() {
                 console.log("무조건실행");
-                closeModal();
+                //closeModal();
                 location.reload();
             }
         })

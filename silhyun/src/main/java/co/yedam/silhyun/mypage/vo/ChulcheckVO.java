@@ -1,6 +1,7 @@
 package co.yedam.silhyun.mypage.vo;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,3 +18,5 @@ public class ChulcheckVO {
 	String id;
 	
 }
+
+
