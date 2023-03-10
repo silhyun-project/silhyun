@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ReportVO {
 
-	int repoNum;
+	String repoNum;
 	String ctgr;
 	String ctgrNum;
 	String id;
