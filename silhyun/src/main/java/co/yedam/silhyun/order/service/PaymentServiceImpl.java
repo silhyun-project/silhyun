@@ -28,4 +28,10 @@ public class PaymentServiceImpl implements PaymentService {
 		return vo.getResNum(); //예약 번호 리턴
 	}
 
+	@Override
+	public List<PaymentVO> getPaymentInfo(String id, String resNum) {
+		
+		return paymentMapper.getPaymentInfo(id, resNum);
+	}
+
 }

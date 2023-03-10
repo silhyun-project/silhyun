@@ -8,4 +8,5 @@ public interface PaymentService {
 //	int paymentInsert(PaymentVO vo,String resNum,String ctgrNum,String id);
 	String paymentInsert(PaymentVO vo);
 //	List<String> paymentInsert(PaymentVO vo);
+	List<PaymentVO> getPaymentInfo(String id, String resNum);
 }
