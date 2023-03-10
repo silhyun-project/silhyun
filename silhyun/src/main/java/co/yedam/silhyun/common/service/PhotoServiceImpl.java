@@ -42,9 +42,9 @@ public class PhotoServiceImpl implements PhotoService {
 			for(MultipartFile file : files) {
 				String fileName = UUID.randomUUID().toString(); //UUID생성 
 				fileName = fileName + "_" + file.getOriginalFilename(); //유니크한 아이디
-				File uploadFile = new File(saveImgPath, fileName); 
 				
 				try {
+					File uploadFile = new File(saveImgPath, fileName); 
 					file.transferTo(uploadFile); //파일저장
 					
 					//섬네일 처리(이미지만 들어오니까 이미지 타입 체크는 생락
