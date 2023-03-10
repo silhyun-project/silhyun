@@ -33,5 +33,4 @@ public interface MypageAoMapper {
 	int insertReserTime(List<ReserTimeVO> reserTimeList );
 	int deleteReserTime(String id);
 	
-	int updateProfileImage(MemberVO vo);//프사 바꾸기
 }

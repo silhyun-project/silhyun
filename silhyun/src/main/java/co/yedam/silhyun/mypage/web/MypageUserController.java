@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MypageUserController {
    
-   @GetMapping("/mpg/mpgOrderList/{ptgId}")
+   @GetMapping("/mpg/mpgOrderList")
    public String mpgOrderList() {
       
       return "mypageUser/mpgOrderList";
    }
    
-   @GetMapping("/mpg/mpgCouponList/{ptgId}")
+   @GetMapping("/mpg/mpgCouponList")
    public String mpgCouponList() {
       
       return "mypageUser/mpgCouponList";
@@ -25,7 +25,7 @@ public class MypageUserController {
       return "mypageUser/mpgQstPage";
    }
 
-   @GetMapping("/mpg/mpgUser/{ptgId}")
+   @GetMapping("/mpg/mpgUser")
    public String mpgUser() {
       
       return "mypageUser/mpgUser";

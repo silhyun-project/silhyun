@@ -31,7 +31,7 @@ public interface MypageAoService {
 	int deleteReserTime(String id);	// 작가 예약시간정보 삭제
 	int insertReserTime(ReserTimeVO vo );	//작가 예약시간 정보 삽입
 	
-	int updateProfileImage(MemberVO vo);//프사 바꾸기
+	
 
 	
 }

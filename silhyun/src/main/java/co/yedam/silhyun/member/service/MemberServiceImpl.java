@@ -30,5 +30,12 @@ public class MemberServiceImpl implements MemberService{
 		return map.isidCheck(vo);
 	}
 	
+	//프사
+	@Override
+	public int updateProfileImage(MemberVO vo) {
+
+		return map.updateProfileImage(vo);
+	}
+	
 
 }

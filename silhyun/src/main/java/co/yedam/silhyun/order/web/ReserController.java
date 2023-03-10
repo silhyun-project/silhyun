@@ -1,10 +1,8 @@
 package co.yedam.silhyun.order.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +10,39 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
+import co.yedam.silhyun.event.service.CouponService;
+import co.yedam.silhyun.event.vo.CouponHistoryVO;
 import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.service.StdService;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
-import co.yedam.silhyun.order.map.OrderMapper;
+import co.yedam.silhyun.mypage.service.PointService;
+import co.yedam.silhyun.mypage.vo.PointVO;
+import co.yedam.silhyun.mypage.vo.UsedPointVO;
+import co.yedam.silhyun.order.service.OrderService;
+import co.yedam.silhyun.order.service.PaymentService;
+import co.yedam.silhyun.order.service.SelectedOpService;
+import co.yedam.silhyun.order.vo.PaymentVO;
 import co.yedam.silhyun.order.vo.ReserVO;
 import co.yedam.silhyun.order.vo.SelectedOpVO;
 
 @Controller
 public class ReserController {
-	@Autowired
-	PtgService ptgService;
-	@Autowired
-	StdService stdService;
-	@Autowired
-	OrderMapper orderMapper;
+	@Autowired PtgService ptgService;
+	@Autowired StdService stdService;
+	@Autowired OrderService orderService;
+	@Autowired PaymentService paymentService;
+	@Autowired SelectedOpService selectedOpService;
+	@Autowired PointService pointService;
+	@Autowired CouponService couponService;
 
 	/// ▶작가
 	@RequestMapping("/silhyun/ptgList") // 작가 리스트
@@ -101,8 +109,12 @@ public class ReserController {
 
 	// ▶예약 폼
 	@RequestMapping("/pay/reserList/{ptgId}")  //선택한 작가 예약하러 가기
-	public String reserList(HttpServletRequest request,Model model, PhotographerVO vo, @PathVariable String ptgId) {
-		model.addAttribute("session",request.getSession());
+	public String reserList(Model model, PhotographerVO vo, @PathVariable String ptgId,HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+		}
 		model.addAttribute("res",ptgService.getReser(ptgId));
 		System.out.println("예약폼====="+vo);
 		System.out.println(ptgId);
@@ -118,12 +130,50 @@ public class ReserController {
 	}
 
 	@RequestMapping("/pay/orderForm")
-	public String orderForm(ReserVO vo,SelectedOpVO svo,HttpServletRequest request,Model model,OptionsVO ovo){
-		model.addAttribute("session",request.getSession()); //세션확인
-		model.addAttribute("memInfo", orderMapper.getMemberInfoList(vo));
-		
+	public String orderForm(ReserVO vo,SelectedOpVO svo,Model model,OptionsVO ovo){
+		model.addAttribute("memInfo", orderService.getMemberInfoList(vo));
 		System.out.println("호출 되니");
-		System.out.println(vo+"3333333333333333333333333333");
+		System.out.println(vo.getId()+"3333333");
 		return "order/orderList";
+	}
+	
+	@PostMapping("/pay/reserInsert")
+	@ResponseBody
+	public ReserVO reserInsert(ReserVO rvo, PaymentVO pvo,SelectedOpVO svo,PointVO ptvo, UsedPointVO upvo,CouponHistoryVO chvo) {//@RequestBody
+		String resNum = orderService.reserInsert(rvo);
+		System.out.println("여기는 예약 insert resNum=>"+resNum);  //정상적으로 넘어옴 
+		System.out.println("rvo에 담겼니 =>"+rvo);
+		
+		//예약시 paymentInsert 테이블에 추가
+		pvo.setResNum(rvo.getResNum());
+		paymentService.paymentInsert(pvo);  
+
+		//결제 시 SelectedOpVO 테이블에 추가 
+		svo.setResNum(pvo.getResNum());  
+		selectedOpService.selectedOpInsert(svo);
+		
+		//결제시 결제 금액의 10% 포인트로 지급
+		ptvo.setSaveNum(pvo.getOrdNum()); //포인트vo에 pvo에 주문번호 넣어주기(결제금액의 10%)
+		System.out.println("pvo.getOrdNum() ========>>"+pvo.getOrdNum());
+		pointService.pointInsert(ptvo);  //결제하면 멤버 테이블에 pointSum에 증가 
+		
+		//결제시 사용한 포인트가 있으면!
+		if(pvo.getUPoint() != 0) {  
+			upvo.setUsedNum(pvo.getOrdNum()); // 사용된 포인트 vo에 pvo주문 번호 넣어주기
+			pointService.usedPointInsert(upvo);  //결제시 사용한 포인트테이블에 추가하고  멤버테이블에서 차감
+		}
+		//결제 시 사용한 쿠폰이 있으면!
+		if(pvo.getUCpNum() !=null) {  
+			chvo.setId(pvo.getId());
+			chvo.setCpnNum(pvo.getUCpNum());
+			couponService.updateCoupon(chvo);
+		}
+		return rvo;
+	}
+	
+	@RequestMapping("/pay/orderEnd/{id}")  //결제 다 하면 뜨는 창
+	public String orderEnd(Model model,@PathVariable String id,ReserVO vo) {
+		
+		return "order/orderEnd";
 	}
 }

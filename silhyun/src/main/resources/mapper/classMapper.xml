@@ -38,7 +38,7 @@ WHERE c.cla_cd = 'CL2'
 
 
 
-<!-- 메인에서 선택값 받아서 조건맞춘 클래스 리스트-->
+<!-- 메인에서 선택값 받아서 검색된 클래스 리스트. 아작스로 보낼 것-->
 <select id="cdtC1List" parameterType="int"  resultType="map">
     SELECT c.cla_cd as cCd, 
            c.thni as thni, 
@@ -175,6 +175,60 @@ SELECT
 FROM DUAL
 </select>
 
+<!-- 강의 상세페이지에 함께 보낼 랜덤추천리스트. -->
+<select id="randomList" parameterType="String"  resultType="map">
+    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
+    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+    case 
+        when c.cla_time = '' then '시간미정'
+        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
+        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
+    end as cTime, 
+    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+    FROM class c 
+    LEFT OUTER JOIN member m ON c.ptg_id = m.id
+    LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+    WHERE c.class_num != #{classNum}
+     ORDER BY DBMS_RANDOM.VALUE
+	FETCH FIRST 4 ROWS ONLY
+</select>
+
+
+
+<!-- 마이페이지에서 들어가는 내 수강강의 리스트  -->
+<select id="getName" parameterType="String" resultType="String">
+SELECT name
+from member
+where id = #{id}
+</select>
+
+<!-- 오프라인 강의 -->
+<select id="myTakeC1" parameterType="String" resultType="map">
+SELECT c.cla_ttl AS "ttl", m.name AS "pName", f.fd_cd AS "fdCd", c.cla_place AS "cPlace",
+       to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS "cDt", c.class_num as "classNum",
+    CASE
+        WHEN c.cla_time = '' THEN '시간미정'
+        WHEN c.cla_time <![CDATA[ < ]]>=12 THEN '오전 '|| c.cla_time || '시'
+        ELSE '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
+    END AS "cTime",  CEIL(c.cla_dt - sysdate) AS "dDayCnt"
+FROM class c
+INNER JOIN member m ON c.ptg_id = m.id 
+INNER JOIN field f ON c.ptg_id = f.ptg_id
+INNER JOIN payment p ON c.class_num = p.ctgr_num 
+WHERE p.id = 'catLove' AND c.cla_cd = 'CL1'
+</select>
+
+<!-- 온라인 강의 -->
+<select id="myTakeC2" parameterType="String" resultType="map">
+SELECT c.cla_ttl AS "ttl", m.name AS "pName", f.fd_cd AS "fdCd", c.cla_cnt AS "IVCnt", p.ord_date AS "ordDt", c.ydt AS "ydt",
+       p.ord_date + c.ydt AS "dDay", CEIL((p.ord_date + c.ydt) - SYSDATE) AS "dDayCnt",  c.class_num as "classNum"
+FROM class c
+INNER JOIN member m ON c.ptg_id = m.id 
+INNER JOIN field f ON c.ptg_id = f.ptg_id
+INNER JOIN payment p ON c.class_num = p.ctgr_num 
+WHERE p.id = 'catLove' AND c.cla_cd='CL2'
+</select>
 
 
 
@@ -191,28 +245,28 @@ FROM DUAL
   <result column="icount" property="icount"/>
   <result column="iVrate" property="iVrate"/>
   <result column="i_state" property="iState"/>
-   <result column="i_state_100" property="iBack"/>
+   <result column="iBack" property="iBack"/>
 </resultMap>
 
-<select id="getClassIVInfo" resultMap="IVlist">
+<select id="getClassIVInfo" parameterType="java.util.Map" resultMap="IVlist">
 SELECT 
     c.cla_ttl as ttl, 
     i.inet_num as inetNum, 
     i.inet_ttl as ittl, 
     i.inet_time as itime, 
-    (SELECT COUNT(*) FROM inetclass WHERE class_num = '2') AS icount,
+    (SELECT COUNT(*) FROM inetclass WHERE class_num = #{classNum}) AS icount,
     nvl(ROUND((w.ew_time/(i.inet_time*60)), 3) * 100,0) AS "iVrate",
     nvl(ROUND((w.cumlw_time/(i.inet_time*60)), 3) * 100,0) AS "i_state",
     (SELECT COUNT(*) FROM inetclass_wtch w2 JOIN inetclass i2 ON i2.class_num = 
-    w2.class_num AND i2.inet_num = w2.inet_num WHERE w2.id = 'catLove' 
-    AND w2.class_num = '2' AND ROUND((w2.cumlw_time/(i2.inet_time*60)), 3) * 100 >= 70) 
-    AS "i_state_100"
+    w2.class_num AND i2.inet_num = w2.inet_num WHERE w2.id = #{id} 
+    AND w2.class_num = #{classNum} AND ROUND((w2.cumlw_time/(i2.inet_time*60)), 3) * 100 >= 70) 
+    AS "iBack"
 FROM 
     inetclass i
-    LEFT JOIN inetclass_wtch w ON w.class_num = i.class_num AND w.inet_num = i.inet_num AND w.id = 'catLove'
+    LEFT JOIN inetclass_wtch w ON w.class_num = i.class_num AND w.inet_num = i.inet_num AND w.id = #{id}
     JOIN class c ON c.class_num = i.class_num
 WHERE 
-    i.class_num = '2'
+    i.class_num = #{classNum}
 ORDER BY i.inet_num
 </select>
 

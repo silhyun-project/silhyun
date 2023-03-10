@@ -41,7 +41,13 @@ public interface AdminSercive {
 	
 	List<Map<String, String>> quitGraph();
 	
+	//rank
+	
 	List<Map<String, String>> ptgGraph();
+	
+	List<Map<String, Object>> ptgRank();
+	
+	List<Map<String, Object>> classRank();
 	
 	
 	List<QuitVO> getListQuit(AdminCriteria cri);
