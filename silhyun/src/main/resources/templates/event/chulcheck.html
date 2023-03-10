@@ -6,26 +6,59 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
 </head>
 <body>
-<main layout:fragment="content">
-<div>
+	<main layout:fragment="content">
+		<div>
+												<!-- form action으론 보내짐 -->
+			<form id="chulcheckFrm" method="post" >
+				<div>
+					<!-- 	<input type="hidden"  name="id" value="${id}">  -->
+					<input type="hidden" name="id" value="user5">
+					<p th:text="${date}"></p>
+					<input type="hidden" name="checkDate" th:value="${date}">
+				</div>
+				<div>
+					<button type="button" class="btn btn-primary"
+						onclick="chulcheckAj()">출석체크</button>
+				</div>
+			</form>
 
-    <form method="get" action="/silhyun/chulcheck">
-	<input type="hidden"  name="id" value="${id}"> 
-  
-    <p>Date: <span th:text="${date}"></span></p>
-    <p>실험용 Time: <span th:text="${time}"></span></p>
 
-        <button type="submit">출석체크</button>
-    </form>
+			<script>
+				function chulcheckAj() {
+					var formData = new FormData($("#chulcheckFrm")[0]);
 
+					for(let key of formData.keys()){
+						 console.log(key+"--------------------키")
+					 }
+					 for(let value of formData.values()){
+						 console.log(value+"************value")
+					 }
+						
+					$.ajax({
+						url : '/silhyun/chulcheckEv',
+						method : 'POST',
+						data : JSON.stringify(formData),
+						contentType: "application/json",
+						dataType : 'json',
+						success : function(result) {
+							console.log(result);
+							alert("출석 체크 완료🎉");
+						},
+						error : function(reject) {
+							console.log(reject)
+							alert("이미 출석하였습니다.");
+						}
 
+					});
 
-<script type="text/javascript">
-
-</script>
-</div>
-</main>
+				}
+			</script>
+		</div>
+	</main>
 </body>
 </html>

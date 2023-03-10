@@ -41,4 +41,13 @@
 	from member
 	where id = #{id}
 </select>
+
+<!-- 프사바꾸기 -->
+<!-- 프사바꾸기  -->
+	<update id="updateProfileImage" parameterType="co.yedam.silhyun.member.vo.MemberVO">
+		UPDATE MEMBER
+		SET PROFILE = #{profile}
+		WHERE ID = #{id}
+	</update>
+
 </mapper>
