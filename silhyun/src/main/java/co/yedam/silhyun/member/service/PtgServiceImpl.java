@@ -50,7 +50,6 @@ public class PtgServiceImpl implements PtgService {
 
 	@Override
 	public List<PhotographerVO> getResTime(String ptgId, String redate) {
-		// TODO Auto-generated method stub
 		return ptgMapper.getResTime(ptgId,redate);
 	}
 

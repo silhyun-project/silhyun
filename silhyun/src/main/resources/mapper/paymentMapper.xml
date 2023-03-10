@@ -16,4 +16,18 @@
 			<if test="uPoint != null and uPoint != ''">,#{uPoint}</if>
 			,'Y',sysdate, #{paymPri},#{ordPri})
 	</insert>
+	
+	<select id="getPaymentInfo" resultType="co.yedam.silhyun.order.vo.PaymentVO">
+		SELECT R.SHOT_DATE, M.NAME, P.SHOT_PLACE, FIND_CD(R.SHOT_TIME) SHOT_TIME, FIND_OP(O.OP_NUM) TTL, PM.ORD_PRI, PM.PAYM_PRI, NVL((PM.ORD_PRI-PM.PAYM_PRI),0) DISCOUNT
+		FROM RESER R JOIN PHOTOGRAPHER P
+		ON R.PTG_ID = P.PTG_ID
+		JOIN MEMBER M
+		ON P.PTG_ID = M.ID
+		JOIN SELECTED_OP O 
+		ON O.RES_NUM2 = R.RES_NUM
+		JOIN PAYMENT PM
+		ON PM.RES_NUM = R.RES_NUM
+		WHERE R.ID = #{id}
+		AND R.RES_NUM = #{resNum}
+	</select>
 </mapper>

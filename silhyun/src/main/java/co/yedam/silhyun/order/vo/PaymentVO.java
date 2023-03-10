@@ -2,6 +2,10 @@ package co.yedam.silhyun.order.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 @Data
 public class PaymentVO {
@@ -17,4 +21,12 @@ public class PaymentVO {
 	Date ordDate;
 	int paymPri;
 	int ordPri;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	Date shotDate;
+	String name;
+	String shotTime;
+	String ttl;
+	int discount;
 }
