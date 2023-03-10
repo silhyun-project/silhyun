@@ -96,5 +96,8 @@
 		AND P.PTG_ID = #{ptgId}
 		ORDER BY P.PORT_DATE DESC
 	</select>
+	
+	
+	
 
 </mapper>
