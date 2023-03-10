@@ -46,6 +46,8 @@ public class ClassesController {
 		
 		model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum, id));
 		
+		model.addAttribute("randomList", ClassesService.randomCList());
+		
 		System.out.println("컨트롤러로 온 모델"+model);
 		
 		return "/classes/classesInfo";

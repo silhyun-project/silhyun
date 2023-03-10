@@ -66,5 +66,9 @@ public class ClassesServiceImpl implements ClassesService {
 	public Map<java.lang.String, Object> CPlusInfo(java.lang.String classNum, java.lang.String id) {
 				return ClassesMapper.CPlusInfo(classNum, id);
 	}
+	@Override
+	public List<Map<java.lang.String, Object>> randomCList() {
+		return ClassesMapper.randomCList();
+	}
 
 }

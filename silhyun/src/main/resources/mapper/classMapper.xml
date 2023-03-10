@@ -176,6 +176,27 @@ FROM DUAL
 </select>
 
 
+<!-- 강의 상세페이지에 하단에 함께 보낼 랜덤추천 강의리스트. 랜덤 8가지 보여준다.-->
+<select id="randomCList" resultType="map">
+    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
+    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+    case 
+        when c.cla_time = '' then '시간미정'
+        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
+        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
+    end as cTime, 
+    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+    FROM class c 
+    LEFT OUTER JOIN member m ON c.ptg_id = m.id
+    LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+ ORDER BY DBMS_RANDOM.VALUE
+FETCH FIRST 8 ROWS ONLY
+</select>
+
+
+
+
 
 
 
