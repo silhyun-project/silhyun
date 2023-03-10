@@ -178,6 +178,9 @@ public class AdminController {
 		List<Map<String,String>> PGraph = adminService.ptgGraph();
 		model.addAttribute("PGraph",PGraph);
 		
+		model.addAttribute("ptgRank", adminService.ptgRank());
+		model.addAttribute("classRank", adminService.classRank());
+		
 		return "/admin/rankManage";
 	}
 	
