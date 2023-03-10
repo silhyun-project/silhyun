@@ -17,110 +17,10 @@
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
 <link href="/css/swimwear.css" rel="stylesheet">
+<link href="/css/join.css" rel="stylesheet">
 </head>
-<style>
- .container{
- 	text-align: center;
- }
- .col-lg-5.col-xxl-4{
- border: 1px solid #ddd;
- padding: 20px
- }
- form{
- 	margin: 20px;
- 	text-align: left;
- }
- .col-lg-5.col-xxl-4{
- 	width: 900px;
- }
-  hr{
- 	margin-bottom: 30px;
- 	margin-top: 30px;
- }
- form{
- 	padding: 60px;
- }
- input:hover{
- border: 1px solid black;
- }
- select:hover{
-  border: 1px solid black;
- }
- .pad{
- padding-left: 60px;
- padding-right: 60px;
-  	text-align: left; 
-  		margin: 20px;
- }
-.marList{
-	 padding-left: 10px;
-     padding-right: 10px;
-}
-.mar:nth-child(1){
-	margin-right: 10px;
-}
-.mar:nth-child(2){
-	margin-right: 10px;
-}
-.col-4.tel{
- padding-left: 0px;
-}
-.col-4.email{
- padding-right: 0px;
-}
-.col-1.sm{
-	margin-top: 10px;
-}
-#birthGen{
- margin-left: 2px;
-}
-/* 약관동의, 회원정보를 입력해주세요 글씨 */
-   .container > p{
-
-       font-size: x-large;
-   }
-
-   /* <!-- terms and conditions --> */
-   .TandC{
-
-       border: 1px solid gray;
-       padding:16px;
-
-   }
-
-   /* 약관 동의서들  */
-   .TandC > div{
-
-       padding:4px;
-       display: flex;
-       justify-content: space-between;
-   }
-
-   /* 약관 간단 설명에서 (필수)  */
-   .TandC strong{
-
-       color:red;
-       
-   }
-
-   /* 약관 상세보기 버튼  */
-   .TandC button{
-
-       background-color: transparent;
-       border: transparent;
-       text-decoration : underline;
-   }
-
-   /* 약관 상세보기 버튼 hover */
-   .TandC button:hover{
-       cursor: pointer;
-   }
-   .pad{
-   margin-bottom: 100px;
-   }
-
-</style>
 <body>
+<script type="text/javascript" src="/js/join.js"></script>
     <main>
         <!-- Section 이거 나중에 다시 vue로 만들기 //로그인도-->
         <section class="section">
@@ -133,7 +33,7 @@
                         	<!-- 아이디 -->
                             <div class="form-group mb-3">
                                 <label for="id" class="form-label">아이디<span class="text-danger">*</span></label>
-                                <input type="text" id="id" placeholder="아이디" class="form-control">
+                                <input type="text" id="id" name="id" placeholder="아이디" class="form-control">
 						        <span class="idChk">아이디를 입력해주세요</span>
 						        <!--회원가입 유효성 검사 위해 //true, false-->
 						        <input type="hidden">                           
@@ -142,7 +42,7 @@
                             <!-- 비밀번호 -->
                             <div class="form-group mb-3">
 	                                <label for="pwd" class="form-label">비밀번호<span class="text-danger">*</span></label>
-                                    <input type="password" id="pwd" class="form-control" placeholder="비밀번호">
+                                    <input type="password" id="pwd" name="pwd" class="form-control" placeholder="비밀번호">
         							<span class="pwdLengthck">8~15자의 영문, 숫자, 특수문자 조합</span>
                             </div>
                             
@@ -158,15 +58,16 @@
                             <!-- 이름 -->
                             <div class="form-group mb-3">
                                 <label for="name" class="form-label">이름<span class="text-danger">*</span></label>
-                                <input type="text" id="name" class="form-control" placeholder="이름">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="이름">
                             </div>
                             
                             <!-- 연락처 -->
                             <div class="form-group mb-3 marList">
                                 <div class="row align-items-center">
-                                    <label class="form-label col" for="tel">연락처<span class="text-danger">*</span></label>
+                                    <label class="form-label col">연락처<span class="text-danger">*</span></label>
+                                    <input type="hidden" id="tel" name="tel">
                                 </div>
-     							<div class="row" id="tel">
+     							<div class="row" id="phone">
      								<div class="col-4 tel">
 	                               <select class="form-select col mar">
 	                               		<option>선택</option>
@@ -179,9 +80,10 @@
                             <!-- 이메일 -->
                             <div class="form-group mb-3 marList">
                                 <div class="row align-items-center">
-                                    <label class="form-label col" for="email">이메일<span class="text-danger">*</span></label>
+                                    <label class="form-label col">이메일<span class="text-danger">*</span></label>
+                                    <input type="hidden" id="email" name="email">
                                 </div>
-     							<div class="row" id="email">
+     							<div class="row">
 							        <input type="text" class="form-control col mar" id="emailId"><p class="col-1 sm">@</p>
 							        <input type="text" class="form-control col mar" id="emailDomain">
      								<div class="col-4 email">
@@ -204,6 +106,7 @@
 						        <label class="form-label col" >생년월일 및 성별</label>
 						      <div id="birthGen" class="form-group mb-3 row">
 						        <!-- 생년월일 -->
+						        <input type="hidden" id="birthDate" name="birthDate">
 						        <select  class="form-select col" id="year">
 						            <option value="">연도</option>
 						        </select>
@@ -215,10 +118,10 @@
 						        </select>
 						        <!--성별-->						
 						        <div id="gender" class="col">
-						          <label for="genf"><input id="genf" type="radio" value="f" name="gen">
+						          <label for="genf"><input id="genf" type="radio" value="f" name="genCd">
 						            여자
 						          </label>
-						          <label for="genm"><input id="genm" type="radio" value="m" name="gen">
+						          <label for="genm"><input id="genm" type="radio" value="m" name="genCd">
 						            남자
 						          </label>
 						        </div>
@@ -227,6 +130,7 @@
                             <div class="form-group mb-3">
                                 <label class="form-label col" for="rcomr">추천인</label>
                                 <input type="text" class="form-control" id="rcomr" name="rcomr">
+                                <input type="hidden" id="savePo" name="savePo">
                             </div>
                         </form>
                         
@@ -246,31 +150,31 @@
 					            <!-- 전체 동의 -->
 					            <div style="border-bottom: 1px solid gray;">
 					                <span>전체 동의</span>
-					                <input type="checkbox" name="" id="">
+					                <input type="checkbox" id="chkAll">
 					            </div>
 					            
 					            <!-- 필수 1 -->
 					            <div>
 					                <span><strong>(필수)</strong> 개인회원 약관에 동의 <button>상세 보기</button></span>
-					                <input type="checkbox" name="" id="">
+					                <input type="checkbox" id="chk1">
 					            </div>
 					            
 					            <!-- 필수 2 -->
 					            <div>
 					                <span><strong>(필수)</strong> 개인정보 수집 및 이용에 동의 <button>상세 보기</button></span>
-					                <input type="checkbox" name="" id="">
+					                <input type="checkbox" id="chk2">
 					            </div>
 					
 					            <!-- 선택 1 -->
 					            <div>
 					                <span>(선택) 마케팅 정보 수신 동의 - 이메일 <button>상세 보기</button></span>
-					                <input type="checkbox" name="" id="">
+					                <input type="checkbox" id="chk3">
 					            </div>
 					            
 					            <!-- 선택 2 -->
 					            <div>
 					                <span>(선택) 마케팅 정보 수신 동의 - SMS/MMS <button>상세 보기</button></span>
-					                <input type="checkbox" name="" id="">
+					                <input type="checkbox" id="chk4">
 					            </div>
 					
 					        </div> 
@@ -285,7 +189,7 @@
                             
                             
                         <div class="pt-4 text-center">
-                            <span class="text-muted">아이디가 있다면? <a href="sign-up.html">Login here</a></span>
+                            <span class="text-muted">아이디가 있다면? <a href="/login">Login here</a></span>
                         </div>
                     </div>
                 </div>

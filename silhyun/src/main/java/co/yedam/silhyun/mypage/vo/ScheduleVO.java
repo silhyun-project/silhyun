@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ScheduleVO {
 
-	int todoNum;
+	String todoNum;
 	String id;
 	String cntn;
 	Date todoDate;
