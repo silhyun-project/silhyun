@@ -116,8 +116,7 @@
 		VALUES (#{portNum}, #{ptgId}, #{cntn}, sysdate, #{upSta})
 	</insert>
 
-	<insert id="insertPhoto"
-		parameterType="co.yedam.silhyun.common.vo.PortfolioVO">
+	<insert id="insertPhoto">
 		<selectKey keyProperty="phoNum" order="BEFORE">
 			SELECT NVL(MAX(TO_NUMBER(pho_num)), 0) + 1
 			AS pho_num
