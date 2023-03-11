@@ -1,13 +1,17 @@
 package co.yedam.silhyun.portfolio.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -63,5 +67,17 @@ public class PortfolioController {
 		model.addAttribute("ptgField", portfolioService.ptgPortfolioList(ptgId));
 		return portfolioService.ptgPortfolioList(ptgId);
 	}
+	
+	
+	
+	//insert
+	@PostMapping("/silhyun/addPortfolio")
+    public ResponseEntity<PortfolioVO> addPortfolio(@RequestParam String[] phoNums, @RequestParam String[] ctgrs,
+            @RequestParam String[] ctgrNums, @RequestParam String[] phoRts, @RequestParam String ptgId,
+            @RequestParam String cntn, @RequestParam Date portDate, @RequestParam String upSta,
+            @RequestParam String[] tagCntns) {
+        portfolioService.addPortfolio(phoNums, ctgrs, ctgrNums, phoRts, ptgId, cntn, portDate, upSta, tagCntns);
+        return ResponseEntity.ok().build();
+    }
 
 }

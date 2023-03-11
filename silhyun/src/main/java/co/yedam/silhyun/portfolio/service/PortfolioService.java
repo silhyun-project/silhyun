@@ -1,5 +1,6 @@
 package co.yedam.silhyun.portfolio.service;
 
+import java.util.Date;
 import java.util.List;
 
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -21,5 +22,8 @@ public interface PortfolioService {
 	List<PhotographerVO> ptgField(String ptgId);//작가필드리스트
 	
 	List<PortfolioVO> ptgPortfolioList(String ptgId);//작가별 포트폴리오리스트 띄우기
-
+	
+	
+	//포트폴리오 인서트
+	 void addPortfolio(String[] phoNums, String[] ctgrs, String[] ctgrNums, String[] phoRts, String ptgId, String cntn, Date portDate, String upSta, String[] tagCntns);
 }

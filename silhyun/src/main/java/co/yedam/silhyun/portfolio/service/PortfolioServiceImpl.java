@@ -1,14 +1,17 @@
 package co.yedam.silhyun.portfolio.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.map.PortfolioMapper;
 import co.yedam.silhyun.portfolio.vo.LikePhotoVO;
 import co.yedam.silhyun.portfolio.vo.PortfolioVO;
+import co.yedam.silhyun.portfolio.vo.TagVO;
 
 @Service
 public class PortfolioServiceImpl implements PortfolioService {
@@ -52,5 +55,30 @@ public class PortfolioServiceImpl implements PortfolioService {
 		// TODO Auto-generated method stub
 		return portfolioMapper.ptgPortfolioList(ptgId);
 	}
+	
+	 @Override
+	    public void addPortfolio(String[] phoNums, String[] ctgrs, String[] ctgrNums, String[] phoRts, String ptgId, String cntn, Date portDate, String upSta, String[] tagCntns) {
+	        for (int i = 0; i < phoNums.length; i++) {
+	            PhotoVO photoVO = new PhotoVO();
+	            photoVO.setPhoNum(phoNums[i]);
+	            photoVO.setCtgr(ctgrs[i]);
+	            photoVO.setCtgrNum(ctgrNums[i]);
+	            photoVO.setPhoRt(phoRts[i]);
+	            portfolioMapper.insertPhoto(photoVO);
+	        }
+
+	        PortfolioVO portfolioVO = new PortfolioVO();
+	        portfolioVO.setPtgId(ptgId);
+	        portfolioVO.setCntn(cntn);
+	        portfolioVO.setPortDate(portDate);
+	        portfolioVO.setUpSta(upSta);
+	        portfolioMapper.insertPortfolio(portfolioVO);
+
+	        for (String tagCntn : tagCntns) {
+	            TagVO tagVO = new TagVO();
+	            tagVO.setTagCntn(tagCntn);
+	            portfolioMapper.insertTag(tagVO);
+	        }
+	    }
 
 }
