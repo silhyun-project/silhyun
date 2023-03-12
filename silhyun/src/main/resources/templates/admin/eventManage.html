@@ -30,7 +30,10 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                         <div>
-                         <h5 class="page-title"><input type="checkbox" id="showAEvents" onchange="showAllEvents()">종료된 이벤트 포함 </h5>
+                         <h5 class="page-title"><input type="checkbox" id="showAEvents" onchange="showAllEvents()">종료된 이벤트 포함
+                                                                       &nbsp; <button class="btn btn-dark" type="button" 
+                                           id ="updateBtn"  data-bs-toggle="modal" data-bs-target="#px-quick-view">이벤트등록</button>
+                          </h5>
                             <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code th:text="${eCnt.sysDate}"></code>
                             &emsp; 진행예정 이벤트: <code th:text="${eCnt.soon}"> </code>&nbsp;진행중인 이벤트: <code th:text="${eCnt.ing}"> </code>&nbsp;
                             </p>
