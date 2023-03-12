@@ -138,7 +138,7 @@ $(function() {
 				allTag.push(response);
 				var selectTag = cntn.match(/#[^\s#]*/g);
 				tagCntns = selectTag.filter(tag => !allTag[0].includes(tag));
-				console.log(tagCntns);
+				console.log(selectTag);
 
 
 				formData.append('tagCntns', tagCntns);
