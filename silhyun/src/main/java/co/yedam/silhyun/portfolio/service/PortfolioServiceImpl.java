@@ -1,6 +1,7 @@
 package co.yedam.silhyun.portfolio.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 		PortfolioVO portfolioVO = new PortfolioVO();
 		portfolioVO.setCntn(cntn);
 		portfolioVO.setPtgId(ptgId);
-		portfolioVO.setUpsta(upSta);
+		portfolioVO.setUpSta(upSta);
 
 		portfolioMapper.insertPortfolio(portfolioVO);
 
@@ -72,7 +73,15 @@ public class PortfolioServiceImpl implements PortfolioService {
 		for (MultipartFile file : files) {
 			String filename = file.getOriginalFilename();
 			String filepath = "C:/saveImg/portfolio" + filename;
-			file.transferTo(new File(filepath));
+			try {
+				file.transferTo(new File(filepath));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			PhotoVO photoVO = new PhotoVO();
 
 			photoVO.setPhoRt(filepath);
