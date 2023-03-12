@@ -20,11 +20,7 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
+          
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
@@ -43,7 +39,14 @@
                             <ul style="list-style:none;float:right;">
 								<li>		
                             <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">#번호</option>
+                               <option value="">전체</option>
+                               <option value="">이벤트명</option>
+                               <option value="">작가아이디</option>
+                               <option value="">진행일수</option>
+                               <option value="">시작일자</option>
+                               <option value="">배너표시여부</option>
+                               <option value="">쿠폰발행상태</option>
+                               <option value="">진행상태</option>
                             </select>
                                 <input type="text" placeholder="Search..." class="form-control mt-0"
                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
@@ -65,60 +68,34 @@
                                         <tr>
                                             <th class="border-top-0">#</th>
                                             <th class="border-top-0">이벤트명</th>
-                                            <th class="border-top-0">작가 아이디</th>
-                                            <th class="border-top-0">Username</th>
-                                            <th class="border-top-0">Role</th>
-                                            <th class="border-top-0">Username</th>
-                                            <th class="border-top-0">Role</th>
-                                            <th class="border-top-0">Username</th>
-                                            <th class="border-top-0">배너표시</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">진행일수</th>
+                                            <th class="border-top-0">시작일자</th>
+                                            <th class="border-top-0">내용상세보기</th> 
+                                            <th class="border-top-0">배너표시여부</th>
+                                            <th class="border-top-0">쿠폰발행상태</th>
                                             <th class="border-top-0">진행상태</th>
-                                            <th class="border-top-0">수정</th>
                                             <th class="border-top-0">삭제</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
+                                            <td></td>
                                             <td>Deshmukh</td>
                                             <td>Prohaska</td>
                                             <td>@Genelia</td>
                                             <td>admin</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                            <td>@Ritesh</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                            <td>@Govinda</td>
-                                            <td>developer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                            <td>@Hritik</td>
-                                            <td>supporter</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            <td>@Maruti</td>
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            <td>@Sonu</td>
-                                            <td>supporter</td>
+ 
+                                           <td>
+                                              <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                                    <i class="fi-eye">상세보기</i>
+                                                </a>
+                                           </td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            <td>admin</td>
+                                            <td><button type="button">삭제</button>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
@@ -127,6 +104,56 @@
                     </div>
                 </div>
                       </div>
+                      
+                      
+                      <!-- Quick View  -->
+<div class="modal-quick-view modal fade" id="px-quick-view" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-body p-3">
+        <div align="right">
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+                <div class="row">
+                    <!-- Product Gallery -->
+                    <div class="col-lg-6 lightbox-gallery product-gallery">
+                    <h5><b>*배너</b></h5> 
+                     <img src="/img/banner2.jpg" class="img-fluid" title="" alt="">
+                    <hr>
+                    <h5><b>*썸네일</b></h5>               
+                        <img src="/img/bestC.jpg" class="img-fluid" title="" alt="">
+                    </div>
+                    <!-- End Product Gallery -->
+                    <!-- Product Details -->
+                    <div class="col-lg-6">                   
+                        <div class="product-detail pt-4">
+                            <div class="products-title mb-2">
+                            <h5><b>*이벤트명</b></h5>
+                                <h6>멋진 이벤트</h6>                              
+                        <hr>
+                                <h5><b>*기한</b></h5>
+                                <p>15일간</p>
+                          <hr>  
+                                <h5><b>*이벤트내용</b></h5>
+                                <p>내용내용</p>
+            </div>
+                        </div>
+                    </div>
+                    <!-- End Product Details -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Quick View  -->
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
 
 </div>
 </body>
