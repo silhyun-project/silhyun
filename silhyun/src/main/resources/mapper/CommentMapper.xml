@@ -3,7 +3,7 @@
 <mapper namespace="co.yedam.silhyun.common.map.CommentMapper">
 	
 	<!-- 댓글 리스트 -->
-	<select id="getCommentList" parameterType="CommentVO" resultType="co.yedam.silhyun.common.vo.CommentVO">
+	<select id="getCommentList" resultType="co.yedam.silhyun.common.vo.CommentVO">
 		select c.com_num, c.dep, c.id, c.cntn, c.com_date, c.grp, c.ctgr, c.ctgr_num, (select count(*) from commment d where d.grp = c.com_num and d.com_num != d.grp ) as rep_cnt, m.profile
 		from commment c join member m
 		on c.id = m.id
@@ -13,7 +13,7 @@
 	
 	</select>
 	
-	<insert id="commentInsert"  parameterType="CommentVO">
+	<insert id="commentInsert">
 		<selectKey keyProperty="comNum" resultType="String" order="BEFORE">
 			SELECT 
 				nvl(MAX(to_number(com_num)), 0) + 1 AS "comNum"

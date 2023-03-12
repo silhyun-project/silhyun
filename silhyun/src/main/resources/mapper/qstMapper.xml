@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.qstMapper">
+
+	<select id="getAoQstList" resultType="co.yedam.silhyun.qst.vo.QstVO">
+		select q.qst_num, q.ctgr, q.ctgr_num, q.ttl, q.id, q.cntn as qstCntn, q.qst_date, q.rply_sta, q.secret_sta, c.cntn as ansCntn, m.profile
+		 from qst q, commment c, member m
+		where q.ctgr = c.ctgr and q.ctgr_num = c.id and q.id = m.id;
+	</select>
+
+	<insert id="aoQstInsert">
+		<selectKey keyProperty="comNum" resultType="String" order="BEFORE">
+			SELECT 
+				nvl(MAX(to_number(qst_num)), 0) + 1 AS "qstNum"
+			FROM QST
+		</selectKey>
+			insert into qst(qst_num
+                    , ctgr
+                    , ctgr_num
+                    , ttl
+                    , id
+                    , cntn
+                    , qst_date
+                    , rply_sta
+                    , secret_sta)
+            values(#{comNum}
+                    , 'A'
+                    , 'user1'
+                    , #{ttl}
+                    , #{cntn}
+                    , 'catLove'
+                    , sysdate
+                    , 'N'
+                    , #{secretSta})
+	</insert>
+
+</mapper>

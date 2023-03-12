@@ -3,15 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
 <style>
 
-#popup{
-  background-color:white;
-  border :1px solid black;
-  width : 300px;
-  height : 400px;
-  position :fixed;
-  top:0;
-  left:0;
-}
 #btn1{
   float:right;
   display: inline;
@@ -39,7 +30,7 @@ li {
 <meta name="description"
 	content="ShopApp - eCommerce Bootstrap 5 Template" />
 <!-- title -->
-<title>클래스,작가 문의</title>
+<title>작가 문의게시판</title>
 <!-- Favicon -->
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
@@ -51,36 +42,26 @@ li {
 
 	<div class="pt-4 mt-5"> 
 	<!-- 댓글 대댓글 들어가는 곳 -->		
-    <ul class="list-unstyled pt-4 qstBox" id="attch">	
-        
-    </ul>
-    
-    </div>
-    <div class="mt-8 border p-4">
-        <form method="post">
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group mb-3">
-                        <label class="form-label rd-input-label" for="qst-title"> 제목 : </label>							
-                        <textarea class="form-control" id="contact-message" name="message" style="height: 50px" placeholder="제목을 작성해주세요"></textarea>
-                        <label class="form-label rd-input-label" for="qst-message"> 당신의 문의 : </label>							
-                        <textarea class="form-control" id="contact-message" name="message" style="height: 50px" placeholder="댓글을 작성해주세요"></textarea>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group mb-3">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="secret" name="secret">
-                            <label class="form-check-label" for="secret">비밀글</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 text-end">
-                    <button class="btn btn-primary" type="button" id="send">게시</button>
-                </div>
-            </div>
-        </form>
-    </div>
+	<ul class="list-unstyled pt-4 qstBox" id="attch">	
+	</ul>
+	</div>
+	<div class="mt-8 border p-4">
+		<form method="post">
+			<div class="row">
+				<div class="col-12">
+					<div class="form-group mb-3">
+						<textarea id="ttl" name="ttl" placeholder="제목을 작성해주세요" required="required"></textarea>							
+						<textarea class="form-control" id="contact-message" name="message"
+							style="height: 50px" placeholder="내용을 작성해주세요"></textarea>
+						<label><input type="checkbox" id="secChk" class="secChk" value="Y">비밀문의</label>
+					</div>
+				</div>
+				<div class="col-12">
+					<button class="btn btn-primary" type="button" id="send">게시</button>
+				</div>
+			</div>
+		</form>
+	</div>
 
 	<!-- End Main -->
 
@@ -111,31 +92,34 @@ li {
 	<!-- End script start -->
 	
 	<script>
-	$(document).ready(function(){	
-		getCommentList()
+	$(document).ready(function(){
+		getAoQstList()
 	})
-		
 	
-	$("#send").click(function(){
-		
-		let qstNum = $("qstNum").val(); //문의번호
-		let ctgr = 'A'; //카테고리
-		let ctgrNum = '15'; //카테고리번호
-        let ttl = $("#qst-title").val(); //문의제목
-		let cntn =$("#qst-message").val(); //문의내용
-		let id = 'catLove' // 문의글작성자
-        let rplySta = 'N' //  
-        let secretSta = $("#secret").prop("checked") ? "Y" : "N"; // 비밀글 체크박스 상태 확인
-        
-        if(ttl == ""){
-			alert("내용을 입력해 주세요.")
-			$("#qst-title").focus();
-			return false;		// 내용 미입력시 작성 불가
+	$("#qstBtn").click(function(){ //문의글 등록
+		let qstNum = $("#qstNum").val(); //문의글번호
+		let ctgr = 'A' //카테고리
+		let ctgrNum = 'user1' //카테고리
+		let ttl = $("#ttl").val(); // 제목
+		let qstId =$("#id").val(); //문의작성자아이디
+		let qstCntn =$("#qstCntn").val(); //문의내용
+		let rplySta = 'N' // 답변유무상태
+		let secretSta = $("#secChk").val() //비밀댓글
+
+		if ($("#secChk").is(':checked')) {
+			comLock = 'Y';
+			} else {
+			comLock = 'N';
 		}
-		
-		if(cntn == ""){
+		if(ttl == ""){
+			alert("제목을 입력해 주세요.")
+			$("#ttl").focus();
+			return false;		// 제목 미입력시 작성 불가
+		}
+
+		if(qstCntn == ""){
 			alert("내용을 입력해 주세요.")
-			$("#qst-message").focus();
+			$("#qstCntn").focus();
 			return false;		// 내용 미입력시 작성 불가
 		}
 		
@@ -144,20 +128,22 @@ li {
 			type:"POST",
 			data: JSON.stringify(
 				{
-					"qstNum" :qstNum,
-					"ctgr" : ctgr, 
+					"qstNum" : qstNum, // 문의글 번호
+					"ctgr" : ctgr,
 					"ctgrNum" : ctgrNum,
-                    "ttl" : tte,
-					"id" : id,					
-					"cntn" : cntn,
-					"rplySta": rplySta,
-					"secretSta" : secretSta
+					"ttl" : ttl, // 제목
+					"id" : qstId, //작성자아이디
+					"qstCntn" : qstCntn,
+					"rplySta" : rplySta, // 답글여부
+					"secretSta" : secretSta// 비밀여부
 				}
 			),
 			contentType:'application/json',
 			success : function(data){
-				$("#qst-message").val("");
-				getAoQstList();
+				console.log("댓글등록")
+				$("#comContent").val("")
+				console.log("====")
+				getComList()
 			},
 			error:function(){
 				alert('등록실패');
@@ -168,48 +154,39 @@ li {
 	
 	function getAoQstList(){			
 
-		let commentArea = $(".qstBox");
+		let qstArea = $(".qstBox");
 		$.ajax({
-			url: "/commentList",
+			url: "/getAoQstList",
 			success : function(result) {
-				
 				let str = '';
-				$(result).each(function(q,qs){
+				
+				$(result).each(function(q,aqst){
 					if(comm.dep == 0 && c != 0 ){
 					 	str += '</ul>'
-					 	str += '</div>'
 		                str += '</li>'
 					}
-					if(comm.dep == 0) {
+					
 						str += '<li class="media d-flex commentZone">'
 						str += '<div class="avatar rounded-circle">'
-						str += '<img class="img-fluid" src="'+qs.profile+'" title="" alt="">'
+						str += '<img class="img-fluid" src="'+aqst.profile+'" title="" alt="">'
 						str += '</div>'
-						str += '<h6 class="mt-0 mb-1 commentId" id="comId" >'+qs.id+'</h6>'
-						str += '<label class="mb-2 small" >'+qs.qstDate+'</label>'
-						str += '<p>'+qs.cntn+'</p>'
-						str += '<input type="hidden" class="comNum" name="comNum" value="'+qs.qstNum+'">'
+						str += '<h6 class="mt-0 mb-1 commentId" id="qstId" >'+aqst.id+'</h6>'
+						str += '<label class="mb-2 small" >'+aqst.qstDate+'</label>'
+						str += '<p>'+comm.cntn+'</p>'
+						str += '<input type="hidden" class="comGrp" name="ctgrNum" id="ctgrNum" value="'+asqt.ctgrNum+'">'
+						str += '<input type="hidden" class="comNum" name="comNum" value="'+asqt.qstNum+'">'
 						str += '<div class="nav dark-link small">'
 						str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
-						if(comm.repCnt>0){
-						str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'	
-						}
 						str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'	
 						str += '</div>'
-						if(comm.repCnt > 0){
-							str += '<div class=popup style="display:none;">'
-							str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
-						}
-						
-					} else{
+					
+					
+						str += '<ul class="list-unstyled mt-5 pt-5 border-top">'
 						str += '<li class="media d-flex replyZone">'
-                        str += '<div class="avatar rounded-circle">'
-                        str += '<img class="img-fluid" src="'+comm.profile+'" title="" alt="">'
-                        str += '</div>'
                         str += '<div class="col ps-3">'
-                        str += '<h6 class="mt-0 mb-1 commentId" id="repId">'+comm.id+'</h6>'
+                        str += '<h6 class="mt-0 mb-1 commentId" id="repId">'+aqst.cntnNum+'</h6>'
                         str += '<label class="mb-2 small">'+comm.comDate+'</label>'
-                        str += '<p>'+comm.cntn+'</p>'
+                        str += '<p>'+aqst.cntn+'</p>'
                         str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="'+comm.grp+'">'
 						str += '<input type="hidden" class="comNum" name="comNum" value="'+comm.comNum+'">'
                         str += '<div class="nav dark-link small">'
@@ -218,7 +195,7 @@ li {
                         str += '</div>'
                         str += '</div>'
                         str += '</li>'  
-					}
+					
 				})
 					commentArea.html(str);
 			}
@@ -226,26 +203,26 @@ li {
 	}
 	
 	// 동적으로 생성된 태그에 그룹이벤트 부여
-    $(".commentBox").on('click','#replyWrite', function(e){      
+    $(".qstBox").on('click','#replyWrite', function(e){      
         console.log('클릭')
         console.log($(this).parent().parent().children('#comId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
-        console.log($(this).parent().parent().children('#comGrp').val())
-        let text = $(this).parent().parent().children('#comId').text();
-        let group_number = $(this).parent().parent().children('#comGrp').val();
+        console.log($(this).parent().parent().children('#ctgrNum').val())
+        let text = $(this).parent().parent().children('#qstId').text();
+        let group_number = $(this).parent().parent().children('#ctgrNum').val();
         
-        $('#contact-message').val('@'+$(this).parent().parent().children('#comId').text())  
+        $('#contact-message').val('Re:'+$(this).parent().parent().children('#ttl').text())  
         $('#contact-message').data("dep","1")
         $('#contact-message').data("grp", group_number);
         $('#grpNum').val($('#contact-message').data("grp"));
  
-     })
+     })  
      
 	
- 	$(".commentBox").on('click', '.comDelBtn', function() {
+ 	$(".qstBox").on('click', '.comDelBtn', function() {
  		console.log('삭제클릭')
  		console.log($(this).closest('li').find('.comNum').val());
  		console.log($(this).closest('li').find('.comGrp').val());
- 		let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
+ 		let comNum = $(this).closest('li').find('.qstNum').val(); //삭제할 댓글 번호
  		let grp = $(this).closest('li').find('.comGrp').val(); //삭제할 댓글의 그룹
  		let commentZone = $(this).closest('li').find('.commentZone');
  		
@@ -257,13 +234,13 @@ li {
 			}
 			,
 			success : function(data){
-				getCommentList()
+				getAoQstList()
 			}
 		})
  		
  	}) 
  	
- 	$(".commentBox").on('click', '.reDelBtn', function() {
+ 	$(".qstBox").on('click', '.reDelBtn', function() {
  		console.log('삭제클릭')
  		console.log($(this).closest('li').find('.comNum').val());
  		let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
@@ -277,7 +254,7 @@ li {
 			}
 			,
 			success : function(data){
-				getCommentList()
+				getAoQstList()
 			}
 		})
  	}) 
