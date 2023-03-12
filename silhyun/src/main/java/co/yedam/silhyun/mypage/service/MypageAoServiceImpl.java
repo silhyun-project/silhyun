@@ -28,9 +28,9 @@ public class MypageAoServiceImpl implements MypageAoService {
 	}
 	
 	@Override
-	public List<MemberVO> getPhotoinfo(){
+	public List<MemberVO> getPhotoinfo(String ptgId){
 		
-		return mypageAoMapper.getPhotoinfo();
+		return mypageAoMapper.getPhotoinfo(ptgId);
 	}
 
 	@Override
@@ -101,6 +101,18 @@ public class MypageAoServiceImpl implements MypageAoService {
 
 		return mypageAoMapper.classList();
 
+	}
+
+	@Override
+	public List<PhotographerVO> getPtg(String ptgId) {
+
+		return mypageAoMapper.getPtg(ptgId);
+	}
+
+	@Override
+	public List<PhotographerVO> getResTime(String ptgId, String redate) {
+
+		return mypageAoMapper.getResTime(ptgId, redate);
 	}
 
 
