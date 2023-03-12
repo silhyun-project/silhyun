@@ -112,7 +112,8 @@ $(function() {
 
 
 	//포트폴리오 등록하기 버튼
-	$('button.btn-dark.me-3').click(function() {
+	$('.btn.btn-dark.me-3').click(function(e) {
+		e.preventDefault();
 		var formData = new FormData();
 
 		var ptgId = 'user1';
