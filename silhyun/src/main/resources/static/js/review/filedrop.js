@@ -2,6 +2,7 @@
  * filedrop.js
  */
  
+ 
 function fileUpAction(){
 	document.getElementById('fileBtn').click()
 }

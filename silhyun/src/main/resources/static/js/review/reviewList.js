@@ -22,8 +22,7 @@
 						slider.slick('slickAdd',div.append(img));
 						
 					})
-					
-				slider.slick
+
 				}
 				
 			

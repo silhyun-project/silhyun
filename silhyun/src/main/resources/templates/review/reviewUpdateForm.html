@@ -51,11 +51,13 @@
 }
 </style>
 <body>
+<script type="text/javascript" src="/js/review/reviewUpdateForm.js"></script>
 <div class="container col-5">
 	<form class="mb-3" id="myform" action="/silhyun/review"> 
+	<input type="hidden" th:value="${revNum}" id="revNum">
 		<div id="grey">
 				<span class="text-bold">별점을 선택해주세요</span><br>
-			<fieldset>
+		<fieldset id="stars">
 				<input type="radio" name="star" value="5" id="rate1"><label
 					for="rate1">★</label>
 				<input type="radio" name="star" value="4" id="rate2"><label
@@ -72,7 +74,7 @@
 		<table class="table table-border">
 			<tr>
 				<td>
-					<textarea class="form-control" name="cntn" placeholder="내용을 입력해주세요" maxlength="2200"></textarea>
+					<textarea class="form-control" id="cntn" name="cntn" placeholder="내용을 입력해주세요" maxlength="2200"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -93,7 +95,6 @@
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='/silhyun/reviewList'">뒤로가기</button> 
       	</div>
 	</form>
-<script src="/js/review/filedrop.js"></script>
 </div>
 </body>
 </html>

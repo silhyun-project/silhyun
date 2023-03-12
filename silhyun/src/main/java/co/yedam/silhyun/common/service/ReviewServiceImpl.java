@@ -40,12 +40,6 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int reviewHitUpdate(String num) {
-		
-		return mapper.reviewHitUpdate(num);
-	}
-
-	@Override
 	public int getTotalCount(Criteria cri) {
 		// TODO Auto-generated method stub
 		return mapper.getTotalCount(cri);
@@ -56,6 +50,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public PhotographerVO ptgStarAvg(String ctgr, String ctgrNum) {
 	
 		return mapper.ptgStarAvg(ctgr, ctgrNum);
+	}
+
+	@Override
+	public ReviewVO reivewSelect(ReviewVO vo) {
+		
+		return mapper.reivewSelect(vo);
 	}
 
 }

@@ -66,6 +66,7 @@ public class PhotoServiceImpl implements PhotoService {
 				vo.setCtgrNum(ctgrNum);
 				vo.setPhoRt("/saveImg/review/" + fileName);
 				vo.setThumbnail("/saveImg/review/s_" + fileName);
+				vo.setPhoName(file.getOriginalFilename());
 				
 				n = map.photoInsert(vo);
 			}

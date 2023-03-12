@@ -87,7 +87,9 @@
 .star-ratings-base.sm{
   	font-size: 15px;
 }
-
+#btns{
+	float: right;
+}
 </style>
 <body>
 <script type="text/javascript" src="/js/review/reviewList.js"></script>
@@ -112,7 +114,7 @@
 						    </div>
 						</div>
 	                <div class="col-sm-6 text-sm-end">
-	                    <a href="#">리뷰작성하기</a>
+	                    <a href="/silhyun/reviewform">리뷰작성하기</a>
 	                </div>
 	            </div>
 	            <hr>
@@ -126,16 +128,22 @@
 						</select>
 					    <input type="checkbox">포토리뷰 먼저보기
 						<input type="text" name="keyword">
-						<button class="btn btn-default" type="submit">검색</button>					    
+						<button class="btn btn-sm btn-outline-secondary" type="submit">검색</button>					    
 						<input type="hidden" name="pageNum" th:value="1">
 						<input type="hidden" name="amount" th:value="*{criteria.amount}">
 					</form>
 				</div>
 				<th:block th:each="rev : ${list}">
-				<input type="hidden" th:value="${rev.revNum}" class="revNum">
+				<form action="/silhyun/reviewUpdate">
+				<input type="hidden" th:value="${rev.revNum}" class="revNum" name="revNum">
 	            <div class="d-flex review-box border-top mt-4 pt-4 reviewContent">
 	                <div class="col ps-3">
 	                    <h6>[[${rev.id}]]</h6>
+	                    <div id="btns">
+	                    <button type="submit" class="btn btn-sm btn-outline-secondary">수정</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary" id="delBtn">삭제</button>
+	                    </div>
+
 					       <div class="star-ratings">
 						        <div class="star-ratings-fill sm" th:starCnt="${rev.star}">
 						            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -156,6 +164,7 @@
 		            <div class="slider-wrap" th:name="${rev.revNum}">
 					</div>
 				</div>
+				</form>
 				</th:block>
 				<!-- 페이지네이션 -->
 				<div class="pagination">

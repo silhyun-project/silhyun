@@ -9,4 +9,5 @@ public class PhotoVO {
 	private String ctgrNum;
 	private String phoRt;
 	private String thumbnail;
+	private String phoName;
 }
