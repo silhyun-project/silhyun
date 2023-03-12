@@ -1,5 +1,6 @@
 package co.yedam.silhyun.common.service;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.yedam.silhyun.common.map.PhotoMapper;
 import co.yedam.silhyun.common.vo.PhotoVO;
 import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 public class PhotoServiceImpl implements PhotoService {
@@ -42,17 +44,16 @@ public class PhotoServiceImpl implements PhotoService {
 			for(MultipartFile file : files) {
 				String fileName = UUID.randomUUID().toString(); //UUID생성 
 				fileName = fileName + "_" + file.getOriginalFilename(); //유니크한 아이디
+				File uploadFile = new File(saveImgPath, fileName); 
 				
 				try {
-					File uploadFile = new File(saveImgPath, fileName); 
 					file.transferTo(uploadFile); //파일저장
 					
 					//섬네일 처리(이미지만 들어오니까 이미지 타입 체크는 생락
-					FileOutputStream thumbnail = new FileOutputStream(new File(saveImgPath, "s_"+ fileName));
+					Thumbnails.of(uploadFile)
+							  .size(170, 170)
+							  .toFile(new File(saveImgPath, "s_"+fileName));
 					
-					Thumbnailator.createThumbnail(file.getInputStream(), thumbnail, 100, 100);
-					
-					thumbnail.close();
 					
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
@@ -64,6 +65,7 @@ public class PhotoServiceImpl implements PhotoService {
 				vo.setCtgr(ctgr);
 				vo.setCtgrNum(ctgrNum);
 				vo.setPhoRt("/saveImg/review/" + fileName);
+				vo.setThumbnail("/saveImg/review/s_" + fileName);
 				
 				n = map.photoInsert(vo);
 			}

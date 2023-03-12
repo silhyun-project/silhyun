@@ -29,12 +29,12 @@ function fileUpAction(){
       for(f of fileArr){
         imageLoader(f);
       }
-      if(selFiles.length > 5){   //이게 제대로 되나???
+      if(selFiles.length > 6){   //이게 제대로 되나???
       
-		alert("5장 이하의 파일만 업로드 됩니다.")
+		alert("6장 이하의 파일만 업로드 됩니다.")
 		
 	}
-	  selFiles.splice(5)
+	  selFiles.splice(6)
     console.log("최종 배열길이 "+selFiles.length)
 
     }  
@@ -43,7 +43,7 @@ function fileUpAction(){
     imageLoader = function(file){
       selFiles.push(file);
       console.log(selFiles.length)
-      if(selFiles.length < 6){
+      if(selFiles.length < 7){
 	      var reader = new FileReader();
 	      reader.onload = function(ee){
 	        let img = document.createElement('img')

@@ -24,6 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.common.service.PhotoService;
 import co.yedam.silhyun.common.service.ReviewService;
+import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.common.vo.PageVO;
+import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.common.vo.ReviewVO;
 import co.yedam.silhyun.member.service.OAuthUserService;
 
@@ -34,13 +37,8 @@ public class ReviewController {
 	@Autowired ReviewService rService;
 	@Autowired PhotoService pService;
 	
-	@GetMapping("/silhyun/reviewform")
-	public String reviewForm() {
-		return "review/reviewForm";
-	}
-
-	@GetMapping("/silhyun/reviewList")
-	public String reviewList(Model model, /*HttpServletRequest request,*/ HttpSession httpSession) {
+	@GetMapping("/silhyun/test")
+	public String test(Model model, /*HttpServletRequest request,*/ HttpSession httpSession) {
 		//model.addAttribute("session", request.getSession());
 		//세션보를 사용할때 세션 사용
 		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
@@ -48,9 +46,28 @@ public class ReviewController {
 			model.addAttribute("id", user.getId());
 			model.addAttribute("role", user.getRole());			
 		}
-		//model.addAttribute("clientId", oAuth2UserRequest.getClientRegistration().getClientId());
-		//model.addAttribute("callbackURL", oAuth2UserRequest.getClientRegistration().getRedirectUri());
+		
 		return "review/test";
+	}
+	
+	@GetMapping("/silhyun/reviewform")
+	public String reviewForm() {
+		return "review/reviewForm";
+	}
+
+	@GetMapping("/silhyun/reviewList")
+	public String reviewList(Model model, HttpSession httpSession, Criteria cri, PhotoVO pvo) {
+		//세션보를 사용할때 세션 사용
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
+		if(user != null) {
+			model.addAttribute("id", user.getId());		
+		}
+		cri.setAmount(6);
+		model.addAttribute("list", rService.reviewList(cri, "A", "user1"));
+		model.addAttribute("page", new PageVO(rService.getTotalCount(cri), 10, cri));
+		model.addAttribute("star", rService.ptgStarAvg("A", "user1"));
+
+		return "review/reviewList";
 	}
 	
 	@PostMapping("/silhyun/review")
