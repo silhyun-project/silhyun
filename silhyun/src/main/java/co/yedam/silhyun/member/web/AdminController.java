@@ -7,16 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.member.vo.AdminCriteria;
 import co.yedam.silhyun.member.vo.AdminPageVO;
+import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.AdminSercive;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -28,10 +32,27 @@ public class AdminController {
 	@Autowired
 	private AdminSercive adminService;
 	
+	
+	//이벤트관리
 	@GetMapping("/admin/eventManage")
-	public String eventManage() {
+	public String eventManage(Model model, AdminCriteria cri) {
+		List<Map<String,Object>> eList = adminService.getEventList();
+		model.addAttribute("eList", eList);
+		System.out.println("컨트롤러 elist="+model);
+
 		return "/admin/eventManage";
 	}
+	
+	//이벤트관리 아작스 
+	@RequestMapping("/admin/eventManageSelect")
+	@ResponseBody
+	public EventVO eventManageSelect(@RequestParam("eventNum") String eventNum) {
+	    System.out.println("컨트롤러로 온 eventNum는 = " + eventNum);
+	    return adminService.getEventContent(eventNum);
+	}
+	
+	
+	
 	
 	@GetMapping("/admin/memberAccept")
 	public String memberAccept() {

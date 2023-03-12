@@ -302,11 +302,31 @@ FETCH FIRST 5 ROWS ONLY
 
 
 
+<!-- 이벤트관리페이지. 이벤트 목록 가져오기. 종료 제외-->
+<select id="getEventList" resultType="map">
+    <![CDATA[
+SELECT nvl(e.name,'이름없음') as "name", e.id as "id", nvl(e.term, '0')  as "term", 
+    e.start_date as "startDate", e.bnph_sta as "bnphSta", e.cpn_pub_sta as "cpnPubSta",
+    e.event_num as "eventNum",
+    CASE 
+        WHEN e.start_date > SYSDATE THEN '진행예정'
+        WHEN e.start_date <= SYSDATE AND SYSDATE <= e.start_date + e.term THEN '진행중'
+        ELSE '종료'    
+    END AS "eventStt"
+FROM event e
+
+    ]]>
+</select>
 
 
 
 
-
+<!-- 이벤트관리페이지. 이벤트 자세한 정보 아작스 -->
+<select id="getEventContent" parameterType="String" resultType="co.yedam.silhyun.event.vo.EventVO">
+select *
+from event 
+where event_num = #{eventNum}
+</select>
 
 
 

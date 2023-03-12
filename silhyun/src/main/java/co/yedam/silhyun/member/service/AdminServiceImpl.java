@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.map.AdminMapper;
 import co.yedam.silhyun.member.vo.AdminCriteria;
 import co.yedam.silhyun.member.vo.MemberVO;
@@ -141,6 +142,18 @@ public class AdminServiceImpl implements AdminSercive {
 	public List<Map<String, Object>> classRank() {
 		return adminMapper.classRank();
 	}
+
+	@Override
+	public List<Map<String, Object>> getEventList() {
+		return adminMapper.getEventList();
+	}
+
+	@Override
+	public EventVO getEventContent(String eventNum) {
+		return adminMapper.getEventContent(eventNum);
+	}
+
+
 
 
 }

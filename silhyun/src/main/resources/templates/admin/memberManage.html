@@ -202,7 +202,8 @@
                                                 <option value="inst" th:selected="*{criteria.type == 'inst'}">인스타주소</option>
                                                 <option value="workDay" th:selected="*{criteria.type == 'workDay'}">근무가능요일</option>
                                                 <option value="accpDate" th:selected="*{criteria.type == 'accpDate'}">등록일</option>
-                                                <option value="ptgCd" th:selected="*{criteria.type == 'ptgCd'}">소속여부</option>
+                                                <option value="ptgCd" th:selected="*{criteria.type == 'ptgCd'}">
+여부</option>
 
                                             </select>
                                             <input type="text" name="keyword" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"

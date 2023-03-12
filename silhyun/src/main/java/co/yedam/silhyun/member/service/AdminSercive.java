@@ -3,6 +3,7 @@ package co.yedam.silhyun.member.service;
 import java.util.List;
 import java.util.Map;
 
+import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.vo.AdminCriteria;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -71,5 +72,11 @@ public interface AdminSercive {
 	List<PhotographerVO> getListPtg(AdminCriteria cri);
 	
 	int getTotalPtg(AdminCriteria cri);
+	
+	//이벤트리스트
+	List<Map<String, Object>>getEventList();
+	
+	//이벤트 상세정보
+	EventVO getEventContent(String eventNum);
 
 }

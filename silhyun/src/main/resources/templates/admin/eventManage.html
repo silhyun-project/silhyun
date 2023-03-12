@@ -75,38 +75,42 @@
                                             <th class="border-top-0">배너표시여부</th>
                                             <th class="border-top-0">쿠폰발행상태</th>
                                             <th class="border-top-0">진행상태</th>
-                                            <th class="border-top-0">삭제</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
- 
-                                           <td>
-                                              <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
-                                                    <i class="fi-eye">상세보기</i>
-                                                </a>
-                                           </td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
-                                            <td><button type="button">삭제</button>
+			<tr th:each="e,sts : ${eList}" th:class="${sts}" th:classappend="${e.eventStt == '진행중'} ? 'bg-light' : ''">
+                                            <td th:text="${sts.count}"></td>
+                                            <td th:text="${e.name}"></td>
+                                            
+                                            <td th:text="${e.id}"></td>
+                                            <td th:text="${e.term} + '일간'"></td>
+                                            <td th:text="${#dates.format(e.startDate,'yyyy년MM월dd일')}"></td>
+                                            
+                                            
+                                           <td> <button class="btn btn-warning" type="button" 
+                                           id ="updateBtn"  data-bs-toggle="modal" data-bs-target="#px-quick-view"
+                                           th:attr="onclick=|selectAjax('${e.eventNum}')|">상세보기</button></td>
+                                            <td th:text="${e.bnphSta}"></td>
+                                            <td th:text="${e.cpnPubSta}"></td>
+                                             
+                                            <td th:text="${e.eventStt}"></td>
+                                            
                                             
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
                       </div>
                       
                       
-                      <!-- Quick View  -->
+                                            
+                                            
+                                                                  <!-- Quick View  -->
 <div class="modal-quick-view modal fade" id="px-quick-view" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -114,41 +118,74 @@
         <div align="right">
             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-                <div class="row">
-                    <!-- Product Gallery -->
-                    <div class="col-lg-6 lightbox-gallery product-gallery">
-                    <h5><b>*배너</b></h5> 
-                     <img src="/img/banner2.jpg" class="img-fluid" title="" alt="">
-                    <hr>
-                    <h5><b>*썸네일</b></h5>               
-                        <img src="/img/bestC.jpg" class="img-fluid" title="" alt="">
-                    </div>
-                    <!-- End Product Gallery -->
-                    <!-- Product Details -->
-                    <div class="col-lg-6">                   
-                        <div class="product-detail pt-4">
-                            <div class="products-title mb-2">
-                            <h5><b>*이벤트명</b></h5>
-                                <h6>멋진 이벤트</h6>                              
-                        <hr>
-                                <h5><b>*기한</b></h5>
-                                <p>15일간</p>
-                          <hr>  
-                                <h5><b>*이벤트내용</b></h5>
-                                <p>내용내용</p>
-            </div>
-                        </div>
-                    </div>
-                    <!-- End Product Details -->
+                <div class="row" id = "selectBody">
+
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- End Quick View  -->
+
+                    
+   <script th:inline="javascript"> 
+function selectAjax(eventNum){
+    var eventNum = eventNum;
+  $.ajax({
+    url: "/admin/eventManageSelect",
+    type: "GET",
+    data: "eventNum=" + eventNum,
+    dataType: 'json'
+  }).then(result =>{
+	  
+	     var eventSelect = result;
+	     
+	  var selectBody = document.getElementById("selectBody");
+	  selectBody.innerHTML = "";
+	
+ 
+	  var appendContent = `
+          <!-- Product Gallery -->
+          <div class="col-lg-6 lightbox-gallery product-gallery">
+          <h5><b>*배너</b></h5> 
+           <img src="${eventSelect.bnph}" class="img-fluid" title="" alt="">
+          <hr>
+          <h5><b>*썸네일</b></h5>               
+              <img src="${eventSelect.thni}" class="img-fluid" title="" alt="">
+          </div>
+          <!-- End Product Gallery -->
+          <!-- Product Details -->
+          <div class="col-lg-6">                   
+              <div class="product-detail pt-4">
+                  <div class="products-title mb-2">
+                  <h5><b>*이벤트명</b></h5>
+                      <h6>
+                      ${eventSelect.name} 
+                      </h6>                              
+              <hr>
+                      <h5><b>*기한</b></h5>
+                      <p> ${eventSelect.term}일간 
+                      </p>
+                <hr>  
+                      <h5><b>*이벤트내용</b></h5>
+                      <p> ${eventSelect.cntn}</p>
+  </div>
+              </div>
+          </div>
+	  `;
+	  
+	  
+      document.getElementById("selectBody").innerHTML += appendContent;  
+	  
+	});
+	
+	
+};
+</script>
                       
                       
-                      
+
                       
                       
                       
