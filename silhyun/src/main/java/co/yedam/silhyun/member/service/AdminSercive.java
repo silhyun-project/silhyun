@@ -12,6 +12,28 @@ import co.yedam.silhyun.mypage.vo.QuitVO;
 
 public interface AdminSercive {
 
+	
+	
+	//대쉬보드
+	//승인 대기 count
+	Map<String, Object> cfmCnt();
+	
+	//문의 처리대기 count
+	int qstCnt();
+	
+	//지난 2주간 매출
+	List<Map<String, Object>> lastSales();
+	
+	//최신 댓글 3
+	List<Map<String, Object>> recentCom();
+	
+	//최신 결제 5
+	List<Map<String, Object>> recentBuy();
+	
+	//최신 가입 5
+	List<MemberVO> recentJoin();
+	
+	
 	List<MemberVO> memberList();
 	
 	List<PhotographerVO> ptgList();
@@ -73,8 +95,14 @@ public interface AdminSercive {
 	
 	int getTotalPtg(AdminCriteria cri);
 	
+	
 	//이벤트리스트
 	List<Map<String, Object>>getEventList();
+	
+	List<Map<String, Object>>getEventAllList();
+	
+	//이벤트 카운트
+	Map<String, String> getEventCnt();
 	
 	//이벤트 상세정보
 	EventVO getEventContent(String eventNum);

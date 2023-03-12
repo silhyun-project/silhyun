@@ -153,6 +153,46 @@ public class AdminServiceImpl implements AdminSercive {
 		return adminMapper.getEventContent(eventNum);
 	}
 
+	@Override
+	public List<Map<String, Object>> getEventAllList() {
+		return adminMapper.getEventAllList();
+	}
+
+	@Override
+	public Map<String, String> getEventCnt() {
+		return adminMapper.getEventCnt();
+	}
+
+	@Override
+	public List<Map<String, Object>> recentCom() {
+		return adminMapper.recentCom();
+	}
+
+	@Override
+	public List<MemberVO> recentJoin() {
+		return adminMapper.recentJoin();
+	}
+
+	@Override
+	public List<Map<String, Object>> recentBuy() {
+		return adminMapper.recentBuy();
+	}
+
+	@Override
+	public Map<String, Object> cfmCnt() {
+		return adminMapper.cfmCnt();
+	}
+
+	@Override
+	public int qstCnt() {
+		return adminMapper.qstCnt();
+	}
+
+	@Override
+	public List<Map<String, Object>> lastSales() {
+		return adminMapper.lastSales();
+	}
+
 
 
 

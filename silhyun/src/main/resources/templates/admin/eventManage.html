@@ -26,13 +26,13 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row" id="memberList">
+                <div class="row" id="eventList">
                     <div class="col-sm-12">
                         <div class="white-box">
                         <div>
-                         <h5 class="page-title"><input type="checkbox">종료된 이벤트 포함 </h5>
-                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code>
-                            &emsp; 진행예정 이벤트: <code>5 </code>&nbsp;진행중인 이벤트: <code>5 </code>&nbsp;
+                         <h5 class="page-title"><input type="checkbox" id="showAEvents" onchange="showAllEvents()">종료된 이벤트 포함 </h5>
+                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code th:text="${eCnt.sysDate}"></code>
+                            &emsp; 진행예정 이벤트: <code th:text="${eCnt.soon}"> </code>&nbsp;진행중인 이벤트: <code th:text="${eCnt.ing}"> </code>&nbsp;
                             </p>
                                 <form role="search" class="app-search d-none d-md-block me-3">
                
@@ -62,7 +62,7 @@
 					<hr>
    
                             
-                            <div class="table-responsive">
+                            <div class="table-responsive"  id="eList">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
@@ -77,6 +77,7 @@
                                             <th class="border-top-0">진행상태</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
 			<tr th:each="e,sts : ${eList}" th:class="${sts}" th:classappend="${e.eventStt == '진행중'} ? 'bg-light' : ''">
                                             <td th:text="${sts.count}"></td>
@@ -91,20 +92,73 @@
                                            id ="updateBtn"  data-bs-toggle="modal" data-bs-target="#px-quick-view"
                                            th:attr="onclick=|selectAjax('${e.eventNum}')|">상세보기</button></td>
                                             <td th:text="${e.bnphSta}"></td>
-                                            <td th:text="${e.cpnPubSta}"></td>
-                                             
-                                            <td th:text="${e.eventStt}"></td>
+                                            <td th:text="${e.cpnPubSta}"></td>                                       
+                                            <td th:text="${e.eventStt}"></td>     
+                                        </tr>
+                                    </tbody>
+                                              </tbody>
+                                </table>
+                                           </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                                <div class="table-responsive"  id="eAList" style="display: none">
+                                                  <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">이벤트명</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">진행일수</th>
+                                            <th class="border-top-0">시작일자</th>
+                                            <th class="border-top-0">내용상세보기</th> 
+                                            <th class="border-top-0">배너표시여부</th>
+                                            <th class="border-top-0">쿠폰발행상태</th>
+                                            <th class="border-top-0">진행상태</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                                                        <tbody>
+			<tr th:each="eA,sts2 : ${eAList}" th:class="${sts2}" th:classappend="${eA.eventStt == '진행중'} ? 'bg-light' : ''">
+                                            <td th:text="${sts2.count}"></td>
+                                            <td th:text="${eA.name}"></td>
+                                            
+                                            <td th:text="${eA.id}"></td>
+                                            <td th:text="${eA.term} + '일간'"></td>
+                                            <td th:text="${#dates.format(eA.startDate,'yyyy년MM월dd일')}"></td>
                                             
                                             
+                                           <td> <button class="btn btn-warning" type="button" 
+                                           id ="updateBtn"  data-bs-toggle="modal" data-bs-target="#px-quick-view"
+                                           th:attr="onclick=|selectAjax('${eA.eventNum}')|">상세보기</button></td>
+                                            <td th:text="${eA.bnphSta}"></td>
+                                            <td th:text="${eA.cpnPubSta}"></td>                                       
+                                            <td th:text="${eA.eventStt}"></td>     
                                         </tr>
                                     </tbody>
                                 </table>
+                     
                             </div>
-                            
                             
                         </div>
                     </div>
                 </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                       </div>
                       
                       
@@ -130,6 +184,27 @@
 
                     
    <script th:inline="javascript"> 
+   
+   
+   
+   var showAEvents = document.getElementById("showAEvents");
+   var eList = document.getElementById("eList");
+   var eAList = document.getElementById("eAList");
+   
+   function showAllEvents() {
+     if (showAEvents.checked) {
+    	 eAList.style.display = 'block';
+	    	eList.style.display = 'none';
+     } else {
+    	 eAList.style.display = 'none';
+	    	eList.style.display = 'block';
+     }
+   };
+   
+   
+   
+   
+   
 function selectAjax(eventNum){
     var eventNum = eventNum;
   $.ajax({
@@ -148,7 +223,7 @@ function selectAjax(eventNum){
 	  var appendContent = `
           <!-- Product Gallery -->
           <div class="col-lg-6 lightbox-gallery product-gallery">
-          <h5><b>*배너</b></h5> 
+          <p><h5><b>*배너</b></h5></p> 
            <img src="${eventSelect.bnph}" class="img-fluid" title="" alt="">
           <hr>
           <h5><b>*썸네일</b></h5>               

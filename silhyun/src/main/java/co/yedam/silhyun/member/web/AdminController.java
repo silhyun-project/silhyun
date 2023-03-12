@@ -35,11 +35,16 @@ public class AdminController {
 	
 	//이벤트관리
 	@GetMapping("/admin/eventManage")
-	public String eventManage(Model model, AdminCriteria cri) {
+	public String eventManage(Model model) {
 		List<Map<String,Object>> eList = adminService.getEventList();
 		model.addAttribute("eList", eList);
-		System.out.println("컨트롤러 elist="+model);
+		
+		List<Map<String,Object>> eAList = adminService.getEventAllList();
+		model.addAttribute("eAList", eAList);
 
+		model.addAttribute("eCnt", adminService.getEventCnt());
+		
+		System.out.println(model);
 		return "/admin/eventManage";
 	}
 	
@@ -218,7 +223,14 @@ public class AdminController {
 	
 	
 	@GetMapping("/admin/dashBoard")
-	public String dashBoard() {
+	public String dashBoard(Model model) {
+		model.addAttribute("com", adminService.recentCom());
+		model.addAttribute("join", adminService.recentJoin());
+		model.addAttribute("buy", adminService.recentBuy());
+		model.addAttribute("cfm", adminService.cfmCnt());
+		model.addAttribute("qst", adminService.qstCnt());
+		model.addAttribute("lastS", adminService.lastSales());
+		System.out.println("컨트롤러"+model);
 		return "/admin/dashBoard";
 	}
 	
