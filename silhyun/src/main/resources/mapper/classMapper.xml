@@ -88,70 +88,85 @@ end as cTime,
 
 
 <!-- 베스트 강의 페이지 -->
-<!-- 무료 강의 페이지 -->
-<select id="getBC1List" resultType="map">
-    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
-    case 
-        when c.cla_time = '' then '시간미정'
-        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
-        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
-    end as cTime, 
-    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
-    FROM class c 
-    LEFT OUTER JOIN member m ON c.ptg_id = m.id
-    LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
-    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-    WHERE c.cla_cd = 'CL1' and c.cla_pri = '0'
-</select>
-
-
-
-<select id="getBC2List" resultType="map">
-SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace,
- COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+<select id="getBCList" resultType="map">
+SELECT 
+    c.cla_cd AS cCd, 
+    nvl(c.cla_cnt,0) as cnt,
+    c.thni AS thni, 
+    NVL(r.star, 0) AS star, 
+    c.cla_ttl AS ttl, 
+    COALESCE(m.name, '익명') AS name, 
+  to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
+    c.cla_pri AS cPri, 
+    NVL(c.ypsn, 0) AS ypsn, 
+    COALESCE(c.cla_place, '장소미정') AS cPlace, 
+case 
+    when c.cla_time = '' then '시간미정'
+    when TO_NUMBER(c.cla_time) >= 12 then '오후 '|| TO_CHAR(TO_NUMBER(c.cla_time)-12) || '시'
+    else '오전 '|| c.cla_time || '시'
+end as cTime,
+    COALESCE(f.fd_cd, '분류미정') AS fCd, 
+    c.class_num AS cNum, 
+    NVL(p.toal, 0) AS total
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-WHERE c.cla_cd = 'CL2'and c.cla_pri = '0'
+LEFT OUTER JOIN (
+    SELECT ctgr_num, COUNT(*) AS toal
+    FROM payment
+    GROUP BY ctgr_num
+) p ON c.class_num = p.ctgr_num
+ORDER BY total DESC
+FETCH FIRST 12 ROWS ONLY
+</select>
+
+
+
+
+<!-- 무료 강의 페이지 -->
+<select id="getFCList" resultType="map">
+SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, 
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn,
+       to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
+COALESCE(c.cla_place, '장소미정') as cPlace, nvl(c.cla_cnt, 0) as cnt,
+case 
+    when c.cla_time = '' then '시간미정'
+    when TO_NUMBER(c.cla_time) >= 12 then '오후 '|| TO_CHAR(TO_NUMBER(c.cla_time)-12) || '시'
+    else '오전 '|| c.cla_time || '시'
+end as cTime,
+
+COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+FROM class c 
+LEFT OUTER JOIN member m ON c.ptg_id = m.id
+LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+WHERE c.cla_pri = '0'
+
 </select>
 
 
 
 <!-- 무료 강의 페이지 -->
-<select id="getFC1List" resultType="map">
-    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
-    case 
-        when c.cla_time = '' then '시간미정'
-        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
-        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
-    end as cTime, 
-    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
-    FROM class c 
-    LEFT OUTER JOIN member m ON c.ptg_id = m.id
-    LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
-    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-    WHERE c.cla_cd = 'CL1' and c.cla_pri = '0'
-</select>
+<select id="getECList" resultType="map">
+SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, 
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn,
+       to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
+COALESCE(c.cla_place, '장소미정') as cPlace, nvl(c.cla_cnt, 0) as cnt,
+case 
+    when c.cla_time = '' then '시간미정'
+    when TO_NUMBER(c.cla_time) >= 12 then '오후 '|| TO_CHAR(TO_NUMBER(c.cla_time)-12) || '시'
+    else '오전 '|| c.cla_time || '시'
+end as cTime,
 
-
-
-<select id="getFC2List" resultType="map">
-SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace,
- COALESCE(c.cla_time, '시간미정') as cTime, COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-WHERE c.cla_cd = 'CL2'and c.cla_pri = '0'
+WHERE c.cla_pri = '0'
+
 </select>
-
-
-
 
 
 
