@@ -27,9 +27,9 @@ public interface PortfolioMapper {
 	
 	
 	//포트폴리오 인서트
-	void insertPortfolio(PortfolioVO portfolio);
-	void insertPhoto(PhotoVO photo);
-	void insertTag(TagVO tagCntn);
+	void insertPortfolio(PortfolioVO portfolioVO);
+	void insertPhoto(PhotoVO photoVO);
+	void insertTag(TagVO tagVO);
 	
 	
 }

@@ -106,7 +106,7 @@
 
 	<insert id="insertPortfolio"
 		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
-		<selectKey keyProperty="phoNum" order="BEFORE">
+		<selectKey keyProperty="portNum" order="BEFORE">
 			SELECT
 			NVL(MAX(TO_NUMBER(port_num)), 0) + 1
 			AS port_num
@@ -126,8 +126,7 @@
 		VALUES (#{phoNum}, 'P', #{portNum}, #{phoRt})
 	</insert>
 	
-	<insert id="insertTag"
-		parameterType="co.yedam.silhyun.portfolio.vo.TagVO">
+	<insert id="insertTag">
 		INSERT INTO tag (tag_cntn)
 		VALUES (#{tagCntn})
 	</insert>

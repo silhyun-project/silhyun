@@ -1,9 +1,9 @@
 package co.yedam.silhyun.portfolio.web;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.service.PortfolioService;
@@ -72,12 +73,17 @@ public class PortfolioController {
 	
 	//insert
 	@PostMapping("/silhyun/addPortfolio")
-    public ResponseEntity<PortfolioVO> addPortfolio(@RequestParam String[] phoNums, @RequestParam String[] ctgrs,
-            @RequestParam String[] ctgrNums, @RequestParam String[] phoRts, @RequestParam String ptgId,
-            @RequestParam String cntn, @RequestParam Date portDate, @RequestParam String upSta,
-            @RequestParam String[] tagCntns) {
-        portfolioService.addPortfolio(phoNums, ctgrs, ctgrNums, phoRts, ptgId, cntn, portDate, upSta, tagCntns);
-        return ResponseEntity.ok().build();
-    }
+	public ResponseEntity<?> insertPortfolio(@RequestParam("files") List<MultipartFile> files,
+	                                          @RequestParam("ptgId") String ptgId,
+	                                          @RequestParam("cntn") String cntn,
+	                                          @RequestParam("upSta") String upSta,
+	                                          @RequestParam("tagCntns") List<String> tagCntns) {
+		 try {
+		        portfolioService.insertPortfolio(files, tagCntns, upSta, cntn, ptgId);
+		        return ResponseEntity.ok().build();
+		    } catch (Exception e) {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+	    }
 
 }

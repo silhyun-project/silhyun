@@ -3,6 +3,8 @@ package co.yedam.silhyun.portfolio.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.vo.LikePhotoVO;
 import co.yedam.silhyun.portfolio.vo.PortfolioVO;
@@ -25,5 +27,6 @@ public interface PortfolioService {
 	
 	
 	//포트폴리오 인서트
-	 void addPortfolio(String[] phoNums, String[] ctgrs, String[] ctgrNums, String[] phoRts, String ptgId, String cntn, Date portDate, String upSta, String[] tagCntns);
+	
+	 void insertPortfolio(List<MultipartFile> files, List<String> tagCntns,String upSta, String cntn, String ptgId);
 }
