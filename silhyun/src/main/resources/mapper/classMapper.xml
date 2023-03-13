@@ -220,7 +220,18 @@ where id = #{id}
 
 <!-- 오프라인 강의 -->
 <select id="myTakeC1" parameterType="String" resultType="map">
-SELECT c.cla_ttl AS "ttl", m.name AS "pName", f.fd_cd AS "fdCd", c.cla_place AS "cPlace",
+SELECT c.cla_ttl AS "ttl", m.name AS "pName", 
+CASE 
+    WHEN f.fd_cd = 'B1' then '제품' 
+   WHEN f.fd_cd = 'B2' then '음식' 
+     WHEN f.fd_cd = 'B3' then '행사' 
+       WHEN f.fd_cd = 'B4' then '건축/인테리어' 
+         WHEN f.fd_cd = 'B5' then '패션' 
+           WHEN f.fd_cd = 'B6' then '프로필/화보' 
+             WHEN f.fd_cd = 'B7' then '웨딩' 
+               WHEN f.fd_cd = 'B8' then '일반스냅' 
+                 WHEN f.fd_cd = 'B9' then '반려동물' 
+    END AS "fdCd", c.cla_place AS "cPlace",
        to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS "cDt", c.class_num as "classNum",
     CASE
         WHEN c.cla_time = '' THEN '시간미정'
@@ -236,8 +247,23 @@ WHERE p.id = 'catLove' AND c.cla_cd = 'CL1'
 
 <!-- 온라인 강의 -->
 <select id="myTakeC2" parameterType="String" resultType="map">
-SELECT c.cla_ttl AS "ttl", m.name AS "pName", f.fd_cd AS "fdCd", c.cla_cnt AS "IVCnt", p.ord_date AS "ordDt", c.ydt AS "ydt",
-       p.ord_date + c.ydt AS "dDay", CEIL((p.ord_date + c.ydt) - SYSDATE) AS "dDayCnt",  c.class_num as "classNum"
+SELECT c.cla_ttl AS "ttl", m.name AS "pName",
+CASE 
+    WHEN f.fd_cd = 'B1' then '제품' 
+   WHEN f.fd_cd = 'B2' then '음식' 
+     WHEN f.fd_cd = 'B3' then '행사' 
+       WHEN f.fd_cd = 'B4' then '건축/인테리어' 
+         WHEN f.fd_cd = 'B5' then '패션' 
+           WHEN f.fd_cd = 'B6' then '프로필/화보' 
+             WHEN f.fd_cd = 'B7' then '웨딩' 
+               WHEN f.fd_cd = 'B8' then '일반스냅' 
+                 WHEN f.fd_cd = 'B9' then '반려동물' 
+    END AS "fdCd", c.cla_cnt AS "IVCnt", p.ord_date AS "ordDt", c.ydt AS "ydt",
+       p.ord_date + c.ydt AS "dDay", CEIL((p.ord_date + c.ydt) - SYSDATE) AS "dDayCnt",  c.class_num as "classNum",
+       (
+select sum(inet_time)
+from inetclass
+where class_num = c.class_num) as "timeSum"
 FROM class c
 INNER JOIN member m ON c.ptg_id = m.id 
 INNER JOIN field f ON c.ptg_id = f.ptg_id
@@ -301,7 +327,7 @@ ORDER BY i.inet_num
 
 <!-- 시청기록이 없어도 나머지 조건 조합해서 리스트에 뜨도록 수정함 -->
 SELECT i.inet_num, i.inet_ttl, i.inet_vdo, i.inet_desct, i.class_num, COALESCE(w.ew_time, '0') as ew_time,
-i.inet_note as inet_note
+nvl(i.inet_note,0) as inet_note
 FROM inetclass i 
 LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num
 WHERE i.class_num = '2' AND i.inet_num = #{inetNum} AND (w.id = 'catLove' OR w.id IS NULL)
