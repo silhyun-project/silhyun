@@ -32,6 +32,24 @@ public class StdServiceImpl implements StdService {
 	public List<StudioVO> getReserList(String stdId) {
 		return stdMapper.getReserList(stdId);
 	}
+
+	@Override
+	public List<PhotographerVO> ptgList(String stdId) {
+
+		return stdMapper.ptgList(stdId);
+	}
+
+	@Override
+	public List<StudioVO> stdlistget(String stdId) {
+
+		return stdMapper.stdlistget(stdId);
+	}
+
+	@Override
+	public int ptgdel(PhotographerVO vo) {
+		
+		return stdMapper.ptgdel(vo);
+	}
 	
 	
 
