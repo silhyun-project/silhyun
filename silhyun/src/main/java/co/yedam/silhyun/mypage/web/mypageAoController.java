@@ -74,7 +74,7 @@ public class mypageAoController {
 		return "mypageAo/resManage";
 	}
 
-	@GetMapping("/photo/classManage")
+	@GetMapping("/photo/classManage/{ptgId}")
 	public String classManage(Model model,@PathVariable String ptgId) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 		model.addAttribute("clManage", mypageAoService.classList());
@@ -82,7 +82,7 @@ public class mypageAoController {
 		return "mypageAo/classManage";
 	}
 
-	@GetMapping("/photo/mypageAoAsk")
+	@GetMapping("/photo/mypageAoAsk/{ptgId}")
 	public String mypageAoAsk(Model model,@PathVariable String ptgId) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 
@@ -106,13 +106,13 @@ public class mypageAoController {
 	 */
 	
 
-	@GetMapping("/photo/mypageStatsAo")
+	@GetMapping("/photo/mypageStatsAo/{ptgId}")
 	public String mypageStatsAo(Model model,@PathVariable String ptgId) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 		return "mypageAo/mypageStatsAo";
 	}
 
-	@GetMapping("/photo/reportFormAo")
+	@GetMapping("/photo/reportFormAo/{ptgId}")
 	public String reportAo(Model model,@PathVariable String ptgId) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 		return "mypageAo/reportFormAo";
