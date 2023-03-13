@@ -21,7 +21,7 @@
 </head>
 <body>
 <script type="text/javascript" src="/js/join/join.js"></script>
-<script type="text/javascript" src="/js/join/join.js"></script>
+<script type="text/javascript" src="/js/join/joinCheck.js"></script>
     <main>
         <!-- Section 이거 나중에 다시 vue로 만들기 //로그인도-->
         <section class="section">
@@ -35,59 +35,60 @@
                             <div class="form-group mb-3">
                                 <label for="id" class="form-label">아이디<span class="text-danger">*</span></label>
                                 <input type="text" id="id" name="id" placeholder="아이디" class="form-control">
-						        <span class="idMsg">아이디를 입력해주세요</span>
+						        <span id="idMsg"></span>
 						        <!--회원가입 유효성 검사 위해 //true, false-->
-						        <input type="hidden" id="idCk" value="false">                           
+						        <input type="hidden" class="joinOk" id="idCk" value="false">                           
                             </div>
                             
                             <!-- 비밀번호 -->
                             <div class="form-group mb-3">
 	                                <label for="pwd" class="form-label">비밀번호<span class="text-danger">*</span></label>
                                     <input type="password" id="pwd" name="pwd" class="form-control" placeholder="비밀번호">
-        							<span class="pwdLengtMsg">8~15자의 영문, 숫자, 특수문자 조합</span>
+        							<span id="pwdLengtMsg">8~15자의 영문, 숫자, 특수문자 조합</span>
         							<!-- 비밀번호 길이 체크 -->
-        							<input type="hidden" id="pwLength" value="false">
+        							<input type="hidden" class="joinOk" id="pwLength" value="false">
                             </div>
                             
                             <!-- 비밀번호 확인 -->
                             <div class="form-group mb-3">
                                 <label for="pwdck" class="form-label">비밀번호확인<span class="text-danger">*</span></label>                                
                                 <input type="password" id="pwdck" class="form-control" placeholder="비밀번호 확인">
-						        <span class="pwdMgs">비밀번호와 일치해야합니다.</span>
+						        <span id="pwdMgs"></span>
 						        <!--회원가입 유효성 검사 위해 //true, false-->
-						        <input type="hidden" id="pwCk" value="false">
+						        <input type="hidden" class="joinOk" id="pwCk" value="false">
                             </div>
                             
                             <!-- 이름 -->
                             <div class="form-group mb-3">
                                 <label for="name" class="form-label">이름<span class="text-danger">*</span></label>
                                 <input type="text" id="name" name="name" class="form-control" placeholder="이름">
-                                <span class="nameMgs"></span>
+                                <span id="nameMgs"></span>
+                                 <input type="hidden" class="joinOk" id="nameck" value="false">
                             </div>
                             
                             <!-- 연락처 -->
                             <div class="form-group mb-3 marList">
                                 <div class="row align-items-center">
                                     <label class="form-label col">연락처<span class="text-danger">*</span></label>
-                                    <input type="hidden" id="tel" name="tel">
+                                    <input type="hidden" id="tel" value="false">
                                 </div>
      							<div class="row" id="phone">
      								<div class="col-4 tel">
-	                               <select class="form-select col mar">
+	                               <select class="form-select col mar telNum">
 	                               		<option>선택</option>
 							        </select>
 							      </div>
-							        <input type="text" class="form-control col mar">
-							        <input type="text" class="form-control col mar">
+							        <input type="text" class="form-control col mar telNum">
+							        <input type="text" class="form-control col mar telNum">
 						        </div>
-						        <span class="telMgs"></span>
+						        <span id="telMgs"></span>
                             </div>
                             
                             <!-- 이메일 -->
                             <div class="form-group mb-3 marList">
                                 <div class="row align-items-center">
                                     <label class="form-label col">이메일<span class="text-danger">*</span></label>
-                                    <input type="hidden" id="email" name="email">
+                                    <input type="hidden" class="joinOk" id="email" name="email">
                                 </div>
      							<div class="row">
 							        <input type="text" class="form-control col mar" id="emailId"><p class="col-1 sm">@</p>
@@ -98,18 +99,18 @@
 							        </select>
 							      </div>
 						        </div>
-						        <span class="emailMgs"></span>
+						        <span id="emailMgs"></span>
                             </div>
                             
                             <!-- 이메일 인증 -->
                             <div class="form-group mb-3">
                                 <label class="form-label col" for="emailchk">이메일인증<span class="text-danger">*</span></label>
                                 <div class="row  marList">
-							    <input type="text" class="form-control col" id="emailchk" placeholder="인증번호">
+							    <input type="text" class="form-control col" id="emailchk" placeholder="인증번호를 입력해주세요">
 							    <button type="button" class="btn col-4 btn-primary" id="chkBtn">인증번호 받기</button>
 							    <!-- 이메일 본인인증시 true -->
-							    <input type="hidden" id="emailCk" value="true">
-							    <span class="emailCkMgs">인증번호를 입력해 주세요</span>
+							    <input type="hidden" class="joinOk" id="emailCk" value="true">
+							    <span id="emailCkMgs"></span>
 							    </div>
                             </div><br><br>
                             
@@ -165,31 +166,31 @@
 					                <span>전체 동의</span>
 					                <input type="checkbox" id="chkAll">
 					                <!-- 체크박스 동의 유효성 -->
-					                <input type="hidden" value="false" id="agree">
+					                <input class="joinOk" type="hidden" value="false" id="agree">
 					            </div>
 					            
 					            <!-- 필수 1 -->
 					            <div>
 					                <span><strong>(필수)</strong> 개인회원 약관에 동의 <button>상세 보기</button></span>
-					                <input type="checkbox" id="chk1">
+					                <input type="checkbox" class="chk" id="chk1">
 					            </div>
 					            
 					            <!-- 필수 2 -->
 					            <div>
 					                <span><strong>(필수)</strong> 개인정보 수집 및 이용에 동의 <button>상세 보기</button></span>
-					                <input type="checkbox" id="chk2">
+					                <input type="checkbox" class="chk" id="chk2">
 					            </div>
 					
 					            <!-- 선택 1 -->
 					            <div>
 					                <span>(선택) 마케팅 정보 수신 동의 - 이메일 <button>상세 보기</button></span>
-					                <input type="checkbox" id="chk3">
+					                <input type="checkbox" class="chk">
 					            </div>
 					            
 					            <!-- 선택 2 -->
 					            <div>
 					                <span>(선택) 마케팅 정보 수신 동의 - SMS/MMS <button>상세 보기</button></span>
-					                <input type="checkbox" id="chk4">
+					                <input type="checkbox" class="chk">
 					            </div>
 					
 					        </div> 

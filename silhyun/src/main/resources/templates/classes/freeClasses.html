@@ -32,10 +32,6 @@
             
        <section class="section pt-0">
                 <div class="container">
-
-                    <div>
-                        <p><b>온라인 강의💻</b></p>
-                    </div>
                     
                     <div>
                         <div class="tab-content" id="home-6_tabsContent">
@@ -45,15 +41,15 @@
                             
                             
                             
-                            
-                                <div class="row g-3 g-lg-4"  th:each="c2, sts : ${fC2List}" th:Class="${sts}">
+                                                             <div class="row g-3 g-lg-4"  th:each="fC, sts : ${fCList}" th:Class="${sts}">
                                     <!-- Product Box -->
                                     <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
                                         <div class="product-card-7" >
                                             <div class="product-card-image"  style="width: 300px; height: 300px">
                                                 <div class="badge-ribbon">
                                                 <!-- IF 해서 이 부분 이벤트 있으면 살리고 없으면 지우면 됨 -->
-                                                    <span class="badge bg-warning">BEST</span>
+                                                    <span th:if="${fC.CCD== 'CL1'}" class="badge bg-danger">오프라인</span>
+                                                       <span th:if="${fC.CCD== 'CL2'}"class="badge bg-info">온라인</span>
                                                 </div>
                                                 <div class="product-action">
                                                     <a href="#" class="btn btn-dark">
@@ -64,7 +60,7 @@
                                                 <div class="product-media">
                                                     <a href="#">
                                                         <img class="img-fluid"
-                                                            th:src="${c2.THNI}" title="" 
+                                                            th:src="${fC.THNI}" title="" 
                                                             alt="">
                                                     </a>
                                                 </div>
@@ -82,19 +78,26 @@
                                                     <i class="bi bi-star-fill active"></i>
                                                     <i class="bi bi-star-fill active"></i>
                                                     <i class="bi bi-star"></i>
-                                                    <a  th:text="${c2.STAR}"></a>
+                                                    <a  th:text="${fC.STAR}"></a>
                                                 </div>
                                                 <h6 class="product-title">                                         
-                                                     <a href="/classesInfo" th:text="${c2.TTL}"></a>                                                                                           
+                                                     <a th:href="@{/silhyun/classes/classesInfo(classNum=${fC.CNUM}, id='catLove')}" th:text="${fC.TTL}"></a>                                                                                           
                                                 </h6>
                                                 <div class="product-price">
-                                                    <span class="text-primary" th:text="${c2.CPRI}"></span><small>원</small>
-                                                  <!-- 세일하면 할 거 
-                                                    <del class="fs-sm text-muted">999999999<small>원</small></del>
-                                                   -->
+                                                    <span class="text-primary" th:text="${fC.CPRI}"></span><small>원</small>
+           
                                                 </div>
-                                                <a th:text="${c2.NAME}"> </a><br>
-                                                <a th:text="'총 '+ ${c2.CNT}+'강'"> </a>
+                                                <a th:text="${fC.NAME}"> </a><br>
+                                               <div th:if="${fC.CCD== 'CL2'}">
+                                         <a th:text="'총 '+ ${fC.CNT}+'강'"> </a>
+                                               </div>
+                                             
+                                              
+                             	<div th:if="${fC.CCD== 'CL1'}">
+                      <a th:text="${fC.CDT}"> </a><br>
+                                                <a th:text="${fC.CPLACE}+' / '+${fC.CTIME}"> </a>
+                             	</div>
+                       
                                             </div>
                                         </div>
                                     </div>
@@ -106,74 +109,12 @@
                             	
                             	
                             	
-                            	
-                            	
-                         <!-- 인라인 블록 줄바꿈용 -->
-                         <p style="clear: both;"></p>	
                             	
                             </div>
                         </div>
                         <!-- End Tab Content -->
                     </div>
-<div style="margin-bottom: 500px">
-                        <p><b>오프라인 강의🚗</b></p>
-                    
-                    
-                                 <div class="row g-3 g-lg-4"  th:each="c1, sts : ${fC1List}" th:Class="${sts}">
-                                    <!-- Product Box -->
-                                    <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
-                                        <div class="product-card-7" >
-                                            <div class="product-card-image"  style="width: 300px; height: 300px">
-                                                <div class="badge-ribbon">
-                                                <!-- IF 해서 이 부분 이벤트 있으면 살리고 없으면 지우면 됨 -->
-                                                    <span class="badge bg-warning">BEST</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-    
-                                                </div>
-                                                <div class="product-media">
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                            th:src="${c1.THNI}" title="" 
-                                                            alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
-                                                        <i class="fi-eye"></i>
-                                                        상세 보기
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                    <a  th:text="${c1.STAR}"></a>
-                                                </div>
-                                                <h6 class="product-title">                                         
-                                                     <a href="/classesInfo" th:text="${c1.TTL}"></a>                                                                                           
-                                                </h6>
-                                                <div class="product-price">
-                                                    <span class="text-primary" th:text="${c1.CPRI}"></span><small>원</small>
-                                                  <!-- 세일하면 할 거 
-                                                    <del class="fs-sm text-muted">999999999<small>원</small></del>
-                                                   -->
-                                                </div>
-                                                <a th:text="${c1.NAME}"> </a><br>
-                                                <a th:text="${c1.CPLACE}+' / '+${c1.CTIME}"> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product Box -->
-                            	</div>
-                    </div>
+
                     
                     </div>
                     </section>

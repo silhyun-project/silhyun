@@ -69,7 +69,7 @@
     	console.log($("#searchFrm").find("input[name='pageNum']").val())
     	
     	
-    	//apage($('#searchFrm').seralize()) //form안에있는 name이랑 value값을 들고온다.
+    	//ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
     	searchFrm.submit(); //폼태그값을 스트링으로 
     })
     

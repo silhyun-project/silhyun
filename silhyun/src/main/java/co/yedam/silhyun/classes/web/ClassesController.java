@@ -29,7 +29,7 @@ public class ClassesController {
 	public String classesMain(Model model) {
 		model.addAttribute("c1List", ClassesService.getC1List());
 		model.addAttribute("c2List", ClassesService.getC2List());
-		System.out.println("컨트롤러로 온 model"+model.getAttribute("c1List"));
+		System.out.println("컨트롤러로 온 model"+model.getAttribute("c2List"));
 		//이거 페이지에 값 제대로 담기는데 안 읽힘. 왜지?
 		return "/classes/classesMain";
 	}
@@ -92,26 +92,17 @@ public class ClassesController {
 	
 	@GetMapping("/bestClasses")
 	public String bestClasses(Model model) {
-		model.addAttribute("c1List", ClassesService.getC1List());
-		model.addAttribute("c2List", ClassesService.getC2List());
+		model.addAttribute("bCList", ClassesService.getBCList());
 		return "/classes/bestClasses";
 	}
 	
 	@GetMapping("/freeClasses")
 	public String freeClasses(Model model) {
-		model.addAttribute("fC1List", ClassesService.getFC1List());
-		model.addAttribute("fC2List", ClassesService.getFC2List());
+		model.addAttribute("fCList", ClassesService.getFCList());
+		System.out.println("무료 모델"+model);
 		return "/classes/freeClasses";
 	}
-	
-	@GetMapping("/eventClasses")
-	public String eventClasses(Model model) {
-		model.addAttribute("c1List", ClassesService.getC1List());
-		model.addAttribute("c2List", ClassesService.getC2List());
-		return "/classes/eventClasses";
-	}
-	
-	
+
     @ResponseBody
     @RequestMapping(value = "/silhyun/classes/insertWInfo", method = RequestMethod.POST)
     public InetClassesWtchVO insertWInfo(InetClassesWtchVO vo) {

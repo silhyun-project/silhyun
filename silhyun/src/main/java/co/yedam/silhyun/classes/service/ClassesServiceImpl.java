@@ -40,13 +40,8 @@ public class ClassesServiceImpl implements ClassesService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getFC1List() {
-		return ClassesMapper.getFC1List();
-	}
-
-	@Override
-	public List<Map<String, Object>> getFC2List() {
-		return ClassesMapper.getFC2List();
+	public List<Map<String, Object>> getFCList() {
+		return ClassesMapper.getFCList();
 	}
 	
 	@Override
@@ -81,6 +76,10 @@ public class ClassesServiceImpl implements ClassesService {
 	@Override
 	public List<Map<String, Object>> myTakeC2(String id) {
 			return ClassesMapper.myTakeC2(id);
+	}
+	@Override
+	public List<Map<String, Object>> getBCList() {
+		return ClassesMapper.getBCList();
 	}
 
 

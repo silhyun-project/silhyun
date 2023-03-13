@@ -29,4 +29,5 @@ public class PaymentVO {
 	String shotTime;
 	String ttl;
 	int discount;
+	String shotPlace;
 }

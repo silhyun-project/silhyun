@@ -10,4 +10,6 @@ public interface PhotoService {
 	List<PhotoVO> photoList(PhotoVO vo);
 	int photoInsert(List<MultipartFile> files, String ctgrNum, String ctgr);
 	int photoDelete(PhotoVO vo);
+	
+	int ptgRegiInsert(List<MultipartFile> files, String ctgrNum, String ctgr);
 }

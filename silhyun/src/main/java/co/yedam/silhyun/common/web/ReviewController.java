@@ -57,9 +57,9 @@ public class ReviewController {
 			model.addAttribute("id", user.getId());		
 		}
 		cri.setAmount(5);
-		model.addAttribute("list", rService.reviewList(cri, "A", "user1"));
-		model.addAttribute("page", new PageVO(rService.getTotalCount(cri), 10, cri));
-		model.addAttribute("star", rService.ptgStarAvg("A", "user1"));
+		model.addAttribute("list", rService.reviewList(cri, "A", "user24"));
+		model.addAttribute("page", new PageVO(rService.getTotalCount( "A", "user24"), 10, cri));
+		model.addAttribute("star", rService.ptgStarAvg("A", "user24"));
 
 		return "review/reviewList";
 	}
@@ -68,6 +68,20 @@ public class ReviewController {
 	public String reviewUpdateForm(ReviewVO vo, Model model) {
 		model.addAttribute("revNum", vo.getRevNum());
 		return "review/reviewUpdateForm";
+	}
+	
+	@GetMapping("/ajaxCall")
+	public String ajaxCallReview(Model model, HttpSession httpSession, Criteria cri, PhotoVO pvo) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
+		if(user != null) {
+			model.addAttribute("id", user.getId());		
+		}
+		cri.setAmount(5);
+		model.addAttribute("list", rService.reviewList(cri, "A", "user24"));
+		model.addAttribute("page", new PageVO(rService.getTotalCount("A", "user24"), 10, cri));
+		model.addAttribute("star", rService.ptgStarAvg("A", "user24"));
+
+		return "review/reviewList";
 	}
 	
 	
