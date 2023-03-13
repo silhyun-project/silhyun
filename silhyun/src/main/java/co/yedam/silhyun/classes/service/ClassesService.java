@@ -23,10 +23,11 @@ public interface ClassesService {
 	
 	List<Map<String, Object>> cdtC2List(int param1);
 	
-	//무료강의 페이지
-	List<Map<String, Object>> getFC1List(); 
+	//베스트강의 페이지
+	List<Map<String, Object>>getBCList();
 	
-	List<Map<String, Object>> getFC2List();
+	//무료강의 페이지
+	List<Map<String, Object>> getFCList(); 
 	
 	//클래스 개별정보
 	ClassesVO selectClass(String classNum);

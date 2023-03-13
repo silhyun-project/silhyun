@@ -30,62 +30,75 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row" id="ptgAccept">
+                
+                <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
                         <div>
                             <span>
-                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가">
-  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관">
-  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스">
+                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가" th:attr="onclick=|openPtgList()|">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관" th:attr="onclick=|openStdList()|">
+  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스" th:attr="onclick=|openClassList()|">
+                       &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트" th:attr="onclick=|openEventList()|">
                             <br>
                             </span>
                             
                             <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 승인 대기
-                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>
+                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>0 </code>
                             </p>
-                                <form role="search" class="app-search d-none d-md-block me-3">
-               
-                            <ul style="list-style:none;float:right;">
-								<li>		
-                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">#번호</option>
-                               <option value="">작가아이디</option>
-                               <option value="">사진관아이디</option>
-                               <option value="">지역</option>
-                               <option value="">사업자등록번호</option>
-                               <option value="">소속여부</option>
-                               <option value="">촬영장소</option>
-                               <option value="">자기소개</option>
-                               <option value="">인스타주소</option>
-                               <option value="">근무가능요일</option>
-                               <option value="">승인신청일자</option>
-
-                            </select>
-                                <input type="text" placeholder="Search..." class="form-control mt-0"
-                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-								</li>                            
-                            </ul>
-                            </form>
                         </div>
 	
 	               <br>
 					<hr>
    
                             
-                            <div class="table-responsive">
-                                <table class="table text-nowrap">
+                            <div class="table-responsive" id="ptgAccept">
+                                <table class="table text-nowrap" >
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#번호</th>
+                                            <th class="border-top-0">#</th>
                                             <th class="border-top-0">작가아이디</th>
                                             <th class="border-top-0">사진관아이디</th>
                                             <th class="border-top-0">지역</th>
                                             <th class="border-top-0">사업자등록번호</th>
-                                            <th class="border-top-0">소속여부</th>
+                                            <th class="border-top-0">촬영장소</th>
+                                            <th class="border-top-0">자기소개</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">승인신청일자</th>
+                                            <th class="border-top-0">승인처리</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
+                                            <td th:text="${sts.count}"></td>
+                                            <td th:text="${ptg.ptgId}"></td>
+                                            <td th:text="${ptg.stId}"></td>
+                                            <td th:text="${ptg.regionCd}"></td>
+                                            <td th:text="${ptg.crn}"></td>
+                                            <td th:text="${ptg.shotPlace}"></td>
+                                            <td th:text="${ptg.itr}"></td>
+                                            <td th:text="${ptg.inst}"></td>
+                                            <td th:text="${ptg.workDay}"></td>
+                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
+                                            <td><button type="button" class="btn btn-info"  id ="ptgAcceptBtn"  data-bs-toggle="modal" data-bs-target="#ptgAcceptModal" style="color:white;" 
+                                            th:attr="onclick=|ptgSelectAjax('${ptg.ptgId}')|" >처리</button>
+                                        </tr>
+                                    </tbody>
+                                </table>
+     
+                                
+                            </div>
+                            
+                               <div class="table-responsive"  id="stdAccept" style="display: none">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">std</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
                                             <th class="border-top-0">촬영장소</th>
                                             <th class="border-top-0">자기소개</th>
                                             <th class="border-top-0">인스타주소</th>
@@ -94,83 +107,31 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
+                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
+                                            <td th:text="${sts.count}"></td>
+                                            <td th:text="${ptg.ptgId}"></td>
+                                            <td th:text="${ptg.stId}"></td>
+                                            <td th:text="${ptg.regionCd}"></td>
+                                            <td th:text="${ptg.crn}"></td>
+                                            <td th:text="${ptg.shotPlace}"></td>
+                                            <td th:text="${ptg.itr}"></td>
+                                            <td th:text="${ptg.inst}"></td>
+                                            <td th:text="${ptg.workDay}"></td>
+                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-                                <div class="row" id="stdAccept">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                        <div>
-                            <span>
-                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가">
-  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="사진관">
-  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스">
-  					   					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트">
-                            <br>
-                            </span>
                             
-                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 미승인 요청
-                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>5</code>
-                            </p>
-                                <form role="search" class="app-search d-none d-md-block me-3">
-               
-                            <ul style="list-style:none;float:right;">
-								<li>		
-                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">#번호</option>
-                               <option value="">작가아이디</option>
-                               <option value="">사진관아이디</option>
-                               <option value="">지역</option>
-                               <option value="">사업자등록번호</option>
-                               <option value="">소속여부</option>
-                               <option value="">촬영장소</option>
-                               <option value="">자기소개</option>
-                               <option value="">인스타주소</option>
-                               <option value="">근무가능요일</option>
-                               <option value="">승인신청일자</option>
-
-                            </select>
-                                <input type="text" placeholder="Search..." class="form-control mt-0"
-                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-								</li>                            
-                            </ul>
-                            </form>
-                        </div>
-	
-	               <br>
-					<hr>
-   
-                            
-                            <div class="table-responsive">
+                                                           <div class="table-responsive"  id="classAccept" style="display: none">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#번호</th>
-                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">class</th>
                                             <th class="border-top-0">사진관아이디</th>
                                             <th class="border-top-0">지역</th>
                                             <th class="border-top-0">사업자등록번호</th>
-                                            <th class="border-top-0">소속여부</th>
                                             <th class="border-top-0">촬영장소</th>
                                             <th class="border-top-0">자기소개</th>
                                             <th class="border-top-0">인스타주소</th>
@@ -179,83 +140,31 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
+                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
+                                            <td th:text="${sts.count}"></td>
+                                            <td th:text="${ptg.ptgId}"></td>
+                                            <td th:text="${ptg.stId}"></td>
+                                            <td th:text="${ptg.regionCd}"></td>
+                                            <td th:text="${ptg.crn}"></td>
+                                            <td th:text="${ptg.shotPlace}"></td>
+                                            <td th:text="${ptg.itr}"></td>
+                                            <td th:text="${ptg.inst}"></td>
+                                            <td th:text="${ptg.workDay}"></td>
+                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-                                <div class="row" id="classAccept">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                        <div>
-                            <span>
-                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가">
-  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관">
-  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="클래스">
-  					   					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트">
-                            <br>
-                            </span>
                             
-                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 미승인 요청
-                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>5</code>
-                            </p>
-                                <form role="search" class="app-search d-none d-md-block me-3">
-               
-                            <ul style="list-style:none;float:right;">
-								<li>		
-                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">#번호</option>
-                               <option value="">작가아이디</option>
-                               <option value="">사진관아이디</option>
-                               <option value="">지역</option>
-                               <option value="">사업자등록번호</option>
-                               <option value="">소속여부</option>
-                               <option value="">촬영장소</option>
-                               <option value="">자기소개</option>
-                               <option value="">인스타주소</option>
-                               <option value="">근무가능요일</option>
-                               <option value="">승인신청일자</option>
-
-                            </select>
-                                <input type="text" placeholder="Search..." class="form-control mt-0"
-                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-								</li>                            
-                            </ul>
-                            </form>
-                        </div>
-	
-	               <br>
-					<hr>
-   
-                            
-                            <div class="table-responsive">
+                                                           <div class="table-responsive"  id="eventAccept" style="display: none">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#번호</th>
-                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">event</th>
                                             <th class="border-top-0">사진관아이디</th>
                                             <th class="border-top-0">지역</th>
                                             <th class="border-top-0">사업자등록번호</th>
-                                            <th class="border-top-0">소속여부</th>
                                             <th class="border-top-0">촬영장소</th>
                                             <th class="border-top-0">자기소개</th>
                                             <th class="border-top-0">인스타주소</th>
@@ -264,33 +173,265 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>admin</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
+                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
+                                            <td th:text="${sts.count}"></td>
+                                            <td th:text="${ptg.ptgId}"></td>
+                                            <td th:text="${ptg.stId}"></td>
+                                            <td th:text="${ptg.regionCd}"></td>
+                                            <td th:text="${ptg.crn}"></td>
+                                            <td th:text="${ptg.shotPlace}"></td>
+                                            <td th:text="${ptg.itr}"></td>
+                                            <td th:text="${ptg.inst}"></td>
+                                            <td th:text="${ptg.workDay}"></td>
+                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
+                                       
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
                 
+                
+                
+                        <!-- ptgCfrm from  -->
+<div class="modal fade" id="ptgAcceptModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id ="ptgBody">
+            <div class="modal-header bg-primary">
+                <div class="modal-title p-3">
+                    <h5 class="m-0 text-white"></h5>
+                  
+                   <p class="m-0 text-white">ㅇㅇㅇ님의 기록가 승인신청서</p>
+                  
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="w-100 p-3">
+                    <!-- Form START -->
+                    <form id="updatePtgCfm">
+                
+                        <input type="hidden" class="form-control" id="id" name="id">
+                      
+                      <div class="mb-3">
+                         <img  src="/img/bestC.jpg" style="width: 440px"  alt="">                          
+                        </div> 
+                        <div class="mb-3">
+                            <b>작가아이디</b>
+                            <p>하이ㅣㅣㅣㅣ</p>
+                        </div>     
+                              
+                                                      <div class="mb-3">
+                            <b>사진관아이디</b>
+                            <p>하이ㅣㅣㅣㅣ</p>
+                        </div>      
+                             <div class="mb-3">
+                            <b>지역/촬영장소</b>
+                            <p>하이ㅣㅣㅣㅣ</p>
+                        </div>
+                             <div class="mb-3">
+                            <b>자기소개</b>
+                            <p>하이ㅣㅣㅣㅣ</p>
+                        </div>
+                             <div class="mb-3">
+                            <b>근무가능요일</b>
+                            <p>하이ㅣㅣㅣㅣ</p>
+                        </div>
+                        
+        
 
+                        
+                        <div class="row align-items-center">
+                  
+                                <button type="submit" class="btn btn-info" style="width: 220px;color: white;"
+                                
+                                >승인</button>    
+                                
+                                    <button type="submit" class="btn btn-dark" style="width: 220px">반려</button>
+                            </div>
+               
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End ptgCfrm from  -->
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
                 
                 
                       </div>
+         
+       <script th:inline="javascript">
+		const ptgAccept = document.getElementById("ptgAccept");
+	    const stdAccept = document.getElementById("stdAccept");
+	    const classAccept = document.getElementById("classAccept");
+	    const eventAccept = document.getElementById("eventAccept");
+	    
+		function openPtgList(){
+			ptgAccept.style.display = 'block';
+			stdAccept.style.display = 'none';
+			classAccept.style.display = 'none';
+			eventAccept.style.display = 'none';
+	    };
+	    
+		function openStdList(){		
+			ptgAccept.style.display = 'none';
+			stdAccept.style.display = 'block';
+			classAccept.style.display = 'none';
+			eventAccept.style.display = 'none';
+	    };
+	    
+		function openClassList(){		
+			ptgAccept.style.display = 'none';
+			stdAccept.style.display = 'none';
+			classAccept.style.display = 'block';
+			eventAccept.style.display = 'none';
+	    };
+	    
+		function openEventList(){		
+			ptgAccept.style.display = 'none';
+			stdAccept.style.display = 'none';
+			classAccept.style.display = 'none';
+			eventAccept.style.display = 'block';
+	    };
+	
+	    
+	    
+       
+	    function ptgSelectAjax(ptgId){
+	        var ptgId = ptgId;
+	        $.ajax({
+	          url: "/admin/ptgSelect",
+	          type: "GET",
+	          data: "ptgId=" + ptgId,
+	          dataType: 'json'
+	        }).then(result =>{
+	      	  
+	      	     var ptgSelect = result;
+	      	console.log("아작스로 받은 작가세부인포"+ptgSelect)   
+	      		console.log(ptgSelect) 
+	      	  var ptgBody = document.getElementById("ptgBody");
+	      	ptgBody.innerHTML = "";
+	      	
+	       
+	      	  var appendContent = `
+	       
+	              <div class="modal-header bg-primary">
+	                  <div class="modal-title p-3">
+	                      <h5 class="m-0 text-white" id="updateMId"></h5>
+	                    
+	                     <p class="m-0 text-white">${ptgSelect.ptgId}님의 기록가 승인신청서</p>
+	                    
+	                  </div>
+	                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	              </div>
+	              <div class="modal-body">
+	                  <div class="w-100 p-3">
+	                      <!-- Form START -->
+	                      <form>
+	                  
+	                          <input type="hidden" class="form-control" id="id" name="id">
+	                        
+	                        <div class="mb-3">
+	                           <img  src="${ptgSelect.profile}" style="width: 440px"  alt="">                          
+	                          </div> 
+	                          <div class="mb-3">
+	                              <b>작가아이디</b>
+	                              <p>${ptgSelect.ptgId}</p>
+	                          </div>     
+	                                
+	                                                        <div class="mb-3">
+	                              <b>사진관아이디</b>
+	                              <p>${ptgSelect.stId}</p>
+	                          </div>      
+	                               <div class="mb-3">
+	                              <b>지역/촬영장소</b>
+	                              <p>${ptgSelect.regionCd}/${ptgSelect.shotPlace}</p>
+	                          </div>
+	                               <div class="mb-3">
+	                              <b>자기소개</b>
+	                              <p>${ptgSelect.itr}</p>
+	                          </div>
+	                               <div class="mb-3">
+	                              <b>근무가능요일</b>
+	                              <p>${ptgSelect.workDay}</p>
+	                          </div>
+	                          
+	          
+
+	                          
+	                          <div class="row align-items-center">
+	                    
+	                          <button type="submit" class="btn btn-info" style="width: 220px;color: white;"
+	                        	    onclick="ptgAcceptAjax('${ptgSelect.ptgId}')">승인</button>  
+	                                  
+	                                      <button type="submit" class="btn btn-dark" style="width: 220px"
+	                                    	  onclick="noPtgAcceptAjax('${ptgSelect.ptgId}')">반려</button>
+	                              </div>
+	                 
+	                      </form>
+	                  </div>
+	              </div>
+	    
+	      	  `;
+	      	  
+	      	  
+	            document.getElementById("ptgBody").innerHTML += appendContent;  
+	      	  
+	      	});	      	
+	      	
+	      };
+	      
+	      function ptgAcceptAjax(ptgId){
+	    	  console.log("html에 있는 아작스"+ptgId)
+	    	  $.ajax({
+	    	    url: "/admin/ptgAccept",
+	    	    type: "POST",
+	    	    data: "ptgId=" + ptgId,
+	    	    dataType: 'text'
+	    	  }).then(msg =>{
+	    	    alert(msg);
+	    	    console.log(msg)
+	    	    
+	    	  });
+	    	};
+	    	
+		      function noPtgAcceptAjax(ptgId){
+		    	  console.log("html에 있는 no아작스"+ptgId)
+		    	  $.ajax({
+		    	    url: "/admin/noPtgAccept",
+		    	    type: "POST",
+		    	    data: "ptgId=" + ptgId,
+		    	    dataType: 'text'
+		    	  }).then(msg =>{
+		    	    alert(msg);
+		    	    console.log(msg)
+		    	    
+		    	  });
+		    	};
+	    
+	    
+       
+       </script>
+                      
+                      
+                      
                       
                       
 </div>
