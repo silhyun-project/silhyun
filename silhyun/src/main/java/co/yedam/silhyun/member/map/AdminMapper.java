@@ -87,7 +87,7 @@ public interface AdminMapper {
 	
 	int deleteQMember(String id);
 	
-	List<QuitVO> getListQuit(AdminCriteria cri);
+	List<Map<String, Object>> getListQuit(AdminCriteria cri);
 	
 	int getTotalQuit(AdminCriteria cri);
 	

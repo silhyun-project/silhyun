@@ -86,7 +86,7 @@ public interface AdminSercive {
 	List<Map<String, Object>> classRank();
 	
 	
-	List<QuitVO> getListQuit(AdminCriteria cri);
+	List<Map<String, Object>> getListQuit(AdminCriteria cri);
 	
 	int getTotalQuit(AdminCriteria cri);
 	

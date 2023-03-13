@@ -389,20 +389,40 @@ FETCH FIRST 5 ROWS ONLY
 
 <!-- 탈퇴리스트 페이징 -->
 
-<select id="getListQuit" resultType="co.yedam.silhyun.mypage.vo.QuitVO">
-	 select * from( select rownum rn, a.* from( 
+<select id="getListQuit" resultType="map">
+ 			select id as "id", quit_date as "quitDate", 
+ 		CASE WHEN quit_cd = 'T0' THEN '운영자에 의한 강제퇴장'
+ 		 WHEN quit_cd = 'T1' THEN '기록삭제' 
+ 		 WHEN quit_cd = 'T2' THEN '이용장애'
+   WHEN quit_cd = 'T3' THEN '타사이트 선호'
+WHEN quit_cd = 'T4' THEN  '사용빈도 낮음'
+ WHEN quit_cd = 'T5' THEN  '콘텐츠불만'
+else '기타' end as "quitCd", nvl(deta_resn,'없음') as "detaResn"
+	 from( select rownum rn, a.* from( 
  
  			select * 
  			from quit		
-	<if test="type == 'all'">WHERE 1 = 1</if>
-	<if test="type == 'id'">WHERE id LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'quitDate'">WHERE quit_date LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'quitCd'">WHERE quit_cd LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'detaResn'">WHERE deta_resn LIKE '%'||#{keyword }||'%'</if>
+    <if test="type == 'all'">WHERE 1 = 1</if>
+      <if test="type == 'id'">WHERE id LIKE '%'||#{keyword}||'%'</if>
+      <if test="type == 'quitDate'">WHERE quit_date LIKE '%'||#{keyword}||'%'</if>
+      <if test="type == 'quitCd'">
+        WHERE quit_cd = 
+        CASE 
+          WHEN #{keyword} = '기록삭제' THEN 'T1'
+          WHEN #{keyword} = '이용장애' THEN 'T2'
+          WHEN #{keyword} = '타사이트 선호' THEN 'T3'
+          WHEN #{keyword} = '사용빈도 낮음' THEN 'T4'
+          WHEN #{keyword} = '콘텐츠불만' THEN 'T5'
+          WHEN #{keyword} like '%'||'운영자'||'%' THEN 'T0'
+          ELSE #{keyword}
+        END
+      </if>
+	
 	<![CDATA[	
 	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
 	 ]]>
 </select>
+
 
 <select id="getTotalQuit" resultType="int">
 	select count(*) 
@@ -410,7 +430,18 @@ FETCH FIRST 5 ROWS ONLY
 	<if test="type == 'all'">WHERE 1 = 1</if>
 	<if test="type == 'id'">WHERE id LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'quitDate'">WHERE quit_date LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'quitCd'">WHERE quit_cd LIKE '%'||#{keyword }||'%'</if>
+      <if test="type == 'quitCd'">
+        WHERE quit_cd = 
+        CASE 
+          WHEN #{keyword} = '기록삭제' THEN 'T1'
+          WHEN #{keyword} = '이용장애' THEN 'T2'
+          WHEN #{keyword} = '타사이트 선호' THEN 'T3'
+          WHEN #{keyword} = '사용빈도 낮음' THEN 'T4'
+          WHEN #{keyword} = '콘텐츠불만' THEN 'T5'
+          WHEN #{keyword} like '%'||'운영자'||'%' THEN 'T0'
+          ELSE #{keyword}
+        END
+      </if>
 	<if test="type == 'detaResn'">WHERE deta_resn LIKE '%'||#{keyword }||'%'</if>
 </select>
 

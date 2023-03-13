@@ -432,7 +432,7 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
                     
                     
                     <div class="swiper-slide" th:each="random, sts : ${randomList}" th:Class="${sts}">
-                        <div class="product-card-1" style="width:324px;height:500px;">
+                        <div class="product-card-1" style="width:324px;height:460px;">
                             <div class="product-card-image">
                                 <div class="badge-ribbon">
                                     <span class="badge bg-danger">Best</span>
@@ -469,10 +469,6 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
                                         <h6 class="product-title">
 <a th:href="@{/silhyun/classes/classesInfo(classNum=${random.CNUM}, id='catLove')}" th:text="${random.TTL}"></a>
                                 </h6>
-              <div class="product-price">
-                                            <span class="text-primary" th:text="${random.CPRI}"></span><small>원</small>
-
-                                        </div>
                                         <a th:text="${random.NAME}"> </a><br>
                          
                                     </div>
