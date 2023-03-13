@@ -2,6 +2,121 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.AdminMapper">
 
+
+
+
+<!-- 대쉬보드 -->
+<!-- 승인 대기 count-->
+<select id="cfmCnt" resultType="map">
+SELECT 
+	to_char(sysdate,'YYYY/MM/DD') as "sysDate",
+  (SELECT COUNT(*) FROM photographer WHERE cfm_cd = 'O') AS "ptgCf",
+  (SELECT COUNT(*) FROM studio WHERE cfm_cd = 'O') AS "stdCf",
+  (SELECT COUNT(*) FROM event WHERE cfm_cd = 'O') AS "eventCf"
+FROM dual
+</select>
+
+<!-- 처리 대기 문의 count -->
+<select id="qstCnt" resultType="int">
+select count(*)
+from qst
+where rply_sta = 'N'
+</select>
+
+<!-- 지난 2주간 매출 -->
+<select id="lastSales" resultType="map">
+SELECT
+  to_char(ord_date, 'yyyy-MM-dd') as "date",
+  nvl(SUM(ord_pri),0) as "sales"
+FROM
+  payment
+WHERE
+  ord_date BETWEEN sysdate-14 AND sysdate
+GROUP BY
+  to_char(ord_date, 'yyyy-MM-dd')
+ORDER BY
+  to_char(ord_date, 'yyyy-MM-dd') ASC
+</select>
+
+
+
+<!-- 최신 결제내역 5 -->
+<select id="recentBuy" resultType="map">
+  <![CDATA[
+    SELECT 
+      CASE WHEN p.ctgr = 'A' THEN '예약' ELSE '클래스' END AS "ctgr",
+      CASE WHEN p.ctgr = 'A' THEN p.ctgr_num ELSE 
+      (SELECT c.ptg_id FROM class c WHERE c.class_num = p.ctgr_num) END AS "ctgrNum", 
+      p.id AS "id", 
+      p.paym_pri AS "pri", 
+      TO_CHAR(p.ord_date,'YYYY/MM/DD') AS "date"
+    FROM payment p
+    ORDER BY p.ord_date DESC
+    FETCH FIRST 5 ROWS ONLY
+  ]]>
+</select>
+
+
+<!-- 최신 댓글 3-->
+<select id="recentCom" resultType="map">
+SELECT 
+  c.id as "id", 
+  CASE 
+    WHEN c.ctgr = 'A' THEN '예약'
+    ELSE '클래스'
+  END AS "ctgr", 
+  c.cntn as "cntn", 
+  to_char(c.com_date,'YYYY/MM/DD') as "comDate",
+  (select m.profile from member m where m.id = c.id) as "cProfile"
+FROM 
+  commment c
+order by c.com_date Desc
+FETCH FIRST 3 ROWS ONLY
+</select>
+
+<!-- 최신 가입 5 -->
+<select id="recentJoin" resultType="co.yedam.silhyun.member.vo.MemberVO">
+select id, profile, join_date
+from member
+order by join_date Desc
+FETCH FIRST 5 ROWS ONLY
+</select>
+
+
+
+<!-- 종합승인관리 -->
+<!-- ptg승인신청 리스트 -->
+<select id="ptgCfmList" resultType="map">
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId", region_cd as "regionCd", regi_date as "regiDate", crn as "crn", 
+nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay"
+from photographer
+where cfm_cd = 'O'
+</select>
+
+<!--ptg승인신청 select-->
+<select id="ptgSelect" parameterType="String" resultType="map">
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId", region_cd as "regionCd", 
+nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay",
+(select nvl(profile,'프로필없음') from member where id = ptg_id) as "profile"
+from photographer
+where cfm_cd = 'O' and ptg_id = #{ptgId}
+</select>
+
+<!-- ptg승인신청 승인 -->
+<update id="ptgAccept" parameterType="String">
+UPDATE Photographer
+SET cfm_cd = 'Y'
+WHERE ptg_id = #{ptgId}
+</update>
+
+<!-- ptg승인신청 반려 -->
+<update id="noPtgAccept" parameterType="String">
+UPDATE Photographer
+SET cfm_cd = 'N'
+WHERE ptg_id = #{ptgId}
+</update>
+
+
 <!-- 리스트 보여주기 -->
 	<select id="memberList" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
 		select * 
@@ -302,11 +417,58 @@ FETCH FIRST 5 ROWS ONLY
 
 
 
+<!-- 이벤트관리페이지. 이벤트 목록 가져오기. 종료 포함-->
+<select id="getEventList" resultType="map">
+    <![CDATA[
+SELECT nvl(e.name,'이름없음') as "name", e.id as "id", nvl(e.term, '0')  as "term", 
+    e.start_date as "startDate", e.bnph_sta as "bnphSta", e.cpn_pub_sta as "cpnPubSta",
+    e.event_num as "eventNum",
+    CASE 
+        WHEN e.start_date > SYSDATE THEN '진행예정'
+        WHEN e.start_date <= SYSDATE AND SYSDATE <= e.start_date + e.term THEN '진행중'
+        ELSE '종료'    
+    END AS "eventStt"
+FROM event e
+where e.start_date+nvl(e.term,0) > sysdate
+and e.cfm_cd = 'Y'
+    ]]>
+</select>
+
+<!-- 이벤트관리페이지. 이벤트 목록 가져오기. 종료 제외-->
+<select id="getEventAllList" resultType="map">
+    <![CDATA[
+SELECT nvl(e.name,'이름없음') as "name", e.id as "id", nvl(e.term, '0')  as "term", 
+    e.start_date as "startDate", e.bnph_sta as "bnphSta", e.cpn_pub_sta as "cpnPubSta",
+    e.event_num as "eventNum",
+    CASE 
+        WHEN e.start_date > SYSDATE THEN '진행예정'
+        WHEN e.start_date <= SYSDATE AND SYSDATE <= e.start_date + e.term THEN '진행중'
+        ELSE '종료'    
+    END AS "eventStt"
+FROM event e
+where e.cfm_cd = 'Y'
+    ]]>
+</select>
+
+<!-- 이벤트관리페이지. 진행예정, 진행중 카운트 -->
+<select id="getEventCnt" resultType="map">
+  <![CDATA[
+SELECT 
+	to_char(sysdate+1,'YYYY/MM/DD') as "sysDate",
+  COUNT(CASE WHEN e.start_date > SYSDATE THEN 1 END) AS "soon",
+  COUNT(CASE WHEN e.start_date <= SYSDATE AND SYSDATE <= e.start_date + NVL(e.term, 0) THEN 1 END) AS "ing"
+FROM event e
+where e.cfm_cd = 'Y'
+]]>
+</select>
 
 
-
-
-
+<!-- 이벤트관리페이지. 이벤트 자세한 정보 아작스 -->
+<select id="getEventContent" parameterType="String" resultType="co.yedam.silhyun.event.vo.EventVO">
+select *
+from event 
+where event_num = #{eventNum}
+</select>
 
 
 

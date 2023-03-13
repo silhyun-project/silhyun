@@ -7,16 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.member.vo.AdminCriteria;
 import co.yedam.silhyun.member.vo.AdminPageVO;
+import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.AdminSercive;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -28,13 +32,79 @@ public class AdminController {
 	@Autowired
 	private AdminSercive adminService;
 	
+	
+	//이벤트관리
 	@GetMapping("/admin/eventManage")
-	public String eventManage() {
+	public String eventManage(Model model) {
+		List<Map<String,Object>> eList = adminService.getEventList();
+		model.addAttribute("eList", eList);
+		
+		List<Map<String,Object>> eAList = adminService.getEventAllList();
+		model.addAttribute("eAList", eAList);
+
+		model.addAttribute("eCnt", adminService.getEventCnt());
+		
+		System.out.println(model);
 		return "/admin/eventManage";
 	}
 	
+	//이벤트관리 아작스 
+	@RequestMapping("/admin/eventManageSelect")
+	@ResponseBody
+	public EventVO eventManageSelect(@RequestParam("eventNum") String eventNum) {
+	    System.out.println("컨트롤러로 온 eventNum는 = " + eventNum);
+	    return adminService.getEventContent(eventNum);
+	}
+	
+	@RequestMapping("/admin/ptgSelect")
+	@ResponseBody
+	public Map<String, Object> ptgSelect(@RequestParam("ptgId") String ptgId){
+		 System.out.println("컨트롤러로 온 ptgId는 = " + ptgId);
+		return adminService.ptgSelect(ptgId);
+	}
+	
+	//ptg 승인요청 승인
+	@RequestMapping("/admin/ptgAccept")
+	@ResponseBody
+	public String ptgAccept(@RequestParam("ptgId") String ptgId){
+		 System.out.println("컨트롤러로 온 ptgId2는 = " + ptgId);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.ptgAccept(ptgId);
+		
+		 if (n!=0) {
+			 msg = ptgId+"님을 승인 완료했습니다.";
+		 }else {
+			 msg ="승인 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
+	
+	//ptg 승인요청 반려
+	@RequestMapping("/admin/noPtgAccept")
+	@ResponseBody
+	public String noPtgAccept(@RequestParam("ptgId") String ptgId){
+		 System.out.println("컨트롤러로 온 ptgId2는 = " + ptgId);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.noPtgAccept(ptgId);
+		
+		 if (n!=0) {
+			 msg = ptgId+"님을 승인 반려했습니다.";
+		 }else {
+			 msg ="반려 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
+	
+	
 	@GetMapping("/admin/memberAccept")
-	public String memberAccept() {
+	public String memberAccept(String ptgId, Model model) {
+		model.addAttribute("ptgList", adminService.ptgCfmList());
 		return "/admin/memberAccept";
 	}
 	
@@ -197,7 +267,14 @@ public class AdminController {
 	
 	
 	@GetMapping("/admin/dashBoard")
-	public String dashBoard() {
+	public String dashBoard(Model model) {
+		model.addAttribute("com", adminService.recentCom());
+		model.addAttribute("join", adminService.recentJoin());
+		model.addAttribute("buy", adminService.recentBuy());
+		model.addAttribute("cfm", adminService.cfmCnt());
+		model.addAttribute("qst", adminService.qstCnt());
+		model.addAttribute("lastS", adminService.lastSales());
+		System.out.println("컨트롤러"+model);
 		return "/admin/dashBoard";
 	}
 	

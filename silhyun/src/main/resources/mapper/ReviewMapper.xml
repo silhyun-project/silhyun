@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.common.map.ReviewMapper">
+
 <select id="reviewList" resultType="co.yedam.silhyun.common.vo.ReviewVO">
-	SELECT * FROM REVIEW
-	ORDER BY REV_NUM DESC
+select * from( select rownum rn, a.* from( 
+
+	SELECT * 
+	FROM REVIEW
+	where ctgr = #{ctgr} and ctgr_num= #{ctgrNum}
+	ORDER by to_number(rev_num) desc
+	
+<![CDATA[	
+ 	) a where rownum <= #{cri.pageNum} * #{cri.amount}) b where rn > (#{cri.pageNum}-1) * #{cri.amount}
+ ]]>	
+</select>
+<select id="getTotalCount" resultType="int">
+	select count(*) 
+	from review
+    where ctgr = #{ctgr} and ctgr_num= #{ctgrNum}
+
 </select>
 
-<select id="reviewSelect" resultType="co.yedam.silhyun.common.vo.ReviewVO">
-	SELECT r.*, p.* 
-	FROM review r, photo p
-	WHERE r.rev_num = p.ctgr_num
-	and r.rev_num = #{revNum}
+<select id="reivewSelect" resultType="co.yedam.silhyun.common.vo.ReviewVO">
+	select * 
+	from review
+	where rev_num = #{revNum}
 </select>
-<update id="reviewHitUpdate">
-	update review 
-	set hit = hit + 1 
-	where rev_num = #{num}
-</update>
+
 <insert id="reviewInsert">
 		<selectKey keyProperty="revNum" resultType="String" order="BEFORE">
 			SELECT 
@@ -26,16 +36,16 @@
 		insert into review
 		values(#{revNum}, #{ctgr}, #{ctgrNum}, #{id}, #{star}, #{cntn}, sysdate, 0)
 </insert>
-<update id="reviewUpdate">
-	update review
-	<set>
-	<if test="star != null">star = #{star},</if>
-	<if test="cntn != null">cntn = #{cntn}</if>
-	</set>
-	where rev_num = #{revNum}
-</update>
+
 <delete id="reviewDelete">
 	delete from review
 	where rev_num = #{revNum}
 </delete>
+
+<select id="ptgStarAvg" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+    select round(avg(star), 1) as "star"
+    from review
+    GROUP by ctgr, ctgr_num
+    HAVING ctgr = #{ctgr} and ctgr_num= #{ctgrNum}
+</select>
 </mapper>

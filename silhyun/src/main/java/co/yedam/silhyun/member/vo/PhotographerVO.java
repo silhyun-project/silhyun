@@ -27,7 +27,7 @@ public class PhotographerVO{
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date accpDate;
 	private String workDay;
-
+	private Double star;
 	
 	private String[] chkArray;  // 지역태그
 	private String[] chkfldArray; //분야태그

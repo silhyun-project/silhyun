@@ -180,6 +180,15 @@
                                 <span class="hide-menu">종합 승인 관리</span>
                             </a>
                         </li>
+                        <!-- 
+                          <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/qstManage}"
+                                aria-expanded="false">
+                                <i class="fas fa-question" aria-hidden="true"></i>
+                                <span class="hide-menu">문의 관리</span>
+                            </a>
+                        </li>
+                         -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/eventManage}"
                                 aria-expanded="false">
@@ -240,7 +249,8 @@
                           
                             </ol>
                             <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">
+                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white"
+                                th:text="${cfm.sysDate}+' 오늘의 할 일 : '+ (${cfm.ptgCf}+${cfm.stdCf}+${cfm.eventCf}+${qst})">
                                 2023/03/03 오늘의 할 일: 5</a>
                         </div>
                     </div>
@@ -267,7 +277,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-success">659</span></li>
+                                <li class="ms-auto"><span class="counter text-success" th:text="${cfm.ptgCf}+${cfm.stdCf}+${cfm.eventCf}"></span></li>
                             </ul>
                         </div>
                     </div>
@@ -280,10 +290,11 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
+                                <li class="ms-auto"><span class="counter text-purple" th:text="${qst}"></span></li>
                             </ul>
                         </div>
                     </div>
+                    <!-- 
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
                             <h3 class="box-title">대기중인 신고</h3>
@@ -298,6 +309,7 @@
                             </ul>
                         </div>
                     </div>
+                     -->
                 </div>
                 <!-- ============================================================== -->
                 <!-- PRODUCTS YEARLY SALES -->
@@ -305,21 +317,11 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title">연매출</h3>
-                            <div class="d-md-flex">
-                                <ul class="list-inline d-flex ms-auto">
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-info"></i>2022</h5>
-                                    </li>
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-inverse"></i>2023</h5>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="ct-visits" style="height: 405px;">
-                                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
-                                        class="chartist-tooltip-value">6</span>
-                                </div>
+                            <h3 class="box-title">지난 2주간 매출액</h3>
+                            <div id="ct-visits" style="height: 405px;" align="center">
+                            <div style="width: 1200px;height: 400px">
+                                          <canvas id="myChart"></canvas>
+              </div>
                             </div>
                         </div>
                     </div>
@@ -346,13 +348,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="txt-oflo">예약</td>
-                                            <td>김판매자</td>
-                                            <td class="txt-oflo">이구매자</td>
-                                            <td><span class="text-success">100,000</span></td>
-											<td class="txt-oflo">2023/02/23</td>
+                                        <tr th:each="buy,sts : ${buy}" th:Class="${sts}">
+                                            <td th:text="${sts.count}"></td>
+                                            <td class="txt-oflo" th:text="${buy.ctgr}"></td>
+                                            <td th:text="${buy.ctgrNum}+'님'"></td>
+                                            <td class="txt-oflo" th:text="${buy.id}+'님'"></td>
+                                            <td><span class="text-success" th:text="${buy.pri}+'원'"></span></td>
+											<td class="txt-oflo" th:text="${buy.date}"></td>
                                         </tr>
 
                                     </tbody>
@@ -373,41 +375,16 @@
                             </div>
                             <div class="comment-widgets">
                                 <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3 mt-0">
-                                    <div class="p-2"><img src="/manage/plugins/images/users/varun.jpg" alt="user" width="50" class="rounded-circle"></div>
+                                <div class="d-flex flex-row comment-row p-3 mt-0" th:each="com : ${com}">
+                                    <div class="p-2"><img src="${com.cProfile}" alt="user" width="50" class="rounded-circle"></div>
                                     <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">사촌동생</h5>
-                                        <span class="mb-3 d-block">최고의 강의 추천합니다.</span>
+                                        <h5 class="font-medium" th:text="${com.id}+'님'"></h5>
+                                        <span class="mb-3 d-block" th:text="${com.cntn}"></span>
                                         <div class="comment-footer d-md-flex align-items-center">
-                                             <span class="badge bg-primary rounded">클래스</span>
+                                             <span class="badge bg-danger rounded" th:if="${com.ctgr=='예약'}" th:text="${com.ctgr}"></span>
+                                                  <span class="badge bg-primary rounded" th:if="${com.ctgr=='클래스'}" th:text="${com.ctgr}"></span>
                                              
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">2023/03/03</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="/manage/plugins/images/users/genu.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 active w-100">
-                                        <h5 class="font-medium">부계정</h5>
-                                        <span class="mb-3 d-block">인생사진을 얻었어요.</span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-                                            <span class="badge bg-success rounded">예약</span>     
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">2023/03/03</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="/manage/plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">허수</h5>
-                                        <span class="mb-3 d-block">정말 도움이 됐어요!</span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-
-                                            <span class="badge rounded bg-danger">클래스</span>
-                                            
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">2023/03/03</div>
+                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0" th:text="${com.comDate}"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -421,139 +398,82 @@
                             </div>
                             <div class="card-body">
                                 <ul class="chatonline">
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
+                                    <li th:each="join : ${join}">
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="/manage/plugins/images/users/varun.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">USER6 <small
-                                                        class="d-block text-success d-block">2023/03/03</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="/manage/plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">USER5<small class="d-block text-warning">2023/03/03</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="/manage/plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">USER4 <small class="d-block text-danger">2023/03/03</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="/manage/plugins/images/users/arijit.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">USER3 <small class="d-block text-muted">2023/03/03</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="/manage/plugins/images/users/govinda.jpg" alt="user-img"
-                                                class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">USER2<small class="d-block text-success">2023/03/03</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="/manage/plugins/images/users/hritik.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">USER1<small class="d-block text-success">2023/03/03</small></span>
-                                            </div>
+                                                src="${join.profile}" alt="user-img" class="img-circle">
+<span>
+                                                <span class="text-dark" th:text="${join.id+'님'}">
+                                                        </span>
+                                                <small
+                                                        class="d-block text-success d-block" 
+                                                        th:text="${#dates.format(join.joinDate,'yyyy/MM/dd')}">
+                                                        </small>
+</span>                                      
+
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- /.col -->
+            
                 </div>
             </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:inline="javascript">
+
+  // list 변수에 해당 SQL 쿼리의 결과를 넣어주세요.
+  var list = /*[[${lastS}]]*/ [];
+	console.log(list)
+  // labels와 data 배열 초기화
+  var labels = [];
+  var data = [];
+
+  // list의 각 Map에서 key와 value를 labels와 data 배열에 추가
+  list.forEach(function(map) {
+      for (var key in map) {
+          if (key === "date") {
+              labels.push(map[key]);
+          } else if (key === "sales") {
+              data.push(map[key]);
+          }
+      }
+  });
+
+  const dataObj = {
+    labels: labels,
+    datasets: [{
+      label: '지난 2주간 매출액',
+      data: data,
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }]
+  };
+  
+  const config = {
+    type: 'line',
+    data: dataObj,
+  };
+  
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+
+            
+            
             <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
                     href="https://www.wrappixel.com/">wrappixel.com</a>
             </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
+
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+
     <script src="/manage/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="/manage/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

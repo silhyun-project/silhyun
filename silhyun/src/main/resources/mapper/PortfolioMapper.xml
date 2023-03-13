@@ -25,8 +25,8 @@
 		DELETE FROM LIKE_PHOTO WHERE ID = #{id} AND PORT_NUM =
 		#{portNum}
 	</delete>
-	
-	<!-- 모달 사진 리스트-->
+
+	<!-- 모달 사진 리스트 -->
 	<select id="detailPortfolioPhoto"
 		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"
 		parameterType="String">
@@ -37,7 +37,7 @@
 		AND PH.CTGR = 'P'
 		AND PORT_NUM=#{portNum}
 	</select>
-	
+
 	<!-- 포트폴리오상세페이지 작가정보 -->
 	<select id="portfolioPtg"
 		resultType="co.yedam.silhyun.member.vo.PhotographerVO"
@@ -58,7 +58,7 @@
 		WHERE PTG.PTG_ID =
 		#{ptgId}
 	</select>
-	
+
 	<!-- 작가필드 -->
 	<select id="ptgField"
 		resultType="co.yedam.silhyun.member.vo.PhotographerVO"
@@ -75,7 +75,8 @@
 	<select id="ptgPortfolioList"
 		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"
 		parameterType="String">
-		SELECT A.PHO_RT, A.PHO_NUM, P.*, NVL(L.LIKESS,0) AS LIKES
+		SELECT A.PHO_RT, A.PHO_NUM, P.*, NVL(L.LIKESS,0) AS
+		LIKES
 		FROM (SELECT
 		PHO_RT, PHO_NUM, CTGR_NUM
 		FROM PHOTO
@@ -84,20 +85,52 @@
 		MIN(TO_NUMBER(PHO_NUM))
 		FROM PHOTO
 		WHERE CTGR = 'P'
-		GROUP BY CTGR_NUM)
+		GROUP BY
+		CTGR_NUM)
 		ORDER BY PHO_NUM) A
-		JOIN PORTFOLIO P ON A.CTGR_NUM = P.PORT_NUM
+		JOIN PORTFOLIO P ON A.CTGR_NUM =
+		P.PORT_NUM
 		LEFT
 		OUTER JOIN (SELECT PORT_NUM, COUNT(*) AS LIKESS
-		FROM LIKE_PHOTO
+		FROM
+		LIKE_PHOTO
 		GROUP BY
 		PORT_NUM) L ON P.PORT_NUM = L.PORT_NUM
-		WHERE P.UP_STA = 'Y'
+		WHERE P.UP_STA
+		= 'Y'
 		AND P.PTG_ID = #{ptgId}
 		ORDER BY P.PORT_DATE DESC
 	</select>
+
+
+
+	<insert id="insertPortfolio"
+		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
+		<selectKey keyProperty="portNum" order="BEFORE" resultType="String">
+			SELECT
+			NVL(MAX(TO_NUMBER(port_num)), 0) + 1
+			AS port_num
+			FROM portfolio
+		</selectKey>
+		INSERT INTO portfolio (port_num, ptg_id, cntn, port_date, up_sta)
+		VALUES (#{portNum}, #{ptgId}, #{cntn}, sysdate, #{upSta})
+	</insert>
+
+	<insert id="insertPhoto">
+		<selectKey keyProperty="phoNum" order="BEFORE" resultType="String" >
+			SELECT NVL(MAX(TO_NUMBER(pho_num)), 0) + 1
+			AS pho_num
+			FROM photo
+		</selectKey>
+		INSERT INTO photo (pho_num, ctgr, ctgr_num, pho_rt)
+		VALUES (#{phoNum}, 'P', #{portNum}, #{phoRt})
+	</insert>
 	
-	
-	
+	<insert id="insertTag">
+		INSERT INTO tag (tag_cntn)
+		VALUES (#{tagCntn})
+	</insert>
+
+
 
 </mapper>

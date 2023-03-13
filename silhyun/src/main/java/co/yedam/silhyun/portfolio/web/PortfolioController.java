@@ -3,12 +3,17 @@ package co.yedam.silhyun.portfolio.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.service.PortfolioService;
@@ -63,5 +68,19 @@ public class PortfolioController {
 		model.addAttribute("ptgField", portfolioService.ptgPortfolioList(ptgId));
 		return portfolioService.ptgPortfolioList(ptgId);
 	}
+	
+	
+	
+	//insert
+	@PostMapping("/silhyun/addPortfolio")
+	public ResponseEntity<?> insertPortfolio(@RequestParam("files") List<MultipartFile> files,
+											PortfolioVO portfolioVO) {
+		 try {
+		        portfolioService.insertPortfolio(files, portfolioVO);
+		        return ResponseEntity.ok().build();
+		    } catch (Exception e) {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+	    }
 
 }

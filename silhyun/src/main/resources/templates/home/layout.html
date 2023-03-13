@@ -680,7 +680,7 @@ background-color: #b96f4a;
 					                <li><a href="#"></a></li>
 					                <li><a th:href="@{/admin/dashBoard}">관리자</a></li>
 					                <li><a href="#">포트폴리오</a></li>
-					                <li><a href="/mypageAo">마이페이지</a></li>
+					                <li><a href="/photo/mypageAo/{user1}">마이페이지</a></li>
 					                <li><a href="/silhyun/joinForm" th:if='${id} eq null'>회원가입</a></li>
 					                <li><a href="/login" th:if='${id} eq null'>로그인</a>
 					                <a href="/logout" th:if='${id} neq null'>로그아웃</a></li>
@@ -710,8 +710,8 @@ background-color: #b96f4a;
                                 <ul class="dropdown-menu left shadow-lg">
                                     <li><a class="dropdown-item" href="../pages/about.html">사이트 소개</a></li>
                                     <li><a class="dropdown-item" href="../pages/faq.html">문의하기</a></li>
-                                    <li><a class="dropdown-item" href="../pages/policy.html">이벤트</a></li>
-                                    <li><a class="dropdown-item" href="../pages/support.html">함께하다</a></li>
+                                    <li><a class="dropdown-item" href="/silhyun/eventPage">이벤트</a></li>
+                                    <li><a class="dropdown-item" href="/silhyun/eventCoupon">함께하다</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown nav-item">
