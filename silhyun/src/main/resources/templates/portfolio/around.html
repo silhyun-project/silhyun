@@ -170,8 +170,9 @@
 							<div class="menuButton">
 								<i class="bi-three-dots"></i>
 								<ul class="menuButtonlist">
-									<li class="menuButton-item">수정하기</li>
-									<li class="menuButton-item">삭제하기</li>
+									<li class="menuButton-item"><a
+										href="/silhyun/portfolioInsert">수정하기</a></li>
+									<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
 								</ul>
 							</div>
 						</div>
@@ -217,16 +218,68 @@
 		StandLine(portfolio);//첫페이지 포트폴리오 리스트
 		recentStand(portfolio);//최신순
 		likeStand(portfolio);//조아용
+		
+		
+
+		$(document).ready()
+		//태그 5개만 가져오긔~~~~~~
+		$.ajax({
+            url: "/silhyun/tagList",
+             type: "get",
+             dataType: 'json',
+         })
+         .then(data => {
+   			for(i=0; i<5 && i<data.length; i++){
+         	var taag=`<a class="btn btn-sm" href="#" align="center"> <i
+				class="bi-hash">${data[i].tagCntn}</i>
+				</a> `
+        	$('div .layout-change').append(taag);
+   			}
+         });
+		
+		//만든 태그 버튼에 그룹이벤트 주기.
+		$('div .layout-change').on('click','a',function(){//layout-change의 a태그에만 click펑션을 주기.//그룹이벤트
+			$('div .layout-change .active').removeClass('active');//active클래스만 없애기.
+			$(this).addClass('active')
+			var tagCntn=$(this).children().text();		
+			//해당태그포트폴리오가져오기
+			$.ajax({
+                      url: "/silhyun/aroundTagList",
+                      data:{tagCntn: tagCntn}
+                   })
+           .then(res => {
+        	   console.log(res);
+                   	//이전에 리스트 먼저 지워주기
+                    $("div#rowg-3").children().remove();	
+                   	StandLine(res);
+            		recentStand(res);
+            		likeStand(res); 		                 
+            })
+		})
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		//사진 클릭하해서 포트폴리오 번호 가져오기 ~>모달
-		$("div .col-sm-6.col-lg-3").click(function() {	
+		$('.row.g-3').on('click','.col-sm-6.col-lg-3',function(){
+		//$("div .col-sm-6.col-lg-3").click(function() {	
 			var portNum = $(this).children('div .portInfo').text(); 
-		
+			console.log('안녕하세용~~~~~~~~~~~~~~')
+			console.log(portNum)
 		// 해당 번호 가진 배열 찾기
 			var selectedPortfolio = portfolio.find(function(findPortfolio) {
 				return findPortfolio.portNum === portNum;
 			});
-
+		
+		
+		
 		/////
 		//화면 구성한 모달에 경우에 따른 하트 출력
 		$.ajax({
@@ -417,42 +470,6 @@
 		
 		
 		
-		
-		//태그 5개만 가져오긔~~~~~~
-		$.ajax({
-            url: "/silhyun/tagList",
-             type: "get",
-             dataType: 'json',
-         })
-         .then(data => {
-   			for(i=0; i<5 && i<data.length; i++){
-         	var taag=`<a class="btn btn-sm" href="#" align="center"> <i
-				class="bi-hash">${data[i].tagCntn}</i>
-				</a> `
-        	$('div .layout-change').append(taag);
-   			}
-         });
-		
-		//만든 태그 버튼에 그룹이벤트 주기.
-		$('div .layout-change').on('click','a',function(){//layout-change의 a태그에만 click펑션을 주기.//그룹이벤트
-			$('div .layout-change .active').removeClass('active');//active클래스만 없애기.
-			$(this).addClass('active')
-			var tagCntn=$(this).children().text();		
-			//해당태그포트폴리오가져오기
-			$.ajax({
-                      url: "/silhyun/aroundTagList",
-                      data:{tagCntn: tagCntn}
-                   })
-           .then(res => {
-        	   console.log(res);
-                   	//이전에 리스트 먼저 지워주기
-                    $("div#rowg-3").children().remove();	
-                   	StandLine(res);
-            		recentStand(res);
-            		likeStand(res); 		                 
-            })
-		})
-	
 
 	//포트폴리오 사진 리스트 불러오기~함수+포트폴리오 번호
 		function StandLine(aa){
@@ -493,7 +510,7 @@
 		//최신순 정렬
 		function recentStand(portfolioA){
 		$("li:contains('최신순')").click(function(){
-			const recentList = portfolioA.sort((a, b) => new Date(a.portDate) - new Date(b.portDate));
+			const recentList = portfolioA.sort((a, b) => new Date(b.portDate) - new Date(a.portDate));
 		$("div#rowg-3").children().remove();	
 			StandLine(recentList);
 		});
@@ -525,7 +542,8 @@
 
 
 		<script src="/js/around.js"></script>
-		<script src="/js/modal.js"></script><!-- js -->
+		<script src="/js/modal.js"></script>
+		<!-- js -->
 
 
 		<!-- 

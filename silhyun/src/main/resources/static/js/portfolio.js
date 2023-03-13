@@ -6,6 +6,8 @@ var loginUserId = 'user2';
 
 console.log('호출우우우루');
 
+
+
 //포트폴리오 해당 작가 정보(프로필)
 
 
@@ -48,8 +50,8 @@ $.ajax({
 										class="img-fluid" title="" alt="사진~~">
 									</a>
 								</div>
-								<div class="products-brand pb-2" id="fieldAppend">
-								</div><span>전문</span>
+								<div class="products-brand pb-2"><span id="fieldAppend"></span>전문
+								</div>
 								<div class="product-description">
 									<p>${ptgInfo[0].itr}</p>
 								</div>
@@ -89,6 +91,13 @@ $.ajax({
 	}
 });//해당작가정보
 //프로필 완.
+
+$('.cart-button.mb-3.d-flex').on('click','button',function(){
+	console.log('hey')
+	//location.href=`/silhyun/ptgDetail/${ptgId}`
+	///pay/reserList/{ptgId}예약
+})
+
 
 var ptgPortList = [];//포트폴리오 리스트중에 하나 봅아오는 거
 //해당작가포트폴리오리스트
@@ -335,6 +344,7 @@ function isModalOn() {
 
 function modalOff() {//모달끄는거
 	modal.css("display", "none");
+	imgIndex=0;
 }
 
 $('.modalCloseButton').on('click', function() {

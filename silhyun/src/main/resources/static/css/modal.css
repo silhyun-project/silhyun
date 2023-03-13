@@ -7,7 +7,7 @@
 	height: 100%;
 	background-color: rgb(0, 0, 0, 0.7);
 	z-index: 9999999;
-	display:none;
+	display: none;
 }
 
 .modalCloseButton {
@@ -107,7 +107,7 @@
 }
 
 .modalTopSection .mTopSectionInfoImg {
-	background-color:black;
+	background-color: black;
 	display: flex;
 	width: 50px;
 	height: 50px;
@@ -157,6 +157,9 @@
 	top: 40px;
 }
 
+.menuButton ul a {
+	color: rgb(50, 50, 50);
+}
 /* 메튜선택시~ */
 .menuButton-item:hover {
 	font-weight: bold;
@@ -178,7 +181,7 @@
 }
 
 .modalMiddleSection .mMiddleInfoImg {
-	background-color:black;
+	background-color: black;
 	display: flex;
 	width: 50px;
 	height: 50px;
@@ -188,10 +191,12 @@
 	justify-content: center;
 	border-radius: 50%;
 }
+
 .mMiddleInfoImg img {
 	max-width: 100%;
 	max-height: 100%;
 }
+
 .mMiddleInfoImgMaster {
 	display: flex;
 }
@@ -247,8 +252,8 @@
 /* 작성일 들어가는 자리 */
 .modalInsertDate {
 	margin-bottom: 10px;
-	font-size:small;
-	color:#ccc;
+	font-size: small;
+	color: #ccc;
 	font-style: italic;
 }
 

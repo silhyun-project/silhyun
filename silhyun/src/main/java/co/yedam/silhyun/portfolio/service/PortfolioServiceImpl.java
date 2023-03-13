@@ -63,44 +63,32 @@ public class PortfolioServiceImpl implements PortfolioService {
 	}
 
 	@Override
-	public void insertPortfolio(List<MultipartFile> files,PortfolioVO portfolioVO) {
+	public String insertPortfolio(List<MultipartFile> files,PortfolioVO portfolioVO) {
 		// portfolio 테이블에 데이터 삽입
 
 		portfolioMapper.insertPortfolio(portfolioVO);
-
-		// 삽입된 데이터의 pk를 이용하여 photo 테이블에 데이터 삽입
-		for (MultipartFile file : files) {
-			String filename = file.getOriginalFilename();
-			String filepath = "c:/saveImg/portfolio" + filename;
-			try {
-				file.transferTo(new File(filepath));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			PhotoVO photoVO = new PhotoVO();
-
-			photoVO.setPhoRt(filepath);
-			photoVO.setCtgrNum(portfolioVO.getPortNum());
-			
-			System.out.println(photoVO);
-			portfolioMapper.insertPhoto(photoVO);
-		}
 
 		// tag 테이블에 데이터 삽입
 		ObjectMapper objectMapper = new ObjectMapper();
 		TagVO[] tagCntns = null;
 		try {
 			tagCntns = objectMapper.readValue(portfolioVO.getTagCntn(), TagVO[].class);
+			System.out.println(tagCntns[0].getTagCntn()+"sssssssssssssssssssss");
 			for (TagVO tagVO : tagCntns) {
 				portfolioMapper.insertTag(tagVO);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 		
+		} 	
+
+		return portfolioVO.getPortNum();
+	}
+	
+	
+	@Override // 작가별 임시리스
+	public List<PortfolioVO> imsiList(String ptgId) {
+		// TODO Auto-generated method stub
+		return portfolioMapper.imsiList(ptgId);
 	}
 
 }

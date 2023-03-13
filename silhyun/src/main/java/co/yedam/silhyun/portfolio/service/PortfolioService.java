@@ -27,5 +27,6 @@ public interface PortfolioService {
 	
 	//포트폴리오 인서트
 	
-	 void insertPortfolio(List<MultipartFile> files,PortfolioVO portfolioVO);
+	 String insertPortfolio(List<MultipartFile> files,PortfolioVO portfolioVO);
+	 List<PortfolioVO> imsiList(String ptgId);//작가별 포트폴리오리스트 띄우기
 }

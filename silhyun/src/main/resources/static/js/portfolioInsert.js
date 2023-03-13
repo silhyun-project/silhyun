@@ -2,6 +2,9 @@
  * portfolioInsert
  */
 console.log('호출됏니')
+var ptgId = 'user1';
+
+
 $(function() {
 	//default사진 누르면 사진 첨부하는 input박스 클릭
 	$('.photo-list-containerN1').click(function() {
@@ -108,17 +111,42 @@ $(function() {
 		$('#tagList').html('');
 	});
 
+	$.ajax({
+		type: 'GET',
+		url: `/silhyun/imsiList/${ptgId}`,
+		success: function(result) {
+			console.log(result)
+			let th = `<tr><th width='200px'>내용</th><th>작성일</th></tr>`
+			$('.imsi').append(th)
+
+			for (i = 0; i < result.length; i++) {
+				let imsilist = `<tr><td>${result[i].cntn}</td> 
+					<td>${result[i].portDate}</td></tr>`
+				$('.imsi').append(imsilist)
+			}
+		}
+	})
+	$('.btn.btn-outline-dark.me-3.imsiList').click(function() {
+		$('.imsi').toggle();
+	})
+
+
+
+
 
 
 
 	//포트폴리오 등록하기 버튼
-	$('.btn.btn-dark.me-3').click(function(e) {
+	$('.btn.btn-dark.me-3.submit').click(function(e) {
 		e.preventDefault();
-		var formData = new FormData();
 
-		var ptgId = 'user1';
+
 		var upSta = 'Y';
 		//사진
+		//태그
+		//파일 붙이기.
+		var formData = new FormData();
+
 		var files = $("#photo").get(0).files;
 		for (var i = 0; i < files.length; i++) {
 			formData.append("files", files[i]);
@@ -128,9 +156,9 @@ $(function() {
 		formData.append('ptgId', ptgId);
 		formData.append('cntn', cntn);
 		formData.append('upSta', upSta);
-		//태그
 
-		var tagCntns = [];
+
+
 		$.ajax({
 			url: "/silhyun/tagList",
 			type: "GET",
@@ -147,7 +175,7 @@ $(function() {
 				console.log(tagCntns)
 
 
-				formData.append('tagCntns', JSON.stringify(tagCntns));
+				formData.append('tagCntn', JSON.stringify(tagCntns));
 				$.ajax({
 					type: "POST",
 					url: "/silhyun/addPortfolio",
@@ -156,6 +184,7 @@ $(function() {
 					processData: false,
 					success: function() {
 						console.log("Portfolio 등록완료");
+						location.href = `/silhyun/portfolio/${ptgId}`;
 
 					},
 					error: function(xhr, status, error) {
@@ -163,18 +192,67 @@ $(function() {
 					}
 				});
 				alert('포트폴리오가 등록되었습니다.');
-
-
-
 			}
 		});
-
-
-
-
 	});
 
 
+	//임시저장 버튼
+	$('.btn.btn-outline-dark.me-3.imsiSave').click(function(e) {
+		e.preventDefault();
+		var upSta = 'N';
+		//사진
+		//태그
+		//파일 붙이기.
+		var formData = new FormData();
+
+		var files = $("#photo").get(0).files;
+		for (var i = 0; i < files.length; i++) {
+			formData.append("files", files[i]);
+		}
+		var cntn = $('textarea[name="cntn"]').val();
+
+		formData.append('ptgId', ptgId);
+		formData.append('cntn', cntn);
+		formData.append('upSta', upSta);
+
+
+
+		$.ajax({
+			url: "/silhyun/tagList",
+			type: "GET",
+			success: function(response) {
+
+				var selectTag = cntn.match(/#[^\s#]*/g).map(tag => ({ tagCntn: tag.slice(1) }));
+				var vsTags = selectTag
+					.map(item => item.tagCntn)
+					.filter(tag => !response.map(item => item.tagCntn).includes(tag));
+				var tagCntns = vsTags.map(tag => ({ tagCntn: tag }));
+
+
+				console.log(selectTag);
+				console.log(tagCntns)
+
+
+				formData.append('tagCntn', JSON.stringify(tagCntns));
+				$.ajax({
+					type: "POST",
+					url: "/silhyun/addPortfolio",
+					data: formData,
+					contentType: false,
+					processData: false,
+					success: function() {
+						console.log("Portfolio 임시저장 완료");
+
+					},
+					error: function(xhr, status, error) {
+						console.log("Error :" + error);
+					}
+				});
+				alert('포트폴리오가 등록되었습니다.');
+			}
+		});
+	});
 
 
 
