@@ -8,7 +8,7 @@ select * from( select rownum rn, a.* from(
 	SELECT * 
 	FROM REVIEW
 	where ctgr = #{ctgr} and ctgr_num= #{ctgrNum}
-	ORDER BY rev_date DESC
+	ORDER by to_number(rev_num) desc
 	
 <![CDATA[	
  	) a where rownum <= #{cri.pageNum} * #{cri.amount}) b where rn > (#{cri.pageNum}-1) * #{cri.amount}
@@ -17,6 +17,7 @@ select * from( select rownum rn, a.* from(
 <select id="getTotalCount" resultType="int">
 	select count(*) 
 	from review
+    where ctgr = #{ctgr} and ctgr_num= #{ctgrNum}
 
 </select>
 
