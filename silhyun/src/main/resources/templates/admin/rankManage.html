@@ -7,7 +7,7 @@
           <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">판매 랭킹</h4>
+                        <h3 class="page-title">판매 랭킹</h3>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -23,7 +23,7 @@
                 <!-- Three charts -->
                 <!-- ============================================================== -->
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-12">
+                    <div class="col-lg-6 col-md-12">
                         <div class="white-box analytics-info">
                             <h3 class="box-title">기록가</h3>
                             <table>
@@ -39,7 +39,7 @@
                     </div>
                     
                     
-                    
+                    <!-- 
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
                             <h3 class="box-title">스튜디오</h3>
@@ -50,43 +50,22 @@
                             	<td>        <h5 class="font-medium">허수</h5></td>
                             	<td><h5 align="right">20000</h5></td>
                             </tr>
-	                            <tr>
-                            	<td>1</td>
-                            	<td>                                    <div class="p-2"><img src="/manage/plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div></td>
-                            	<td>        <h5 class="font-medium">허수</h5></td>
-                            	<td><h5 align="right">20000</h5></td>
-                            </tr>
-                                                        <tr>
-                            	<td>1</td>
-                            	<td>                                    <div class="p-2"><img src="/manage/plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div></td>
-                            	<td>        <h5 class="font-medium">허수</h5></td>
-                            	<td><h5 align="right">20000</h5></td>
-                            </tr>
-                                                        <tr>
-                            	<td>1</td>
-                            	<td>                                    <div class="p-2"><img src="/manage/plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div></td>
-                            	<td>        <h5 class="font-medium">허수</h5></td>
-                            	<td><h5 align="right">20000</h5></td>
-                            </tr>
-                                                        <tr>
-                            	<td>1</td>
-                            	<td>                                    <div class="p-2"><img src="/manage/plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div></td>
-                            	<td>        <h5 class="font-medium">허수</h5></td>
-                            	<td><h5 align="right">20000</h5></td>
-                            </tr>
-                            
-                            
+                       
                             </table>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12">
+                     -->
+                    
+                    
+                    <div class="col-lg-6 col-md-12">
                         <div class="white-box analytics-info">
                             <h3 class="box-title">클래스</h3>
                            <table>
                            <tr th:each="classRank,sts2 : ${classRank}" th:Class="${sts2}" align="center">
                             	<td th:text="${sts2.count}"></td>
                             	<td><div class="p-2"><img th:src="${classRank.profile}" alt="user" width="50"></div></td>
-                            	<td style="padding-right: 100px"><h5 class="font-medium" th:text="${classRank.ptgId}+'님'"></h5></td>
+                            	<td><h5 class="font-medium" th:text="${classRank.ptgId}+'님'"></h5></td>
+                            	<td style="padding-right: 100px"><h5 class="font-medium" th:text="${classRank.classTitle}"></h5></td>
                             	<td><h5 align="right" th:text="${classRank.count} + '건'"></h5></td>
                             </tr>
                             
