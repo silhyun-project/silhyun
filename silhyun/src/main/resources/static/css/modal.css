@@ -6,7 +6,8 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgb(0, 0, 0, 0.7);
-	
+	z-index: 9999999;
+	display: none;
 }
 
 .modalCloseButton {
@@ -14,6 +15,7 @@
 	float: right;
 	color: rgb(190, 190, 190);
 	font-size: 24px;
+	cursor: point;
 }
 /* 모달내용박스 */
 .modalContainer {
@@ -31,7 +33,7 @@
 /* 왼쪽 박스 */
 .modalLeftbox {
 	background-color: black;
-	width: 50%;
+	width: 55%;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -91,7 +93,7 @@
 	position: sticky;
 	top: 0;
 	display: flex;
-	padding: 15px;
+	padding: 10px;
 	background-color: #f8f8f8;
 	width: 100%;
 	align-items: center;
@@ -105,13 +107,20 @@
 }
 
 .modalTopSection .mTopSectionInfoImg {
+	background-color: black;
+	display: flex;
 	width: 50px;
 	height: 50px;
-	object-fit: cover;
 	margin-right: 10px;
 	overflow: hidden;
 	align-items: center;
+	justify-content: center;
 	border-radius: 50%;
+}
+
+.mTopSectionInfoImg img {
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .mTopSectionImgMaster {
@@ -148,6 +157,9 @@
 	top: 40px;
 }
 
+.menuButton ul a {
+	color: rgb(50, 50, 50);
+}
 /* 메튜선택시~ */
 .menuButton-item:hover {
 	font-weight: bold;
@@ -159,7 +171,7 @@
 .modalMiddleSection {
 	flex: 1;
 	overflow: auto;
-	padding: 20px;
+	padding: 10px;
 }
 
 .mMiddleInfo {
@@ -169,13 +181,20 @@
 }
 
 .modalMiddleSection .mMiddleInfoImg {
+	background-color: black;
+	display: flex;
 	width: 50px;
 	height: 50px;
-	object-fit: cover;
 	margin-right: 10px;
 	overflow: hidden;
 	align-items: center;
+	justify-content: center;
 	border-radius: 50%;
+}
+
+.mMiddleInfoImg img {
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .mMiddleInfoImgMaster {
@@ -223,8 +242,9 @@
 .heart-icon.bi-heart-fill {
 	color: red;
 	transform: scale(1.2);
-	font-size: 25px;
+	font-size: 22px;
 }
+
 .chat-icon.bi-chat {
 	color: #ddd;
 }
@@ -232,6 +252,9 @@
 /* 작성일 들어가는 자리 */
 .modalInsertDate {
 	margin-bottom: 10px;
+	font-size: small;
+	color: #ccc;
+	font-style: italic;
 }
 
 /* 인풋창잇는곳 */

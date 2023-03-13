@@ -15,7 +15,7 @@
 		FROM photo
 	</selectKey>
 	insert into photo
-	values(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt})
+	values(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt}, #{thumbnail}, 'Y')
 </insert>
 
 <delete id="photoDelete">
@@ -23,5 +23,15 @@
 	where ctgr = #{ctgr} 
 	and ctgr_num = #{ctgrNum}
 </delete>
+
+<insert id="ptgRegiInsert">
+	<selectKey keyProperty="phoNum" resultType="String" order="BEFORE">
+		SELECT 
+			NVL(MAX(TO_NUMBER(PHO_NUM)), 0) + 1 AS "phoNum"
+		FROM PHOTO
+	</selectKey>
+	INSERT INTO PHOTO
+	VALUES(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt},null)
+</insert>
 
 </mapper>

@@ -20,6 +20,7 @@
 
 <body>
     <div layout:fragment="content">
+<!--     [[${resInfo}]] -->
         <!-- Skippy & Prload -->
         <!-- skippy -->
         <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
@@ -72,23 +73,23 @@
                                     <div class="row">
                                         <div class="col-sm-12 mb-3">
                                             <h5 class="form-label">작가 이름</h5>
-                                            <span class="form ptgName">ddd</span>
+                                            <span class="form ptgName">[[${resInfo[0].name}]]</span>
                                         </div>
                                         <div class="col-sm-12 mb-3">
                                             <h5 class="form-label">쵤영 시간</h5>
-                                            <span class="form shotTime">ddd</span>
+                                            <span class="form shotTime">[[${resInfo[0].shotTime}]]</span>
                                         </div>
                                         <div class="col-sm-12 mb-3">
                                             <h6 class="form-label">촬영 날짜</h6>
-                                            <span class="form shotDate">ddds</span>
+                                            <span class="form shotDate" th:text="${#dates.format(resInfo[0].shotDate, 'yyyy-MM-dd')}">ddds</span>
                                         </div>
                                         <div class="col-sm-12 mb-3">
                                             <h6 class="form-label shotPlace">촬영 장소</h6>
-                                            <span class="form shotPlace">ddds</span>
+                                            <span class="form shotPlace">[[${resInfo[0].shotPlace}]]</span>
                                         </div>
                                         <div class="col-sm-12 mb-3">
                                             <h6 class="form-label selectedOP">선택옵션</h6>
-                                            <span class="form selectedOP">ddds</span>
+                                            <span class="form selectedOP">[[${resInfo[0].ttl}]]</span>
                                         </div>
                                        
                                     </div>
@@ -103,16 +104,16 @@
                                         <div class="row">
                                             <div class="col-sm-12 mb-3">
                                                 <h6 class="form-label opdPri">주문 금액</h6>
-                                                <span class="form opdPri">ddds</span>
+                                                <span class="form opdPri">[[${resInfo[0].ordPri}]]원</span>
                                             </div>
                                             <div class="col-sm-12 mb-3">
                                                 <div class="form-group">
                                                     <h6 class="form-label discPri">할인 금액</h6>
-                                                    <span class="form discPri">ddds</span>
+                                                    <span class="form discPri">[[${resInfo[0].discount}]]원</span>
                                             </div>
                                             <div class="col-sm-12 mb-3">
-                                                <h6 class="form-label paymPri">결제 금액</h6>
-                                                <span class="form paymPri">ddds</span>
+                                                <h6 class="form-label paymPri">총 결제 금액</h6>
+                                                <span class="form paymPri">[[${resInfo[0].paymPri}]]원</span>
                                             </div>
                                             
                                             <div class="col-sm-12 mb-3">
@@ -146,7 +147,7 @@
                             <br>
                             <div class="row g-2">
                                 <div class="col">
-                                    <button class="btn w-100 btn-primary" type="button">메인으로</button>
+                                    <button class="btn w-100 btn-primary" type="button" onclick="location.href='/'">메인으로</button>
                                 </div>
                                 <div class="col">
                                     <button class="btn w-100 btn-primary" type="button">예약내역</button>

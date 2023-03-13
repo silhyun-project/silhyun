@@ -23,7 +23,7 @@
 							<li class="breadcrumb-item"><a class="text-nowrap" href="#"><i
 									class="bi bi-home"></i>Home</a></li>
 							<li class="breadcrumb-item text-nowrap active"
-								aria-current="page">Profile</li>
+								aria-current="page">Profile </li>
 						</ol>
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 								</div>
 								<div class="col ps-3">
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
-									<small><a href="/photo/mypageAo"th:text="${ptg.name}">이름</a></small>
+									<small><a href="/photo/mypageAo/{user1}"th:text="${ptg.name}"></a></small>
 								</div>
 								<div>
 									<button>회원변경</button>
@@ -53,7 +53,7 @@
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/modPfAo"> <i class="fi-user me-2"></i>회원정보수정
+									href="/photo/modPfAo/{user1}"> <i class="fi-user me-2"></i>회원정보수정
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -99,6 +99,7 @@
 						<div class="card mb-5">
 							<div class="card-header py-3">
 								<h5 class="m-0">Profile</h5>
+									로그인 한 사람 : [[${ptgId}]]
 							</div>
 							<div class="card-body" th:each="ptg : ${ptgInfo}">
 								<div class="row">

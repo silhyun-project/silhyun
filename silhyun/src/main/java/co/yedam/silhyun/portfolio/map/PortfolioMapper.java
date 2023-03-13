@@ -2,13 +2,15 @@ package co.yedam.silhyun.portfolio.map;
 
 import java.util.List;
 
+import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.vo.LikePhotoVO;
 import co.yedam.silhyun.portfolio.vo.PortfolioVO;
+import co.yedam.silhyun.portfolio.vo.TagVO;
 
 public interface PortfolioMapper {
 
-	 int findLike(LikePhotoVO like);// 조아요 데이터 찾기
+	int findLike(LikePhotoVO like);// 조아요 데이터 찾기
 
 	void insertLike(LikePhotoVO like);// 조아요 추가하기
 
@@ -23,5 +25,13 @@ public interface PortfolioMapper {
 	
 	List<PortfolioVO> ptgPortfolioList(String ptgId);//작가별 포트폴리오리스트 띄우기
 	
+	
+	//포트폴리오 인서트
+	void insertPortfolio(PortfolioVO portfolioVO);
+	void insertPhoto(PhotoVO photoVO);
+	void insertTag(TagVO tagVO);
+	
+	
+	List<PortfolioVO> imsiList(String ptgId);//작가별 임시리스트 띄우기
 	
 }

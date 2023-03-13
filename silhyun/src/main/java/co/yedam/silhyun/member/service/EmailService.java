@@ -99,8 +99,10 @@ public class EmailService{
 			emailsender.send(message);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+			ePw = "err";
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			ePw = "err";
 		}
 		
 		

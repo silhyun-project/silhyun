@@ -8,4 +8,6 @@ public interface PhotoMapper {
 	List<PhotoVO> photoList(PhotoVO vo);
 	int photoInsert(PhotoVO vo);
 	int photoDelete(PhotoVO vo);
+	
+	int ptgRegiInsert(PhotoVO vo);
 }

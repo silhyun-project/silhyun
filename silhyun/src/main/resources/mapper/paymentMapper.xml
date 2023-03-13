@@ -28,6 +28,7 @@
 		JOIN PAYMENT PM
 		ON PM.RES_NUM = R.RES_NUM
 		WHERE R.ID = #{id}
-		AND R.RES_NUM = #{resNum}
+<!-- 		AND R.RES_NUM = #{resNum} -->
+		ORDER BY R.RES_NUM DESC
 	</select>
 </mapper>

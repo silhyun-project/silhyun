@@ -9,6 +9,16 @@
 		ORDER BY res_num DESC
 	</select>
 	
+	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+		SELECT DISTINCT P.*,RT.*,M.NAME,FIND_CD(RES_TIME) REST,
+		(SELECT COUNT(*) FROM RESER R WHERE R.SHOT_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.SHOT_TIME AND R.PTG_ID = P.PTG_ID) RESYN
+		FROM PHOTOGRAPHER P, RESER_TIME RT, MEMBER M
+		WHERE M.ID = P.PTG_ID
+		AND P.PTG_ID ＝ RT.PTG_ID
+		AND P.PTG_ID = #{ptgId}	
+		ORDER BY REST
+	</select>
+	
 	<select id="classList" resultType="co.yedam.silhyun.classes.vo.ClassesVO">
 		SELECT *
 		FROM CLASS

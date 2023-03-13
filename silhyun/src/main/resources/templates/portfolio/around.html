@@ -151,17 +151,13 @@
 
 
 		<!-- 모달 시작 -->
-		<div class="madal">
+		<div class='isModal'>
 			<div class="modalBlacklayer">
 				<div class="modalCloseButton">X</div>
 				<div class="modalContainer">
 					<div class="modalLeftbox">
 						<div class="modalSlider">
-							<img src="/saveImg/portfolio/강훈4.jpg" alt="image1"> <img
-								src="/saveImg/portfolio/강훈3.jpg" alt="image2"> <img
-								src="/saveImg/portfolio/강훈1.jpg" alt="image3"> <img
-								src="/saveImg/portfolio/강훈5.jpg" alt="image4"><img
-								src="/saveImg/portfolio/강훈5.jpg" alt="image6">
+							<!-- 이미지들어가는자리 -->
 						</div>
 						<div class="bi-chevron-compact-left modalArrow modalprev"></div>
 						<div class="bi-chevron-compact-right modalArrow modalNext"></div>
@@ -169,48 +165,31 @@
 					<div class="modalRightBox">
 						<div class="modalTopSection">
 							<div class="mTopSectionInfo">
-								<div class="mTopSectionInfoImg">
-									<img src="/saveImg/portfolio/강훈4.jpg" alt="small-image">
-								</div>
-								<div class="mTopSectionImgMaster">
-									<div class="modalMasterId">나는 강훈임</div>
-									&nbsp;&nbsp; <i class="bi-dot"></i>
-									<button>follow</button>
-								</div>
+								<!-- 모달해더 -->
 							</div>
 							<div class="menuButton">
 								<i class="bi-three-dots"></i>
 								<ul class="menuButtonlist">
-									<li class="menuButton-item">수정하기</li>
-									<li class="menuButton-item">삭제하기</li>
+									<li class="menuButton-item"><a
+										href="/silhyun/portfolioInsert">수정하기</a></li>
+									<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
 								</ul>
 							</div>
 						</div>
 						<div class="modalMiddleSection">
 							<div class="scroll-box">
 								<div class="mMiddleInfo">
-									<div class="mMiddleInfoImg">
-										<img src="/saveImg/portfolio/강훈4.jpg" alt="small-image">
-									</div>
-									<div class="mMiddleInfoImgMaster">
-										<div class="mMiddleMasterId">나는 강훈임</div>
-										&nbsp;&nbsp;
-										<p class="mMiddleMasterCon">내용이다.</p>
-									</div>
+									<!-- 내용들어가는자리 -->
 								</div>
-								<p>댓글자리</p>
+								<hr>
+								<div>
+									<p>댓글자리</p>
+								</div>
 							</div>
 						</div>
 						<div class="modalBottomSection">
 							<div class="modalBottomInfo">
-								<div class="modalClickIcons">
-									<i class="bi-heart"></i><i class="bi-chat"></i>
-								</div>
-								<div class="modalHeartInfo">
-									<small>좋아요</small> <strong><span>15 만</span></strong><small>
-										개</small>
-								</div>
-								<div class="modalInsertDate">20250101</div>
+								<!-- 모달푸터 -->
 							</div>
 							<div class="modalBottomInput">
 								<input type="text" placeholder="    댓글을 작성하세요.">
@@ -227,8 +206,6 @@
 		<!-- 		포트폴리오리스트띄우는 -->
 		<script th:inline="javascript">
 		
-		var loginUserId = 'user2';
-		
 		/*<![CDATA[*/
 			const portfolio = /*[[${portfolioList}]]*/
 			/*]]>*/
@@ -241,208 +218,10 @@
 		StandLine(portfolio);//첫페이지 포트폴리오 리스트
 		recentStand(portfolio);//최신순
 		likeStand(portfolio);//조아용
+		
+		
 
-		//사진 클릭하해서 포트폴리오 번호 가져오기 ~>모달
-		$("div .col-sm-6.col-lg-3").click(function() {	
-			var portNum = $(this).children('div .portInfo').text(); 
-		
-		// 해당 번호 가진 배열 찾기
-			var selectedPortfolio = portfolio.find(function(findPortfolio) {
-				return findPortfolio.portNum === portNum;
-			});
-		//모달 들어갈자리에 기본 구성 만들어 화면에 붙여주기
-		//<모달들어갈자리1>
-		//	<오른쪽2>
-		//		<사진들어갈자리4></4>
-		//	</2>
-		//	<왼쪽3>
-		//		<5내용헤더></5>
-		//		<6내용중앙></6>
-		//		<7내용푸터></7>==>푸터는 하트하고 다 구성해두기.
-		//	</3>
-		//</1>
-		//모달 들어갈자리에 기본 구성 만들어 화면에 붙여주기
-		
-		//화면 구성한 모달에 경우에 따른 하트 출력
-		$.ajax({
-			url: `/silhyun/isLiked/${loginUserId}/${portNum}`,
-		}).then(heart => {
-			//(처음화면)값이 있으면 찬하트
-			if (heart) {//값이 있으면 //첨에는 찬 하트 출력
-				if ($(".heart-icon").children().hasClass("bi-heart")) {
-					$(".heart-icon").children().removeClass("bi-heart").addClass("bi-heart-fill");
-				}
-			} else {//(값이 없으면) //첨에는 빈 하트 출력
-				if ($(".heart-icon").children().hasClass("bi-heart-fill")) {
-					$(".heart-icon").children().removeClass("bi-heart-fill").addClass("bi-heart");
-				}
-			}//else끝나는 구간
-		});//조아요 대잇나 확인 완.
-		////////////////////////////기본모달 구성 완료
-		
-		
-		
-		//해당 포트폴리오번호에 맞는 사진 리스트 가져와서 넣어주기 (((1)))시작
-			$.ajax({
-				url: `/silhyun/detailPortfolioPhoto/${portNum}`,
-				dataType: 'json',
-			})
-				.then(dataModalPhoto => {
-					$(".slidePhoto").empty();//이미있는 내용 지우기
-			
-					for (let i = 0; i < dataModalPhoto.length; i++) {
-						//사진 다 만들고 뒤에 슬라이드버튼 만들기
-						var modalPhoto = `<div class="swiper-slide">
-											<div class="bg-no-repeat bg-cover bg-center"
-												style="background-image: url(${dataModalPhoto[i].phoRt});">
-												<div class="container">
-													<div
-														class="row min-vh-85 align-items-center justify-content-center py-12">
-
-													</div>
-												</div>
-											</div>
-										</div>`
-						$(".slidePhoto").append(modalPhoto);//만든사진 붙이기
-					}
-					
-					//슬라이드버튼 추가
-					var modalSlideButton =`	<div class="swiper-arrow-style-01 swiper-next swiper-next-01">
-						<i class="bi-chevron-right"></i>
-					</div>
-					<div class="swiper-arrow-style-01 swiper-prev swiper-prev-01">
-						<i class="bi-chevron-left"></i>
-					</div>
-					<div class="swiper-pagination swiper-pagination-white"></div>`
-					
-					$(".slidePhoto").append(modalSlideButton);
-				});//해당 포트폴리오번호에 맞는 사진 리스트(((1)))끝 미완
-				
-				
-				
-				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))시작
-					var modalheader=`<div class="d-flex review-box border-top mt-4 pt-4">
-									<div>
-										<div class="review-image">
-											<img class="img-fluid" src="${selectedPortfolio.profile}"
-												title="" alt="프로필사진자리~~~~">
-										</div>
-									</div>
-									<div class="col ps-3">
-										<span><strong class="ptgName">${selectedPortfolio.ptgId}</strong></span>&nbsp;&nbsp; 
-										<span><button>follow</button></span>&nbsp;&nbsp;
-									</div>
-								</div>`											
-								$(".modalHeader").empty();
-								$(".modalHeader").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
-				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))끝
-				
-				
-				
-				//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))시작
-				
-				//해당 포트폴리오 쓴 내용 붙이는 거.
-				var modalContentSit = `<div>
-												<div class="review-image">
-													<img class="img-fluid" src="${selectedPortfolio.phoRt}"
-														title="" alt="작가프로필사진">
-												</div>
-											</div>
-											<div class="col ps-3">
-												<span><strong class="ptgName">${selectedPortfolio.ptgId}</strong></span>&nbsp;&nbsp;
-											</div>
-											<div>
-												<p>${selectedPortfolio.cntn}</p>
-												<div>
-													<i class="bi bi-heart-fill"></i>&nbsp;
-													<span><small class="likeCount">${selectedPortfolio.likes}</small></span>
-												</div>
-											</div>`
-
-				$(".modalContentSit").empty();
-				$(".modalContentSit").append(modalContentSit);
-				
-				//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
-				
-				
-				//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))끝
-				
-				//해당 포트폴리오 번호에 맞는 푸터 븥여주기(((4)))시작
-				var modalFooterInfo=`<p>
-									좋아요 <span>${selectedPortfolio.likes}</span>
-								</p>
-							<div>${selectedPortfolio.portDate}</div>작성`
-				$(".modalFooterInfo").empty();
-				$(".modalFooterInfo").append(modalFooterInfo);
-			
-				//해당 포트폴리오 번호에 맞는 푸터 븥여주기(((4)))끝
-				
-				
-				
-				
-				
-				//모달안에서 기능 ==1==하트 시작
-				
-				//모달 하트눌렀을 때 생기는 이벤트
-				$(".heart-icon").click(function() {
-					//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
-					var thisHeart = $(this).children();
-
-					if (thisHeart.hasClass("bi-heart")) {
-						//값 넣는 아작스
-						$.ajax({
-							type: 'POST',
-							url: '/silhyun/addLike',
-							data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
-							contentType: 'application/json',
-							success: function(result) {
-								thisHeart.removeClass("bi-heart").addClass("bi-heart-fill");//찬하트로바꾸기
-
-								//하트 숫자 바꾸기.
-								/*		var likeCountElement = thisHeart.closest('.product-detail').find('.likeCount');
-										likeCount = parseInt(likeCountElement.text());
-										likeCountElement.text(likeCount + 1);*/
-							},
-							error: function(xhr, status, error) {
-								console.log(error);
-								alert('좋아요 실패~');
-							}
-						});
-					} else {
-						//값 지우는 아작스
-						$.ajax({
-							url: '/silhyun/deleteLike',
-							type: 'POST',
-							data: JSON.stringify({ id: LoginUserId, portNum: portNum }),
-							contentType: 'application/json',
-							headers: {
-								'X-HTTP-Method-Override': 'DELETE'
-							},
-							success: function(response) {
-								thisHeart.removeClass("bi-heart-fill").addClass("bi-heart");//빈하트로 바꾸기
-							},
-							error: function(error) {
-								console.log(error);
-								alert('조아요 삭제 실패~');
-							}
-						});
-					}//else부분
-				});//모달 하트눌렀을 때 생기는 이벤트
-				
-				//모달안에서 기능 ==1==하트 끝
-
-		
-		});//사진 클릭했을 때 생기는 이벤트 끝 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		$(document).ready()
 		//태그 5개만 가져오긔~~~~~~
 		$.ajax({
             url: "/silhyun/tagList",
@@ -478,6 +257,219 @@
             })
 		})
 	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		//사진 클릭하해서 포트폴리오 번호 가져오기 ~>모달
+		$('.row.g-3').on('click','.col-sm-6.col-lg-3',function(){
+		//$("div .col-sm-6.col-lg-3").click(function() {	
+			var portNum = $(this).children('div .portInfo').text(); 
+			console.log('안녕하세용~~~~~~~~~~~~~~')
+			console.log(portNum)
+		// 해당 번호 가진 배열 찾기
+			var selectedPortfolio = portfolio.find(function(findPortfolio) {
+				return findPortfolio.portNum === portNum;
+			});
+		
+		
+		
+		/////
+		//화면 구성한 모달에 경우에 따른 하트 출력
+		$.ajax({
+			url: `/silhyun/isLiked/${loginUserId}/${portNum}`,
+		}).then(heart => {
+			//(처음화면)값이 있으면 찬하트
+			if (heart) {//값이 있으면 //첨에는 찬 하트 출력
+				if ($(".heart-icon").hasClass("bi-heart")) {
+					$(".heart-icon").removeClass("bi-heart").addClass("bi-heart-fill");
+				}
+			} else {//(값이 없으면) //첨에는 빈 하트 출력
+				if ($(".heart-icon").hasClass("bi-heart-fill")) {
+					$(".heart-icon").removeClass("bi-heart-fill").addClass("bi-heart");
+				}
+			}//else끝나는 구간
+		});//조아요 대잇나 확인 완.
+		////////////////////////////기본모달 구성 완료
+		
+		
+		
+		//해당 포트폴리오번호에 맞는 사진 리스트 가져와서 넣어주기 (((1)))시작
+			$.ajax({
+				url: `/silhyun/detailPortfolioPhoto/${portNum}`,
+				dataType: 'json',
+			})
+				.then(dataModalPhoto => {
+					$(".modalSlider").empty();
+					var firstImg=true;
+					for (let i = 0; i < dataModalPhoto.length; i++) {
+						if(firstImg){
+						var modalPhoto = `<img class='active' src="${dataModalPhoto[i].phoRt}" alt="img${i+1}">`
+						$(".modalSlider").append(modalPhoto);//만든사진 붙이기
+						firstImg=false;
+						}else{
+							var modalPhoto2 = `<img src="${dataModalPhoto[i].phoRt}" alt="img${i+1}">`
+								$(".modalSlider").append(modalPhoto2);//만든사진 붙이기
+						}
+				var images = $('.modalSlider img');
+				
+				let imgIndex = images.filter('.active').index();//이미지 인덱스 찾기.
+				if (imgIndex === 0) {
+					$('.modalprev').css("display", "none"); //처음화면이전 버튼 비활성화
+				}
+				$('.modalNext').on('click', function() {
+					if (imgIndex === images.length - 1) {
+						$('.modalNext').css("display", "none"); // 다음 버튼 비활성화
+					} else {
+						$('.modalprev').css("display", "block");
+					}
+					images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
+					imgIndex++;//인덱스 추가.
+					if (imgIndex === images.length - 1) {
+						$('.modalNext').css("display", "none");
+					}
+					images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+				});
+
+				// 다시 이전 버튼을 클릭하면 다음 버튼을 다시 활성화
+				$('.modalprev').on('click', function() {
+					if (imgIndex === images.length - 1) {
+						$('.modalNext').css("display", "block"); // 다음 버튼 활성화
+					}
+					images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
+					imgIndex--;//인덱스 추가.
+					images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+					if (imgIndex === 0) {
+						$('.modalprev').css("display", "none"); // 다음 버튼 활성화
+					}
+				});
+					}	
+				});//해당 포트폴리오번호에 맞는 사진 리스트(((1)))끝
+				//다음버튼누르기
+				
+				
+				
+				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))시작	
+								var modalheader=`<div class="mTopSectionInfoImg">
+									<img src="${selectedPortfolio.profile}" alt="이미지">
+									</div>
+									<div class="mTopSectionImgMaster">
+										<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
+										&nbsp;&nbsp; <i class="bi-dot"></i>
+										<button>follow</button>
+									</div>`	
+								$(".mTopSectionInfo").empty();
+								$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
+				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))끝
+				
+				
+				
+				//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))시작
+				
+				//해당 포트폴리오 쓴 내용 붙이는 거.
+				var modalContentSit = `<div class="mMiddleInfoImg">
+				<img src="${selectedPortfolio.profile}" alt="small-image">
+								</div>
+								<div class="mMiddleInfoImgMaster">
+									<div class="mMiddleMasterId">${selectedPortfolio.ptgId}</div>
+									&nbsp;&nbsp;
+									<p class="mMiddleMasterCon">${selectedPortfolio.cntn}</p>
+								</div>`
+				$(".mMiddleInfo").empty();
+				$(".mMiddleInfo").append(modalContentSit);
+				//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
+
+				//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))끝
+				
+				//해당 포트폴리오 번호에 맞는 푸터 븥여주기(((4)))시작
+				var modalBottomInfo=`<div class="modalClickIcons">
+								<i class="heart-icon bi-heart"></i><i class="chat-icon bi-chat"></i>
+							</div>
+							<div class="modalHeartInfo">
+								<small>좋아요</small> <strong><span>${selectedPortfolio.likes}</span></strong><small>
+									개</small>
+							</div>
+							<div class="modalInsertDate">${selectedPortfolio.portDate+'작성'}</div>`
+			
+				$(".modalBottomInfo").empty();
+				$(".modalBottomInfo").append(modalBottomInfo);
+				
+			
+				//해당 포트폴리오 번호에 맞는 푸터 븥여주기(((4)))끝
+				
+				
+				
+				
+				
+				//모달안에서 기능 ==1==하트 시작
+				
+				//모달 하트눌렀을 때 생기는 이벤트
+				$(".heart-icon").click(function() {
+					//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
+					var thisHeart = $(this);
+
+					if (thisHeart.hasClass("bi-heart")) {
+						//값 넣는 아작스
+						$.ajax({
+							type: 'POST',
+							url: '/silhyun/addLike',
+							data: JSON.stringify({ id: loginUserId, portNum: portNum }),
+							contentType: 'application/json',
+							success: function(result) {
+								thisHeart.removeClass("bi-heart").addClass("bi-heart-fill");//찬하트로바꾸기
+
+								//하트 숫자 올리기.
+								var likeCount = parseInt($('.modalHeartInfo').find('span').text());
+									$('.modalHeartInfo').find('span').text(likeCount+1);
+							},
+							error: function(xhr, status, error) {
+								console.log(error);
+								alert('좋아요 실패~');
+							}
+						});
+					} else {
+						//값 지우는 아작스
+						$.ajax({
+							url: '/silhyun/deleteLike',
+							type: 'POST',
+							data: JSON.stringify({ id: loginUserId, portNum: portNum }),
+							contentType: 'application/json',
+							headers: {
+								'X-HTTP-Method-Override': 'DELETE'
+							},
+							success: function(response) {
+								thisHeart.removeClass("bi-heart-fill").addClass("bi-heart");//빈하트로 바꾸기
+								//하트 숫자 올리기.
+								var likeCount = parseInt($('.modalHeartInfo').find('span').text());
+									$('.modalHeartInfo').find('span').text(likeCount-1);
+							},
+							error: function(error) {
+								console.log(error);
+								alert('조아요 삭제 실패~');
+							}
+						});
+					}//else부분
+				});//모달 하트눌렀을 때 생기는 이벤트
+				
+				//모달안에서 기능 ==1==하트 끝
+
+		
+		});//사진 클릭했을 때 생기는 이벤트 끝 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 	//포트폴리오 사진 리스트 불러오기~함수+포트폴리오 번호
 		function StandLine(aa){
@@ -518,7 +510,7 @@
 		//최신순 정렬
 		function recentStand(portfolioA){
 		$("li:contains('최신순')").click(function(){
-			const recentList = portfolioA.sort((a, b) => new Date(a.portDate) - new Date(b.portDate));
+			const recentList = portfolioA.sort((a, b) => new Date(b.portDate) - new Date(a.portDate));
 		$("div#rowg-3").children().remove();	
 			StandLine(recentList);
 		});
@@ -544,50 +536,13 @@
 // 		$('#text').html(replaced);
 		
 	
-		////////////////////모달~~~
-		const modal = $(".modalBlacklayer");
-		
-		function modalOn() {
-		    modal.css("display", "block");
-		}
-		
-		function isModalOn() {
-		    return modal.css("display") === "block";
-		}
-		
-		function modalOff() {
-		    modal.css("display", "none");
-		}
-		
-		
-		$('.modalButton').on('click', function() {
-			console.log("hey");
-		    modalOn();
-		});
-		
-		$('.modalCloseButton').on('click', function() {
-		    modalOff();
-		});
-		
-		modal.on("click", function(e) {
-		    const evTarget = e.target;
-		    if ($(evTarget).hasClass(".modalBlacklayer")) {
-		        modalOff();
-		    }
-		});
-		
-		$(window).on("keyup", function(e) {
-		    if (isModalOn() && e.key === "Escape") {
-		        modalOff();
-		    }
-		});
-				
-		////////////////////모달~~~
+	
 
 		</script>
 
 
 		<script src="/js/around.js"></script>
+		<script src="/js/modal.js"></script>
 		<!-- js -->
 
 

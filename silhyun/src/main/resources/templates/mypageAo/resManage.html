@@ -73,7 +73,7 @@
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/modPfAo"> <i class="fi-user me-2"></i>회원정보수정
+									href="/photo/modPfAo/{user1}"> <i class="fi-user me-2"></i>회원정보수정
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -116,6 +116,8 @@
 					<!-- <div class="col-lg-1 col-xxl-9">
 					</div> -->
 					<div class="col-lg-8 col-xxl-9">
+								[[${id}]]		[[${ptgId}]]
+		<!-- 				<input type="hidden" value="${id}"> -->
 						<button type="button" class="btn btn-primary"
 							data-bs-toggle="modal" data-bs-target="#workOption">옵션
 							설정</button>
@@ -127,6 +129,7 @@
 								<div class="modal-content">
 									<div class="modal-header bg-primary">
 										<div class="modal-title p-3">
+							
 											<h5 class="m-0 text-white">옵션 설정</h5>
 										</div>
 										<button type="button" class="btn-close"

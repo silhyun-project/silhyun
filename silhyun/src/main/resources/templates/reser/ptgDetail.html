@@ -165,7 +165,7 @@
 
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab" data-bs-target="#pd_reviews_02" role="tab" aria-controls="pd_reviews_02" aria-selected="false">Reviews</a>
+                                <a href="#" class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab" data-bs-target="#pd_reviews_02" role="tab" aria-controls="pd_reviews_02" aria-selected="false" onclick="goReivew()">Reviews</a>
                             </li>
                         </ul>
                        
@@ -261,7 +261,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div><br><a hef="#"><button class="btn btn-primary" style="align-content: right;">더 보러가기</button></a>
+                                </div><br>
+                                <a th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${ptg[0].ptgId})}"><button class="btn btn-primary" style="align-content: right;">더보러가기</button></a>
                             </div>
 
                             <!--Q&A-->
@@ -275,10 +276,8 @@
 
                             <!--후기-->
                             <div class="tab-pane fade" id="pd_reviews_02" role="tabpanel" aria-labelledby="pd_reviews_tab_02">
-                                <div class="row">
-                                    <div class="col-lg-8 pe-lg-8">
-                                      <h2>후기 들어오는 곳</h2>
-                                    </div>
+                                <div id="reviews">
+      
                                 </div>
                             </div>
                         </div>
@@ -288,7 +287,27 @@
             <!-- End Product Tabs -->
         </main>
         <!-- End Main -->
-
+		<script type="text/javascript">
+	     function goReivew(){
+	    	 ajaxReiew({pageNum: 1, amount: 5})
+	     }
+		
+		ajaxReiew({pageNum: 1, amount: 5})
+		
+		function ajaxReiew(data){
+			$.ajax({
+				url: '/ajaxCall',
+				data: data,
+				success: function(res){
+					console.log(res)
+					$('#reviews').empty().append(res)
+				},
+				error: function(err){
+					console.log(err)
+				}
+			})
+		}
+		</script>
     </div>
     <!-- 
     ========================

@@ -37,6 +37,7 @@
 		color : #999;
 		font-size:.9em;
 	}
+	
   #attZone{
 	width: 100%;
 	min-height:130px;
@@ -79,7 +80,7 @@
 				<div id="zone">
 						<button type="button" class="btn btn-outline-secondary btn-sm" onclick="fileUpAction()">사진선택</button>
 						<input type='file' id='fileBtn' multiple='multiple' accept="image/*"/>
-					<div id='attZone' data-placeholder='사진은 총 5장만 업로드 가능합니다.'></div>
+					<div id='attZone' data-placeholder='사진은 총 6장만 업로드 가능합니다.'></div>
 				</div>
 				</td>
 			</tr>
@@ -89,10 +90,10 @@
       	<input type="hidden" name="ctgrNum" value="user1">  <!-- 이전 페이지 작가아이디 -->
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="insertReview()">작성</button>
-	      	<button type="button" class="btn btn-outline-secondary btn-sm">뒤로가기</button> 
+	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='/silhyun/reviewList'">뒤로가기</button> 
       	</div>
 	</form>
-<script src="/js/filedrop.js"></script>
+<script src="/js/review/filedrop.js"></script>
 </div>
 </body>
 </html>

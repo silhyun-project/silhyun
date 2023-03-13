@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class EventVO {
 	private String eventNum;
-	private String ptgId;
+	private String id;
 	private String name;
 	private int term;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
