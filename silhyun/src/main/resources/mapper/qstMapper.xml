@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.qstMapper">
+<mapper namespace="co.yedam.silhyun.qst.map.QstMapper">
 
 	<select id="getAoQstList" resultType="co.yedam.silhyun.qst.vo.QstVO">
-		select q.qst_num, q.ctgr, q.ctgr_num, q.ttl, q.id, q.cntn as qstCntn, q.qst_date, q.rply_sta, q.secret_sta, c.cntn as ansCntn, m.profile
-		 from qst q, commment c, member m
-		where q.ctgr = c.ctgr and q.ctgr_num = c.id and q.id = m.id;
+		select q.qst_num, q.ctgr, q.ctgr_num, q.ttl, q.id, q.cntn as cntn, q.qst_date,
+		q.secret_sta , c.cntn as ansCnt, case when  q.rply_sta = 'Y' then '답변완료'
+                                              else '답변대기'
+                                              end as rply_sta                                                                                                                                        
+		from qst q, commment c, member m        
+		where q.ctgr = c.ctgr and q.ctgr_num = c.id and q.id = m.id
 	</select>
 
 	<insert id="aoQstInsert">
-		<selectKey keyProperty="comNum" resultType="String" order="BEFORE">
+		<selectKey keyProperty="qstNum" resultType="String" order="BEFORE">
 			SELECT 
 				nvl(MAX(to_number(qst_num)), 0) + 1 AS "qstNum"
 			FROM QST
@@ -32,6 +35,29 @@
                     , sysdate
                     , 'N'
                     , #{secretSta})
+	</insert>
+	
+	<insert id="aoAnsInsert">
+	begin
+		<selectKey keyProperty="comNum" resultType="String" order="BEFORE">
+			SELECT 
+				nvl(MAX(to_number(com_num)), 0) + 1 AS "comNum"
+			FROM commment
+		</selectKey>
+	     insert into commment(com_num
+                    , ctgr
+                    , ctgr_num
+                    , id
+                    , cntn
+                    , com_date)
+            values( #{comNum}
+                    , 'A'
+                    , 'user1'
+                    , 'catLove'
+                    , #{ansCntn}
+                    , sysdate)
+         update qst set rplySta = 'Y' where #{qstNum}
+	end
 	</insert>
 
 </mapper>

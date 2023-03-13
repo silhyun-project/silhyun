@@ -1,265 +1,304 @@
-<!doctype html>
-<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
-<style>
-
-#btn1{
-  float:right;
-  display: inline;
-  width: 100px;
-  height:30px;
-}
-
-ul {
-  overflow: hidden; /* float 요소를 감싸는 부모 요소의 높이 자동 조절 */
-}
-li {
-  float: left;
-}
-
-</style>
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<!-- metas -->
-<meta charset="utf-8">
-<meta name="author" content="pxdraft" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
-<meta name="description"
-	content="ShopApp - eCommerce Bootstrap 5 Template" />
-<!-- title -->
-<title>작가 문의게시판</title>
-<!-- Favicon -->
-<link rel="shortcut icon" href="/img/favicon.ico">
-<!-- CSS Template -->
-<link href="/css/theme.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>메인문의 게시판</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<style>
+		/* 스타일링 */
+		div.minimalistBlack {
+			border: 3px solid #000000;
+			width: 50%;
+			text-align: left;
+			border-collapse: collapse;
+		}
+
+		.divTable.minimalistBlack .divTableCell,
+		.divTable.minimalistBlack .divTableHead {
+			border: 1px solid #000000;
+			padding: 5px 4px;
+		}
+
+		.divTable.minimalistBlack .divTableBody .divTableCell {
+			font-size: 13px;
+		}
+
+		.divTable.minimalistBlack .divTableHeading {
+			background: #CFCFCF;
+			background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+			background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+			background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+			border-bottom: 3px solid #000000;
+		}
+
+		.divTable.minimalistBlack .divTableHeading .divTableHead {
+			font-size: 15px;
+			font-weight: bold;
+			color: #000000;
+			text-align: left;
+		}
+
+		.minimalistBlack .tableFootStyle {
+			font-size: 14px;
+		}
+
+		/* DivTable.com */
+		.divTable {
+			display: table;
+		}
+
+		.divTableRow {
+			display: table-row;
+		}
+
+		.divTableHeading {
+			display: table-header-group;
+		}
+
+		.divTableCell,
+		.divTableHead {
+			display: table-cell;
+		}
+
+		.divTableHeading {
+			display: table-header-group;
+		}
+
+		.divTableFoot {
+			display: table-footer-group;
+		}
+
+		.divTableBody {
+			display: table-row-group;
+		}
+
+		/* 모달 창 스타일링 */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			padding-top: 100px;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%;
+		}
+
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+
 </head>
 
 <body>
-<div layout:fragment="content">
-
-	<div class="pt-4 mt-5"> 
-	<!-- 댓글 대댓글 들어가는 곳 -->		
-	<ul class="list-unstyled pt-4 qstBox" id="attch">	
-	</ul>
-	</div>
-	<div class="mt-8 border p-4">
-		<form method="post">
-			<div class="row">
-				<div class="col-12">
-					<div class="form-group mb-3">
-						<textarea id="ttl" name="ttl" placeholder="제목을 작성해주세요" required="required"></textarea>							
-						<textarea class="form-control" id="contact-message" name="message"
-							style="height: 50px" placeholder="내용을 작성해주세요"></textarea>
-						<label><input type="checkbox" id="secChk" class="secChk" value="Y">비밀문의</label>
-					</div>
-				</div>
-				<div class="col-12">
-					<button class="btn btn-primary" type="button" id="send">게시</button>
+	<div align="center">
+		<div class="divTable minimalistBlack">
+			<div class="divTableHeading">
+				<div class="divTableRow">
+					<div class="divTableHead" style="width: 250px;">제목</div>
+					<div class="divTableHead">작성자</div>
+					<div class="divTableHead">작성날짜</div>
+					<div class="divTableHead" style="width: 70px;">답변상태</div>
+					<div class="divTableHead" style="width: 100px;"></div>
 				</div>
 			</div>
-		</form>
-	</div>
+			<div class="divTableBody qstArea"></div>
+			
+				  <!-- <div class="divTableRow">
+					<div class="divTableCell"></div>
+					<div class="divTableCell">
+						<a href="#" class="ttl">상품 문의입니다.</a>
+						<div class="qstCntn" style="display: none;">문의 내용입니다.
+						  <div class="div-title-wrap">
+							<h5 class="div-title">Answer</h5>
+							<div class="div-sep-wrap">
+							  <div class="div-sep sep-thin"></div>
+							</div>
+						  </div>
+						  <div class="media-ans img-resize">
+							<p class="ansCntn">답변</p>
+						  </div>
+						</div>
+					  </div>
+					<div class="divTableCell">작성자</div>
+					<div class="divTableCell">작성날짜</div>
+					<div class="divTableCell">답변상태</div>
+					<div class="divTableCell">
+						<button>수정</button>
+						<button>삭제</button>
+					</div>
+					<input type="hidden" class="qstNum" value="'+asqt.qstNum+'">
+					<input type="hidden" class="ctgrNum" value="'+asqt.ctgrNum+'">
+				</div>
+			</div> -->
+			</div>
+			<br> <br>
+			<button id="new-post-btn">상품 문의</button>
 
-	<!-- End Main -->
+			<!-- 모달 파트 -->
+			<div id="myModal" class="modal">
+				<!-- 모달 창 내용 -->
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h2>상품 문의</h2>
+					<form>
+						<label for="title">제목:</label> <input type="text" id="title" name="title"
+							placeholder="제목을 입력하세요..." style="width: 400px;">
+						<br> <br> <label for="content">내용:</label>
+						<textarea id="content" name="content" rows="5" placeholder="내용을 입력하세요..."
+							style="width: 400px;"></textarea>
+						<br> <input type="checkbox" id="secChk" name="isSecret">
+						<label for="isSecret">비밀글</label> <br> <br>
+						<button type="button" id="send">작성</button>
+						<button type="reset" id="cancel">취소</button>
+					</form>
+				</div>
+			</div>
+			</div>
 
-	<!-- End Footer -->
-	<!-- 
-    ========================
-       End Wrapper 
-    ========================
-    -->
-	<!-- script start -->
-	<!-- jquery -->
-	<script src="/js/jquery-3.5.1.min.js"></script>
-	<!--bootstrap-->
-	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- slick carousel -->
-	<script src="/vendor/swiper/swiper-bundle.min.js"></script>
-	<!-- magnific -->
-	<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
-	<!-- isotope -->
-	<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
-	<!-- count-down -->
-	<script src="/vendor/count-down/jquery.countdown.min.js"></script>
-	<!-- count-down -->
-	<script src="/vendor/jarallax/jarallax-all.js"></script>
-	<!-- Theme Js -->
-	<script src="/js/custom.js"></script>
-	<script src="/js/theme.js"></script>
-	<!-- End script start -->
-	
-	<script>
-	$(document).ready(function(){
-		getAoQstList()
-	})
-	
-	$("#qstBtn").click(function(){ //문의글 등록
-		let qstNum = $("#qstNum").val(); //문의글번호
-		let ctgr = 'A' //카테고리
-		let ctgrNum = 'user1' //카테고리
-		let ttl = $("#ttl").val(); // 제목
-		let qstId =$("#id").val(); //문의작성자아이디
-		let qstCntn =$("#qstCntn").val(); //문의내용
-		let rplySta = 'N' // 답변유무상태
-		let secretSta = $("#secChk").val() //비밀댓글
 
-		if ($("#secChk").is(':checked')) {
-			comLock = 'Y';
-			} else {
-			comLock = 'N';
-		}
-		if(ttl == ""){
-			alert("제목을 입력해 주세요.")
-			$("#ttl").focus();
-			return false;		// 제목 미입력시 작성 불가
-		}
+		<script>
+			$(document).ready(function () {
+				getAoQstList()
+				// 새글쓰기 버튼 클릭 시 모달창 보여주기
+				$('#new-post-btn').on('click', function () {
+					$('#myModal').css('display', 'block');
+				});
 
-		if(qstCntn == ""){
-			alert("내용을 입력해 주세요.")
-			$("#qstCntn").focus();
-			return false;		// 내용 미입력시 작성 불가
-		}
-		
-		$.ajax({
-			url:"/aoQstInsert",
-			type:"POST",
-			data: JSON.stringify(
-				{
-					"qstNum" : qstNum, // 문의글 번호
-					"ctgr" : ctgr,
-					"ctgrNum" : ctgrNum,
-					"ttl" : ttl, // 제목
-					"id" : qstId, //작성자아이디
-					"qstCntn" : qstCntn,
-					"rplySta" : rplySta, // 답글여부
-					"secretSta" : secretSta// 비밀여부
+				$('.close').on('click', function () {
+					$('#myModal').css('display', 'none');
+				});
+
+				$('#cancel').on('click', function () {
+					$('#myModal').css('display', 'none');
+				});
+
+				// 모달창 제출 버튼 클릭 시 제출 처리
+				$('#submit').on('click', function () {
+					$('#myModal').css('display', 'none');
+				});
+
+			});
+
+			$("#qstBtn").click(function () { //문의글 등록
+				let qstNum = $("#qstNum").val(); //문의글번호
+				let ctgr = 'A' //카테고리
+				let ctgrNum = 'user1' //카테고리
+				let ttl = $("#ttl").val(); // 제목
+				let qstId = $("#id").val(); //문의작성자아이디
+				let qstCntn = $("#qstCntn").val(); //문의내용
+				let rplySta = 'N' // 답변유무상태
+				let secretSta = $("#secChk").val() //비밀댓글
+
+				if ($("#secChk").is(':checked')) {
+					comLock = 'Y';
+				} else {
+					comLock = 'N'; // 비밀 체크여부
 				}
-			),
-			contentType:'application/json',
-			success : function(data){
-				console.log("댓글등록")
-				$("#comContent").val("")
-				console.log("====")
-				getComList()
-			},
-			error:function(){
-				alert('등록실패');
-			}
-		});
-	});
-	
-	
-	function getAoQstList(){			
+				if (ttl == "") {
+					alert("제목을 입력해 주세요.")
+					$("#ttl").focus();
+					return false; // 제목 미입력시 작성 불가
+				}
 
-		let qstArea = $(".qstBox");
-		$.ajax({
-			url: "/getAoQstList",
-			success : function(result) {
-				let str = '';
-				
-				$(result).each(function(q,aqst){
-					if(comm.dep == 0 && c != 0 ){
-					 	str += '</ul>'
-		                str += '</li>'
+				if (qstCntn == "") {
+					alert("내용을 입력해 주세요.")
+					$("#qstCntn").focus();
+					return false; // 내용 미입력시 작성 불가
+				}
+
+				$.ajax({
+					url: "/aoQstInsert",
+					type: "POST",
+					data: JSON.stringify({
+						"qstNum": qstNum, // 문의글 번호
+						"ctgr": ctgr,
+						"ctgrNum": ctgrNum,
+						"ttl": ttl, // 제목
+						"id": qstId, //작성자아이디
+						"qstCntn": qstCntn,
+						"rplySta": rplySta, // 답글여부
+						"secretSta": secretSta
+						// 비밀여부
+					}),
+					contentType: 'application/json',
+					success: function (data) {
+						$("#comContent").val("")
+						getComList()
+					},
+					error: function () {
+						alert('등록실패');
 					}
-					
-						str += '<li class="media d-flex commentZone">'
-						str += '<div class="avatar rounded-circle">'
-						str += '<img class="img-fluid" src="'+aqst.profile+'" title="" alt="">'
-						str += '</div>'
-						str += '<h6 class="mt-0 mb-1 commentId" id="qstId" >'+aqst.id+'</h6>'
-						str += '<label class="mb-2 small" >'+aqst.qstDate+'</label>'
-						str += '<p>'+comm.cntn+'</p>'
-						str += '<input type="hidden" class="comGrp" name="ctgrNum" id="ctgrNum" value="'+asqt.ctgrNum+'">'
-						str += '<input type="hidden" class="comNum" name="comNum" value="'+asqt.qstNum+'">'
-						str += '<div class="nav dark-link small">'
-						str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
-						str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'	
-						str += '</div>'
-					
-					
-						str += '<ul class="list-unstyled mt-5 pt-5 border-top">'
-						str += '<li class="media d-flex replyZone">'
-                        str += '<div class="col ps-3">'
-                        str += '<h6 class="mt-0 mb-1 commentId" id="repId">'+aqst.cntnNum+'</h6>'
-                        str += '<label class="mb-2 small">'+comm.comDate+'</label>'
-                        str += '<p>'+aqst.cntn+'</p>'
-                        str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="'+comm.grp+'">'
-						str += '<input type="hidden" class="comNum" name="comNum" value="'+comm.comNum+'">'
-                        str += '<div class="nav dark-link small">'
-                        str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
-                        str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
-                        str += '</div>'
-                        str += '</div>'
-                        str += '</li>'  
-					
+				});
+			});
+
+			function getAoQstList() {
+				
+				let qstArea = $(".qstArea");
+				$.ajax({
+					url: "/getAoQstList",
+					success: function (result) {
+
+						let str = '';
+						$(result).each(function (q, aqst) {
+							str += '<div class="divTableRow">'
+							str += '<a href="#" id="ttl">' + aqst.ttl + '</a>'
+							str += '<div class="qstCntn" style="display: none;">'
+							str += '<p>' + aqst.cntn + '<p>'
+						if(aqst.ansCntn != null && aqst.ansCntn != ''){
+							str += '<div class="div-title-wrap">'
+							str += '<h5 class="div-title">"Answer"</h5>'
+							str += '<div class="div-sep-wrap">'
+							str += '<div class="div-sep sep-thin"></div>'
+							str += '</div></div>'
+							str += '<div class="media-ans img-resize">'
+							str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
+							str += '</div>'
+							str += '</div>'
+							}
+							str += '</div>'
+							str += '<div class="divTableCell" id="id">' + aqst.id + '</div>'
+							str += '<div class="divTableCell" id="qstDate">' + aqst.qstDate + '</div>'
+							str += '<div class="divTableCell" id="rplySta">' + aqst.rplySta + '</div>'
+							str += '<div class="divTableCell">'
+							str += '<button class="qstModi">수정</button>'
+							str += '<button class="qstDel">삭제</button>'
+							str += '</div>'
+							str += '<input type="hidden" class="qstNum" value="' + aqst.qstNum + '">'
+							str += '<input type="hidden" class="ctgrNum" value="' + aqst.ctgrNum + '">'
+							
+							str += '</div>'
+						})
+
+						qstArea.html(str);
+					}
 				})
-					commentArea.html(str);
 			}
-		})
-	}
-	
-	// 동적으로 생성된 태그에 그룹이벤트 부여
-    $(".qstBox").on('click','#replyWrite', function(e){      
-        console.log('클릭')
-        console.log($(this).parent().parent().children('#comId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
-        console.log($(this).parent().parent().children('#ctgrNum').val())
-        let text = $(this).parent().parent().children('#qstId').text();
-        let group_number = $(this).parent().parent().children('#ctgrNum').val();
-        
-        $('#contact-message').val('Re:'+$(this).parent().parent().children('#ttl').text())  
-        $('#contact-message').data("dep","1")
-        $('#contact-message').data("grp", group_number);
-        $('#grpNum').val($('#contact-message').data("grp"));
- 
-     })  
-     
-	
- 	$(".qstBox").on('click', '.comDelBtn', function() {
- 		console.log('삭제클릭')
- 		console.log($(this).closest('li').find('.comNum').val());
- 		console.log($(this).closest('li').find('.comGrp').val());
- 		let comNum = $(this).closest('li').find('.qstNum').val(); //삭제할 댓글 번호
- 		let grp = $(this).closest('li').find('.comGrp').val(); //삭제할 댓글의 그룹
- 		let commentZone = $(this).closest('li').find('.commentZone');
- 		
- 		$.ajax({
-			url:"/commentDelete",
-			type:"delete",
-			data:{ 
-				grp		
-			}
-			,
-			success : function(data){
-				getAoQstList()
-			}
-		})
- 		
- 	}) 
- 	
- 	$(".qstBox").on('click', '.reDelBtn', function() {
- 		console.log('삭제클릭')
- 		console.log($(this).closest('li').find('.comNum').val());
- 		let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
- 		let commentZone = $(this).closest('li').find('.replyZone');
- 		
- 		$.ajax({
-			url:"/replyDelete",
-			type:"delete",
-			data:{ 
-				comNum		
-			}
-			,
-			success : function(data){
-				getAoQstList()
-			}
-		})
- 	}) 
-	
-</script>
-</div>
+		</script>
 </body>
+
+
 </html>

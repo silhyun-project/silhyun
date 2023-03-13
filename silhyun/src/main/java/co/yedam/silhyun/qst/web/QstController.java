@@ -3,6 +3,7 @@ package co.yedam.silhyun.qst.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import co.yedam.silhyun.common.vo.CommentVO;
 import co.yedam.silhyun.qst.service.QstService;
 import co.yedam.silhyun.qst.vo.QstVO;
 
+@Controller
 public class QstController {
 
 	@Autowired
@@ -25,20 +27,21 @@ public class QstController {
 		return "qst/aoQst";
 	}
 	
-	@GetMapping("/aoQstList")
-	@ResponseBody
-	public List<QstVO> aoQstList(QstVO vo, Model model){
-		List<QstVO> aQstList = qstService.getAoQstList();
-		return aQstList;
-	}
 	
-	@PostMapping("/aoQstInsert")
+	@GetMapping("/getAoQstList")
 	@ResponseBody
-	public String aoQstInsert(@RequestBody QstVO vo) {
-		
-		qstService.aoQstInsert(vo);
-		return "seccess";
-	}	
+	public List<QstVO> getAoQstList(QstVO vo, Model model){
+		List<QstVO> getAoQstList = qstService.getAoQstList();
+		return getAoQstList;
+	}
+//	
+//	@PostMapping("/aoQstInsert")
+//	@ResponseBody
+//	public String aoQstInsert(@RequestBody QstVO vo) {
+//		
+//		qstService.aoQstInsert(vo);
+//		return "seccess";
+//	}	
 	
 	
 	

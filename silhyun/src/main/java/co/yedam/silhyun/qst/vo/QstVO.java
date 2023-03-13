@@ -23,12 +23,11 @@ public class QstVO {
 	private String rplySta;
 	private String secretSta;
 	
+	
 	// 조인용
-	// comment 
-	
-	
+	// comment 별칭 
+	private String ansCntn;
 	// member 사진경로
-	private String profile;
 	 
 	
 }
