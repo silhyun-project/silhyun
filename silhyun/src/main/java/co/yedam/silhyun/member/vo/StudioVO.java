@@ -17,7 +17,7 @@ public class StudioVO {
 	private String tel;
 	private String ceoName;
 	private String cfmCd;
-	private int crn;
+	private String crn;
 	private String latiAddr;
 	private String lonAddr;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

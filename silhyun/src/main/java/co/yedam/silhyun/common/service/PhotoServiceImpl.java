@@ -77,4 +77,41 @@ public class PhotoServiceImpl implements PhotoService {
 		return map.photoDelete(vo);
 	}
 
+	@Override
+	public int ptgRegiInsert(List<MultipartFile> files, String ctgrNum, String ctgr) {
+		int n = 0;
+		String saveImgPath = saveimg + "portfolio";
+		if(files != null && !files.isEmpty()) {
+			for(MultipartFile file : files) {
+				String fileName = UUID.randomUUID().toString(); //UUID생성 
+				fileName = fileName + "_" + file.getOriginalFilename(); //유니크한 아이디
+				File uploadFile = new File(saveImgPath, fileName); 
+				
+				try {
+					file.transferTo(uploadFile); //파일저장
+					
+					//섬네일 처리(이미지만 들어오니까 이미지 타입 체크는 생락
+					FileOutputStream thumbnail = new FileOutputStream(new File(saveImgPath, "s_"+ fileName));
+					
+					Thumbnailator.createThumbnail(file.getInputStream(), thumbnail, 100, 100);
+					
+					thumbnail.close();
+					
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				PhotoVO vo = new PhotoVO();
+				vo.setCtgr(ctgr);
+				vo.setCtgrNum(ctgrNum);
+				vo.setPhoRt("/saveImg/portfolio/" + fileName);
+				
+				n = map.ptgRegiInsert(vo);
+			}
+		}
+		return n;
+	}
+
 }
