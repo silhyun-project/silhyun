@@ -15,7 +15,7 @@
 		FROM photo
 	</selectKey>
 	insert into photo
-	values(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt}, #{thumbnail}, #{phoName})
+	values(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt}, #{thumbnail}, 'Y')
 </insert>
 
 <delete id="photoDelete">
