@@ -29,9 +29,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<PaymentVO> getPaymentInfo(String id, String resNum) {
+	public List<PaymentVO> getPaymentInfo(String id) {
 		
-		return paymentMapper.getPaymentInfo(id, resNum);
+		return paymentMapper.getPaymentInfo(id);
 	}
 
 }

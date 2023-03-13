@@ -50,6 +50,7 @@
 	    WHERE P.PTG_ID = M.ID 
         AND M.ID = Z.CTGR_NUM(+)
         AND P.PTG_ID = F.PTG_ID
+        AND UPPER(P.CFM_CD) = 'Y'
         	<if test="vo.chkArray != null and vo.chkArray.length>0">
 					AND P.REGION_CD in <foreach item="vo.region" collection="vo.chkArray" open="(" close=")" separator="," >
 						#{vo.region}
@@ -81,6 +82,7 @@
 	    WHERE P.PTG_ID = M.ID 
         AND M.ID = Z.CTGR_NUM(+)
         AND P.PTG_ID = F.PTG_ID
+          AND UPPER(P.CFM_CD) = 'Y'
         	<if test="vo.chkArray != null and vo.chkArray.length>0">
 					AND P.REGION_CD in <foreach item="vo.region" collection="vo.chkArray" open="(" close=")" separator="," >
 						#{vo.region}

@@ -25,7 +25,7 @@ public class PortfolioController {
 	@Autowired
 	private PortfolioService portfolioService;
 
-	@GetMapping("/silhyun/portfolio")
+	@GetMapping("/silhyun/portfolio/{ptgId}")
 	public String portfolio(Model model) {
 		return "portfolio/portfolio";
 	}
