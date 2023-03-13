@@ -22,7 +22,12 @@ public class QstVO {
 	private Date qstDate;
 	private String rplySta;
 	private String secretSta;
-	private int hit;
+	
+	
+	// 조인용
+	// comment 별칭 
+	private String ansCntn;
+	// member 사진경로
 	 
 	
 }
