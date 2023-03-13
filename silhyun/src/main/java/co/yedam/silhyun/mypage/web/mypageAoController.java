@@ -55,7 +55,7 @@ public class mypageAoController {
 		return "mypageAo/mypageAo";
 	}
 
-	@RequestMapping("/photo/modPfAo")
+	@RequestMapping("/photo/modPfAo/{ptgId}")
 	public String modpfAo(Model model,@PathVariable String ptgId) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 
