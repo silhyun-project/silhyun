@@ -27,15 +27,15 @@ public class PortfolioVO {
 	//조인
 	//Photo 사진불러오기
 	private String phoNum;//사진경로
-	//private String ctgr;
-	//private String ctgrNum;
+	private String ctgr;
+	private String ctgrNum;
 	private String phoRt;//경로
 
 	
 	//likePhoto//좋아요순용 
 	private String id;
 	
-	//tag별 정렬용
+	//tag
 	private String tagCntn;
 	
 	//comment 댓글순

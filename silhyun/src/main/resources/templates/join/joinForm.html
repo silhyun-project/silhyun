@@ -20,7 +20,8 @@
 <link href="/css/join.css" rel="stylesheet">
 </head>
 <body>
-<script type="text/javascript" src="/js/join.js"></script>
+<script type="text/javascript" src="/js/join/join.js"></script>
+<script type="text/javascript" src="/js/join/join.js"></script>
     <main>
         <!-- Section 이거 나중에 다시 vue로 만들기 //로그인도-->
         <section class="section">
@@ -81,6 +82,7 @@
 						        </div>
 						        <span class="telMgs"></span>
                             </div>
+                            
                             <!-- 이메일 -->
                             <div class="form-group mb-3 marList">
                                 <div class="row align-items-center">
@@ -92,12 +94,13 @@
 							        <input type="text" class="form-control col mar" id="emailDomain">
      								<div class="col-4 email">
 	                               <select class="form-select col mar" id="domain">
-	                               		<option>선택</option>
+	                               		<option value=''>직접입력</option>
 							        </select>
 							      </div>
 						        </div>
 						        <span class="emailMgs"></span>
                             </div>
+                            
                             <!-- 이메일 인증 -->
                             <div class="form-group mb-3">
                                 <label class="form-label col" for="emailchk">이메일인증<span class="text-danger">*</span></label>
@@ -117,13 +120,13 @@
 						        <!-- 생년월일 -->
 						        <input type="hidden" id="birthDate" name="birthDate">
 						        <select  class="form-select col" id="year">
-						            <option value="">연도</option>
+						            <option value="" selected>연도</option>
 						        </select>
 						        <select class="form-select col" id="month">
-						          <option value="">월</option>
+						          <option value="" selected>월</option>
 						        </select>
 						        <select class="form-select col" id="day">
-						          <option value="">일</option>     
+						          <option value="" selected>일</option>     
 						        </select>
 						        <!--성별-->						
 						        <div id="gender" class="col">
@@ -135,6 +138,7 @@
 						          </label>
 						        </div>
 						      </div>
+						      
 							<!-- 추천인 코드 입력 -->
                             <div class="form-group mb-3">
                                 <label class="form-label col" for="rcomr">추천인</label>
@@ -160,6 +164,8 @@
 					            <div style="border-bottom: 1px solid gray;">
 					                <span>전체 동의</span>
 					                <input type="checkbox" id="chkAll">
+					                <!-- 체크박스 동의 유효성 -->
+					                <input type="hidden" value="false" id="agree">
 					            </div>
 					            
 					            <!-- 필수 1 -->
