@@ -122,10 +122,16 @@ public class mypageAoController {
 
 	// 작가 정보수정
 	@PostMapping("/updateMyPg")
-	public String updateMyPg() {
-		mypageAoService.ptgInfoUpdate();
+	public String updateMyPg(MemberVO vo ,PhotographerVO pvo) {
+		System.out.println(pvo.getPtgId()+"dddddddddddddd");
+		vo.setId(pvo.getPtgId());
+		System.out.println(vo.getId()+"daaaaaaaaaaa");
+		mypageAoService.ptgInfoUpdate(vo);
+		mypageAoService.updateWorkday(pvo);
 		return "redirect:mypageAo/modPfAo";
-	}
+	} 
+
+
 
 	// 작가 예약 시간 정보 수정
 

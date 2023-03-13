@@ -34,9 +34,9 @@ public class MypageAoServiceImpl implements MypageAoService {
 	}
 
 	@Override
-	public int ptgInfoUpdate() {
+	public int ptgInfoUpdate(MemberVO vo) {
 	
-		return mypageAoMapper.ptgInfoUpdate();
+		return mypageAoMapper.ptgInfoUpdate(vo);
 	}
 	@Override
 	public int applyEvent(EventVO vo) {
@@ -113,6 +113,12 @@ public class MypageAoServiceImpl implements MypageAoService {
 	public List<PhotographerVO> getResTime(String ptgId, String redate) {
 
 		return mypageAoMapper.getResTime(ptgId, redate);
+	}
+
+	@Override
+	public int updateWorkday(PhotographerVO vo) {
+
+		return mypageAoMapper.updateWorkday(vo);
 	}
 
 

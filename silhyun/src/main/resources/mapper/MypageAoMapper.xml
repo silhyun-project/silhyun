@@ -109,21 +109,22 @@
 
 	<update id="ptgInfoUpdate"
 		parameterType="co.yedam.silhyun.member.vo.MemberVO">
-		UPDATE(
-		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
-		FROM
-		photographer p, member m
-		WHERE m.id = p.ptg_id
-		)
+		UPDATE Member
 		<set>
 			<if test="name != null and !name.equals('')">NAME = #{name},</if>
 			<if test="pwd != null and !pwd.equals('')">PWD = #{pwd},</if>
-			<if test="email != null and !eamil.equals('')">Email = #{email},</if>
+			<if test="email != null and !email.equals('')">Email = #{email},</if>
 			<if test="tel != null and ! tel.equals('')">TEL = #{tel},</if>
 			<if test="birthDate != null and !birthDate.equals('')">birth_date = #{birthDate}</if>
+		</set>
+		WHERE id=#{ptgId}
+	</update>
+	<update id="updateWorkday" parameterType="co.yedam.silhyun.member.vo.PhotographerVO">
+	UPDATE PHOTOGRAPHER
+		<set>
 			<if test="workDay != null">WORK_DAY = #{workDay}</if>
 		</set>
-		WHERE PTG_ID = 'user1'
+	WHERE PTG_ID=#{ptgId}
 	</update>
 
 	<!-- update ( select m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day 
