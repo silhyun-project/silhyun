@@ -27,5 +27,5 @@ public interface PortfolioService {
 	
 	//포트폴리오 인서트
 	
-	 void insertPortfolio(List<MultipartFile> files, List<String> tagCntns,String upSta, String cntn, String ptgId);
+	 void insertPortfolio(List<MultipartFile> files,PortfolioVO portfolioVO);
 }

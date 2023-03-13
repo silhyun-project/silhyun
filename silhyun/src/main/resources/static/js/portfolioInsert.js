@@ -129,19 +129,25 @@ $(function() {
 		formData.append('cntn', cntn);
 		formData.append('upSta', upSta);
 		//태그
-		var allTag = [];
+
 		var tagCntns = [];
 		$.ajax({
 			url: "/silhyun/tagList",
 			type: "GET",
 			success: function(response) {
-				allTag.push(response);
-				var selectTag = cntn.match(/#[^\s#]*/g);
-				tagCntns = selectTag.filter(tag => !allTag[0].includes(tag));
+
+				var selectTag = cntn.match(/#[^\s#]*/g).map(tag => ({ tagCntn: tag.slice(1) }));
+				var vsTags = selectTag
+					.map(item => item.tagCntn)
+					.filter(tag => !response.map(item => item.tagCntn).includes(tag));
+				var tagCntns = vsTags.map(tag => ({ tagCntn: tag }));
+
+
 				console.log(selectTag);
+				console.log(tagCntns)
 
 
-				formData.append('tagCntns', tagCntns);
+				formData.append('tagCntns', JSON.stringify(tagCntns));
 				$.ajax({
 					type: "POST",
 					url: "/silhyun/addPortfolio",
@@ -149,11 +155,11 @@ $(function() {
 					contentType: false,
 					processData: false,
 					success: function() {
-						console.log("Portfolio added successfully.");
+						console.log("Portfolio 등록완료");
 
 					},
 					error: function(xhr, status, error) {
-						console.log("Error adding portfolio:", error);
+						console.log("Error :" + error);
 					}
 				});
 				alert('포트폴리오가 등록되었습니다.');

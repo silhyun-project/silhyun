@@ -106,7 +106,7 @@
 
 	<insert id="insertPortfolio"
 		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
-		<selectKey keyProperty="portNum" order="BEFORE">
+		<selectKey keyProperty="portNum" order="BEFORE" resultType="String">
 			SELECT
 			NVL(MAX(TO_NUMBER(port_num)), 0) + 1
 			AS port_num
@@ -117,7 +117,7 @@
 	</insert>
 
 	<insert id="insertPhoto">
-		<selectKey keyProperty="phoNum" order="BEFORE">
+		<selectKey keyProperty="phoNum" order="BEFORE" resultType="String" >
 			SELECT NVL(MAX(TO_NUMBER(pho_num)), 0) + 1
 			AS pho_num
 			FROM photo

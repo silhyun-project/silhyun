@@ -63,7 +63,11 @@ public class PhotoServiceImpl implements PhotoService {
 				PhotoVO vo = new PhotoVO();
 				vo.setCtgr(ctgr);
 				vo.setCtgrNum(ctgrNum);
-				vo.setPhoRt("/saveImg/review/" + fileName);
+				if(vo.getCtgr().equals("R")) {
+					vo.setPhoRt("/saveImg/review/" + fileName);
+				}else if(vo.getCtgr().equals("R")){
+					vo.setPhoRt("/saveImg/portfolio/" + fileName);
+				}
 				
 				n = map.photoInsert(vo);
 			}

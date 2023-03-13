@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.map.PortfolioMapper;
@@ -59,20 +63,15 @@ public class PortfolioServiceImpl implements PortfolioService {
 	}
 
 	@Override
-	public void insertPortfolio(List<MultipartFile> files, List<String> tagCntns, String upSta, String cntn,
-			String ptgId) {
+	public void insertPortfolio(List<MultipartFile> files,PortfolioVO portfolioVO) {
 		// portfolio 테이블에 데이터 삽입
-		PortfolioVO portfolioVO = new PortfolioVO();
-		portfolioVO.setCntn(cntn);
-		portfolioVO.setPtgId(ptgId);
-		portfolioVO.setUpSta(upSta);
 
 		portfolioMapper.insertPortfolio(portfolioVO);
 
 		// 삽입된 데이터의 pk를 이용하여 photo 테이블에 데이터 삽입
 		for (MultipartFile file : files) {
 			String filename = file.getOriginalFilename();
-			String filepath = "C:/saveImg/portfolio" + filename;
+			String filepath = "c:/saveImg/portfolio" + filename;
 			try {
 				file.transferTo(new File(filepath));
 			} catch (IllegalStateException e) {
@@ -85,17 +84,23 @@ public class PortfolioServiceImpl implements PortfolioService {
 			PhotoVO photoVO = new PhotoVO();
 
 			photoVO.setPhoRt(filepath);
+			photoVO.setCtgrNum(portfolioVO.getPortNum());
+			
+			System.out.println(photoVO);
 			portfolioMapper.insertPhoto(photoVO);
 		}
 
 		// tag 테이블에 데이터 삽입
-		
-		for (String tagCntn : tagCntns) {
-			TagVO tagVO = new TagVO();
-			tagVO.setTagCntn(tagCntn);
-			portfolioMapper.insertTag(tagVO);
-
-		}
+		ObjectMapper objectMapper = new ObjectMapper();
+		TagVO[] tagCntns = null;
+		try {
+			tagCntns = objectMapper.readValue(portfolioVO.getTagCntn(), TagVO[].class);
+			for (TagVO tagVO : tagCntns) {
+				portfolioMapper.insertTag(tagVO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 		
 	}
 
 }

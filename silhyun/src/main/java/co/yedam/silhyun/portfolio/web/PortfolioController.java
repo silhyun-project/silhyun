@@ -74,12 +74,9 @@ public class PortfolioController {
 	//insert
 	@PostMapping("/silhyun/addPortfolio")
 	public ResponseEntity<?> insertPortfolio(@RequestParam("files") List<MultipartFile> files,
-	                                          @RequestParam("ptgId") String ptgId,
-	                                          @RequestParam("cntn") String cntn,
-	                                          @RequestParam("upSta") String upSta,
-	                                          @RequestParam("tagCntns") List<String> tagCntns) {
+											PortfolioVO portfolioVO) {
 		 try {
-		        portfolioService.insertPortfolio(files, tagCntns, upSta, cntn, ptgId);
+		        portfolioService.insertPortfolio(files, portfolioVO);
 		        return ResponseEntity.ok().build();
 		    } catch (Exception e) {
 		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
