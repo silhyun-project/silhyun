@@ -4,11 +4,13 @@
 
 	<select id="getAoQstList" resultType="co.yedam.silhyun.qst.vo.QstVO">
 		select q.qst_num, q.ctgr, q.ctgr_num, q.ttl, q.id, q.cntn as cntn, q.qst_date,
-		q.secret_sta , c.cntn as ansCnt, case when  q.rply_sta = 'Y' then '답변완료'
+		q.secret_sta , c.cntn as ansCntn, case when  q.rply_sta = 'Y' then '답변완료'
                                               else '답변대기'
                                               end as rply_sta                                                                                                                                        
-		from qst q, commment c, member m        
-		where q.ctgr = c.ctgr and q.ctgr_num = c.id and q.id = m.id
+		from qst q, commment c     
+		where q.Qst_num = c.ctgr_num
+		and q.ctgr = 'A'
+		order by qst_num desc
 	</select>
 
 	<insert id="aoQstInsert">

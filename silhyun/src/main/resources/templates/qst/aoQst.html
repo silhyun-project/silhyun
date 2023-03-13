@@ -10,14 +10,17 @@
 		/* 스타일링 */
 		div.minimalistBlack {
 			border: 3px solid #000000;
-			width: 50%;
-			text-align: left;
+			width: 70%;
 			border-collapse: collapse;
+			text-align: left;
+		}
+		
+		#attl {
+			padding-left: 15px;
 		}
 
 		.divTable.minimalistBlack .divTableCell,
 		.divTable.minimalistBlack .divTableHead {
-			border: 1px solid #000000;
 			padding: 5px 4px;
 		}
 
@@ -37,7 +40,6 @@
 			font-size: 15px;
 			font-weight: bold;
 			color: #000000;
-			text-align: left;
 		}
 
 		.minimalistBlack .tableFootStyle {
@@ -55,11 +57,13 @@
 
 		.divTableHeading {
 			display: table-header-group;
+			text-align: center;
 		}
 
 		.divTableCell,
 		.divTableHead {
 			display: table-cell;
+			text-align: center;
 		}
 
 		.divTableHeading {
@@ -109,6 +113,7 @@
 			text-decoration: none;
 			cursor: pointer;
 		}
+		
 	</style>
 
 </head>
@@ -119,10 +124,10 @@
 			<div class="divTableHeading">
 				<div class="divTableRow">
 					<div class="divTableHead" style="width: 250px;">제목</div>
-					<div class="divTableHead">작성자</div>
+					<div class="divTableHead" style="width: 60px;">작성자</div>
 					<div class="divTableHead">작성날짜</div>
 					<div class="divTableHead" style="width: 70px;">답변상태</div>
-					<div class="divTableHead" style="width: 100px;"></div>
+					<div class="divTableHead" style="width: 150px;"></div>
 				</div>
 			</div>
 			<div class="divTableBody qstArea"></div>
@@ -207,7 +212,7 @@
 				let qstNum = $("#qstNum").val(); //문의글번호
 				let ctgr = 'A' //카테고리
 				let ctgrNum = 'user1' //카테고리
-				let ttl = $("#ttl").val(); // 제목
+				let ttl = $("#ttlBtn").val(); // 제목
 				let qstId = $("#id").val(); //문의작성자아이디
 				let qstCntn = $("#qstCntn").val(); //문의내용
 				let rplySta = 'N' // 답변유무상태
@@ -265,10 +270,12 @@
 						let str = '';
 						$(result).each(function (q, aqst) {
 							str += '<div class="divTableRow">'
-							str += '<a href="#" id="ttl">' + aqst.ttl + '</a>'
+							str += '<div class="divTableHead" style="width: 250px; display:inline-block;">'
+							str += '<a href="#" id="ttlBtn">' + aqst.ttl + '</a>'
+							str += '</div>'
 							str += '<div class="qstCntn" style="display: none;">'
 							str += '<p>' + aqst.cntn + '<p>'
-						if(aqst.ansCntn != null && aqst.ansCntn != ''){
+						if(aqst.ansCntn != null){
 							str += '<div class="div-title-wrap">'
 							str += '<h5 class="div-title">"Answer"</h5>'
 							str += '<div class="div-sep-wrap">'
@@ -284,6 +291,7 @@
 							str += '<div class="divTableCell" id="qstDate">' + aqst.qstDate + '</div>'
 							str += '<div class="divTableCell" id="rplySta">' + aqst.rplySta + '</div>'
 							str += '<div class="divTableCell">'
+							str += '<button class="ansBtn">답변</button>'
 							str += '<button class="qstModi">수정</button>'
 							str += '<button class="qstDel">삭제</button>'
 							str += '</div>'
@@ -297,6 +305,11 @@
 					}
 				})
 			}
+
+			$(".qstArea").on('click','#ttlBtn',function() {
+				var qstContainer = $(this).closest('.divTableRow');
+				qstContainer.find('.qstCntn').toggle();
+			})
 		</script>
 </body>
 
