@@ -40,9 +40,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int getTotalCount(Criteria cri) {
+	public int getTotalCount(String ctgr, String ctgrNum) {
 		// TODO Auto-generated method stub
-		return mapper.getTotalCount(cri);
+		return mapper.getTotalCount(ctgr,ctgrNum);
 	}
 
 	//나중에 합칠꺼
