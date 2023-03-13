@@ -15,8 +15,9 @@ public interface MypageAoMapper {
 	List<ReserVO> getReserList();//예약전체조회
 	List<ClassesVO> classList();//클래스 관리 정보 
 	
-	List<MemberVO> getPhotoinfo();//포토그래퍼 조회
+	List<MemberVO> getPhotoinfo(String ptgId); //포토그래퍼 조회
 	MemberVO ptgSelect(MemberVO vo);//회원+작가 한명 조회
+	List<PhotographerVO> getPtg(String ptgId);//작가에서만 한명
 	
 	int ptgInfoUpdate(PhotographerVO vo); //포토그래퍼 정보 업데이트
 	
@@ -32,5 +33,7 @@ public interface MypageAoMapper {
 	int insertReserTime(ReserTimeVO vo);	//작가 예약시간 정보 삽입
 	int insertReserTime(List<ReserTimeVO> reserTimeList );
 	int deleteReserTime(String id);
+	
+	List<PhotographerVO> getResTime(String ptgId,String redate);//작가예약옵션 호출
 	
 }

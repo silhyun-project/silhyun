@@ -8,23 +8,28 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.MemberService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
+import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.mypage.service.MypageAoService;
 
@@ -39,56 +44,77 @@ public class mypageAoController {
 	@Autowired
 	private MemberService memberService;
 
-	@GetMapping("/photo/mypageAo")
-	public String mypageAo(Model model) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+	@RequestMapping("/photo/mypageAo/{ptgId}")
+	public String mypageAo(Model model,PhotographerVO pvo, @PathVariable String ptgId, HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+		}
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 		return "mypageAo/mypageAo";
 	}
 
-	@RequestMapping("/photo/modPfAo")
-	public String modpfAo(Model model) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+	@RequestMapping("/photo/modPfAo/{ptgId}")
+	public String modpfAo(Model model,@PathVariable String ptgId) {
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 
 		return "mypageAo/modPfAo";
 	}
 
-	@RequestMapping("/photo/resManage")
-	public String resManage(Model model) {
+	@RequestMapping("/photo/resManage/{ptgId}")
+	public String resManage(Model model, @PathVariable String ptgId, HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+		}
 		model.addAttribute("resList", mypageAoService.getReserList());
 
 		return "mypageAo/resManage";
 	}
 
 	@GetMapping("/photo/classManage")
-	public String classManage(Model model) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+	public String classManage(Model model,@PathVariable String ptgId) {
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 		model.addAttribute("clManage", mypageAoService.classList());
 
 		return "mypageAo/classManage";
 	}
 
 	@GetMapping("/photo/mypageAoAsk")
-	public String mypageAoAsk(Model model) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+	public String mypageAoAsk(Model model,@PathVariable String ptgId) {
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 
 		return "mypageAo/mypageAoAsk";
 	}
 
-	@GetMapping("/photo/resCalendarAo")
-	public String resCalendarAo(Model model) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+	@GetMapping("/photo/resCalendarAo/{ptgId}")
+	public String resCalendarAo(Model model,@PathVariable String ptgId) {
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+		
 		return "mypageAo/resCalendarAo";
 	}
+	
+	/*
+	 * @RequestMapping("/ajaxResTime/{ptgId}/{redate}") //작가가 등록한 시간 아작스 호출
+	 * 
+	 * @ResponseBody public List<PhotographerVO> ajaxResTime(Model
+	 * model,@PathVariable String redate,@PathVariable String ptgId){
+	 * System.out.println("호출 되었니"); System.out.println("redate====="+redate);
+	 * return mypageAoService.getResTime(ptgId,redate); }
+	 */
+	
 
 	@GetMapping("/photo/mypageStatsAo")
-	public String mypageStatsAo(Model model) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+	public String mypageStatsAo(Model model,@PathVariable String ptgId) {
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 		return "mypageAo/mypageStatsAo";
 	}
 
 	@GetMapping("/photo/reportFormAo")
-	public String reportAo(Model model) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo());
+	public String reportAo(Model model,@PathVariable String ptgId) {
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
 		return "mypageAo/reportFormAo";
 	}
 
