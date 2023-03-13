@@ -231,13 +231,13 @@ public class mypageAoController {
 				e.printStackTrace();
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
-			vo.setEventNum(vo.getPtgId() + key);
+			vo.setEventNum(vo.getId() + key);
 			
 			mypageAoService.applyEvent(vo); // db에 담음
 			// System.out.println("넘어오니?"+vo.getEventNum());
 			cvo.setEventNum(vo.getEventNum()); // vo에 담긴 eventNum을 들고오기
 			cvo.setCpnNum(vo.getEventNum()); // eventNum이랑 값 같게
-			cvo.setCtgrNum(vo.getPtgId());
+			cvo.setCtgrNum(vo.getId());
 			cvo.setCpnCd("C1");	//개인인지 공통인지 작가는 c1(개인)만
 			mypageAoService.applyECoupon(cvo);
 
