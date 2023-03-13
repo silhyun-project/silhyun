@@ -287,27 +287,27 @@
             <!-- End Product Tabs -->
         </main>
         <!-- End Main -->
-		<script type="text/javascript">
-	     function goReivew(){
-	    	 ajaxReiew({pageNum: 1, amount: 5})
-	     }
+<!-- 		<script type="text/javascript"> -->
+// 	     function goReivew(){
+// 	    	 ajaxReiew({pageNum: 1, amount: 5})
+// 	     }
 		
-		ajaxReiew({pageNum: 1, amount: 5})
+// 		ajaxReiew({pageNum: 1, amount: 5})
 		
-		function ajaxReiew(data){
-			$.ajax({
-				url: '/ajaxCall',
-				data: data,
-				success: function(res){
-					console.log(res)
-					$('#reviews').empty().append(res)
-				},
-				error: function(err){
-					console.log(err)
-				}
-			})
-		}
-		</script>
+// 		function ajaxReiew(data){
+// 			$.ajax({
+// 				url: '/ajaxCall',
+// 				data: data,
+// 				success: function(res){
+// 					console.log(res)
+// 					$('#reviews').empty().append(res)
+// 				},
+// 				error: function(err){
+// 					console.log(err)
+// 				}
+// 			})
+// 		}
+<!-- 		</script> -->
     </div>
     <!-- 
     ========================
