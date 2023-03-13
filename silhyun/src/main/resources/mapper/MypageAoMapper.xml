@@ -53,7 +53,7 @@
 		<!-- <selectKey keyProperty="eventNum" resultType="String"> select dbms_random.string('A', 
 			5) as eventNum from dual </selectKey> -->
 		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, bnph_sta,region_cd)
-		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph},#{bnphSta},
+		VALUES (#{eventNum}, #{id}, #{startDate}, #{cntn}, #{bnph},#{bnphSta},
 		#{regionCd})
 	</insert>
 	<insert id="applyECoupon"
@@ -121,7 +121,7 @@
 			<if test="email != null and !eamil.equals('')">Email = #{email},</if>
 			<if test="tel != null and ! tel.equals('')">TEL = #{tel},</if>
 			<if test="birthDate != null and !birthDate.equals('')">birth_date = #{birthDate}</if>
-			<!-- <if test="workDay != null">WORK_DAY = #{workDay}</if> -->
+			<if test="workDay != null">WORK_DAY = #{workDay}</if>
 		</set>
 		WHERE PTG_ID = 'user1'
 	</update>

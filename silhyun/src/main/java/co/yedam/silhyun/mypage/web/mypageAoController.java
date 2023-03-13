@@ -27,6 +27,7 @@ import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.MemberService;
+import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -43,6 +44,7 @@ public class mypageAoController {
 	private MypageAoService mypageAoService;
 	@Autowired
 	private MemberService memberService;
+	
 
 	@RequestMapping("/photo/mypageAo/{ptgId}")
 	public String mypageAo(Model model,PhotographerVO pvo, @PathVariable String ptgId, HttpSession httpSession) {
@@ -121,8 +123,8 @@ public class mypageAoController {
 	// 작가 정보수정
 	@PostMapping("/updateMyPg")
 	public String updateMyPg() {
-
-		return "";
+		mypageAoService.ptgInfoUpdate();
+		return "redirect:mypageAo/modPfAo";
 	}
 
 	// 작가 예약 시간 정보 수정
@@ -200,7 +202,6 @@ public class mypageAoController {
 
 		if (file != null && !file.isEmpty()) {
 			String saveImgPath = saveimg + "banner";
-
 			String fileName = UUID.randomUUID().toString(); // UUID생성
 			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
 			File uploadFile = new File(saveImgPath, fileName);
@@ -222,7 +223,8 @@ public class mypageAoController {
 					break;
 				}
 			}
-			// System.out.println(key+"========================");
+//			 System.out.println(key+"========================");
+//			 System.out.println(uploadFile+"0000000000000");
 			try {
 				file.transferTo(uploadFile); // 파일저장
 			} catch (IllegalStateException e) {
@@ -231,13 +233,15 @@ public class mypageAoController {
 				e.printStackTrace();
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
-			vo.setEventNum(vo.getPtgId() + key);
-			
+			vo.setEventNum(vo.getId() + key);
+		//	System.out.println("넘어좀 와라"+vo.getEventNum());
 			mypageAoService.applyEvent(vo); // db에 담음
-			// System.out.println("넘어오니?"+vo.getEventNum());
+//			 System.out.println("넘어오니?"+vo.getEventNum());
+//			 System.out.println("파일 오나?"+vo.getBnph());
+//			 System.out.println("아ㅣ이디는?"+vo.getId());
 			cvo.setEventNum(vo.getEventNum()); // vo에 담긴 eventNum을 들고오기
 			cvo.setCpnNum(vo.getEventNum()); // eventNum이랑 값 같게
-			cvo.setCtgrNum(vo.getPtgId());
+			cvo.setCtgrNum(vo.getId());
 			cvo.setCpnCd("C1");	//개인인지 공통인지 작가는 c1(개인)만
 			mypageAoService.applyECoupon(cvo);
 

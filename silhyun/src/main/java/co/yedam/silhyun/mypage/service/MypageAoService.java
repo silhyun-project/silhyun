@@ -19,7 +19,7 @@ public interface MypageAoService {
 	MemberVO ptgSelect(MemberVO vo);//회원+작가 한명 조회
 	List<PhotographerVO> getPtg(String ptgId);//작가에서만 한명
 	
-	int ptgInfoUpdate(PhotographerVO vo);	//정보 업데이트
+	int ptgInfoUpdate();	//정보 업데이트
 	
 	int applyEvent(EventVO vo);	//이벤트 신청
 	int applyECoupon(CouponVO vo);	//이벤트 신청 쿠폰부분

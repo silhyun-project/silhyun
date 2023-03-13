@@ -34,9 +34,9 @@ public class MypageAoServiceImpl implements MypageAoService {
 	}
 
 	@Override
-	public int ptgInfoUpdate(PhotographerVO vo) {
+	public int ptgInfoUpdate() {
 	
-		return mypageAoMapper.ptgInfoUpdate(vo);
+		return mypageAoMapper.ptgInfoUpdate();
 	}
 	@Override
 	public int applyEvent(EventVO vo) {
