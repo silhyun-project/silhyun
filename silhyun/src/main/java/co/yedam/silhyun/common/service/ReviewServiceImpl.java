@@ -6,23 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.common.map.ReviewMapper;
+import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.ReviewVO;
+import co.yedam.silhyun.member.vo.PhotographerVO;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 	@Autowired ReviewMapper mapper;
 
 	@Override
-	public List<ReviewVO> reviewList() {
+	public List<ReviewVO> reviewList(Criteria cri, String ctgr, String ctgrNum) {
 		
-		return mapper.reviewList();
-	}
-
-	@Override
-	public ReviewVO reviewSelect(ReviewVO vo) {
-		
-		reviewHitUpdate(vo.getRevNum());
-		return mapper.reviewSelect(vo);
+		return mapper.reviewList(cri, ctgr, ctgrNum);
 	}
 
 	@Override
@@ -45,9 +40,22 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int reviewHitUpdate(String num) {
+	public int getTotalCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCount(cri);
+	}
+
+	//나중에 합칠꺼
+	@Override
+	public PhotographerVO ptgStarAvg(String ctgr, String ctgrNum) {
+	
+		return mapper.ptgStarAvg(ctgr, ctgrNum);
+	}
+
+	@Override
+	public ReviewVO reivewSelect(ReviewVO vo) {
 		
-		return mapper.reviewHitUpdate(num);
+		return mapper.reivewSelect(vo);
 	}
 
 }
