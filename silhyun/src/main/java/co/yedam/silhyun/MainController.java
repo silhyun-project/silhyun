@@ -2,21 +2,44 @@ package co.yedam.silhyun;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import co.yedam.silhyun.common.service.MainService;
+import co.yedam.silhyun.common.vo.ReviewVO;
+import co.yedam.silhyun.event.vo.EventVO;
+import co.yedam.silhyun.member.vo.FieldVO;
+import co.yedam.silhyun.member.vo.PhotographerVO;
+import co.yedam.silhyun.portfolio.vo.PortfolioVO;
 
 @Controller
 public class MainController {
+	@Autowired MainService mainService;
 
 	@GetMapping("/")
-	public String layoutTest(Model model, HttpSession httpSession) {
+	public String layoutTest(Model model, HttpSession httpSession,PhotographerVO vo, PortfolioVO pvo,EventVO evo,ReviewVO rvo,FieldVO fvo) {
 		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
 		if(user != null) {
 			model.addAttribute("id", user.getId());
 			model.addAttribute("role", user.getRole());			
 		}
+		
+		model.addAttribute("hotList",mainService.getHotPtg(vo));  //인기 작가
+		model.addAttribute("newList",mainService.getNewPtg(vo));  //최신 작가
+		model.addAttribute("portList",mainService.getPtgPortfolioList(pvo));// 작가 포트폴리오 랜덤 출력
+		model.addAttribute("eventList",mainService.getEventList(evo)); //이벤트 배너 가진 출력
+		model.addAttribute("revList",mainService.getReview(rvo)); //리뷰 최신순 
+		model.addAttribute("fldList",mainService.getFeildList(fvo)); //태그
 		return "home/home";
 	}
 
+	@RequestMapping("/shilhyun/ptgTag/{fdCd}")
+	public String ptgTag(Model model,@PathVariable String fdCd,FieldVO fvo) {
+		model.addAttribute("tagPtgList",mainService.getTagPtgList(fdCd));
+		return "home/ptgTag";
+	}
 }

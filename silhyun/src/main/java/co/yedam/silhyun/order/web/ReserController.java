@@ -171,7 +171,7 @@ public class ReserController {
 		return rvo;
 	}
 	
-	@RequestMapping("/pay/orderEnd/{id}")  //결제 다 하면 뜨는 창
+	@RequestMapping("/pay/orderEnd/{id}")  //결제 다 하면 주문 내역서 창
 	public String orderEnd(Model model,@PathVariable String id,ReserVO vo) {
 		model.addAttribute("resInfo",paymentService.getPaymentInfo(id));
 		return "order/orderEnd";

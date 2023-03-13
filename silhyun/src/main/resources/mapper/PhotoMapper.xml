@@ -31,7 +31,7 @@
 		FROM PHOTO
 	</selectKey>
 	INSERT INTO PHOTO
-	VALUES(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt},'null')
+	VALUES(#{phoNum}, #{ctgr}, #{ctgrNum}, #{phoRt},null)
 </insert>
 
 </mapper>

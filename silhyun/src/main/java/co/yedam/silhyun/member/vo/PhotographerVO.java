@@ -76,6 +76,8 @@ public class PhotographerVO{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date redate;
-	private String rest; 
+	private String rest;
+	private String fldName;
+	private String fdCd;
 
 }

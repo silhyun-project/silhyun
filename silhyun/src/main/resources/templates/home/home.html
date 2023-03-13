@@ -1,57 +1,68 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
 <head>
-    <!-- metas -->
-    <meta charset="utf-8">
-    <meta name="author" content="pxdraft" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
-    <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
-    <!-- title -->
-    <title>ShopApp - eCommerce Bootstrap 5 Template</title>
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <!-- CSS Template -->
-    <!-- <link href="/css/theme.css" rel="stylesheet"> -->
-    <style>
-        .btn.btn-sm.active {
-            border-radius: 20px;
-            width: 120px;
-        }
+<!-- metas -->
+<meta charset="utf-8">
+<meta name="author" content="pxdraft" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
+<meta name="description"
+	content="ShopApp - eCommerce Bootstrap 5 Template" />
+<!-- title -->
+<title>ShopApp - eCommerce Bootstrap 5 Template</title>
+<!-- Favicon -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<!-- CSS Template -->
+<!-- <link href="/css/theme.css" rel="stylesheet"> -->
+<style>
+.btn.btn-sm.active {
+	border-radius: 20px;
+	width: 140px;
+}
 
-        .shop-top-bar .layout-change .btn {
-            border-radius: 20px;
-            width: 120px;
-            height: 55px;
-        }
-    </style>
+.shop-top-bar .layout-change .btn {
+	border-radius: 20px;
+	width: 140px;
+	height: 55px;
+}
+
+.img-fluid {
+	width: 100;
+	height: 100;
+}
+</style>
 </head>
 
 <body>
 
-<div layout:fragment="content">
-로그인 한 사람 : [[${id}]]
-   <!-- Skippy & Prload -->
-        <!-- skippy -->
+	<div layout:fragment="content">
+		로그인 한 사람 : [[${id}]]<br>
 
-        <!-- End skippy -->
-        <!-- Preload -->
-        <!-- <div id="loading" class="loading-preloader"> -->
-        <!--     <div class="spinner-border text-primary" role="status"> -->
-        <!--         <span class="visually-hidden">Loading...</span> -->
-        <!--     </div> -->
-        <!-- </div> -->
-        <!-- End Preload -->
-        <!-- Edn Skippy & Prload -->
-        <!-- Size Chart  -->
+		<!-- Skippy & Prload -->
+		<!-- skippy -->
+
+		<!-- End skippy -->
+		<!-- Preload -->
+		<!-- <div id="loading" class="loading-preloader"> -->
+		<!--     <div class="spinner-border text-primary" role="status"> -->
+		<!--         <span class="visually-hidden">Loading...</span> -->
+		<!--     </div> -->
+		<!-- </div> -->
+		<!-- End Preload -->
+		<!-- Edn Skippy & Prload -->
+		<!-- Size Chart  -->
 
 
-        <!-- Main -->
-        <main>
-            <!-- Home Slider -->
-            <div class="swiper swiper-container" data-swiper-options='{
+		<!-- Main -->
+		<main>
+			<!-- Home Slider -->
+			<div class="swiper swiper-container"
+				data-swiper-options='{
                   "slidesPerView": 1,
                   "spaceBetween": 0,
                   "pagination": {
@@ -63,353 +74,353 @@
                     "prevEl": ".swiper-prev-01"
                   },
                   "autoplay": {
-                    "delay": 5000,
+                    "delay": 2000,
                     "disableOnInteraction": false
                   }
                 }'>
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="bg-no-repeat bg-cover bg-50 px-8"
-                            style="background-image: url(/img/grocery/1600x900.jpg);">
-                            <div class="container">
-                                <div class="row min-vh-65 align-items-center py-6">
-                                    <div class="col-lg-6 pe-xl-12">
-                                        <h6 class="fw-500 mb-3 letter-spacing-2">TRENDING NOW</h6>
-                                        <h1 class="display-4 fw-600">Eat clean & green.<br />Eat Organic.</h1>
-                                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                            eiusmod tempor aliqua.</p>
-                                        <div class="pt-3">
-                                            <a class="btn btn-primary" href="#">Discover More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="bg-no-repeat bg-cover bg-50 px-8"
-                            style="background-image: url(/img/grocery/1600x900.jpg);">
-                            <div class="container">
-                                <div class="row min-vh-65 align-items-center py-6">
-                                    <div class="col-lg-6 pe-xl-12">
-                                        <h6 class="fw-500 mb-3 letter-spacing-2">TRENDING NOW</h6>
-                                        <h1 class="display-4 fw-600">Eat clean & green.<br />Eat Organic.</h1>
-                                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                            eiusmod tempor aliqua.</p>
-                                        <div class="pt-3">
-                                            <a class="btn btn-primary" href="#">Discover More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-arrow-style-01 swiper-next swiper-next-01"><i class="bi bi-chevron-right"></i> </div>
-                <div class="swiper-arrow-style-01 swiper-prev swiper-prev-01"><i class="bi bi-chevron-left"></i></div>
-                <div class="swiper-pagination swiper-pagination-white"></div>
-            </div>
-            <!-- End Home Slider -->
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="event : ${eventList}">
+						<div class="bg-no-repeat bg-cover bg-50 px-8"
+							th:style="'background-image: url(' + ${event.bnph} + ')'">
+							<div class="container">
+								<div class="row min-vh-65 align-items-center py-6">
+<!-- 									<div class="col-lg-6 pe-xl-12"> -->
+<!-- 										<h6 class="fw-500 mb-3 letter-spacing-2">TRENDING NOW</h6> -->
+<!-- 										<h1 class="display-4 fw-600"> -->
+<!-- 											Eat clean & green.<br />Eat Organic. -->
+<!-- 										</h1> -->
+<!-- 										<p class="lead">Lorem ipsum dolor sit amet, consectetur -->
+<!-- 											adipisicing elit, sed do eiusmod tempor aliqua.</p> -->
+<!-- 										<div class="pt-3"> -->
+<!-- 											<a class="btn btn-primary" href="#">Discover More</a> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-arrow-style-01 swiper-next swiper-next-01">
+					<i class="bi bi-chevron-right"></i>
+				</div>
+				<div class="swiper-arrow-style-01 swiper-prev swiper-prev-01">
+					<i class="bi bi-chevron-left"></i>
+				</div>
+				<div class="swiper-pagination swiper-pagination-white"></div>
+			</div>
+			<!-- End Home Slider -->
 
-            <!-- Deal section -->
-            <section class="section">
-                <div class="container">
-                    <div class="shop-top-bar d-flex pb-3">
-                        <div class="layout-change">
-                            <a class="btn btn-sm" href="#" align="center"> <i class="">#태그</i></a>
-                            <a class="btn btn-sm" href="#" align="center"> <i class="">#얍</i></a>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <h5 class="mb-4">실시간 리뷰</h5>
-                                <div class="product-card-4">
-                                    <div class="product-card-image">
-                                        <a href="#">
-                                            <img src="/img/grocery/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <h6 class="product-title">
-                                            <a href="#" tabindex="0">작성자</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            <div class="rating-star text">
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star"></i>
-                                            </div>
-                                            <span class="text-primary">리뷰내용</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-card-4">
-                                    <div class="product-card-image">
-                                        <a href="#">
-                                            <img src="/img/grocery/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <h6 class="product-title">
-                                            <a href="#" tabindex="0">작성자</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            <div class="rating-star text">
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star"></i>
-                                            </div>
-                                            <span class="text-primary">리뷰내용</span>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="pt-3">
-                                    <a class="btn btn-primary" href="#">실시간 리뷰 더 보기</a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <h5 class="mb-4">Upcoming</h5>
-                                <div class="product-card-4">
-                                    <div class="product-card-image">
-                                        <a href="#">
-                                            <img src="/img/grocery/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <h6 class="product-title">
-                                            <a href="#" tabindex="0">Fine-knit sweater</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            <span class="text-primary">$28.<small>50</small></span>
-                                            <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                        </div>
-                                        <div class="produc-card-cart">
-                                            <a class="link-effect" href="#">Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-card-4">
-                                    <div class="product-card-image">
-                                        <a href="#">
-                                            <img src="/img/grocery/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <h6 class="product-title">
-                                            <a href="#" tabindex="0">Fine-knit sweater</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            <span class="text-primary">$28.<small>50</small></span>
-                                            <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                        </div>
-                                        <div class="produc-card-cart">
-                                            <a class="link-effect" href="#">Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-4">
-                                <h5 class="mb-4">New Arrivals</h5>
-                                <div class="product-card-4">
-                                    <div class="product-card-image">
-                                        <a href="#">
-                                            <img src="/img/grocery/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <h6 class="product-title">
-                                            <a href="#" tabindex="0">Fine-knit sweater</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            <span class="text-primary">$28.<small>50</small></span>
-                                            <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                        </div>
-                                        <div class="produc-card-cart">
-                                            <a class="link-effect" href="#">Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-card-4">
-                                    <div class="product-card-image">
-                                        <a href="#">
-                                            <img src="/img/grocery/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <h6 class="product-title">
-                                            <a href="#" tabindex="0">Fine-knit sweater</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            <span class="text-primary">$28.<small>50</small></span>
-                                            <del class="fs-sm text-muted">$38.<small>50</small></del>
-                                        </div>
-                                        <div class="produc-card-cart">
-                                            <a class="link-effect" href="#">Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-            </section>
-            <!-- End Deal section -->
-
-            <!-- Product section -->
-            <section class="section pt-0">
-                <div class="container">
-                    <div class="row justify-content-center section-heading">
-                        <div class="row justify-content-center section-heading">
-                            <div class="col-lg-6 text-center">
-                                <h2 class="h3 m-0 sm-title-01">핫 작가</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-3 g-lg-4">
-                        <!-- Product Box -->
-                        <div class="col-6 col-lg-3">
-                            <div class="product-card-1">
-                                <div class="product-card-image">
-                                    <div class="badge-ribbon">
-                                        <span class="badge bg-danger">HOT</span>
-                                    </div>
-
-                                    <div class="product-media">
-                                        <a href="#">
-                                            <img class="img-fluid" src="/img/purse/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                       
-                                    </div>
-                                </div>
-                           
-                            </div>
-                        </div>
-                        <!-- End Product Box -->
-                    </div>
-            </section>
-            <!-- End Product section -->
-                               <!-- Product section -->
-            <section class="section pt-0">
-                <div class="container">
-                    <div class="row justify-content-center section-heading">
-                        <div class="row justify-content-center section-heading">
-                            <div class="col-lg-6 text-center">
-                                <h2 class="h3 m-0 sm-title-01">응애 작가</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-3 g-lg-4">
-                        <!-- Product Box -->
-                        <div class="col-6 col-lg-3">
-                            <div class="product-card-1">
-                                <div class="product-card-image">
-                                    <div class="badge-ribbon">
-                                        <span class="badge bg-danger">NEW</span>
-                                    </div>
-
-                                    <div class="product-media">
-                                        <a href="#">
-                                            <img class="img-fluid" src="/img/purse/1000x1000.jpg" title="" alt="">
-                                        </a>
-                                       
-                                    </div>
-                                </div>
-                           
-                            </div>
-                        </div>
-                        <!-- End Product Box -->
-                    </div>
-            </section>
-            <!-- End Product section -->
-
-            <!-- Section -->
-            <section class="section pt-0">
-                <div class="container">
-                    <div class="row justify-content-center section-heading">
-                        <div class="col-lg-6 text-center">
-                            <p class="fs-6 m-0">Read Today’s News.</p>
-                            <h3 class="h2 mt-2 mb-0">둘러보기</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 my-3">
-                            <div class="hover-scale text-center">
-                                <div class="hover-scale-in position-relative">
-                                    <a href="#">
-                                        <img class="img-fluid" src="/img/grocery/1000x700.jpg" title="" alt="">
-                                    </a>
+			<!-- Deal section -->
+			<section class="section">
+				<div class="container">
+					<div class="shop-top-bar d-flex pb-3">
+						<div class="layout-change ms-2" th:each="field :${fldList}">
+							<a class="btn btn-sm" th:href="@{/shilhyun/ptgTag/{fdCd}(fdCd=${field.fdCd})}" align="center"> <i class="" th:text="'# '+${field.fldName}">#태그</i></a>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row g-4">
+							<div class="col-md-4">
+								<h5 class="mb-4">실시간 리뷰</h5>
+								<div class="product-card-4">
+									<div class="product-card-image" style="width: 10;height: 10">
+										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+											title="" alt="">
+										</a>
+									</div>
+									 <div class="d-flex p-3 align-items-center">
                                     
+                                  
                                 </div>
-                               
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="hover-scale text-center">
-                                <div class="hover-scale-in position-relative">
-                                    <a href="#">
-                                        <img class="img-fluid" src="/img/grocery/1000x700.jpg" title="" alt="">
-                                    </a>
-                                   
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="hover-scale text-center">
-                                <div class="hover-scale-in position-relative">
-                                    <a href="#">
-                                        <img class="img-fluid" src="/img/grocery/1000x700.jpg" title="" alt="">
-                                    </a>
-                                   
-                                </div>
-                                
-                            </div>
-                        </div>
-                        
-                        <div class="pt-3">
-                            <a class="btn btn-primary" href="#">실시간 리뷰 더 보기</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- End Section -->
-        </main>
-        <!-- End Main -->
+									<div class="product-card-info">
+										<div class="avatar avatar-lg rounded-circle">
+											<img src="/img/avatar/1000x1000.jpg" title="" alt="">
+										</div>
+                                        <h6 class="product-title">
+                                            <a href="#" tabindex="0">작성자</a>
+                                        </h6>
+										<div class="product-price">
+											<div class="rating-star text">
+												<i class="bi bi-star-fill active"></i> <i
+													class="bi bi-star-fill active"></i> <i
+													class="bi bi-star-fill active"></i> <i
+													class="bi bi-star-fill active"></i> <i class="bi bi-star"></i>
+											</div>
+											<span class="text-primary">리뷰내용</span>
 
-    </div>
-    <!-- 
+										</div>
+									</div>
+								</div>
+								<div class="product-card-4">
+									<div class="product-card-image">
+										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+											title="" alt="">
+										</a>
+									</div>
+									<div class="product-card-info">
+										<h6 class="product-title">
+											<a href="#" tabindex="0">작성자</a>
+										</h6>
+										<div class="product-price">
+											<div class="rating-star text">
+												<i class="bi bi-star-fill active"></i> <i
+													class="bi bi-star-fill active"></i> <i
+													class="bi bi-star-fill active"></i> <i
+													class="bi bi-star-fill active"></i> <i class="bi bi-star"></i>
+											</div>
+											<span class="text-primary">리뷰내용</span>
+
+										</div>
+
+									</div>
+								</div>
+
+								<div class="pt-3">
+									<a class="btn btn-primary" href="#">실시간 리뷰 더 보기</a>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<h5 class="mb-4">Upcoming</h5>
+								<div class="product-card-4">
+									<div class="product-card-image">
+										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+											title="" alt="">
+										</a>
+									</div>
+									<div class="product-card-info">
+										<h6 class="product-title">
+											<a href="#" tabindex="0">Fine-knit sweater</a>
+										</h6>
+										<div class="product-price">
+											<span class="text-primary">$28.<small>50</small></span>
+											<del class="fs-sm text-muted">
+												$38.<small>50</small>
+											</del>
+										</div>
+										<div class="produc-card-cart">
+											<a class="link-effect" href="#">Buy Now</a>
+										</div>
+									</div>
+								</div>
+								<div class="product-card-4">
+									<div class="product-card-image">
+										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+											title="" alt="">
+										</a>
+									</div>
+									<div class="product-card-info">
+										<h6 class="product-title">
+											<a href="#" tabindex="0">Fine-knit sweater</a>
+										</h6>
+										<div class="product-price">
+											<span class="text-primary">$28.<small>50</small></span>
+											<del class="fs-sm text-muted">
+												$38.<small>50</small>
+											</del>
+										</div>
+										<div class="produc-card-cart">
+											<a class="link-effect" href="#">Buy Now</a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-md-4">
+								<h5 class="mb-4">New Arrivals</h5>
+								<div class="product-card-4">
+									<div class="product-card-image">
+										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+											title="" alt="">
+										</a>
+									</div>
+									<div class="product-card-info">
+										<h6 class="product-title">
+											<a href="#" tabindex="0">Fine-knit sweater</a>
+										</h6>
+										<div class="product-price">
+											<span class="text-primary">$28.<small>50</small></span>
+											<del class="fs-sm text-muted">
+												$38.<small>50</small>
+											</del>
+										</div>
+										<div class="produc-card-cart">
+											<a class="link-effect" href="#">Buy Now</a>
+										</div>
+									</div>
+								</div>
+								<div class="product-card-4">
+									<div class="product-card-image">
+										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+											title="" alt="">
+										</a>
+									</div>
+									<div class="product-card-info">
+										<h6 class="product-title">
+											<a href="#" tabindex="0">Fine-knit sweater</a>
+										</h6>
+										<div class="product-price">
+											<span class="text-primary">$28.<small>50</small></span>
+											<del class="fs-sm text-muted">
+												$38.<small>50</small>
+											</del>
+										</div>
+										<div class="produc-card-cart">
+											<a class="link-effect" href="#">Buy Now</a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+			</section>
+			<!-- End Deal section -->
+
+			<!-- 핫작가 -->
+			<section class="section pt-0">
+				<div class="container">
+					<div class="row justify-content-center section-heading">
+						<div class="row justify-content-center section-heading">
+							<div class="col-lg-6 text-center">
+								<h2 class="h3 m-0 sm-title-01">핫 작가</h2>
+							</div>
+						</div>
+					</div>
+					<div class="row g-3 g-lg-4">
+						<!-- Product Box -->
+						<div class="col-6 col-lg-3" th:each="hot : ${hotList}">
+							<div class="product-card-1">
+								<div class="product-card-image">
+									<div class="badge-ribbon">
+										<span class="badge bg-danger">HOT</span>
+									</div>
+
+									<div class="product-media">
+										<a
+											th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId = ${hot.ptgId})}">
+											<img class="img-fluid" th:src="${hot.profile}" title=""
+											alt="사진 없음">
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="product-card-info" style="text-align: center;">
+								<!--작가 이름-->
+								<h6 class="product-title">
+									<a class="ptgtitle" href="#" th:text="${hot.name}"></a>
+								</h6>
+							</div>
+						</div>
+						<!-- End Product Box -->
+					</div>
+			</section>
+			<!-- End Product section -->
+			<!-- 응애작가-->
+			<section class="section pt-0">
+				<div class="container">
+					<div class="row justify-content-center section-heading">
+						<div class="row justify-content-center section-heading">
+							<div class="col-lg-6 text-center">
+								<h2 class="h3 m-0 sm-title-01">응애 작가</h2>
+							</div>
+						</div>
+					</div>
+					<div class="row g-3 g-lg-4">
+						<!-- Product Box -->
+						<div class="col-6 col-lg-3" th:each="list : ${newList}">
+							<div class="product-card-1">
+								<div class="product-card-image">
+									<div class="badge-ribbon">
+										<span class="badge bg-danger">NEW</span>
+									</div>
+
+									<div class="product-media">
+										<a
+											th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId = ${list.ptgId})}">
+											<img class="img-fluid" th:src="${list.profile}" title=""
+											alt="사진 없음">
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="product-card-info" style="text-align: center;">
+								<!--작가 이름-->
+								<h6 class="product-title">
+									<a class="ptgtitle" href="#" th:text="${list.name}"></a>
+								</h6>
+							</div>
+						</div>
+						<!-- End Product Box -->
+					</div>
+			</section>
+			<!-- End Product section -->
+
+			<!-- Section -->
+			<section class="section pt-0">
+				<div class="container">
+					<div class="row justify-content-center section-heading">
+						<div class="col-lg-6 text-center">
+							<p class="fs-6 m-0">Read Today’s News.</p>
+							<h3 class="h2 mt-2 mb-0">둘러보기</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 my-3" th:each="port : ${portList}">
+							<div class="hover-scale text-center">
+								<div class="hover-scale-in position-relative">
+									<a href="#"> <img class="img-fluid" th:src="${port.phoRt}"
+										title="" alt="사진 없음">
+									</a>
+
+								</div>
+								<div class="product-card-info" style="text-align: center;">
+									<!--작가 이름-->
+									<h6 class="product-title">
+										<a class="ptgtitle" href="#"></a>
+									</h6>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="pt-3">
+							<a class="btn btn-primary" href="/silhyun/around">포트폴리오 더 보기</a>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End Section -->
+		</main>
+		<!-- End Main -->
+
+	</div>
+	<!-- 
     ========================
        End Wrapper 
     ========================
     -->
-    <!-- script start -->
+	<!-- script start -->
 
-    <!--bootstrap-->
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- slick carousel -->
-    <script src="/vendor/swiper/swiper-bundle.min.js"></script>
-    <!-- magnific -->
-    <script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
-    <!-- isotope -->
-    <script src="/vendor/isotope/isotope.pkgd.min.js"></script>
-    <!-- count-down -->
-    <script src="/vendor/count-down/jquery.countdown.min.js"></script>
-    <!-- count-down -->
-    <script src="/vendor/jarallax/jarallax-all.js"></script>
-    <!-- Theme Js -->
-    <script src="/js/custom.js"></script>
-    <script src="/js/theme.js"></script>
-    <!-- End script start -->
-</div>
+	<!--bootstrap-->
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- slick carousel -->
+	<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+	<!-- magnific -->
+	<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
+	<!-- isotope -->
+	<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
+	<!-- count-down -->
+	<script src="/vendor/count-down/jquery.countdown.min.js"></script>
+	<!-- count-down -->
+	<script src="/vendor/jarallax/jarallax-all.js"></script>
+	<!-- Theme Js -->
+	<script src="/js/custom.js"></script>
+	<script src="/js/theme.js"></script>
+	<!-- End script start -->
+	<script>
+		
+	</script>
+	</div>
 </body>
 </html>
