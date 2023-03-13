@@ -17,7 +17,6 @@
 <!-- Favicon -->
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
-<!-- <link href="/css/theme.css" rel="stylesheet"> -->
 </head>
 <!-- 사진 크기가 먹히지않는다 -->
 <style>
@@ -287,26 +286,51 @@
             <!-- End Product Tabs -->
         </main>
         <!-- End Main -->
+
 		<script type="text/javascript">
-	     function goReivew(){
-	    	 ajaxReiew({pageNum: 1, amount: 5})
-	     }
 		
-		ajaxReiew({pageNum: 1, amount: 5})
+		ajaxReiew({pageNum:1, amount:5})
 		
 		function ajaxReiew(data){
 			$.ajax({
 				url: '/ajaxCall',
 				data: data,
 				success: function(res){
-					console.log(res)
 					$('#reviews').empty().append(res)
-				},
-				error: function(err){
-					console.log(err)
+					succ(res)
 				}
+			}).then(function(){
+				$.ajax({
+					type:'get',
+					url: '/js/review/reviewList.js',
+					dataType:"script"
+				})
 			})
 		}
+
+
+		
+// 		function ajaxReiew(data){
+// 			$.ajax({
+// 				url: '/ajaxCall',
+// 				data: data,
+// 				success: function(res){
+// 					console.log(res)
+// 					$('#reviews').empty().append(res)
+					
+// 					$.ajax({
+// 						type:'get',
+// 						url: '/js/review/reviewList.js',
+// 						dataType:"script"
+						
+// 					})
+					
+// 				},
+// 				error: function(err){
+// 					console.log(err)
+// 				}
+// 			})
+// 		}
 		</script>
     </div>
     <!-- 
