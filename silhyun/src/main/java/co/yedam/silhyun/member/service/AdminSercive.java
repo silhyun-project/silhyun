@@ -33,6 +33,19 @@ public interface AdminSercive {
 	//최신 가입 5
 	List<MemberVO> recentJoin();
 	
+	//종합승인관리
+	//기록가 승인관리
+	List<Map<String, Object>> ptgCfmList();
+	
+	//기록가 승인상세정보
+	Map<String, Object> ptgSelect(String ptgId);
+	
+	//기록가 승인신청 승인
+	int ptgAccept(String ptgId);
+	
+	//기록가 승인신청 반려
+	int noPtgAccept(String ptgId);
+	
 	
 	List<MemberVO> memberList();
 	

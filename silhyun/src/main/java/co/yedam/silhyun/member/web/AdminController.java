@@ -56,11 +56,55 @@ public class AdminController {
 	    return adminService.getEventContent(eventNum);
 	}
 	
+	@RequestMapping("/admin/ptgSelect")
+	@ResponseBody
+	public Map<String, Object> ptgSelect(@RequestParam("ptgId") String ptgId){
+		 System.out.println("컨트롤러로 온 ptgId는 = " + ptgId);
+		return adminService.ptgSelect(ptgId);
+	}
 	
+	//ptg 승인요청 승인
+	@RequestMapping("/admin/ptgAccept")
+	@ResponseBody
+	public String ptgAccept(@RequestParam("ptgId") String ptgId){
+		 System.out.println("컨트롤러로 온 ptgId2는 = " + ptgId);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.ptgAccept(ptgId);
+		
+		 if (n!=0) {
+			 msg = ptgId+"님을 승인 완료했습니다.";
+		 }else {
+			 msg ="승인 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
+	
+	//ptg 승인요청 반려
+	@RequestMapping("/admin/noPtgAccept")
+	@ResponseBody
+	public String noPtgAccept(@RequestParam("ptgId") String ptgId){
+		 System.out.println("컨트롤러로 온 ptgId2는 = " + ptgId);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.noPtgAccept(ptgId);
+		
+		 if (n!=0) {
+			 msg = ptgId+"님을 승인 반려했습니다.";
+		 }else {
+			 msg ="반려 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
 	
 	
 	@GetMapping("/admin/memberAccept")
-	public String memberAccept() {
+	public String memberAccept(String ptgId, Model model) {
+		model.addAttribute("ptgList", adminService.ptgCfmList());
 		return "/admin/memberAccept";
 	}
 	

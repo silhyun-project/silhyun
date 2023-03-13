@@ -193,6 +193,26 @@ public class AdminServiceImpl implements AdminSercive {
 		return adminMapper.lastSales();
 	}
 
+	@Override
+	public List<Map<String, Object>> ptgCfmList() {
+		return adminMapper.ptgCfmList();
+	}
+
+	@Override
+	public Map<String, Object> ptgSelect(String ptgId) {
+		return adminMapper.ptgSelect(ptgId);
+	}
+
+	@Override
+	public int ptgAccept(String ptgId) {
+		return adminMapper.ptgAccept(ptgId);
+	}
+
+	@Override
+	public int noPtgAccept(String ptgId) {
+		return adminMapper.noPtgAccept(ptgId);
+	}
+
 
 
 

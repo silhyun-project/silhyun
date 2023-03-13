@@ -84,11 +84,37 @@ FETCH FIRST 5 ROWS ONLY
 
 
 
+<!-- 종합승인관리 -->
+<!-- ptg승인신청 리스트 -->
+<select id="ptgCfmList" resultType="map">
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId", region_cd as "regionCd", regi_date as "regiDate", crn as "crn", 
+nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay"
+from photographer
+where cfm_cd = 'O'
+</select>
 
+<!--ptg승인신청 select-->
+<select id="ptgSelect" parameterType="String" resultType="map">
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId", region_cd as "regionCd", 
+nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay",
+(select nvl(profile,'프로필없음') from member where id = ptg_id) as "profile"
+from photographer
+where cfm_cd = 'O' and ptg_id = #{ptgId}
+</select>
 
+<!-- ptg승인신청 승인 -->
+<update id="ptgAccept" parameterType="String">
+UPDATE Photographer
+SET cfm_cd = 'Y'
+WHERE ptg_id = #{ptgId}
+</update>
 
-
-
+<!-- ptg승인신청 반려 -->
+<update id="noPtgAccept" parameterType="String">
+UPDATE Photographer
+SET cfm_cd = 'N'
+WHERE ptg_id = #{ptgId}
+</update>
 
 
 <!-- 리스트 보여주기 -->
