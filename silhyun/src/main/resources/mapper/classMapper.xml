@@ -295,11 +295,13 @@ ORDER BY i.inet_num
   <result column="inet_desct" property="inetDesct"/>
   <result column="ew_time" property="ewTime"/>
     <result column="class_num" property="classNum"/>
+        <result column="inet_note" property="inetNote"/>
 </resultMap>
 <select id="selectIV" resultMap="selectIV">
 
 <!-- 시청기록이 없어도 나머지 조건 조합해서 리스트에 뜨도록 수정함 -->
-SELECT i.inet_num, i.inet_ttl, i.inet_vdo, i.inet_desct, i.class_num, COALESCE(w.ew_time, '0') as ew_time
+SELECT i.inet_num, i.inet_ttl, i.inet_vdo, i.inet_desct, i.class_num, COALESCE(w.ew_time, '0') as ew_time,
+i.inet_note as inet_note
 FROM inetclass i 
 LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num
 WHERE i.class_num = '2' AND i.inet_num = #{inetNum} AND (w.id = 'catLove' OR w.id IS NULL)
