@@ -7,7 +7,7 @@ console.log('모오오오달~~~');
 const modal = $(".modalBlacklayer");
 
 
-$('.modalButton').on('click', function() {
+	$('.row.g-3').on('click','.col-sm-6.col-lg-3',function(){
 	modal.css("display", "block");
 });
 

@@ -20,6 +20,12 @@
 <!-- CSS Template -->
 <link href="/css/theme.css" rel="stylesheet">
 <link href="/css/portfolioInsert.css" rel="stylesheet">
+<style>
+.imsi {
+	border: solild 1px
+}
+</style>
+
 </head>
 
 <body>
@@ -121,18 +127,21 @@
 										</div>
 										<br>
 										<div class="product-description">
-											<textarea id="cntn" name="cntn"
-												placeholder="텍스트를 입력하세요"></textarea>
-												<ul id="tagList"></ul>
+											<textarea id="cntn" name="cntn" placeholder="텍스트를 입력하세요"></textarea>
+											<ul id="tagList"></ul>
 										</div>
 										<div class="product-attribute"></div>
 
 										<div class="product-detail-actions d-flex flex-wrap pt-3">
 
 											<div class="cart-button mb-3 d-flex">
-												<button type=submit class="btn btn-outline-dark me-3">임시저장</button>
-												<button type=submit class="btn btn-dark me-3">+Portfolio</button>
-												<button type="reset" class="btn btn-dark me-3">취소</button>
+												<div class="btn btn-outline-dark me-3 imsiList">임시저장리스트</div>
+												<button type=submit
+													class="btn btn-outline-dark me-3 imsiSave">임시저장</button>
+												<button type=submit class="btn btn-dark me-3 submit">+Portfolio</button>
+												<button type="reset" class="btn btn-dark me-3 reset">취소</button>
+											</div>
+											<div class="imsi" style='display: none;'>
 											</div>
 										</div>
 

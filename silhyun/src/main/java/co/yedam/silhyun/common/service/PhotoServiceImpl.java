@@ -39,7 +39,13 @@ public class PhotoServiceImpl implements PhotoService {
 	@Override
 	public int photoInsert(List<MultipartFile> files, String ctgrNum, String ctgr) {
 		int n = 0;
-		String saveImgPath = saveimg + "review";
+		String saveImgPath ="";
+		if(ctgr.equals("R")) {
+			saveImgPath = saveimg + "review";
+		}else if(ctgr.equals("P")){
+			saveImgPath = saveimg + "portfolio";
+		}
+
 		if(files != null && !files.isEmpty()) {
 			for(MultipartFile file : files) {
 				String fileName = UUID.randomUUID().toString(); //UUID생성 
@@ -64,11 +70,11 @@ public class PhotoServiceImpl implements PhotoService {
 				PhotoVO vo = new PhotoVO();
 				vo.setCtgr(ctgr);
 				vo.setCtgrNum(ctgrNum);
-
-				if(vo.getCtgr().equals("R")) {
+				
+				if(ctgr.equals("R")) {
 					vo.setPhoRt("/saveImg/review/" + fileName);
 					vo.setThumbnail("/saveImg/review/"+"s_" + fileName);
-				}else if(vo.getCtgr().equals("P")){
+				}else if(ctgr.equals("P")){
 					vo.setPhoRt("/saveImg/portfolio/" + fileName);
 					vo.setThumbnail("/saveImg/portfolio/"+"s_" + fileName);
 				}

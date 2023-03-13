@@ -32,4 +32,6 @@ public interface PortfolioMapper {
 	void insertTag(TagVO tagVO);
 	
 	
+	List<PortfolioVO> imsiList(String ptgId);//작가별 임시리스트 띄우기
+	
 }
