@@ -359,7 +359,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 
 									<div class="product-detail-actions d-flex">
 										<div class="cart-button" >
-											<button class="btn btn-primary pd-cart-btn mt-3"  style="width: 617px;"
+											<button class="btn btn-primary pd-cart-btn mt-3"  style="width: 100%;"
 											data-bs-toggle="modal" data-bs-target="#topbarReser" >예약하기</button>
 										</div>
 									</div>
@@ -761,7 +761,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 				
 			})
 
-            //예약 가능한 시간 클릭하면 시간에 선택한 시간들어가도록 
+            //📌예약 가능한 시간 클릭하면 시간에 선택한 시간들어가도록 
             $('.product-description.timeTable').on('click','.timeList',function(){  //그룹이벤트 써야함!!
             if($('#selectTime') != null){  
                 $('#selectTime').children().remove()
@@ -774,17 +774,20 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		   $(function(){
 			chOpsToOrder()  //체크박스 클릭하면 선택내역으로 들어가도록
 			modalInfo()  // 모달에 고객 정보 담기
-			if($('.col-8.selectOP').next() == null)   ///안됨
+			if($('.col-8.selectOP').next().length == 0){   ///////////////////////////////해결하기
 				$('.btn.btn-primary.pd-cart-btn').prop("disabled", true)
 
-		   })
+			}else if($('.col-8.selectOP').next().length > 0){
+				$('.btn.btn-primary.pd-cart-btn').prop("disabled", false)
+				console.log('dkdkdkdkdkdkk')
+			}
 
-		   $(document).ready(function(){
-                $("#chbox").change(function(){
-                    if($('.col-8.selectOP').next() == null)	
-					$('.btn.btn-primary.pd-cart-btn').prop("disabled", true)
-                });
-            });
+
+			 })
+
+
+
+			//📌체크박스 체크하면 선택내역에 추가
 		   let totalMoney = Number(0);
 		   function chOpsToOrder(){
 			let ckOps =  $('.card input[type="checkbox"]');
@@ -798,7 +801,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						$('<div />').clone(true).attr('id',$(this).attr('id')+'_1').addClass('col-8 selectOP').appendTo($('.row.align-items-center.selectOP'))
 						.append($('<div />').addClass('mb-1 selectOPNM')
 						.append($('<span class="text-dark fw-500">').text($(this).val()).attr('id',$(this).attr('id'))))
-						.append($('<div />').addClass('mb-1 selectOPPRI').append($('<span class="m-0 text-muted w-100 d-block">')).text(Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,'')).toLocaleString()+'원'))  //숫자 3자리마다 콤마 붙이기
+						.append($('<div />').addClass('mb-1 selectOPPRI').append($('<span class="m-0 text-muted w-100 d-block">'))
+						.text(Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,'')).toLocaleString()+'원'))  //숫자 3자리마다 콤마 붙이기
 						// $('.mb-1.selectOP').append($('<span>')).addClass('m-0 text-muted w-100 d-block').text($('.card-body').find('p').eq(1).text())
 						.append(`<button class="small link-danger ms-auto" style="border: 0;">
 									<i class="bi bi-x"></i> Remove
@@ -840,12 +844,11 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 
 		   }
 		  
-		   //예약 버튼 누르면 모달창에 정보 담기 
-		   function modalInfo(){
+		   //📌예약 버튼 누르면 모달창에 정보 담기 
+			function modalInfo(){
 			   $('.btn.btn-primary.pd-cart-btn').on('click',function(e){
-				   let reserDate = $('#selectDate').text()
+					let reserDate = $('#selectDate').text()
 				   let reserTime = $('#selectTime').text()
-				  
 				   let resPri =Number($('.text-end.text-dark.totalMoney').text().replace(/[^0-9]/g,''))
 				$('input[name="shotDate"]').val(reserDate)
 				$('input[name="shotTime"]').val($('#selectTime').attr('timeCD'))
@@ -871,6 +874,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						//$('.reserTable').find('.reserOP').text(op)		
 					})
 				})
+				
 		   }
           </script>
 	</div><!--END layout:fragment="content" -->
