@@ -27,6 +27,7 @@ import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.MemberService;
+import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -43,6 +44,7 @@ public class mypageAoController {
 	private MypageAoService mypageAoService;
 	@Autowired
 	private MemberService memberService;
+	
 
 	@RequestMapping("/photo/mypageAo/{ptgId}")
 	public String mypageAo(Model model,PhotographerVO pvo, @PathVariable String ptgId, HttpSession httpSession) {
@@ -58,6 +60,7 @@ public class mypageAoController {
 	@RequestMapping("/photo/modPfAo/{ptgId}")
 	public String modpfAo(Model model,@PathVariable String ptgId) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+		model.addAttribute("workDay",mypageAoService.selectWorkDay(ptgId));
 
 		return "mypageAo/modPfAo";
 	}
@@ -119,11 +122,18 @@ public class mypageAoController {
 	}
 
 	// 작가 정보수정
-	@PostMapping("/updateMyPg")
-	public String updateMyPg() {
+	   @PostMapping("/updateMyPg")
+	   public String updateMyPg(MemberVO vo ,PhotographerVO pvo) {
+	      System.out.println(pvo.getPtgId()+"dddddddddddddd");
+	   //    int updatedPvo = mypageAoService.ptgInfoUpdate(vo);
+	      vo.setId(pvo.getPtgId());
+	      System.out.println(vo.getId()+"daaaaaaaaaaa");
+	      mypageAoService.ptgInfoUpdate(vo);
+	      mypageAoService.updateWorkday(pvo);
+	    //   mypageAoService.updateWorkday(updatedPvo);
+	      return "redirect:/photo/modPfAo/user1";
+	   }
 
-		return "";
-	}
 
 	// 작가 예약 시간 정보 수정
 
@@ -200,7 +210,6 @@ public class mypageAoController {
 
 		if (file != null && !file.isEmpty()) {
 			String saveImgPath = saveimg + "banner";
-
 			String fileName = UUID.randomUUID().toString(); // UUID생성
 			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
 			File uploadFile = new File(saveImgPath, fileName);
@@ -222,7 +231,8 @@ public class mypageAoController {
 					break;
 				}
 			}
-			// System.out.println(key+"========================");
+//			 System.out.println(key+"========================");
+//			 System.out.println(uploadFile+"0000000000000");
 			try {
 				file.transferTo(uploadFile); // 파일저장
 			} catch (IllegalStateException e) {
@@ -233,8 +243,11 @@ public class mypageAoController {
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getId() + key);
 			
+
 			mypageAoService.applyEvent(vo); // db에 담음
-			// System.out.println("넘어오니?"+vo.getEventNum());
+//			 System.out.println("넘어오니?"+vo.getEventNum());
+//			 System.out.println("파일 오나?"+vo.getBnph());
+//			 System.out.println("아ㅣ이디는?"+vo.getId());
 			cvo.setEventNum(vo.getEventNum()); // vo에 담긴 eventNum을 들고오기
 			cvo.setCpnNum(vo.getEventNum()); // eventNum이랑 값 같게
 			cvo.setCtgrNum(vo.getId());
@@ -312,6 +325,12 @@ public class mypageAoController {
 		}
 
 		return "";
+	}
+	
+	@PostMapping("/photo/classInquiry")
+	private String classInquiry() {
+		
+		return "mypageAo/classInquiry";
 	}
 
 }

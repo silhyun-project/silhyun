@@ -16,6 +16,9 @@ public interface StdMapper {
 	List<StudioVO> stdlistget(String stdId);//사진관 하나만
 	
 	List<PhotographerVO> ptgList(String stdId);	//작가들
-	int ptgdel(PhotographerVO vo);	//스튜디오소속 작가삭제
+	
+	int ptgdel(String ptgId);	//스튜디오소속 작가삭제
+	
+	int updatestProfileImage(StudioVO vo);//프사 바꾸기
 	
 }

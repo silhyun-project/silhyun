@@ -3,6 +3,7 @@ package co.yedam.silhyun.member.service;
 import java.util.List;
 
 import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.StudioVO;
 
@@ -18,5 +19,7 @@ public interface StdService {
 	
 	List<PhotographerVO> ptgList(String stdId);	//작가들
 	
-	int ptgdel(PhotographerVO vo);	//스튜디오소속 작가삭제
+	int ptgdel(String ptgId);	//스튜디오소속 작가삭제
+	
+	int updatestProfileImage(StudioVO vo);//프사 바꾸기
 }
