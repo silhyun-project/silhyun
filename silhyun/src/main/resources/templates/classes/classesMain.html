@@ -298,27 +298,21 @@
 	    	function drawStar(rating, count) {
 	    	  var star = '';
 	    	  var color = '';
-	    	  if (count === 0) {
-	    	    return '';
-	    	  } else if (rating >= 4.5) {
-	    	    star = '★';
-	    	    color = 'gold';
-	    	  } else if (rating >= 4) {
-	    	    star = '★½';
-	    	    color = 'gold';
-	    	  } else if (rating >= 3.5) {
-	    	    star = '★';
-	    	    color = 'orange';
-	    	  } else if (rating >= 3) {
-	    	    star = '★½';
-	    	    color = 'orange';
-	    	  } else {
-	    	    star = '★';
-	    	    color = 'gray';
+	    	  
+	    	  for (var i = 1; i <= 5; i++) {
+	    	    if (rating >= i) {
+	    	      star += '<i class="bi bi-star-fill active"></i>'; // 별 채우기
+	    	    } else if (rating >= i - 0.5) {
+	    	      star += '<i class="bi bi-star-half active"></i>'; // 반 개 채우기
+	    	    } else {
+	    	      star += '<i class="bi bi-star"></i>'; // 빈 별
+	    	    }
 	    	  }
-	    	  var span = `<span style="color:${color};">${star.repeat(count)}</span>`;
-	    	  return span;
+	    	  
+	    	
+	    	  return star;
 	    	}
+	    
 	    	
 	    	
 	    	
@@ -331,8 +325,8 @@
 	   
 
 	       // 별점 평균값과 개수 계산
-	       var starRating = cdtC1.STAR;
-	       var starCount = Math.round(starRating); // 반올림
+	       var rating = cdtC1.STAR;
+	       var count = Math.round(rating); // 반올림
 	       
 	       
 	       
@@ -365,7 +359,7 @@
 	                 </div>
 	                 <div class="product-card-info">
 	                 <div class="rating-star text">
-	                 ${drawStar(starRating, starCount)}
+	                 ${drawStar(rating, count)}
 	                 <a id="cdt1Star">${cdtC1.STAR}</a>
 	               </div>
                               
@@ -400,6 +394,38 @@
 	    }
 	    else{
 	    	onEmptyMsg.text = "";	 
+	    	
+	    	
+	    	// 별점에 대한 평균값과 개수를 이용해 색상을 계산하여 별모양의 span을 반환하는 함수
+	    	function drawStar(rating, count) {
+	    	  var star = '';
+	    	  var color = '';
+	    	  
+	    	  for (var i = 1; i <= 5; i++) {
+	    	    if (rating >= i) {
+	    	      star += '<i class="bi bi-star-fill active"></i>'; // 별 채우기
+	    	    } else if (rating >= i - 0.5) {
+	    	      star += '<i class="bi bi-star-half active"></i>'; // 반 개 채우기
+	    	    } else {
+	    	      star += '<i class="bi bi-star"></i>'; // 빈 별
+	    	    }
+	    	  }
+	    	  
+	    	
+	    	  return star;
+	    	}
+	    
+
+
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
 
 	     //cdtC2List를 위한 반복문
 	     for (var i = 0; i < cdtC2List.length; i++) {
@@ -408,7 +434,12 @@
 	       
 
 	       
+
+	       // 별점 평균값과 개수 계산
+	       var rating = cdtC2.STAR;
+	       var count = Math.round(rating); // 반올림
 	       
+	    	
 	       
 	       
 	       
@@ -441,7 +472,7 @@
                </div>
                <div class="product-card-info">
                <div class="rating-star text">
-
+               ${drawStar(rating, count)}
                <a id="cdt2Star">${cdtC2.STAR}</a>
              </div>
                    <h6 class="product-title">
