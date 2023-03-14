@@ -208,12 +208,12 @@
 
 			});
 
-			$("#qstBtn").click(function () { //문의글 등록
+			$("#send").click(function () { //문의글 등록
 				let qstNum = $("#qstNum").val(); //문의글번호
 				let ctgr = 'A' //카테고리
 				let ctgrNum = 'user1' //카테고리
-				let ttl = $("#ttlBtn").val(); // 제목
-				let qstId = $("#id").val(); //문의작성자아이디
+				let ttl = $("#ttl").val(); // 제목
+				let qstId = 'catLove'; //문의작성자아이디
 				let qstCntn = $("#qstCntn").val(); //문의내용
 				let rplySta = 'N' // 답변유무상태
 				let secretSta = $("#secChk").val() //비밀댓글
@@ -310,6 +310,8 @@
 				var qstContainer = $(this).closest('.divTableRow');
 				qstContainer.find('.qstCntn').toggle();
 			})
+			
+			
 		</script>
 </body>
 
