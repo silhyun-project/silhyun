@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,6 +82,17 @@ public class ClassesController {
 		System.out.println("컨트롤러로 온 my C"+model);
 		return "/classes/myClasses";
 	}
+	
+	
+	@RequestMapping("/myPageU/myC1Ajax")
+	@ResponseBody
+	public Map<String, Object> myC1Ajax(@RequestParam("classNum")String classNum, Model model) {
+		System.out.println("컨트롤러에서 요청은 갔음"+classNum);
+		model.addAttribute("myClAjax", ClassesService.myC1Ajax(classNum));
+		System.out.println("컨트롤러에서 아작스 확인"+model);
+		return ClassesService.myC1Ajax(classNum);
+	}
+	
 	
 	
 	@RequestMapping("/silhyun/classes/myClassesVideos")

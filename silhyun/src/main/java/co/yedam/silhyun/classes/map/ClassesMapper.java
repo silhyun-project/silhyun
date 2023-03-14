@@ -45,6 +45,8 @@ public interface ClassesMapper {
 	
 	List<Map<String, Object>> myTakeC2(String id);
 
+	//내 수강강의 오프라인 세부 아작스 
+	Map<String, Object> myC1Ajax(String classNum);
 	
 	
 }
