@@ -242,7 +242,8 @@ public class mypageAoController {
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getId() + key);
-		//	System.out.println("넘어좀 와라"+vo.getEventNum());
+			
+
 			mypageAoService.applyEvent(vo); // db에 담음
 //			 System.out.println("넘어오니?"+vo.getEventNum());
 //			 System.out.println("파일 오나?"+vo.getBnph());
