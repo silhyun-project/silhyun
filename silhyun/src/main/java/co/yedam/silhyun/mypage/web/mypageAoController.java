@@ -210,6 +210,7 @@ public class mypageAoController {
 
 		if (file != null && !file.isEmpty()) {
 			String saveImgPath = saveimg + "banner";
+
 			String fileName = UUID.randomUUID().toString(); // UUID생성
 			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
 			File uploadFile = new File(saveImgPath, fileName);
