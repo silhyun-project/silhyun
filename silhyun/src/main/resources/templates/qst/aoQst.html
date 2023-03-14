@@ -168,7 +168,7 @@
 		<br> <br>
 		<button id="new-post-btn">상품 문의</button>
 
-		<!-- 문의 모달 파트 -->
+		<!-- 문의 모달 -->
 		<div id="myModal" class="modal">
 			<!-- 모달 창 내용 -->
 			<div class="modal-content">
@@ -187,8 +187,8 @@
 				</form>
 			</div>
 		</div>
-
-
+		<!-- 문의 답변 모달 -->
+		
 	</div>
 
 	<script>
@@ -359,8 +359,8 @@
 		$(".qstArea").on('click', '.ansDel', function() {
 		    console.log($(this).parent().parent().find('.comNum').val());
 		    let comNum = $(this).parent().parent().find('.comNum').val();
+		    let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
 		    console.log($(this).closest('.divTableRow').find('.qstNum').val());
-			let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
 		    
 		    $.ajax({
 				url:"/aoAnsDelete",
@@ -374,7 +374,6 @@
 			})
 		});
 		
-			
 	</script>
 </body>
 
