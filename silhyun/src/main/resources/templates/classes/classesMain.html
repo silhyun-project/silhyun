@@ -96,7 +96,7 @@
 
                         <div class="row g-3 g-lg-4" th:each="c2, sts : ${c2List}" th:Class="${sts}">
                             <!-- Product Box -->
-                              <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+                              <div class="col-6 col-lg-3" style="float: left; height: 485px;">
                                     <div class="product-card-7">
                                         <div class="product-card-image" style="width: 300px; height: 300px">
                                             <div class="badge-ribbon">
@@ -110,26 +110,29 @@
 
                                         </div>
                                         <div class="product-media">
-                                            <a href="#">
+                                            <a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM}, id='catLove')}">
                                                 <img class="img-fluid" th:src="${c2.THNI}" title="" alt="">
                                             </a>
                                         </div>
                                         <div class="product-cart-btn">
-                                            <a class="btn btn-primary">
+                                            <a class="btn btn-primary" th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM}, id='catLove')}">
                                                 <i class="fi-eye"></i>
                                                 상세 보기
                                             </a>
                                         </div>
                                     </div>
                                     <div class="product-card-info">
-                                        <div class="rating-star text">
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star"></i>
-                                            <a th:text="${c2.STAR}"></a>
-                                        </div>
+                                    <!-- 
+                                     -->
+<div class="rating-star text">
+  <span th:each="star : ${#numbers.sequence(1, 5)}">
+    <i th:if="${c2.STAR >= star}" class="bi bi-star-fill active"></i>
+    <i th:if="${c2.STAR >= star - 0.5 && c2.STAR < star}" class="bi bi-star-half active"></i>
+    <i th:if="${c2.STAR < star - 0.5}" class="bi bi-star"></i>
+  </span>
+  <span th:text="${c2.STAR}"></span>
+</div>
+
                                         <h6 class="product-title">
 <a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM}, id='catLove')}" th:text="${c2.TTL}"></a>
 </h6>
@@ -184,7 +187,7 @@
 
                             <div class="row g-3 g-lg-4" th:each="c1, sts : ${c1List}" th:Class="${sts}">
                                 <!-- Product Box -->
-                                <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+                                <div class="col-6 col-lg-3" style="float: left; height: 485px;">
                                     <div class="product-card-7">
                                         <div class="product-card-image" style="width: 300px; height: 300px">
                                             <div class="badge-ribbon">
@@ -198,29 +201,29 @@
 
                                             </div>
                                             <div class="product-media">
-                                                <a href="#">
+                                                <a th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM}, id='catLove')}">
                                                     <img id="c1Thni" class="img-fluid" th:src="${c1.THNI}" title=""
                                                         alt="">
                                                 </a>
                                             </div>
                                             <div class="product-cart-btn">
-                                                <a class="btn btn-primary">
+                                                <a class="btn btn-primary" th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM}, id='catLove')}">
                                                     <i class="fi-eye"></i>
                                                     상세 보기
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="product-card-info">
-                                            <div class="rating-star text">
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star-fill active"></i>
-                                                <i class="bi bi-star"></i>
-                                                <a id="c1Star" th:text="${c1.STAR}"></a>
-                                            </div>
+         <div class="rating-star text">
+  <span th:each="star : ${#numbers.sequence(1, 5)}">
+    <i th:if="${c1.STAR >= star}" class="bi bi-star-fill active"></i>
+    <i th:if="${c1.STAR >= star - 0.5 && c1.STAR < star}" class="bi bi-star-half active"></i>
+    <i th:if="${c1.STAR < star - 0.5}" class="bi bi-star"></i>
+  </span>
+  <span th:text="${c1.STAR}"></span>
+</div>
                                             <h6 class="product-title">
-                                                <a id="c1Ttl" href="/classesInfo" th:text="${c1.TTL}"></a>
+                                                <a id="c1Ttl" th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM}, id='catLove')}" th:text="${c1.TTL}"></a>
                                             </h6>
                                             <div class="product-price">
                                                 <span id="c1Cpri" class="text-primary"
@@ -289,9 +292,40 @@
 	     //cdtC1List를 위한 반복문
 	     for (var i = 0; i < cdtC1List.length; i++) {
 	       var cdtC1 = cdtC1List[i];
+	       
+	       
+	   
+	       
+	       var rating = parseFloat(cdtC1.STAR); // 문자열로 들어온 별점을 실수형으로 변환합니다.
+	       var ratingRound = Math.round(rating * 2) / 2; // 별점을 0.5점 단위로 반올림합니다.
+
+	       var fullStars = Math.floor(ratingRound); // 꽉찬 별의 개수를 계산합니다.
+	       var halfStars = Math.round((ratingRound - fullStars) * 2); // 반 개 별의 개수를 계산합니다.
+	       var emptyStars = 5 - fullStars - halfStars; // 빈 별의 개수를 계산합니다.
+
+	       var ratingHtml = ""; // 별점을 출력할 HTML 코드를 저장할 변수를 초기화합니다.
+
+	       for (var i = 0; i < fullStars; i++) { // 꽉찬 별 아이콘을 추가합니다.
+	         ratingHtml += '<i class="bi bi-star-fill active"></i>';
+	       }
+
+	       for (var i = 0; i < halfStars; i++) { // 반 개 별 아이콘을 추가합니다.
+	         ratingHtml += '<i class="bi bi-star-half active"></i>';
+	       }
+
+	       for (var i = 0; i < emptyStars; i++) { // 빈 별 아이콘을 추가합니다.
+	         ratingHtml += '<i class="bi bi-star"></i>';
+	       }
+	       
+	       
+	       
+	       
+	       
+	       
+	       
 	       //새 요소 생성 
 	       var appendOff = `
-	             <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+	             <div class="col-6 col-lg-3" style="float: left; height: 485px;">
 	               <div class="product-card-7">
 	                 <div class="product-card-image" style="width: 300px; height: 300px">
 	                   <div class="badge-ribbon">
@@ -303,28 +337,26 @@
 	                     </a>
 	                   </div>
 	                   <div class="product-media">
-	                     <a href="#">
+	                   <a href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}&amp;id=catLove">
 	                       <img id="c1Thni" class="img-fluid" src="${cdtC1.THNI}" title="" alt="">
 	                     </a>
 	                   </div>
 	                   <div class="product-cart-btn">
-	                     <a class="btn btn-primary">
+	                     <a class="btn btn-primary" href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}&amp;id=catLove">
 	                       <i class="fi-eye"></i>
 	                       상세 보기
 	                     </a>
 	                   </div>
 	                 </div>
 	                 <div class="product-card-info">
-	                   <div class="rating-star text">
-	                     <i class="bi bi-star-fill active"></i>
-	                     <i class="bi bi-star-fill active"></i>
-	                     <i class="bi bi-star-fill active"></i>
-	                     <i class="bi bi-star-fill active"></i>
-	                     <i class="bi bi-star"></i>
-                                     <a id="c1Star">${cdtC1.STAR}</a>
-                                 </div>
+	                 
+	                 <div class="rating-star text">
+	                 ${ratingHtml}
+	                 <a id="cdt1Star">${cdtC1.STAR}</a>
+	               </div>
+                              
                                  <h6 class="product-title">
-                                     <a id="c1Ttl" href="/classesInfo">${cdtC1.TTL}</a>
+                                     <a id="c1Ttl" href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}&amp;id=catLove">${cdtC1.TTL}</a>
                                  </h6>
                                  <div class="product-price">
                                      <span id="c1Cpri" class="text-primary">${cdtC1.CPRI}</span><small>원</small>
@@ -358,6 +390,35 @@
 	     //cdtC2List를 위한 반복문
 	     for (var i = 0; i < cdtC2List.length; i++) {
 	       var cdtC2 = cdtC2List[i];
+	       
+	       
+	       var rating = parseFloat(cdtC2.STAR); // 문자열로 들어온 별점을 실수형으로 변환합니다.
+	       var ratingRound = Math.round(rating * 2) / 2; // 별점을 0.5점 단위로 반올림합니다.
+
+	       var fullStars = Math.floor(ratingRound); // 꽉찬 별의 개수를 계산합니다.
+	       var halfStars = Math.round((ratingRound - fullStars) * 2); // 반 개 별의 개수를 계산합니다.
+	       var emptyStars = 5 - fullStars - halfStars; // 빈 별의 개수를 계산합니다.
+
+	       var ratingHtml2 = ""; // 별점을 출력할 HTML 코드를 저장할 변수를 초기화합니다.
+
+	       for (var j = 0; j < fullStars; j++) { // 꽉찬 별 아이콘을 추가합니다.
+	           ratingHtml2 += '<i class="bi bi-star-fill active"></i>';
+	       }
+
+	       for (var k = 0; k < halfStars; k++) { // 반 개 별 아이콘을 추가합니다.
+	           ratingHtml2 += '<i class="bi bi-star-half active"></i>';
+	       }
+
+	       for (var l = 0; l < emptyStars; l++) { // 빈 별 아이콘을 추가합니다.
+	           ratingHtml2 += '<i class="bi bi-star"></i>';
+	       }
+	       
+	       
+	       
+	       
+	       
+	       
+	       
 	       //새 요소 생성 
 	       var appendON = `
                <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
@@ -374,28 +435,24 @@
 
                    </div>
                    <div class="product-media">
-                       <a href="#">
+                       <a href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}&amp;id=catLove">
                            <img class="img-fluid" src="${cdtC2.THNI}"  title="" alt="">
                        </a>
                    </div>
                    <div class="product-cart-btn">
-                       <a class="btn btn-primary">
+                       <a class="btn btn-primary" href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}&amp;id=catLove">
                            <i class="fi-eye"></i>
                            상세 보기
                        </a>
                    </div>
                </div>
                <div class="product-card-info">
-                   <div class="rating-star text">
-                       <i class="bi bi-star-fill active"></i>
-                       <i class="bi bi-star-fill active"></i>
-                       <i class="bi bi-star-fill active"></i>
-                       <i class="bi bi-star-fill active"></i>
-                       <i class="bi bi-star"></i>
-                       <a>${cdtC2.STAR}</a>
-                   </div>
+               <div class="rating-star text">
+               ${ratingHtml2}
+               <a id="cdt2Star">${cdtC2.STAR}</a>
+             </div>
                    <h6 class="product-title">
-                       <a href="/classesInfo">${cdtC2.TTL}</a>
+                       <a href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}&amp;id=catLove">${cdtC2.TTL}</a>
                    </h6>
                    <div class="product-price">
                        <span class="text-primary">${cdtC2.CPRI}</span><small>원</small>

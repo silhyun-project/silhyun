@@ -104,9 +104,10 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public List<QuitVO> getListQuit(AdminCriteria cri) {
+	public List<Map<String, Object>> getListQuit(AdminCriteria cri) {
 		return adminMapper.getListQuit(cri);
-	}
+		}
+	
 
 	@Override
 	public int getTotalQuit(AdminCriteria cri) {
@@ -210,10 +211,5 @@ public class AdminServiceImpl implements AdminSercive {
 
 	@Override
 	public int noPtgAccept(String ptgId) {
-		return adminMapper.noPtgAccept(ptgId);
-	}
-
-
-
-
+		return adminMapper.noPtgAccept(ptgId);	}
 }
