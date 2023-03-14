@@ -30,9 +30,11 @@ public class CommentController {
 	
 	@GetMapping("/commentList/{portNum}")
 	@ResponseBody
+
 	public List<CommentVO> commentList(CommentVO vo,@PathVariable String portNum) {
 		
 		List<CommentVO> comList = commentService.getCommentList(portNum);
+
 		return comList;
 	}
 	

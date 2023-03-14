@@ -27,7 +27,7 @@ public class QstVO {
 	// 조인용
 	// comment 별칭 
 	private String ansCntn;
-	// member 사진경로
+	private String comNum;
 	 
 	
 }

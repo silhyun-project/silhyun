@@ -1,23 +1,39 @@
 package co.yedam.silhyun.common.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.yedam.silhyun.common.map.PhotoMapper;
 import co.yedam.silhyun.common.map.ReviewMapper;
 import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.common.vo.ReviewVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 	@Autowired ReviewMapper mapper;
+	@Autowired PhotoMapper pmapper;
 
 	@Override
 	public List<ReviewVO> reviewList(Criteria cri, String ctgr, String ctgrNum) {
+		List<ReviewVO> list = new ArrayList<ReviewVO>();
+		List<ReviewVO> rList = new ArrayList<ReviewVO>();
+		list = mapper.reviewList(cri, ctgr, ctgrNum);
+		System.out.println(list+"eeeeeeeeeeeeeeeeeeeeee");
+		for(ReviewVO vo : list) {
+			System.out.println(vo+"배열임다아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+			PhotoVO pvo = new PhotoVO();
+			pvo.setCtgr("R");
+			pvo.setCtgrNum(vo.getRevNum());
+			vo.setPhotoList(pmapper.photoList(pvo));
+			rList.add(vo);
+		}
 		
-		return mapper.reviewList(cri, ctgr, ctgrNum);
+		return rList;
 	}
 
 	@Override
