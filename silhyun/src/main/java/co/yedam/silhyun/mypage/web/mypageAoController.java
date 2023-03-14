@@ -60,6 +60,7 @@ public class mypageAoController {
 	@RequestMapping("/photo/modPfAo/{ptgId}")
 	public String modpfAo(Model model,@PathVariable String ptgId) {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+		model.addAttribute("workDay",mypageAoService.selectWorkDay(ptgId));
 
 		return "mypageAo/modPfAo";
 	}
@@ -121,16 +122,17 @@ public class mypageAoController {
 	}
 
 	// 작가 정보수정
-	@PostMapping("/updateMyPg")
-	public String updateMyPg(MemberVO vo ,PhotographerVO pvo) {
-		System.out.println(pvo.getPtgId()+"dddddddddddddd");
-		vo.setId(pvo.getPtgId());
-		System.out.println(vo.getId()+"daaaaaaaaaaa");
-		mypageAoService.ptgInfoUpdate(vo);
-		mypageAoService.updateWorkday(pvo);
-		return "redirect:mypageAo/modPfAo";
-	} 
-
+	   @PostMapping("/updateMyPg")
+	   public String updateMyPg(MemberVO vo ,PhotographerVO pvo) {
+	      System.out.println(pvo.getPtgId()+"dddddddddddddd");
+	   //    int updatedPvo = mypageAoService.ptgInfoUpdate(vo);
+	      vo.setId(pvo.getPtgId());
+	      System.out.println(vo.getId()+"daaaaaaaaaaa");
+	      mypageAoService.ptgInfoUpdate(vo);
+	      mypageAoService.updateWorkday(pvo);
+	    //   mypageAoService.updateWorkday(updatedPvo);
+	      return "redirect:/photo/modPfAo/user1";
+	   }
 
 
 	// 작가 예약 시간 정보 수정
@@ -322,6 +324,12 @@ public class mypageAoController {
 		}
 
 		return "";
+	}
+	
+	@PostMapping("/photo/classInquiry")
+	private String classInquiry() {
+		
+		return "mypageAo/classInquiry";
 	}
 
 }

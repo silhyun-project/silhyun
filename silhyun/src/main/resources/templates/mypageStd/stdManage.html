@@ -105,7 +105,7 @@
 										<td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
 										<td><button type="button" class="btn btn-danger"
 												style="color: white;">삭제</button></td>
-										</td>
+									
 									</tr>
 								</tbody>
 							</table>
@@ -128,13 +128,15 @@
 
 				//데이터저장
 				var ptgId = row.find("td").first().text();
+				
+				console.log(ptgId);
 				$.ajax({
-					url : "/photo/ptgdel",
+					url : "/ptgdel",
 					type : "POST",
-					contentType : "application/json",
-					data : JSON.stringify({
-						ptgId : ptgId
-					}),
+					//contentType : "application/json",
+					data:{
+						"ptgId" : ptgId
+					},
 					success : function() {
 						console.log("삭제성공");
 					},

@@ -121,6 +121,18 @@ public class MypageAoServiceImpl implements MypageAoService {
 		return mypageAoMapper.updateWorkday(vo);
 	}
 
+	@Override
+	public PhotographerVO selectWorkDay(String ptgId) {
+
+		return mypageAoMapper.selectWorkDay(ptgId);
+	}
+
+	@Override
+	public List<MemberVO> getInquiryC() {
+//수강자조회
+		return mypageAoMapper.getInquiryC();
+	}
+
 
 
 }

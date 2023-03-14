@@ -112,9 +112,12 @@
 					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
+								<!-- 프로필 사진 바꾸기 모달 띄우기  -->
+								<div class="modalImage" id="add_stProfile">
 								<div class="avatar avatar-lg rounded-circle">
-									<img th:src="${std.Profile}" title=""
+									<img th:src="${std.stProfile}" title=""
 										alt="">
+								</div>
 								</div>
 								<div class="col ps-3">
 									<h6 class="m-0" th:text="${std.stId}"></h6>
@@ -155,7 +158,7 @@
 					<div class="col-lg-8 col-xxl-9">
 						<div class="card mb-5">
 							<!-- 프사 바꾸기 모달  -->
-							<div id="modal_add_profile" class="modal_overlay_pr">
+							<div id="modal_add_stProfile" class="modal_overlay_pr">
 								<div class="modal_window_pr">
 									<div class="modal_title_pr">
 										<div class="modal_title_side_pr"></div>
@@ -174,7 +177,7 @@
 									<input type="hidden" value="${std.stId}">
 								</div>
 								<div style="width: 100%; text-align: center">
-									<button id="button_update_profile" type="button"
+									<button id="button_update_stProfile" type="button"
 										class="btn btn-primary" style="width: 268px">바꾸기</button>
 								</div>
 							</div>
@@ -188,13 +191,13 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6 mb-3">
-										<label class="form-label">아이디</label> <input type="text"
+										<label class="form-label">아이디</label> <input type="text" name="stId"
 											class="form-control" th:value="${std.stId}" placeholder="아이디"
 											readonly>
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">이름<span class="text-danger">*</span></label>
-										<input type="text" class="form-control" id="name" name="name"
+										<input type="text" class="form-control" id="stName" name="stName"
 											th:value="${std.stName}" placeholder="이름">
 									</div>
 									<div class="col-sm-6 mb-3">
@@ -204,7 +207,7 @@
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">주소<span
-											class="text-danger">*</span></label> <input type="addr"
+											class="text-danger">*</span></label> <input type="text"
 											class="form-control" th:value="${std.addr}" id="addr" name="addr"
 											placeholder="addr">
 									</div>
@@ -322,7 +325,7 @@
 														</div>
 													</div>
 													<!-- id숨겨놓음 -->
-													<input type="hidden" name="stId" value="st_02">
+													<input type="hidden" name="stId" value="st_01">
 												</form>
 											</div>
 										</div>
@@ -382,8 +385,8 @@
 	} 
  	 
  //프사 바꿀 모달 띄우기
-   const modal = document.getElementById("modal_add_profile");//modal이라는 상수를 만드는 코드
-    const buttonAddProfile = document.getElementById("add_profile");
+   const modal = document.getElementById("modal_add_stProfile");//modal이라는 상수를 만드는 코드
+    const buttonAddProfile = document.getElementById("add_stProfile");
     buttonAddProfile.addEventListener("click", e => {
         modal.style.display = "flex";		//none->flex
 
@@ -465,9 +468,9 @@
 
 
     }
-    $('#button_update_profile').on('click', ()=>{
+    $('#button_update_stProfile').on('click', ()=>{
         //const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
-        const id = 'user1';
+        const stId = 'st_01';
 		
         
         const file = files[0];//// 여기까지 값이 들어옴
@@ -477,7 +480,7 @@
        // fd.append('profile', file);
 
        // fd.append('image', image);
-        fd.append('id', id);
+        fd.append('stId', stId);
         fd.append('file',files[0]);
 
         if(file.length <= 0)
@@ -492,7 +495,7 @@
     
     function writeFeed(fd) {
         $.ajax({
-            url: "/uploadProfileImage",
+            url: "/uploadstProfileImage",
             data: fd,
             method: "POST",
             enctype: 'multipart/form-data',

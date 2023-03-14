@@ -9,6 +9,12 @@
 		ORDER BY res_num DESC
 	</select>
 	
+	<select id="selectWorkDay" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+	 select *
+	 from photographer
+	 where ptg_id='user1'
+	</select>
+	
 	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 		SELECT DISTINCT P.*,RT.*,M.NAME,FIND_CD(RES_TIME) REST,
 		(SELECT COUNT(*) FROM RESER R WHERE R.SHOT_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.SHOT_TIME AND R.PTG_ID = P.PTG_ID) RESYN
@@ -117,7 +123,7 @@
 			<if test="tel != null and ! tel.equals('')">TEL = #{tel},</if>
 			<if test="birthDate != null and !birthDate.equals('')">birth_date = #{birthDate}</if>
 		</set>
-		WHERE id=#{ptgId}
+		WHERE id=#{id}
 	</update>
 	<update id="updateWorkday" parameterType="co.yedam.silhyun.member.vo.PhotographerVO">
 	UPDATE PHOTOGRAPHER
@@ -127,7 +133,5 @@
 	WHERE PTG_ID=#{ptgId}
 	</update>
 
-	<!-- update ( select m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day 
-		FROM photographer p, member m WHERE m.id = p.ptg_id ) set work_day = '수' 
-		where id = 'user1'; -->
+
 </mapper>

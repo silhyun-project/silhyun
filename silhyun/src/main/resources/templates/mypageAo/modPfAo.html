@@ -241,6 +241,10 @@
 										<label class="form-label">생년월일</label> <input type="Date"
 											class="form-control" id="birthDate" name="birthDate">
 									</div>
+									<div th:each="wd:${workDay}">
+									<label>현재 근무요일</label><br>
+									<label th:text="${wd.workDay}"></label>
+									</div>
 									<div class="col-sm-12 mb-3">근무 가능 요일</div>
 									<div class="col-sm-12 mb-3">
 
@@ -260,6 +264,7 @@
 											class="form-check-label" for="exampleCheck1">일</label>
 										&emsp;&emsp;
 									</div>
+								
 									<div class="row align-items-center">
 										<div class="col-12 pt-2">
 											<button class="btn btn-primary" type="submit">저장</button>
