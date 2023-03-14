@@ -289,35 +289,50 @@
 	     
 	    	offEmptyMsg.text = "";	 
 	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	// 별점에 대한 평균값과 개수를 이용해 색상을 계산하여 별모양의 span을 반환하는 함수
+	    	function drawStar(rating, count) {
+	    	  var star = '';
+	    	  var color = '';
+	    	  if (count === 0) {
+	    	    return '';
+	    	  } else if (rating >= 4.5) {
+	    	    star = '★';
+	    	    color = 'gold';
+	    	  } else if (rating >= 4) {
+	    	    star = '★½';
+	    	    color = 'gold';
+	    	  } else if (rating >= 3.5) {
+	    	    star = '★';
+	    	    color = 'orange';
+	    	  } else if (rating >= 3) {
+	    	    star = '★½';
+	    	    color = 'orange';
+	    	  } else {
+	    	    star = '★';
+	    	    color = 'gray';
+	    	  }
+	    	  var span = `<span style="color:${color};">${star.repeat(count)}</span>`;
+	    	  return span;
+	    	}
+	    	
+	    	
+	    	
+	    	
 	     //cdtC1List를 위한 반복문
 	     for (var i = 0; i < cdtC1List.length; i++) {
 	       var cdtC1 = cdtC1List[i];
 	       
 	       
 	   
-	       
-	       var rating = parseFloat(cdtC1.STAR); // 문자열로 들어온 별점을 실수형으로 변환합니다.
-	       var ratingRound = Math.round(rating * 2) / 2; // 별점을 0.5점 단위로 반올림합니다.
 
-	       var fullStars = Math.floor(ratingRound); // 꽉찬 별의 개수를 계산합니다.
-	       var halfStars = Math.round((ratingRound - fullStars) * 2); // 반 개 별의 개수를 계산합니다.
-	       var emptyStars = 5 - fullStars - halfStars; // 빈 별의 개수를 계산합니다.
-
-	       var ratingHtml = ""; // 별점을 출력할 HTML 코드를 저장할 변수를 초기화합니다.
-
-	       for (var i = 0; i < fullStars; i++) { // 꽉찬 별 아이콘을 추가합니다.
-	         ratingHtml += '<i class="bi bi-star-fill active"></i>';
-	       }
-
-	       for (var i = 0; i < halfStars; i++) { // 반 개 별 아이콘을 추가합니다.
-	         ratingHtml += '<i class="bi bi-star-half active"></i>';
-	       }
-
-	       for (var i = 0; i < emptyStars; i++) { // 빈 별 아이콘을 추가합니다.
-	         ratingHtml += '<i class="bi bi-star"></i>';
-	       }
-	       
-	       
+	       // 별점 평균값과 개수 계산
+	       var starRating = cdtC1.STAR;
+	       var starCount = Math.round(starRating); // 반올림
 	       
 	       
 	       
@@ -349,9 +364,8 @@
 	                   </div>
 	                 </div>
 	                 <div class="product-card-info">
-	                 
 	                 <div class="rating-star text">
-	                 ${ratingHtml}
+	                 ${drawStar(starRating, starCount)}
 	                 <a id="cdt1Star">${cdtC1.STAR}</a>
 	               </div>
                               
@@ -392,28 +406,7 @@
 	       var cdtC2 = cdtC2List[i];
 	       
 	       
-	       var rating = parseFloat(cdtC2.STAR); // 문자열로 들어온 별점을 실수형으로 변환합니다.
-	       var ratingRound = Math.round(rating * 2) / 2; // 별점을 0.5점 단위로 반올림합니다.
 
-	       var fullStars = Math.floor(ratingRound); // 꽉찬 별의 개수를 계산합니다.
-	       var halfStars = Math.round((ratingRound - fullStars) * 2); // 반 개 별의 개수를 계산합니다.
-	       var emptyStars = 5 - fullStars - halfStars; // 빈 별의 개수를 계산합니다.
-
-	       var ratingHtml2 = ""; // 별점을 출력할 HTML 코드를 저장할 변수를 초기화합니다.
-
-	       for (var j = 0; j < fullStars; j++) { // 꽉찬 별 아이콘을 추가합니다.
-	           ratingHtml2 += '<i class="bi bi-star-fill active"></i>';
-	       }
-
-	       for (var k = 0; k < halfStars; k++) { // 반 개 별 아이콘을 추가합니다.
-	           ratingHtml2 += '<i class="bi bi-star-half active"></i>';
-	       }
-
-	       for (var l = 0; l < emptyStars; l++) { // 빈 별 아이콘을 추가합니다.
-	           ratingHtml2 += '<i class="bi bi-star"></i>';
-	       }
-	       
-	       
 	       
 	       
 	       
@@ -448,7 +441,7 @@
                </div>
                <div class="product-card-info">
                <div class="rating-star text">
-               ${ratingHtml2}
+
                <a id="cdt2Star">${cdtC2.STAR}</a>
              </div>
                    <h6 class="product-title">
