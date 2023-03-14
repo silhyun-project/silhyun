@@ -117,8 +117,6 @@
 		button {
 			background-color: white;
 		}
-
-
 	</style>
 
 </head>
@@ -187,8 +185,22 @@
 				</form>
 			</div>
 		</div>
-		<!-- 문의 답변 모달 -->
-		
+
+		<!--<div id="repModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<h2>문의 답변</h2>
+				<form>
+					<label for="title">제목:</label> <input type="text" id="repTitle" class="repTitle" name="repTitle"
+						style="width: 400px;">
+					<br> <br> <label for="content">내용:</label>
+					<textarea id="repCntn" name="repCntn" rows="5" style="width: 400px;"></textarea>
+					<br> <br>
+					<button id="repsend">작성</button>
+					<button type="reset" id="cancel">취소</button>
+				</form>
+			</div>
+		</div>-->
 	</div>
 
 	<script>
@@ -214,6 +226,8 @@
 			});
 
 		});
+
+
 
 		$("#send").click(function () { //문의글 등록
 			let qstNum = $("#qstNum").val(); //문의글번호
@@ -266,6 +280,8 @@
 			});
 		});
 
+
+
 		function getAoQstList() {
 
 			let qstArea = $(".qstArea");
@@ -295,7 +311,8 @@
 								str += '<div class="media-ans img-resize">'
 								str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
 								str += '</div>'
-								str += '<input type="hidden" class="comNum" id="comNum" value="'+ aqst.comNum +'">'
+								str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst
+									.comNum + '">'
 								//if(aqst.ctgrNum==작가id)
 								str += '<button class="ansModi">수정</button>'
 								str += '<button class="ansDel">삭제</button>'
@@ -314,18 +331,20 @@
 							str += '<button class="qstDel">삭제</button>'
 						}
 						if (aqst.ctgrNum == "user1") { //카테고리번호 작가로 변경
-							if (aqst.ansCntn == null){
-							str += '<button class="ansBtn">답변</button>'
-							}else {
+							if (aqst.ansCntn == null) {
+								str += '<button class="ansBtn">답변</button>'
+							} else {
 								str += '<button class="ansBtn" style="display: none">답변</button>'
 							}
 						}
 						str += '</div>'
 
-						str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
-							
-						str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'
-					
+						str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum +
+							'">'
+
+						str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst
+							.ctgrNum + '">'
+
 						str += '</div>'
 					})
 
@@ -339,41 +358,49 @@
 			qstContainer.find('.ansBox').toggle();
 		})
 
-		$(".qstArea").on('click', '.qstDel', function() {
+		$(".qstArea").on('click', '.qstDel', function () {
 			console.log($(this).closest('.divTableRow').find('.qstNum').val());
 			let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
-			
+
 			$.ajax({
-				url:"/aoQstDelete",
-				type:"delete",
-				data:{
+				url: "/aoQstDelete",
+				type: "delete",
+				data: {
 					qstNum
 				},
-				success : function(data){
+				success: function (data) {
 					getAoQstList()
 				}
 			})
 		})
-		
-		
-		$(".qstArea").on('click', '.ansDel', function() {
-		    console.log($(this).parent().parent().find('.comNum').val());
-		    let comNum = $(this).parent().parent().find('.comNum').val();
-		    let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
-		    console.log($(this).closest('.divTableRow').find('.qstNum').val());
-		    
-		    $.ajax({
-				url:"/aoAnsDelete",
-				type:"delete",
-				data:{
+
+
+		$(".qstArea").on('click', '.ansDel', function () {
+			console.log($(this).parent().parent().find('.comNum').val());
+			let comNum = $(this).parent().parent().find('.comNum').val();
+			let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
+			console.log($(this).closest('.divTableRow').find('.qstNum').val());
+
+			$.ajax({
+				url: "/aoAnsDelete",
+				type: "delete",
+				data: {
 					comNum
 				},
-				success : function(data){
+				success: function (data) {
 					getAoQstList()
 				}
 			})
 		});
-		
+
+		$(".qstArea").on('click', '.ansBtn', function () {
+			console.log("dddddddddddddddddddddddddddddddddddddddddddd")
+			$('#new-post-btn').after('<textarea id="repCntn" name="repCntn" rows="5" style="width: 400px;"></textarea>');
+				
+			$('#new-post-btn').after('<button id="repsend">작성</button>');
+			$('#new-post-btn').after('<button type="reset" id="cancel">취소</button>');
+		});
+
 	</script>
 </body>
 
