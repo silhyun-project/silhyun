@@ -1,19 +1,24 @@
 package co.yedam.silhyun;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import co.yedam.silhyun.common.service.PageTestService;
+import co.yedam.silhyun.common.service.ReviewService;
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
+import co.yedam.silhyun.common.vo.ReviewVO;
 import co.yedam.silhyun.member.service.EmailService;
 
 @SpringBootTest
 public class TaekyeongTests {
 	@Autowired PageTestService service;
 	@Autowired EmailService emailService;
+	@Autowired ReviewService rService;
 
 	//@Test
 	public void 페이징검색테스트() {
@@ -34,7 +39,7 @@ public class TaekyeongTests {
 		System.out.println("총갯수는?"  +service.getTotalCount(cri));
 	}
 	
-	@Test //=> 가입인증번호
+	//@Test //=> 가입인증번호
 	public void mailConfirm() {
 		String code = emailService.sendSimpleMessage("kㄴm@naver.com");
 		System.out.println("인증코드>>>>>>>>>>>"+code);
@@ -52,5 +57,4 @@ public class TaekyeongTests {
 		
 	}
 	
-
 }
