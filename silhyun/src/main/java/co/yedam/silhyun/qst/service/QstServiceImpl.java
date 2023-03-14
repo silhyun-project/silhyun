@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.common.map.CommentMapper;
+import co.yedam.silhyun.common.vo.CommentVO;
 import co.yedam.silhyun.qst.map.QstMapper;
 import co.yedam.silhyun.qst.vo.QstVO;
 
@@ -32,5 +33,19 @@ public class QstServiceImpl implements QstService {
 		// TODO Auto-generated method stub
 		return mapper.aoQstDelete(vo);
 	}
+
+	@Override
+	public int aoAnsInsert(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		return mapper.aoAnsInsert(cvo);
+	}
+
+	@Override
+	public int aoAnsDelete(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		return mapper.aoAnsDelete(cvo);
+	}
+
+	
 
 }
