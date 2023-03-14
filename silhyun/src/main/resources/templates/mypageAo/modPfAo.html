@@ -228,7 +228,7 @@
 									<div class="col-sm-6 mb-3">
 										<label class="form-label">Email<span
 											class="text-danger">*</span></label> <input type="email"
-											class="form-control" id="email" name="email"
+											class="form-control" id="email" name="email" th:value="${ptg.email}"
 											placeholder="E-mail">
 									</div>
 									<div class="col-sm-6 mb-3">
@@ -238,33 +238,39 @@
 											id="tel" placeholder="전화번호">
 									</div>
 									<div class="col-sm-6 mb-3">
-										<label class="form-label">생년월일</label> <input type="text"
+										<label class="form-label">생년월일</label> <input type="Date"
 											class="form-control" id="birthDate" name="birthDate">
+									</div>
+									<div th:each="wd:${workDay}">
+									<label>현재 근무요일</label><br>
+									<label th:text="${wd.workDay}"></label>
 									</div>
 									<div class="col-sm-12 mb-3">근무 가능 요일</div>
 									<div class="col-sm-12 mb-3">
 
-										<input type="checkbox" class="workDay"> <label
+										<input type="checkbox" class="workDay" name="workDay[]" value="월"> <label
 											class="form-check-label" for="exampleCheck1">월</label>
-										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
-											class="form-check-label" for="exampleCheck1">화</label>
-										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+										&emsp;&emsp; <input type="checkbox" class="workDay" name="workDay[]" value="화"> <label
+											class="form-check-label" for="exampleCheck1" >화</label>
+										&emsp;&emsp; <input type="checkbox" class="workDay" name="workDay[]" value="수"> <label
 											class="form-check-label" for="exampleCheck1">수</label>
-										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+										&emsp;&emsp; <input type="checkbox" class="workDay" name="workDay[]" value="목"> <label
 											class="form-check-label" for="exampleCheck1">목</label>
-										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+										&emsp;&emsp; <input type="checkbox" class="workDay" name="workDay[]" value="금"> <label
 											class="form-check-label" for="exampleCheck1">금</label>&emsp;&emsp;
-										<input type="checkbox" class="workDay"> <label
+										<input type="checkbox" class="workDay" name="workDa[]" value="토"> <label
 											class="form-check-label" for="exampleCheck1">토</label>
-										&emsp;&emsp; <input type="checkbox" class="workDay"> <label
+										&emsp;&emsp; <input type="checkbox" class="workDay" name="workDay[]" value="일"> <label
 											class="form-check-label" for="exampleCheck1">일</label>
 										&emsp;&emsp;
 									</div>
+								
 									<div class="row align-items-center">
 										<div class="col-12 pt-2">
 											<button class="btn btn-primary" type="submit">저장</button>
 										</div>
 									</div>
+									<input type="hidden" name="ptgId" th:value="${ptg.Id}">
 								</div>
 							</div>
 						</form>
@@ -361,7 +367,7 @@
 			</div>
 			<!-- End Content -->
 		</div>
-		</div>
+	
 
 		<!--Table -->
 

@@ -95,10 +95,17 @@
 	<update id="ptgdel"  parameterType="co.yedam.silhyun.member.vo.PhotographerVO">
 		UPDATE PHOTOGRAPHER
 		<set>
-			ST_ID = '',
-			PTG_CD = 'G'
+			ST_ID = '0',
+			PTG_CD = 'S'
 		</set>
-		WHERE ST_ID = #{stId}
+		WHERE PTG_ID = #{ptgId}
 	</update> 
+	
+	<!-- 프사바꾸기  -->
+	<update id="updatestProfileImage" parameterType="co.yedam.silhyun.member.vo.StudioVO">
+		UPDATE STUDIO
+		SET ST_PROFILE = #{stProfile}
+		WHERE ST_ID = #{stId}
+	</update>
 
 </mapper>
