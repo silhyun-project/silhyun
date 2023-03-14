@@ -42,7 +42,12 @@
 	background-color: #ddd;
 	border-radius: 5px;
 }
-
+.dropdown.btn.btn-white.border{
+	float: right;
+}
+.container{
+	text-align: center;
+}
 
     </style>
     <link rel="shortcut icon" href="/img/favicon.ico">
@@ -190,23 +195,23 @@
                                                                 class="form-check-input" type="checkbox" name="chkArray"
                                                                 id="region10" value="10"
                                                                 th:checked="${studioVO.chkArray != null and #lists.contains(studioVO.chkArray ,'10')}"></label>
-                                                    </div>
+                                                    </div><br><br>
                                                     
 
                                                     <div style="display: inline;">
-                                                        <input type="text" size="10px" width="50px"
-                                                            class="form-control me-sm-2 mb-2 mb-sm-1" name="searchWord"
+                                                        <input type="text" size="50px"
+                                                            class="me-sm-2 mb-2 mb-sm-1" style="height: 50px;text-align: center;"  name="searchWord"
                                                             placeholder="찾는 사진관의 이름을 입력하세요">
                                                         <button class="btn btn-primary flex-shrink-0" type="submit">Search</button>
-                                                    </div>
+                                                    </div><br><br>
                                                     <input type="hidden" name="pageNum" th:value="1">
 													<input type="hidden" name="amount" th:value="${page.criteria.amount}">
                                                 <div class="dropdown btn btn-white border" style="size: 100px;">
-                                        <select id="selectOp"  name="searchType" onchange="searchFrm.submit()" style="border: 1px solid white;">
-                                            <option value="">::선택::</option>
-                                            <option value="new" th:selected="${studioVO.searchType =='new'}">최신순</option>
-                                            <option value="name" th:selected="${studioVO.searchType =='name'}">이름순</option>
-                                        </select>
+			                                        <select id="selectOp"  name="searchType" onchange="searchFrm.submit()" style="border: 1px solid white;">
+			                                            <option value="">::선택::</option>
+			                                            <option value="new" th:selected="${studioVO.searchType =='new'}">최신순</option>
+			                                            <option value="name" th:selected="${studioVO.searchType =='name'}">이름순</option>
+			                                        </select>
                                     </div>
                                                 </form>
                                             </div>
@@ -219,6 +224,7 @@
 
                             <!-- 사진관 리스트 -->
                             <div class="row g-3 g-lg-4 list">
+                            <h6 th:if="${#lists.isEmpty(stdList)}">검색조건을 만족하는 사진관이 없습니다.</h6>
                                 <div class="col-md-4 col-6" th:each="std : ${stdList}">
                                     <div class="product-card-9 cList">
                                         <div class="product-card-image">
@@ -241,17 +247,21 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+							<div class="container">
+								<div class="pagination">
+									<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
+									<a
+										th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}"
+										th:href="${num}"
+										th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+									<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+								</div>
+							</div>
+						</div>
                     </div>
                     <!-- End Product Box -->
                 </div>
             </section>
-            <div class="pagination">
-                <a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
-                <a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
-                    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
-                <a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
-            </div>
             
             <!-- End Shop Section -->
         </main>

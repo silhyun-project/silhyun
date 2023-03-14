@@ -34,7 +34,7 @@ public class MypageAoServiceImpl implements MypageAoService {
 	}
 
 	@Override
-	public int ptgInfoUpdate(PhotographerVO vo) {
+	public int ptgInfoUpdate(MemberVO vo) {
 	
 		return mypageAoMapper.ptgInfoUpdate(vo);
 	}
@@ -113,6 +113,24 @@ public class MypageAoServiceImpl implements MypageAoService {
 	public List<PhotographerVO> getResTime(String ptgId, String redate) {
 
 		return mypageAoMapper.getResTime(ptgId, redate);
+	}
+
+	@Override
+	public int updateWorkday(PhotographerVO vo) {
+
+		return mypageAoMapper.updateWorkday(vo);
+	}
+
+	@Override
+	public PhotographerVO selectWorkDay(String ptgId) {
+
+		return mypageAoMapper.selectWorkDay(ptgId);
+	}
+
+	@Override
+	public List<MemberVO> getInquiryC() {
+//수강자조회
+		return mypageAoMapper.getInquiryC();
 	}
 
 

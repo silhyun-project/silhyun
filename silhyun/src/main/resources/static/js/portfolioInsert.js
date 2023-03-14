@@ -126,6 +126,8 @@ $(function() {
 			}
 		}
 	})
+	
+	
 	$('.btn.btn-outline-dark.me-3.imsiList').click(function() {
 		$('.imsi').toggle();
 	})

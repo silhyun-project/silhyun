@@ -6,6 +6,7 @@
 	from photo
 	where ctgr = #{ctgr} 
 	and ctgr_num = #{ctgrNum}
+	and used = 'Y'
 </select>
 
 <insert id="photoInsert">

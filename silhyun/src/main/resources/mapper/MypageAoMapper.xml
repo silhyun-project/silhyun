@@ -9,6 +9,12 @@
 		ORDER BY res_num DESC
 	</select>
 	
+	<select id="selectWorkDay" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+	 select *
+	 from photographer
+	 where ptg_id='user1'
+	</select>
+	
 	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 		SELECT DISTINCT P.*,RT.*,M.NAME,FIND_CD(RES_TIME) REST,
 		(SELECT COUNT(*) FROM RESER R WHERE R.SHOT_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.SHOT_TIME AND R.PTG_ID = P.PTG_ID) RESYN
@@ -53,7 +59,7 @@
 		<!-- <selectKey keyProperty="eventNum" resultType="String"> select dbms_random.string('A', 
 			5) as eventNum from dual </selectKey> -->
 		INSERT INTO EVENT (event_num, Id, start_date, cntn, bnph, bnph_sta,region_cd)
-		VALUES (#{eventNum}, #{ptgId}, #{startDate}, #{cntn}, #{bnph},#{bnphSta},
+		VALUES (#{eventNum}, #{id}, #{startDate}, #{cntn}, #{bnph},#{bnphSta},
 		#{regionCd})
 	</insert>
 	<insert id="applyECoupon"
@@ -109,24 +115,23 @@
 
 	<update id="ptgInfoUpdate"
 		parameterType="co.yedam.silhyun.member.vo.MemberVO">
-		UPDATE(
-		SELECT m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day
-		FROM
-		photographer p, member m
-		WHERE m.id = p.ptg_id
-		)
+		UPDATE Member
 		<set>
 			<if test="name != null and !name.equals('')">NAME = #{name},</if>
 			<if test="pwd != null and !pwd.equals('')">PWD = #{pwd},</if>
-			<if test="email != null and !eamil.equals('')">Email = #{email},</if>
+			<if test="email != null and !email.equals('')">Email = #{email},</if>
 			<if test="tel != null and ! tel.equals('')">TEL = #{tel},</if>
 			<if test="birthDate != null and !birthDate.equals('')">birth_date = #{birthDate}</if>
-			<!-- <if test="workDay != null">WORK_DAY = #{workDay}</if> -->
 		</set>
-		WHERE PTG_ID = 'user1'
+		WHERE id=#{id}
+	</update>
+	<update id="updateWorkday" parameterType="co.yedam.silhyun.member.vo.PhotographerVO">
+	UPDATE PHOTOGRAPHER
+		<set>
+			<if test="workDay != null">WORK_DAY = #{workDay}</if>
+		</set>
+	WHERE PTG_ID=#{ptgId}
 	</update>
 
-	<!-- update ( select m.id,m.name,m.pwd,m.email,m.tel,m.mem_cd,p.work_day 
-		FROM photographer p, member m WHERE m.id = p.ptg_id ) set work_day = '수' 
-		where id = 'user1'; -->
+
 </mapper>

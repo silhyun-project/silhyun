@@ -49,6 +49,11 @@ public class MainServiceImpl implements MainService{
 	public List<PhotographerVO> getTagPtgList(String fdCd) {
 		return mainMapper.getTagPtgList(fdCd);
 	}
+
+	@Override
+	public List<PhotographerVO> getPtgPort(String ptgId) {
+		return mainMapper.getPtgPort(ptgId);
+	}
 	
 	
 	

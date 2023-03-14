@@ -12,17 +12,14 @@
 <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
 <!-- title -->
 <title>작가 디테일 페이지</title>
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link href="/css/swimwear.css" rel="stylesheet">
 <!-- CSS Template -->
-<!-- <link href="/css/theme.css" rel="stylesheet"> -->
 </head>
 <!-- 사진 크기가 먹히지않는다 -->
-<style>
-
-</style>
 
 <body>
     <div layout:fragment="content">
@@ -53,9 +50,6 @@
     -->
     <div class="wrapper">
         <!-- Main -->
-  <div >
-            [[${ptg}]]<br>
-        </div> 
         <main>
             <!-- Page Title -->
             <div class="bg-no-repeat bg-cover bg-right-center position-relative">
@@ -165,7 +159,7 @@
 
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab" data-bs-target="#pd_reviews_02" role="tab" aria-controls="pd_reviews_02" aria-selected="false" onclick="goReivew()">Reviews</a>
+                                <a href="#" class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab" data-bs-target="#pd_reviews_02" role="tab" aria-controls="pd_reviews_02" aria-selected="false">Reviews</a>
                             </li>
                         </ul>
                        
@@ -173,7 +167,7 @@
                             <div class="tab-pane fade show active" id="pd_description_02" role="tabpanel" aria-labelledby="pd_description_tab_02">
                                 <!--Description-->
                                 <div class="row">
-                                    <div class="col-lg-7 pe-lg-10">
+                                    <div class="col-lg-15">
                                         <blockquote class="bg-gray-100 p-3 lead fw-400 mt-5 text-dark border-start border-primary border-5">
                                              <ol class="list-type-01 list-unstyled pt-2 mb-4">
                                             <li><h5>취소 및 환불 규정</h5></li>
@@ -196,57 +190,6 @@
                                             작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
                                             </ol>
                                         </blockquote>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="pb-3">
-                                            <img src="/img/fashion/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                        <div class="row g-3">
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-truck"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">Free shipping</h6>
-                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-headphones"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">Contact us 24/7</h6>
-                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-box-arrow-in-left"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">30 Days Return</h6>
-                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-shield-lock"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">100% Secure Payment</h6>
-                                                        <p class="m-0">서비스 제공이 완료된 이후에 전문가에게 결제 대금이 전달됩니다.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +220,7 @@
                             <!--후기-->
                             <div class="tab-pane fade" id="pd_reviews_02" role="tabpanel" aria-labelledby="pd_reviews_tab_02">
                                 <div id="reviews">
-      
+      								<div></div>
                                 </div>
                             </div>
                         </div>
@@ -287,51 +230,49 @@
             <!-- End Product Tabs -->
         </main>
         <!-- End Main -->
+
+
 		<script type="text/javascript">
-	     function goReivew(){
-	    	 ajaxReiew({pageNum: 1, amount: 5})
-	     }
 		
-		ajaxReiew({pageNum: 1, amount: 5})
+		
+		$('#pd_reviews_tab_02').on('click', function(){
+		     ajaxReiew({pageNum:1, amount:5})
+		})
 		
 		function ajaxReiew(data){
 			$.ajax({
 				url: '/ajaxCall',
 				data: data,
 				success: function(res){
-					console.log(res)
-					$('#reviews').empty().append(res)
-				},
+
+					$('#reviews').replaceWith(res)
+// 					$.ajax({
+// 						type:'get',
+//  						async:false,
+// 						url: '/js/review/reviewList.js',
+// 						dataType:"script"
+// 					})	
+// 					var script = document.createElement('script');
+//  					script.onload = function () {
+//  					};
+// 					script.src = "/js/review/reviewList.js";
+// 					document.head.appendChild(script);
+
+				}, 
 				error: function(err){
 					console.log(err)
 				}
 			})
 		}
+
 		</script>
+
     </div>
     <!-- 
     ========================
        End Wrapper 
     ========================
     -->
-    <!-- script start -->
-    <!-- jquery -->
-<!-- <script src="/js/jquery-3.5.1.min.js"></script> -->
-<!--bootstrap-->
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- slick carousel -->
-<script src="/vendor/swiper/swiper-bundle.min.js"></script>
-<!-- magnific -->
-<script src="/vendor/magnific/jquery.magnific-popup.min.js"></script>
-<!-- isotope -->
-<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
-<!-- count-down -->
-<script src="/vendor/count-down/jquery.countdown.min.js"></script>
-<!-- count-down -->
-<script src="/vendor/jarallax/jarallax-all.js"></script>
-<!-- Theme Js -->
-<script src="/js/custom.js"></script>
-<script src="/assets/js/theme.js"></script>
     <!-- End script start -->
     <script>
     //    let ptgId = $("#pthVal").text();
@@ -346,8 +287,29 @@
     //        })
 
     
-
+//리뷰
+// 	     function goReivew(){
+// 	    	 ajaxReiew({pageNum: 1, amount: 5})
+// 	     }
+		
+// 		ajaxReiew({pageNum: 1, amount: 5})
+		
+// 		function ajaxReiew(data){
+// 			$.ajax({
+// 				url: '/ajaxCall',
+// 				data: data,
+// 				success: function(res){
+// 					console.log(res)
+// 					$('#reviews').empty().append(res)
+// 				},
+// 				error: function(err){
+// 					console.log(err)
+// 				}
+// 			})
+// 		}
     </script>
+
+
     </div>
 </body>
 

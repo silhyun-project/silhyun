@@ -197,7 +197,7 @@
 											<td class="p-3" th:text="${resL.resNum}"/>
 											<td class="p-3" th:text="${resL.id}"/>
 											<td class="p-3"th:text="${resL.resCd}"/>
-											<td class="p-3" th:text="${resL.regiDate}"/>
+											<td class="p-3" th:text="${#dates.format(resL.regiDate,'yyyy/MM/dd')}"/>
 											<td class="p-3" th:text="${resL.resPri}"/>
 											<td class="p-3" th:text="${resL.resSta}"/>
 											<td class="p-3"><input type="button" value="사진등록"></td>

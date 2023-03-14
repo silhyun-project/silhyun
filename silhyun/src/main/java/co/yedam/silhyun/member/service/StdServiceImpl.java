@@ -46,9 +46,15 @@ public class StdServiceImpl implements StdService {
 	}
 
 	@Override
-	public int ptgdel(PhotographerVO vo) {
+	public int ptgdel(String ptgId) {
 		
-		return stdMapper.ptgdel(vo);
+		return stdMapper.ptgdel(ptgId);
+	}
+
+	@Override
+	public int updatestProfileImage(StudioVO vo) {
+
+		return stdMapper.updatestProfileImage(vo);
 	}
 	
 	

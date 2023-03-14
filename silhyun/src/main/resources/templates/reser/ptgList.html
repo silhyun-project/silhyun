@@ -20,6 +20,7 @@
 	crossorigin="anonymous"></script>
 
 <style>
+
 label {
 	display: inline-block;
 	width: 100px;
@@ -50,6 +51,9 @@ label {
 
 .container{
 	text-align: center;
+}
+.dropdown.btn.btn-white.border{
+	float: right;
 }
 </style>
 <link rel="shortcut icon" href="/img/favicon.ico">
@@ -280,25 +284,26 @@ label {
 															id="B9" value="B9"
 															th:checked="${photographerVO.chkfldArray != null and #lists.contains(photographerVO.chkfldArray ,'B9')}"
 															></label>
-													</div>
+													</div><br><br>
 
 													<div style="display: inline;">
-														<input type="text" size="10px" width="50px"
-															class="form-control me-sm-2 mb-2 mb-sm-1"
+														<input type="text" size="50px" style="height: 50px;text-align: center;" 
+															class="me-sm-2 mb-2 mb-sm-1"
 															name="searchWord" placeholder="찾는 작가의 이름을 입력하세요">
 														<button class="btn btn-primary flex-shrink-0"
 															type="submit">Search</button>
 													</div>
-														<br>
+														<br><br>
+														
 														<div class="dropdown btn btn-white border" style="size: 100px; text-align: left;">
-														<select id="selectOp" name="searchType" onchange="searchFrm.submit()"
-															style="border: 1px solid white;">
-															<option value="">::선택::</option>
-															<option value="new" th:selected="${photographerVO.searchType =='new'}">최신순</option>
-															<option value="hot" th:selected="${photographerVO.searchType =='hot'}">인기순</option>
-															<option value="name" th:selected="${photographerVO.searchType =='name'}">이름순</option>
-														</select>
-													</div>
+															<select id="selectOp" name="searchType" onchange="searchFrm.submit()"
+																style="border: 1px solid white;">
+																<option value="">::선택::</option>
+																<option value="new" th:selected="${photographerVO.searchType =='new'}">최신순</option>
+																<option value="hot" th:selected="${photographerVO.searchType =='hot'}">인기순</option>
+																<option value="name" th:selected="${photographerVO.searchType =='name'}">이름순</option>
+															</select>
+														</div>
 															<input type="hidden" name="pageNum" th:value="1">
 															<input type="hidden" name="amount" th:value="${page.criteria.amount}">
 												</form>
@@ -312,14 +317,11 @@ label {
 
 							<!-- 작가 리스트 -->
 							<div class="row g-3 g-lg-4 list" id="page">
-								<div class="col-md-4 col-6" th:each="ptg : ${ptgList}">
+									<h6 th:if="${#lists.isEmpty(ptgList)}">검색조건을 만족하는 작가가 없습니다.</h6>
+								<div class="col-md-4 col-6"  th:each="ptg : ${ptgList}">
 									<div class="product-card-9 cList">
 										<div class="product-card-image">
-											<div class="product-action">
-												<!--하트-->
-												<a href="#" class="btn"> <i class="fi-heart"></i>
-												</a>
-											</div>
+											
 											<div class="hover-scale">
 												<!--작가 사진-->
 												<div class="hover-scale-in">
@@ -348,7 +350,6 @@ label {
 										<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
 									</div>
 								</div>
-								
 							</div>
 						</div>
 					</div>

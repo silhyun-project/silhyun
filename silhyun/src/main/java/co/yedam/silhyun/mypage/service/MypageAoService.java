@@ -19,7 +19,10 @@ public interface MypageAoService {
 	MemberVO ptgSelect(MemberVO vo);//회원+작가 한명 조회
 	List<PhotographerVO> getPtg(String ptgId);//작가에서만 한명
 	
-	int ptgInfoUpdate(PhotographerVO vo);	//정보 업데이트
+	PhotographerVO selectWorkDay(String ptgId);	//workday출력용
+	
+	int ptgInfoUpdate(MemberVO vo);	//정보 업데이트
+	int updateWorkday(PhotographerVO vo);	//정보중 근무요일 업데이트
 	
 	int applyEvent(EventVO vo);	//이벤트 신청
 	int applyECoupon(CouponVO vo);	//이벤트 신청 쿠폰부분
@@ -34,6 +37,8 @@ public interface MypageAoService {
 	
 	List<PhotographerVO> getResTime(String ptgId,String redate);//작가예약옵션 호출
 	
+	//클래스 수강자조회
+	List<MemberVO> getInquiryC();
 
 	
 }

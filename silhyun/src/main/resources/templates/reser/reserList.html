@@ -357,9 +357,9 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 									</div>
 									
 
-									<div class="product-detail-actions d-flex flex-wrap">
-										<div class="cart-button">
-											<button class="btn btn-primary pd-cart-btn"
+									<div class="product-detail-actions d-flex">
+										<div class="cart-button" >
+											<button class="btn btn-primary pd-cart-btn mt-3"  style="width: 617px;"
 											data-bs-toggle="modal" data-bs-target="#topbarReser" >예약하기</button>
 										</div>
 									</div>
@@ -651,19 +651,43 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             });
       
             function reloadTodo(e) { //예약가능하지않은 날짜 클릭시 경고창 띄우기
-              
+				// let today = new Date();
+				// // 년도 getFullYear()
+				// let year = today.getFullYear();
+				// // 월 getMonth() (0~11로 1월이 0으로 표현되기 때문에 + 1을 해주어야 원하는 월을 구할 수 있다.)
+				// let month = today.getMonth() + 1
+				// // 일 getDate()
+				// let date = today.getDate(); // 일
+				// console.log(year + '-' + month + '-' + date);
+				// let clickToday = year + '-' + month + '-' + date
+				// if($(this).attr('data-fdate')< clickToday)
                 alert("해당 날짜는 예약이 불가능합니다.")
                 $('.product-description.timeTable').children().remove()
               
             }
       
+
+
 			//달력에 작가 예약 가능한 요일 까만색으로 만들기  -> 그 안에서 아작스 불러서 처리하기(예약 가능한 시간)
 			let ptgReYnDate = $("input[name='ptgReYnDate']").val()
 			var arr = ptgReYnDate.split(',')
+			console.log($('td.day').attr('data-fdate'))
+
+			
+			
 			console.log(arr)
 			$(arr).each(function(idx,item){
-				$('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
+				console.log($(this))
+					
+
+					$('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
 					e.stopPropagation()
+					
+					// $('td.day').each(function(idx,item){
+					// console.log($(this).attr('data-fdate'))
+					// if($(this).attr('data-fdate') < new Date()){ 
+					// 	$(this).css('color','lightgray') } })
+
 					if($('#selectDate') != null){  
 						$('#selectDate').children().remove()
                     }
@@ -693,7 +717,9 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 							leadingZeros(nowD.getDate(), 2);
 						if(clickD < nowD){
 							// reloadTodo()
-							alert("예약날짜는 현재날짜보다 빠를수 없습니다.");
+							//$('.week').find('td').css('color','lightgray')
+							alert("예약 날짜는 오늘 날짜보다 빠를 수 없습니다");
+							return false
 						}
 						}	
 					
@@ -718,7 +744,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						$(result).each(function(idx,item){
 							console.log(result)
 							//console.log(item.resyn)
-							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}" timeCD="${item.resTime}" >${item.rest}</button>`
+							let cdNameBtn = `<button class="btn btn-primary timeList ms-2" id="${item.resyn}" timeCD="${item.resTime}" >${item.rest}</button>`
 							$('.card-body.time').append(cdNameBtn)
 								})
 							//console.log($('.btn.btn-primary.timeList'))
