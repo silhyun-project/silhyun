@@ -33,8 +33,8 @@
 			}
 		})
 	})
-*/
-    slider.slick('slickAdd',$('.photo'));
+
+    //slider.slick('slickAdd',$('.photo'));
 	
     $('.slider-wrap').slick({
       slide: 'div',        //슬라이드 되어야 할 태그
@@ -62,7 +62,7 @@
       ]
 
     });
-    
+  */  
     
     $(".pagination a").on("click", function(e){
     	e.preventDefault();
