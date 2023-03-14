@@ -133,21 +133,21 @@
                                     <div class="card-body" style="padding: 30px;">
                                         <ul class="list-unstyled">
                                             <li class="d-flex justify-content-between align-items-center mb-2">
-                                                <h6 class="me-2 text-body">🎁쿠폰</h6>
+                                                <h6 class="me-2 text-body">🎁 쿠폰</h6>
                                                 <div class="mb-3">
-                                                    <select class="form-select dis" name="discount" required="">
+                                                    <select class="form-select dis" name="discount" required="" style="width: 500px">
                                                         <option value="">사용가능한 쿠폰</option>
-                                                        <option th:each="mem :${memInfo}" th:text="${mem.cntn}"
-                                                        th:value="${mem.discount}" th:selected="${mem.cpnNum}==${reserVO.cpnNum}" th:id="${mem.cpnNum}">
+                                                        <option th:each="mem :${memInfo}" th:text="${mem.cntn}" th:value="${mem.discount}" th:selected="${mem.cpnNum}==${reserVO.cpnNum}" th:id="${mem.cpnNum}">
                                                        
                                                     </select>
+                                                  
                                                     <div class="invalid-feedback">Please choose your country!</div>
                                                 </div>
                                             </li><li>
-                                            <div class="pt-2 pb-3">
+                                            <div class="pt-2 pb-3 mb-3">
                                                 <div class="d-flex">
                                                     <input type="text" placeholder="사용할 포인트를 입력하세요"
-                                                        class="form-control form-control-sm useP">
+                                                        class="form-control form-control-sm useP" style="height: 50px;">
                                                    
                                                        <button type="button" class="btn btn-primary btn-sm ms-2 aapP">Apply</button>
                                                      
@@ -156,8 +156,9 @@
                                             </div>
                                         </li>
                                             <li class="d-flex justify-content-between align-items-center mb-2">
-                                                <h6 class="me-2 text-body">💰사용가능한 포인트</h6><span
-                                                    class="text-end pointSum">[[${memInfo[0].pointSum}]]원</span>
+                                                <h6 class="me-2 text-body">💰 사용가능한 포인트</h6>
+                                                <span class="text-end pointSum" th:if="${memInfo[0].pointSum} != 0">[[${memInfo[0].pointSum}]]원</span>
+                                                <span class="text-end pointSum" th:if="${memInfo[0].pointSum} == 0">0원</span>
                                             </li>
 
                                         </ul>
@@ -178,34 +179,25 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card mb-3 shadow-none border">
-                                        <div class="card-header p-0 position-relative bg-transparent">
-                                            <div class="form-check m-3" data-bs-toggle="collapse"
-                                                data-bs-target="#credit-card">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault2">
-                                                <label class="form-check-label h6 m-0 w-100 stretched-link"
-                                                    for="flexRadioDefault2">
-                                                    무통장 입금
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                     <div class="card mb-3 shadow-none border"> -->
+<!--                                         <div class="card-header p-0 position-relative bg-transparent"> -->
+<!--                                             <div class="form-check m-3" data-bs-toggle="collapse" -->
+<!--                                                 data-bs-target="#credit-card"> -->
+<!--                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" -->
+<!--                                                     id="flexRadioDefault2"> -->
+<!--                                                 <label class="form-check-label h6 m-0 w-100 stretched-link" -->
+<!--                                                     for="flexRadioDefault2"> -->
+<!--                                                     무통장 입금 -->
+<!--                                                 </label> -->
+<!--                                             </div> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
                             
                                 </div>
                                 <div class="pt-4">
                                     <p class="m-0 pt-3">현금영수증(사업자지출증빙) / 신용카드 매입전표는  매입세액공제 사용이 불가능합니다.
                                         [매입세액공제 안내]<br>
                                         현금영수증 / 신용카드 영수증은 개인 소득 공제용으로만 사용하실 수 있습니다.</p>
-                                </div>
-                            </div>
-                            <div class="d-flex px-3 py-1 align-items-center border border-white-light">
-                                <div class="fs-1 text-white">
-                                    <i class="bi bi-check-lg"></i>
-                                </div>
-                                <div class="col ps-3">
-                                    <h6 class="mb-1 text-white">사진관 입점하기</h6>
-                                    <p class="m-0 text-white-50 small">Lorem ipsum dolor sit amet</p>
                                 </div>
                             </div>
                         </div>
