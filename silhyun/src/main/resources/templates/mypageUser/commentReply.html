@@ -107,8 +107,7 @@ li {
 		
 	
 	$("#send").click(function(){
-		
-		
+
 		let comId = 'catLove' //댓글작성자
 		let ctgr = 'C'; //카테고리
 		let ctgrNum = '12'; //카테고리번호
@@ -263,7 +262,6 @@ li {
  		console.log($(this).closest('li').find('.comGrp').val());
  		let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
  		let grp = $(this).closest('li').find('.comGrp').val(); //삭제할 댓글의 그룹
- 		let commentZone = $(this).closest('li').find('.commentZone');
  		
  		$.ajax({
 			url:"/commentDelete",
@@ -283,7 +281,6 @@ li {
  		console.log('삭제클릭')
  		console.log($(this).closest('li').find('.comNum').val());
  		let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
- 		let commentZone = $(this).closest('li').find('.replyZone');
  		
  		$.ajax({
 			url:"/replyDelete",

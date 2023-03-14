@@ -92,7 +92,7 @@ $.ajax({
 });//해당작가정보
 //프로필 완.
 
-$('.cart-button.mb-3.d-flex').on('click','button',function(){
+$('.cart-button.mb-3.d-flex').on('click', 'button', function() {
 	console.log('hey')
 	//location.href=`/silhyun/ptgDetail/${ptgId}`
 	///pay/reserList/{ptgId}예약
@@ -128,7 +128,7 @@ $.ajax({
 
 $(document).ready(function() {
 	//모달관련~
-	$(".col-6.image-container.modalButton").click(function() {
+	$(".col-6.image-container.modalButton").on('click', function() {
 
 		var portNum = $(this).children('.portInfo').text();
 		console.log(portNum)
@@ -199,7 +199,7 @@ $(document).ready(function() {
 					});
 
 					// 다시 이전 버튼을 클릭하면 다음 버튼을 다시 활성화
-					$('.modalprev').on('click', function() {
+					$('.modalprev').off('click').on('click', function() {
 						if (imgIndex === images.length - 1) {
 							$('.modalNext').css("display", "block"); // 다음 버튼 활성화
 						}
@@ -246,6 +246,151 @@ $(document).ready(function() {
 		$(".mMiddleInfo").append(modalContentSit);
 		//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
 
+
+		//댓글
+
+		$(".commentBox").empty();//댓글창청
+
+
+
+		commentList(portNum)
+
+		//댓글작성
+		$("#send").off('click').on('click', function() {
+
+			let contactMessage = $("#contact-message").val(); //댓글내용
+			let dep = $("dep").val(); //깊이(댓글,대댓글) 구분
+			let grp = $('#contact-message').data("grp"); //댓글그룹
+			let comNum = $("comNum").val();
+
+
+
+			if ($("#contact-message").data("dep") == "1") {
+				dep = 1;
+			}
+
+
+			if (contactMessage == "") {
+				alert("내용을 입력해 주세요.")
+				$("#contact-message").focus();
+				return false;		// 내용 미입력시 작성 불가
+			}
+
+			$.ajax({
+				url: "/commentInsert",
+				type: "POST",
+				data: JSON.stringify(
+					{
+						"id": loginUserId,
+
+						"ctgrNum": portNum,
+						"cntn": contactMessage,
+						"dep": dep,
+						"grp": grp,
+						"comNum": comNum
+					}
+				),
+				contentType: 'application/json',
+				success: function(data) {
+					$("#contact-message").val("");
+					$(".commentBox").empty();
+					commentList(portNum)
+				},
+				error: function() {
+					alert('등록실패');
+				}
+			});
+		});
+
+		// 동적으로 생성된 태그에 그룹이벤트 부여
+		$(".commentBox").off('click').on('click', '#replyWrite', function(e) {
+			console.log('클릭')
+			console.log($(this).parent().parent().children('#comId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
+			console.log($(this).parent().parent().children('#comGrp').val())
+			let text = $(this).parent().parent().children('#comId').text();
+			let group_number = $(this).parent().parent().children('#comGrp').val();
+
+			$('#contact-message').val('@' + $(this).parent().parent().children('#comId').text())
+			$('#contact-message').data("dep", "1")
+			$('#contact-message').data("grp", group_number);
+			$('#grpNum').val($('#contact-message').data("grp"));
+
+		})
+
+		$('.commentBox').off('click').on('click', '#rereplyWrite', function() {
+			console.log('클릭')
+			console.log($(this).parent().parent().children('#repId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
+			console.log($(this).parent().parent().children('#repGrp').val())
+			let text = $(this).parent().parent().children('#repId').text();
+			let group_number = $(this).parent().parent().children('#repGrp').val();
+
+			$('#contact-message').val('@' + $(this).parent().parent().children('#repId').text())
+			$('#contact-message').data("dep", "1")
+			$('#contact-message').data("grp", group_number);
+			$('#grpNum').val($('#contact-message').data("grp"));
+		})
+
+
+		$(".commentBox").off('click').on('click', '.replyShowBtn', function(e) {
+			let parentLi = $(this).closest("li"); // 해당 버튼이 속한 li를 찾음
+			let popup = parentLi.find(".popup"); // 해당 li 엘리먼트에서 popup 클래스를 가진 엘리먼트를 찾음
+			let replyShowBtn = parentLi.find(".replyShowBtn"); // 해당 li 엘리먼트에서 replyShowBtn 클래스를 가진 버튼 엘리먼트를 찾음
+			if (popup.is(":visible")) {
+				popup.hide();
+				replyShowBtn.text('답글 보기');
+			} else {
+				popup.show();
+				replyShowBtn.text('답글 숨기기');
+			}
+		});
+
+
+		$(".commentBox").off('click').on('click', '.comDelBtn', function() {
+			console.log('삭제클릭')
+			console.log($(this).closest('li').find('.comNum').val());
+			console.log($(this).closest('li').find('.comGrp').val());
+			let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
+			let grp = $(this).closest('li').find('.comGrp').val(); //삭제할 댓글의 그룹
+			let commentZone = $(this).closest('li').find('.commentZone');
+			$(".commentBox").empty();
+			$.ajax({
+				url: "/commentDelete",
+				type: "delete",
+				data: {
+					grp
+				}
+				,
+				success: function(data) {
+					commentList(portNum)
+				}
+			})
+
+		})
+
+		$(".commentBox").off('click').on('click', '.reDelBtn', function() {
+			console.log('삭제클릭')
+			console.log($(this).closest('li').find('.comNum').val());
+			let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
+			let commentZone = $(this).closest('li').find('.replyZone');
+			$(".commentBox").empty();
+			$.ajax({
+				url: "/replyDelete",
+				type: "delete",
+				data: {
+					comNum
+				}
+				,
+				success: function(data) {
+					commentList(portNum)
+				}
+			})
+		})
+
+
+
+
+
+
 		//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))끝
 
 		//해당 포트폴리오 번호에 맞는 푸터 븥여주기(((4)))시작
@@ -271,7 +416,7 @@ $(document).ready(function() {
 		//모달안에서 기능 ==1==하트 시작
 
 		//모달 하트눌렀을 때 생기는 이벤트
-		$(".heart-icon").click(function() {
+		$(".heart-icon").on('click', function() {
 			//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
 			var thisHeart = $(this);
 
@@ -322,54 +467,117 @@ $(document).ready(function() {
 
 
 	});//사진 클릭했을 때 생기는 이벤트 끝 
-	
-	
+
+
+	function commentList(portNum) {
+		$.ajax({
+			url: `/commentList/${portNum}`,
+			type: 'get',
+		})
+			.then(result => {
+				console.log(result)
+
+				let str = '';
+				$(result).each(function(c, comm) {
+					console.log(comm.profile)
+					if (comm.dep == 0 && c != 0) {
+						str += '</ul>'
+						str += '</div>'
+						str += '</li>'
+					}
+					if (comm.dep == 0) {
+						str += '<li class="media d-flex commentZone">'
+						str += '<div class="avatar rounded-circle">'
+						str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="사진">'
+						str += '</div>'
+						str += '<h6 class="mt-0 mb-1 commentId" id="comId" >' + comm.id + '</h6>'
+						str += '<label class="mb-2 small" >' + comm.comDate + '</label>'
+						str += '<p>' + comm.cntn + '</p>'
+						str += '<input type="hidden" class="comGrp" name="grp" id="comGrp" value="' + comm.grp + '">'
+						str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
+						str += '<div class="nav dark-link small">'
+						str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
+						if (comm.repCnt > 0) {
+							str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'
+						}
+						str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'
+						str += '</div>'
+						if (comm.repCnt > 0) {
+							str += '<div class=popup style="display:none;">'
+							str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
+						}
+
+					} else {
+						str += '<li class="media d-flex replyZone">'
+						str += '<div class="avatar rounded-circle">'
+						str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="">'
+						str += '</div>'
+						str += '<div class="col ps-3">'
+						str += '<h6 class="mt-0 mb-1 commentId" id="repId">' + comm.id + '</h6>'
+						str += '<label class="mb-2 small">' + comm.comDate + '</label>'
+						str += '<p>' + comm.cntn + '</p>'
+						str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="' + comm.grp + '">'
+						str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
+						str += '<div class="nav dark-link small">'
+						str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
+						str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
+						str += '</div>'
+						str += '</div>'
+						str += '</li>'
+					}
+				})
+				$('.commentBox').html(str);
+			})
+	}
+
+
+
 	console.log('모오오오달~~~');
 
 
-const modal = $(".modalBlacklayer");
+	const modal = $(".modalBlacklayer");
 
 
-$('.modalButton').on('click', function() {
-	modal.css("display", "block");
-});
+	$('.modalButton').on('click', function() {
+		modal.css("display", "block");
+	});
 
 
 
 
 
-function isModalOn() {
-	return modal.css("display") === "block";
-}
-
-function modalOff() {//모달끄는거
-	modal.css("display", "none");
-	imgIndex=0;
-}
-
-$('.modalCloseButton').on('click', function() {
-	modalOff();
-});
-
-modal.on("click", function(e) {
-	const evTarget = e.target;
-	if ($(evTarget).hasClass(".modalBlacklayer")) {
-		modalOff();
+	function isModalOn() {
+		return modal.css("display") === "block";
 	}
-});
 
-$(window).on("keyup", function(e) {
-	if (isModalOn() && e.key === "Escape") {
-		modalOff();
+	function modalOff() {//모달끄는거
+		modal.css("display", "none");
+		imgIndex = 0;
 	}
-});
 
-////////////////////모달실행~~~
+	$('.modalCloseButton').on('click', function() {
+		modalOff();
+	});
 
-//모달메뉴
-$('.menuButton').click(function() {
-	$('.menuButtonlist').toggle();
-});
+	modal.on("click", function(e) {
+		const evTarget = e.target;
+		if ($(evTarget).hasClass(".modalBlacklayer")) {
+			modalOff();
+		}
+	});
+
+	$(window).on("keyup", function(e) {
+		if (isModalOn() && e.key === "Escape") {
+			modalOff();
+		}
+	});
+
+	////////////////////모달실행~~~
+
+	//모달메뉴
+	$('.menuButton').click(function() {
+		$('.menuButtonlist').toggle();
+	});
 
 
 

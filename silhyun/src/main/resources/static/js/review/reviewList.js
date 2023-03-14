@@ -2,7 +2,9 @@
  *  reviewList.js
  */
  $(function(){
+/*	
 	let ctgr = "R"
+	
 	$('.revNum').each(function(i, e){
 		let ctgrNum = $(e).val()
 		$.ajax({
@@ -11,7 +13,6 @@
 			data:{ctgr : ctgr,
 			      ctgrNum: ctgrNum},
 			success: function(res){
-				
 				if($(res).length > 0){
 				    let slider = $('.slider-wrap[name="'+ctgrNum+'"]')
 				    slider.slick('slickRemove',null, null, true)
@@ -32,8 +33,7 @@
 			}
 		})
 	})
-	
-	
+*/
 	
     $('.slider-wrap').slick({
       slide: 'div',        //슬라이드 되어야 할 태그
@@ -69,8 +69,8 @@
     	console.log($("#searchFrm").find("input[name='pageNum']").val())
     	
     	
-    	//ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
-    	searchFrm.submit(); //폼태그값을 스트링으로 
+    	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
+    	//searchFrm.submit(); //폼태그값을 스트링으로 
     })
     
 
@@ -85,5 +85,6 @@
 })
     function starPercent(n){ //매개변수에 별점 넣기
         const score = Number(n) * 20;
-          return score  + 1.5;
+         // return score  + 1.5;
+          return score;
   		}
