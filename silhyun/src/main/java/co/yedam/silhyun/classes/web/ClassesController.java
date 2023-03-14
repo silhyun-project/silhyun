@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.yedam.silhyun.classes.service.ClassesService;
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
@@ -120,8 +122,8 @@ public class ClassesController {
         
     }
  
-
-    @RequestMapping(value = "/silhyun/classes/cdtCList", method = RequestMethod.GET)
+//메인 아작스
+    @RequestMapping(value = "/silhyun/classes/cdtCList")
     public @ResponseBody Map<String, Object> cdtCList(@RequestParam("param1") int param1) {
         List<Map<String, Object>> cdtC1List = ClassesService.cdtC1List(param1);
         List<Map<String, Object>> cdtC2List = ClassesService.cdtC2List(param1);
@@ -129,7 +131,9 @@ public class ClassesController {
         Map<String, Object> result = new HashMap<>();
         result.put("cdtC1List", cdtC1List);
         result.put("cdtC2List", cdtC2List);
-        
+        System.out.println("아작스="+result);
+        ObjectMapper objMap = new ObjectMapper();
+        //objMap.writeValueAsString(result)
         return result;
     }
     

@@ -8,82 +8,166 @@
 <!-- 컬럼 대문자로 쳐야 출력되는 이슈있음. 확인하기. -->
 <!-- 테스트 중이라 null값인 데이터들이 있음. 처리했지만 추후 데이터 수정할 것 -->
 <select id="getC1List" resultType="map">
-    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
+    SELECT c.cla_cd as cCd, c.thni as thni, trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
     c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
     case 
         when c.cla_time = '' then '시간미정'
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
         else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
     end as cTime, 
-    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+ CASE 
+    WHEN f.fd_cd = 'B1' then '제품' 
+   WHEN f.fd_cd = 'B2' then '음식' 
+     WHEN f.fd_cd = 'B3' then '행사' 
+       WHEN f.fd_cd = 'B4' then '건축/인테리어' 
+         WHEN f.fd_cd = 'B5' then '패션' 
+           WHEN f.fd_cd = 'B6' then '프로필/화보' 
+             WHEN f.fd_cd = 'B7' then '웨딩' 
+               WHEN f.fd_cd = 'B8' then '일반스냅' 
+                 WHEN f.fd_cd = 'B9' then '반려동물' 
+                 else '분류미정'
+    END AS fCd, c.class_num as cNum
     FROM class c 
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
     LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
     WHERE c.cla_cd = 'CL1'
+    GROUP BY 
+    c.cla_cd, 
+    c.cla_cnt, 
+    c.thni, 
+    c.cla_ttl, 
+    m.name, 
+    c.cla_dt, 
+    c.cla_pri, 
+    c.ypsn, 
+    c.cla_place, 
+    c.cla_time, 
+    f.fd_cd, 
+    c.class_num
 </select>
 
 
 
 <select id="getC2List" resultType="map">
-SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
+SELECT c.cla_cd as cCd, c.thni as thni,trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
 c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime,
- COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+ CASE 
+    WHEN f.fd_cd = 'B1' then '제품' 
+   WHEN f.fd_cd = 'B2' then '음식' 
+     WHEN f.fd_cd = 'B3' then '행사' 
+       WHEN f.fd_cd = 'B4' then '건축/인테리어' 
+         WHEN f.fd_cd = 'B5' then '패션' 
+           WHEN f.fd_cd = 'B6' then '프로필/화보' 
+             WHEN f.fd_cd = 'B7' then '웨딩' 
+               WHEN f.fd_cd = 'B8' then '일반스냅' 
+                 WHEN f.fd_cd = 'B9' then '반려동물' 
+                 else '분류미정'
+    END AS fCd, c.class_num as cNum
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
 WHERE c.cla_cd = 'CL2'
+GROUP BY 
+    c.cla_cd, 
+    c.cla_cnt, 
+    c.thni, 
+    c.cla_ttl, 
+    m.name, 
+    c.cla_dt, 
+    c.cla_pri, 
+    c.ypsn, 
+    c.cla_place, 
+    c.cla_time, 
+    f.fd_cd, 
+    c.class_num
 </select>
 
 
 
 <!-- 메인에서 선택값 받아서 검색된 클래스 리스트. 아작스로 보낼 것-->
 <select id="cdtC1List" parameterType="int"  resultType="map">
-    SELECT c.cla_cd as cCd, 
-           c.thni as thni, 
-           nvl(r.star, 0) as star, 
-           c.cla_ttl as ttl, 
-           COALESCE(m.name, '익명') as name, 
-           c.cla_dt as cDt,
-           c.cla_pri as cPri, 
-           nvl(c.ypsn, 0) as ypsn, 
-           COALESCE(c.cla_place, '장소미정') as cPlace, 
-		  case 
-			    when c.cla_time = '' then '시간미정'
-			    when TO_NUMBER(c.cla_time) <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
-			    else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
-          end as cTime,
-          COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
-    FROM class c 
-    LEFT OUTER JOIN member m ON c.ptg_id = m.id
-    LEFT OUTER JOIN field f  ON c.ptg_id = f.ptg_id
-    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-    WHERE c.cla_cd = 'CL1' 
-<if test="param1 == 6">and f.fd_cd = 'B6'</if>
-<if test="param1 == 7">and f.fd_cd = 'B7'</if>
-<if test="param1 == 9">and f.fd_cd = 'B9'</if>
-<if test="param1 == 1">and f.fd_cd IN ('B1','B4')</if>
-</select>
-
-<select id="cdtC2List" parameterType="int"  resultType="map">
-    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, c.cla_cnt as cnt, 
-case 
-    when c.cla_time = '' then '시간미정'
-    when TO_NUMBER(c.cla_time) <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
-    else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
-end as cTime,
-    COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+    SELECT c.cla_cd as cCd, c.thni as thni, trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
+    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+    case 
+        when c.cla_time = '' then '시간미정'
+        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
+        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
+    end as cTime, 
+ CASE 
+    WHEN f.fd_cd = 'B1' then '제품' 
+   WHEN f.fd_cd = 'B2' then '음식' 
+     WHEN f.fd_cd = 'B3' then '행사' 
+       WHEN f.fd_cd = 'B4' then '건축/인테리어' 
+         WHEN f.fd_cd = 'B5' then '패션' 
+           WHEN f.fd_cd = 'B6' then '프로필/화보' 
+             WHEN f.fd_cd = 'B7' then '웨딩' 
+               WHEN f.fd_cd = 'B8' then '일반스냅' 
+                 WHEN f.fd_cd = 'B9' then '반려동물' 
+                 else '분류미정'
+    END AS fCd, c.class_num as cNum
     FROM class c 
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
     LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-    WHERE c.cla_cd = 'CL2' 
+    WHERE c.cla_cd = 'CL1'
+    <if test="param1 == 6">and f.fd_cd = 'B6'</if>
+<if test="param1 == 7">and f.fd_cd = 'B7'</if>
+<if test="param1 == 9">and f.fd_cd = 'B9'</if>
+<if test="param1 == 1">and f.fd_cd IN ('B1','B4')</if>
+    GROUP BY 
+    c.cla_cd, 
+    c.cla_cnt, 
+    c.thni, 
+    c.cla_ttl, 
+    m.name, 
+    c.cla_dt, 
+    c.cla_pri, 
+    c.ypsn, 
+    c.cla_place, 
+    c.cla_time, 
+    f.fd_cd, 
+    c.class_num
+</select>
+
+<select id="cdtC2List" parameterType="int"  resultType="map">
+SELECT c.cla_cd as cCd, c.thni as thni,trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
+c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime,
+ CASE 
+    WHEN f.fd_cd = 'B1' then '제품' 
+   WHEN f.fd_cd = 'B2' then '음식' 
+     WHEN f.fd_cd = 'B3' then '행사' 
+       WHEN f.fd_cd = 'B4' then '건축/인테리어' 
+         WHEN f.fd_cd = 'B5' then '패션' 
+           WHEN f.fd_cd = 'B6' then '프로필/화보' 
+             WHEN f.fd_cd = 'B7' then '웨딩' 
+               WHEN f.fd_cd = 'B8' then '일반스냅' 
+                 WHEN f.fd_cd = 'B9' then '반려동물' 
+                 else '분류미정'
+    END AS fCd, c.class_num as cNum
+FROM class c 
+LEFT OUTER JOIN member m ON c.ptg_id = m.id
+LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+WHERE c.cla_cd = 'CL2'
 <if test="param1 == 6">and f.fd_cd = 'B6'</if>
 <if test="param1 == 7">and f.fd_cd = 'B7'</if>
 <if test="param1 == 9">and f.fd_cd = 'B9'</if>
 <if test="param1 == 1">and f.fd_cd IN ('B1','B4')</if>
+GROUP BY 
+    c.cla_cd, 
+    c.cla_cnt, 
+    c.thni, 
+    c.cla_ttl, 
+    m.name, 
+    c.cla_dt, 
+    c.cla_pri, 
+    c.ypsn, 
+    c.cla_place, 
+    c.cla_time, 
+    f.fd_cd, 
+    c.class_num
 </select>
 
 
@@ -93,7 +177,7 @@ SELECT
     c.cla_cd AS cCd, 
     nvl(c.cla_cnt,0) as cnt,
     c.thni AS thni, 
-    trunc(AVG(NVL(r.star, 0)),1) AS star, 
+    trunc(NVL(AVG(r.star), 0), 1) AS star, 
     c.cla_ttl AS ttl, 
     NVL(m.name, '익명') AS name, -- 수정된 부분
     to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
@@ -141,23 +225,49 @@ FETCH FIRST 12 ROWS ONLY
 
 <!-- 무료 강의 페이지 -->
 <select id="getFCList" resultType="map">
-SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn,
-       to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
-COALESCE(c.cla_place, '장소미정') as cPlace, nvl(c.cla_cnt, 0) as cnt,
-case 
-    when c.cla_time = '' then '시간미정'
-    when TO_NUMBER(c.cla_time) >= 12 then '오후 '|| TO_CHAR(TO_NUMBER(c.cla_time)-12) || '시'
-    else '오전 '|| c.cla_time || '시'
-end as cTime,
-
-COALESCE(f.fd_cd, '분류미정')as fCd, c.class_num as cNum
+SELECT 
+    c.cla_cd AS cCd, 
+    nvl(c.cla_cnt, 0) AS cnt,
+    c.thni AS thni,    
+    trunc(NVL(AVG(r.star), 0), 1) AS star, 
+    c.cla_ttl AS ttl, 
+    COALESCE(m.name, '익명') AS name,
+    to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
+    c.cla_pri AS cPri, 
+    NVL(c.ypsn, 0) AS ypsn, 
+    COALESCE(c.cla_place, '장소미정') AS cPlace, 
+    CASE 
+        WHEN c.cla_time = '' THEN '시간미정'
+        WHEN TO_NUMBER(c.cla_time) >= 12 THEN '오후 ' || TO_CHAR(TO_NUMBER(c.cla_time)-12) || '시'
+        ELSE '오전 ' || c.cla_time || '시'
+    END AS cTime,
+    COALESCE(f.fd_cd, '분류미정') AS fCd, 
+    c.class_num AS cNum, 
+    NVL(p.toal, 0) AS total
 FROM class c 
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+LEFT OUTER JOIN (
+    SELECT ctgr_num, COUNT(*) AS toal
+    FROM payment
+    GROUP BY ctgr_num
+) p ON c.class_num = p.ctgr_num
 WHERE c.cla_pri = '0'
-
+GROUP BY 
+    c.cla_cd, 
+    c.cla_cnt, 
+    c.thni, 
+    c.cla_ttl, 
+    m.name, 
+    c.cla_dt, 
+    c.cla_pri, 
+    c.ypsn, 
+    c.cla_place, 
+    c.cla_time, 
+    f.fd_cd, 
+    c.class_num, 
+    p.toal
 </select>
 
 
@@ -174,17 +284,31 @@ where class_num = #{classNum}
 <!-- 강의 상세페이지에 함께 보낼 정보. 별점평균, 리뷰총수, 구입여부, 찜여부. 여부들은 숫자로 나오기때문에 숫자로 비교-->
 <select id="CPlusInfo" parameterType="java.util.Map" resultType="map">
 SELECT 
-    (SELECT AVG(star) FROM review WHERE ctgr_num = #{classNum}) AS "stAvg",
+    (SELECT trunc(NVL(AVG(star), 0), 1) FROM review WHERE ctgr_num = #{classNum}) AS "starAvg",
     (SELECT COUNT(*) FROM review WHERE ctgr_num = #{classNum}) AS "rvCnt",
     (SELECT itr FROM photographer WHERE ptg_id = (SELECT ptg_id FROM class WHERE class_num = #{classNum})) AS "itr",
     (SELECT count(ctgr_num) FROM payment WHERE ctgr_num = #{classNum} AND id = #{id} AND ord_sta = 'Y') AS "buyYN",
-    (SELECT count(ctgr_num) FROM zzim WHERE ctgr_num = #{classNum} AND id = #{id} and ctgr ='C') AS "zzimYN"
+    (SELECT count(ctgr_num) FROM zzim WHERE ctgr_num = #{classNum} AND id = #{id} and ctgr ='C') AS "zzimYN",
+    (select
+CASE 
+    WHEN fd_cd = 'B1' then '제품' 
+   WHEN fd_cd = 'B2' then '음식' 
+     WHEN fd_cd = 'B3' then '행사' 
+       WHEN fd_cd = 'B4' then '건축/인테리어' 
+         WHEN fd_cd = 'B5' then '패션' 
+           WHEN fd_cd = 'B6' then '프로필/화보' 
+             WHEN fd_cd = 'B7' then '웨딩' 
+               WHEN fd_cd = 'B8' then '일반스냅' 
+                 WHEN fd_cd = 'B9' then '반려동물' 
+                 else '분류미정'
+    END AS fdCd
+    from field where ptg_id = (select ptg_id from class where class_num = #{classNum}))AS "fdCd"
 FROM DUAL
 </select>
 
 <!-- 강의 상세페이지에 함께 보낼 랜덤추천리스트. -->
 <select id="randomList" parameterType="String"  resultType="map">
-    SELECT c.cla_cd as cCd, c.thni as thni, nvl(r.star, 0) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
+    SELECT c.cla_cd as cCd, c.thni as thni, trunc(NVL(AVG(star), 0), 1) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
     c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
     case 
         when c.cla_time = '' then '시간미정'
@@ -208,8 +332,21 @@ CASE
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
     LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
     WHERE c.class_num != #{classNum}
+    GROUP BY 
+    c.cla_cd, 
+    c.cla_cnt, 
+    c.thni, 
+    c.cla_ttl, 
+    m.name, 
+    c.cla_dt, 
+    c.cla_pri, 
+    c.ypsn, 
+    c.cla_place, 
+    c.cla_time, 
+    f.fd_cd, 
+    c.class_num
      ORDER BY DBMS_RANDOM.VALUE
-	FETCH FIRST 4 ROWS ONLY
+	FETCH FIRST 4 ROWS ONLY 
 </select>
 
 

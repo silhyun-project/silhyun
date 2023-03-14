@@ -43,7 +43,7 @@
                             
                                                              <div class="row g-3 g-lg-4"  th:each="fC, sts : ${fCList}" th:Class="${sts}">
                                     <!-- Product Box -->
-                                    <div class="col-6 col-lg-3" style="float: left; margin-bottom: 20px">
+                                    <div class="col-6 col-lg-3" style="float: left; height: 485px">
                                         <div class="product-card-7" >
                                             <div class="product-card-image"  style="width: 300px; height: 300px">
                                                 <div class="badge-ribbon">
@@ -72,14 +72,14 @@
                                                 </div>
                                             </div>
                                             <div class="product-card-info">
-                                                <div class="rating-star text">
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star-fill active"></i>
-                                                    <i class="bi bi-star"></i>
-                                                    <a  th:text="${fC.STAR}"></a>
-                                                </div>
+<div class="rating-star text">
+  <span th:each="star : ${#numbers.sequence(1, 5)}">
+    <i th:if="${fC.STAR >= star}" class="bi bi-star-fill active"></i>
+    <i th:if="${fC.STAR >= star - 0.5 && fC.STAR < star}" class="bi bi-star-half active"></i>
+    <i th:if="${fC.STAR < star - 0.5}" class="bi bi-star"></i>
+  </span>
+  <span th:text="${fC.STAR}"></span>
+</div>
                                                 <h6 class="product-title">                                         
                                                      <a th:href="@{/silhyun/classes/classesInfo(classNum=${fC.CNUM}, id='catLove')}" th:text="${fC.TTL}"></a>                                                                                           
                                                 </h6>
