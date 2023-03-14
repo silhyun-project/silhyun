@@ -29,7 +29,7 @@ public class CommentController {
 	
 	@GetMapping("/commentList")
 	@ResponseBody
-	public List<CommentVO> commentList(CommentVO vo, Model model) {
+	public List<CommentVO> commentList(Model model) {
 		List<CommentVO> comList = commentService.getCommentList();
 		return comList;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,16 +35,35 @@ public class QstController {
 		List<QstVO> getAoQstList = qstService.getAoQstList();
 		return getAoQstList;
 	}
-//	
-//	@PostMapping("/aoQstInsert")
-//	@ResponseBody
-//	public String aoQstInsert(@RequestBody QstVO vo) {
-//		
-//		qstService.aoQstInsert(vo);
-//		return "seccess";
-//	}	
 	
+	@PostMapping("/aoQstInsert")
+	@ResponseBody
+	public String aoQstInsert(@RequestBody QstVO vo) {
+		
+		qstService.aoQstInsert(vo);
+		return "seccess";
+	}	
 	
+	@DeleteMapping("/aoQstDelete")
+	public String aoQstDelete(QstVO vo) {
+		
+		qstService.aoQstDelete(vo);
+		return "qst/aoQst";
+	}
 	
+	@PostMapping("/aoAnsInsert")
+	@ResponseBody
+	public String aoAnsInsert(@RequestBody CommentVO cvo) {
+		
+		qstService.aoAnsInsert(cvo);
+		return "qst/aoQst";
+	}
+	
+	@DeleteMapping("/aoAnsDelete")
+	public String aoAnsDelete(CommentVO cvo) {
+		
+		qstService.aoAnsDelete(cvo);
+		return "qst/aoQst";
+	}
 	
 }
