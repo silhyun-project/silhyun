@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.yedam.silhyun.common.service.PhotoService;
+import co.yedam.silhyun.common.vo.CommentVO;
 import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.service.PortfolioService;

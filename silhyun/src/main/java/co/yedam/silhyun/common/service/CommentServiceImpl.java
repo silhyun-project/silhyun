@@ -13,9 +13,9 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired CommentMapper mapper;
 	
 	@Override
-	public List<CommentVO> getCommentList() {
+	public List<CommentVO> getCommentList(String portNum) {
 		// TODO Auto-generated method stub
-		return mapper.getCommentList();
+		return mapper.getCommentList(portNum);
 	}
 
 	@Override
@@ -30,17 +30,7 @@ public class CommentServiceImpl implements CommentService{
 		return mapper.commentDelete(vo);
 	}
 
-	@Override
-	public int commentUpdate(CommentVO vo) {
-		// TODO Auto-generated method stub
-		return mapper.commentUpdate(vo);
-	}
 
-	@Override
-	public int replyInsert(CommentVO vo) {
-		// TODO Auto-generated method stub
-		return mapper.replyInsert(vo);
-	}
 
 	@Override
 	public int replyDelete(CommentVO vo) {
@@ -48,9 +38,5 @@ public class CommentServiceImpl implements CommentService{
 		return mapper.replyDelete(vo);
 	}
 
-	@Override
-	public int replyUpdate(CommentVO vo) {
-		// TODO Auto-generated method stub
-		return mapper.replyUpdate(vo);
-	}
+
 }
