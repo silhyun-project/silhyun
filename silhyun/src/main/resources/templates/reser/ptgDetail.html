@@ -50,9 +50,6 @@
     -->
     <div class="wrapper">
         <!-- Main -->
-  <div >
-            [[${ptg}]]<br>
-        </div> 
         <main>
             <!-- Page Title -->
             <div class="bg-no-repeat bg-cover bg-right-center position-relative">
@@ -170,7 +167,7 @@
                             <div class="tab-pane fade show active" id="pd_description_02" role="tabpanel" aria-labelledby="pd_description_tab_02">
                                 <!--Description-->
                                 <div class="row">
-                                    <div class="col-lg-7 pe-lg-10">
+                                    <div class="col-lg-15">
                                         <blockquote class="bg-gray-100 p-3 lead fw-400 mt-5 text-dark border-start border-primary border-5">
                                              <ol class="list-type-01 list-unstyled pt-2 mb-4">
                                             <li><h5>취소 및 환불 규정</h5></li>
@@ -193,57 +190,6 @@
                                             작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
                                             </ol>
                                         </blockquote>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="pb-3">
-                                            <img src="/img/fashion/1000x1000.jpg" class="img-fluid" title="" alt="">
-                                        </div>
-                                        <div class="row g-3">
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-truck"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">Free shipping</h6>
-                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-headphones"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">Contact us 24/7</h6>
-                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-box-arrow-in-left"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">30 Days Return</h6>
-                                                        <p class="m-0">Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="d-flex border p-3">
-                                                    <div class="fs-1 text-primary">
-                                                        <i class="bi bi-shield-lock"></i>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <h6 class="mb-1">100% Secure Payment</h6>
-                                                        <p class="m-0">서비스 제공이 완료된 이후에 전문가에게 결제 대금이 전달됩니다.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -285,6 +231,7 @@
         </main>
         <!-- End Main -->
 
+
 		<script type="text/javascript">
 		
 		
@@ -319,6 +266,7 @@
 		}
 
 		</script>
+
     </div>
     <!-- 
     ========================
@@ -339,8 +287,29 @@
     //        })
 
     
-
+//리뷰
+// 	     function goReivew(){
+// 	    	 ajaxReiew({pageNum: 1, amount: 5})
+// 	     }
+		
+// 		ajaxReiew({pageNum: 1, amount: 5})
+		
+// 		function ajaxReiew(data){
+// 			$.ajax({
+// 				url: '/ajaxCall',
+// 				data: data,
+// 				success: function(res){
+// 					console.log(res)
+// 					$('#reviews').empty().append(res)
+// 				},
+// 				error: function(err){
+// 					console.log(err)
+// 				}
+// 			})
+// 		}
     </script>
+
+
     </div>
 </body>
 

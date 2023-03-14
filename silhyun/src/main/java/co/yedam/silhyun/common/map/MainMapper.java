@@ -17,4 +17,5 @@ public interface MainMapper {
 	List<FieldVO> getFeildList(FieldVO vo);// 필드 가지고와서 태그로 만들기
 	
 	List<PhotographerVO> getTagPtgList(String fdCd);
+	List<PhotographerVO> getPtgPort(String ptgId);
 }

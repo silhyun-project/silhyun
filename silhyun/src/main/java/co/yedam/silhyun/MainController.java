@@ -1,5 +1,7 @@
 package co.yedam.silhyun;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.common.service.MainService;
 import co.yedam.silhyun.common.vo.ReviewVO;
 import co.yedam.silhyun.event.vo.EventVO;
+import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.vo.FieldVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.vo.PortfolioVO;
@@ -41,5 +45,11 @@ public class MainController {
 	public String ptgTag(Model model,@PathVariable String fdCd,FieldVO fvo) {
 		model.addAttribute("tagPtgList",mainService.getTagPtgList(fdCd));
 		return "home/ptgTag";
+	}
+	
+	@RequestMapping("/ajaxPort/{ptgId}")
+	@ResponseBody
+	public List<PhotographerVO> ajaxPort(@PathVariable String ptgId){
+		return mainService.getPtgPort(ptgId);
 	}
 }
