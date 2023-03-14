@@ -1,6 +1,7 @@
 package co.yedam.silhyun.common.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,4 +21,5 @@ public class ReviewVO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date revDate;
 	private int hit;
+	private List<PhotoVO> photoList;
 }
