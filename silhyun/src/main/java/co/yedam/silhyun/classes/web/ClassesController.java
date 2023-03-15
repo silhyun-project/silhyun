@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.classes.service.ClassesService;
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
+import co.yedam.silhyun.common.vo.ReviewVO;
+import co.yedam.silhyun.event.vo.EventVO;
+import co.yedam.silhyun.member.vo.FieldVO;
+import co.yedam.silhyun.member.vo.PhotographerVO;
+import co.yedam.silhyun.portfolio.vo.PortfolioVO;
 
 @Controller
 public class ClassesController {
@@ -38,16 +46,16 @@ public class ClassesController {
 	}
 
 	
-	
 	@RequestMapping("/silhyun/classes/classesInfo")
-	public String classesInfo(String classNum, String id, Model model) {
-
+	public String classesInfo(String classNum, Model model, HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
+		
 		System.out.println("오긴했음 ");
-		System.out.println("컨트롤러로 온 classNum="+classNum+"id는="+id); //확인완료. 모두 잘 온다.
+		System.out.println("컨트롤러로 온 classNum="+classNum+"id는="+user.getId()); //확인완료. 모두 잘 온다.
 		//클래스 개별정보
 		model.addAttribute("cInfo", ClassesService.selectClass(classNum));
 		
-		model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum, id));
+		model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum, user.getId()));
 		
 		model.addAttribute("randomList", ClassesService.randomList(classNum));
 		
@@ -58,22 +66,28 @@ public class ClassesController {
 	
 	
 	@RequestMapping("/silhyun/classes/classesVideo")
-	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum) {
-	    System.out.println("inetNum="+inetNum);
-	    model.addAttribute("IV", ClassesService.selectIV("2", inetNum, "catLove"));
+	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum, HttpSession httpSession) {
+		
+		System.out.println("inetNum="+inetNum);
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
+	    model.addAttribute("IV", ClassesService.selectIV("2", inetNum, user.getId()));
 	    System.out.println("컨트롤러에 온 비디오의 세부 IVModel"+model);
 	    return "/classes/classesVideo";
 	}
 	
 	@GetMapping("/silhyun/myPage/myClasses")
-	public String myClasses(String id, Model model) {
-		model.addAttribute("myName",ClassesService.getName("catLove"));
-		model.addAttribute("myC1", ClassesService.myTakeC1("catLove"));
-		model.addAttribute("myC2", ClassesService.myTakeC2("catLove"));
+	public String myClasses(String id, Model model, HttpSession httpSession) {
 		
-		int count1 = ClassesService.myTakeC1("catLove").size();
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");
+		String iddd = user.getId();
+		System.out.println("컨트롤러 아이디 확인"+iddd);
+		model.addAttribute("myName",ClassesService.getName(user.getId()));
+		model.addAttribute("myC1", ClassesService.myTakeC1(user.getId()));
+		model.addAttribute("myC2", ClassesService.myTakeC2(user.getId()));
+		
+		int count1 = ClassesService.myTakeC1(user.getId()).size();
 		System.out.println("컨트롤러러로 온 myTakeC1 사이즈"+count1);
-		int count2 = ClassesService.myTakeC2("catLove").size();
+		int count2 = ClassesService.myTakeC2(user.getId()).size();
 		System.out.println("컨트롤러러로 온 myTakeC2 사이즈"+count2);
 		
 		model.addAttribute("count1",count1);
@@ -96,9 +110,11 @@ public class ClassesController {
 	
 	
 	@RequestMapping("/silhyun/classes/myClassesVideos")
-	public String myClassesVidios(String id, @RequestParam("classNum") String classNum, Model model) {
+	public String myClassesVidios(String id, @RequestParam("classNum") String classNum, Model model, HttpSession httpSession) {
+		
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
 	System.out.println("비디오 목록으로 가는 클래스넘"+classNum);
-		model.addAttribute("IVInfo",ClassesService.getClassIVInfo("catLove", classNum));
+		model.addAttribute("IVInfo",ClassesService.getClassIVInfo(user.getId(), classNum));
 		
 		System.out.println("컨트롤러로 온 클래스IVInfo"+ model);
 		return "/classes/myClassesVideos";	

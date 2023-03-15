@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
-
+<head>
+</head>
 <body>
     <div layout:fragment="content">
         <section class="section">
@@ -110,12 +111,12 @@
 
                                         </div>
                                         <div class="product-media">
-                                            <a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM}, id='catLove')}">
+                                            <a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM})}">
                                                 <img class="img-fluid" th:src="${c2.THNI}" title="" alt="">
                                             </a>
                                         </div>
                                         <div class="product-cart-btn">
-                                            <a class="btn btn-primary" th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM}, id='catLove')}">
+                                            <a class="btn btn-primary" th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM})}">
                                                 <i class="fi-eye"></i>
                                                 상세 보기
                                             </a>
@@ -134,7 +135,7 @@
 </div>
 
                                         <h6 class="product-title">
-<a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM}, id='catLove')}" th:text="${c2.TTL}"></a>
+<a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM})}" th:text="${c2.TTL}"></a>
 </h6>
                                         
                                         <!-- 
@@ -201,13 +202,13 @@
 
                                             </div>
                                             <div class="product-media">
-                                                <a th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM}, id='catLove')}">
+                                                <a th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM})}">
                                                     <img id="c1Thni" class="img-fluid" th:src="${c1.THNI}" title=""
                                                         alt="">
                                                 </a>
                                             </div>
                                             <div class="product-cart-btn">
-                                                <a class="btn btn-primary" th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM}, id='catLove')}">
+                                                <a class="btn btn-primary" th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM})}">
                                                     <i class="fi-eye"></i>
                                                     상세 보기
                                                 </a>
@@ -223,7 +224,7 @@
   <span th:text="${c1.STAR}"></span>
 </div>
                                             <h6 class="product-title">
-                                                <a id="c1Ttl" th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM}, id='catLove')}" th:text="${c1.TTL}"></a>
+                                                <a id="c1Ttl" th:href="@{/silhyun/classes/classesInfo(classNum=${c1.CNUM})}" th:text="${c1.TTL}"></a>
                                             </h6>
                                             <div class="product-price">
                                                 <span id="c1Cpri" class="text-primary"
@@ -346,12 +347,12 @@
 	                     </a>
 	                   </div>
 	                   <div class="product-media">
-	                   <a href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}&amp;id=catLove">
+	                   <a href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}">
 	                       <img id="c1Thni" class="img-fluid" src="${cdtC1.THNI}" title="" alt="">
 	                     </a>
 	                   </div>
 	                   <div class="product-cart-btn">
-	                     <a class="btn btn-primary" href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}&amp;id=catLove">
+	                     <a class="btn btn-primary" href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}">
 	                       <i class="fi-eye"></i>
 	                       상세 보기
 	                     </a>
@@ -364,7 +365,7 @@
 	               </div>
                               
                                  <h6 class="product-title">
-                                     <a id="c1Ttl" href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}&amp;id=catLove">${cdtC1.TTL}</a>
+                                     <a id="c1Ttl" href="/silhyun/classes/classesInfo?classNum=${cdtC1.CNUM}">${cdtC1.TTL}</a>
                                  </h6>
                                  <div class="product-price">
                                      <span id="c1Cpri" class="text-primary">${cdtC1.CPRI}</span><small>원</small>
@@ -459,12 +460,12 @@
 
                    </div>
                    <div class="product-media">
-                       <a href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}&amp;id=catLove">
+                       <a href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}">
                            <img class="img-fluid" src="${cdtC2.THNI}"  title="" alt="">
                        </a>
                    </div>
                    <div class="product-cart-btn">
-                       <a class="btn btn-primary" href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}&amp;id=catLove">
+                       <a class="btn btn-primary" href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}">
                            <i class="fi-eye"></i>
                            상세 보기
                        </a>
@@ -476,7 +477,7 @@
                <a id="cdt2Star">${cdtC2.STAR}</a>
              </div>
                    <h6 class="product-title">
-                       <a href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}&amp;id=catLove">${cdtC2.TTL}</a>
+                       <a href="/silhyun/classes/classesInfo?classNum=${cdtC2.CNUM}">${cdtC2.TTL}</a>
                    </h6>
                    <div class="product-price">
                        <span class="text-primary">${cdtC2.CPRI}</span><small>원</small>

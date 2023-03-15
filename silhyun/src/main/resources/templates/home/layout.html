@@ -768,10 +768,11 @@
 									<li><a href="#"></a></li>
 									<li><a href="#">포트폴리오</a></li>
 									<li><a th:if="${role=='ROLE_M0'}" th:href="@{/admin/dashBoard}">관리자</a>
-									<a th:if="!${role=='ROLE_M0'}" href="/photo/mypageAo/{user1}">마이페이지</a></li>
-									<li><a href="/silhyun/joinForm" th:if='${id} eq null'>회원가입</a></li>
-									<li><a href="/login" th:if='${id} eq null'>로그인</a> <a
-										href="/logout" th:if='${id} neq null'>로그아웃</a></li>
+										<a th:if="!${role=='ROLE_M0'}" href="/photo/mypageAo/{user1}">마이페이지</a></li>	
+									<li><a href="/silhyun/joinForm" th:if='${id} eq null'>회원가입&nbsp;</a>
+									<a href="/login" th:if='${id} eq null'>로그인</a> 
+									<a href="/logout" th:if='${id} neq null'>로그아웃</a></li>
+									<li><p th:text="${session.id}"></p></li>
 								</ul>
 
 								<!-- Mobile Toggle -->

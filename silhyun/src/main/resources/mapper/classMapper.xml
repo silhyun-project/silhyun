@@ -382,7 +382,7 @@ FROM class c
 INNER JOIN member m ON c.ptg_id = m.id 
 INNER JOIN field f ON c.ptg_id = f.ptg_id
 INNER JOIN payment p ON c.class_num = p.ctgr_num 
-WHERE p.id = 'catLove' AND c.cla_cd = 'CL1'
+WHERE p.id = #{id} AND c.cla_cd = 'CL1'
 </select>
 
 <!-- 온라인 강의 -->
@@ -401,14 +401,14 @@ CASE
     END AS "fdCd", c.cla_cnt AS "IVCnt", p.ord_date AS "ordDt", c.ydt AS "ydt",
        p.ord_date + c.ydt AS "dDay", CEIL((p.ord_date + c.ydt) - SYSDATE) AS "dDayCnt",  c.class_num as "classNum",
        (
-select sum(inet_time)
+select nvl((sum(inet_time)),0)
 from inetclass
 where class_num = c.class_num) as "timeSum"
 FROM class c
 INNER JOIN member m ON c.ptg_id = m.id 
 INNER JOIN field f ON c.ptg_id = f.ptg_id
 INNER JOIN payment p ON c.class_num = p.ctgr_num 
-WHERE p.id = 'catLove' AND c.cla_cd='CL2'
+WHERE p.id = #{id} AND c.cla_cd='CL2'
 </select>
 
 <!-- 오프라인 강의 세부정보 아작스 -->
@@ -510,7 +510,7 @@ SELECT i.inet_num, i.inet_ttl, i.inet_vdo, i.inet_desct, i.class_num, COALESCE(w
 nvl(i.inet_note,0) as inet_note
 FROM inetclass i 
 LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num
-WHERE i.class_num = '2' AND i.inet_num = #{inetNum} AND (w.id = 'catLove' OR w.id IS NULL)
+WHERE i.class_num = #{classNum} AND i.inet_num = #{inetNum} AND (w.id = #{id} OR w.id IS NULL)
 </select>
 
 
