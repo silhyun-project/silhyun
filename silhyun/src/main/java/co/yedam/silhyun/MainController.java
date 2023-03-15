@@ -25,12 +25,7 @@ public class MainController {
 	@Autowired MainService mainService;
 
 	@GetMapping("/")
-	public String layoutTest(Model model, HttpSession httpSession,PhotographerVO vo, PortfolioVO pvo,EventVO evo,ReviewVO rvo,FieldVO fvo) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
-		if(user != null) {
-			model.addAttribute("id", user.getId());
-			model.addAttribute("role", user.getRole());			
-		}
+	public String layoutTest(Model model,PhotographerVO vo, PortfolioVO pvo,EventVO evo,ReviewVO rvo,FieldVO fvo) {
 		
 		model.addAttribute("hotList",mainService.getHotPtg(vo));  //인기 작가
 		model.addAttribute("newList",mainService.getNewPtg(vo));  //최신 작가

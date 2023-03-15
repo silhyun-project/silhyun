@@ -117,8 +117,7 @@
 	
 	//연락처 입력
    
-    //이메일 입력
-   
+
     //이메일 인증
     $('#chkBtn').click(function(){
 		let email = $('#emailId').val()+"@"+$('#emailDomain').val()
