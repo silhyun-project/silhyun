@@ -13,10 +13,9 @@
 <!-- title -->
 <title>작가 디테일 페이지</title>
 <!-- Favicon -->
-<link rel="shortcut icon" href="/img/favicon.ico">
+<!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<link href="/css/swimwear.css" rel="stylesheet">
 <!-- CSS Template -->
 </head>
 <!-- 사진 크기가 먹히지않는다 -->
@@ -233,11 +232,16 @@
 
 
 		<script type="text/javascript">
-		
-		
-		$('#pd_reviews_tab_02').on('click', function(){
-		     ajaxReiew({pageNum:1, amount:5})
+		$(function(){
+			
+			$('#pd_reviews_tab_02').on('click', function(){
+			     ajaxReiew({pageNum:1, amount:5})
+			     
+			})
+			
+
 		})
+
 		
 		function ajaxReiew(data){
 			$.ajax({
@@ -246,6 +250,7 @@
 				success: function(res){
 
 					$('#reviews').replaceWith(res)
+					
 // 					$.ajax({
 // 						type:'get',
 //  						async:false,
