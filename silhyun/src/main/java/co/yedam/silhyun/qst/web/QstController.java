@@ -53,7 +53,7 @@ public class QstController {
 	
 	@PostMapping("/aoAnsInsert")
 	@ResponseBody
-	public String aoAnsInsert(@RequestBody CommentVO cvo) {
+	public String aoAnsInsert(@RequestBody CommentVO cvo,QstVO vo) {
 		
 		qstService.aoAnsInsert(cvo);
 		return "qst/aoQst";

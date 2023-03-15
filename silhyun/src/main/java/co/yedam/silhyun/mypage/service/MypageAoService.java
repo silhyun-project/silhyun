@@ -2,6 +2,8 @@ package co.yedam.silhyun.mypage.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
@@ -12,10 +14,10 @@ import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface MypageAoService {
-	List<ReserVO> getReserList();//예약전체조회
-	List<ClassesVO> classList();//클래스 관리 정보 
+	List<ReserVO> getReserList(String ptgId);//예약전체조회
+	List<ClassesVO> classList(String ptgId);//클래스 관리 정보 
 	
-	List<MemberVO> getPhotoinfo(String ptgId); //포토그래퍼 조회
+	List<MemberVO> getPhotoinfo(String id); //포토그래퍼 조회
 	MemberVO ptgSelect(MemberVO vo);//회원+작가 한명 조회
 	List<PhotographerVO> getPtg(String ptgId);//작가에서만 한명
 	
