@@ -313,7 +313,6 @@ label {
 								</section>
 								<!-- End Section -->
 							</div>
-													
 
 							<!-- 작가 리스트 -->
 							<div class="row g-3 g-lg-4 list" id="page">
@@ -322,13 +321,13 @@ label {
 									<div class="product-card-9 cList">
 										<div class="product-card-image">
 											
-											<div class="hover-scale">
+											<div class="hover-scale" style="width: 350px;height: 410px;">
 												<!--작가 사진-->
 												<div class="hover-scale-in">
 													<a
 														th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId = ${ptg.ptgId})}">
 														<img class="img-fluid" th:src="${ptg.profile}" title=""
-														alt="사진이 뜨지않는다.." width="700" height="800">
+														alt="사진이 뜨지않는다.." style="width: 350px;height: 410px">
 													</a>
 												</div>
 											</div>
@@ -341,6 +340,7 @@ label {
 										</div>
 									</div>
 								</div>
+								<!--페이징 버튼-->
 								<div class="container" style="text-align: center;">
 									<div class="pagination">
 										<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a> <a
@@ -355,7 +355,6 @@ label {
 					</div>
 					<!-- End Product Box -->
 				</div>
-
 			</section>
 		</main>
 		<!-- End Main -->
@@ -365,8 +364,6 @@ label {
     ========================
     -->
 		<!-- script start -->
-		<!-- jquery -->
-
 		<!--bootstrap-->
 		<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<!-- slick carousel -->
@@ -569,12 +566,8 @@ label {
 //                     })
 //                     .then(srror => console.log(error))
 //             }
-            
-            console.log($("input[name='chkArray']:checked").val());
-            
 //             //페이징 관련
-            history.replaceState({}, null, location.pathname);
-
+            history.replaceState({}, null, location.pathname);  //url 숨기기
             $(".pagination a").on("click", function(e){
             	e.preventDefault();
              	$("#searchFrm").find("input[name='pageNum']").val($(this).attr("href"));
