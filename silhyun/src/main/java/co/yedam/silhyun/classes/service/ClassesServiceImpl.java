@@ -81,6 +81,10 @@ public class ClassesServiceImpl implements ClassesService {
 	public List<Map<String, Object>> getBCList() {
 		return ClassesMapper.getBCList();
 	}
+	@Override
+	public Map<String, Object> myC1Ajax(String classNum) {
+		return ClassesMapper.myC1Ajax(classNum);
+	}
 
 
 }
