@@ -7,7 +7,7 @@
 		q.secret_sta , case when  q.rply_sta = 'Y' then '답변완료'
                                               else '답변대기'
                                               end as rply_sta  , c.cntn as ansCntn , c.com_num as comNum                                                                                                                                     
-		from qst q left join commment c  
+		from qst q left join (select * from commment where ctgr= 'A') c  
         on q.qst_num = c.ctgr_num
 		where q.ctgr = 'A'
 		order by qst_num desc
@@ -40,38 +40,37 @@
 	</insert>
 	
 	<insert id="aoAnsInsert">
-		begin
-			<selectKey keyProperty="comNum" resultType="String" order="BEFORE">
-				SELECT 
-					nvl(MAX(to_number(com_num)), 0) + 1 AS "comNum"
-				FROM commment
-			</selectKey>
-				insert into commment(com_num
-									 ,ctgr
-									 ,ctgr_num
-									 ,id
-									 ,cntn
-									 ,com_date)
-							values(#{comNum}
-								   ,'A'	
-								   ,'user1'
-								   ,'catLove'
-								   ,#{ansCntn}
-								   ,sysdate)
-				update qst set rplySta = 'Y' 
-				where #{qstNum}
-		end
+		
+			begin
+				<selectKey keyProperty="comNum" resultType="String" order="BEFORE">
+					SELECT 
+						nvl(MAX(to_number(com_num)), 0) + 1 AS "comNum"
+					FROM commment
+				</selectKey>
+					insert into commment(com_num
+										 ,ctgr
+										 ,ctgr_num
+										 ,id
+										 ,cntn
+										 ,com_date)
+								values(#{comNum}
+									   ,'A'	
+									   ,#{ctgrNum}
+									   ,'catLove'
+									   ,#{cntn}
+									   ,sysdate);
+					update qst set rply_sta = 'Y' 
+					where qst_num = #{ctgrNum};
+			end;
+		
 	</insert>
 	
 	<delete id="aoQstDelete">
 		
-		 { call
-		    begin
-		      delete from qst where qst_num = #{qstNum};
-		      delete from commment where ctgr_num = #{qstNum}
-		      and not exists (select 1 from qst where qst_num = #{qstNum});
-		    end
-		  }
+		begin
+		  delete from commment where ctgr_num = #{qstNum} and not exists (select 1 from qst where qst_num = #{qstNum});
+		  delete from qst where qst_num = #{qstNum};
+		end;
 		
 	</delete>
 	
