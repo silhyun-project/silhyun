@@ -191,7 +191,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/modPfAo/{user1}"> <i class="fi-user me-2"></i>회원정보수정
+									href="/photo/modPfAo"> <i class="fi-user me-2"></i>회원정보수정
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -289,14 +289,16 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 												<div class="product-description timeTable"
 													style="margin-bottom: 3px;">
 													<!-- 여기에 시간 붙임 -->
+												</div>	
+												<div class="reserList">
+													<!--리스트 붙일생각  -->
 												</div>
-
 											</li>
 										</ul>
 									</div>
 									<form>
-									<!-- 	<input type="hidden" name="ptgId" th:value="${}">
-										<input type="hidden" name="workDay" th:value="${}"> -->
+										<input type="hidden" name="ptgId" th:value=${id}>
+										<input type="hidden" name="workDay" th:value="${workDay.workDay}"> 
 									</form>
 								</div>
 
@@ -432,16 +434,21 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
               e.target.classList.add('day-active');
               init.activeDTag = e.target;
               init.activeDate.setDate(day);
-              //reloadTodo();
+              reloadTodo();
             }
           });
           
           //
           
-          
+           function reloadTodo(e) { //예약가능하지않은 날짜 클릭시 경고창 띄우기
+			
+              //  alert("해당 날짜는 근무일이 아닙니다.")
+                $('.product-description.timeTable').children().remove()
+              
+            }
           
           //달력에 작가 예약 가능한 요일 까만색으로 만들기  -> 그 안에서 아작스 불러서 처리하기(예약 가능한 시간)
-			let ptgReYnDate = $("input[name='ptgReYnDate']").val()
+			let ptgReYnDate = $("input[name='workDay']").val()
 			var arr = ptgReYnDate.split(',')
 			console.log(arr)
 			
@@ -450,6 +457,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					e.stopPropagation()
 					if($('#selectDate') != null){  
 						$('#selectDate').children().remove()
+						$('.reserList').children().remove()		//달력클릭했을경우 예약자 정보 삭제
                     }
 					$('#selectDate').text($(this).attr('data-fdate'))
                     if( $('.product-description.timeTable') !=null){
@@ -467,13 +475,10 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						return zero + n;
 					}	
 					
-					
-					
-					
 					$('.product-description.timeTable').append(
                         `<div class="card">
                             <div class="card-header py-3 d-flex align-items-center">
-                                <h5 class="m-0">예약가능한 시간</h5>
+                                <h5 class="m-0">예약리스트</h5>
                             </div>
                             <div class="card-body time"></div>
 						</div>`
@@ -482,7 +487,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					const ptgId = $("input[name='ptgId']").val();
 					console.log(ptgId)
 					const redate =$(this).attr('data-fdate')					
-
+					console.log(redate);
 					$.ajax({
 						url: '/ajaxResTime/' + ptgId +"/"+ redate,
              			datatype: "json"
@@ -494,63 +499,41 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}" timeCD="${item.resTime}" >${item.rest}</button>`
 							$('.card-body.time').append(cdNameBtn)
 								})
-							//console.log($('.btn.btn-primary.timeList'))
-							$('.btn.btn-primary.timeList').each(function(a,b){
+							//console.log($('.btn.btn-primary.timeList'))		//예약한시간이면 버튼 비활성화
+							/* $('.btn.btn-primary.timeList').each(function(a,b){
 								//console.log($(b))
 								if($(b).attr('id').replace(/[^0-9]/g,'') == '1'){
 									$(b).prop("disabled", true)
 										//console.log('비활')
 									}
 								
-								})
+								}) */
 					}).then(error => console.log(error))
 				})
 				
 			})
-			   //예약 가능한 시간 클릭하면 시간에 선택한 시간들어가도록 
+			
+			   //📌시간 클릭하면 예약자 리스트 나오기 
             $('.product-description.timeTable').on('click','.timeList',function(){  //그룹이벤트 써야함!!
-            if($('#selectTime') != null){  
-                $('#selectTime').children().remove()
-            }
-            $('#selectTime').text($(this).text()).attr('timeCD',$(this).attr('timeCD'))
-			$('.product-description.timeTable').children().remove()
-            // $('.product-description.timeTable').remove()
-			
+            	$('.reserList').append(
+            			
+                        `<div class="card">
+                            <div class="card-header py-3 d-flex align-items-center">
+                                <h5 class="m-0">예약자 정보</h5>
+                            </div>
+                            <div class="card-body reserInfo"></div>
+						</div>`
+                    )
+                    if( $('.product-description.timeTable') !=null){
+						$('.product-description.timeTable').children().remove()
+                    }
+            	  if( $('.reserList') ==null){
+						$('.reserList').children().remove()
+                  }
+            	  //ajax호출 예약자정보
+            	  
+						
            })
-		 /*   $(function(){
-			chOpsToOrder()  //체크박스 클릭하면 선택내역으로 들어가도록
-			//modalInfo()  // 모달에 고객 정보 담기
-			if($('.col-8.selectOP').next() == null)   ///안됨
-				$('.btn.btn-primary.pd-cart-btn').prop("disabled", true)
-
-		   }) 
-
-	 	   $(document).ready(function(){
-                $("#chbox").change(function(){
-                    if($('.col-8.selectOP').next() == null)	
-					$('.btn.btn-primary.pd-cart-btn').prop("disabled", true)
-                });
-            }); */
-			
-			/*    function chOpsToOrder(){
-				let ckOps =  $('.card input[type="checkbox"]');
-				let Array = [];
-				console.log(ckOps)
-				for(let ckOp of ckOps){
-					$(ckOp).on('click',function(){
-						if(ckOp.checked == true){
-							// $('.product-description.selectedOp').append(template)
-							//$('.row.align-items-center.selectOP').append()
-							$('<div />').clone(true).attr('id',$(this).attr('id')+'_1').addClass('col-8 selectOP').appendTo($('.row.align-items-center.selectOP'))
-							.append($('<div />').addClass('mb-1 selectOPNM')
-							.append($('<span class="text-dark fw-500">').text($(this).val()).attr('id',$(this).attr('id'))))
-							// $('.mb-1.selectOP').append($('<span>')).addClass('m-0 text-muted w-100 d-block').text($('.card-body').find('p').eq(1).text())
-							.append(`<button class="small link-danger ms-auto" style="border: 0;">
-										<i class="bi bi-x"></i> Remove
-									</button>`)
-							console.log($('.card-body').find('span').eq(1).text())
-							console.log($(this))
-							console.log(Number($(this).parent().next().find('span').eq(1).text().replace(/[^0-9]/g,'')).toLocaleString()) */
 		 
         
 		</script>
