@@ -114,16 +114,13 @@
 			cursor: pointer;
 		}
 
-		button {
-			background-color: white;
-		}
 	</style>
 
 </head>
 
 <body>
-	<div align="center">
-		<div class="divTable minimalistBlack">
+	<div align="center" class="ansArea">
+		<div class="divTable minimalistBlack" >
 			<div class="divTableHeading">
 				<div class="divTableRow">
 					<div class="divTableHead" style="width: 250px;">제목</div>
@@ -135,34 +132,10 @@
 			</div>
 			<div class="divTableBody qstArea"></div>
 
-			<!-- <div class="divTableRow">
-					<div class="divTableCell"></div>
-					<div class="divTableCell">
-						<a href="#" class="ttl">상품 문의입니다.</a>
-						<div class="qstCntn" style="display: none;">문의 내용입니다.
-						  <div class="div-title-wrap">
-							<h5 class="div-title">Answer</h5>
-							<div class="div-sep-wrap">
-							  <div class="div-sep sep-thin"></div>
-							</div>
-						  </div>
-						  <div class="media-ans img-resize">
-							<p class="ansCntn">답변</p>
-						  </div>
-						</div>
-					  </div>
-					<div class="divTableCell">작성자</div>
-					<div class="divTableCell">작성날짜</div>
-					<div class="divTableCell">답변상태</div>
-					<div class="divTableCell">
-						<button>수정</button>
-						<button>삭제</button>
-					</div>
-					<input type="hidden" class="qstNum" value="'+asqt.qstNum+'">
-					<input type="hidden" class="ctgrNum" value="'+asqt.ctgrNum+'">
-				</div>
-			</div> -->
+
 		</div>
+		<div></div>
+		<div id="ansTextBox"></div>
 		<br> <br>
 		<button id="new-post-btn">상품 문의</button>
 
@@ -186,21 +159,6 @@
 			</div>
 		</div>
 
-		<!--<div id="repModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<h2>문의 답변</h2>
-				<form>
-					<label for="title">제목:</label> <input type="text" id="repTitle" class="repTitle" name="repTitle"
-						style="width: 400px;">
-					<br> <br> <label for="content">내용:</label>
-					<textarea id="repCntn" name="repCntn" rows="5" style="width: 400px;"></textarea>
-					<br> <br>
-					<button id="repsend">작성</button>
-					<button type="reset" id="cancel">취소</button>
-				</form>
-			</div>
-		</div>-->
 	</div>
 
 	<script>
@@ -311,8 +269,7 @@
 								str += '<div class="media-ans img-resize">'
 								str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
 								str += '</div>'
-								str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst
-									.comNum + '">'
+								str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst.comNum + '">'
 								//if(aqst.ctgrNum==작가id)
 								str += '<button class="ansModi">수정</button>'
 								str += '<button class="ansDel">삭제</button>'
@@ -329,38 +286,40 @@
 						if (aqst.id == "catLove") { //aqst.id == id || 권한 admin,작가 으로 수정 
 							str += '<button class="qstModi">수정</button>'
 							str += '<button class="qstDel">삭제</button>'
+							str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
 						}
 						if (aqst.ctgrNum == "user1") { //카테고리번호 작가로 변경
 							if (aqst.ansCntn == null) {
 								str += '<button class="ansBtn">답변</button>'
+								str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
 							} else {
 								str += '<button class="ansBtn" style="display: none">답변</button>'
 							}
 						}
 						str += '</div>'
 
-						str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum +
-							'">'
+							
 
-						str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst
-							.ctgrNum + '">'
+						str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'
+							
 
 						str += '</div>'
 					})
-
 					qstArea.html(str);
 				}
 			})
 		}
 
+		//제목 클릭시 내용 나오는 이벤트 
 		$(".qstArea").on('click', '#ttlBtn', function () {
 			var qstContainer = $(this).closest('.divTableRow');
 			qstContainer.find('.ansBox').toggle();
 		})
-
+		
+		//문의글 삭제(답변있는경우 답변도 삭제)
 		$(".qstArea").on('click', '.qstDel', function () {
-			console.log($(this).closest('.divTableRow').find('.qstNum').val());
-			let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
+			console.log($(this).parent().find('input').val());
+			let qstNum = $(this).parent().find('input').val();
 
 			$.ajax({
 				url: "/aoQstDelete",
@@ -374,12 +333,12 @@
 			})
 		})
 
-
+		//답변삭제(답변만 삭제)
 		$(".qstArea").on('click', '.ansDel', function () {
 			console.log($(this).parent().parent().find('.comNum').val());
+			console.log($(this).closest('.divTableRow').find('.qstNum').val());
 			let comNum = $(this).parent().parent().find('.comNum').val();
 			let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
-			console.log($(this).closest('.divTableRow').find('.qstNum').val());
 
 			$.ajax({
 				url: "/aoAnsDelete",
@@ -388,17 +347,62 @@
 					comNum
 				},
 				success: function (data) {
-					getAoQstList()
+					getAoQstList();
 				}
 			})
 		});
 
+ 		//문의 답변 클릭 그룹이벤트
 		$(".qstArea").on('click', '.ansBtn', function () {
 			console.log("dddddddddddddddddddddddddddddddddddddddddddd")
-			$('#new-post-btn').after('<textarea id="repCntn" name="repCntn" rows="5" style="width: 400px;"></textarea>');
+			if($('#ansCntn').length === 0) {
+			$('#ansTextBox').after('<label for="answer">답변내용 : </label><textarea class="ansCntn" id="ansCntn" name="ansCntn" rows="5" style="width: 400px;"></textarea>');
+			$('#ansTextBox').after('<button class="ansSend">작성</button>');
+			$('#ansTextBox').after('<button type="reset" id="cancel">취소</button>');
 				
-			$('#new-post-btn').after('<button id="repsend">작성</button>');
-			$('#new-post-btn').after('<button type="reset" id="cancel">취소</button>');
+			}
+			console.log($(this).parent().find('input').val());
+			let qstNo = $(this).parent().find('input').val();
+
+		$('#ansCntn').data("qstNo", qstNo);
+		});
+		
+		
+		// 문의 답변 ajax
+		$(".ansArea").on('click', '.ansSend', function () {
+			console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+			let comNum = $("#comNum").val(); //답변번호
+			let ctgr = 'A'; //카테고리
+			let ctgrNum = $("#ansCntn").data("qstNo"); //카테고리넘버(문의번호)
+			let id = 'user1'; //답변작성자아이디
+			let ansCntn = $("#ansCntn").val(); //답변내용
+
+			if (ansCntn == "") {
+				alert("내용을 입력해 주세요.")
+				$("#ansCntn").focus();
+				return false; // 내용 미입력시 작성 불가
+			}
+
+			$.ajax({
+				url:"/aoAnsInsert",
+				type:"POST",
+				data: JSON.stringify({
+					"comNum" : comNum,
+					"ctgr" : ctgr,
+					"ctgrNum" : ctgrNum,
+					"id" : id,
+					"cntn" : ansCntn
+				}),
+				contentType:'application/json',
+				success: function(data){
+					$("#ansCntn").val("");
+					getAoQstList();
+				},
+				error:function(){
+					alert('등록실패');
+				}
+			});
+	
 		});
 
 	</script>
