@@ -355,27 +355,30 @@
  		//문의 답변 클릭 그룹이벤트
 		$(".qstArea").on('click', '.ansBtn', function () {
 			console.log("dddddddddddddddddddddddddddddddddddddddddddd")
-			if($('#ansCntn').length === 0) {
-			$('#ansTextBox').after('<label for="answer">답변내용 : </label><textarea class="ansCntn" id="ansCntn" name="ansCntn" rows="5" style="width: 400px;"></textarea>');
-			$('#ansTextBox').after('<button class="ansSend">작성</button>');
-			$('#ansTextBox').after('<button type="reset" id="cancel">취소</button>');
-				
+			if($(this).parent().prev().text()=="답변대기") {
+				$('.txtarea').remove();
+				$('<div class="txtarea">').append('<label for="answer">답변내용 : </label><textarea class="ansCntn" id="ansCntn" name="ansCntn" rows="5" style="width: 400px;"></textarea>')
+										  .append('<button id="ansSend">작성</button>')
+										  .append('<button type="reset" id="cancel">취소</button>')
+										  .appendTo($('#ansTextBox'))
+
 			}
 			console.log($(this).parent().find('input').val());
 			let qstNo = $(this).parent().find('input').val();
 
-		$('#ansCntn').data("qstNo", qstNo);
+			$('#ansCntn').data("qstNo", qstNo);
+		
 		});
 		
 		
 		// 문의 답변 ajax
-		$(".ansArea").on('click', '.ansSend', function () {
+		$(".ansArea").on('click', '#ansSend', function () {
 			console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwww")
 			let comNum = $("#comNum").val(); //답변번호
 			let ctgr = 'A'; //카테고리
 			let ctgrNum = $("#ansCntn").data("qstNo"); //카테고리넘버(문의번호)
 			let id = 'user1'; //답변작성자아이디
-			let ansCntn = $("#ansCntn").val(); //답변내용
+			let ansCntn = $("#ansCntn").text(); //답변내용
 
 			if (ansCntn == "") {
 				alert("내용을 입력해 주세요.")
@@ -402,7 +405,6 @@
 					alert('등록실패');
 				}
 			});
-	
 		});
 
 	</script>
