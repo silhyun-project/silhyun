@@ -249,7 +249,7 @@ $(document).ready(function() {
 
 		//댓글
 
-		$(".commentBox").empty();//댓글창청
+		$(".mMiddleComment").empty();//댓글창청
 
 
 
@@ -293,7 +293,7 @@ $(document).ready(function() {
 				contentType: 'application/json',
 				success: function(data) {
 					$("#contact-message").val("");
-					$(".commentBox").empty();
+					$(".mMiddleComment").empty();
 					commentList(portNum)
 				},
 				error: function() {
@@ -303,7 +303,7 @@ $(document).ready(function() {
 		});
 
 		// 동적으로 생성된 태그에 그룹이벤트 부여
-		$(".commentBox").off('click').on('click', '#replyWrite', function(e) {
+		$(".mMiddleComment").off('click').on('click', '#replyWrite', function(e) {
 			console.log('클릭')
 			console.log($(this).parent().parent().children('#comId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
 			console.log($(this).parent().parent().children('#comGrp').val())
@@ -317,7 +317,7 @@ $(document).ready(function() {
 
 		})
 
-		$('.commentBox').off('click').on('click', '#rereplyWrite', function() {
+		$('.mMiddleComment').off('click').on('click', '#rereplyWrite', function() {
 			console.log('클릭')
 			console.log($(this).parent().parent().children('#repId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
 			console.log($(this).parent().parent().children('#repGrp').val())
@@ -331,7 +331,7 @@ $(document).ready(function() {
 		})
 
 
-		$(".commentBox").off('click').on('click', '.replyShowBtn', function(e) {
+		$(".mMiddleComment").off('click').on('click', '.replyShowBtn', function(e) {
 			let parentLi = $(this).closest("li"); // 해당 버튼이 속한 li를 찾음
 			let popup = parentLi.find(".popup"); // 해당 li 엘리먼트에서 popup 클래스를 가진 엘리먼트를 찾음
 			let replyShowBtn = parentLi.find(".replyShowBtn"); // 해당 li 엘리먼트에서 replyShowBtn 클래스를 가진 버튼 엘리먼트를 찾음
@@ -345,14 +345,14 @@ $(document).ready(function() {
 		});
 
 
-		$(".commentBox").off('click').on('click', '.comDelBtn', function() {
+		$(".mMiddleComment").off('click').on('click', '.comDelBtn', function() {
 			console.log('삭제클릭')
 			console.log($(this).closest('li').find('.comNum').val());
 			console.log($(this).closest('li').find('.comGrp').val());
 			let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
 			let grp = $(this).closest('li').find('.comGrp').val(); //삭제할 댓글의 그룹
 			let commentZone = $(this).closest('li').find('.commentZone');
-			$(".commentBox").empty();
+			$(".mMiddleComment").empty();
 			$.ajax({
 				url: "/commentDelete",
 				type: "delete",
@@ -367,12 +367,12 @@ $(document).ready(function() {
 
 		})
 
-		$(".commentBox").off('click').on('click', '.reDelBtn', function() {
+		$(".mMiddleComment").off('click').on('click', '.reDelBtn', function() {
 			console.log('삭제클릭')
 			console.log($(this).closest('li').find('.comNum').val());
 			let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
 			let commentZone = $(this).closest('li').find('.replyZone');
-			$(".commentBox").empty();
+			$(".mMiddleComment").empty();
 			$.ajax({
 				url: "/replyDelete",
 				type: "delete",
@@ -465,7 +465,6 @@ $(document).ready(function() {
 
 		//모달안에서 기능 ==1==하트 끝
 
-
 	});//사진 클릭했을 때 생기는 이벤트 끝 
 
 
@@ -475,65 +474,80 @@ $(document).ready(function() {
 			type: 'get',
 		})
 			.then(result => {
-				console.log(result)
-
-
-
-				let str = '';
-				$(result).each(function(c, comm) {
-
-
-					if (comm.dep == 0) {
-						//댓글자리
-						let comment = `<div class="commentZone">
-						    
-						     <div class="avatar rounded-circle">
-						     	<img src="${comm.profile}" alt="small-image">
-						     </div>
-						     
-						     <div class="commentCon">
-						     	<div class="commentInfo">
-					                <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;&nbsp;
-					                <div class="commentCon">${comm.cntn}</div>
-									<input type="text" class="comGrp" name="grp" id="comGrp" value="${comm.grp}"  style="display:none;">
-									<input type="text" class="comNum" name="comNum" value="${comm.comNum}"  style="display:none;">
-						     	</div>
-						     	<div class='nav dark-link small'>				              
-						                     <div class="mb-2 small">${comm.comDate}<div>   
-						                     <a class="ms-3" href="#contact-message" id="replyWrite">답글 달기</a>&nbsp;&nbsp;        
-						            		 <span class="comDelBtn">삭제<span> &nbsp;&nbsp;
-						                     <span class="replyShowBtn"><i class="bi-dash-lg">답글 더보기</i></span>
-						     	</div>
-						    	 <ul class="popup ${comm.grp}"></ul>
-						    </div>
-						</div>`
-						$(".mMiddleComment").append(comment);
-					} else{
-						//덧댓글자리
-						let recomment = `<li class="replyZone">
-								      <div class="avatar rounded-circle">
-						     	<img src="${comm.profile}" alt="small-image">
-						     </div>
-						     
-						     <div class="commentCon">
-						     	<div class="commentInfo">
-					                <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;&nbsp;
-					                <div class="commentCon">${comm.cntn}</div>
-									  <input type="hidden" class="repGrp" name="grp" id="repGrp" value="${comm.grp}">
-									   <input type="hidden" class="comNum" name="comNum" value="${comm.comNum}">
-						     	</div>
-						     	<div class='nav dark-link small'>				              
-						                     <div class="mb-2 small">${comm.comDate}<div>   
-						                     <a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>&nbsp;&nbsp;        
-						            		 <span class="reDelBtn">삭제<span> &nbsp;&nbsp;
-						     	</div>   	
-						    </div>
-						</li>`
-						$(".mMiddleComment").append(recomment);
+				console.log(result);
+				// dep가 0인거 먼저 붙이기.
+				result.forEach(comm => {
+					if (comm.dep === 0) {
+						const commentHtml = `
+                        <div class="commentZone">
+                            <div class="avatar rounded-circle">
+                                <img src="${comm.profile}" alt="small-image">
+                            </div>
+                            <div class="commentCon">
+                                <div class="commentInfo">
+                                    <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;&nbsp;
+                                    <div class="commentContent">${comm.cntn}</div>
+                                    <input type="text" class="comGrp" name="grp" id="comGrp" value="${comm.grp}"  style="display:none;">
+                                    <input type="text" class="comNum" name="comNum" value="${comm.comNum}"  style="display:none;">
+                                </div>
+                                <div class='nav dark-link small'>
+                                    <div class="mb-2 small">${comm.comDate}</div>&nbsp;    
+                                    <a class="ms-3" href="#contact-message" id="replyWrite">답글 달기</a>&nbsp;       
+                                    <span class="comDelBtn">삭제<span>&nbsp;
+                                    <span class="replyShowBtn" style="display:none;"><i class="bi-dash-lg">답글 더보기</i></span>
+                                </div>
+                                <ul class="popup" style="display:none;"></ul>
+                            </div>
+                        </div>`;
+						$('.mMiddleComment').append(commentHtml);
 					}
-				})//for
+				});
 
-			})//ajax
+				// dep가 1인 것을 dep가 0+grp가 같은 것에
+				result.forEach(comm => {
+					if (comm.dep === 1) {
+						const replyHtml = `
+                        <li class="replyZone">
+                            <div class="avatar rounded-circle">
+                                <img src="${comm.profile}" alt="small-image">
+                            </div>
+                            <div class="commentCon">
+                                <div class="commentInfo">
+                                    <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;
+                                    <div class="commentContent">${comm.cntn}</div>
+                                    <input type="hidden" class="repGrp" name="grp" id="repGrp" value="${comm.grp}">
+                                    <input type="hidden" class="comNum" name="comNum" value="${comm.comNum}">
+                                </div>
+                                <div class='nav dark-link small'>
+                                    <div class="mb-2 small">${comm.comDate}</div>  
+                                    <a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>&nbsp;&nbsp;        
+                                    <span class="reDelBtn">삭제<span>&nbsp;&nbsp;
+                                </div>   	
+                            </div>
+                        </li>`;
+						const popup = $(`.commentZone:has(.comGrp[value="${comm.grp}"]):last .popup`);
+						popup.append(replyHtml);
+						$(`.commentZone:has(.comGrp[value="${comm.grp}"]):last .replyShowBtn`).css('display','flex');
+						
+						
+					}
+				});
+		
+
+				$('.replyShowBtn').click(function() {
+					console.log('eee')
+					const popup = $(this).closest('.commentCon').find('.popup');
+					popup.toggle();
+					const buttonText = popup.is(':visible') ? '답글 숨기기' : '답글 더보기';
+					$(this).html(`<i class="bi-dash-lg">${buttonText}</i>`);
+				});
+
+					
+		
+			});
+
+
+
 	}
 
 

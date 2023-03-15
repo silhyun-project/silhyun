@@ -281,19 +281,26 @@
 
 /* ´ñ±Û*/
 .commentZone {
+	position:relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-top:2px;
+	margin-bottom:2px;
 }
 
 .replyZone {
-	margin-left:50px;
+	position:relative;
+	margin-bottom:2px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	right:35px;
 }
+.replyShowBtn{cursor: pointer;}
 
 .avatar.rounded-circle {
+	position:absolute;
 	background-color: rgb(50,50,50);
 	display: flex;
 	width: 50px;
@@ -303,6 +310,7 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
+	top:0;
 }
 
 .avatar.rounded-circle img {
@@ -311,12 +319,12 @@
 }
 
 .commentCon {
+	margin-right:60px;
 	position: relative;
 	display: block;
 	align-items: center;
 	width: 85%;
-	display: block;
-	
+	left:55px;
 }
 
 .commentInfo {
