@@ -3,7 +3,7 @@ package co.yedam.silhyun.common.vo;
 import lombok.Data;
 
 @Data
-public class PhotoVO {
+public class PhotoVO{
 	private String phoNum;
 	private String ctgr;
 	private String ctgrNum;

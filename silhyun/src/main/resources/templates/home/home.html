@@ -42,7 +42,6 @@
 
 	<div layout:fragment="content">
 		로그인 한 사람 : [[${id}]]<br>
-
 		<!-- Skippy & Prload -->
 		<!-- skippy -->
 
@@ -113,166 +112,62 @@
 			<!-- Deal section -->
 			<section class="section">
 				<div class="container">
-					<div class="shop-top-bar d-flex pb-3">
-						<div class="layout-change ms-2" th:each="field :${fldList}">
-							<a class="btn btn-sm" th:href="@{/shilhyun/ptgTag/{fdCd}(fdCd=${field.fdCd})}" align="center"> <i class="" th:text="'# '+${field.fldName}">#태그</i></a>
-						</div>
-					</div>
+					<!-- 태그  -->
 					<div class="container">
 						<div class="row g-4">
 							<div class="col-md-4">
-								<h5 class="mb-4">실시간 리뷰</h5>
-								<div class="product-card-4">
-									<div class="product-card-image" style="width: 10;height: 10">
-										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
-											title="" alt="">
-										</a>
-									</div>
-									 <div class="d-flex p-3 align-items-center">
-                                    
-                                  
-                                </div>
-									<div class="product-card-info">
-										<div class="avatar avatar-lg rounded-circle">
-											<img src="/img/avatar/1000x1000.jpg" title="" alt="">
-										</div>
-                                        <h6 class="product-title">
-                                            <a href="#" tabindex="0">작성자</a>
-                                        </h6>
-										<div class="product-price">
-											<div class="rating-star text">
-												<i class="bi bi-star-fill active"></i> <i
-													class="bi bi-star-fill active"></i> <i
-													class="bi bi-star-fill active"></i> <i
-													class="bi bi-star-fill active"></i> <i class="bi bi-star"></i>
-											</div>
-											<span class="text-primary">리뷰내용</span>
-
-										</div>
-									</div>
-								</div>
-								<div class="product-card-4">
-									<div class="product-card-image" >
-										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+								<h5 class="mb-4">실시간 작가 리뷰</h5>
+								<div class="product-card-4"  th:each="rev : ${revList}" style="width: 50%;">
+									<div class="product-card-image" style="width: 10; height: 10">
+										<a href="#"> <img th:src="${rev.phoRt}"
 											title="" alt="">
 										</a>
 									</div>
 									<div class="product-card-info">
 										<h6 class="product-title">
-											<a href="#" tabindex="0">작성자</a>
+											<a href="#" tabindex="0">[[${rev.id}]]</a>
 										</h6>
 										<div class="product-price">
 											<div class="rating-star text">
-												<i class="bi bi-star-fill active"></i> <i
-													class="bi bi-star-fill active"></i> <i
-													class="bi bi-star-fill active"></i> <i
-													class="bi bi-star-fill active"></i> <i class="bi bi-star"></i>
+												<i class="bi bi-star-fill active" th:each="num : ${#numbers.sequence(0, rev.star-1)}"></i>
+													
 											</div>
-											<span class="text-primary">리뷰내용</span>
-
+											<span class="text-primary">[[${rev.cntn}]]</span>
 										</div>
-
 									</div>
-								</div>
-
-								<div class="pt-3">
-									<a class="btn btn-primary" href="#">실시간 리뷰 더 보기</a>
 								</div>
 							</div>
 							<div class="col-md-4">
-								<h5 class="mb-4">Upcoming</h5>
-								<div class="product-card-4">
+								<h5 class="mb-4">실시간 클래스 리뷰</h5>
+								<div class="product-card-4" th:each="clas : ${clasList}" style="width: 50%;">
 									<div class="product-card-image">
-										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
+										<a href="#"> <img th:src="${clas.phoRt}"
 											title="" alt="">
 										</a>
 									</div>
 									<div class="product-card-info">
 										<h6 class="product-title">
-											<a href="#" tabindex="0">Fine-knit sweater</a>
+											<a href="#" tabindex="0">[[${clas.id}]]</a>
 										</h6>
 										<div class="product-price">
-											<span class="text-primary">$28.<small>50</small></span>
-											<del class="fs-sm text-muted">
-												$38.<small>50</small>
-											</del>
-										</div>
-										<div class="produc-card-cart">
-											<a class="link-effect" href="#">Buy Now</a>
+											<div class="rating-star text">
+												<i class="bi bi-star-fill active" th:each="num : ${#numbers.sequence(0, clas.star-1)}"></i>
+													
+											</div>
+											<span class="text-primary">[[${clas.cntn}]]</span>
 										</div>
 									</div>
 								</div>
-								<div class="product-card-4">
-									<div class="product-card-image">
-										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
-											title="" alt="">
-										</a>
-									</div>
-									<div class="product-card-info">
-										<h6 class="product-title">
-											<a href="#" tabindex="0">Fine-knit sweater</a>
-										</h6>
-										<div class="product-price">
-											<span class="text-primary">$28.<small>50</small></span>
-											<del class="fs-sm text-muted">
-												$38.<small>50</small>
-											</del>
-										</div>
-										<div class="produc-card-cart">
-											<a class="link-effect" href="#">Buy Now</a>
-										</div>
-									</div>
-								</div>
-
-							</div>
-							<div class="col-md-4">
-								<h5 class="mb-4">New Arrivals</h5>
-								<div class="product-card-4">
-									<div class="product-card-image">
-										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
-											title="" alt="">
-										</a>
-									</div>
-									<div class="product-card-info">
-										<h6 class="product-title">
-											<a href="#" tabindex="0">Fine-knit sweater</a>
-										</h6>
-										<div class="product-price">
-											<span class="text-primary">$28.<small>50</small></span>
-											<del class="fs-sm text-muted">
-												$38.<small>50</small>
-											</del>
-										</div>
-										<div class="produc-card-cart">
-											<a class="link-effect" href="#">Buy Now</a>
-										</div>
-									</div>
-								</div>
-								<div class="product-card-4">
-									<div class="product-card-image">
-										<a href="#"> <img src="/img/grocery/1000x1000.jpg"
-											title="" alt="">
-										</a>
-									</div>
-									<div class="product-card-info">
-										<h6 class="product-title">
-											<a href="#" tabindex="0">Fine-knit sweater</a>
-										</h6>
-										<div class="product-price">
-											<span class="text-primary">$28.<small>50</small></span>
-											<del class="fs-sm text-muted">
-												$38.<small>50</small>
-											</del>
-										</div>
-										<div class="produc-card-cart">
-											<a class="link-effect" href="#">Buy Now</a>
-										</div>
-									</div>
-								</div>
-
 							</div>
 						</div>
-					</div>
+
+						<div class="pt-3">
+									<a class="btn btn-primary" href="#">실시간 리뷰 더 보기</a>
+								</div><br>
+					
+                 </div>
+                 </div>
+
 			</section>
 			<!-- End Deal section -->
 
@@ -333,7 +228,6 @@
 									<div class="badge-ribbon">
 										<span class="badge bg-danger">NEW</span>
 									</div>
-
 									<div class="product-media">
 										<a
 											th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId = ${list.ptgId})}">
@@ -352,6 +246,7 @@
 						</div>
 						<!-- End Product Box -->
 					</div>
+				</div>
 			</section>
 			<!-- End Product section -->
 
@@ -381,9 +276,6 @@
 								</div>
 							</div>
 						</div>
-
-
-
 						<div class="pt-3">
 							<a class="btn btn-primary" href="/silhyun/around">포트폴리오 더 보기</a>
 						</div>

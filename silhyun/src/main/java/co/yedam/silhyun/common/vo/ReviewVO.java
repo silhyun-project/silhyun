@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
-public class ReviewVO {
+public class ReviewVO{
 	private String revNum;
 	private String ctgr;
 	private String ctgrNum;
@@ -22,4 +22,7 @@ public class ReviewVO {
 	private Date revDate;
 	private int hit;
 	private List<PhotoVO> photoList;
+	
+	private String phoRt;
+	private String profile;
 }
