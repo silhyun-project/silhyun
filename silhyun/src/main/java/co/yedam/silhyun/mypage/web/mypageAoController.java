@@ -46,41 +46,54 @@ public class mypageAoController {
 	private MemberService memberService;
 	
 
-	@RequestMapping("/photo/mypageAo/{ptgId}")
-	public String mypageAo(Model model,PhotographerVO pvo, @PathVariable String ptgId, HttpSession httpSession) {
+	@RequestMapping("/photo/mypageAo")
+	public String mypageAo(Model model,PhotographerVO pvo,  HttpSession httpSession) {
 		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
 		if(user != null) {  //세션
 			model.addAttribute("id",user.getId());
+			model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
 			model.addAttribute("role",user.getRole());
 		}
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+		
 		return "mypageAo/mypageAo";
 	}
 
-	@RequestMapping("/photo/modPfAo/{ptgId}")
-	public String modpfAo(Model model,@PathVariable String ptgId) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
-		model.addAttribute("workDay",mypageAoService.selectWorkDay(ptgId));
+	@RequestMapping("/photo/modPfAo")
+	public String modpfAo(Model model,  HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+			model.addAttribute("workDay",mypageAoService.selectWorkDay(user.getId()));
+			model.addAttribute("role",user.getRole());
+		}
 
 		return "mypageAo/modPfAo";
 	}
 
-	@RequestMapping("/photo/resManage/{ptgId}")
-	public String resManage(Model model, @PathVariable String ptgId, HttpSession httpSession) {
+	@RequestMapping("/photo/resManage")
+	public String resManage(Model model, HttpSession httpSession) {
 		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
 		if(user != null) {  //세션
 			model.addAttribute("id",user.getId());
 			model.addAttribute("role",user.getRole());
+			model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+			model.addAttribute("resList", mypageAoService.getReserList(user.getId()));
 		}
-		model.addAttribute("resList", mypageAoService.getReserList());
 
 		return "mypageAo/resManage";
 	}
 
-	@GetMapping("/photo/classManage/{ptgId}")
-	public String classManage(Model model,@PathVariable String ptgId) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
-		model.addAttribute("clManage", mypageAoService.classList());
+	@GetMapping("/photo/classManage")
+	public String classManage(Model model, HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+
+		}
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+		model.addAttribute("clManage", mypageAoService.classList(user.getId()));
 
 		return "mypageAo/classManage";
 	}
@@ -131,7 +144,7 @@ public class mypageAoController {
 	      mypageAoService.ptgInfoUpdate(vo);
 	      mypageAoService.updateWorkday(pvo);
 	    //   mypageAoService.updateWorkday(updatedPvo);
-	      return "redirect:/photo/modPfAo/user1";
+	      return "redirect:/photo/modPfAo";
 	   }
 
 
@@ -315,11 +328,15 @@ public class mypageAoController {
 
 	@PostMapping("/photo/insertOption")
 	@ResponseBody
-	public String insertOption(@RequestBody List<OptionsVO> options) {
-
+	public String insertOption(@RequestBody List<OptionsVO> options,Model model,HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+		}
 		// OptionsVO 객체를 반복문을 통해 insertOption 메서드로 전달
 		for (OptionsVO vo : options) {
-			vo.setPtgId("user1");
+			vo.setPtgId(user.getId());
 //	        vo.setOpNum(vo.getPtgId() + key.toString());
 			System.out.println("+++~~~~~~" + vo);
 			mypageAoService.insertOption(vo);
@@ -328,10 +345,10 @@ public class mypageAoController {
 		return "";
 	}
 	
-	@PostMapping("/photo/classInquiry")
-	private String classInquiry() {
-		
-		return "mypageAo/classInquiry";
+	@RequestMapping("/photo/classInquiry/{classNum}")
+	private String classInquiry(String classNum, Model model) {
+		model.addAttribute("classNum", classNum);
+		return "/mypageAo/classInquiry";
 	}
 
 }

@@ -22,15 +22,15 @@ public class MypageAoServiceImpl implements MypageAoService {
 	private MypageAoMapper mypageAoMapper;
 	
 	@Override
-	public List<ReserVO> getReserList(){
+	public List<ReserVO> getReserList(String ptgId){
 		
-		return mypageAoMapper.getReserList();
+		return mypageAoMapper.getReserList(ptgId);
 	}
 	
 	@Override
-	public List<MemberVO> getPhotoinfo(String ptgId){
+	public List<MemberVO> getPhotoinfo(String id){
 		
-		return mypageAoMapper.getPhotoinfo(ptgId);
+		return mypageAoMapper.getPhotoinfo(id);
 	}
 
 	@Override
@@ -97,9 +97,9 @@ public class MypageAoServiceImpl implements MypageAoService {
 	}
 
 	@Override
-	public List<ClassesVO> classList() {
+	public List<ClassesVO> classList(String ptgId) {
 
-		return mypageAoMapper.classList();
+		return mypageAoMapper.classList(ptgId);
 
 	}
 
