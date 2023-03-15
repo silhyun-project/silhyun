@@ -51,9 +51,9 @@ public class mypageAoController {
 		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
 		if(user != null) {  //세션
 			model.addAttribute("id",user.getId());
-			model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
 			model.addAttribute("role",user.getRole());
 		}
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
 		
 		return "mypageAo/mypageAo";
 	}
@@ -98,16 +98,28 @@ public class mypageAoController {
 		return "mypageAo/classManage";
 	}
 
-	@GetMapping("/photo/mypageAoAsk/{ptgId}")
-	public String mypageAoAsk(Model model,@PathVariable String ptgId) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+	@GetMapping("/photo/mypageAoAsk")
+	public String mypageAoAsk(Model model, HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+
+		}
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
 
 		return "mypageAo/mypageAoAsk";
 	}
 
-	@GetMapping("/photo/resCalendarAo/{ptgId}")
-	public String resCalendarAo(Model model,@PathVariable String ptgId) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+	@GetMapping("/photo/resCalendarAo")
+	public String resCalendarAo(Model model,HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+
+		}
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
 		
 		return "mypageAo/resCalendarAo";
 	}
@@ -122,15 +134,27 @@ public class mypageAoController {
 	 */
 	
 
-	@GetMapping("/photo/mypageStatsAo/{ptgId}")
-	public String mypageStatsAo(Model model,@PathVariable String ptgId) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+	@GetMapping("/photo/mypageStatsAo")
+	public String mypageStatsAo(Model model ,HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+
+		}
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
 		return "mypageAo/mypageStatsAo";
 	}
 
-	@GetMapping("/photo/reportFormAo/{ptgId}")
-	public String reportAo(Model model,@PathVariable String ptgId) {
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(ptgId));
+	@GetMapping("/photo/reportFormAo")
+	public String reportAo(Model model,HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+
+		}
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
 		return "mypageAo/reportFormAo";
 	}
 
