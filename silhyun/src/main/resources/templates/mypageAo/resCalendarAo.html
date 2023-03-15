@@ -3,164 +3,166 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{home/layout}">
-	<head>
-	<script src="
+<head>
+<script
+	src="
 https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
-"></script>	
+"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"
-		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-	<link rel="shortcut icon" href="/img/favicon.ico">
-	<style>
-	/* ======== Calendar ======== */
-		.my-calendar {
-			width: 100%;
-			height: 400px;
-			/*           margin: 30px; */
-			padding: 20px 20px 10px;
-			text-align: center;
-			font-weight: 800;
-			border: 1px solid #ddd;
-			cursor: default;
-		}
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="/img/favicon.ico">
+<style>
+/* ======== Calendar ======== */
+.my-calendar {
+	width: 100%;
+	height: 400px;
+	/*           margin: 30px; */
+	padding: 20px 20px 10px;
+	text-align: center;
+	font-weight: 800;
+	border: 1px solid #ddd;
+	cursor: default;
+}
 
-		.my-calendar .clicked-date {
-			border-radius: 25px;
-			margin-top: 1;
-			float: left;
-			width: 1;
-			text-align: center;
-			padding: 46px 0 26px;
-			background: #ddd;
-		}
+.my-calendar .clicked-date {
+	border-radius: 25px;
+	margin-top: 1;
+	float: left;
+	width: 1;
+	text-align: center;
+	padding: 46px 0 26px;
+	background: #ddd;
+}
 
-		.my-calendar .calendar-box {
-			width: 100%;
-			height: 400px;
-		}
+.my-calendar .calendar-box {
+	width: 100%;
+	height: 400px;
+}
 
-		.clicked-date .cal-day {
-			/* font-size: 1px; */
-			font-size: 24px;
-		}
+.clicked-date .cal-day {
+	/* font-size: 1px; */
+	font-size: 24px;
+}
 
-		.clicked-date .cal-date {
-			/* font-size: 1px; */
-			font-size: 130px;
-		}
+.clicked-date .cal-date {
+	/* font-size: 1px; */
+	font-size: 130px;
+}
 
-		.ctr-box {
-			padding: 0 16px;
-			margin-bottom: 20px;
-			font-size: 20px;
-		}
+.ctr-box {
+	padding: 0 16px;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
 
-		.ctr-box .btn-cal {
-			position: relative;
-			float: left;
-			width: 25px;
-			height: 25px;
-			margin-top: 5px;
-			font-size: 16px;
-			cursor: pointer;
-			border: none;
-			background: none;
-		}
+.ctr-box .btn-cal {
+	position: relative;
+	float: left;
+	width: 25px;
+	height: 25px;
+	margin-top: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	border: none;
+	background: none;
+}
 
-		.ctr-box .btn-cal:after {
-			content: '<';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			line-height: 25px;
-			font-weight: bold;
-			font-size: 20px;
-		}
+.ctr-box .btn-cal:after {
+	content: '<';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	line-height: 25px;
+	font-weight: bold;
+	font-size: 20px;
+}
 
-		.ctr-box .btn-cal.next {
-			float: right;
-		}
+.ctr-box .btn-cal.next {
+	float: right;
+}
 
-		.ctr-box .btn-cal.next:after {
-			content: '>';
-		}
+.ctr-box .btn-cal.next:after {
+	content: '>';
+}
 
-		.cal-table {
-			width: 100%;
-		}
+.cal-table {
+	width: 100%;
+}
 
-		.cal-table th {
-			width: 14.2857%;
-			padding-bottom: 5px;
-			font-size: 16px;
-			font-weight: 900;
-		}
+.cal-table th {
+	width: 14.2857%;
+	padding-bottom: 5px;
+	font-size: 16px;
+	font-weight: 900;
+}
 
-		.cal-table td {
-			padding: 3px 0;
-			height: 50px;
-			font-size: 15px;
-			vertical-align: middle;
-		}
+.cal-table td {
+	padding: 3px 0;
+	height: 50px;
+	font-size: 15px;
+	vertical-align: middle;
+}
 
-		.cal-table td.day {
-			position: relative;
-			cursor: pointer;
-			color: lightgray;
-		}
+.cal-table td.day {
+	position: relative;
+	cursor: pointer;
+	color: rgb(0, 0, 0);
+}
 
-		.cal-table td.today {
-			background: #ffd255;
-			border-radius: 50%;
-			color: #fff;
-		}
+.cal-table td.today {
+	background: #ffd255;
+	border-radius: 50%;
+	color: #fff;
+}
 
-		.cal-table td.day-active {
-			background: #ff8585;
-			border-radius: 50%;
-			color: #fff;
-		}
+.cal-table td.day-active {
+	background: #ff8585;
+	border-radius: 50%;
+	color: #fff;
+}
 
-		.cal-table td.has-event:after {
-			content: '';
-			display: block;
-			position: absolute;
-			left: 0;
-			bottom: 0;
-			width: 100%;
-			height: 4px;
-			background: #FFC107;
-		}
+.cal-table td.has-event:after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 4px;
+	background: #FFC107;
+}
 
-		.res-yes {
-			background-color: black;
-		}
+.res-yes {
+	background-color: black;
+}
 
-		.res-no {
-			background-color: lightgray;
-		}
+.res-no {
+	background-color: lightgray;
+}
 
-		.form-check-input {
-			width: 20px;
-			height: 20px;
-			margin-bottom: 7px;
-		}
+.form-check-input {
+	width: 20px;
+	height: 20px;
+	margin-bottom: 7px;
+}
 
-		.form-check-label {
-			font-weight: bold;
-		}
+.form-check-label {
+	font-weight: bold;
+}
 
-		#selectDate {
-			font-size: larger;
-			font-weight: bolder;
-		}
+#selectDate {
+	font-size: larger;
+	font-weight: bolder;
+}
 
-		#selectTime {
-			font-size: larger;
-			font-weight: bolder;
-		}
-	</style>
+#selectTime {
+	font-size: larger;
+	font-weight: bolder;
+}
+</style>
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -176,12 +178,11 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
 								<div class="avatar avatar-lg rounded-circle">
-									<img th:src="${ptg.profile}" title=""
-										alt="">
+									<img th:src="${ptg.profile}" title="" alt="">
 								</div>
 								<div class="col ps-3">
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
-									<small><a href="/photo/mypageAo"th:text="${ptg.name}">이름</a></small>
+									<small><a href="/photo/mypageAo" th:text="${ptg.name}">이름</a></small>
 								</div>
 								<div>
 									<button>회원변경</button>
@@ -200,12 +201,14 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스 관리
+									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스
+										관리
 										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageAoAsk"> <i class="bi-chat-square-dots me-2"></i>문의내역
+									href="/photo/mypageAoAsk"> <i
+										class="bi-chat-square-dots me-2"></i>문의내역
 										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -214,7 +217,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i class="bi bi-pie-chart-fill"></i>통계
+									href="/photo/mypageStatsAo"> <i
+										class="bi bi-pie-chart-fill"></i>통계
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3" href="#">
@@ -222,7 +226,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/reportFormAo"> <i class="bi bi-exclamation-diamond"></i>신고
+									href="/photo/reportFormAo"> <i
+										class="bi bi-exclamation-diamond"></i>신고
 										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -233,62 +238,67 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						</div>
 					</div>
 					<div class="col-lg-8 col-xxl-9">
-					<div class="products-title mb-2">
-										<div class="my-calendar clearfix">
-										
-											<div class="clicked-date" style="display: none;">
-												<div class="cal-day"></div>
-												<div class="cal-date"></div>
-											</div>
-											<!--<div class="my-calendar clearfix">-->
-											<div class="calendar-box">
-												<div class="ctr-box clearfix">
-													<button type="button" title="prev" class="btn-cal prev">
-													</button>
-													<span class="cal-month"></span> <span class="cal-year"></span>
-													<button type="button" title="next" class="btn-cal next">
-													</button>
-												</div>
-								
-												<table class="cal-table">
-													<thead>
-														<tr>
-															<th id="일"><font color="#F79DC2">일 </th>
-															<th id="월">월</th>
-															<th id="화">화</th>
-															<th id="수">수</th>
-															<th id="목">목</th>
-															<th id="금">금</th>
-															<th id="토"><font color="skyblue">토 </th>
-														</tr>
-													</thead>
-													<tbody class="cal-body"></tbody>
-												</table>
-											</div>
-										</div>
-										<div class="product-description selectedOp">
-										<div class="card">
-											<div class="card-body">
-												<ul class="list-unstyled m-0 p-0">
-													<h5 class="me-2 border-bottom" >예약 내역</h5>
-													<li class="pb-3 mb-3 border-bottom">
-														<div class="row align-items-center selectOP">
-															<div class="col-8 selectOP">
-																<!-- Remove -->
-																<!-- <a class="small link-danger ms-auto" href="#!">
+						<div class="products-title mb-2">
+							<div class="my-calendar clearfix">
+
+								<div class="clicked-date" style="display: none;">
+									<div class="cal-day"></div>
+									<div class="cal-date"></div>
+								</div>
+								<!--<div class="my-calendar clearfix">-->
+								<div class="calendar-box">
+									<div class="ctr-box clearfix">
+										<button type="button" title="prev" class="btn-cal prev">
+										</button>
+										<span class="cal-month"></span> <span class="cal-year"></span>
+										<button type="button" title="next" class="btn-cal next">
+										</button>
+									</div>
+
+									<table class="cal-table">
+										<thead>
+											<tr>
+												<th id="일"><font color="#F79DC2">일 </th>
+												<th id="월">월</th>
+												<th id="화">화</th>
+												<th id="수">수</th>
+												<th id="목">목</th>
+												<th id="금">금</th>
+												<th id="토"><font color="skyblue">토 </th>
+											</tr>
+										</thead>
+										<tbody class="cal-body"></tbody>
+									</table>
+								</div>
+							</div>
+							<!-- 마이캘린더 끝 -->
+							<div class="product-description selectedOp">
+								<div class="card">
+									<div class="card-body">
+										<ul class="list-unstyled m-0 p-0">
+											<h5 class="me-2 border-bottom">예약 내역</h5>
+											<li class="pb-3 mb-3 border-bottom">
+												<div class="row align-items-center selectOP">
+													<div class="col-8 selectOP">
+														<!-- Remove -->
+														<!-- <a class="small link-danger ms-auto" href="#!">
 																	<i class="bi bi-x"></i> Remove
 																</a> -->
-															</div>
-														</div>
-													</li>
-												</ul>
+													</div>
+												</div>
+											<div class="product-description timeTable" style="margin-bottom: 3px;">
+											<!-- 여기에 시간 붙임 -->
 											</div>
-										</div>
 											
-										
+											</li>
+										</ul>
 									</div>
-									</div>
-					
+								</div>
+
+
+							</div>
+						</div>
+
 					</div>
 					<!-- End Profile Menu -->
 				</div>
@@ -551,6 +561,6 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		 
         
 		</script>
-		</main>
+	</main>
 </body>
 </html>

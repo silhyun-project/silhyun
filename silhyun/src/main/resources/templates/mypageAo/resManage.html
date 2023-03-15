@@ -53,18 +53,18 @@
 		<!-- Table -->
 		<div class="py-6">
 			<div class="container">
-				<div class="row">
+				<div class="row" th:each="ptg : ${ptgInfo}">
 					<!-- Profile Menu -->
 					<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 						<div class="bg-white border border-bottom-0 shadow-lg">
 							<div class="d-flex p-3 align-items-center">
 								<div class="avatar avatar-lg rounded-circle">
-									<img src="../../assets/img/avatar/1000x1000.jpg" title=""
+									<img th:src="${ptg.profile}" title=""
 										alt="">
 								</div>
 								<div class="col ps-3">
-									<h6 class="m-0">닉네임</h6>
-									<small><a href="#">이름</a></small>
+									<h6 class="m-0" th:text="${ptg.Id}"></h6>
+									<small><a href="/photo/mypageAo"th:text="${ptg.name}"></a></small>
 								</div>
 								<div>
 									<button>회원변경</button>
@@ -73,16 +73,18 @@
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/modPfAo/{user1}"> <i class="fi-user me-2"></i>회원정보수정
+									href="/photo/modPfAo"> <i class="fi-user me-2"></i>회원정보수정
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/resManage"> <i class="bi bi-card-checklist"></i>예약
 										관리
+										
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스 관리
+									
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -116,7 +118,6 @@
 					<!-- <div class="col-lg-1 col-xxl-9">
 					</div> -->
 					<div class="col-lg-8 col-xxl-9">
-								[[${id}]]		[[${ptgId}]]
 		<!-- 				<input type="hidden" value="${id}"> -->
 						<button type="button" class="btn btn-primary"
 							data-bs-toggle="modal" data-bs-target="#workOption">옵션
