@@ -20,67 +20,7 @@
 </head>
 
 <body>
-    <!-- Skippy & Prload -->
-    <!-- skippy -->
-    <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
-        <div class="container">
-            <span class="u-skiplink-text">Skip to main content</span>
-        </div>
-    </a>
-    <!-- End skippy -->
-    <!-- Preload -->
-    <div id="loading" class="loading-preloader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    <!-- End Preload -->
-    <!-- Edn Skippy & Prload -->
-    <!-- Size Chart  -->
-    <!-- Ask Form -->
-    <div class="modal-askform-view modal fade" id="px_ask_modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Ask about product</h4>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Your Name</label>
-                                    <input type="text" class="form-control" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Email address</label>
-                                    <input type="email" class="form-control" placeholder="E-mail">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="exampleInputEmail1">Subject</label>
-                                    <input type="text" class="form-control" placeholder="Subject">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="exampleInputEmail1">Your Message</label>
-                                    <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="">
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
     <!-- Main -->
@@ -94,10 +34,7 @@
     
     
 </header>
-        <!-- End Header -->
-        <!-- Main -->
-        <main>
-            <!-- Breadcrumb -->
+  
            <div class="py-3 bg-gray-100">
                 <div class="container">
                     <div class="row align-items-center">
@@ -244,7 +181,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="myC1,sts : ${myC1}" th:Class="${sts}" th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${myC1.classNum}) }'|">
+                                    <tr th:each="myC1,sts : ${myC1}" th:Class="${sts}" data-bs-toggle="modal" data-bs-target="#seeMyC1"
+                                        th:attr="onclick=|myC1Ajax('${myC1.classNum}')|"   >
+                             
                                         <td class="p-3" align="center"><span class="fw-500" th:text="${sts.count}"></span></td>
                                         <td class="p-3"><span class="fw-600" th:text="${myC1.ttl}"></span></td>
                                         <td class="p-3" align="center" th:text="${myC1.pName}"></td>
@@ -284,13 +223,130 @@
                                     </tr>
                             </table>
                         </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                                    
+                                            
+<!-- Quick View  -->
+<div class="modal fade" id="seeMyC1">
+<div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id ="myC1Body">
+           
+        </div>
+    </div>
+</div>
+<!-- End ptgCfrm from  -->
 
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+</div>
                     </div>
 
                     <!-- End Content -->
                 </div>
             </div>
         </div>
+        
+        <script th:inline="javascript">
+		
+    
+       
+	    function myC1Ajax(classNum){
+	        var classNum = classNum;
+	        $.ajax({
+	          url: "/myPageU/myC1Ajax",
+	          type: "GET",
+	          data: {classNum: classNum},
+	          dataType: 'json'
+	        }).then(result =>{
+	      	  
+	      	     var myC1Ajax = result;
+	      	console.log("아작스로 받은 클래스 인포"+myC1Ajax)   
+
+	      	//날짜 형태 변환
+   		     var options = { year: "numeric", month: "long", day: "numeric" };
+	      	
+	      	
+	      	  var myC1Body = document.getElementById("myC1Body");
+	      	myC1Body.innerHTML = "";
+	      	
+	       
+	      	  var appendContent = `
+	       
+	              <div class="modal-header bg-primary">
+	                  <div class="modal-title p-3">
+	                      <h5 class="m-0 text-white" id="updateMId"></h5>
+	                    
+	                     <p class="m-0 text-white">${myC1Ajax.TTL} 상세정보</p>
+	                    
+	                  </div>
+	                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	              </div>
+	              <div class="modal-body">
+	                <div class="w-100 p-3">
+
+	                      <div class="mb-3">
+	                         <img  src="${myC1Ajax.THNI}" style="width: 440px"  alt="">                          
+	                        </div> 
+	                        <div class="mb-3">
+	                            <b>클래스명</b>
+	                            <p>${myC1Ajax.TTL}</p>
+	                        </div>     
+	                               <div class="mb-3">
+	                            <b>기록가</b>
+	                            <p>${myC1Ajax.NAME}(연락처: ${myC1Ajax.TEL})</p>
+	                        </div> 
+	                                                     <div class="mb-3">
+	                            <b>분야</b>
+	                            <p>${myC1Ajax.FCD}</p>
+	                        </div>     
+	                             <div class="mb-3">
+	                            <b>장소</b>
+	                            <p>${myC1Ajax.CPLACE}</p>
+	                        </div>
+	                                                     <div class="mb-3">
+	                            <b>일시</b>
+	                            <p>${new Date(myC1Ajax.CDT).toLocaleDateString("ko-KR", options)}
+	                            / ${myC1Ajax.CTIME}</p>
+	                        </div>
+	                             <div class="mb-3">
+	                            <b>클래스설명</b>
+	                            <p>${myC1Ajax.DESCT}</p>
+	                        </div>
+	                                                     <div class="mb-3">
+	                            <b>모집인원</b>
+	                            <p>${myC1Ajax.YPSN}명</p>
+	                        </div>
+	                  </div>
+	              </div>
+	    
+	      	  `;
+	      	  
+	      	  
+	            document.getElementById("myC1Body").innerHTML += appendContent;  
+	      	  
+	      	});	      	
+	      	
+	      };
+	      
+	      </script>
+        
+        
+        
+        
+        
+        
     </div>
 
     <!-- script start -->

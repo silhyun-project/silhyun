@@ -5,14 +5,14 @@
 		resultType="co.yedam.silhyun.order.vo.ReserVO">
 		SELECT *
 		FROM RESER
-		WHERE ptg_id='user1'
+		WHERE ptg_id=#{id}
 		ORDER BY res_num DESC
 	</select>
 	
 	<select id="selectWorkDay" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 	 select *
 	 from photographer
-	 where ptg_id='user1'
+	 where ptg_id= #{id}
 	</select>
 	
 	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
@@ -28,7 +28,7 @@
 	<select id="classList" resultType="co.yedam.silhyun.classes.vo.ClassesVO">
 		SELECT *
 		FROM CLASS
-		WHERE PTG_ID = 'tPtg1'
+		WHERE PTG_ID = #{ptgId}
 		ORDER BY ACCP_DT DESC
 		
 	</select>
@@ -39,7 +39,7 @@
 		m.profile
 		FROM MEMBER m
 		INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
-		WHERE m.id = 'user1'
+		WHERE m.id = #{id}
 	</select>
 
 	<select id="ptgSelect" resultType="co.yedam.silhyun.member.vo.MemberVO">
