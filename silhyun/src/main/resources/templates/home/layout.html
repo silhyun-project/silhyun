@@ -764,15 +764,14 @@
 								class="nav flex-nowrap align-items-center justify-content-md-end header-right">
 
 								<!-- Nav User-->
+								이게먼가요[[${session.id}]]======
 								<ul class="list-unstyled link-list-style-02 m-0" id="smMenu">
 									<li><a href="#"></a></li>
 									<li><a href="#">포트폴리오</a></li>
-
-									<li><a href="/photo/mypageAo">마이페이지</a></li>
-									<li><a href="/silhyun/joinForm" th:if='${id} eq null'>회원가입</a></li>
-									<li><a href="/login" th:if='${id} eq null'>로그인</a> <a
-										href="/logout" th:if='${id} neq null'>로그아웃</a></li>
-
+									<li><a href="/photo/mypageAo/{user1}">마이페이지</a></li>
+									<li><a href="/silhyun/joinForm" th:if='${session.id} eq null'>회원가입</a></li>
+									<li><a href="/login" th:if='${session.id} eq null'>로그인</a> <a
+										href="/logout" th:if='${session.id} neq null'>로그아웃</a></li>
 								</ul>
 
 								<!-- Mobile Toggle -->

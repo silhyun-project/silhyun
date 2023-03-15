@@ -59,12 +59,12 @@ public class WebSecurityConfig{
 			.and()
 			.formLogin()
 				.loginPage("/login")
+				.successHandler(new CustomLoginSuccessHandler())
 				.permitAll()
 			.and()
 			.oauth2Login()
 			     .loginPage("/login/oauth")
 				.permitAll()
-				.successHandler(new CustomLoginSuccessHandler())
 				.userInfoEndpoint()
 				.userService(userService);
 			
