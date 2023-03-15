@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.event.service.EventService;
 import co.yedam.silhyun.mypage.vo.ChulcheckVO;
 
@@ -28,7 +31,12 @@ public class EventController {
 	private EventService eventService;
 
 	@RequestMapping("/silhyun/eventPage")
-	public String eventPage(Model model) {
+	public String eventPage(Model model,HttpSession httpSession) {
+		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
+		if(user != null) {  //세션
+			model.addAttribute("id",user.getId());
+			model.addAttribute("role",user.getRole());
+		}
 		model.addAttribute("eventPage", eventService.getEventList());
 		model.addAttribute("bannerList", eventService.getBannerList());
 		return "event/eventPage";

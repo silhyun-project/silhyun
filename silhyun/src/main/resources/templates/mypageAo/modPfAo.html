@@ -121,7 +121,7 @@
 								<!-- 프로필 모달 클릭 이벤트 구역 끝 -->
 								<div class="col ps-3">
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
-									<small><a href="#" th:text="${ptg.name}"></a></small>
+									<small><a href="/photo/mypageAo" th:text="${ptg.name}"></a></small>
 								</div>
 								<div>
 									<button>회원변경</button>
@@ -130,30 +130,30 @@
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/modPfAo/{user1}"> <i class="fi-user me-2"></i>회원정보수정
+									href="/photo/modPfAo"> <i class="fi-user me-2"></i>회원정보수정
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/resManage/{user1}"> <i class="bi bi-card-checklist"></i>예약
+									href="/photo/resManage"> <i class="bi bi-card-checklist"></i>예약
 										관리
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/classManage/{user1}"> <i class="bi-play-btn me-2"></i>클래스
+									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스
 										관리
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageAoAsk/{user1}"> <i
+									href="/photo/mypageAoAsk"> <i
 										class="bi-chat-square-dots me-2"></i>문의내역
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/resCalendarAo/{user1}"> <i class="bi-calendar me-2"></i>캘린더
+									href="/photo/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo/{user1}"> <i
+									href="/photo/mypageStatsAo"> <i
 										class="bi bi-pie-chart-fill"></i>통계
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -162,7 +162,7 @@
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/reportFormAo/{user1}"> <i
+									href="/photo/reportFormAo"> <i
 										class="bi bi-exclamation-diamond"></i>신고
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -194,7 +194,7 @@
 										<span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
 
 									</div>
-									<input type="hidden" value="${ptgId}">
+									<input id="hidPhoto" type="hidden" th:value="${ptg.Id}">
 								</div>
 								<div style="width: 100%; text-align: center">
 									<button id="button_update_profile" type="button"
@@ -351,7 +351,7 @@
 														</div>
 													</div>
 													<!-- id숨겨놓음 -->
-													<input type="hidden" name="ptgId" value="user3">
+													<input type="hidden" name="ptgId" value="${ptg.Id}">
 												</form>
 											</div>
 										</div>
@@ -496,7 +496,7 @@
     }
     $('#button_update_profile').on('click', ()=>{
         //const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
-        const id = 'user1';
+        const id = document.getElementById("hidPhoto").value;
 		
         
         const file = files[0];//// 여기까지 값이 들어옴

@@ -55,7 +55,7 @@
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/modPfAo/{user1}"> <i class="fi-user me-2"></i>회원정보수정
+									href="/photo/modPfAo"> <i class="fi-user me-2"></i>회원정보수정
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -158,7 +158,7 @@
 														<label for="formFile" class="form-label">썸네일 사진</label> <input
 															class="form-control" type="file" name="file">
 													</div>
-													<input type="hidden"  name="ptgId" value="author1"> 
+													<input type="hidden"  name="ptgId" th:value="${ptg.Id}"> 
 													<div class="row align-items-center">
 														<div class="col-sm-4">
 															<button type="submit" class="btn btn-dark" onclick="uploadClass()">확인</button>
@@ -235,7 +235,7 @@
 													</div>
 
 													<input type="hidden"  name="Id"
-														value="author1"> 
+														th:value="${ptg.Id}"> 
 													<!-- <input type="hidden" id="eventNum " name="eventNum" value="100"> -->
 
 												</div>
@@ -302,8 +302,7 @@
 			</div>
 		</div>
 		<!-- End Table -->
-
-		<script>
+<script type="text/javascript">
 function applyForm(n){
 	if(n == 'c'){
 		document.getElementById('classApply').setAttribute('style','display:block')
@@ -391,7 +390,7 @@ function applyForm(n){
 	 //두번째 부모의 1번째 자식
 	let classNum = iqBtn.parentNode.parentNode.querySelector('td:nth-child(1)').getAttribute('value');
 	console.log(classNum);
-	$.ajax({
+	/* $.ajax({
 		url:"/photo/classInquiry",
 		method:'post',
 		data:{
@@ -401,12 +400,13 @@ function applyForm(n){
 		succes:function(result){
 			console.log(result);
 			alert("성공")
+			window.location.href = "/mypageAo/classInquiry?classNum=" + classNum;
 		},
 		error:function(reject){
 			console.log(reject)
 			alert("실패")
 		}
-	});
+	}); */
 	
  }
 
