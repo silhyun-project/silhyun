@@ -120,6 +120,7 @@ public class mypageAoController {
 
 		}
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+
 		
 		return "mypageAo/resCalendarAo";
 	}

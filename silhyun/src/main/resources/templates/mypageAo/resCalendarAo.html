@@ -286,13 +286,18 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 																</a> -->
 													</div>
 												</div>
-											<div class="product-description timeTable" style="margin-bottom: 3px;">
-											<!-- 여기에 시간 붙임 -->
-											</div>
-											
+												<div class="product-description timeTable"
+													style="margin-bottom: 3px;">
+													<!-- 여기에 시간 붙임 -->
+												</div>
+
 											</li>
 										</ul>
 									</div>
+									<form>
+									<!-- 	<input type="hidden" name="ptgId" th:value="${}">
+										<input type="hidden" name="workDay" th:value="${}"> -->
+									</form>
 								</div>
 
 
@@ -439,6 +444,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			let ptgReYnDate = $("input[name='ptgReYnDate']").val()
 			var arr = ptgReYnDate.split(',')
 			console.log(arr)
+			
 			$(arr).each(function(idx,item){
 				$('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
 					e.stopPropagation()
@@ -461,19 +467,6 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						return zero + n;
 					}	
 					
-					var clickD = $(this).attr('data-fdate').toString()
-					let nowD = new Date();
-						
-					if(clickD){
-						nowD = 
-							leadingZeros(nowD.getFullYear(), 4) + '-' +
-							leadingZeros(nowD.getMonth() + 1, 2) + '-' +
-							leadingZeros(nowD.getDate(), 2);
-						if(clickD < nowD){
-							// reloadTodo()
-							alert("예약날짜는 현재날짜보다 빠를수 없습니다.");
-						}
-						}	
 					
 					
 					
