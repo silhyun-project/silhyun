@@ -477,57 +477,63 @@ $(document).ready(function() {
 			.then(result => {
 				console.log(result)
 
+
+
 				let str = '';
 				$(result).each(function(c, comm) {
-					console.log(comm.profile)
-					if (comm.dep == 0 && c != 0) {
-						str += '</ul>'
-						str += '</div>'
-						str += '</li>'
-					}
-					if (comm.dep == 0) {
-						str += '<li class="media d-flex commentZone">'
-						str += '<div class="avatar rounded-circle">'
-						str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="사진">'
-						str += '</div>'
-						str += '<h6 class="mt-0 mb-1 commentId" id="comId" >' + comm.id + '</h6>'
-						str += '<label class="mb-2 small" >' + comm.comDate + '</label>'
-						str += '<p>' + comm.cntn + '</p>'
-						str += '<input type="hidden" class="comGrp" name="grp" id="comGrp" value="' + comm.grp + '">'
-						str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-						str += '<div class="nav dark-link small">'
-						str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
-						if (comm.repCnt > 0) {
-							str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'
-						}
-						str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'
-						str += '</div>'
-						if (comm.repCnt > 0) {
-							str += '<div class=popup style="display:none;">'
-							str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
-						}
 
-					} else {
-						str += '<li class="media d-flex replyZone">'
-						str += '<div class="avatar rounded-circle">'
-						str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="">'
-						str += '</div>'
-						str += '<div class="col ps-3">'
-						str += '<h6 class="mt-0 mb-1 commentId" id="repId">' + comm.id + '</h6>'
-						str += '<label class="mb-2 small">' + comm.comDate + '</label>'
-						str += '<p>' + comm.cntn + '</p>'
-						str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="' + comm.grp + '">'
-						str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-						str += '<div class="nav dark-link small">'
-						str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
-						str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
-						str += '</div>'
-						str += '</div>'
-						str += '</li>'
+
+					if (comm.dep == 0) {
+						//댓글자리
+						let comment = `<div class="commentZone">
+						    
+						     <div class="avatar rounded-circle">
+						     	<img src="${comm.profile}" alt="small-image">
+						     </div>
+						     
+						     <div class="commentCon">
+						     	<div class="commentInfo">
+					                <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;&nbsp;
+					                <div class="commentCon">${comm.cntn}</div>
+									<input type="text" class="comGrp" name="grp" id="comGrp" value="${comm.grp}"  style="display:none;">
+									<input type="text" class="comNum" name="comNum" value="${comm.comNum}"  style="display:none;">
+						     	</div>
+						     	<div class='nav dark-link small'>				              
+						                     <div class="mb-2 small">${comm.comDate}<div>   
+						                     <a class="ms-3" href="#contact-message" id="replyWrite">답글 달기</a>&nbsp;&nbsp;        
+						            		 <span class="comDelBtn">삭제<span> &nbsp;&nbsp;
+						                     <span class="replyShowBtn"><i class="bi-dash-lg">답글 더보기</i></span>
+						     	</div>
+						    	 <ul class="popup ${comm.grp}"></ul>
+						    </div>
+						</div>`
+						$(".mMiddleComment").append(comment);
+					} else{
+						//덧댓글자리
+						let recomment = `<li class="replyZone">
+								      <div class="avatar rounded-circle">
+						     	<img src="${comm.profile}" alt="small-image">
+						     </div>
+						     
+						     <div class="commentCon">
+						     	<div class="commentInfo">
+					                <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;&nbsp;
+					                <div class="commentCon">${comm.cntn}</div>
+									  <input type="hidden" class="repGrp" name="grp" id="repGrp" value="${comm.grp}">
+									   <input type="hidden" class="comNum" name="comNum" value="${comm.comNum}">
+						     	</div>
+						     	<div class='nav dark-link small'>				              
+						                     <div class="mb-2 small">${comm.comDate}<div>   
+						                     <a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>&nbsp;&nbsp;        
+						            		 <span class="reDelBtn">삭제<span> &nbsp;&nbsp;
+						     	</div>   	
+						    </div>
+						</li>`
+						$(".mMiddleComment").append(recomment);
 					}
-				})
-				$('.commentBox').html(str);
-			})
+				})//for
+
+			})//ajax
 	}
 
 

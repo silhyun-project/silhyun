@@ -73,74 +73,73 @@
             <!-- End Page Title -->
             <!-- Product Details -->
             <section class="product-details-02 py-6">
-                <div class="container" >
-                    <div class="row">
-                        <!-- Product Gallery -->
-                        <div class="col-lg-7 lightbox-gallery product-gallery"> <!--큰 사진-->
-                            <div class="swiper swiper_gallery_v">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="pd-gallery-slide">
-                                            <img th:src="${ptg[0].profile}" class="img-fluid" title="" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                        </div>
-                        <!-- End Product Gallery -->
-                        <!-- Product Details -->
-                        <div class="col-lg-5 ps-lg-5">
-                            <div class="product-detail pt-4 pt-lg-0">
-                                <div class="products-title-box">
-                                    <div class="products-title" >
-                                        <h6 th:if="${ptg[0].stName} != null">[[${ptg[0].stName}]] 소속</h6>
-                                        <h6 th:if="${ptg[0].stName} == null">프리랜서</h6>
-                                        <h4 class="h4" >[[${ptg[0].name}]]</h4>
-                                    </div>
-                                    <div class="product-wishlist">
-                                        <a href="#" class="btn">
-                                            <i class="fi-heart"></i>
-                                        </a>
-                                        <p> [[${ptg[0].zzims}]]</p>
-                                    </div>
-                                </div>
-                                <div class="product-description">
-                                <p style="height: 500px;">[[${ptg[0].itr}]]</p>
-                                <p>인스타그램 [[${ptg[0].inst}]] </p>
-                                </div>
-                               
-                                <div class="product-detail-actions d-flex flex-wrap">
-                                    <div class="cart-button">
-                                        <button class="btn btn-primary pd-cart-btn" th:onclick="|location.href='@{/pay/reserList/{ptgId}(ptgId=${ptg[0].ptgId})}'|">
-                                         예약하러가기 
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="product-metas small">
-                                    
-                                    <p class="theme-link m-0">
-                                        <label class="m-0 text-dark fw-500 w-100">Share:</label>
-                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
-                                            <i class="bi bi-facebook"></i>
-                                        </a>
-                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
-                                            <i class="bi bi-twitter"></i>
-                                        </a>
-                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
-                                            <i class="bi bi-instagram"></i>
-                                        </a>
-                                        <a class="icon icon-sm bg-primary text-white rounded me-1" href="#">
-                                            <i class="bi bi-linkedin"></i>
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Product Details -->
-                    </div>
-                </div>
-            </section>
+				<div class="container">
+					<div class="row">
+						<!-- Product Gallery -->
+						<div class="col-lg-7 lightbox-gallery product-gallery">
+							<!--큰 사진-->
+							<div class="swiper swiper_gallery_v">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<div class="pd-gallery-slide">
+											<img th:src="${ptg[0].profile}" class="img-fluid" title=""
+												alt="" style="width: 600px; height: 600px">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							</div>
+							<!-- End Product Gallery -->
+							<!-- Product Details -->
+							<div class="col-lg-5 ps-lg-5">
+								<div class="product-detail pt-4 pt-lg-0">
+									<div class="products-title-box">
+										<div class="products-title">
+											<h6 th:if="${ptg[0].stName} != null">[[${ptg[0].stName}]]
+												소속</h6>
+											<h6 th:if="${ptg[0].stName} == null">프리랜서</h6>
+											<h4 class="h4">[[${ptg[0].name}]]</h4>
+										</div>
+										<div class="product-wishlist">
+											<a href="#" class="btn"> <i class="fi-heart"></i>
+											</a>
+											<p>[[${ptg[0].zzims}]]</p>
+										</div>
+									</div>
+									<div class="product-description">
+										<p style="height: 370px;">[[${ptg[0].itr}]]</p>
+										<p>인스타그램 [[${ptg[0].inst}]]</p>
+									</div>
+
+									<div class="product-detail-actions d-flex flex-wrap">
+										<div class="cart-button">
+											<button class="btn btn-primary pd-cart-btn"
+												th:onclick="|location.href='@{/pay/reserList/{ptgId}(ptgId=${ptg[0].ptgId})}'|">
+												예약하러가기</button>
+										</div>
+									</div>
+									<div class="product-metas small">
+
+										<p class="theme-link m-0">
+											<label class="m-0 text-dark fw-500 w-100">Share:</label> <a
+												class="icon icon-sm bg-primary text-white rounded me-1"
+												href="#"> <i class="bi bi-facebook"></i>
+											</a> <a class="icon icon-sm bg-primary text-white rounded me-1"
+												href="#"> <i class="bi bi-twitter"></i>
+											</a> <a class="icon icon-sm bg-primary text-white rounded me-1"
+												href="#"> <i class="bi bi-instagram"></i>
+											</a> <a class="icon icon-sm bg-primary text-white rounded me-1"
+												href="#"> <i class="bi bi-linkedin"></i>
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<!-- End Product Details -->
+						</div>
+					</div>
+				</section>
             <!-- End Product Details -->
             <!-- Product Tabs -->
             <section class="product-detail-tab-02">
@@ -198,7 +197,7 @@
                                     <div class="col-lg-4" th:each="ptgd : ${ptg}">
                                         <div class="position-relative hover-scale">
                                             <div class="hover-scale-in">
-                                               <a href="#"> <img class="w-100" th:src="${ptgd.phoRt}" title="" alt="" style="width: 200px; height: 400px; padding: 10px;">
+                                               <a href="#"> <img class="w-100" th:src="${ptgd.phoRt}" title="" alt="" style="width: 400px; height: 400px">
                                             [[${ptgd.phoRt}]]</a>
                                             </div>
                                         </div>
@@ -239,6 +238,37 @@
 			     
 			})
 			
+	 window.setTimeout(function(){
+		 
+		 $('.slider-wrap').slick({
+			  slide: 'div',        //슬라이드 되어야 할 태그
+			  //infinite : true,     //무한 반복 옵션     
+			  slidesToShow : 4,        // 한 화면에 보여질 컨텐츠 개수
+			  slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
+			  speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+			  arrows : true,         // 옆으로 이동하는 화살표 표시 여부
+			  vertical : false,        // 세로 방향 슬라이드 옵션
+			  prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
+			  nextArrow : "<button type='button' class='slick-next'>Next</button>",
+			  responsive: [ // 반응형 웹 구현 옵션
+			    {  
+			      breakpoint: 960, //화면 사이즈 960px
+			      settings: {
+			        slidesToShow: 4
+			      } 
+			    },
+			    { 
+			      breakpoint: 768, //화면 사이즈 768px
+			      settings: {    
+			        slidesToShow: 5
+			      } 
+			    }
+			  ]
+
+			});
+		 
+	 }, 35)
+			
 
 		})
 
@@ -250,6 +280,8 @@
 				success: function(res){
 
 					$('#reviews').replaceWith(res)
+					
+					
 					
 // 					$.ajax({
 // 						type:'get',

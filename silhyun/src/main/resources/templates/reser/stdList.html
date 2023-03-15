@@ -65,14 +65,6 @@
             </div>
         </a>
         <!-- End skippy -->
-        <!-- Preload -->
-        <!-- <div id="loading" class="loading-preloader"> -->
-        <!--     <div class="spinner-border text-primary" role="status"> -->
-        <!--         <span class="visually-hidden">Loading...</span> -->
-        <!--     </div> -->
-        <!-- </div> -->
-        <!-- End Preload -->
-        <!-- Edn Skippy & Prload -->
         <!-- Main -->
         <main>
             <!-- Shop Section -->
@@ -123,6 +115,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-lg-8 col-xl-15 text-center">
                                                 <form id="searchFrm" style="display: inline;" action="/silhyun/stdList">
+                                                <!-- 지역 검색 체크박스 -->
                                                     <div class="" style="text-align: left;">
                                                         <h3>지역<span class="text-danger">*</span></h3>
                                                     </div>
@@ -196,8 +189,7 @@
                                                                 id="region10" value="10"
                                                                 th:checked="${studioVO.chkArray != null and #lists.contains(studioVO.chkArray ,'10')}"></label>
                                                     </div><br><br>
-                                                    
-
+                                                    <!-- 검색 input박스 -->
                                                     <div style="display: inline;">
                                                         <input type="text" size="50px"
                                                             class="me-sm-2 mb-2 mb-sm-1" style="height: 50px;text-align: center;"  name="searchWord"
@@ -206,18 +198,19 @@
                                                     </div><br><br>
                                                     <input type="hidden" name="pageNum" th:value="1">
 													<input type="hidden" name="amount" th:value="${page.criteria.amount}">
+													
+													<!-- 정렬 버튼-->
                                                 <div class="dropdown btn btn-white border" style="size: 100px;">
 			                                        <select id="selectOp"  name="searchType" onchange="searchFrm.submit()" style="border: 1px solid white;">
 			                                            <option value="">::선택::</option>
 			                                            <option value="new" th:selected="${studioVO.searchType =='new'}">최신순</option>
 			                                            <option value="name" th:selected="${studioVO.searchType =='name'}">이름순</option>
 			                                        </select>
-                                    </div>
+                                    			</div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </section>
                                 <!-- End Section -->
                             </div>
@@ -228,12 +221,12 @@
                                 <div class="col-md-4 col-6" th:each="std : ${stdList}">
                                     <div class="product-card-9 cList">
                                         <div class="product-card-image">
-                                            <div class="hover-scale">
+                                            <div class="hover-scale" style="width: 350px;height: 300px;">
                                                 <!--사진관 사진-->
                                                 <div class="hover-scale-in">
                                                     <a th:href="@{/silhyun/stdDetail/{stId}(stId = ${std.stId})}">
                                                         <img class="img-fluid" th:src="${std.profile}" title=""
-                                                            alt="사진이 뜨지않는다.." width="700" height="800">
+                                                            alt="사진이 뜨지않는다.." style="width: 350px;height: 300px">
                                                     </a>
                                                 </div>
                                             </div>
@@ -247,6 +240,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- 페이징 버튼 -->
 							<div class="container">
 								<div class="pagination">
 									<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
@@ -293,11 +287,9 @@
         <script>
               //페이징 관련
                history.replaceState({}, null, location.pathname);
-
-            $(".pagination a").on("click", function(e){
+           		$(".pagination a").on("click", function(e){
             	e.preventDefault();
              	$("#searchFrm").find("input[name='pageNum']").val($(this).attr("href"));
-
              	searchFrm.submit(); //폼태그값을 스트링으로 
             })
                         

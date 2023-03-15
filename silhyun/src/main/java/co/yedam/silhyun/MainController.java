@@ -25,18 +25,14 @@ public class MainController {
 	@Autowired MainService mainService;
 
 	@GetMapping("/")
-	public String layoutTest(Model model, HttpSession httpSession,PhotographerVO vo, PortfolioVO pvo,EventVO evo,ReviewVO rvo,FieldVO fvo) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
-		if(user != null) {
-			model.addAttribute("id", user.getId());
-			model.addAttribute("role", user.getRole());			
-		}
+	public String layoutTest(Model model,PhotographerVO vo, PortfolioVO pvo,EventVO evo,ReviewVO rvo,FieldVO fvo) {
 		
 		model.addAttribute("hotList",mainService.getHotPtg(vo));  //인기 작가
 		model.addAttribute("newList",mainService.getNewPtg(vo));  //최신 작가
 		model.addAttribute("portList",mainService.getPtgPortfolioList(pvo));// 작가 포트폴리오 랜덤 출력
 		model.addAttribute("eventList",mainService.getEventList(evo)); //이벤트 배너 가진 출력
-		model.addAttribute("revList",mainService.getReview(rvo)); //리뷰 최신순 
+		model.addAttribute("revList",mainService.getReviewA(rvo)); //리뷰 최신순 
+		model.addAttribute("clasList",mainService.getReviewC(rvo)); //리뷰 최신순 
 		model.addAttribute("fldList",mainService.getFeildList(fvo)); //태그
 		return "home/home";
 	}
