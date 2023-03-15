@@ -59,17 +59,34 @@
 		ORDER BY START_DATE DESC
 	</select>
 	
-	<!-- 리뷰 리스트 -->
-	<select id="getReview" resultType="co.yedam.silhyun.common.vo.ReviewVO">
+	<!-- 리뷰 리스트 (작가)-->
+	<select id="getReviewA" resultType="co.yedam.silhyun.common.vo.ReviewVO">
 	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-	    SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
-	    FROM REVIEW R, PHOTO P,MEMBER M
-	    WHERE R.REV_NUM = P.CTGR_NUM
-	    AND R.ID = M.ID
-	    AND UPPER(P.CTGR) ='R'
-	    ORDER BY R.REV_DATE DESC
+		SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
+		FROM REVIEW R, PHOTO P,MEMBER M
+		WHERE R.REV_NUM = P.CTGR_NUM
+		AND PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))FROM  PHOTO WHERE CTGR ='R' GROUP BY CTGR_NUM)
+		AND R.ID = M.ID
+		AND UPPER(P.CTGR) ='R'
+		AND UPPER(R.CTGR) ='A'
+		ORDER BY R.REV_DATE DESC
    	<![CDATA[
-	) A WHERE ROWNUM <= 4) B WHERE RN >= 1
+	) A WHERE ROWNUM <= 2) B WHERE RN >= 1
+ 	]]>
+	</select>
+		<!-- 리뷰 리스트 (클래스)-->
+	<select id="getReviewC" resultType="co.yedam.silhyun.common.vo.ReviewVO">
+	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
+		SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
+		FROM REVIEW R, PHOTO P,MEMBER M
+		WHERE R.REV_NUM = P.CTGR_NUM
+		AND PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))FROM  PHOTO WHERE CTGR ='R' GROUP BY CTGR_NUM)
+		AND R.ID = M.ID
+		AND UPPER(P.CTGR) ='R'
+		AND UPPER(R.CTGR) ='C'
+		ORDER BY R.REV_DATE DESC
+   	<![CDATA[
+	) A WHERE ROWNUM <= 2) B WHERE RN >= 1
  	]]>
 	</select>
 	

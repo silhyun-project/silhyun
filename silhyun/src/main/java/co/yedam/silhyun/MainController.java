@@ -36,7 +36,8 @@ public class MainController {
 		model.addAttribute("newList",mainService.getNewPtg(vo));  //최신 작가
 		model.addAttribute("portList",mainService.getPtgPortfolioList(pvo));// 작가 포트폴리오 랜덤 출력
 		model.addAttribute("eventList",mainService.getEventList(evo)); //이벤트 배너 가진 출력
-		model.addAttribute("revList",mainService.getReview(rvo)); //리뷰 최신순 
+		model.addAttribute("revList",mainService.getReviewA(rvo)); //리뷰 최신순 
+		model.addAttribute("clasList",mainService.getReviewC(rvo)); //리뷰 최신순 
 		model.addAttribute("fldList",mainService.getFeildList(fvo)); //태그
 		return "home/home";
 	}

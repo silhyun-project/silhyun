@@ -136,6 +136,7 @@
                                                 <h6 class="me-2 text-body">🎁 쿠폰</h6>
                                                 <div class="mb-3">
                                                     <select class="form-select dis" name="discount" required="" style="width: 500px">
+                                                    
                                                         <option value="">사용가능한 쿠폰</option>
                                                         <option th:each="mem :${memInfo}" th:text="${mem.cntn}" th:value="${mem.discount}" th:selected="${mem.cpnNum}==${reserVO.cpnNum}" th:id="${mem.cpnNum}">
                                                        

@@ -232,8 +232,6 @@
             </main>
             <!-- End Main -->
         </div>
-
-
         <!-- 
     ========================
        End Wrapper 
@@ -273,19 +271,12 @@
                     contentType: "application/json",
                     accept: "application/json",
                     success: function (result) {
-                        console.log(result);
-                        console.log(result.data[0].b_stt_cd)
-                        // let num =Number(result.data[0].b_no)
-                        // $('input[name="crn"]').val(num)
-                        // console.log(num)
                         if (result.data[0].b_stt_cd == '01') {
                             alert("사업자등록번호가 인증되었습니다.")
                             $('.btn.btn-primary.w-20.ms-2.crnBtn').val('Yes')
                             $('.btn.btn-primary.w-20.ms-2.crnBtn').attr("disabled", true)
-
                         } else {
                             alert("국세청에 등록되지 않은 사업자등록번호입니다.")
-
                         }
                     },
                     error: function (result) {
@@ -293,7 +284,6 @@
                     }
                 });
             })
-
 
             //📌포트폴리오 파일 등록           
             function fileUpAction() {
@@ -322,13 +312,11 @@
                     alert("3개의 파일까지지 업로드 됩니다.")
                 }
                 selFiles.splice(5)
-                console.log("최종 배열길이 " + selFiles.length)
             }
 
             //이미지 미리보기
             imageLoader = function (file) {
                 selFiles.push(file);
-                console.log(selFiles.length)
                 if (selFiles.length < 4) {
                     var reader = new FileReader();
                     reader.onload = function (ee) {
@@ -345,7 +333,6 @@
             makeDiv = function (img, file) {
                 var div = document.createElement('div')
                 div.setAttribute('style', divStyle)
-
                 var btn = document.createElement('input')
                 btn.setAttribute('type', 'button')
                 btn.setAttribute('value', 'x')
@@ -403,18 +390,7 @@
                 })
                 return false;
             }
-
-
-            //📌체크박스 체크 여부
-            // function check() {
-            //     if ($("input:checkbox[name='fdCd']").is(":checked") == false) {
-            //         alert("적어도 하나는 선택하여 주십시오.");
-            //         return;
-            //     }
-            // }
         </script>
-
     </div>
 </body>
-
 </html>
