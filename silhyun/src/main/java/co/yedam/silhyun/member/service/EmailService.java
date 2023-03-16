@@ -55,7 +55,7 @@ public class EmailService{
 		msgg += " </div>";
 		message.setText(msgg, "utf-8", "html");		
 		//보내는 사람 이메일주소, 보내는 사람 이름
-		message.setFrom(new InternetAddress("ctrlcc@naver.com", "실현하다"));
+		message.setFrom(new InternetAddress("silhyunhada@gmail.com", "실현하다"));
 		
 		return message;
 	}

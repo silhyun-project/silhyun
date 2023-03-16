@@ -13,8 +13,9 @@ public interface MainService {
 	List<PhotographerVO> getNewPtg(PhotographerVO vo);  //최신 작가
 	List<PortfolioVO> getPtgPortfolioList(PortfolioVO vo);//작가 포트폴리오리스트 랜덤으로 띄우기 
 	List<EventVO> getEventList(EventVO vo); //이벤트 배너 사진
-	List<ReviewVO> getReviewA(ReviewVO vo); //리뷰 최신순으로 가지고 오기
-	List<ReviewVO> getReviewC(ReviewVO vo); //리뷰 최신순으로 가지고 오기
+	List<ReviewVO> getReviewA(ReviewVO vo); //작가 리뷰 최신순으로 가지고 오기
+	List<ReviewVO> getReviewC(ReviewVO vo); //클래스 리뷰 최신순으로 가지고 오기
+	List<ReviewVO> getReview(ReviewVO vo); //리뷰 별점 5개 가지고 오기
 	List<FieldVO> getFeildList(FieldVO vo);// 필드 가지고와서 태그로 만들기
 	
 	List<PhotographerVO> getTagPtgList(String fdCd);

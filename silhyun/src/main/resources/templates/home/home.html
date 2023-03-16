@@ -110,11 +110,11 @@
 					<!-- 태그  -->
 					<div class="row">
 						<div class="col-lg-4 my-2">
-							<h5 class="mb-4">실시간 작가 리뷰</h5>
+							<h5 class="mb-4"  style="text-align: center;">실시간 작가 리뷰</h5>
 							<div class="product-card-4" th:each="rev : ${revList}"
 								style="width: 100%;">
-								<div class="product-card-image" style="width: 10; height: 10">
-									<a href="#"> <img th:src="${rev.phoRt}" title="" alt="" >
+								<div class="product-card-image" >
+									<a href="#"> <img th:src="${rev.phoRt}" title="" alt="" style="width: 120px;height: 140px">
 									</a>
 								</div>
 								<div class="product-card-info">
@@ -132,11 +132,11 @@
 							</div>
 						</div>
 						<div class="col-lg-4 my-2">
-							<h5 class="mb-4">실시간 클래스 리뷰</h5>
+							<h5 class="mb-4 "  style="text-align: center;">실시간 클래스 리뷰</h5>
 							<div class="product-card-4" th:each="clas : ${clasList}"
 								style="width: 100%;">
 								<div class="product-card-image">
-									<a href="#"> <img th:src="${clas.phoRt}" title="" alt="">
+									<a href="#"> <img th:src="${clas.phoRt}" title="" alt="" style="width: 120px;height: 140px">
 									</a>
 								</div>
 								<div class="product-card-info">
@@ -149,6 +149,35 @@
 												th:each="num : ${#numbers.sequence(0, clas.star-1)}"></i>
 										</div>
 										<span class="text-primary clas">[[${clas.cntn}]]</span>
+									</div>
+								</div>
+							</div>
+						</div>		
+						<div class="col-lg-4 my-2">
+							<h5 class="mb-4" style="text-align: center;">베스트 리뷰</h5>
+							<div class="product-card-4" th:each="best : ${bestList}"
+								style="width: 100%;">
+									<div class="product-card-3">
+									
+									<div class="badge-ribbon">
+										<span class="badge bg-danger">BEST</span>
+									</div>
+									<div class="product-media">
+										<a href="#"> <img th:src="${best.phoRt}" title="" alt=""
+											style="width: 120px; height: 140px">
+										</a>
+									</div>
+									</div>
+								<div class="product-card-info">
+									<h6 class="product-title">
+										<a href="#" tabindex="0">[[${best.id}]]</a>
+									</h6>
+									<div class="product-price">
+										<div class="rating-star text">
+											<i class="bi bi-star-fill active"
+												th:each="num : ${#numbers.sequence(0, best.star-1)}"></i>
+										</div>
+										<span class="text-primary clas">[[${best.cntn}]]</span>
 									</div>
 								</div>
 							</div>
@@ -174,7 +203,7 @@
 					<div class="row g-3 g-lg-4">
 						<!-- Product Box -->
 						<div class="col-6 col-lg-3" th:each="hot : ${hotList}">
-							<div class="product-card-1" style="width: 300px;height: 300px">
+							<div class="product-card-1" style="width: 300px;height: 300px;">
 								<div class="product-card-image">
 									<div class="badge-ribbon">
 										<span class="badge bg-danger">HOT</span>
@@ -184,11 +213,11 @@
 										<a
 											th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId = ${hot.ptgId})}">
 											<img class="img-fluid" th:src="${hot.profile}" title=""
-											alt="사진 없음" style="width: 300px;height: 300px">
+											alt="사진 없음" style="width: 300px;height: 300px;">
 										</a>
 									</div>
 								</div>
-							</div>
+							</div><br>
 							<div class="product-card-info" style="text-align: center;">
 								<!--작가 이름-->
 								<h6 class="product-title">
@@ -220,14 +249,13 @@
 										<span class="badge bg-danger">NEW</span>
 									</div>
 									<div class="product-media">
-										<a
-											th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId = ${list.ptgId})}">
+										<a th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId = ${list.ptgId})}">
 											<img class="img-fluid" th:src="${list.profile}" title=""
 											alt="사진 없음" style="width: 300px;height: 300px">
 										</a>
 									</div>
 								</div>
-							</div>
+							</div><br>
 							<div class="product-card-info" style="text-align: center;">
 								<!--작가 이름-->
 								<h6 class="product-title">
@@ -313,7 +341,7 @@
                 }
                 return str;
                  }
-            let text = cutByMaxStr(opTtl,40)
+            let text = cutByMaxStr(opTtl,35)
 			$(item).text(text)
             
 		})
@@ -332,7 +360,7 @@
                 }
                 return str;
                  }
-            let text = cutByMaxStr(opTtl,40)
+            let text = cutByMaxStr(opTtl,35)
 			$(item).text(text)
 		})
 		

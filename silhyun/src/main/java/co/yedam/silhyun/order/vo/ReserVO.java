@@ -45,4 +45,5 @@ public class ReserVO {
 	private Date endDate;
 	private String eventNum;
 	private String cpnSta;
+	private String claTtl;
 }

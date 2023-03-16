@@ -22,8 +22,26 @@
 <link href="/css/theme.css" rel="stylesheet">
 <link href="/css/around.css" rel="stylesheet">
 <link href="/css/modal.css" rel="stylesheet">
-</head>
+<style>
+.ptg-inf {
+	display: flex;
+}
 
+.rating-star {
+	position: relative;
+	left: 50%;
+}
+
+.rating-star i {
+	font-size: 22px;
+}
+
+.rating-star small {
+	font-size: 15px;
+	text-align: center;
+}
+</style>
+</head>
 <body>
 	<div layout:fragment="content">
 
@@ -123,14 +141,17 @@
 								<div class="mTopSectionInfo">
 									<!-- 모달해더 -->
 								</div>
-								<div class="menuButton">
-									<i class="bi-three-dots"></i>
+							<div class="menuButton">
+								<i class="bi-three-dots"></i>
+								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
 									<ul class="menuButtonlist">
-										<li class="menuButton-item"><a
-											href="/silhyun/portfolioInsert">수정하기</a></li>
+										<li style="display: none"><input type="hidden" name='portNum' value=""></li>
+										<li class="menuButton-item"><button type="button" class="menuButton-item">
+												수정하기</button></li>
 										<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
 									</ul>
-								</div>
+								</form>
+							</div>
 							</div>
 							<div class="modalMiddleSection">
 								<div class="scroll-box">
@@ -138,9 +159,7 @@
 										<!-- 내용들어가는자리 -->
 									</div>
 									<hr>
-									<div class="mMiddleComment">
-										
-									</div>
+									<div class="mMiddleComment"></div>
 								</div>
 							</div>
 							<div class="modalBottomSection">
@@ -149,7 +168,7 @@
 								</div>
 								<div class="modalBottomInput">
 									<input type="text" id="contact-message" name="message"
-										placeholder="    댓글을 작성하세요.">
+										placeholder="댓글을 작성하세요." style="padding-left: 20px;">
 									<button type="button" id="send">입력</button>
 								</div>
 							</div>

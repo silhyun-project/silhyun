@@ -24,7 +24,12 @@
 		todo_date = #{todoDate}
 	</select>
 	
-	
+	<select id="selectMyCoupon" resultType="co.yedam.silhyun.event.vo.CouponHistoryVO">
+		SELECT C.*,CH.*
+		FROM COUPON C, COUPONHISTORY CH
+		WHERE C.CPN_NUM = CH.CPN_NUM
+		AND CH.ID = #{id}
+	</select>
 
 </mapper>
 	

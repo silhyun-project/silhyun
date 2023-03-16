@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.yedam.silhyun.event.vo.CouponHistoryVO;
 import co.yedam.silhyun.mypage.map.MypageUserMapper;
 import co.yedam.silhyun.mypage.vo.ScheduleVO;
 
@@ -22,6 +23,12 @@ public class MypageUserServiceImpl implements MypageUserService{
 	public int scheduleInsert(ScheduleVO vo) {
 		// TODO Auto-generated method stub
 		return mapper.scheduleInsert();
+	}
+
+	@Override
+	public List<CouponHistoryVO> selectMyCoupon(String id) {
+		
+		return mapper.selectMyCoupon(id);
 	}
 
 }

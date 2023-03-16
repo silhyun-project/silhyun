@@ -12,8 +12,9 @@
 <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
 <!-- title -->
 <title>silhyunHada</title>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+				
 </head>
 <style>
 
@@ -105,7 +106,7 @@
 						    </div>
 						</div>
 	                <div class="col-sm-6 text-sm-end">
-	                    <a href="/silhyun/reviewform">리뷰작성하기</a>
+	                    <button type="button" onclick="reviewInsertForm()">리뷰작성하기</button>
 	                </div>
 	            </div>
 	            <hr>
@@ -171,31 +172,32 @@
 <script type="text/javascript">
 $(function(){
 
-		 $('.slider-wrap').slick({
-			  slide: 'div',        //슬라이드 되어야 할 태그
-			  //infinite : true,     //무한 반복 옵션     
-			  slidesToShow : 4,        // 한 화면에 보여질 컨텐츠 개수
-			  slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
-			  speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-			  arrows : true,         // 옆으로 이동하는 화살표 표시 여부
-			  vertical : false,        // 세로 방향 슬라이드 옵션
-			  prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
-			  nextArrow : "<button type='button' class='slick-next'>Next</button>",
-			  responsive: [ // 반응형 웹 구현 옵션
-			    {  
-			      breakpoint: 960, //화면 사이즈 960px
-			      settings: {
-			        slidesToShow: 4
-			      } 
-			    },
-			    { 
-			      breakpoint: 768, //화면 사이즈 768px
-			      settings: {    
-			        slidesToShow: 5
-			      } 
-			    }
-			  ]
 
+			$('.slider-wrap').slick({
+			 slide: 'div',        //슬라이드 되어야 할 태그
+			 //infinite : true,     //무한 반복 옵션     
+			 slidesToShow : 4,        // 한 화면에 보여질 컨텐츠 개수
+			 slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
+			 speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+			 arrows : true,         // 옆으로 이동하는 화살표 표시 여부
+			 vertical : false,        // 세로 방향 슬라이드 옵션
+			 prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
+			 nextArrow : "<button type='button' class='slick-next'>Next</button>",
+			 responsive: [ // 반응형 웹 구현 옵션
+			   {  
+			     breakpoint: 960, //화면 사이즈 960px
+			     settings: {
+			       slidesToShow: 4
+			     } 
+			   },
+			   { 
+			     breakpoint: 768, //화면 사이즈 768px
+			     settings: {    
+			       slidesToShow: 5
+			     } 
+			   }
+			 ]
+			
 			});
 
 	
