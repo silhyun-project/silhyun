@@ -98,5 +98,11 @@ public class PortfolioController {
 		return portfolioService.imsiList(ptgId);
 	}
 	
-
+	
+	@RequestMapping("/silhyun/portfolioUpdate")
+	public String portfolioUpdateForm(Model model) {
+		return "portfolio/portfolioUpdateForm";
+	}
+	
+	
 }

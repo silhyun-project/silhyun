@@ -116,18 +116,40 @@ $(function() {
 		url: `/silhyun/imsiList/${ptgId}`,
 		success: function(result) {
 			console.log(result)
-			let th = `<tr><th width='200px'>내용</th><th>작성일</th></tr>`
+			let th = `<tr><td width='20px'><input class="checkAll" type="checkbox"></td><th width='170px'>내용(${result.length})</th>
+						   <th width='88px'>작성일</th><th width='40px'></th><td></td><td width="8px"></td><td class="imsiClose">X</td></tr>`
 			$('.imsi').append(th)
-
 			for (i = 0; i < result.length; i++) {
-				let imsilist = `<tr><td>${result[i].cntn}</td> 
-					<td>${result[i].portDate}</td></tr>`
+				var imsiCntn = '';
+				if ((result[i].cntn).length > 12) {
+					imsiCntn = result[i].cntn.substring(0, 12) + '...';
+				} else {
+					imsiCntn = result[i].cntn;
+				}
+
+				let imsilist = `<tr><td><input class="checkItem" type="checkbox"></td><td>${imsiCntn}</td> 
+					<td>${result[i].portDate}</td>
+					<td><input type="hidden" value='${result[i].portNum}'></td><td>수정 <td>
+					<td> 삭제</td></tr>`
 				$('.imsi').append(imsilist)
 			}
+			$('.imsi').append(`<div class="imsiDelBtn">
+									<button class="imsiSelDel">선택삭제</button>
+									<button class="imsiAllDel">전체삭제</button>
+							  </div>`)
+			//다 체크하기.
+			$('.checkAll').click(function() {
+				$('.checkItem').prop('checked', this.checked);
+			});
+			//X버튼 체크 같이 풀기		  
+			$('.imsiClose').click(function() {
+				$('.imsi').toggle();
+				$('input:checked').prop('checked', false);
+			})
 		}
 	})
-	
-	
+
+
 	$('.btn.btn-outline-dark.me-3.imsiList').click(function() {
 		$('.imsi').toggle();
 	})
