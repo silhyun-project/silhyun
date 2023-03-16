@@ -1,5 +1,7 @@
 package co.yedam.silhyun.event.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,6 @@ public class CouponController {
 	@RequestMapping("/silhyun/eventCoupon")
 	public String eventCoupon(Model model) {
 		model.addAttribute("couponList", couponService.couponSelectList());
-		
 		return "coupon/eventCoupon";
 	}
 	
@@ -33,7 +34,9 @@ public class CouponController {
 	
 	@PostMapping("/silhyun/getCoupon")
 	@ResponseBody
-	public boolean getCoupon(CouponHistoryVO hvo) {
+	public boolean getCoupon(CouponHistoryVO hvo,Model model ,HttpSession session) {
+		model.addAttribute("id",session.getAttribute("id"));
+		String id = (String) session.getAttribute("id");
 		couponService.insertCoupon(hvo);
 	
 		return true;

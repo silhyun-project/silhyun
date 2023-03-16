@@ -1,11 +1,21 @@
 package co.yedam.silhyun.mypage.web;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import co.yedam.silhyun.mypage.service.MypageUserService;
+
+
 
 @Controller
 public class MypageUserController {
+	
+	@Autowired
+	private MypageUserService mpgService;
    
    @GetMapping("/mpg/mpgOrderList")
    public String mpgOrderList() {
@@ -14,8 +24,12 @@ public class MypageUserController {
    }
    
    @GetMapping("/mpg/mpgCouponList")
-   public String mpgCouponList() {
-      
+   public String mpgCouponList(Model model ,HttpSession session ) {
+	   model.addAttribute("id",session.getAttribute("id"));
+		String id = (String) session.getAttribute("id");
+		model.addAttribute("myCp",mpgService.selectMyCoupon(session.getId()));
+		
+		
       return "mypageUser/mpgCouponList";
    }
    

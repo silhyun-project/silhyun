@@ -122,6 +122,18 @@ public class mypageAoController {
 		return "mypageAo/resCalendarAo";
 	}
 	
+	@RequestMapping("/ajaxResInfo/{ptgId}/{redate}/{shotTime}")
+	@ResponseBody
+	public List<PhotographerVO> ajaxResInfo(Model model,@PathVariable String redate,@PathVariable String ptgId,@PathVariable String shotTime){
+		System.out.println("호출호출?");
+		System.out.println("redate====="+redate);
+		System.out.println("ptgId--------------"+ptgId);
+		System.out.println("shotTime++++++++++++"+shotTime);
+		
+		
+		return mypageAoService.getResInfo(ptgId, redate, shotTime);
+	}
+	
 	/*
 	 * @RequestMapping("/ajaxResTime/{ptgId}/{redate}") //작가가 등록한 시간 아작스 호출
 	 * 

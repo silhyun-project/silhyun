@@ -128,10 +128,24 @@
 	<update id="updateWorkday" parameterType="co.yedam.silhyun.member.vo.PhotographerVO">
 	UPDATE PHOTOGRAPHER
 		<set>
+			<if test="shotPlace != null and !shotPlace.equals('')">SHOT_PLACE = #{shotPlace},</if>
+			<if test="itr != null and !itr.equals('')">ITR = #{itr},</if>
 			<if test="workDay != null">WORK_DAY = #{workDay}</if>
 		</set>
 	WHERE PTG_ID=#{ptgId}
 	</update>
 
+<select id="getResInfo" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
+SELECT DISTINCT p.res_num, r.res_cd, r.regi_date, o.ttl, p.ord_date, m.id, m.name, m.email, m.tel
+FROM payment p, reser r, selected_op s, options o, member m, photographer ph
+WHERE p.res_num = r.res_num
+AND r.id = m.id
+AND p.id = m.id
+AND s.op_num = o.op_num
+AND r.ptg_id = ph.ptg_id
+AND ph.ptg_id = #{ptgId}
+AND r.shot_time = #{shotTime}
+AND r.shot_date =#{redate}
+</select>
 
 </mapper>

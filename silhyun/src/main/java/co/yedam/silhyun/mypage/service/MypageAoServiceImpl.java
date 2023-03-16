@@ -133,6 +133,12 @@ public class MypageAoServiceImpl implements MypageAoService {
 		return mypageAoMapper.getInquiryC();
 	}
 
+	@Override
+	public List<PhotographerVO> getResInfo(String ptgId, String redate, String shotTime) {
+
+		return mypageAoMapper.getResInfo(ptgId, redate, shotTime);
+	}
+
 
 
 }
