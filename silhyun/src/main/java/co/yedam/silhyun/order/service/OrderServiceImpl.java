@@ -13,8 +13,12 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderMapper orderMapper;
 	@Override
-	public List<ReserVO> getMemberInfoList(ReserVO vo) {
-		return orderMapper.getMemberInfoList(vo);
+	public List<ReserVO> getMemberPointInfo(ReserVO vo) {
+		return orderMapper.getMemberPointInfo(vo);
+	}
+	@Override
+	public List<ReserVO> getMemberCpnInfo(ReserVO vo) {
+		return orderMapper.getMemberCpnInfo(vo);
 	}
 	
 	@Override

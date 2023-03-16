@@ -74,13 +74,6 @@
 										</li>
 										<li class="nav-item"><a href="#" class="nav-link">후기
 												모음</a></li>
-										<li class="nav-item"><a href="#" class="nav-link">장소
-												추천</a></li>
-										<li class="nav-item"><a href="#" class="nav-link">팁
-												게시글</a></li>
-										<li class="nav-item"><a href="#" class="nav-link">온라인
-												전시회</a></li>
-
 									</ul>
 								</div>
 							</div>
@@ -169,11 +162,14 @@
 							</div>
 							<div class="menuButton">
 								<i class="bi-three-dots"></i>
-								<ul class="menuButtonlist">
-									<li class="menuButton-item"><a
-										href="/silhyun/portfolioInsert">수정하기</a></li>
-									<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
-								</ul>
+								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
+									<ul class="menuButtonlist">
+										<li style="display: none"><input type="hidden" name='portNum' value=""></li>
+										<li class="menuButton-item"><button type="button" class="menuButton-item">
+												수정하기</button></li>
+										<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
+									</ul>
+								</form>
 							</div>
 						</div>
 						<div class="modalMiddleSection">
@@ -386,228 +382,52 @@
 				$(".mMiddleInfo").empty();
 				$(".mMiddleInfo").append(modalContentSit);
 				//작가가쓴포트폴리오 작성했을 때 내용 붙이는 거.
-				//댓글
-//댓글
-
-		$(".commentBox").empty();//댓글창청
-		let commentArea = $(".commentBox");
-
-		
-		$.ajax({
-			url: `/commentList/${portNum}`,
-			type: 'get',
-		})
-			.then(result => {
-				console.log(result)
-
-				let str = '';
-				$(result).each(function(c, comm) {
-					console.log(comm.profile)
-					if (comm.dep == 0 && c != 0) {
-						str += '</ul>'
-						str += '</div>'
-						str += '</li>'
-					}
-					if (comm.dep == 0) {
-						str += '<li class="media d-flex commentZone">'
-						str += '<div class="avatar rounded-circle">'
-						str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="사진">'
-						str += '</div>'
-						str += '<h6 class="mt-0 mb-1 commentId" id="comId" >' + comm.id + '</h6>'
-						str += '<label class="mb-2 small" >' + comm.comDate + '</label>'
-						str += '<p>' + comm.cntn + '</p>'
-						str += '<input type="hidden" class="comGrp" name="grp" id="comGrp" value="' + comm.grp + '">'
-						str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-						str += '<div class="nav dark-link small">'
-						str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
-						if (comm.repCnt > 0) {
-							str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'
-						}
-						str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'
-						str += '</div>'
-						if (comm.repCnt > 0) {
-							str += '<div class=popup style="display:none;">'
-							str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
-						}
-
-					} else {
-						str += '<li class="media d-flex replyZone">'
-						str += '<div class="avatar rounded-circle">'
-						str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="">'
-						str += '</div>'
-						str += '<div class="col ps-3">'
-						str += '<h6 class="mt-0 mb-1 commentId" id="repId">' + comm.id + '</h6>'
-						str += '<label class="mb-2 small">' + comm.comDate + '</label>'
-						str += '<p>' + comm.cntn + '</p>'
-						str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="' + comm.grp + '">'
-						str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-						str += '<div class="nav dark-link small">'
-						str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
-						str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
-						str += '</div>'
-						str += '</div>'
-						str += '</li>'
-					}
-				})
-				commentArea.html(str);
-			})
+				//댓글시작
+				//댓글시작
+		$(".mMiddleComment").empty();//댓글창청
+		commentList(portNum)
 
 		//댓글작성
-		$("#send").click(function() {
+		$("#send").off('click').on('click', function() {
+			commentInsertt(portNum)
+		});
 
-			let contactMessage = $("#contact-message").val(); //댓글내용
-			let dep = $("dep").val(); //깊이(댓글,대댓글) 구분
-			let grp = $('#contact-message').data("grp"); //댓글그룹
-			let comNum = $("comNum").val();
-
-
-
-			if ($("#contact-message").data("dep") == "1") {
-				dep = 1;
+		//엔터 누르긔
+		$('#contact-message').on('keydown', function(event) {
+			if (event.key === 'Enter') {
+				commentInsertt(portNum)
 			}
-
-
-			if (contactMessage == "") {
-				alert("내용을 입력해 주세요.")
-				$("#contact-message").focus();
-				return false;		// 내용 미입력시 작성 불가
-			}
-			$(".commentBox").empty();
-			$.ajax({
-				url: "/commentInsert",
-				type: "POST",
-				data: JSON.stringify(
-					{
-						"id": loginUserId,
-
-						"ctgrNum": portNum,
-						"cntn": contactMessage,
-						"dep": dep,
-						"grp": grp,
-						"comNum": comNum
-					}
-				),
-				contentType: 'application/json',
-				success: function(data) {
-					$("#contact-message").val("");
-					$(".commentBox").empty();
-					$.ajax({
-						url: `/commentList/${portNum}`,
-						type: 'get',
-					})
-						.then(result => {
-							console.log(result)
-
-							let str = '';
-							$(result).each(function(c, comm) {
-								console.log(comm.profile)
-								if (comm.dep == 0 && c != 0) {
-									str += '</ul>'
-									str += '</div>'
-									str += '</li>'
-								}
-								if (comm.dep == 0) {
-									str += '<li class="media d-flex commentZone">'
-									str += '<div class="avatar rounded-circle">'
-									str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="사진">'
-									str += '</div>'
-									str += '<h6 class="mt-0 mb-1 commentId" id="comId" >' + comm.id + '</h6>'
-									str += '<label class="mb-2 small" >' + comm.comDate + '</label>'
-									str += '<p>' + comm.cntn + '</p>'
-									str += '<input type="hidden" class="comGrp" name="grp" id="comGrp" value="' + comm.grp + '">'
-									str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-									str += '<div class="nav dark-link small">'
-									str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
-									if (comm.repCnt > 0) {
-										str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'
-									}
-									str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'
-									str += '</div>'
-									if (comm.repCnt > 0) {
-										str += '<div class=popup style="display:none;">'
-										str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
-									}
-
-								} else {
-									str += '<li class="media d-flex replyZone">'
-									str += '<div class="avatar rounded-circle">'
-									str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="">'
-									str += '</div>'
-									str += '<div class="col ps-3">'
-									str += '<h6 class="mt-0 mb-1 commentId" id="repId">' + comm.id + '</h6>'
-									str += '<label class="mb-2 small">' + comm.comDate + '</label>'
-									str += '<p>' + comm.cntn + '</p>'
-									str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="' + comm.grp + '">'
-									str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-									str += '<div class="nav dark-link small">'
-									str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
-									str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
-									str += '</div>'
-									str += '</div>'
-									str += '</li>'
-								}
-							})
-							commentArea.html(str);
-						})
-				},
-				error: function() {
-					alert('등록실패');
-				}
-			});
 		});
 
 		// 동적으로 생성된 태그에 그룹이벤트 부여
-		$(".commentBox").on('click', '#replyWrite', function(e) {
-			console.log('클릭')
-			console.log($(this).parent().parent().children('#comId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
-			console.log($(this).parent().parent().children('#comGrp').val())
-			let text = $(this).parent().parent().children('#comId').text();
-			let group_number = $(this).parent().parent().children('#comGrp').val();
+		//$(".commentZone").off('click').on('click', '#replyWrite', function(e) {
+		$(document).on('click', '.commentZone #replyWrite', function(e) {
+			let group_number = $(this).closest('.commentZone').find('#comGrp').val();
 
-			$('#contact-message').val('@' + $(this).parent().parent().children('#comId').text())
+			$('#contact-message').val('@' + $(this).closest('.commentZone').find('#comId:first').text())
 			$('#contact-message').data("dep", "1")
 			$('#contact-message').data("grp", group_number);
 			$('#grpNum').val($('#contact-message').data("grp"));
 
 		})
 
-		$('.commentBox').on('click', '#rereplyWrite', function() {
-			console.log('클릭')
-			console.log($(this).parent().parent().children('#repId').text())// 그룹번호 히든으로 만들어서 그룹번호가져옴
-			console.log($(this).parent().parent().children('#repGrp').val())
-			let text = $(this).parent().parent().children('#repId').text();
-			let group_number = $(this).parent().parent().children('#repGrp').val();
+		//$('.replyZone').off('click').on('click', '#rereplyWrite', function() {
+		$(document).on('click', '.replyZone #rereplyWrite', function(e) {
+			let group_number = $(this).closest('.replyZone').find('#repGrp').val();
 
-			$('#contact-message').val('@' + $(this).parent().parent().children('#repId').text())
+			$('#contact-message').val('@' + $(this).closest('.replyZone').find('#comId').text())
 			$('#contact-message').data("dep", "1")
 			$('#contact-message').data("grp", group_number);
 			$('#grpNum').val($('#contact-message').data("grp"));
 		})
 
-
-		$(".commentBox").on('click', '.replyShowBtn', function(e) {
-			let parentLi = $(this).closest("li"); // 해당 버튼이 속한 li를 찾음
-			let popup = parentLi.find(".popup"); // 해당 li 엘리먼트에서 popup 클래스를 가진 엘리먼트를 찾음
-			let replyShowBtn = parentLi.find(".replyShowBtn"); // 해당 li 엘리먼트에서 replyShowBtn 클래스를 가진 버튼 엘리먼트를 찾음
-			if (popup.is(":visible")) {
-				popup.hide();
-				replyShowBtn.text('답글 보기');
-			} else {
-				popup.show();
-				replyShowBtn.text('답글 숨기기');
-			}
-		});
-
-
-		$(".commentBox").on('click', '.comDelBtn', function() {
+		$(document).on('click', '.commentZone .comDelBtn', function(e) {
+			//$(".commentZone").on('click', '.comDelBtn', function() {
 			console.log('삭제클릭')
-			console.log($(this).closest('li').find('.comNum').val());
-			console.log($(this).closest('li').find('.comGrp').val());
-			let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
-			let grp = $(this).closest('li').find('.comGrp').val(); //삭제할 댓글의 그룹
-			let commentZone = $(this).closest('li').find('.commentZone');
 
-			$(".commentBox").empty();
+			let grp = $(this).closest('.commentZone').find('.comGrp').val(); //삭제할 댓글의 그룹
+
+			$(".mMiddleComment").empty();
 			$.ajax({
 				url: "/commentDelete",
 				type: "delete",
@@ -616,76 +436,16 @@
 				}
 				,
 				success: function(data) {
-					$.ajax({
-						url: `/commentList/${portNum}`,
-						type: 'get',
-					})
-						.then(result => {
-							console.log(result)
-
-							let str = '';
-							$(result).each(function(c, comm) {
-								console.log(comm.profile)
-								if (comm.dep == 0 && c != 0) {
-									str += '</ul>'
-									str += '</div>'
-									str += '</li>'
-								}
-								if (comm.dep == 0) {
-									str += '<li class="media d-flex commentZone">'
-									str += '<div class="avatar rounded-circle">'
-									str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="사진">'
-									str += '</div>'
-									str += '<h6 class="mt-0 mb-1 commentId" id="comId" >' + comm.id + '</h6>'
-									str += '<label class="mb-2 small" >' + comm.comDate + '</label>'
-									str += '<p>' + comm.cntn + '</p>'
-									str += '<input type="hidden" class="comGrp" name="grp" id="comGrp" value="' + comm.grp + '">'
-									str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-									str += '<div class="nav dark-link small">'
-									str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
-									if (comm.repCnt > 0) {
-										str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'
-									}
-									str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'
-									str += '</div>'
-									if (comm.repCnt > 0) {
-										str += '<div class=popup style="display:none;">'
-										str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
-									}
-
-								} else {
-									str += '<li class="media d-flex replyZone">'
-									str += '<div class="avatar rounded-circle">'
-									str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="">'
-									str += '</div>'
-									str += '<div class="col ps-3">'
-									str += '<h6 class="mt-0 mb-1 commentId" id="repId">' + comm.id + '</h6>'
-									str += '<label class="mb-2 small">' + comm.comDate + '</label>'
-									str += '<p>' + comm.cntn + '</p>'
-									str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="' + comm.grp + '">'
-									str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-									str += '<div class="nav dark-link small">'
-									str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
-									str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
-									str += '</div>'
-									str += '</div>'
-									str += '</li>'
-								}
-							})
-							commentArea.html(str);
-						})
+					commentList(portNum)
 				}
 			})
 
 		})
+		$(document).on('click', '.replyZone .reDelBtn', function(e) {
+			//$(".replyZone").on('click', '.reDelBtn', function() {
+			let comNum = $(this).closest('.replyZone').find('.comNum').val(); //삭제할 댓글 번호
 
-		$(".commentBox").on('click', '.reDelBtn', function() {
-			console.log('삭제클릭')
-			console.log($(this).closest('li').find('.comNum').val());
-			let comNum = $(this).closest('li').find('.comNum').val(); //삭제할 댓글 번호
-			let commentZone = $(this).closest('li').find('.replyZone');
-
-			$(".commentBox").empty();
+			$(".mMiddleComment").empty();
 			$.ajax({
 				url: "/replyDelete",
 				type: "delete",
@@ -694,67 +454,12 @@
 				}
 				,
 				success: function(data) {
-					$.ajax({
-						url: `/commentList/${portNum}`,
-						type: 'get',
-					})
-						.then(result => {
-							console.log(result)
-
-							let str = '';
-							$(result).each(function(c, comm) {
-								console.log(comm.profile)
-								if (comm.dep == 0 && c != 0) {
-									str += '</ul>'
-									str += '</div>'
-									str += '</li>'
-								}
-								if (comm.dep == 0) {
-									str += '<li class="media d-flex commentZone">'
-									str += '<div class="avatar rounded-circle">'
-									str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="사진">'
-									str += '</div>'
-									str += '<h6 class="mt-0 mb-1 commentId" id="comId" >' + comm.id + '</h6>'
-									str += '<label class="mb-2 small" >' + comm.comDate + '</label>'
-									str += '<p>' + comm.cntn + '</p>'
-									str += '<input type="hidden" class="comGrp" name="grp" id="comGrp" value="' + comm.grp + '">'
-									str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-									str += '<div class="nav dark-link small">'
-									str += '<a class="ms-3" href="#contact-message" id="replyWrite"> 답글 달기 </a>'
-									if (comm.repCnt > 0) {
-										str += '<button class="replyShowBtn" style="border:none; background-color: white;">답글 보기</button>'
-									}
-									str += '<button class="comDelBtn" style="border:none; background-color: white;">삭제</button>'
-									str += '</div>'
-									if (comm.repCnt > 0) {
-										str += '<div class=popup style="display:none;">'
-										str += '<ul class="list-unstyled mt-5 pt-5 border-top popup">'
-									}
-
-								} else {
-									str += '<li class="media d-flex replyZone">'
-									str += '<div class="avatar rounded-circle">'
-									str += '<img class="img-fluid" src="' + comm.profile + '" title="" alt="">'
-									str += '</div>'
-									str += '<div class="col ps-3">'
-									str += '<h6 class="mt-0 mb-1 commentId" id="repId">' + comm.id + '</h6>'
-									str += '<label class="mb-2 small">' + comm.comDate + '</label>'
-									str += '<p>' + comm.cntn + '</p>'
-									str += '<input type="hidden" class="repGrp" name="grp" id="repGrp" value="' + comm.grp + '">'
-									str += '<input type="hidden" class="comNum" name="comNum" value="' + comm.comNum + '">'
-									str += '<div class="nav dark-link small">'
-									str += '<a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>'
-									str += '<button class="reDelBtn" style="border:none; background-color: white;">삭제</button>'
-									str += '</div>'
-									str += '</div>'
-									str += '</li>'
-								}
-							})
-							commentArea.html(str);
-						})
+					commentList(portNum)
 				}
 			})
 		})
+
+//댓글끝
 
 
 
@@ -839,15 +544,133 @@
 
 		
 		});//사진 클릭했을 때 생기는 이벤트 끝 
+		function commentList(portNum) {
+			$.ajax({
+				url: `/commentList/${portNum}`,
+				type: 'get',
+			})
+				.then(result => {
+					console.log(result);
+					// dep가 0인거 먼저 붙이기.
+					result.forEach(comm => {
+						if (comm.dep === 0) {
+							const commentHtml = `
+	                        <div class="commentZone">
+	                            <div class="avatar rounded-circle">
+	                                <img src="${comm.profile}" alt="small-image">
+	                            </div>
+	                            <div class="commentCon">
+	                                <div class="commentInfo">
+	                                    <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;&nbsp;
+	                                    <div class="commentContent">${comm.cntn}</div>
+	                                    <input type="text" class="comGrp" name="grp" id="comGrp" value="${comm.grp}"  style="display:none;">
+	                                    <input type="text" class="comNum" name="comNum" value="${comm.comNum}"  style="display:none;">
+	                                </div>
+	                                <div class='nav dark-link small'>
+	                                    <div class="mb-2 small">${comm.comDate}</div>&nbsp;    
+	                                    <a class="ms-3" href="#contact-message" id="replyWrite">답글 달기</a>&nbsp;       
+	                                    <span class="comDelBtn">삭제<span>&nbsp;
+	                                    <span class="replyShowBtn" style="display:none;"><i class="bi-dash-lg">답글 더보기</i></span>
+	                                </div>
+	                                <ul class="popup" style="display:none;"></ul>
+	                            </div>
+	                        </div>`;
+							$('.mMiddleComment').append(commentHtml);
+						}
+					});
+
+					// dep가 1인 것을 dep가 0+grp가 같은 것에
+					result.forEach(comm => {
+						if (comm.dep === 1) {
+							const replyHtml = `
+	                        <li class="replyZone">
+	                            <div class="avatar rounded-circle">
+	                                <img src="${comm.profile}" alt="small-image">
+	                            </div>
+	                            <div class="commentCon">
+	                                <div class="commentInfo">
+	                                    <strong><div class="mt-0 mb-1 commentId" id="comId">${comm.id}</div></strong>&nbsp;
+	                                    <div class="commentContent">${comm.cntn}</div>
+	                                    <input type="hidden" class="repGrp" name="grp" id="repGrp" value="${comm.grp}">
+	                                    <input type="hidden" class="comNum" name="comNum" value="${comm.comNum}">
+	                                </div>
+	                                <div class='nav dark-link small'>
+	                                    <div class="mb-2 small">${comm.comDate}</div>  
+	                                    <a class="ms-3" href="#contact-message" id="rereplyWrite">답글 달기</a>&nbsp;&nbsp;        
+	                                    <span class="reDelBtn">삭제<span>&nbsp;&nbsp;
+	                                </div>   	
+	                            </div>
+	                        </li>`;
+							const popup = $(`.commentZone:has(.comGrp[value="${comm.grp}"]):last .popup`);
+							popup.append(replyHtml);
+							$(`.commentZone:has(.comGrp[value="${comm.grp}"]):last .replyShowBtn`).css('display', 'flex');
+
+
+						}
+					});
+
+
+					$('.replyShowBtn').click(function() {
+						console.log('eee')
+						const popup = $(this).closest('.commentCon').find('.popup');
+						popup.toggle();
+						const buttonText = popup.is(':visible') ? '답글 숨기기' : '답글 더보기';
+						$(this).html(`<i class="bi-dash-lg">${buttonText}</i>`);
+					});
+				});
+		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
+		function commentInsertt(portNum) {
+			console.log('ㅎㅎㅎㅎ')
+
+			let contactMessage = $("#contact-message").val(); //댓글내용
+			let dep = $("dep").val(); //깊이(댓글,대댓글) 구분
+			let grp = $('#contact-message').data("grp"); //댓글그룹
+			let comNum = $("comNum").val();
+
+
+
+			if ($("#contact-message").data("dep") == "1") {
+				dep = 1;
+			}
+
+
+			if (contactMessage == "") {
+				alert("내용을 입력해 주세요.")
+				$("#contact-message").focus();
+				return false;		// 내용 미입력시 작성 불가
+			}
+
+			$.ajax({
+				url: "/commentInsert",
+				type: "POST",
+				data: JSON.stringify(
+					{
+						"id": loginUserId,
+
+						"ctgrNum": portNum,
+						"cntn": contactMessage,
+						"dep": dep,
+						"grp": grp,
+						"comNum": comNum
+					}
+				),
+				contentType: 'application/json',
+				success: function(data) {
+
+					$(".mMiddleComment").empty();
+					commentList(portNum)
+					if (data.dep == 1) {
+						$(this).closest('.commentCon').find('.popup').css('display', 'block');
+					}
+					$("#contact-message").val('');
+				},
+				error: function() {
+					alert('등록실패');
+				}
+			});
+		}
+			
 
 	//포트폴리오 사진 리스트 불러오기~함수+포트폴리오 번호
 		function StandLine(aa){

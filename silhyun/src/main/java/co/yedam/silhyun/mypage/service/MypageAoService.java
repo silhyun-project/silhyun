@@ -41,6 +41,9 @@ public interface MypageAoService {
 	
 	//클래스 수강자조회
 	List<MemberVO> getInquiryC();
+	
+	//캘린더
+	List<PhotographerVO> getResInfo(String ptgId,String redate, String shotTime);
 
 	
 }

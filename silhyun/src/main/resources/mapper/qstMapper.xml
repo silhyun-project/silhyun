@@ -68,19 +68,44 @@
 	<delete id="aoQstDelete">
 		
 		begin
-		  delete from commment where ctgr_num = #{qstNum} and not exists (select 1 from qst where qst_num = #{qstNum});
+		  delete from commment where ctgr_num = #{qstNum} 
+		  and not exists (select 1 from qst where qst_num = #{qstNum});
+		  
 		  delete from qst where qst_num = #{qstNum};
 		end;
 		
 	</delete>
 	
 	<delete id="aoAnsDelete">
-		delete from commment where com_num = #{comNum}
+	
+		begin
+			delete from commment where com_num = #{comNum};
+			
+			update qst set rply_sta = 'N'
+			where qst_num = #{qstNum};
+		end;
+		
 	</delete>
 	
-					
 	
-
+	<update id="aoQstUpdate">
+	
+		update qst 
+		<set>
+			<if test="ttl != null">ttl = #{ttl},</if>
+			<if test="cntn != null">cntn = #{cntn}</if>
+		</set> 
+		where qst_num = #{qstNum}
+		
+	</update>
+	
+	
+	<update id="aoAnsUpdate">
+	
+		update commment set cntn = #{cntn}
+		where com_num = #{comNum}
+		
+	</update>
 	
 
 </mapper>

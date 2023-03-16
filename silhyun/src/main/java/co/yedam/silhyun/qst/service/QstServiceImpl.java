@@ -14,7 +14,6 @@ import co.yedam.silhyun.qst.vo.QstVO;
 public class QstServiceImpl implements QstService {
 
 	@Autowired QstMapper mapper;
-	@Autowired CommentMapper cmapper;
 	
 	@Override
 	public List<QstVO> getAoQstList() {
@@ -35,6 +34,12 @@ public class QstServiceImpl implements QstService {
 	}
 
 	@Override
+	public int aoQstUpdate(QstVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.aoQstUpdate(vo);
+	}
+	
+	@Override
 	public int aoAnsInsert(CommentVO cvo) {
 		// TODO Auto-generated method stub
 		return mapper.aoAnsInsert(cvo);
@@ -44,6 +49,13 @@ public class QstServiceImpl implements QstService {
 	public int aoAnsDelete(CommentVO cvo) {
 		// TODO Auto-generated method stub
 		return mapper.aoAnsDelete(cvo);
+	}
+
+
+	@Override
+	public int aoAnsUpdate(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		return mapper.aoAnsUpdate(cvo);
 	}
 
 	

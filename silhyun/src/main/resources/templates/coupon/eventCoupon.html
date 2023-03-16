@@ -8,9 +8,10 @@
 </head>
 <body>
 <div layout:fragment="content">
-	<h1>쿠폰</h1>
+	<h1>쿠폰 </h1> 
 		<div class="container" >
                     <div class="row gy-4">
+              
                         <div class="col-lg-4 coupon" th:each="cpL:${couponList}">
                             <div class="px-4 position-relative pt-5 text-center rounded"
                                 style="background-color: #FFE088;" onclick="makeData()">
@@ -18,7 +19,7 @@
                                     <h6 style="color: #2e6b1c;" th:text="${#dates.format(cpL.startDate,'yyyy/MM/dd')}"></h6>
                                     <h6 style="color: #2e6b1c;" th:text="${#dates.format(cpL.endDate,'yyyy/MM/dd')}"></h6>
                                     <h3 class="m-0" th:text=${cpL.cntn}> </h3>
-									<input type="hidden" id="userId "name="userId" value="user1">
+									<input type="hidden" id="userId "name="userId" th:value="${session.id}">
 									<input type="hidden" id="cpnNum" name="cpnNum" th:value="${cpL.cpnNum}">
 									<input type="hidden" id="cpnSta "name="cpnSta" value="N">
                                     
@@ -32,11 +33,12 @@
 
 <script type="text/javascript">
 function makeData(){
-
+	
 	let coupon= event.target.closest('.coupon')//선택한쿠폰
 	let id=coupon.querySelector('input[name="userId"]').value;
 	let cpnNum=coupon.querySelector('input[name="cpnNum"]').value;
 	let cpnSta= coupon.querySelector('input[name="cpnSta"]').value;
+	if(id !=''){
 	$.ajax({
 		url:'/silhyun/getCoupon',
 		method: 'post',
@@ -55,7 +57,11 @@ function makeData(){
 			alert("이미 등록된 쿠폰입니다.");
 		}
 		
-	});
+	});}
+	else{
+		window.location.href="/login"
+		alert("로그인 후 이용해주세요.");
+	}
 	
 
 }

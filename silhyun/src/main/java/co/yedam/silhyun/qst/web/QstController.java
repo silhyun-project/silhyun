@@ -66,4 +66,20 @@ public class QstController {
 		return "qst/aoQst";
 	}
 	
+	@PostMapping("/aoQstUpdate") 
+	@ResponseBody
+	public String aoQstUpdate(@RequestBody QstVO vo) {
+		
+		qstService.aoQstUpdate(vo);
+		return "success";
+	}
+	
+	@PostMapping("/aoAnsUpdate") 
+	@ResponseBody
+	public String aoAnsUpdate(@RequestBody CommentVO cvo, QstVO vo) {
+		
+		qstService.aoAnsUpdate(cvo);
+		return "success";
+	}
+	
 }
