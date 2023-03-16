@@ -1,43 +1,68 @@
- textarea {
-    width: 80%;
-    height: 10em;
-    border: solid 1px rgb(200,200,200); 
-    border-radius:5px;
-    resize: none;
-  }
-  
+textarea {
+	width: 80%;
+	height: 10em;
+	border: solid 1px rgb(200, 200, 200);
+	border-radius: 5px;
+	resize: none;
+}
+
 #text-container {
-  position: relative;
+	position: relative;
 }
 
 #tagList {
-  position: absolute;
-  top: 0px;
-  left: 0;
-  z-index: 1;
-  background-color: white;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border:1px solid rgb(220,220,220,0.9);
+	position: absolute;
+	top: 0px;
+	left: 0;
+	z-index: 1;
+	background-color: white;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border: 1px solid rgb(220, 220, 220, 0.9);
 }
+
 #tagList li {
 	margin: 10px
 }
 
 #tagList li:hover {
 	font-weight: bold;
-	 text-decoration:underline;
+	text-decoration: underline;
 }
 
 #tagList {
-  position: absolute;
-  top: 0px;
-  left: 0;
-  z-index: 1;
-  background-color: white;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border:1px solid rgb(220,220,220,0.9);
+	position: absolute;
+	top: 0px;
+	left: 0;
+	z-index: 1;
+	background-color: white;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border: 1px solid rgb(220, 220, 220, 0.9);
+}
+/* юс╫ц */
+.imsi {
+	border: 1px solid rgb(220, 220, 220, 0.9);
+	padding: 15px;
+	background-color: rgb(253, 253, 253);
+	z-index: 10;
+	position: absolute;
+	top:50%;
+	left: 38%;
+}
+
+.imsiClose {
+	float: right;
+	cursor: pointer;
+}
+
+.imsiDelBtn {
+	text-align: center;
+}
+
+.imsiDelBtn button {
+	border: 1px solid rgb(220, 220, 220, 0.9);
+	margin: 18px 0 8px 8px;
 }

@@ -106,26 +106,31 @@
 
 	<insert id="insertPortfolio"
 		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
-		<selectKey keyProperty="portNum" order="BEFORE" resultType="String">
+		<selectKey keyProperty="portNum" order="BEFORE"
+			resultType="String">
 			SELECT
 			NVL(MAX(TO_NUMBER(port_num)), 0) + 1
 			AS port_num
-			FROM portfolio
+			FROM
+			portfolio
 		</selectKey>
 		INSERT INTO portfolio (port_num, ptg_id, cntn, port_date, up_sta)
 		VALUES (#{portNum}, #{ptgId}, #{cntn}, sysdate, #{upSta})
 	</insert>
 
 	<insert id="insertPhoto">
-		<selectKey keyProperty="phoNum" order="BEFORE" resultType="String" >
+		<selectKey keyProperty="phoNum" order="BEFORE"
+			resultType="String">
 			SELECT NVL(MAX(TO_NUMBER(pho_num)), 0) + 1
-			AS pho_num
+			AS
+			pho_num
 			FROM photo
 		</selectKey>
 		INSERT INTO photo (pho_num, ctgr, ctgr_num, pho_rt)
-		VALUES (#{phoNum}, 'P', #{portNum}, #{phoRt})
+		VALUES (#{phoNum},
+		'P', #{portNum}, #{phoRt})
 	</insert>
-	
+
 	<insert id="insertTag">
 		INSERT INTO tag (tag_cntn)
 		VALUES (#{tagCntn})
@@ -161,11 +166,17 @@
 		AND P.PTG_ID = #{ptgId}
 		ORDER BY P.PORT_DATE DESC
 	</select>
+
+	<update id="updatePortfolio"
+		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
+		UPDATE PORTFOLIO SET CNTN = #{cntn},
+		PORT_DATE = #{portDate},
+		UP_STA = #{upSta}
+
+		WHERE PORT_NUM = #{portNum}
+	</update>
 	
-	<delete id="tagDelete">
-	delete 
 	
-	</delete>
 
 
 </mapper>

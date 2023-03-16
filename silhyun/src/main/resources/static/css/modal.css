@@ -155,10 +155,13 @@
 	cursor: pointer;
 	right: 20px;
 	top: 40px;
+	color: rgb(80, 80, 80);
 }
 
-.menuButton ul a {
-	color: rgb(50, 50, 50);
+.menuButton ul button {
+	border:none;
+	background-color:white;
+	color: rgb(80, 80, 80);
 }
 /* ∏ﬁ∆©º±≈√Ω√~ */
 .menuButton-item:hover {
@@ -301,7 +304,7 @@
 
 .avatar.rounded-circle {
 	position:absolute;
-	background-color: rgb(50,50,50);
+	background-color: rgb(220,220,220);
 	display: flex;
 	width: 50px;
 	height: 50px;
@@ -341,67 +344,5 @@
 	flex-wrap: wrap;
 }
 
-/* .avatar { */
-/* width: 50px; */
-/* height: 50px; */
-/* overflow: hidden; */
-/* border-radius: 50%; */
-/* } */
-
-/* .avatar img { */
-/* width: 100%; */
-/* height: 100%; */
-/* object-fit: cover; */
-/* } */
-
-/* .commentInfo { */
-/* display: flex; */
-/* flex-direction: column; */
-/* } */
-
-/* .commentId { */
-/* font-size: 1.2rem; */
-/* font-weight: bold; */
-/* } */
-
-/* .commentCon { */
-/* margin-top: 10px; */
-/* } */
-
-/* .nav { */
-/* display: flex; */
-/* justify-content: space-between; */
-/* align-items: center; */
-/* } */
-
-/* .mb-2 { */
-/* margin-bottom: 10px; */
-/* } */
-
-/* .small { */
-/* font-size: 0.8rem; */
-/* } */
-
-/* .ms-3 { */
-/* margin-left: 10px; */
-/* } */
-
-/* .comDelBtn { */
-/* color: red; */
-/* cursor: pointer; */
-/* } */
-
-/* .popup { */
-/* position: relative; */
-/* } */
-
-/* .popup ul { */
-/* position: absolute; */
-/* top: 100%; */
-/* left: 0; */
-/* z-index: 10; */
-/* background-color: white; */
-/* padding: 10px; */
-/* border: 1px solid gray; */
-/* list-style: none; */
-/* } */
+.reDelBtn{cursor: pointer;}
+.comDelBtn{cursor: pointer;}
