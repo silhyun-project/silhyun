@@ -14,7 +14,7 @@
 				 <if test="saveNum != null and saveNum != ''">, #{saveNum}</if>);
     
     	update member
-    	set point_sum = point_sum + #{savePo}
+    	set point_sum = nvl(point_sum,0) + #{savePo}
     	where id = #{id};
 	end;
 </insert>

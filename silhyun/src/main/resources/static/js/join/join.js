@@ -65,11 +65,19 @@
 	
 	//월
     for(var m = 1; m <= 12; m++){
-        $("#month").append("<option value='"+ m +"'>"+ m +"</option>");
+		if(m<10){
+        	$("#month").append("<option value='"+ '0'+m +"'>"+ m +"</option>");
+		}else{
+			$("#month").append("<option value='"+ m +"'>"+ m +"</option>");
+		}
     }
     //일
     for(var d = 1; d <= 31; d++){
-    $("#day").append("<option value='"+ d +"'>"+ d +"</option>");
+	if(d<10){
+	    $("#day").append("<option value='"+ '0'+d +"'>"+ d +"</option>");		
+	}else{		
+	    $("#day").append("<option value='"+ d +"'>"+ d +"</option>");
+	}
     }
 	
 	

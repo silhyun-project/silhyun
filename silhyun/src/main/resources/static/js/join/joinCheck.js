@@ -88,11 +88,11 @@
 	
 	//비번 확인 체크
 	$('#pwdck').blur(function(){
-		if($('#pwdck').val() == $('#pwd').val()){
+		if($('#pwdck').val()  == "" ){
 			$('#pwdMgs').text('비밀번호 확인란을 입력해 주세요.')
                  .css("color", "red")
 	        $('#pwCk').val("false")			
-		}else if($('#pwdck').val() == ""){
+		}else if($('#pwdck').val() == $('#pwd').val()){
 			$('#pwdMgs').text('비밀번호가 일치합니다.')
                  .css("color", "green")
 	        $('#pwCk').val("true")					
@@ -117,10 +117,11 @@
 	
 	//연락처 입력
    
-    //이메일 입력
-   
+
     //이메일 인증
     $('#chkBtn').click(function(){
+							
+		$('#emailCkMgs').text('해당 이메일로 인증번호 발송이 완료되었습니다. 인증번호가 오지 않았으면 이메일 주소를 다시 확인해주세요.')
 		let email = $('#emailId').val()+"@"+$('#emailDomain').val()
 		console.log(email)
 		$.ajax({
@@ -134,8 +135,7 @@
 				$('#emailCk').val('false')
 				$("#emailId").focus()			
 				}else{
-						
-				$('#emailCkMgs').text('해당 이메일로 인증번호 발송이 완료되었습니다. 인증번호가 오지 않았으면 이메일 주소를 다시 확인해주세요.')
+
 					$('#emailchk').blur(function(){
 						
 						if($('#emailchk').val() == res){
@@ -167,3 +167,39 @@
 	
 	
 })
+    //최종 로그인 보내기 
+    function goJoin(){
+
+	///////////E####################일단 이메일 인증은 true로함 마지막발표전에는 이거 없애고 체크필요**********************
+	$('#emailCk').val('true')
+	
+	//회원정보란 체크
+	let ckeck = true;
+	$('.joinOk').each(function(i,e){
+		if($(e).val()=='false'){
+			ckeck=false
+			return
+		}
+	})
+	if(!ckeck){
+		alert("회원가입 정보를 다시 확인해 주세요")
+		return false
+	}
+	
+	//동의칸 체크
+	if($('#agree').val() =="false"){
+		alert("필수동의칸에 동의해주세요")
+		return false
+	}
+	
+	$('input[name="tel"]').val($('#telf').val()+$('#tels').val()+$('#telt').val())
+	$('input[name="email"]').val($('#emailId').val()+'@'+$('#emailDomain').val())
+	$('#birthDate').val($('#year').val()+'-'+$('#month').val()+'-'+$('#day').val())
+	joinFrm.submit()
+	
+	
+	}
+	
+	
+	
+	

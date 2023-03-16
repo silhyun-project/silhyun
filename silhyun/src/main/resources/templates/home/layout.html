@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="zxx" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <!-- metas -->
@@ -766,13 +767,13 @@
 								<!-- Nav User-->
 								<ul class="list-unstyled link-list-style-02 m-0" id="smMenu">
 									<li><a href="#"></a></li>
-									<li><a href="#">포트폴리오</a></li>
-
-									<li><a href="/photo/mypageAo">마이페이지</a></li>
-									<li><a href="/silhyun/joinForm" th:if='${id} eq null'>회원가입</a></li>
-									<li><a href="/login" th:if='${id} eq null'>로그인</a> <a
-										href="/logout" th:if='${id} neq null'>로그아웃</a></li>
-
+									<li><a href="#" sec:authorize="hasRole('ROLE_M2')">포트폴리오</a></li>
+									<li><a href="/photo/mypageAo" sec:authorize="hasRole('ROLE_M2')">작가마이페이지</a></li>
+									<li><a href="유저마이페이지링크" sec:authorize="hasRole('ROLE_M1')">회원마이페이지</a></li>
+									<li><a href="사진관마이페이지링크" sec:authorize="hasRole('ROLE_M3')">사진관마이페이지</a></li>
+									<li><a href="/silhyun/joinForm" th:if='${session.id} eq null'>회원가입</a></li>
+									<li><a href="/login" th:if='${session.id} eq null'>로그인</a> <a
+										href="/logout" th:if='${session.id} neq null'>로그아웃</a></li>
 								</ul>
 
 								<!-- Mobile Toggle -->
@@ -813,10 +814,10 @@
 										<li><a class="dropdown-item" href="/silhyun/ptgList">사진작가</a></li>
 										<li><a class="dropdown-item" href="/silhyun/stdList">사진관</a></li>
 									</ul></li>
-								<li class="dropdown nav-item"><a href="#" class="nav-link"><b>콘텐츠</b></a>
+								<li class="dropdown nav-item"><a href="/silhyun/around" class="nav-link"><b>콘텐츠</b></a>
 									<label class="px-dropdown-toggle mob-menu"></label>
 									<ul class="dropdown-menu left shadow-lg">
-										<li><a class="dropdown-item" href="../blog/blog.html">둘러보기</a></li>
+										<li><a class="dropdown-item" href="/silhyun/around">둘러보기</a></li>
 										<li><a class="dropdown-item"
 											href="../blog/blog-single.html">후기 게시판</a></li>
 									</ul></li>

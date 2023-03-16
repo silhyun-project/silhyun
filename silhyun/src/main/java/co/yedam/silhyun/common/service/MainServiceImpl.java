@@ -36,8 +36,8 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public List<ReviewVO> getReview(ReviewVO vo) {
-		return mainMapper.getReview(vo);
+	public List<ReviewVO> getReviewA(ReviewVO vo) {
+		return mainMapper.getReviewA(vo);
 	}
 
 	@Override
@@ -53,6 +53,11 @@ public class MainServiceImpl implements MainService{
 	@Override
 	public List<PhotographerVO> getPtgPort(String ptgId) {
 		return mainMapper.getPtgPort(ptgId);
+	}
+
+	@Override
+	public List<ReviewVO> getReviewC(ReviewVO vo) {
+		return mainMapper.getReviewC(vo);
 	}
 	
 	

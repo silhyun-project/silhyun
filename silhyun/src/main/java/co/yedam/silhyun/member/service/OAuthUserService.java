@@ -43,12 +43,15 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
 
 	// OAuth2 로그인을 통해 가져온 OAuth2User의 attribute를 담아주는 of 메소드.
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-
+   
         //밑의 함수에 담기
 		UserVO user = saveOrUpdate(attributes);
 		
 		//세션보에 담기
-		httpSession.setAttribute("user", new SessionUser(user));
+		//httpSession.setAttribute("user", new SessionUser(user));
+		httpSession.setAttribute("id", attributes.getId());
+		//httpSession.setAttribute("so", );
+		httpSession.setAttribute("role", new String[]{user.getMemCd()});
 		
 		
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getMemCd()))

@@ -82,7 +82,7 @@
 
 /* 오른쪽 박스 */
 .modalRightBox {
-	flex: 1; /* Flexbox 추가 */
+	flex: 1;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -278,3 +278,122 @@
 	border-radius: 5px;
 	border: solid 1px rgb(200, 200, 200);
 }
+
+/* 댓글*/
+.commentZone {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.replyZone {
+	margin-left:50px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.avatar.rounded-circle {
+	background-color: rgb(50,50,50);
+	display: flex;
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+}
+
+.avatar.rounded-circle img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.commentCon {
+	position: relative;
+	display: block;
+	align-items: center;
+	width: 85%;
+	display: block;
+	
+}
+
+.commentInfo {
+	display: flex;
+	margin-top: 3px;
+	margin-bottom: 0; 
+	padding-top : 3px;
+	padding-bottom: 0;
+	padding-top: 3px;
+}
+
+.nav.dark-link.small {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* .avatar { */
+/* width: 50px; */
+/* height: 50px; */
+/* overflow: hidden; */
+/* border-radius: 50%; */
+/* } */
+
+/* .avatar img { */
+/* width: 100%; */
+/* height: 100%; */
+/* object-fit: cover; */
+/* } */
+
+/* .commentInfo { */
+/* display: flex; */
+/* flex-direction: column; */
+/* } */
+
+/* .commentId { */
+/* font-size: 1.2rem; */
+/* font-weight: bold; */
+/* } */
+
+/* .commentCon { */
+/* margin-top: 10px; */
+/* } */
+
+/* .nav { */
+/* display: flex; */
+/* justify-content: space-between; */
+/* align-items: center; */
+/* } */
+
+/* .mb-2 { */
+/* margin-bottom: 10px; */
+/* } */
+
+/* .small { */
+/* font-size: 0.8rem; */
+/* } */
+
+/* .ms-3 { */
+/* margin-left: 10px; */
+/* } */
+
+/* .comDelBtn { */
+/* color: red; */
+/* cursor: pointer; */
+/* } */
+
+/* .popup { */
+/* position: relative; */
+/* } */
+
+/* .popup ul { */
+/* position: absolute; */
+/* top: 100%; */
+/* left: 0; */
+/* z-index: 10; */
+/* background-color: white; */
+/* padding: 10px; */
+/* border: 1px solid gray; */
+/* list-style: none; */
+/* } */
