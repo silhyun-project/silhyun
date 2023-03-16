@@ -10,12 +10,14 @@ import co.yedam.silhyun.member.service.MemberService;
 import co.yedam.silhyun.member.vo.MemberVO;
 
 @RestController
-public class joinController {
+public class RestjoinController {
 	@Autowired MemberService memberService;
 	@Autowired EmailService emailService;
 	
 	@PostMapping("/silhyun/idCk")
 	public boolean idCk(MemberVO vo) {
+		//나중에 탈퇴회원 중복 확인도 넣기 여기서 구별해서 값 보내기
+		//리턴값을 불린에서 int로 변경
 		return memberService.isidCheck(vo);
 	}
 	

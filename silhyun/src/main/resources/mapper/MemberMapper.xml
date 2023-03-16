@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.MemberMapper">
 <select id="memeberSelect" resultType="co.yedam.silhyun.member.vo.MemberVO">
-	select id, '{noop}'||pwd  pwd, name, tel, email, birth_date, gen_cd, rcomr, token, re_token, login_cd,
+	select id, pwd, name, tel, email, birth_date, gen_cd, rcomr, token, re_token, login_cd,
 	        'ROLE_'|| mem_cd mem_cd, point_sum, profile, join_date
 	  from member
 	where id = #{id}
@@ -11,7 +11,7 @@
 <insert id="memberInsert">
 	Insert into member 
 	(id, pwd, name, tel, email
-	<if test="birthDate != null and birthDate != ''">, birth_date</if>
+	<if test="birthDate != null">, birth_date</if>
 	<if test="genCd != null and genCd != ''">, gen_cd</if>
 	<if test="rcomr != null and rcomr != ''">, rcomr</if>
 	<if test="token != null and token != ''">, token</if>
@@ -21,14 +21,14 @@
 	)
 	values
 	(#{id}, #{pwd}, #{name}, #{tel}, #{email}
-	<if test="birthDate != null and birthDate != ''">, #{birthDate}</if>
+	<if test="birthDate != null">, #{birthDate}</if>
 	<if test="genCd != null and genCd != ''">, #{genCd}</if>
 	<if test="rcomr != null and rcomr != ''">, #{rcomr}</if>
 	<if test="token != null and token != ''">, #{token}</if>
 	<if test="reToken != null and reToken != ''">, #{reToken}</if>
      <choose>
-		<when test="loginCd == null and loginCd == ''">,'LP' </when>
-		<otherwise> ,#{loginCd} </otherwise>
+		<when test="loginCd != null and loginCd != ''"> ,#{loginCd} </when>
+		<otherwise> ,'LP' </otherwise>
 	</choose>
 	<if test="profile != null and profile != ''">,#{profile}</if>
 	)

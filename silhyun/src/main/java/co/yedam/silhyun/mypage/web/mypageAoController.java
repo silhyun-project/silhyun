@@ -47,13 +47,9 @@ public class mypageAoController {
 	
 
 	@RequestMapping("/photo/mypageAo")
-	public String mypageAo(Model model,PhotographerVO pvo,  HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-		}
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+	public String mypageAo(Model model,PhotographerVO pvo,  HttpSession session) {
+        String id = (String)session.getAttribute("id");
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 		
 		return "mypageAo/mypageAo";
 	}

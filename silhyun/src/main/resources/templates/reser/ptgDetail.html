@@ -14,8 +14,6 @@
 <title>작가 디테일 페이지</title>
 <!-- Favicon -->
 <!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <!-- CSS Template -->
 </head>
 <!-- 사진 크기가 먹히지않는다 -->
@@ -59,6 +57,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 my-2" >
                             <h1 class="m-0 h4 text-center text-lg-start text-white">🍓 [[${ptg[0].name}]] 🍓</h1>
+                            <input type="hidden" id="ptgId" th:value="${ptg[0].ptgId}">
                         </div>
                         <div class="col-lg-6 my-2">
                             <ol class="breadcrumb breadcrumb-light m-0 small justify-content-center justify-content-lg-end">
@@ -232,42 +231,43 @@
 
 		<script type="text/javascript">
 		$(function(){
-			
 			$('#pd_reviews_tab_02').on('click', function(){
 			     ajaxReiew({pageNum:1, amount:5})
 			     
+			 window.setTimeout(function(){
+
+				$('.slider-wrap').slick({
+				 slide: 'div',        //슬라이드 되어야 할 태그
+				 //infinite : true,     //무한 반복 옵션     
+				 slidesToShow : 4,        // 한 화면에 보여질 컨텐츠 개수
+				 slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
+				 speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+				 arrows : true,         // 옆으로 이동하는 화살표 표시 여부
+				 vertical : false,        // 세로 방향 슬라이드 옵션
+				 prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
+				 nextArrow : "<button type='button' class='slick-next'>Next</button>",
+				 responsive: [ // 반응형 웹 구현 옵션
+				   {  
+				     breakpoint: 960, //화면 사이즈 960px
+				     settings: {
+				       slidesToShow: 4
+				     } 
+				   },
+				   { 
+				     breakpoint: 768, //화면 사이즈 768px
+				     settings: {    
+				       slidesToShow: 5
+				     } 
+				   }
+				 ]
+				
+				});
+				
+				},300)
 			})
 			
-	 window.setTimeout(function(){
-		 
-		 $('.slider-wrap').slick({
-			  slide: 'div',        //슬라이드 되어야 할 태그
-			  //infinite : true,     //무한 반복 옵션     
-			  slidesToShow : 4,        // 한 화면에 보여질 컨텐츠 개수
-			  slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
-			  speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-			  arrows : true,         // 옆으로 이동하는 화살표 표시 여부
-			  vertical : false,        // 세로 방향 슬라이드 옵션
-			  prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
-			  nextArrow : "<button type='button' class='slick-next'>Next</button>",
-			  responsive: [ // 반응형 웹 구현 옵션
-			    {  
-			      breakpoint: 960, //화면 사이즈 960px
-			      settings: {
-			        slidesToShow: 4
-			      } 
-			    },
-			    { 
-			      breakpoint: 768, //화면 사이즈 768px
-			      settings: {    
-			        slidesToShow: 5
-			      } 
-			    }
-			  ]
-
-			});
-		 
-	 }, 35)
+								
+		
 			
 
 		})
@@ -281,19 +281,6 @@
 
 					$('#reviews').replaceWith(res)
 					
-					
-					
-// 					$.ajax({
-// 						type:'get',
-//  						async:false,
-// 						url: '/js/review/reviewList.js',
-// 						dataType:"script"
-// 					})	
-// 					var script = document.createElement('script');
-//  					script.onload = function () {
-//  					};
-// 					script.src = "/js/review/reviewList.js";
-// 					document.head.appendChild(script);
 
 				}, 
 				error: function(err){
