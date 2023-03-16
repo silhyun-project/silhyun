@@ -31,12 +31,7 @@ public class EventController {
 	private EventService eventService;
 
 	@RequestMapping("/silhyun/eventPage")
-	public String eventPage(Model model,HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-		}
+	public String eventPage(Model model) {
 		model.addAttribute("eventPage", eventService.getEventList());
 		model.addAttribute("bannerList", eventService.getBannerList());
 		return "event/eventPage";
