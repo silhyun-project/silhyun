@@ -289,7 +289,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 												<div class="product-description timeTable"
 													style="margin-bottom: 3px;">
 													<!-- 여기에 시간 붙임 -->
-												</div>	
+												</div>
 												<div class="reserList">
 													<!--리스트 붙일생각  -->
 												</div>
@@ -297,8 +297,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 										</ul>
 									</div>
 									<form>
-										<input type="hidden" name="ptgId" th:value=${id}>
-										<input type="hidden" name="workDay" th:value="${workDay.workDay}"> 
+										<input type="hidden" name="ptgId" th:value=${id}> <input
+											type="hidden" name="workDay" th:value="${workDay.workDay}">
 									</form>
 								</div>
 
@@ -488,6 +488,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					console.log(ptgId)
 					const redate =$(this).attr('data-fdate')					
 					console.log(redate);
+					//작가가 등록한 시간 아작스 호출
 					$.ajax({
 						url: '/ajaxResTime/' + ptgId +"/"+ redate,
              			datatype: "json"
@@ -496,12 +497,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						$(result).each(function(idx,item){
 							console.log(result)
 							//console.log(item.resyn)
-							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}" timeCD="${item.resTime}" >${item.rest}</button>`
+							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}" th:value="${item.resTime}" timeCD="${item.resTime}" >${item.rest}</button>`
 							$('.card-body.time').append(cdNameBtn)
 								})
 							//console.log($('.btn.btn-primary.timeList'))		//예약한시간이면 버튼 비활성화
 							/* $('.btn.btn-primary.timeList').each(function(a,b){
-								//console.log($(b))
+								//console.log($(b))	//replace(/[^0-9]/g,'')=>문자열에서 숫자가아닌 문자들을 ""빈문자로 변경하는 정규식
 								if($(b).attr('id').replace(/[^0-9]/g,'') == '1'){
 									$(b).prop("disabled", true)
 										//console.log('비활')
@@ -509,12 +510,14 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 								
 								}) */
 					}).then(error => console.log(error))
-				})
-				
-			})
-			
-			   //📌시간 클릭하면 예약자 리스트 나오기 
+					
+			//📌시간 클릭하면 예약자 리스트 나오기 
             $('.product-description.timeTable').on('click','.timeList',function(){  //그룹이벤트 써야함!!
+            	// '.card' 요소가 이미 추가되어 있는 경우, 추가하지 않음
+            	  if ($('.reserList').find('.card').length > 0) {
+            	    return;
+            	  }
+            	
             	$('.reserList').append(
             			
                         `<div class="card">
@@ -523,17 +526,75 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
                             </div>
                             <div class="card-body reserInfo"></div>
 						</div>`
-                    )
+                    );
                     if( $('.product-description.timeTable') !=null){
 						$('.product-description.timeTable').children().remove()
                     }
             	  if( $('.reserList') ==null){
-						$('.reserList').children().remove()
+						$('.reserList').children().remove()	//예약자정보가 쌓이지 않게 하기 위해
                   }
-            	  //ajax호출 예약자정보
             	  
-						
-           })
+            	var timeBtn= event.target.closest('.timeList')//선택한 버튼 정보
+				console.log(timeBtn);
+            	//리스트만들고싶다
+		  		var shotTime=timeBtn.getAttribute('timecd');
+            		const ptgId = $("input[name='ptgId']").val();
+            	  console.log(shotTime+"==========");
+            	 // const redate=
+					console.log(redate+"rrrrrrrrrrr");	
+            	  //ajax호출 예약자정보
+            	    $.ajax({
+            		   url:'/ajaxResInfo/'+ptgId+"/"+redate+"/"+shotTime,
+            		   method : 'post',
+            		   data:JSON.stringify({
+            			   ptgId:ptgId,
+            			   shotTime: shotTime,
+            			   redate:redate
+            		   }),
+            		   contentType: "application/json",
+            		   datatype: "json"}).then(result=>{
+            			 if(result.length==0){
+            				 
+            				 $('.card-body.reserInfo').append('<p>예약이 없습니다.</p>');
+            			 }else{
+            		  $(result).each(function(idx,item){
+            			   console.log(item);
+            			   let reserInfoTable = ` 
+            			 <div>
+            			<table class="table table-bordered table-hover mb-0">
+            			 <thead class="text-700 bg-gray-200">
+            			 <tr>
+							<th class="fw-600">아이디</th>
+							<th class="fw-600">이름</th>
+							<th class="fw-600">옵션</th>
+							<th class="fw-600">예약한 날짜</th>
+							<th class="fw-600 ">이메일</th>
+							<th class="fw-600">전화번호</th>
+            			 </tr>
+            			 </thead>
+            			 <tbody>
+            			 <tr>
+            		        <td class="p-3">${item.id}</td>
+            		        <td class="p-3">${item.name}</td>
+            		        <td class="p-3">${item.ttl}</td>
+            		        <td class="p-3">${item.regiDate}</td>
+            		        <td class="p-3">${item.email}</td>
+            		        <td class="p-3">${item.tel}</td>
+            		      </tr>
+            		      </tbody>
+            		  	</table>
+            		      </div>
+            		    `;
+            			$('.card-body.reserInfo').append(reserInfoTable);
+            			
+            		  });
+            		   }
+            			}).catch(error => console.log(error));
+            		
+            				}) ;
+          		 })
+			})
+	
 		 
         
 		</script>
