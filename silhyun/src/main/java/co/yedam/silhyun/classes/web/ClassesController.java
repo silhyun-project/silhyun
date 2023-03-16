@@ -71,12 +71,12 @@ public class ClassesController {
 	
 	
 	@RequestMapping("/silhyun/classes/classesVideo")
-	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum, HttpSession httpSession) {
-		
-		System.out.println("inetNum="+inetNum);
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
-	    model.addAttribute("IV", ClassesService.selectIV("2", inetNum, user.getId()));
+	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum, @RequestParam("classNum") String classNum, HttpSession httpSession) {
+	    String id = (String)httpSession.getAttribute("id");		
+		System.out.println("inetNum="+inetNum+"classNum="+classNum+"id="+id);
+	    model.addAttribute("IV", ClassesService.selectIV(classNum, inetNum, id));
 	    System.out.println("컨트롤러에 온 비디오의 세부 IVModel"+model);
+	    model.addAttribute("id",id);
 	    return "classes/classesVideo";
 	}
 	
@@ -166,8 +166,7 @@ public class ClassesController {
         result.put("cdtC1List", cdtC1List);
         result.put("cdtC2List", cdtC2List);
         System.out.println("아작스="+result);
-        ObjectMapper objMap = new ObjectMapper();
-        //objMap.writeValueAsString(result)
+
         return result;
     }
     

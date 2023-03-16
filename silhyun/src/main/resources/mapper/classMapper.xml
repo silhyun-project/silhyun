@@ -480,9 +480,9 @@ WHERE p.id = #{id} AND c.cla_cd='CL2'
 <select id="getClassIVInfo" parameterType="java.util.Map" resultMap="IVlist">
 SELECT 
     c.cla_ttl as ttl, 
-    i.inet_num as inetNum, 
-    i.inet_ttl as ittl, 
-    i.inet_time as itime, 
+    nvl(i.inet_num,'준비중') as inetNum, 
+    nvl(i.inet_ttl,'준비중') as ittl, 
+    nvl(i.inet_time,'준비중') as itime, 
     (SELECT COUNT(*) FROM inetclass WHERE class_num = #{classNum}) AS icount,
     nvl(ROUND((w.ew_time/(i.inet_time*60)), 3) * 100,0) AS "iVrate",
     nvl(ROUND((w.cumlw_time/(i.inet_time*60)), 3) * 100,0) AS "i_state",
@@ -512,14 +512,15 @@ ORDER BY i.inet_num
     <result column="class_num" property="classNum"/>
         <result column="inet_note" property="inetNote"/>
 </resultMap>
-<select id="selectIV" resultMap="selectIV">
+<select id="selectIV" parameterType="map" resultMap="selectIV">
 
 <!-- 시청기록이 없어도 나머지 조건 조합해서 리스트에 뜨도록 수정함 -->
+
 SELECT i.inet_num, i.inet_ttl, i.inet_vdo, i.inet_desct, i.class_num, COALESCE(w.ew_time, '0') as ew_time,
 nvl(i.inet_note,0) as inet_note
 FROM inetclass i 
-LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num
-WHERE i.class_num = #{classNum} AND i.inet_num = #{inetNum} AND (w.id = #{id} OR w.id IS NULL)
+LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num AND w.id = #{id}
+WHERE i.class_num = #{classNum} AND i.inet_num = #{inetNum}
 </select>
 
 

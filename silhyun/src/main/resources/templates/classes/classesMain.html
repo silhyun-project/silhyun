@@ -138,19 +138,10 @@
 <a th:href="@{/silhyun/classes/classesInfo(classNum=${c2.CNUM})}" th:text="${c2.TTL}"></a>
 </h6>
                                         
-                                        <!-- 
-                                        
-                                        onclick='location.href="memberRegi.do?userName=33&userId=44";'
-<h6 class="product-title">
-    <a th:onclick="|location.href='@{/silhyun/classes/classesInfo(classNum=${c2.CLASSNUM}, id='catLove')}'|" th:text="${c2.TTL}"></a>
-</h6>
-                                         -->
 
                                         <div class="product-price">
                                             <span class="text-primary" th:text="${c2.CPRI}"></span><small>원</small>
-                                            <!-- 세일하면 할 거 
-                                                    <del class="fs-sm text-muted">999999999<small>원</small></del>
-                                                   -->
+
                                         </div>
                                         <a th:text="${c2.NAME}"> </a><br>
                                         <a th:text="'총 '+ ${c2.CNT}+'강'"> </a>

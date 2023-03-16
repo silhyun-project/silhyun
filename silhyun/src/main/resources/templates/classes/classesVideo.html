@@ -279,6 +279,7 @@
         <input id="inetNum" type="hidden" th:value="${IV.inetNum}">
       <input  id="inetVdo" type="hidden" th:value="${IV.inetVdo}">
             <input  id="ewTime" type="hidden" th:value="${IV.ewTime}">
+                        <input  id="myId" type="hidden" th:value="${id}">
             
         <!-- 동영상 제어 스크립트  -->
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -291,6 +292,8 @@
   console.log(youtubeId);
   
   //영상 시간 당기는 초
+  
+  var myId = document.getElementById("myId").value;
   
   
   var ewTime = document.getElementById("ewTime").value;
@@ -383,7 +386,7 @@
 	    data:{
 	    	  inetNum: inetNum,
 	    	  classNum: classNum,
-	    	  id: 'catLove',
+	    	  id: myId,
 	    	  stwTime: stwTime.toString(),
 	    	  ewTime: ewTime.toString(),
 	    	  cumlwTime: cumlwTime.textContent
