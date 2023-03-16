@@ -135,7 +135,7 @@
 
 		</div>
 		<div></div>
-		<div id="ansTextBox"></div>
+		<div id="textBox"></div>
 		<br> <br>
 		<button id="new-post-btn">상품 문의</button>
 
@@ -188,12 +188,12 @@
 
 
 		$("#send").click(function () { //문의글 등록
-			let qstNum = $("#qstNum").val(); //문의글번호
+			let qstNum = $(".qstNum").val(); //문의글번호
 			let ctgr = 'A' //카테고리
 			let ctgrNum = 'user1' //카테고리
 			let ttl = $("#title").val(); // 제목
 			let qstId = 'catLove'; //문의작성자아이디
-			let qstCntn = $("#qstCntn").val(); //문의내용
+			let qstCntn = $(".qstCntn").val(); //문의내용
 			let rplySta = 'N'; // 답변유무상태
 			let secretSta = $("#secChk").val(); //비밀댓글
 
@@ -210,7 +210,7 @@
 
 			if (qstCntn == "") {
 				alert("내용을 입력해 주세요.")
-				$("#qstCntn").focus();
+				$(".qstCntn").focus();
 				return false; // 내용 미입력시 작성 불가
 			}
 
@@ -250,7 +250,7 @@
 					let str = '';
 					$(result).each(function (q, aqst) {
 						str += '<div class="divTableRow">'
-						str += '<div class="divTableHead" style="width: 250px; display:inline-block;">'
+						str += '<div class="divTableHead" id="ttlName" style="width: 250px; display:inline-block;">'
 						if (aqst.secretSta == 'N') { // aqst.id == id || 권한 == admin 추가
 							str += '<a href="#" id="ttlBtn">' + aqst.ttl + '</a>'
 							str += '</div>'
@@ -259,7 +259,7 @@
 						}
 						str += '<div class="ansBox" style="display: none;">'
 						if (aqst.secretSta == 'N') {
-							str += '<p>' + aqst.cntn + '<p>'
+							str += '<p id="qCntn">' + aqst.cntn + '<p>'
 							if (aqst.ansCntn != null) {
 								str += '<div class="div-title-wrap"><hr>'
 								str += '<h5 class="div-title">"Answer"</h5>'
@@ -269,6 +269,7 @@
 								str += '<div class="media-ans img-resize">'
 								str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
 								str += '</div>'
+								str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
 								str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst.comNum + '">'
 								//if(aqst.ctgrNum==작가id)
 								str += '<button class="ansModi">수정</button>'
@@ -338,13 +339,14 @@
 			console.log($(this).parent().parent().find('.comNum').val());
 			console.log($(this).closest('.divTableRow').find('.qstNum').val());
 			let comNum = $(this).parent().parent().find('.comNum').val();
-			let qstNum = $(this).closest('.divTableRow').find('.qstNum').val();
+			let qstNum = $(this).parent().find('.qstNum').val();
 
 			$.ajax({
 				url: "/aoAnsDelete",
 				type: "delete",
 				data: {
-					comNum
+					comNum,
+					qstNum
 				},
 				success: function (data) {
 					getAoQstList();
@@ -356,17 +358,23 @@
 		$(".qstArea").on('click', '.ansBtn', function () {
 			console.log("dddddddddddddddddddddddddddddddddddddddddddd")
 			if($(this).parent().prev().text()=="답변대기") {
-				$('.txtarea').remove();
-				$('<div class="txtarea">').append('<label for="answer">답변내용 : </label><textarea class="ansCntn" id="ansCntn" name="ansCntn" rows="5" style="width: 400px;"></textarea>')
-										  .append('<button id="ansSend">작성</button>')
-										  .append('<button type="reset" id="cancel">취소</button>')
-										  .appendTo($('#ansTextBox'))
+				$('.txtArea').remove();
+
+				var ansCancel = $('<button type="reset" id="cancel" class="ansCancelBtn">취소</button>');
+				ansCancel.on('click', function() {
+					$('.txtArea').remove(); // "답변내용" textarea와 버튼들 숨기기
+				});
+
+				$('<div class="txtArea">').append('<label for="answer" class="ansLabel">답변내용 : </label><textarea class="ansZone" id="ansZone" name="ansZone" rows="5" style="width: 400px;"></textarea>')
+										  .append('<button id="ansSend" class="ansSend">작성</button>')
+										  .append(ansCancel)
+										  .appendTo($('#textBox'))
 
 			}
 			console.log($(this).parent().find('input').val());
 			let qstNo = $(this).parent().find('input').val();
 
-			$('#ansCntn').data("qstNo", qstNo);
+			$('#ansZone').data("qstNo", qstNo);
 		
 		});
 		
@@ -376,13 +384,14 @@
 			console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwww")
 			let comNum = $("#comNum").val(); //답변번호
 			let ctgr = 'A'; //카테고리
-			let ctgrNum = $("#ansCntn").data("qstNo"); //카테고리넘버(문의번호)
+			let ctgrNum = $("#ansZone").data("qstNo"); //카테고리넘버(문의번호)
 			let id = 'user1'; //답변작성자아이디
-			let ansCntn = $("#ansCntn").text(); //답변내용
+			let ansCntn = $("#ansZone").val(); //답변내용
+			console.log(ansCntn)
 
 			if (ansCntn == "") {
 				alert("내용을 입력해 주세요.")
-				$("#ansCntn").focus();
+				$("#ansZone").focus();
 				return false; // 내용 미입력시 작성 불가
 			}
 
@@ -398,7 +407,7 @@
 				}),
 				contentType:'application/json',
 				success: function(data){
-					$("#ansCntn").val("");
+					$("#ansZone, #ansSend,.ansCancelBtn,.ansLabel").remove();
 					getAoQstList();
 				},
 				error:function(){
@@ -406,6 +415,145 @@
 				}
 			});
 		});
+
+		
+		
+		//문의 수정 클릭 그룹이벤트
+		$(".qstArea").on('click', '.qstModi', function () {
+			console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+
+			$('.qstModiArea').remove();
+
+			var qstModiCancel = $('<button type="reset" id="qstCancelBtn">취소</button>');
+
+			qstModiCancel.on('click', function() {
+				$('.qstModiArea').remove(); // "답변내용" textarea와 버튼들 숨기기
+			});
+			
+			// 수정할 문의의 제목, 내용 가지고옴
+			let qstTitle = $(this).parent().parent().find('#ttlName').text();
+    		let qstContent = $(this).parent().parent().find('.ansBox').text();
+
+			$('<div class="qstModiArea">').append('<label for="title" id="modiTitle">제목 : </label><input type="text" class="qstModiTitle" id="qstModiTitle" name="qstModiTitle" style="width: 400px;"> ')
+				.append('<label for="answer" id="modiCon">수정내용 : </label><textarea class="qstModiZone" id="qstModiZone" name="qstModiZone" rows="5" style="width: 400px;"></textarea>')
+				.append('<button id="qstModiBtn" class="qstModiBtn">작성</button>')
+				.append(qstModiCancel)
+				.appendTo($('#textBox'))
+
+			console.log($(this).parent().find('input').val());
+			let qstNo = $(this).parent().find('input').val();
+
+			console.log(qstTitle)
+			console.log(qstContent)
+			$('#qstModiZone').data("qstNo", qstNo);
+			$('#qstModiTitle').val(qstTitle);
+			$('#qstModiZone').val(qstContent);
+			
+		});
+		
+		
+		
+		
+		
+		
+
+		$(".ansArea").on('click', '#qstModiBtn', function(){
+			console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+			let modiTtl = $("#qstModiTitle").val();
+			let modiCntn = $("#qstModiZone").val();
+			let qstNum = $('#qstModiZone').data("qstNo");
+
+			if(modiTtl == "") {
+				alert("제목을 입력해 주세요.")
+				$("#qstModiTitle").focus();
+				return false;
+			}
+
+			if(modiCntn == "") {
+				alert("내용을 입력해 주세요.")
+				$("#qstModiZone").focus();
+				return false;
+			}
+
+			$.ajax({
+				url:"/aoQstUpdate",
+				type:"POST",
+				data: JSON.stringify({
+					"ttl" : modiTtl,
+					"cntn" : modiCntn,
+					"qstNum" : qstNum
+				}),
+				contentType:'application/json',
+				success: function(data){
+					$(".qstModiTitle,.qstModiZone, #qstModiBtn, #qstCancelBtn, #modiTitle, #modiCon").remove();
+					getAoQstList();
+				},
+				error:function(){
+					alert('등록실패');
+				}
+			});
+		})
+
+
+
+		//답변 수정 클릭 그룹이벤트
+		$(".qstArea").on('click', '.ansModi', function () {
+				console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
+				$('.ansModiArea').remove();
+
+				var ansModiCancel = $('<button type="reset" id="ansCancelBtn" class="ansCancelBtn">취소</button>');
+
+				ansModiCancel.on('click', function() {
+					$('.ansModiArea').remove(); // "답변내용" textarea와 버튼들 숨기기
+				});
+				
+				// 수정할 답변 내용 가지고옴
+				let ansContent = $(this).parent().children().find('p').text();
+
+				$('<div class="ansModiArea">').append('<label for="answer" id="qstLabel">수정내용 : </label><textarea class="ansModiZone" id="ansModiZone" name="ansModiZone" rows="5" style="width: 400px;"></textarea>')
+											  .append('<button id="ansModiBtn" class="ansModiBtn">작성</button>')
+											  .append(ansModiCancel)
+											  .appendTo($('#textBox'))
+					
+
+				console.log($(this).parent().find('#comNum').val());
+				let comNo = $(this).parent().find('#comNum').val();//수정해야함 com_num으로
+
+				console.log(ansContent)
+				$('#ansModiZone').data("comNum", comNo);//수정해야함 com_num으로
+				$('#ansModiZone').val(ansContent);
+				
+			});
+
+			$(".ansArea").on('click', '#ansModiBtn', function(){
+				console.log("cccccccccccccccccccccccccccccccccccccccc")
+				let modiCntn = $("#ansModiZone").val();
+				let ansNo = $('#ansModiZone').data("comNum");
+
+				if(modiCntn == "") {
+					alert("내용을 입력해 주세요.")
+					$("#ansModiZone").focus();
+					return false;
+				}
+
+				$.ajax({
+					url:"/aoAnsUpdate",
+					type:"POST",
+					data: JSON.stringify({
+						"cntn" : modiCntn,
+						"comNum" : ansNo
+					}),
+					contentType:'application/json',
+					success: function(data){
+						$("#ansModiZone, #ansModiBtn, #ansCancelBtn").remove();
+						getAoQstList();
+					},
+					error:function(){
+						alert('등록실패');
+					}
+				});
+			})
 
 	</script>
 </body>
