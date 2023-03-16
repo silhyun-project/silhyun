@@ -42,7 +42,7 @@ public class ClassesController {
 		model.addAttribute("c2List", ClassesService.getC2List());
 		System.out.println("컨트롤러로 온 model"+model.getAttribute("c2List"));
 		//이거 페이지에 값 제대로 담기는데 안 읽힘. 왜지?
-		return "/classes/classesMain";
+		return "classes/classesMain";
 	}
 
 	
@@ -61,7 +61,7 @@ public class ClassesController {
 		
 		System.out.println("컨트롤러로 온 모델"+model);
 		
-		return "/classes/classesInfo";
+		return "classes/classesInfo";
 	}
 	
 	
@@ -72,7 +72,7 @@ public class ClassesController {
 		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
 	    model.addAttribute("IV", ClassesService.selectIV("2", inetNum, user.getId()));
 	    System.out.println("컨트롤러에 온 비디오의 세부 IVModel"+model);
-	    return "/classes/classesVideo";
+	    return "classes/classesVideo";
 	}
 	
 	@GetMapping("/silhyun/myPage/myClasses")
@@ -94,7 +94,7 @@ public class ClassesController {
 		model.addAttribute("count2",count2);
 		
 		System.out.println("컨트롤러로 온 my C"+model);
-		return "/classes/myClasses";
+		return "classes/myClasses";
 	}
 	
 	
@@ -117,20 +117,20 @@ public class ClassesController {
 		model.addAttribute("IVInfo",ClassesService.getClassIVInfo(user.getId(), classNum));
 		
 		System.out.println("컨트롤러로 온 클래스IVInfo"+ model);
-		return "/classes/myClassesVideos";	
+		return "classes/myClassesVideos";	
 	}
 	
 	@GetMapping("/bestClasses")
 	public String bestClasses(Model model) {
 		model.addAttribute("bCList", ClassesService.getBCList());
-		return "/classes/bestClasses";
+		return "classes/bestClasses";
 	}
 	
 	@GetMapping("/freeClasses")
 	public String freeClasses(Model model) {
 		model.addAttribute("fCList", ClassesService.getFCList());
 		System.out.println("무료 모델"+model);
-		return "/classes/freeClasses";
+		return "classes/freeClasses";
 	}
 
     @ResponseBody
