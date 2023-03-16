@@ -34,7 +34,7 @@ public class UsersService implements UserDetailsService {
 		uvo.setMemCd(vo.getMemCd());
 		uvo.setPwd(vo.getPwd());
 		
-		httpSession.setAttribute("user", new SessionUser(uvo));
+		//httpSession.setAttribute("user", new SessionUser(uvo));
 		
 		return uvo;
 	}

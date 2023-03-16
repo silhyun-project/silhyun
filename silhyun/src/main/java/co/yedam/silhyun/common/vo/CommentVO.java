@@ -23,4 +23,8 @@ public class CommentVO {
 	private Date comDate;
 	private int repCnt;
 	private String profile;
+	
+	
+	// 답변삭제시 사용용
+	private int qstNum;
 }	
