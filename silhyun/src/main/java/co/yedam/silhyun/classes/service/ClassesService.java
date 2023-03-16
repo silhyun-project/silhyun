@@ -33,7 +33,9 @@ public interface ClassesService {
 	ClassesVO selectClass(String classNum);
 	
 	//클래스 개별정보와 함께 보낼 부가 정보
-	Map<String, Object> CPlusInfo(String classNum, String id);
+	Map<String, Object> CPlusInfo(String classNum);
+	
+	Map<String, Object> CMPlusInfo(String classNum, String id);
 	
 	List<Map<String, Object>> randomList(String classNum);
 	

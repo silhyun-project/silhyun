@@ -45,24 +45,29 @@ public class ClassesController {
 		return "classes/classesMain";
 	}
 
-	
 	@RequestMapping("/silhyun/classes/classesInfo")
 	public String classesInfo(String classNum, Model model, HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
-		
-		System.out.println("오긴했음 ");
-		System.out.println("컨트롤러로 온 classNum="+classNum+"id는="+user.getId()); //확인완료. 모두 잘 온다.
-		//클래스 개별정보
-		model.addAttribute("cInfo", ClassesService.selectClass(classNum));
-		
-		model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum, user.getId()));
-		
-		model.addAttribute("randomList", ClassesService.randomList(classNum));
-		
-		System.out.println("컨트롤러로 온 모델"+model);
-		
-		return "classes/classesInfo";
+	    SessionUser user = (SessionUser) httpSession.getAttribute("user");  
+
+	    System.out.println("오긴했음 ");
+	    System.out.println("컨트롤러로 온 classNum="+classNum); //확인완료. 모두 잘 온다.
+
+	    //클래스 개별정보
+	    model.addAttribute("cInfo", ClassesService.selectClass(classNum));
+	    model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum));
+	    model.addAttribute("randomList", ClassesService.randomList(classNum));	
+	    
+	    if (user != null) {
+	        String id = user.getId();
+	        System.out.println("컨트롤러의 id="+id);
+	        model.addAttribute("cmPlusInfo", ClassesService.CMPlusInfo(classNum, id));
+	    }
+	    
+	    System.out.println("컨트롤러로 온 모델"+model);
+
+	    return "classes/classesInfo";
 	}
+
 	
 	
 	@RequestMapping("/silhyun/classes/classesVideo")
@@ -110,11 +115,12 @@ public class ClassesController {
 	
 	
 	@RequestMapping("/silhyun/classes/myClassesVideos")
-	public String myClassesVidios(String id, @RequestParam("classNum") String classNum, Model model, HttpSession httpSession) {
+	public String myClassesVidios(@RequestParam("classNum") String classNum, Model model, HttpSession httpSession) {
 		
 		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
+		String id = user.getId();
 	System.out.println("비디오 목록으로 가는 클래스넘"+classNum);
-		model.addAttribute("IVInfo",ClassesService.getClassIVInfo(user.getId(), classNum));
+		model.addAttribute("IVInfo",ClassesService.getClassIVInfo(id, classNum));
 		
 		System.out.println("컨트롤러로 온 클래스IVInfo"+ model);
 		return "classes/myClassesVideos";	
