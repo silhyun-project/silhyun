@@ -59,6 +59,11 @@ public class MainServiceImpl implements MainService{
 	public List<ReviewVO> getReviewC(ReviewVO vo) {
 		return mainMapper.getReviewC(vo);
 	}
+
+	@Override
+	public List<ReviewVO> getReview(ReviewVO vo) {
+		return  mainMapper.getReview(vo);
+	}
 	
 	
 	

@@ -9,7 +9,7 @@
 	
 	<insert id="insertCoupon" parameterType="co.yedam.silhyun.event.vo.CouponHistoryVO">
 		INSERT INTO COUPONHISTORY
-		VALUES(#{id},#{cpnNum},#{cpnSta})
+		VALUES(#{id},#{cpnNum},'N')
 	</insert>
 	
 	<update id="updateCoupon" parameterType="co.yedam.silhyun.event.vo.CouponHistoryVO">

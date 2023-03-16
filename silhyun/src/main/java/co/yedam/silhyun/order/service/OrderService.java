@@ -6,7 +6,7 @@ import java.util.Map;
 import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface OrderService {
-	List<ReserVO> getMemberInfoList(ReserVO vo);
-	//String reserInsert(ReserVO vo);
+	List<ReserVO> getMemberPointInfo(ReserVO vo);
+	List<ReserVO> getMemberCpnInfo(ReserVO vo);
 	String reserInsert(ReserVO vo);
 }

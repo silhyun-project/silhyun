@@ -11,20 +11,10 @@ import co.yedam.silhyun.order.vo.PaymentVO;
 public class PaymentServiceImpl implements PaymentService {
 	@Autowired PaymentMapper paymentMapper;
 
-//	@Override
-//	public List<String> paymentInsert(PaymentVO vo) {
-////		List<String> orderList = new ArrayList<String>();
-////		for()
-//		return paymentMapper.paymentInsert(vo);
-//	}
-	
 	@Override
 	public String paymentInsert(PaymentVO vo) {
 		paymentMapper.paymentInsert(vo);  //payment테이블에 넣고 
-//		vo.setResNum(resNum);
-//		vo.setCtgrNum(ctgrNum);
-//		vo.setId(id);
-	
+		
 		return vo.getResNum(); //예약 번호 리턴
 	}
 
@@ -32,6 +22,12 @@ public class PaymentServiceImpl implements PaymentService {
 	public List<PaymentVO> getPaymentInfo(String id) {
 		
 		return paymentMapper.getPaymentInfo(id);
+	}
+
+	@Override
+	public String claPaymentInsert(PaymentVO vo) {
+		paymentMapper.claPaymentInsert(vo);
+		return vo.getOrdNum();
 	}
 
 }
