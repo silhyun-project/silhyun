@@ -44,6 +44,7 @@ public class ReviewController {
 		return "review/test";
 	}
 	
+	//인써트 폼으로 가는거 ajax
 	@GetMapping("/silhyun/reviewform")
 	public String reviewForm() {
 		return "review/reviewForm";
