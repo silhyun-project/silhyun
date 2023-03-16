@@ -374,7 +374,7 @@ public class mypageAoController {
 	@RequestMapping("/photo/classInquiry/{classNum}")
 	private String classInquiry(String classNum, Model model) {
 		model.addAttribute("classNum", classNum);
-		return "/mypageAo/classInquiry";
+		return "mypageAo/classInquiry";
 	}
 
 }
