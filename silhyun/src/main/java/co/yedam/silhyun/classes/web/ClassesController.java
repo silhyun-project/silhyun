@@ -47,8 +47,9 @@ public class ClassesController {
 
 	@RequestMapping("/silhyun/classes/classesInfo")
 	public String classesInfo(String classNum, Model model, HttpSession httpSession) {
-	    SessionUser user = (SessionUser) httpSession.getAttribute("user");  
 
+
+	    String id = (String)httpSession.getAttribute("id");
 	    System.out.println("오긴했음 ");
 	    System.out.println("컨트롤러로 온 classNum="+classNum); //확인완료. 모두 잘 온다.
 
@@ -57,8 +58,7 @@ public class ClassesController {
 	    model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum));
 	    model.addAttribute("randomList", ClassesService.randomList(classNum));	
 	    
-	    if (user != null) {
-	        String id = user.getId();
+	    if (id != null) {
 	        System.out.println("컨트롤러의 id="+id);
 	        model.addAttribute("cmPlusInfo", ClassesService.CMPlusInfo(classNum, id));
 	    }
@@ -81,18 +81,19 @@ public class ClassesController {
 	}
 	
 	@GetMapping("/silhyun/myPage/myClasses")
-	public String myClasses(String id, Model model, HttpSession httpSession) {
+	public String myClasses(Model model, HttpSession httpSession) {
 		
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");
-		String iddd = user.getId();
-		System.out.println("컨트롤러 아이디 확인"+iddd);
-		model.addAttribute("myName",ClassesService.getName(user.getId()));
-		model.addAttribute("myC1", ClassesService.myTakeC1(user.getId()));
-		model.addAttribute("myC2", ClassesService.myTakeC2(user.getId()));
+	    String id = (String)httpSession.getAttribute("id");
+
+	    
+		System.out.println("컨트롤러 아이디 확인"+id);
+		model.addAttribute("myName",ClassesService.getName(id));
+		model.addAttribute("myC1", ClassesService.myTakeC1(id));
+		model.addAttribute("myC2", ClassesService.myTakeC2(id));
 		
-		int count1 = ClassesService.myTakeC1(user.getId()).size();
+		int count1 = ClassesService.myTakeC1(id).size();
 		System.out.println("컨트롤러러로 온 myTakeC1 사이즈"+count1);
-		int count2 = ClassesService.myTakeC2(user.getId()).size();
+		int count2 = ClassesService.myTakeC2(id).size();
 		System.out.println("컨트롤러러로 온 myTakeC2 사이즈"+count2);
 		
 		model.addAttribute("count1",count1);
@@ -116,9 +117,8 @@ public class ClassesController {
 	
 	@RequestMapping("/silhyun/classes/myClassesVideos")
 	public String myClassesVidios(@RequestParam("classNum") String classNum, Model model, HttpSession httpSession) {
-		
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
-		String id = user.getId();
+	    String id = (String)httpSession.getAttribute("id");
+
 	System.out.println("비디오 목록으로 가는 클래스넘"+classNum);
 		model.addAttribute("IVInfo",ClassesService.getClassIVInfo(id, classNum));
 		
