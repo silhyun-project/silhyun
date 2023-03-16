@@ -282,29 +282,36 @@ where class_num = #{classNum}
 </select>
 
 <!-- 강의 상세페이지에 함께 보낼 정보. 별점평균, 리뷰총수, 구입여부, 찜여부. 여부들은 숫자로 나오기때문에 숫자로 비교-->
-<select id="CPlusInfo" parameterType="java.util.Map" resultType="map">
+<select id="CPlusInfo" parameterType="String" resultType="map">
 SELECT 
     (SELECT trunc(NVL(AVG(star), 0), 1) FROM review WHERE ctgr_num = #{classNum}) AS "starAvg",
     (SELECT COUNT(*) FROM review WHERE ctgr_num = #{classNum}) AS "rvCnt",
     (SELECT itr FROM photographer WHERE ptg_id = (SELECT ptg_id FROM class WHERE class_num = #{classNum})) AS "itr",
-    (SELECT count(ctgr_num) FROM payment WHERE ctgr_num = #{classNum} AND id = #{id} AND ord_sta = 'Y') AS "buyYN",
-    (SELECT count(ctgr_num) FROM zzim WHERE ctgr_num = #{classNum} AND id = #{id} and ctgr ='C') AS "zzimYN",
     (select
-CASE 
-    WHEN fd_cd = 'B1' then '제품' 
-   WHEN fd_cd = 'B2' then '음식' 
-     WHEN fd_cd = 'B3' then '행사' 
-       WHEN fd_cd = 'B4' then '건축/인테리어' 
-         WHEN fd_cd = 'B5' then '패션' 
-           WHEN fd_cd = 'B6' then '프로필/화보' 
-             WHEN fd_cd = 'B7' then '웨딩' 
-               WHEN fd_cd = 'B8' then '일반스냅' 
-                 WHEN fd_cd = 'B9' then '반려동물' 
-                 else '분류미정'
+    CASE 
+        WHEN fd_cd = 'B1' then '제품' 
+        WHEN fd_cd = 'B2' then '음식' 
+        WHEN fd_cd = 'B3' then '행사' 
+        WHEN fd_cd = 'B4' then '건축/인테리어' 
+        WHEN fd_cd = 'B5' then '패션' 
+        WHEN fd_cd = 'B6' then '프로필/화보' 
+        WHEN fd_cd = 'B7' then '웨딩' 
+        WHEN fd_cd = 'B8' then '일반스냅' 
+        WHEN fd_cd = 'B9' then '반려동물' 
+        else '분류미정'
     END AS fdCd
     from field where ptg_id = (select ptg_id from class where class_num = #{classNum}))AS "fdCd"
 FROM DUAL
 </select>
+
+<select id="CMPlusInfo" parameterType="map" resultType="map">
+SELECT 
+    (SELECT count(ctgr_num) FROM payment WHERE ctgr_num = #{classNum} AND id = #{id} AND ord_sta = 'Y') AS "buyYN",
+    (SELECT count(ctgr_num) FROM zzim WHERE ctgr_num = #{classNum} AND id = #{id} and ctgr ='C') AS "zzimYN"
+from dual
+
+</select>
+
 
 <!-- 강의 상세페이지에 함께 보낼 랜덤추천리스트. -->
 <select id="randomList" parameterType="String"  resultType="map">
@@ -467,6 +474,7 @@ WHERE p.id = #{id} AND c.cla_cd='CL2'
   <result column="iVrate" property="iVrate"/>
   <result column="i_state" property="iState"/>
    <result column="iBack" property="iBack"/>
+      <result column="classNum" property="classNum"/>
 </resultMap>
 
 <select id="getClassIVInfo" parameterType="java.util.Map" resultMap="IVlist">
@@ -481,7 +489,8 @@ SELECT
     (SELECT COUNT(*) FROM inetclass_wtch w2 JOIN inetclass i2 ON i2.class_num = 
     w2.class_num AND i2.inet_num = w2.inet_num WHERE w2.id = #{id} 
     AND w2.class_num = #{classNum} AND ROUND((w2.cumlw_time/(i2.inet_time*60)), 3) * 100 >= 70) 
-    AS "iBack"
+    AS "iBack",
+    i.class_num as classNum
 FROM 
     inetclass i
     LEFT JOIN inetclass_wtch w ON w.class_num = i.class_num AND w.inet_num = i.inet_num AND w.id = #{id}

@@ -58,9 +58,16 @@ public class ClassesServiceImpl implements ClassesService {
 				return ClassesMapper.selectClass(classNum);
 	}
 	@Override
-	public Map<String, Object> CPlusInfo(java.lang.String classNum, java.lang.String id) {
-				return ClassesMapper.CPlusInfo(classNum, id);
+	public Map<String, Object> CPlusInfo(String classNum) {
+				return ClassesMapper.CPlusInfo(classNum);
 	}
+	
+	@Override
+	public Map<String, Object> CMPlusInfo(String classNum, String id) {
+		return ClassesMapper.CMPlusInfo(classNum, id);
+	}
+	
+	
 	@Override
 	public List<Map<String, Object>> randomList(String classNum) {
 				return ClassesMapper.randomList(classNum);
