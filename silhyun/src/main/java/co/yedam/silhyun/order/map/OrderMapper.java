@@ -6,6 +6,8 @@ import java.util.Map;
 import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface OrderMapper {
-	List<ReserVO> getMemberInfoList(ReserVO vo);
+	List<ReserVO> getMemberPointInfo(ReserVO vo);
+	List<ReserVO> getMemberCpnInfo(ReserVO vo);
+	
 	int reserInsert(ReserVO vo);  //예약 테이블 등록
 }

@@ -30,22 +30,16 @@
             </div>
         </a>
         <!-- End skippy -->
-        <!-- Preload -->
-        <!-- <div id="loading" class="loading-preloader"> -->
-        <!--     <div class="spinner-border text-primary" role="status"> -->
-        <!--         <span class="visually-hidden">Loading...</span> -->
-        <!--     </div> -->
-        <!-- </div> -->
-        <!-- End Preload -->
-        <!-- Edn Skippy & Prload -->
-
         <!-- 
     ========================
         Wrapper 
     ========================
     -->
+  로그인 : [[${session.id}]]
 [[${pointInfo}]]
 [[${cpnInfo}]]
+[[${classesVO}]]
+[[${reserVO}]]
         <div class="wrapper">
             <!-- heder height -->
             <div class="header-height-bar"></div>
@@ -85,10 +79,7 @@
                                                     <div class="col-8">
                                                         <!-- Title -->
                                                         <p class="mb-1">
-                                                            <a class="text-dark fw-500 opTtl" href="#">선택한 옵션 : [[${optionsVO.ttl}]]</a><br>
-                                                           
-                                                            <div>촬영 일자 : <span class="m-0 text-muted w-100 d-block shotD" th:text="${#dates.format(reserVO.shotDate, 'yyyy/MM/dd')}">촬영 일자</span></div>
-                                                            <span class="m-0 text-muted w-100 d-block resP">[[${reserVO.resPri}]]</span>
+                                                            <a class="text-dark fw-500 opTtl" th:id="${classesVO.classNum}" href="#">선택한 클래스 : [[${classesVO.claTtl}]]</a><br>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -144,16 +135,13 @@
                                                 <div class="d-flex">
                                                     <input type="text" placeholder="사용할 포인트를 입력하세요"
                                                         class="form-control form-control-sm useP" style="height: 50px;">
-                                                   
                                                        <button type="button" class="btn btn-primary btn-sm ms-2 aapP">Apply</button>
-                                                     
-                                               
                                                 </div>
                                             </div>
                                         </li>
                                             <li class="d-flex justify-content-between align-items-center mb-2">
                                                 <h6 class="me-2 text-body">💰 사용가능한 포인트</h6>
-                                                <span class="text-end pointSum" th:if="${pointInfo[0].pointSum}!=0">[[${pointInfo[0].pointSum}]]원</span>
+                                                 <span class="text-end pointSum" th:if="${pointInfo[0].pointSum}!=0">[[${pointInfo[0].pointSum}]]원</span>
                                                 <span class="text-end pointSum" th:if="${pointInfo[0].pointSum}==0">0원</span>
                                             </li>
 
@@ -175,20 +163,6 @@
                                             </div>
                                         </div>
                                     </div>
-<!--                                     <div class="card mb-3 shadow-none border"> -->
-<!--                                         <div class="card-header p-0 position-relative bg-transparent"> -->
-<!--                                             <div class="form-check m-3" data-bs-toggle="collapse" -->
-<!--                                                 data-bs-target="#credit-card"> -->
-<!--                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" -->
-<!--                                                     id="flexRadioDefault2"> -->
-<!--                                                 <label class="form-check-label h6 m-0 w-100 stretched-link" -->
-<!--                                                     for="flexRadioDefault2"> -->
-<!--                                                     무통장 입금 -->
-<!--                                                 </label> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-                            
                                 </div>
                                 <div class="pt-4">
                                     <p class="m-0 pt-3">현금영수증(사업자지출증빙) / 신용카드 매입전표는  매입세액공제 사용이 불가능합니다.
@@ -198,12 +172,8 @@
                             </div>
                         </div>
                         <form>
-                            <input type="hidden" name="id" th:value="${reserVO.id}">
-                            <input type="hidden" name="shotDate" th:value="${#dates.format(reserVO.shotDate, 'yyyy-MM-dd')}">
-                            <input type="hidden" name="ptgId" th:value="${reserVO.ptgId}">
-                            <input type="hidden" name="shotTime" th:value="${reserVO.shotTime}">
+                            <input type="hidden" name="id" th:value="${session.id}">
                             <input type="hidden" name="resPri" th:value="${reserVO.resPri}">
-                            <input type="hidden" name="opNum" th:value="${selectedOpVO.opNum}">
                         </form>
                     </div>
                 </div>
@@ -237,6 +207,12 @@
         <script src="/js/theme.js"></script>
         <!-- End script start -->
         <script>
+
+            //상품 가격 넣기
+            let numPri = Number($('.text-end.resPri').text()).toLocaleString();
+            $('.text-end.resPri').text(numPri+'원')
+
+            //상품 제목 자르기
             let opTtl = $('.text-dark.fw-500.opTtl').text().replace(',','')
                 function cutByMaxStr(str, maxLength) {  
                 if (str == undefined || str == null) {
@@ -252,29 +228,18 @@
             let text = cutByMaxStr(opTtl,25)
             console.log(text)
             $('.text-dark.fw-500.opTtl').text(text)
-            let shotD = $('.m-0.text-muted.w-100.d-block.shotD').text()
-            console.log(shotD)
-            // function getFormatDate(date){
-            //     var year = date.getFullYear();              //yyyy
-            //     var month = (1 + date.getMonth());          //M
-            //     month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
-            //     var day = date.getDate();                   //d
-            //     day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
-            //     return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-            // }
-            // let test = getFormatDate(shotD)
-            // console.log(test)
             
             //사용가능한 포인트
-            let resp = $('.m-0.text-muted.w-100.d-block.resP').text()
+            let resp = $('.text-end.resPri').text().replace(/[^0-9]/g,'')
             let resp2=  Number(resp).toLocaleString()
             let totalIng = $('.text-end.text-dark.totalM').text()
               console.log(resp2)
               $('.m-0.text-muted.w-100.d-block.resP').text(resp2+'원')
-              $('.text-end.resPri').text(resp2+'원')
+              //$('.text-end.resPri').text(resp2+'원')
              
               $('.text-end.text-dark.totalM').text(resp2+'원')  //총가격
-              //쿠폰 적용한 할인 금액
+              
+            //쿠폰 적용한 할인 금액
              let discount = 0;
              $('.form-select').on('change',function(){
                  discount = $(this).val()
@@ -311,8 +276,6 @@
               })
 
             //토탈 금액
-            //let totalPri = resp - cpnM - (SumP-useP)
-           // console.log(totalPri)
            let paymPri = Number(0)  //총금액
            let uPoint = Number(0)
            let uCpNum = null;
@@ -339,22 +302,13 @@
                 });
             });
 
-            let list=[];
             //reser테이블에 insert되는 데이터
             let id = $('input[name="id"]').val()     //회원 아이디     
-            let shotDate = $('input[name="shotDate"]').val()   //촬영 날짜 
             let ptgId = $('input[name="ptgId"]').val()  //작가 아이디
-            let shotTime = $('input[name="shotTime"]').val()   //촬영 시간 코드
-            let opNum = $('input[name="opNum"]').val()  //옵션 번호 
+            let classNum = $('.text-dark.fw-500.opTtl').attr('id')
             let pname = $('.text-dark.fw-500.opTtl').text()  //상품 이름   
             let ordPri = Number($('.text-end.resPri').text().replace(/[^0-9]/g,''))  //주문 가격 (할인 적용전)
-           // let savePo = parseInt(paymPri * 0.01)  // 정수만 추출해서 포인트로 적립하기 위해서 parseInt 사용  // Number()은 소수점 까지 전체를 반환함
             let usePo = uPoint
-            console.log(id,shotDate,ptgId,shotTime,paymPri)   
-            console.log(paymPri)  
-            console.log(uCpNum)
-            console.log(uPoint,ordPri)
-           
     
             //결제
         const IMP = window.IMP; // 생략 가능
@@ -375,19 +329,13 @@
                 if (rsp.success) {
                     // 결제 성공 시 로직
                     let obj={
-                            id:id,
-                            shotDate:shotDate,
-                            ptgId:ptgId,
-                            shotTime:shotTime,
-                            resPri:paymPri,
-                            
-                            ctgrNum:ptgId,
+                    		id:id,                        
+                            ctgrNum:classNum,
                             uCpNum:uCpNum,
+                            resNum:'',
                             uPoint:uPoint,
                             paymPri:paymPri,
                             ordPri:ordPri,
-
-                            opNum:opNum, 
 
                             savePo:savePo,
                             usePo:uPoint,
@@ -396,18 +344,15 @@
                         }
                         console.log(obj)
                     $.ajax({
-                        url: "/pay/reserInsert",
+                        url: "/pay/paymentInsert",
                         method: "post",
-                       // headers: { "Content-Type": "application/json" },
                         data:obj
                         
                        //고유ID
                     }).then((data) => {
-
                         // 서버 결제 API 성공시 로직
-                        let id = $('input[name="id"]').val() 
                         alert("정상적으로 결제되었습니다.")
-                        location.href = "/pay/orderEnd/"+ id
+                        location.href = "/silhyun/myPage/myClasses"  //결제가 완료되면 마이 클래스로 이동
                     })
                 } else {
                     // 결제 실패 시 로직
