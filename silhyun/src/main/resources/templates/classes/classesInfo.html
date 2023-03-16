@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{home/layout}">
+      <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script> <!--제이쿼리-->
 
 <body>
     <div layout:fragment="content">
@@ -27,12 +28,13 @@
                     <!-- Product Details -->
                     <div class="col-lg-6 ps-lg-5">
                         <div class="product-detail pt-4 pt-lg-0">
+					<form action="/pay/orderFormCla" method="post">
                             <div class="products-brand pb-2">
                             <a></a>
                                 <span th:text="${plusInfo.fdCd}"></span>
                             </div>
                             <div class="products-title mb-2">
-                                <h4 class="h4"  th:text="${cInfo.claTtl}"></h4>
+                                <h4 class="h4 claTtl" th:id="${cInfo.classNum}"  th:text="${cInfo.claTtl}"></h4>
                             </div>
                             <div class="rating-star text small pb-4">
                                   <span th:each="star : ${#numbers.sequence(1, 5)}">
@@ -49,31 +51,37 @@
                             </div>
 
                             <div class="product-price fs-3 fw-500 mb-2">
-                                <span class="text-primary" th:text="${cInfo.claPri}+'원(VAT포함가)'"></span>
+                                <span class="text-primary claPri" th:text="${cInfo.claPri}+'원(VAT포함가)'"></span>
                             </div>
                             <br>
                             
                             <div class="product-detail-actions d-flex flex-wrap pt-3">
                                 <div class="cart-button mb-3 d-flex">
                                     
-                        <button th:if="${plusInfo.buyYN == 0}" class="btn btn-dark me-3">
+                        <button th:if="${plusInfo.buyYN == 0}" class="btn btn-dark me-3" type="submit">
     <i class="fi-shopping-cart"></i> 구입하기
 </button>
 
-<button th:if="${plusInfo.buyYN == 1}" class="btn btn-primary me-3" 
+<button th:if="${plusInfo.buyYN == 1}" type="button" class="btn btn-primary me-3" 
 th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.classNum}) }'|">
     💖 내 학습방
 </button>                            
                          
                          
-                                    <button class="btn btn-outline-dark me-3">
+                                    <button type="button" class="btn btn-outline-dark me-3">
                                         <i class="fi-heart"></i> 찜
                                     </button>
                                            </div>
                             </div>
                             <div class="product-info-buttons nav pt-4">
                                              </div>
-
+                    <input type="hidden" name="id" th:value="${session.id}">
+                    <input type="hidden" name="ptgId" th:value="${cInfo.ptgId}">
+                    <input type="hidden" name="claTtl">
+                    <input type="hidden" name="resPri">
+                    <input type="hidden" name="classNum">
+                    
+    </form>
                         </div>
                         
                         <br>
@@ -90,6 +98,7 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
                                 <img class="img-fluid" src="/img/fashion/payment-details.png" title="" alt="">
                             </div>
                     </div>
+                
                     <!-- End Product Details -->
                 </div>
             </div>
@@ -479,7 +488,7 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
 </div>
 </div>
             </section>
-                </div>
+                
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script type="text/javascript">
@@ -511,6 +520,20 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
       });
     }
   }
+  
+    //▶결제전 확인 페이지에 정보 넘기기
+    $(function(){
+    	console.log($('.h4.claTtl').text())
+    	let claTtl = $('.h4.claTtl').text();
+    	$('input[name="claTtl"]').val(claTtl)
+    	let resPri = $('.text-primary.claPri').text().replace(/[^0-9]/g,'');
+        console.log(resPri)
+        $('input[name="resPri"]').val(resPri)
+        let classNum = $('.h4.claTtl').attr('id')
+        console.log(classNum)
+        $('input[name="classNum"]').val(classNum)
+    
+    })
 </script>
 </div>
 </body>

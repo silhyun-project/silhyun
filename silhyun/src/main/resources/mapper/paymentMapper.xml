@@ -17,6 +17,21 @@
 			,'Y',sysdate, #{paymPri},#{ordPri})
 	</insert>
 	
+	<insert id="claPaymentInsert">
+		<selectKey keyProperty="ordNum" resultType="String" order="BEFORE">
+			SELECT NVL(MAX(TO_NUMBER(ORD_NUM)),0) +1 AS "ordNum"
+			FROM PAYMENT
+		</selectKey>
+			INSERT INTO PAYMENT (ORD_NUM,CTGR,CTGR_NUM,ID,RES_NUM,ORD_MTHD
+			<if test="uCpNum != null and uCpNum != ''">,U_CP_NUM</if>
+			<if test="uPoint != null and uPoint != ''">,U_POINT</if>
+			,ORD_STA,ORD_DATE,PAYM_PRI,ORD_PRI)
+			VALUES(#{ordNum},'C',#{ctgrNum},#{id}, null,'TO'
+			<if test="uCpNum != null and uCpNum != ''">,#{uCpNum}</if>
+			<if test="uPoint != null and uPoint != ''">,#{uPoint}</if>
+			,'Y',sysdate, #{paymPri},#{ordPri})
+	</insert>
+	
 	<select id="getPaymentInfo" resultType="co.yedam.silhyun.order.vo.PaymentVO">
 		SELECT R.SHOT_DATE, M.NAME, P.SHOT_PLACE, FIND_CD(R.SHOT_TIME) SHOT_TIME, FIND_OP(O.OP_NUM) TTL, PM.ORD_PRI, PM.PAYM_PRI, NVL((PM.ORD_PRI-PM.PAYM_PRI),0) DISCOUNT
 		FROM RESER R JOIN PHOTOGRAPHER P
@@ -28,7 +43,6 @@
 		JOIN PAYMENT PM
 		ON PM.RES_NUM = R.RES_NUM
 		WHERE R.ID = #{id}
-<!-- 		AND R.RES_NUM = #{resNum} -->
 		ORDER BY R.RES_NUM DESC
 	</select>
 </mapper>

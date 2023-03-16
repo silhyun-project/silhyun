@@ -40,13 +40,13 @@
 
     /* ======== Calendar ======== */
     .my-calendar {
-      width: 100%;
+      width: 80%;
       height: 500px;
       margin: 30px;
       padding: 20px 20px 10px;
       text-align: center;
       font-weight: 800;
-      /* border: 1px solid #ddd; */
+/*       border: 1px solid #ddd; */
       cursor: default;
     }
 
@@ -54,15 +54,21 @@
       border-radius: 25px;
       margin-top: 36px;
       float: left;
-      width: 42%;
+      width: 1;
       text-align: center;
       padding: 46px 0 26px;
       background: #ddd;
     }
+.my-calendar.clearfix {
+    margin-left: 230px;
+}
+table.cal-table {
+    height: 350px;
 
+}
     .my-calendar .calendar-box {
       /* float: center; */
-      float: right;
+      float: left;
       width: 58%;
       height: 500px;
       padding-left: 30px;
@@ -148,7 +154,7 @@
     }
 
     .cal-table td.day-active {
-      background: #ff8585;
+/*       background: #ff8585; */
       border-radius: 50%;
       color: #fff;
     }
@@ -323,7 +329,7 @@
                   <div class="row">
                     <div class="container">
                       <div class="my-calendar clearfix">
-                      <div class="clicked-date">
+                      <div class="clicked-date" style="display: none;">
                         <div class="cal-day"></div>
                         <div class="cal-date"></div>
                       </div>
@@ -366,7 +372,7 @@
                       </div>
                       <!-- // .my-calendar -->
                     </div>
-                  </div>
+                  </div><br>
                   <div class="row ptgList">
 
                   </div>
@@ -417,7 +423,7 @@
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 3 // 지도의 확대 레벨
+          level: 2 // 지도의 확대 레벨
         };
 
       // 지도를 생성합니다    

@@ -30,8 +30,6 @@
 
 <body>
     <div layout:fragment="content">
-        로그인 한 사람 : [[${id}]]
-
         <!-- Skippy & Prload -->
         <!-- skippy -->
         <a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
@@ -85,7 +83,7 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-7">
-                                <!-- Form -->
+                                <!-- 등록 Form -->
                                 <form id="ptgRegiFrm" action="/shin/stdRegister" method="post">
                                     <!-- Heading -->
                                     <h6 class="mb-4 h3">사진관 입점 신청서</h6>
@@ -100,7 +98,7 @@
                                     <div class="form-group mb-3">
                                         <label for="ceoName" class="form-label">대표자 이름<span class="text-danger">*</span></label>
                                         <input type="text" id="ceoName" name="ceoName" class="form-control regi"
-                                            required="required">
+                                            readonly="readonly" th:value="${member.name}">
                                     </div>
                                    
                                     <div class="form-group mb-3">
