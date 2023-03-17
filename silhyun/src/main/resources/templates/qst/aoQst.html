@@ -113,6 +113,7 @@
 			text-decoration: none;
 			cursor: pointer;
 		}
+		
 
 	</style>
 
@@ -123,21 +124,19 @@
 		<div class="divTable minimalistBlack" >
 			<div class="divTableHeading">
 				<div class="divTableRow">
-					<div class="divTableHead" style="width: 250px;">제목</div>
-					<div class="divTableHead" style="width: 60px;">작성자</div>
-					<div class="divTableHead">작성날짜</div>
+					<div class="divTableHead" style="width: 240px;">제목</div>
+					<div class="divTableHead" style="width: 50px;">작성자</div>
+					<div class="divTableHead" style="width: 50px;">작성날짜</div>
 					<div class="divTableHead" style="width: 70px;">답변상태</div>
 					<div class="divTableHead" style="width: 150px;"></div>
 				</div>
 			</div>
 			<div class="divTableBody qstArea"></div>
-
-
 		</div>
 		<div></div>
 		<div id="textBox"></div>
 		<br> <br>
-		<button id="new-post-btn">상품 문의</button>
+		<button id="new-post-btn">문의하기</button>
 
 		<!-- 문의 모달 -->
 		<div id="myModal" class="modal">
@@ -158,7 +157,6 @@
 				</form>
 			</div>
 		</div>
-
 	</div>
 
 	<script>
@@ -185,15 +183,13 @@
 
 		});
 
-
-
 		$("#send").click(function () { //문의글 등록
 			let qstNum = $(".qstNum").val(); //문의글번호
 			let ctgr = 'A' //카테고리
 			let ctgrNum = 'user1' //카테고리
 			let ttl = $("#title").val(); // 제목
 			let qstId = 'catLove'; //문의작성자아이디
-			let qstCntn = $(".qstCntn").val(); //문의내용
+			let qstCntn = $("#qstCntn").val(); //문의내용
 			let rplySta = 'N'; // 답변유무상태
 			let secretSta = $("#secChk").val(); //비밀댓글
 
@@ -210,7 +206,7 @@
 
 			if (qstCntn == "") {
 				alert("내용을 입력해 주세요.")
-				$(".qstCntn").focus();
+				$("#qstCntn").focus();
 				return false; // 내용 미입력시 작성 불가
 			}
 
@@ -250,9 +246,9 @@
 					let str = '';
 					$(result).each(function (q, aqst) {
 						str += '<div class="divTableRow">'
-						str += '<div class="divTableHead" id="ttlName" style="width: 250px; display:inline-block;">'
+						str += '<div class="divTableHead" id="ttlName" class="ttlName" style="width: 250px; display:inline-block;">'
 						if (aqst.secretSta == 'N') { // aqst.id == id || 권한 == admin 추가
-							str += '<a href="#" id="ttlBtn">' + aqst.ttl + '</a>'
+							str += '<a href="#" class="ttlBtn">' + aqst.ttl + '</a>'
 							str += '</div>'
 						} else {
 							str += '<a href="#" id="ttlBtn">비밀 문의글입니다.</a>'
@@ -312,7 +308,7 @@
 		}
 
 		//제목 클릭시 내용 나오는 이벤트 
-		$(".qstArea").on('click', '#ttlBtn', function () {
+		$(".qstArea").on('click', '.ttlBtn', function () {
 			var qstContainer = $(this).closest('.divTableRow');
 			qstContainer.find('.ansBox').toggle();
 		})
@@ -431,12 +427,12 @@
 			});
 			
 			// 수정할 문의의 제목, 내용 가지고옴
-			let qstTitle = $(this).parent().parent().find('#ttlName').text();
+			let qstTitle = $(this).parent().parent().find('a').text();
     		let qstContent = $(this).parent().parent().find('.ansBox').text();
 
 			$('<div class="qstModiArea">').append('<label for="title" id="modiTitle">제목 : </label><input type="text" class="qstModiTitle" id="qstModiTitle" name="qstModiTitle" style="width: 400px;"> ')
 				.append('<label for="answer" id="modiCon">수정내용 : </label><textarea class="qstModiZone" id="qstModiZone" name="qstModiZone" rows="5" style="width: 400px;"></textarea>')
-				.append('<button id="qstModiBtn" class="qstModiBtn">작성</button>')
+				.append('<button id="qstModiBtn" class="qstModiBtn">수정하기</button>')
 				.append(qstModiCancel)
 				.appendTo($('#textBox'))
 
@@ -512,7 +508,7 @@
 				let ansContent = $(this).parent().children().find('p').text();
 
 				$('<div class="ansModiArea">').append('<label for="answer" id="qstLabel">수정내용 : </label><textarea class="ansModiZone" id="ansModiZone" name="ansModiZone" rows="5" style="width: 400px;"></textarea>')
-											  .append('<button id="ansModiBtn" class="ansModiBtn">작성</button>')
+											  .append('<button id="ansModiBtn" class="ansModiBtn">수정하기</button>')
 											  .append(ansModiCancel)
 											  .appendTo($('#textBox'))
 					
@@ -546,7 +542,7 @@
 					}),
 					contentType:'application/json',
 					success: function(data){
-						$("#ansModiZone, #ansModiBtn, #ansCancelBtn").remove();
+						$("#ansModiZone, #ansModiBtn, #ansCancelBtn, #qstLabel").remove();
 						getAoQstList();
 					},
 					error:function(){

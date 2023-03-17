@@ -11,6 +11,7 @@
         on q.qst_num = c.ctgr_num
 		where q.ctgr = 'A'
 		order by qst_num desc
+	
 	</select>
 
 	<insert id="aoQstInsert">
