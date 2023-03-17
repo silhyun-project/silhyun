@@ -58,14 +58,14 @@
     
                                                 </div>
                                                 <div class="product-media">
-                                                    <a href="#">
+                                                    <a th:href="@{/silhyun/classes/classesInfo(classNum=${fC.CNUM})}">
                                                         <img class="img-fluid"
                                                             th:src="${fC.THNI}" title="" 
                                                             alt="">
                                                     </a>
                                                 </div>
                                                 <div class="product-cart-btn">
-                                                    <a class="btn btn-primary">
+                                                    <a class="btn btn-primary" th:href="@{/silhyun/classes/classesInfo(classNum=${fC.CNUM})}">
                                                         <i class="fi-eye"></i>
                                                         상세 보기
                                                     </a>
@@ -81,7 +81,7 @@
   <span th:text="${fC.STAR}"></span>
 </div>
                                                 <h6 class="product-title">                                         
-                                                     <a th:href="@{/silhyun/classes/classesInfo(classNum=${fC.CNUM}, id='catLove')}" th:text="${fC.TTL}"></a>                                                                                           
+                                                     <a th:href="@{/silhyun/classes/classesInfo(classNum=${fC.CNUM})}" th:text="${fC.TTL}"></a>                                                                                           
                                                 </h6>
                                                 <div class="product-price">
                                                     <span class="text-primary" th:text="${fC.CPRI}"></span><small>원</small>

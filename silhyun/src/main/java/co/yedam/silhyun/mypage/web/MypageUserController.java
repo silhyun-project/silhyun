@@ -27,7 +27,7 @@ public class MypageUserController {
    public String mpgCouponList(Model model ,HttpSession session ) {
 	   model.addAttribute("id",session.getAttribute("id"));
 		String id = (String) session.getAttribute("id");
-		model.addAttribute("myCp",mpgService.selectMyCoupon(session.getId()));
+		model.addAttribute("myCp",mpgService.selectMyCoupon(id));
 		
 		
       return "mypageUser/mpgCouponList";

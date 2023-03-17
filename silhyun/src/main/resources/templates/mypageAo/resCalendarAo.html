@@ -197,19 +197,16 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/resManage"> <i class="bi bi-card-checklist"></i>예약
 										관리
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/classManage"> <i class="bi-play-btn me-2"></i>클래스
 										관리
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/mypageAoAsk"> <i
 										class="bi-chat-square-dots me-2"></i>문의내역
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
@@ -228,7 +225,6 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/reportFormAo"> <i
 										class="bi bi-exclamation-diamond"></i>신고
-										<div class="ms-auto badge-pill badge bg-secondary"></div>
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3" href="#">
@@ -297,7 +293,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 										</ul>
 									</div>
 									<form>
-										<input type="hidden" name="ptgId" th:value=${id}> <input
+										<input type="hidden" name="ptgId" th:value=${session.id}> <input
 											type="hidden" name="workDay" th:value="${workDay.workDay}">
 									</form>
 								</div>
@@ -540,7 +536,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		  		var shotTime=timeBtn.getAttribute('timecd');
             		const ptgId = $("input[name='ptgId']").val();
             	  console.log(shotTime+"==========");
-            	 // const redate=
+            	 // 숨겨놓은 id들고오기+ 만들어놓은 캘린더날짜(redate),shotTime(reser_time.resTime==reser.shotTime) 
 					console.log(redate+"rrrrrrrrrrr");	
             	  //ajax호출 예약자정보
             	    $.ajax({
@@ -553,7 +549,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             		   }),
             		   contentType: "application/json",
             		   datatype: "json"}).then(result=>{
-            			 if(result.length==0){
+            			 if(result.length==0){		//근무일인데 예약이 없을경우
             				 
             				 $('.card-body.reserInfo').append('<p>예약이 없습니다.</p>');
             			 }else{
