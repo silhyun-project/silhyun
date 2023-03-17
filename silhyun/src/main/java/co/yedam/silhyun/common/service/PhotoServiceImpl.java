@@ -57,7 +57,7 @@ public class PhotoServiceImpl implements PhotoService {
 					
 					//섬네일 처리(이미지만 들어오니까 이미지 타입 체크는 생락
 					Thumbnails.of(uploadFile)
-							  .size(170, 170)
+							  .size(300, 300)
 							  .toFile(new File(saveImgPath, "s_"+fileName));
 					
 					
