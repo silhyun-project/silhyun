@@ -354,8 +354,7 @@ public class mypageAoController {
 	private String classInquiry(@PathVariable String classNum, Model model) {
 		model.addAttribute("classNum", classNum);
 		System.out.println("호출호출?########"+classNum);
-		
-		
+	
 		return "mypageAo/classInquiry";
 	}
 
