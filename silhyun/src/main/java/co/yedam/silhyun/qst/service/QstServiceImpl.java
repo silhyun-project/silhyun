@@ -58,6 +58,48 @@ public class QstServiceImpl implements QstService {
 		return mapper.aoAnsUpdate(cvo);
 	}
 
+	@Override
+	public List<QstVO> getClassQstList() {
+		// TODO Auto-generated method stub
+		return mapper.getClassQstList();
+	}
+
+	@Override
+	public int classQstInsert(QstVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.classQstInsert(vo);
+	}
+
+	@Override
+	public int classQstDelete(QstVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.classQstDelete(vo);
+	}
+
+	@Override
+	public int classQstUpdate(QstVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.classQstUpdate(vo);
+	}
+
+	@Override
+	public int classAnsInsert(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		return mapper.classAnsInsert(cvo);
+	}
+
+	@Override
+	public int classAnsDelete(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		return mapper.classAnsDelete(cvo);
+	}
+
+	@Override
+	public int classAnsUpdate(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		return mapper.classAnsUpdate(cvo);
+	}
+
 	
 
 }
