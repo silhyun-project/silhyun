@@ -7,13 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -101,10 +99,61 @@ public class AdminController {
 		 return msg;
 	}
 	
+	//event 승인요청 승인
+	@RequestMapping("/admin/eventAccept")
+	@ResponseBody
+	public String eventAccept(@RequestParam("eventNum") String eventNum){
+		 System.out.println("컨트롤러로 온 eventNum는 = " + eventNum);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.eventAccept(eventNum);
+		
+		 if (n!=0) {
+			 msg = "이벤트를 승인 완료했습니다.";
+		 }else {
+			 msg ="승인 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
+	
+	//event 승인요청 반려
+	@RequestMapping("/admin/noEventAccept")
+	@ResponseBody
+	public String noEventAccept(@RequestParam("eventNum") String eventNum){
+		 System.out.println("컨트롤러로 온 eventNum는 = " + eventNum);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.noEventAccept(eventNum);
+		
+		 if (n!=0) {
+			 msg = "이벤트를 승인 반려했습니다.";
+		 }else {
+			 msg ="반려 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/admin/memberAccept")
 	public String memberAccept(String ptgId, Model model) {
 		model.addAttribute("ptgList", adminService.ptgCfmList());
+		
+		List<Map<String,Object>> eList = adminService.getEventOList();
+		model.addAttribute("eList", eList);
+
+		
+		System.out.println(model);
+		
 		return "/admin/memberAccept";
 	}
 	

@@ -212,4 +212,19 @@ public class AdminServiceImpl implements AdminSercive {
 	@Override
 	public int noPtgAccept(String ptgId) {
 		return adminMapper.noPtgAccept(ptgId);	}
+
+	@Override
+	public List<Map<String, Object>> getEventOList() {
+		return adminMapper.getEventOList();
+	}
+
+	@Override
+	public int eventAccept(String eventNum) {
+		return adminMapper.eventAccept(eventNum);
+	}
+
+	@Override
+	public int noEventAccept(String eventNum) {
+		return adminMapper.noEventAccept(eventNum);
+	}
 }

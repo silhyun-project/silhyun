@@ -181,13 +181,13 @@
                                         <td class="p-3" align="center" th:text="${iV.iState}>100? 100+'%':${iV.iState} +'%'"></td>
                                         <td class="p" align="center">
 <button class="btn btn-danger m-0" style="width: 130px" th:if="${#strings.equals(iV.iState, '0')}"
-    th:onclick="|location.href='@{/silhyun/classes/classesVideo(classNum=${iV.classNum}, inetNum=${iV.inetNum})}'|">학습시작</button>
+    th:onclick="|location.href='@{/silhyun/classes/classesVideo(classNum=${iV.classNum},inetNum=${iV.inetNum})}'|">학습시작</button>
 
 <button class="btn btn-info m-0" th:if="!${#strings.equals(iV.iState, '0')} and ${iV.iState lt 70}" 
-    th:onclick="|location.href='@{/silhyun/classes/classesVideo(inetNum=${iV.inetNum})}'|">이어 학습하기</button>
+    th:onclick="|location.href='@{/silhyun/classes/classesVideo(classNum=${iV.classNum},inetNum=${iV.inetNum})}'|">이어 학습하기</button>
 
 <button class="btn btn-success m-0"  style="width: 130px" th:if="${iV.iState ge 70}"
-    th:onclick="|location.href='@{/silhyun/classes/classesVideo(inetNum=${iV.inetNum})}'|">학습완료</button>
+    th:onclick="|location.href='@{/silhyun/classes/classesVideo(classNum=${iV.classNum},inetNum=${iV.inetNum})}'|">학습완료</button>
 
 
                                         

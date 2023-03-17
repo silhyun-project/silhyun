@@ -87,7 +87,6 @@
 									</div>
 								</div>
 							</div>
-
 							</div>
 							<!-- End Product Gallery -->
 							<!-- Product Details -->
@@ -233,10 +232,25 @@
         <!-- End Main -->
 
 
-		<script type="text/javascript">
+	<script th:inline="javascript">
+		
+		/*<![CDATA[*/   
+        var role = /*[[${session.role}]]*/
+        var name = /*[[${session.id}]]*/
+       /*]]*/
+       console.log(role[0].authority)
+       
+       console.log(name)
+    </script>
+       		
+<script>
+
+	
 		$(function(){
+			
 			$('#pd_reviews_tab_02').on('click', function(){
-			     ajaxReiew({pageNum:1, amount:5})
+				let ctgrNum = $('#ptgId').val()
+			     ajaxReiew({pageNum:1, amount:5})      ////일단 여기서 작가아이디랑 구분값 넘겨주기 (다른 아작스 페이지도 똑같이)
 			     
 			 window.setTimeout(function(){
 
@@ -269,10 +283,6 @@
 				
 				},300)
 			})
-			
-								
-		
-			
 
 		})
 

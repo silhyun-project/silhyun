@@ -102,7 +102,7 @@
                                         </a>
                                     </li>
                                     <li class="border-bottom mb-0">
-                                        <a class="nav-link-style d-flex align-items-center p-3" href="account-tickets.html">
+                                        <a class="nav-link-style d-flex align-items-center p-3" th:href="@{/silhyun/myPage/myClasses}">
                                             <i class="bi-play-btn me-2"></i>내 클래스 <div class="ms-auto badge-pill badge bg-secondary"></div>
                                         </a>
                                     </li>
@@ -212,15 +212,27 @@
                                         <th class="text-center" style="width: 200px">강의수</th>
                                         <th class="text-center" style="width: 130px">남은 이용기한</th>
                                 </thead>
-                                <tbody>
-                                    	 <tr th:each="myC2,sts2 : ${myC2}" th:Class="${sts2}"  th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${myC2.classNum}) }'|">
-                                        <td class="p-3" align="center"><span class="fw-500" th:text="${sts2.count}"></span></td>
-                                        <td class="p-3"><span class="fw-600" th:text="${myC2.ttl}"></span></td>
-                                        <td class="p-3" align="center" th:text="${myC2.pName}">똑또기강사</td>
-                                        <td class="p-3" align="center" th:text="${myC2.fdCd}">프로필</td>
-                                        <td class="p-3" align="center" th:text="'총 ' + ${myC2.IVCnt} + '강/ 총 ' + ${myC2.timeSum}+'분'"></td>
-                                        <td class="p-3" align="center"><span class="fw-600" style="color: green;" th:text="${myC2.dDayCnt}+'일'"></span></td>
-                                    </tr>
+<tbody  th:each="myC2,sts2 : ${myC2}" th:Class="${sts2}" th:if="${myC2.IVCnt != null and myC2.IVCnt != 0 }" th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${myC2.classNum}) }'|">
+    <tr>
+        <td class="p-3" align="center"><span class="fw-500" th:text="${sts2.count}"></span></td>
+        <td class="p-3"><span class="fw-600" th:text="${myC2.ttl}"></span></td>
+        <td class="p-3" align="center" th:text="${myC2.pName}"></td>
+        <td class="p-3" align="center" th:text="${myC2.fdCd}"></td>
+        <td class="p-3" align="center" th:text="'총 ' + ${myC2.IVCnt} + '강/ 총 ' + ${myC2.timeSum}+'분'"></td>
+        <td class="p-3" align="center"><span class="fw-600" style="color: green;" th:text="${myC2.dDayCnt}+'일'"></span></td>
+    </tr>
+</tbody>
+<tbody  th:each="myC2,sts2 : ${myC2}" th:Class="${sts2}" th:if="${myC2.IVCnt == null or myC2.IVCnt == 0}"
+  data-bs-toggle="modal" data-bs-target="#notPrepared">
+    <tr>
+        <td class="p-3" align="center"><span class="fw-500" th:text="${sts2.count}"></span></td>
+        <td class="p-3"><span class="fw-600" th:text="${myC2.ttl}"></span></td>
+        <td class="p-3" align="center" th:text="${myC2.pName}"></td>
+        <td class="p-3" align="center" th:text="${myC2.fdCd}"></td>
+        <td class="p-3" align="center" th:text="'총 ' + ${myC2.IVCnt} + '강/ 총 ' + ${myC2.timeSum}+'분'"></td>
+        <td class="p-3" align="center"><span class="fw-600" style="color: green;" th:text="${myC2.dDayCnt}+'일'"></span></td>
+    </tr>
+</tbody>
                             </table>
                         </div>
                         
@@ -236,14 +248,43 @@
 <div class="modal fade" id="seeMyC1">
 <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" id ="myC1Body">
-           
+
         </div>
     </div>
 </div>
 <!-- End ptgCfrm from  -->
 
                         
-                        
+
+<!-- Quick View  -->
+<div class="modal fade" id="notPrepared">
+<div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+	              <div class="modal-header bg-secondary">
+	                  <div class="modal-title p-3">
+	                    
+	                     <p class="m-0 text-white">클래스안내</p>
+	                    
+	                  </div>
+	                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	              </div>
+	              <div class="modal-body">
+	                <div class="w-100 p-3">
+
+	                      <div class="mb-3">
+	                         <img  src="/img/blank.jpg" style="width: 440px"  alt="">                          
+	                        </div> 
+	                        <div class="mb-3">
+	                            <b>현재 강의를 준비중입니다.</b>
+	                        </div>     
+
+	                  </div>
+	              </div>
+        </div>
+    </div>
+</div>
+<!-- End ptgCfrm from  -->                        
                         
                         
                         
@@ -339,6 +380,11 @@
 	      	});	      	
 	      	
 	      };
+	      
+	      
+	      function notPrepared(){
+	    	  alert("강의를 준비중입니다.");
+	      }
 	      
 	      </script>
         

@@ -35,13 +35,13 @@ public class UserVO implements UserDetails {
 	}
 
 	@Override
-	public boolean isAccountNonExpired() {
+	public boolean isAccountNonExpired() { //계정 만료
 		
 		return true;
 	}
 
 	@Override
-	public boolean isAccountNonLocked() {
+	public boolean isAccountNonLocked() {  //로그인막기
 		
 		return true;
 	}
@@ -55,7 +55,8 @@ public class UserVO implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		
-		return true;
+		
+		return this.memCd.equals("M4") ? false : true;
 	}
 
 }

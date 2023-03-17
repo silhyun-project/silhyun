@@ -64,11 +64,11 @@
     <i class="fi-shopping-cart"></i> 구입하기
 </button>
 
-<button th:if="${cmPlusInfo != null and cmPlusInfo.buyYN != null and cmPlusInfo.buyYN == 1}" class="btn btn-primary me-3" 
-th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.classNum}) }'|">
+<button type="button" th:if="${cmPlusInfo != null and cmPlusInfo.buyYN != null and cmPlusInfo.buyYN == 1}" class="btn btn-primary me-3" 
+th:onclick="|location.href='@{/silhyun/myPage/myClasses}'|">
     💖 내 학습방
 </button>                            
-                         
+                  
                          
                                     <button type="button" class="btn btn-outline-dark me-3">
                                         <i class="zzim-icon bi-person" style="font-size: 20px"></i> 찜
@@ -481,7 +481,7 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
                                             <a th:text="${random.STAR}"></a>
                                         </div>
                                         <h6 class="product-title">
-<a th:href="@{/silhyun/classes/classesInfo(classNum=${random.CNUM}, id='catLove')}" th:text="${random.TTL}"></a>
+<a th:href="@{/silhyun/classes/classesInfo(classNum=${random.CNUM})}" th:text="${random.TTL}"></a>
                                 </h6>
                                         <a th:text="${random.NAME}"> </a><br>
                          

@@ -47,8 +47,9 @@ public class ClassesController {
 
 	@RequestMapping("/silhyun/classes/classesInfo")
 	public String classesInfo(String classNum, Model model, HttpSession httpSession) {
-	    SessionUser user = (SessionUser) httpSession.getAttribute("user");  
 
+
+	    String id = (String)httpSession.getAttribute("id");
 	    System.out.println("오긴했음 ");
 	    System.out.println("컨트롤러로 온 classNum="+classNum); //확인완료. 모두 잘 온다.
 
@@ -57,8 +58,7 @@ public class ClassesController {
 	    model.addAttribute("plusInfo", ClassesService.CPlusInfo(classNum));
 	    model.addAttribute("randomList", ClassesService.randomList(classNum));	
 	    
-	    if (user != null) {
-	        String id = user.getId();
+	    if (id != null) {
 	        System.out.println("컨트롤러의 id="+id);
 	        model.addAttribute("cmPlusInfo", ClassesService.CMPlusInfo(classNum, id));
 	    }
@@ -71,28 +71,29 @@ public class ClassesController {
 	
 	
 	@RequestMapping("/silhyun/classes/classesVideo")
-	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum, HttpSession httpSession) {
-		
-		System.out.println("inetNum="+inetNum);
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
-	    model.addAttribute("IV", ClassesService.selectIV("2", inetNum, user.getId()));
+	public String classesVideo(Model model, @RequestParam("inetNum") String inetNum, @RequestParam("classNum") String classNum, HttpSession httpSession) {
+	    String id = (String)httpSession.getAttribute("id");		
+		System.out.println("inetNum="+inetNum+"classNum="+classNum+"id="+id);
+	    model.addAttribute("IV", ClassesService.selectIV(classNum, inetNum, id));
 	    System.out.println("컨트롤러에 온 비디오의 세부 IVModel"+model);
+	    model.addAttribute("id",id);
 	    return "classes/classesVideo";
 	}
 	
 	@GetMapping("/silhyun/myPage/myClasses")
-	public String myClasses(String id, Model model, HttpSession httpSession) {
+	public String myClasses(Model model, HttpSession httpSession) {
 		
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");
-		String iddd = user.getId();
-		System.out.println("컨트롤러 아이디 확인"+iddd);
-		model.addAttribute("myName",ClassesService.getName(user.getId()));
-		model.addAttribute("myC1", ClassesService.myTakeC1(user.getId()));
-		model.addAttribute("myC2", ClassesService.myTakeC2(user.getId()));
+	    String id = (String)httpSession.getAttribute("id");
+
+	    
+		System.out.println("컨트롤러 아이디 확인"+id);
+		model.addAttribute("myName",ClassesService.getName(id));
+		model.addAttribute("myC1", ClassesService.myTakeC1(id));
+		model.addAttribute("myC2", ClassesService.myTakeC2(id));
 		
-		int count1 = ClassesService.myTakeC1(user.getId()).size();
+		int count1 = ClassesService.myTakeC1(id).size();
 		System.out.println("컨트롤러러로 온 myTakeC1 사이즈"+count1);
-		int count2 = ClassesService.myTakeC2(user.getId()).size();
+		int count2 = ClassesService.myTakeC2(id).size();
 		System.out.println("컨트롤러러로 온 myTakeC2 사이즈"+count2);
 		
 		model.addAttribute("count1",count1);
@@ -116,9 +117,8 @@ public class ClassesController {
 	
 	@RequestMapping("/silhyun/classes/myClassesVideos")
 	public String myClassesVidios(@RequestParam("classNum") String classNum, Model model, HttpSession httpSession) {
-		
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  
-		String id = user.getId();
+	    String id = (String)httpSession.getAttribute("id");
+
 	System.out.println("비디오 목록으로 가는 클래스넘"+classNum);
 		model.addAttribute("IVInfo",ClassesService.getClassIVInfo(id, classNum));
 		
@@ -143,6 +143,7 @@ public class ClassesController {
     @RequestMapping(value = "/silhyun/classes/insertWInfo", method = RequestMethod.POST)
     public InetClassesWtchVO insertWInfo(InetClassesWtchVO vo) {
 
+    	System.out.println("컨트롤러로 온 안내. 컨트롤러 자체는 왔음");
 		System.out.println("컨트롤러로 온 vo"+vo);
 		int n = ClassesService.insertWInfo(vo);
 		if (n != 0) {
@@ -166,8 +167,7 @@ public class ClassesController {
         result.put("cdtC1List", cdtC1List);
         result.put("cdtC2List", cdtC2List);
         System.out.println("아작스="+result);
-        ObjectMapper objMap = new ObjectMapper();
-        //objMap.writeValueAsString(result)
+
         return result;
     }
     

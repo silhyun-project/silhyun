@@ -43,6 +43,7 @@ function fileUpAction(){
     /*첨부된 이미리즐을 배열에 넣고 미리보기 */
     imageLoader = function(file){
       selFiles.push(file);
+      console.log(selFiles)
       console.log(selFiles.length)
       if(selFiles.length < 7){
 	      var reader = new FileReader();
@@ -107,8 +108,9 @@ function insertReview(){
 		contentType: false,
 		processData: false, 
 		success: function(res){
-			console.log(res.revNum)  //썸네일처리도 해주자
-			location.href = "/silhyun/reviewList";
+			console.log(res.revNum)  
+			//location.href = "/silhyun/reviewList";
+			ajaxReiew({pageNum:1, amount:5})
 			
 		},
 		error: function(err){

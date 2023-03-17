@@ -40,11 +40,29 @@
 	//아이디 체크
 	$('#id').blur(function(){
 		var id = $('#id').val()
-		if(id == ""){
+		var idType = /^[a-zA-Z0-9]*$/;	
+		//길이 공백 특수문자 체크 
+	   //아이디 필수입력
+		if(id == "" || id == null){
 			$('#idMsg').text("아이디를 입력해주세요.")
 			           .css("color", "red")
 			$('#idCk').val("false")
+		}else if(id.search(/\s/) != -1){
+			//빈칸 입력 안됨
+			$('#idMsg').text("아이디에 빈칸이 있습니다.")
+			           .css("color", "red")
+			$('#idCk').val("false")
+		}else if (idLength>10) {
+			$('#idMsg').text("아이디는 1~10자 입력 가능합니다.")
+			           .css("color", "red")
+			$('#idCk').val("false")
+        } else if (!idType.test(id)) {
+	     //아이디 한글 특수문자 포함 안됨   
+			$('#idMsg').text("아이디는 한글과 특수문자를 사용하실수 없습니다.")
+			           .css("color", "red")
+			$('#idCk').val("false")
 		}else{
+			//중복체크
 			$.ajax({
 				url:"/silhyun/idCk?id="+ id,
 				type: "post",
@@ -68,10 +86,13 @@
 	})
 	
 	
-	//비번길이+ 입력 체크
+	//비번길이 조홥 체크
 	$('#pwd').blur(function(){
+		var special = /[~!@\#$%<>^&*]/;
+		var num = /[0-9]/;
+		var eng = /[a-zA-Z]/;
 		let pwd = $('#pwd').val()
-		if(pwd == ""){
+		if(pwd == "" || pwd == null){
 			$('#pwdLengtMsg').text('비밀번호를 입력해 주세요')
 			                 .css("color", "red")
 	        $('#pwLength').val("false")
@@ -79,6 +100,10 @@
 			$('#pwdLengtMsg').text('비밀번호를 8자 ~ 15자 사이로 설정해주세요')
                  .css("color", "red")
 	        $('#pwLength').val("false")
+		}else if(!special.test(pwd)||!num.test(pwd)||!eng.test(pwd)){
+			$('#pwdLengtMsg').text('영문, 숫자, 특수기호로 구성되어야 합니다.')
+			                 .css("color", "red")
+	        $('#pwLength').val("false")			
 		}else{
 			$('#pwdLengtMsg').text('사용가능한 비밀번호 입니다.')
                  .css("color", "green")
