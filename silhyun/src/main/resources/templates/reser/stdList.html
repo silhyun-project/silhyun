@@ -233,7 +233,7 @@
                                             <div class="product-card-info">
                                                 <!--사진관 이름-->
                                                 <h6 class="product-title">
-                                                    <a class="ptgtitle" href="#" th:text="${std.stName}"></a>
+                                                    <a class="ptgtitle" th:href="@{/silhyun/stdDetail/{stId}(stId = ${std.stId})}" th:text="${std.stName}"></a>
                                                 </h6>
                                             </div>
                                         </div>
