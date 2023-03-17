@@ -541,5 +541,26 @@ WHERE i.class_num = #{classNum} AND i.inet_num = #{inetNum} AND (w.id = #{id} OR
     UPDATE SET stw_time = #{stwTime}, ew_time = #{ewTime}, cumlw_time = cumlw_time + #{cumlwTime}
 </insert>
 
+	<!-- 찜  -->
+	<!-- 클래스 찜 데이터 확인 -->
+	<select id="cFindZzim" parameterType="co.yedam.silhyun.common.vo.ZzimVO" resultType="int">
+		SELECT COUNT(*)
+		FROM ZZIM
+		WHERE ID = #{id}
+		AND CTGR_NUM = #{ctgrNum}
+		AND UPPER(CTGR) = 'C'
+	</select>
+	<!-- 클래스 찜 추가 -->
+	<insert id="cInsertZzim" parameterType="co.yedam.silhyun.common.vo.ZzimVO">
+		INSERT INTO ZZIM (ID, CTGR, CTGR_NUM)
+		VALUES (#{id},'C',#{ctgrNum})
+	</insert>
+	
+	<!-- 클래스 찜 삭제  -->
+	<delete id="cDelZzim" parameterType="co.yedam.silhyun.common.vo.ZzimVO">
+		DELETE FROM ZZIM 
+		WHERE ID = #{id} 
+		AND CTGR_NUM =#{ctgrNum}
+	</delete>
 
 </mapper>

@@ -147,9 +147,9 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		}
 
 		.cal-table td.day-active {
-			background: #ff8585;
+			background: #fff;
 			border-radius: 50%;
-			color: #fff;
+			color: lightgray;
 		}
 
 		.cal-table td.has-event:after {
@@ -360,77 +360,72 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 									<div class="product-detail-actions d-flex">
 										<div class="cart-button" >
 											<button class="btn btn-primary pd-cart-btn mt-3"  style="width: 100%;"
-											data-bs-toggle="modal" data-bs-target="#topbarReser" >예약하기</button>
+											data-bs-toggle="modal" data-bs-target="#topbarReser"disabled="true">예약하기</button>
 										</div>
 									</div>
-									<!-- Login Popup  -->
-<div class="modal fade" id="topbarReser">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <div class="modal-title p-3">
-                    <h5 class="m-0 text-white" style="text-align: center;">예약 정보 확인</h5>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-			<form id="reserTable" action="/pay/orderForm/" method="post">
-            <div class="modal-body">
-				
-                <div class="w-100 p-3">
-					<div class="card">
-						<div class="card-body" style="text-align: center;">
-							<div class="row g-3 reserTable">
-								<div class="col-12">
-									<span class="small letter-spacing-2">작가</span>
-									<h6 class="m-0 mt-1">[[${res[0].name}]]</h6>
+									<!-- 결제 정보 확인 모달  -->
+								<div class="modal fade" id="topbarReser">
+								    <div class="modal-dialog modal-dialog-centered">
+								        <div class="modal-content">
+								            <div class="modal-header bg-primary">
+								                <div class="modal-title p-3">
+								                    <h5 class="m-0 text-white" style="text-align: center;">예약 정보 확인</h5>
+								                </div>
+								                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								            </div>
+											<form id="reserTable" action="/pay/orderForm/" method="post">
+								            <div class="modal-body">
+												
+								                <div class="w-100 p-3">
+													<div class="card">
+														<div class="card-body" style="text-align: center;">
+															<div class="row g-3 reserTable">
+																<div class="col-12">
+																	<span class="small letter-spacing-2">작가</span>
+																	<h6 class="m-0 mt-1">[[${res[0].name}]]</h6>
+																</div>
+																<div class="col-12">
+																	<span class="small letter-spacing-2">예약 날짜</span>
+																	<h6 class="m-0 mt-1 reserDate"></h6>
+																</div>
+																<div class="col-12">
+																	<span class="small letter-spacing-2">예약 시간</span>
+																	<h6 class="m-0 mt-1 reserTime"></h6>
+																</div>
+																<div class="col-12">
+																	<span class="small letter-spacing-2">촬영 장소</span>
+																	<h6 class="m-0 mt-1">[[${res[0].shotPlace}]]</h6>
+																</div>
+																<div class="col-12">
+																	<span class="small letter-spacing-2 op">촬영 옵션</span>
+																	<h6 class="m-0 mt-1 reserOP"></h6>
+																</div>
+																<hr>
+																<div class="col-12">
+																	<span class="small letter-spacing-2">Total</span>
+																	<h6 class="m-0 mt-1 reserTotal"></h6>
+																</div>
+															</div>
+														</div>
+														<div class="card-footer d-flex p-3">
+															<a class="link-dark text-uppercase fw-500" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;">Edit</a>
+															<button type="submit" class="link-danger text-uppercase fw-500 ms-auto" style="border: 0;">결제</button></a>
+														</div>
+													</div>
+												</div>
+								            </div>
+											<input type="hidden" name="shotDate" >
+											<input type="hidden" name="shotTime"> 
+											<input type="hidden" name="opNum">
+											<input type="hidden" name="resPri">
+											<input type="hidden" name="ptgId" th:value="${res[0].ptgId}">
+											<input type="hidden" name="id" th:value="${id}">
+											<input type="hidden" name="ttl">
+										</form>
+								        </div>
+								    </div>
 								</div>
-								<div class="col-12">
-									<span class="small letter-spacing-2">예약 날짜</span>
-									<h6 class="m-0 mt-1 reserDate"></h6>
-								</div>
-								<div class="col-12">
-									<span class="small letter-spacing-2">예약 시간</span>
-									<h6 class="m-0 mt-1 reserTime"></h6>
-								</div>
-								<div class="col-12">
-									<span class="small letter-spacing-2">촬영 장소</span>
-									<h6 class="m-0 mt-1">[[${res[0].shotPlace}]]</h6>
-								</div>
-								<div class="col-12">
-									<span class="small letter-spacing-2 op">촬영 옵션</span>
-									<h6 class="m-0 mt-1 reserOP"></h6>
-								</div>
-								<hr>
-								<div class="col-12">
-									<span class="small letter-spacing-2">Total</span>
-									<h6 class="m-0 mt-1 reserTotal"></h6>
-								</div>
-							</div>
-						</div>
-						<div class="card-footer d-flex p-3">
-							<a class="link-dark text-uppercase fw-500" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;">Edit</a>
-							<button type="submit" class="link-danger text-uppercase fw-500 ms-auto" style="border: 0;">결제</button></a>
-						</div>
-					</div>
-				</div>
-            </div>
-			<input type="hidden" name="shotDate" >
-			<input type="hidden" name="shotTime"> 
-			<input type="hidden" name="opNum">
-			<input type="hidden" name="resPri">
-			<input type="hidden" name="ptgId" th:value="${res[0].ptgId}">
-			<input type="hidden" name="id" th:value="${id}">
-			<input type="hidden" name="ttl">
-			
-
-		
-		</form>
-        </div>
-    </div>
-</div>
-<!-- End Login Popup  -->
-
-
+								<!-- End 모달  -->
 									<!-- 안내사항 -->
 									<div class="product-detail-collapse">
 										<div class="pd-collapse-row">
@@ -464,7 +459,6 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 														스튜디오 사정상 공간 내 반려동물 출입을 제한하고 있습니다.<br> ※ 대형 출력용 고화질
 														jpg 파일은 현장에서 문의 후 구매가 가능합니다.<br> ※ 상반신 탈의 촬영은 불가능합니다.<br>
 														※ 사전 동의없는 2차 가공과 상업적 사용은 불가합니다.<br>
-
 													</p>
 												</div>
 											</div>
@@ -476,7 +470,6 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 												class="bi bi-chevron-up"></i></a>
 											<div class="collapse" id="pd_review">
 												<div class="pd-collapse-box">
-
 													<p>
 														<strong>Q.무엇을 준비하면 될까요?</strong><br> A.유형학적인 사진이 아닌
 														각자의 개성을 존중하고자하기때문에 자연스러움을 추구하고 있습니다.<br> 원하시는 분위기에 대해
@@ -495,11 +488,9 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					</div>
 					<form>
 						<input type="hidden" name="ptgId" th:value="${res[0].ptgId}">
-						
 					</form>
 				</section>
 				<!-- End Product Details -->
-
 			</main>
 			<!-- End Main -->
 		</div>
@@ -523,7 +514,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		<script src="/js/theme.js"></script>
 		<!-- End script start -->
 		<script>
-		
+			//📌달력 만들기
             const init = {
               monList: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
                 'November', 'December'
@@ -559,9 +550,9 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
               }
             };
       
-            const $calBody = document.querySelector('.cal-body');
-            const $btnNext = document.querySelector('.btn-cal.next');
-            const $btnPrev = document.querySelector('.btn-cal.prev');
+            const $calBody = document.querySelector('.cal-body');  //달력 body
+            const $btnNext = document.querySelector('.btn-cal.next');  //달력 next버튼
+            const $btnPrev = document.querySelector('.btn-cal.prev');  //달력 prev버튼
       
             function loadDate(date, dayIn) {
               document.querySelector('.cal-date').textContent = date;
@@ -613,7 +604,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
               $calBody.innerHTML = trtd;
             }
          
-            function createNewList(val) {
+            function createNewList(val) {  //버튼 이벤트에 따라서 동적으로 달력 생성
               let id = new Date().getTime() + '';
               let yy = init.activeDate.getFullYear();
               let mm = init.activeDate.getMonth() + 1;
@@ -633,8 +624,16 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             loadYYMM(init.today);
             loadDate(init.today.getDate(), init.today.getDay());
       
-            $btnNext.addEventListener('click', () => loadYYMM(init.nextMonth())); //다음 버튼 클릭하면 발생하는 이벤트
-            $btnPrev.addEventListener('click', () => loadYYMM(init.prevMonth())); //이전 버튼 클릭하면 발생하는 이벤트
+            $btnNext.addEventListener('click', () => { //다음 버튼 클릭하면 발생하는 이벤트
+				loadYYMM(init.nextMonth())
+				makePtgCal()
+				makeGray()
+			}); 
+            $btnPrev.addEventListener('click', () => { //이전 버튼 클릭하면 발생하는 이벤트
+				loadYYMM(init.prevMonth())
+				makePtgCal()
+				makeGray()
+			}); 
       
             $calBody.addEventListener('click', (e) => { //날자 클릭하면 발생하는 event
               if (e.target.classList.contains('day')) {
@@ -665,101 +664,159 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
                 $('.product-description.timeTable').children().remove()
               
             }
-      
 
-
-			//달력에 작가 예약 가능한 요일 까만색으로 만들기  -> 그 안에서 아작스 불러서 처리하기(예약 가능한 시간)
-			let ptgReYnDate = $("input[name='ptgReYnDate']").val()
-			var arr = ptgReYnDate.split(',')
-			console.log($('td.day').attr('data-fdate'))
-
-			
-			
-			console.log(arr)
-			$(arr).each(function(idx,item){
-				console.log($(this))
-					
-
-					$('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
-					e.stopPropagation()
-					
-					// $('td.day').each(function(idx,item){
-					// console.log($(this).attr('data-fdate'))
-					// if($(this).attr('data-fdate') < new Date()){ 
-					// 	$(this).css('color','lightgray') } })
-
-					if($('#selectDate') != null){  
-						$('#selectDate').children().remove()
-                    }
-					$('#selectDate').text($(this).attr('data-fdate'))
-                    if( $('.product-description.timeTable') !=null){
-						$('.product-description.timeTable').children().remove()
-                    }
-
-					function leadingZeros(n, digits) {
-						var zero = '';
-						n = n.toString();
-						
-						if (n.length < digits) {
-							for (i = 0; i < digits - n.length; i++)
-							zero += '0';
-						}
-						return zero + n;
-					}	
-					
-					var clickD = $(this).attr('data-fdate').toString()
-					let nowD = new Date();
-						
-					if(clickD){
-						nowD = 
-							leadingZeros(nowD.getFullYear(), 4) + '-' +
-							leadingZeros(nowD.getMonth() + 1, 2) + '-' +
-							leadingZeros(nowD.getDate(), 2);
-						if(clickD < nowD){
-							// reloadTodo()
-							//$('.week').find('td').css('color','lightgray')
-							alert("예약 날짜는 오늘 날짜보다 빠를 수 없습니다");
-							return false
-						}
-						}	
-					
-					$('.product-description.timeTable').append(
-                        `<div class="card">
-                            <div class="card-header py-3 d-flex align-items-center">
-                                <h5 class="m-0">예약가능한 시간</h5>
-                            </div>
-                            <div class="card-body time"></div>
-						</div>`
-                    )
-					//ajax호출해서 선택가능한 시간 , 날짜 누르면 달력 하단에 예약 가능시간 띄우기
-					const ptgId = $("input[name='ptgId']").val();
-					console.log(ptgId)
-					const redate =$(this).attr('data-fdate')					
-
-					$.ajax({
-						url: '/ajaxResTime/' + ptgId +"/"+ redate,
-             			datatype: "json"
-					}).then(result =>{
-						//console.log(result)
-						$(result).each(function(idx,item){
-							console.log(result)
-							//console.log(item.resyn)
-							let cdNameBtn = `<button class="btn btn-primary timeList ms-2" id="${item.resyn}" timeCD="${item.resTime}" >${item.rest}</button>`
-							$('.card-body.time').append(cdNameBtn)
-								})
-							//console.log($('.btn.btn-primary.timeList'))
-							$('.btn.btn-primary.timeList').each(function(a,b){
-								//console.log($(b))
-								if($(b).attr('id').replace(/[^0-9]/g,'') == '1'){
-									$(b).prop("disabled", true)
-										//console.log('비활')
-									}
-								
-								})
-					}).then(error => console.log(error))
-				})
-				
+			$(function(){
+				makePtgCal()
+				makeGray()
 			})
+			
+			//📌선택 내역에 옵션이 없으면 모달창 뜨지않게하기 
+			function noselectedOp(e){
+				console.log($('.col-8.selectOP').next().length)
+					if($('.col-8.selectOP').next().length == 0){
+						$('.btn.btn-primary.pd-cart-btn.mt-3').prop('disabled',true)
+						console.log('없다')
+						
+					}else if($('.col-8.selectOP').next().length > 0){
+						$('.btn.btn-primary.pd-cart-btn.mt-3').prop('disabled',false)
+						console.log('있다')
+					}
+
+				
+			}
+
+			//📌오늘 날짜 이전의 달력은 다 회색으로 보여주기
+			function makeGray(){
+				function leadingZeros(n, digits) {
+					let zero = '';
+					n = n.toString();
+					
+					if (n.length < digits) {
+						for (i = 0; i < digits - n.length; i++)
+						zero += '0';
+					}
+					return zero + n;
+				}	
+				//오늘 날짜
+				let nowD = new Date();
+				console.log(nowD)
+				let plusD = 
+				leadingZeros(nowD.getFullYear(), 4) + '-' +
+				leadingZeros(nowD.getMonth() + 7, 2) + '-' +
+				leadingZeros(nowD.getDate(), 2);
+				nowD =
+				leadingZeros(nowD.getFullYear(), 4) + '-' +
+				leadingZeros(nowD.getMonth() + 1, 2) + '-' +
+				leadingZeros(nowD.getDate(), 2);
+
+				console.log(plusD)
+				//console.log(nowD)
+				$('.week > .day').each(function(idx,itm){
+					//console.log($(itm).attr('data-fdate'))
+					if($(itm).attr('data-fdate') < nowD){
+						$(itm).css('color','lightgray')
+					}else if($(itm).attr('data-fdate') > plusD)
+					{
+						$(itm).css('color','lightgray').on('click',function(){
+							reloadTodo()
+						})
+						
+					}
+						
+				})
+			}
+
+			//📌달력에 작가 예약 가능한 요일 까만색으로 만들기  -> 그 안에서 아작스 불러서 처리하기(예약 가능한 시간)
+			function makePtgCal(){   
+				let ptgReYnDate = $("input[name='ptgReYnDate']").val()
+				var arr = ptgReYnDate.split(',')
+				console.log($('td.day').attr('data-fdate'))
+	
+				console.log(arr)
+				$(arr).each(function(idx,item){
+					console.log($(this))
+	
+						$('.week').find(`td[id=${item}]`).css('color', 'black').on('click',function(e){
+						e.stopPropagation()
+						
+						// $('td.day').each(function(idx,item){
+						// console.log($(this).attr('data-fdate'))
+						// if($(this).attr('data-fdate') < new Date()){ 
+						// 	$(this).css('color','lightgray') } })
+	
+						if($('#selectDate') != null){  
+							$('#selectDate').children().remove()
+						}
+						$('#selectDate').text($(this).attr('data-fdate'))
+						if( $('.product-description.timeTable') !=null){
+							$('.product-description.timeTable').children().remove()
+						}
+	
+						function leadingZeros(n, digits) {
+							var zero = '';
+							n = n.toString();
+							
+							if (n.length < digits) {
+								for (i = 0; i < digits - n.length; i++)
+								zero += '0';
+							}
+							return zero + n;
+						}	
+						
+						var clickD = $(this).attr('data-fdate').toString()
+						let nowD = new Date();
+							
+						if(clickD){
+							nowD = 
+								leadingZeros(nowD.getFullYear(), 4) + '-' +
+								leadingZeros(nowD.getMonth() + 1, 2) + '-' +
+								leadingZeros(nowD.getDate(), 2);
+							if(clickD < nowD){
+								// reloadTodo()
+								//$('.week').find('td').css('color','lightgray')
+								alert("예약 날짜는 오늘 날짜보다 빠를 수 없습니다");
+								return false
+							}
+							}	
+						
+						$('.product-description.timeTable').append(
+							`<div class="card">
+								<div class="card-header py-3 d-flex align-items-center">
+									<h5 class="m-0">예약가능한 시간</h5>
+								</div>
+								<div class="card-body time"></div>
+							</div>`
+						)
+						//ajax호출해서 선택가능한 시간 , 날짜 누르면 달력 하단에 예약 가능시간 띄우기
+						const ptgId = $("input[name='ptgId']").val();
+						console.log(ptgId)
+						const redate =$(this).attr('data-fdate')					
+	
+						$.ajax({
+							url: '/ajaxResTime/' + ptgId +"/"+ redate,
+							 datatype: "json"
+						}).then(result =>{
+							//console.log(result)
+							$(result).each(function(idx,item){
+								console.log(result)
+								//console.log(item.resyn)
+								let cdNameBtn = `<button class="btn btn-primary timeList ms-2" id="${item.resyn}" timeCD="${item.resTime}" >${item.rest}</button>`
+								$('.card-body.time').append(cdNameBtn)
+									})
+								//console.log($('.btn.btn-primary.timeList'))
+								$('.btn.btn-primary.timeList').each(function(a,b){
+									//console.log($(b))
+									if($(b).attr('id').replace(/[^0-9]/g,'') == '1'){
+										$(b).prop("disabled", true)
+											//console.log('비활')
+										}
+									
+									})
+						}).then(error => console.log(error))
+					})
+					
+				})  //end 작가 근무 요일에 따른 달력 그리기
+			}
 
             //📌예약 가능한 시간 클릭하면 시간에 선택한 시간들어가도록 
             $('.product-description.timeTable').on('click','.timeList',function(){  //그룹이벤트 써야함!!
@@ -781,11 +838,9 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 // 				$('.btn.btn-primary.pd-cart-btn').prop("disabled", false)
 // 				console.log('dkdkdkdkdkdkk')
 // 			}
-
+			
 
 			 })
-
-
 
 			//📌체크박스 체크하면 선택내역에 추가
 		   let totalMoney = Number(0);
@@ -795,6 +850,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			console.log(ckOps)
 			for(let ckOp of ckOps){
 				$(ckOp).on('click',function(){
+					noselectedOp()
 					if(ckOp.checked == true){
 						// $('.product-description.selectedOp').append(template)
 						//$('.row.align-items-center.selectOP').append()
@@ -846,36 +902,39 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 		  
 		   //📌예약 버튼 누르면 모달창에 정보 담기 
 			function modalInfo(){
-			   $('.btn.btn-primary.pd-cart-btn').on('click',function(e){
-					let reserDate = $('#selectDate').text()
-				   let reserTime = $('#selectTime').text()
-				   let resPri =Number($('.text-end.text-dark.totalMoney').text().replace(/[^0-9]/g,''))
-				$('input[name="shotDate"]').val(reserDate)
-				$('input[name="shotTime"]').val($('#selectTime').attr('timeCD'))
-				console.log(typeof resPri)
-				console.log(resPri)
-				$('input[name="resPri"]').val(resPri)
-				
-				//예약 날짜, 예약 시간, 예약 옵션, 최종 가격
-				let reserArry = []
-				$('.reserTable').find('.reserDate').text(reserDate)
-				$('.reserTable').find('.reserTime').text(reserTime)
-				$('.reserTotal').text($('.text-end.text-dark.totalMoney').text())
-				$('.col-8.selectOP').each(function(a,b){
-					console.log($(b).find('.selectOPNM').text())
-					reserArry.push($(b).find('.selectOPNM').text())
-				})
-				$('input[name="ttl"]').val(reserArry)
-				$(reserArry).each(function(idx,op){
+				$('.btn.btn-primary.pd-cart-btn').on('click',function(e){
+					   let reserDate = $('#selectDate').text()
+					   let reserTime = $('#selectTime').text()
+					   let resPri =Number($('.text-end.text-dark.totalMoney').text().replace(/[^0-9]/g,''))
+					$('input[name="shotDate"]').val(reserDate)
+					$('input[name="shotTime"]').val($('#selectTime').attr('timeCD'))
+					console.log(typeof resPri)
+					console.log(resPri)
+					$('input[name="resPri"]').val(resPri)
 					
-					$('.small.letter-spacing-2.op').append(
-						`<h6 class="m-0 mt-1 reserOP">${op}</h6>`
-						).attr('id',$('.text-dark.fw-500'))
-						//$('.reserTable').find('.reserOP').text(op)		
+					//예약 날짜, 예약 시간, 예약 옵션, 최종 가격
+					let reserArry = []
+					$('.reserTable').find('.reserDate').text(reserDate)
+					$('.reserTable').find('.reserTime').text(reserTime)
+					$('.reserTotal').text($('.text-end.text-dark.totalMoney').text())
+					$('.col-8.selectOP').each(function(a,b){
+						console.log($(b).find('.selectOPNM').text())
+						reserArry.push($(b).find('.selectOPNM').text())
 					})
+					$('input[name="ttl"]').val(reserArry)
+					$(reserArry).each(function(idx,op){
+						
+						$('.small.letter-spacing-2.op').append(
+							`<h6 class="m-0 mt-1 reserOP">${op}</h6>`
+							).attr('id',$('.text-dark.fw-500'))
+							//$('.reserTable').find('.reserOP').text(op)		
+						})
+					
 				})
 				
 		   }
+
+		   
           </script>
 	</div><!--END layout:fragment="content" -->
 </body>
