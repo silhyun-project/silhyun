@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,68 +56,47 @@ public class mypageAoController {
 	}
 
 	@RequestMapping("/photo/modPfAo")
-	public String modpfAo(Model model,  HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
-			model.addAttribute("workDay",mypageAoService.selectWorkDay(user.getId()));
-			model.addAttribute("role",user.getRole());
-		}
+	public String modpfAo(Model model,  HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
+		model.addAttribute("workDay",mypageAoService.selectWorkDay(id));
 
 		return "mypageAo/modPfAo";
 	}
 
 	@RequestMapping("/photo/resManage")
-	public String resManage(Model model, HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-			model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
-			model.addAttribute("resList", mypageAoService.getReserList(user.getId()));
-		}
+	public String resManage(Model model, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
+		model.addAttribute("resList", mypageAoService.getReserList(id));
 
 		return "mypageAo/resManage";
 	}
 
 	@GetMapping("/photo/classManage")
-	public String classManage(Model model, HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-
-		}
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
-		model.addAttribute("clManage", mypageAoService.classList(user.getId()));
+	public String classManage(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
+	
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
+		model.addAttribute("clManage", mypageAoService.classList(id));
 
 		return "mypageAo/classManage";
 	}
 
 	@GetMapping("/photo/mypageAoAsk")
-	public String mypageAoAsk(Model model, HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-
-		}
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+	public String mypageAoAsk(Model model, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 
 		return "mypageAo/mypageAoAsk";
 	}
 
 	@GetMapping("/photo/resCalendarAo")
-	public String resCalendarAo(Model model,HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-
-		}
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
-		model.addAttribute("workDay",mypageAoService.selectWorkDay(user.getId()));
+	public String resCalendarAo(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
+		model.addAttribute("workDay",mypageAoService.selectWorkDay(id));
 
 		
 		return "mypageAo/resCalendarAo";
@@ -145,26 +125,18 @@ public class mypageAoController {
 	
 
 	@GetMapping("/photo/mypageStatsAo")
-	public String mypageStatsAo(Model model ,HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-
-		}
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+	public String mypageStatsAo(Model model ,HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 		return "mypageAo/mypageStatsAo";
 	}
 
 	@GetMapping("/photo/reportFormAo")
-	public String reportAo(Model model,HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-
-		}
-		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(user.getId()));
+	public String reportAo(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		
+		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 		return "mypageAo/reportFormAo";
 	}
 
@@ -290,6 +262,7 @@ public class mypageAoController {
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getId() + key);
+			vo.setName(vo.getId()+"님의 이벤트");
 			
 
 			mypageAoService.applyEvent(vo); // db에 담음
@@ -362,15 +335,12 @@ public class mypageAoController {
 
 	@PostMapping("/photo/insertOption")
 	@ResponseBody
-	public String insertOption(@RequestBody List<OptionsVO> options,Model model,HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-		}
+	public String insertOption(@RequestBody List<OptionsVO> options,Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
+	
 		// OptionsVO 객체를 반복문을 통해 insertOption 메서드로 전달
 		for (OptionsVO vo : options) {
-			vo.setPtgId(user.getId());
+			vo.setPtgId(id);
 //	        vo.setOpNum(vo.getPtgId() + key.toString());
 			System.out.println("+++~~~~~~" + vo);
 			mypageAoService.insertOption(vo);
@@ -379,9 +349,13 @@ public class mypageAoController {
 		return "";
 	}
 	
-	@RequestMapping("/photo/classInquiry/{classNum}")
-	private String classInquiry(String classNum, Model model) {
+	@RequestMapping("/classInquiry/{classNum}")
+	@ResponseBody
+	private String classInquiry(@PathVariable String classNum, Model model) {
 		model.addAttribute("classNum", classNum);
+		System.out.println("호출호출?########"+classNum);
+		
+		
 		return "mypageAo/classInquiry";
 	}
 
