@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -261,6 +262,7 @@ public class mypageAoController {
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getId() + key);
+			vo.setName(vo.getId()+"님의 이벤트");
 			
 
 			mypageAoService.applyEvent(vo); // db에 담음
@@ -347,9 +349,13 @@ public class mypageAoController {
 		return "";
 	}
 	
-	@RequestMapping("/photo/classInquiry/{classNum}")
-	private String classInquiry(String classNum, Model model) {
+	@RequestMapping("/classInquiry/{classNum}")
+	@ResponseBody
+	private String classInquiry(@PathVariable String classNum, Model model) {
 		model.addAttribute("classNum", classNum);
+		System.out.println("호출호출?########"+classNum);
+		
+		
 		return "mypageAo/classInquiry";
 	}
 
