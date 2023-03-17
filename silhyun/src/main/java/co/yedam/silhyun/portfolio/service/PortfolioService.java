@@ -29,4 +29,7 @@ public interface PortfolioService {
 	
 	 String insertPortfolio(List<MultipartFile> files,PortfolioVO portfolioVO);
 	 List<PortfolioVO> imsiList(String ptgId);//임시리스트
+	 
+	 //수정관련
+	 PortfolioVO portfolioSelectOne(String portNum);
 }

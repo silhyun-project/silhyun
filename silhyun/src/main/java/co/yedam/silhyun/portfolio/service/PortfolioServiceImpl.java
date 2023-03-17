@@ -90,6 +90,18 @@ public class PortfolioServiceImpl implements PortfolioService {
 		return portfolioMapper.imsiList(ptgId);
 	}
 
+	@Override
+	public PortfolioVO portfolioSelectOne(String portNum) {
+		// TODO Auto-generated method stub
+		return portfolioMapper.portfolioSelectOne(portNum);
+	}
+	
+	
+	
+	
+	
+	
+
 //	@Override
 //	public void updatePortfolio(PortfolioVO portfolioVO, List<MultipartFile> files) throws IOException {
 //

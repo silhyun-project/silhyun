@@ -164,9 +164,10 @@
 								<i class="bi-three-dots"></i>
 								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
 									<ul class="menuButtonlist">
-										<li style="display: none"><input type="hidden" name='portNum' value=""></li>
-										<li class="menuButton-item"><button type="button" class="menuButton-item">
-												수정하기</button></li>
+										<li style="display: none"><input type="hidden"
+											name='portNum' value=""></li>
+										<li class="menuButton-item"><button type="button"
+												class="menuButton-item">수정하기</button></li>
 										<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
 									</ul>
 								</form>
@@ -365,6 +366,15 @@
 								$(".mTopSectionInfo").empty();
 								$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
 				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))끝
+					////////////////////////////////수정폼으로 데려가기~~~~
+		$('.menuButton i').click(function() {
+			$('.menuButton').find('input').val(portNum);//input에 portNum넣기
+			console.log('호호호호호호호호호호호호호')
+			console.log($('.menuButton').find('input').val())
+		})
+		$('.menuButton-item button').click(function() { $('#goUpdatePort').submit(); })
+
+		///수정폼////////////////////////////
 				
 				
 				

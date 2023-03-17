@@ -33,5 +33,5 @@ public interface PortfolioMapper {
 	
 	
 	List<PortfolioVO> imsiList(String ptgId);//작가별 임시리스트 띄우기
-	
+	PortfolioVO portfolioSelectOne(String portNum);//포트폴리오selectOne
 }

@@ -129,7 +129,7 @@ $(function() {
 
 				let imsilist = `<tr><td><input class="checkItem" type="checkbox"></td><td>${imsiCntn}</td> 
 					<td>${result[i].portDate}</td>
-					<td><input type="hidden" value='${result[i].portNum}'></td><td>수정 <td>
+					<td><input type="hidden" name="portNum" value='${result[i].portNum}'></td><td class="imsiupdateBtn">수정 <td>
 					<td> 삭제</td></tr>`
 				$('.imsi').append(imsilist)
 			}
@@ -140,22 +140,28 @@ $(function() {
 			//다 체크하기.
 			$('.checkAll').click(function() {
 				$('.checkItem').prop('checked', this.checked);
-			});
+			});//다 체크하기 끝
 			//X버튼 체크 같이 풀기		  
 			$('.imsiClose').click(function() {
 				$('.imsi').toggle();
 				$('input:checked').prop('checked', false);
+			})//X버튼 체크 같이 풀기 끝
+			
+			//임시리스트 수정버튼
+			$('.imsi').on('click', '.imsiupdateBtn', function() {
+				console.log('ggggg')
+				var portNum = $(this).closest('tr').find('input[type="hidden"]').val();
+				window.location.href = `/silhyun/portfolioUpdate?portNum=${portNum}`;
 			})
-		}
+		}//아작스
 	})
 
 
 	$('.btn.btn-outline-dark.me-3.imsiList').click(function() {
 		$('.imsi').toggle();
-	})
-
-
-
+	})//임시리스트 토글
+	
+	
 
 
 

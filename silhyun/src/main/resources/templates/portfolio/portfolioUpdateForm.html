@@ -23,6 +23,11 @@
 </head>
 
 <body>
+
+
+
+
+
 	<div layout:fragment="content">
 		<!-- Skippy & Prload -->
 		<!-- skippy -->
@@ -56,6 +61,7 @@
 							<div class="col-lg-6 my-2">
 								<h1 class="m-0 h4 text-center text-lg-start">
 									portfolio<i class="bi-plus-lg"></i>
+									<div class="updateInfo" style="display: none;">[[${portfolioVO.portNum}]]</div>
 								</h1>
 							</div>
 							<div class="col-lg-6 my-2">
@@ -65,6 +71,7 @@
 										href="#"><i class="bi bi-home"></i>Home</a></li>
 									<li class="breadcrumb-item text-nowrap active"
 										aria-current="page">Product</li>
+
 								</ol>
 							</div>
 						</div>
@@ -162,7 +169,7 @@
     ========================
     -->
 		<!-- script start -->
-		<script src="/js/portfolioInsert.js"></script>
+		<script src="/js/portfolioUpdate.js"></script>
 		<!-- jquery -->
 		<script src="/js/jquery-3.5.1.min.js"></script>
 		<!--bootstrap-->
