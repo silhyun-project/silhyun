@@ -127,6 +127,24 @@
 	 	) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount}) B WHERE RN > (#{cri.pageNum}-1) * #{cri.amount}
 	 ]]>
 	</select>
+	<!-- 작가 찜 데이터 확인 -->
+	<select id="findZzim" parameterType="co.yedam.silhyun.common.vo.ZzimVO" resultType="int">
+		SELECT COUNT(*)
+		FROM ZZIM
+		WHERE ID = #{id}
+		AND CTGR_NUM = #{ctgrNum}
+		AND UPPER(CTGR) = 'A'
+	</select>
+	<!-- 작가 찜 추가 -->
+	<insert id="insertZzim" parameterType="co.yedam.silhyun.common.vo.ZzimVO">
+		INSERT INTO ZZIM (ID, CTGR, CTGR_NUM)
+		VALUES (#{id},'A',#{ctgrNum})
+	</insert>
 	
-	
+	<!-- 작가 찜 삭제  -->
+	<delete id="delZzim" parameterType="co.yedam.silhyun.common.vo.ZzimVO">
+		DELETE FROM ZZIM 
+		WHERE ID = #{id} 
+		AND CTGR_NUM =#{ctgrNum}
+	</delete>
 </mapper>

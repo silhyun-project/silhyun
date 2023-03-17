@@ -41,9 +41,7 @@ $.ajax({
 											&nbsp; <small>${ptgInfo[0].zzims}</small>
 										</p>
 									</div>
-
 								</div>
-
 								<!-- 작가프로필 사진 -->
 								<div class="mb-3">
 									<a class="gallery-link"> <img src="${ptgInfo[0].profile}"
@@ -55,7 +53,6 @@ $.ajax({
 								<div class="product-description">
 									<p>${ptgInfo[0].itr}</p>
 								</div>
-
 								<div class="product-detail-actions d-flex flex-wrap pt-3">
 									<div class="cart-button mb-3 d-flex">
 										<button class="btn btn-dark me-3">리뷰 보기</button>

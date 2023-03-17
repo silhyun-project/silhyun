@@ -87,7 +87,6 @@
 									</div>
 								</div>
 							</div>
-
 							</div>
 							<!-- End Product Gallery -->
 							<!-- Product Details -->
@@ -101,14 +100,14 @@
 											<h4 class="h4">[[${ptg[0].name}]]</h4>
 										</div>
 										<div class="product-wishlist">
-											<a href="#" class="btn"> <i class="fi-heart"></i>
-											</a>
-											<p>[[${ptg[0].zzims}]]</p>
+											<a class="btn zzim" style="width: 50px;height: 50px"> <i class="zzim-icon bi-person" style="font-size: 30px"></i>
+											</a><br>
+											<span class="text-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[${ptg[0].zzims}]]</span>
 										</div>
 									</div>
 									<div class="product-description">
 										<p style="height: 370px;">[[${ptg[0].itr}]]</p>
-										<p>인스타그램 [[${ptg[0].inst}]]</p>
+										 <i class="bi-instagram" style="font-size: 15px"></i><span>  인스타그램 [[${ptg[0].inst}]]</span>
 									</div>
 
 									<div class="product-detail-actions d-flex flex-wrap">
@@ -225,14 +224,33 @@
                 </div>
             </section>
             <!-- End Product Tabs -->
+            <form>
+                <input type="hidden" name="id" th:value="${session.id}">
+                <input type="hidden" name="ctgrNum" th:value="${ptg[0].ptgId}">
+            </form>
         </main>
         <!-- End Main -->
 
 
-		<script type="text/javascript">
+	<script th:inline="javascript">
+		
+		/*<![CDATA[*/   
+        var role = /*[[${session.role}]]*/
+        var name = /*[[${session.id}]]*/
+       /*]]*/
+       console.log(role[0].authority)
+       
+       console.log(name)
+    </script>
+       		
+<script>
+
+	
 		$(function(){
+			
 			$('#pd_reviews_tab_02').on('click', function(){
-			     ajaxReiew({pageNum:1, amount:5})
+				let ctgrNum = $('#ptgId').val()
+			     ajaxReiew({pageNum:1, amount:5})      ////일단 여기서 작가아이디랑 구분값 넘겨주기 (다른 아작스 페이지도 똑같이)
 			     
 			 window.setTimeout(function(){
 
@@ -265,10 +283,6 @@
 				
 				},300)
 			})
-			
-								
-		
-			
 
 		})
 
@@ -331,6 +345,70 @@
 // 				}
 // 			})
 // 		}
+
+	//찜 호출 
+	let id = $('input[name="id"]').val()
+	let ctgrNum = $('input[name="ctgrNum"]').val()
+	$(document).ready(function(){
+	    
+	console.log(id)
+	    $.ajax({  //해당 유저가 해당 작가를 찜 했는지
+	        url:`/silhyun/isZzim/${id}/${ctgrNum}`
+	    }).then(result => {
+	        console.log(result)
+	        if(result){ 
+	            if($('.zzim-icon').hasClass('bi-person')){
+	                $('.zzim-icon').removeClass('bi-person').addClass('bi-person-heart')
+	            }
+	        }else{
+                if($('.zzim-icon').hasClass('bi-person-heart')){
+                    $('.zzim-icon').removeClass('bi-person-heart').addClass('bi-person')
+                }
+	        }
+	    })
+	
+	})
+	
+	$('.zzim-icon').on('click',function(){  //찜 버튼 클릭 이벤트
+	
+	    if($(this).hasClass('bi-person')){  //찜이 되어있지 않으면 찜 추가
+	        $.ajax({
+	            url:'/silhyun/insertZzim',
+	            type:'post',
+	            data:JSON.stringify({
+	                id: id,
+	                ctgrNum : ctgrNum
+	            }),
+	            contentType: 'application/json'
+	        }).then(result=>{
+	            $(this).removeClass('bi-person').addClass('bi-person-heart') //아이콘 변경
+	            
+	            //찜 개수 +
+	           let countZzim = parseInt($('.product-wishlist').find('span').text())
+	           $('.product-wishlist').find('span').text(countZzim + 1);
+	        })
+	    }else{  //이미 찜이 되어 있으면 찜 삭제
+	        $.ajax({
+	            url:'/silhyun/delZzim',
+	            type:'post',
+	            data:JSON.stringify({
+	                id: id,
+	                ctgrNum : ctgrNum
+	            }),
+	            contentType: 'application/json',
+				headers: {
+				        'X-HTTP-Method-Override': 'DELETE'
+				}
+	        }).then(result =>{
+	            $(this).removeClass('bi-person-heart').addClass('bi-person')  //아이콘 변경
+	
+	            //찜 개수 -
+	            let countZzim = parseInt($('.product-wishlist').find('span').text())
+	            $('.product-wishlist').find('span').text(countZzim - 1);
+	        })
+	    }
+	})
+
     </script>
 
 

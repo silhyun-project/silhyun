@@ -1,43 +1,105 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
-<body>
-<div layout:fragment="content">
-      
-            <div class="page-breadcrumb bg-white">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h3 class="page-title">종합 승인 관리</h3>
-                    </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                          <li><a> </a></li>
-                            </ol>
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
 
-                        </div>
+<body>
+    <div layout:fragment="content">
+
+        <div class="page-breadcrumb bg-white">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h3 class="page-title">종합 승인 관리</h3>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <div class="d-md-flex">
+                        <ol class="breadcrumb ms-auto">
+                            <li><a> </a></li>
+                        </ol>
+
                     </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                        <div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+
+                        <div id="ptgAccept">
+                            <div>
+                                <span>
+                                    <input type="button" class="box-title" style="background-color:white;border:none;"
+                                        value="기록가" th:attr="onclick=|openPtgList()|">
+                                    &nbsp;<input type="button" class="box-title"
+                                        style="background-color:white;border:none;color:grey;" value="사진관"
+                                        th:attr="onclick=|openStdList()|">
+                                    &nbsp;<input type="button" class="box-title"
+                                        style="background-color:white;border:none;color:grey;" value="클래스"
+                                        th:attr="onclick=|openClassList()|">
+                                    &nbsp;<input type="button" class="box-title"
+                                        style="background-color:white;border:none;color:grey;" value="이벤트"
+                                        th:attr="onclick=|openEventList()|">
+                                    <br>
+                                </span>
+
+                                <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
+                                    <code>2023/03/01</code> 승인 대기
+                                    &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0
+                                    </code>&nbsp;이벤트:<code>0 </code>
+                                </p>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">작가아이디</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">촬영장소</th>
+                                            <th class="border-top-0">자기소개</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">승인신청일자</th>
+                                            <th class="border-top-0">승인처리</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
+                                            <td th:text="${sts.count}"></td>
+                                            <td th:text="${ptg.ptgId}"></td>
+                                            <td th:text="${ptg.stId}"></td>
+                                            <td th:text="${ptg.regionCd}"></td>
+                                            <td th:text="${ptg.crn}"></td>
+                                            <td th:text="${ptg.shotPlace}"></td>
+                                            <td th:text="${ptg.itr}"></td>
+                                            <td th:text="${ptg.inst}"></td>
+                                            <td th:text="${ptg.workDay}"></td>
+                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
+                                            <td><button type="button" class="btn btn-info"  id ="ptgAcceptBtn"  data-bs-toggle="modal" data-bs-target="#ptgAcceptModal" style="color:white;" 
+                                            th:attr="onclick=|ptgSelectAjax('${ptg.ptgId}')|" >처리</button>
+                                        </tr>
+                                    </tbody>
+                                </table>                                
+                            </div>
+                          </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                                                         <div  id="stdAccept" style="display: none">
+                                                 <div>
                             <span>
-                     <input type="button" class="box-title" style="background-color:white;border:none;" value="기록가" th:attr="onclick=|openPtgList()|">
-  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관" th:attr="onclick=|openStdList()|">
+                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가" th:attr="onclick=|openPtgList()|">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="사진관" th:attr="onclick=|openStdList()|">
   					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스" th:attr="onclick=|openClassList()|">
                        &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트" th:attr="onclick=|openEventList()|">
                             <br>
@@ -50,9 +112,63 @@
 	
 	               <br>
 					<hr>
-   
+                            <div class="table-responsive">
+                                <table class="table text-nowrap" >
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">스튜디오아이디</th>
+                                            <th class="border-top-0">사진관아이디</th>
+                                            <th class="border-top-0">지역</th>
+                                            <th class="border-top-0">사업자등록번호</th>
+                                            <th class="border-top-0">촬영장소</th>
+                                            <th class="border-top-0">자기소개</th>
+                                            <th class="border-top-0">인스타주소</th>
+                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">승인신청일자</th>
+                                            <th class="border-top-0">승인처리</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
+                                            <td th:text="${sts.count}"></td>
+                                            <td th:text="${ptg.ptgId}"></td>
+                                            <td th:text="${ptg.stId}"></td>
+                                            <td th:text="${ptg.regionCd}"></td>
+                                            <td th:text="${ptg.crn}"></td>
+                                            <td th:text="${ptg.shotPlace}"></td>
+                                            <td th:text="${ptg.itr}"></td>
+                                            <td th:text="${ptg.inst}"></td>
+                                            <td th:text="${ptg.workDay}"></td>
+                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
+                                            <td><button type="button" class="btn btn-info"  id ="ptgAcceptBtn"  data-bs-toggle="modal" data-bs-target="#ptgAcceptModal" style="color:white;" 
+                                            th:attr="onclick=|ptgSelectAjax('${ptg.ptgId}')|" >처리</button>
+                                        </tr>
+                                    </tbody>
+                                </table>
+     
+                                
+                            </div>
+                               </div>
                             
-                            <div class="table-responsive" id="ptgAccept">
+                                                         <div  id="classAccept" style="display: none">
+                                                 <div>
+                            <span>
+                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가" th:attr="onclick=|openPtgList()|">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관" th:attr="onclick=|openStdList()|">
+  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="클래스" th:attr="onclick=|openClassList()|">
+                       &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="이벤트" th:attr="onclick=|openEventList()|">
+                            <br>
+                            </span>
+                            
+                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 승인 대기
+                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>0 </code>
+                            </p>
+                        </div>
+	
+	               <br>
+					<hr>
+                            <div class="table-responsive">
                                 <table class="table text-nowrap" >
                                     <thead>
                                         <tr>
@@ -89,106 +205,59 @@
      
                                 
                             </div>
+                               </div>
                             
-                               <div class="table-responsive"  id="stdAccept" style="display: none">
-                                <table class="table text-nowrap">
+                            <div  id="eventAccept" style="display: none">
+                                                 <div>
+                            <span>
+                     <input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="기록가" th:attr="onclick=|openPtgList()|">
+  					&nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="사진관" th:attr="onclick=|openStdList()|">
+  					 &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;color:grey;" value="클래스" th:attr="onclick=|openClassList()|">
+                       &nbsp;<input type="button" class="box-title" style="background-color:white;border:none;" value="이벤트" th:attr="onclick=|openEventList()|">
+                            <br>
+                            </span>
+                            
+                            <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code>2023/03/01</code> 승인 대기
+                            &emsp;기록가:<code>5 </code>&nbsp;사진관:<code>5 </code>&nbsp;클래스:<code>0 </code>&nbsp;이벤트:<code>0 </code>
+                            </p>
+                        </div>
+	
+	               <br>
+					<hr>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap" >
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">#</th>
-                                            <th class="border-top-0">std</th>
-                                            <th class="border-top-0">사진관아이디</th>
-                                            <th class="border-top-0">지역</th>
-                                            <th class="border-top-0">사업자등록번호</th>
-                                            <th class="border-top-0">촬영장소</th>
-                                            <th class="border-top-0">자기소개</th>
-                                            <th class="border-top-0">인스타주소</th>
-                                            <th class="border-top-0">근무가능요일</th>
+                                            <th class="border-top-0">이벤트명</th>
+                                            <th class="border-top-0">작가아아디</th>
+                                            <th class="border-top-0">진행일수</th>
+                                            <th class="border-top-0">시작일자</th>
+                                            <th class="border-top-0">배너표시여부</th>
+                                            <th class="border-top-0">쿠폰발행상태</th>
                                             <th class="border-top-0">승인신청일자</th>
+                                            <th class="border-top-0">승인처리</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
-                                            <td th:text="${sts.count}"></td>
-                                            <td th:text="${ptg.ptgId}"></td>
-                                            <td th:text="${ptg.stId}"></td>
-                                            <td th:text="${ptg.regionCd}"></td>
-                                            <td th:text="${ptg.crn}"></td>
-                                            <td th:text="${ptg.shotPlace}"></td>
-                                            <td th:text="${ptg.itr}"></td>
-                                            <td th:text="${ptg.inst}"></td>
-                                            <td th:text="${ptg.workDay}"></td>
-                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
+                                        <tr th:each="e, sts4 : ${eList}" th:Class="${sts4}">
+                                            <td th:text="${sts4.count}"></td>
+                                            <td th:text="${e.name}"></td>
+                                            <td th:text="${e.id}"></td>
+                                            <td th:text="${e.term} + '일간'"></td>
+                                            <td th:text="${#dates.format(e.startDate,'yyyy년MM월dd일')}"></td>
+                                            <td th:text="${e.bnphSta}"></td>
+                                            <td th:text="${e.cpnPubSta}"></td> 
+                                            <td th:text="${#dates.format(e.regiDate,'yyyy/MM/dd')}"></td>
+                                            <td><button type="button" class="btn btn-info"  id ="eventAcceptBtn"  data-bs-toggle="modal" data-bs-target="#eventAcceptModal" style="color:white;" 
+                                            th:attr="onclick=|eventSelectAjax('${e.eventNum}')|" >처리</button>
                                         </tr>
                                     </tbody>
                                 </table>
+     
+                                
                             </div>
-                            
-                                                           <div class="table-responsive"  id="classAccept" style="display: none">
-                                <table class="table text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">class</th>
-                                            <th class="border-top-0">사진관아이디</th>
-                                            <th class="border-top-0">지역</th>
-                                            <th class="border-top-0">사업자등록번호</th>
-                                            <th class="border-top-0">촬영장소</th>
-                                            <th class="border-top-0">자기소개</th>
-                                            <th class="border-top-0">인스타주소</th>
-                                            <th class="border-top-0">근무가능요일</th>
-                                            <th class="border-top-0">승인신청일자</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
-                                            <td th:text="${sts.count}"></td>
-                                            <td th:text="${ptg.ptgId}"></td>
-                                            <td th:text="${ptg.stId}"></td>
-                                            <td th:text="${ptg.regionCd}"></td>
-                                            <td th:text="${ptg.crn}"></td>
-                                            <td th:text="${ptg.shotPlace}"></td>
-                                            <td th:text="${ptg.itr}"></td>
-                                            <td th:text="${ptg.inst}"></td>
-                                            <td th:text="${ptg.workDay}"></td>
-                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                                                           <div class="table-responsive"  id="eventAccept" style="display: none">
-                                <table class="table text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">event</th>
-                                            <th class="border-top-0">사진관아이디</th>
-                                            <th class="border-top-0">지역</th>
-                                            <th class="border-top-0">사업자등록번호</th>
-                                            <th class="border-top-0">촬영장소</th>
-                                            <th class="border-top-0">자기소개</th>
-                                            <th class="border-top-0">인스타주소</th>
-                                            <th class="border-top-0">근무가능요일</th>
-                                            <th class="border-top-0">승인신청일자</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="ptg, sts: ${ptgList}" th:Class="${sts}">
-                                            <td th:text="${sts.count}"></td>
-                                            <td th:text="${ptg.ptgId}"></td>
-                                            <td th:text="${ptg.stId}"></td>
-                                            <td th:text="${ptg.regionCd}"></td>
-                                            <td th:text="${ptg.crn}"></td>
-                                            <td th:text="${ptg.shotPlace}"></td>
-                                            <td th:text="${ptg.itr}"></td>
-                                            <td th:text="${ptg.inst}"></td>
-                                            <td th:text="${ptg.workDay}"></td>
-                                            <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
-                                       
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                               </div>
                             
                         </div>
                     </div>
@@ -196,75 +265,35 @@
                 
                 
                 
-                        <!-- ptgCfrm from  -->
+ <!-- ptgCfrm from  -->
 <div class="modal fade" id="ptgAcceptModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" id ="ptgBody">
-            <div class="modal-header bg-primary">
-                <div class="modal-title p-3">
-                    <h5 class="m-0 text-white"></h5>
-                  
-                   <p class="m-0 text-white">ㅇㅇㅇ님의 기록가 승인신청서</p>
-                  
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="w-100 p-3">
-                    <!-- Form START -->
-                    <form id="updatePtgCfm">
-                
-                        <input type="hidden" class="form-control" id="id" name="id">
-                      
-                      <div class="mb-3">
-                         <img  src="/img/bestC.jpg" style="width: 440px"  alt="">                          
-                        </div> 
-                        <div class="mb-3">
-                            <b>작가아이디</b>
-                            <p>하이ㅣㅣㅣㅣ</p>
-                        </div>     
-                              
-                                                      <div class="mb-3">
-                            <b>사진관아이디</b>
-                            <p>하이ㅣㅣㅣㅣ</p>
-                        </div>      
-                             <div class="mb-3">
-                            <b>지역/촬영장소</b>
-                            <p>하이ㅣㅣㅣㅣ</p>
-                        </div>
-                             <div class="mb-3">
-                            <b>자기소개</b>
-                            <p>하이ㅣㅣㅣㅣ</p>
-                        </div>
-                             <div class="mb-3">
-                            <b>근무가능요일</b>
-                            <p>하이ㅣㅣㅣㅣ</p>
-                        </div>
-                        
-        
-
-                        
-                        <div class="row align-items-center">
-                  
-                                <button type="submit" class="btn btn-info" style="width: 220px;color: white;"
-                                
-                                >승인</button>    
-                                
-                                    <button type="submit" class="btn btn-dark" style="width: 220px">반려</button>
-                            </div>
-               
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 <!-- End ptgCfrm from  -->
                 
                 
+<!-- eventCfrm from  -->
+<div class="modal fade" id="eventAcceptModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id ="evnetBody">
+
+        </div>
+    </div>
+</div>
+<!-- End eventCfrm from  -->  
                 
                 
                 
+                
+                
+                
+                
+                
+                
+              
                 
                 
                 
@@ -372,19 +401,14 @@
 	                              <b>근무가능요일</b>
 	                              <p>${ptgSelect.workDay}</p>
 	                          </div>
-	                          
-	          
-
-	                          
-	                          <div class="row align-items-center">
+                              <div class="row align-items-center">
 	                    
 	                          <button type="submit" class="btn btn-info" style="width: 220px;color: white;"
-	                        	    onclick="ptgAcceptAjax('${ptgSelect.ptgId}')">승인</button>  
-	                                  
-	                                      <button type="submit" class="btn btn-dark" style="width: 220px"
-	                                    	  onclick="noPtgAcceptAjax('${ptgSelect.ptgId}')">반려</button>
-	                              </div>
-	                 
+	                        	    onclick="ptgAcceptAjax('${ptgSelect.ptgId}')">승인</button>  	                                  
+                                <button type="submit" class="btn btn-dark" style="width: 220px"
+                              	  onclick="noPtgAcceptAjax('${ptgSelect.ptgId}')">반려</button>
+	                           
+                              	  </div>
 	                      </form>
 	                  </div>
 	              </div>
@@ -412,30 +436,133 @@
 	    	  });
 	    	};
 	    	
-		      function noPtgAcceptAjax(ptgId){
-		    	  console.log("html에 있는 no아작스"+ptgId)
+	      function noPtgAcceptAjax(ptgId){
+	    	  console.log("html에 있는 no아작스"+ptgId)
+	    	  $.ajax({
+	    	    url: "/admin/noPtgAccept",
+	    	    type: "POST",
+	    	    data: "ptgId=" + ptgId,
+	    	    dataType: 'text'
+	    	  }).then(msg =>{
+	    	    alert(msg);
+	    	    console.log(msg)
+	    	    
+	    	  });
+	    	};
+	   
+		    	
+		    	
+		    	function eventSelectAjax(eventNum){
+		    	    var eventNum = eventNum;
 		    	  $.ajax({
-		    	    url: "/admin/noPtgAccept",
-		    	    type: "POST",
-		    	    data: "ptgId=" + ptgId,
-		    	    dataType: 'text'
-		    	  }).then(msg =>{
-		    	    alert(msg);
-		    	    console.log(msg)
-		    	    
-		    	  });
+		    	    url: "/admin/eventManageSelect",
+		    	    type: "GET",
+		    	    data: "eventNum=" + eventNum,
+		    	    dataType: 'json'
+		    	  }).then(result =>{
+		    		  
+		    		  console.log("아작스로 받은 결과"+result)
+		    		  console.log(result)
+		    		     var eventSelect = result;
+		    		     
+		    		  var evnetBody = document.getElementById("evnetBody");
+		    		  evnetBody.innerHTML = "";
+		    		
+		    	 
+		    		  var appendContent4 = `
+		    		  
+		    	             <div class="modal-header bg-primary">
+		                  <div class="modal-title p-3">
+		                      <h5 class="m-0 text-white"></h5>		                    
+		                     <p class="m-0 text-white">${eventSelect.id}님의 이벤트 승인신청서</p>		                    
+		                  </div>
+		                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		              </div>
+		              <div class="modal-body">
+		                  <div class="w-100 p-3">
+		                      <!-- Form START -->
+		                      <form>            
+		                        <div class="mb-3">
+		  	    	          <h5><b>*배너</b></h5>
+			    	           <img src="${eventSelect.bnph}" class="img-fluid" title="" alt="">
+			    	          <hr>
+			    	          <h5><b>*썸네일</b></h5>               
+			    	              <img src="${eventSelect.thni}" class="img-fluid" title="" alt="">
+			    	          </div>
+			    	          <hr>
+		                          <div class="mb-3">
+		                              <b>이벤트명</b>
+		                              <p>${eventSelect.name}</p>
+		                          </div>     
+		                          <div class="mb-3">
+	                              <b>시작일</b>
+	                              <p>${eventSelect.startDate}</p>
+	                          </div>     
+
+	                          <div class="mb-3">
+                              <b>기한</b>
+                              <p>${eventSelect.term}일간</p>
+                          </div>     
+
+                          <div class="mb-3">
+                          <b>이벤트내용</b>
+                          <p> ${eventSelect.cntn}</p>
+                      </div>                  
+		                          
+	                              <div class="row align-items-center">
+		                          <button type="submit" class="btn btn-info" style="width: 220px;color: white;"
+		                        	    onclick="eventAcceptAjax('${eventSelect.eventNum}')">승인</button>  	                                  
+	                                <button type="submit" class="btn btn-dark" style="width: 220px"
+	                              	  onclick="noEventAcceptAjax('${eventSelect.eventNum}')">반려</button>
+		                              </div>
+		                 
+		                      </form>
+		                  </div>
+		              </div>
+
+		    		  `;
+		    		  
+		    		  
+		    	      document.getElementById("evnetBody").innerHTML += appendContent4;  
+		    		  
+		    		});
+		    		
+		    		
 		    	};
-	    
-	    
-       
-       </script>
-                      
-                      
-                      
-                      
-                      
+		    	
+		    	
+		    	
+			      function eventAcceptAjax(eventNum){
+			    	  console.log("html에 있는 아작스"+eventNum)
+			    	  $.ajax({
+			    	    url: "/admin/eventAccept",
+			    	    type: "POST",
+			    	    data: "eventNum=" + eventNum,
+			    	    dataType: 'text'
+			    	  }).then(msg =>{
+			    	    alert(msg);
+			    	    console.log(msg)
+			    	    
+			    	  });
+			    	};
+			    	
+			      function noEventAcceptAjax(eventNum){
+			    	  console.log("html에 있는 no아작스"+eventNum)
+			    	  $.ajax({
+			    	    url: "/admin/noEventAccept",
+			    	    type: "POST",
+			    	    data: "eventNum=" + eventNum,
+			    	    dataType: 'text'
+			    	  }).then(msg =>{
+			    	    alert(msg);
+			    	    console.log(msg)
+			    	    
+			    	  });
+			    	};
+			   
+		    	</script>
+	      
+                  
 </div>
 </body>
 </html>
-
-

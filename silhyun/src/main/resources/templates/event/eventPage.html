@@ -101,7 +101,7 @@
                                             <img class="img-flu" th:src="${evP.bnph}" title="" alt="">
                                         </a>
                                         <div class="mt-n8 mx-3 mx-lg-4 border bg-white p-4 position-relative">
-                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2" th:text="${evP.startDate}"></i></div>
+                                            <div class="text-muted mb-3"><i class="bi bi-clock me-2" th:text="|${#dates.format(evP.startDate,'yyyy/MM/dd')}~${#dates.format(evP.accpDt,'yyyy/MM/dd')}|"></i></div>
                                             <a class="h5" href="#" th:text="${evP.name}"></a>
                                             <p class="pt-3" th:text="${evP.cntn}" ></p>
                                         </div>

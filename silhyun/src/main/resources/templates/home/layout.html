@@ -767,6 +767,7 @@
 								<!-- Nav User-->
 								<ul class="list-unstyled link-list-style-02 m-0" id="smMenu">
 									<li><a href="#"></a></li>
+									<li><a href="/admin/dashBoard" sec:authorize="hasRole('ROLE_M0')">관리자</a></li>
 									<li><a href="#" sec:authorize="hasRole('ROLE_M2')">포트폴리오</a></li>
 									<li><a href="/photo/mypageAo" sec:authorize="hasRole('ROLE_M2')">작가마이페이지</a></li>
 									<li><a href="유저마이페이지링크" sec:authorize="hasRole('ROLE_M1')">회원마이페이지</a></li>
@@ -875,9 +876,11 @@
 								<div class="fs-1 text-white">
 									<i class="bi bi-camera"></i>
 								</div>
+								<a href="/shin/ptgRegister">
 								<div class="col ps-3">
 									<h6 class="mb-1 text-white">작가 등록하기</h6>
 								</div>
+								</a>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-3">

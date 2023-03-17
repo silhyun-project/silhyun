@@ -13,7 +13,6 @@ public class WebConfig implements WebMvcConfigurer{
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		System.out.println(saveimg+"=========================");
 		registry.addResourceHandler("/saveImg/**")
 			.addResourceLocations("file:///"+saveimg)
 			.setCachePeriod(20);

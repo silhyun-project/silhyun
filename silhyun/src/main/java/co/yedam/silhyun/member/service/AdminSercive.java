@@ -46,6 +46,14 @@ public interface AdminSercive {
 	//기록가 승인신청 반려
 	int noPtgAccept(String ptgId);
 	
+	//이벤트 승인신청 승인
+	int eventAccept(String eventNum);
+	
+	//이벤트 승인신청 반려
+	int noEventAccept(String eventNum);
+	
+	
+	
 	
 	List<MemberVO> memberList();
 	
@@ -113,6 +121,8 @@ public interface AdminSercive {
 	List<Map<String, Object>>getEventList();
 	
 	List<Map<String, Object>>getEventAllList();
+	
+	List<Map<String, Object>>getEventOList();
 	
 	//이벤트 카운트
 	Map<String, String> getEventCnt();
