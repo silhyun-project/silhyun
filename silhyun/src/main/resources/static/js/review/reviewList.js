@@ -20,6 +20,8 @@
      $('.star-ratings-fill.sm').each(function(i,e){
     	 $(e).css('width', starPercent($(e).attr("starCnt")) + '%')	
      })
+
+	
      
      
 })
@@ -28,15 +30,39 @@
          // return score  + 1.5;
           return score;
   		}
-  		
-  		
-    	//인써트 버튼 이벤트
+  
+		
+       //인써트 버튼 이벤트
 	function reviewInsertForm(){
-		console.log($('#ptgId').val())
-		$('#ptgId').val()
+    	let ctgrNum = $('#ptgId').val()
 		$.ajax({
-			url: '/silhyun/reviewForm'
+			url: '/reviewform',
+			data: {ctgrNum: ctgrNum,
+				   ctgr : 'A'},
+		    success: function(res){
+		    	$('#reviews').replaceWith(res)
+		    }, 
+		    error: function(err){
+		    	console.log(err)
+		    }
+			
 		})
 	}
-
     
+   
+	//수정버튼 이벤트 
+	function upFrom(num){
+		console.log(num)
+		$.ajax({
+			url: '/reviewUpform',
+			data: {revNum: num},
+		    success: function(res){
+		    	$('#reviews').replaceWith(res)
+		    }, 
+		    error: function(err){
+		    	console.log(err)
+		    }
+			
+		})
+	}
+	
