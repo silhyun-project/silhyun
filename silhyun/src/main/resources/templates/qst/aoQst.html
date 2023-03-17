@@ -132,13 +132,11 @@
 				</div>
 			</div>
 			<div class="divTableBody qstArea"></div>
-
-
 		</div>
 		<div></div>
 		<div id="textBox"></div>
 		<br> <br>
-		<button id="new-post-btn">상품 문의</button>
+		<button id="new-post-btn">문의하기</button>
 
 		<!-- 문의 모달 -->
 		<div id="myModal" class="modal">
@@ -159,7 +157,6 @@
 				</form>
 			</div>
 		</div>
-
 	</div>
 
 	<script>
@@ -435,7 +432,7 @@
 
 			$('<div class="qstModiArea">').append('<label for="title" id="modiTitle">제목 : </label><input type="text" class="qstModiTitle" id="qstModiTitle" name="qstModiTitle" style="width: 400px;"> ')
 				.append('<label for="answer" id="modiCon">수정내용 : </label><textarea class="qstModiZone" id="qstModiZone" name="qstModiZone" rows="5" style="width: 400px;"></textarea>')
-				.append('<button id="qstModiBtn" class="qstModiBtn">작성</button>')
+				.append('<button id="qstModiBtn" class="qstModiBtn">수정하기</button>')
 				.append(qstModiCancel)
 				.appendTo($('#textBox'))
 
@@ -511,7 +508,7 @@
 				let ansContent = $(this).parent().children().find('p').text();
 
 				$('<div class="ansModiArea">').append('<label for="answer" id="qstLabel">수정내용 : </label><textarea class="ansModiZone" id="ansModiZone" name="ansModiZone" rows="5" style="width: 400px;"></textarea>')
-											  .append('<button id="ansModiBtn" class="ansModiBtn">작성</button>')
+											  .append('<button id="ansModiBtn" class="ansModiBtn">수정하기</button>')
 											  .append(ansModiCancel)
 											  .appendTo($('#textBox'))
 					
@@ -545,7 +542,7 @@
 					}),
 					contentType:'application/json',
 					success: function(data){
-						$("#ansModiZone, #ansModiBtn, #ansCancelBtn").remove();
+						$("#ansModiZone, #ansModiBtn, #ansCancelBtn, #qstLabel").remove();
 						getAoQstList();
 					},
 					error:function(){

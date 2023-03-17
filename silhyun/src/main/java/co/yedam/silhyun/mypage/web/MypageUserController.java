@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.mypage.service.MypageUserService;
 
 
@@ -52,9 +53,10 @@ public class MypageUserController {
    }
    
    @GetMapping("/mpg/mpgCalendar")
-   public String mpgCalendar() {
+   public String mpgCalendar(Model model,HttpSession httpSession) {
+      SessionUser user = (SessionUser) httpSession.getAttribute("user");
       
-      return "mypageUser/mpgCalendar";
+      return "mypageUser/mpgCalendar";	
    }
    
    @GetMapping("/mpg/mpgQuit/{id}")
