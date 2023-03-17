@@ -53,15 +53,9 @@ public class RestReviewController {
 	}
 	@PostMapping("/silhyun/update")
 	public ReviewVO updateReview(PhotoVO pvo, ReviewVO rvo, List<MultipartFile> files) {
-		String[] array = pvo.getPhoNum().split(",");
-		System.out.println(array);
-		for(String i : array) {
-			System.out.println(i);
-		}
+		System.out.println(pvo.getPhoNum());
 		System.out.println(rvo);
-		for(MultipartFile file: files) {
-			System.out.println(file);
-		}
+		System.out.println(files);
 		return rvo;
 	}
 }
