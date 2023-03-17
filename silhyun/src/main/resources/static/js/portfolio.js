@@ -56,7 +56,7 @@ $.ajax({
 								<div class="product-detail-actions d-flex flex-wrap pt-3">
 									<div class="cart-button mb-3 d-flex">
 										<button class="btn btn-dark me-3">리뷰 보기</button>
-										<button class="btn btn-dark me-3">예약하러가기</button>
+										<button class="btn btn-dark me-3 reser">예약하러가기</button>
 									</div>
 								</div>
 								<div class="product-info-buttons nav pt-4">
@@ -74,6 +74,13 @@ $.ajax({
 					var ptgProfile2 = `<span>${fieldData[i].cdName}</span>&nbsp;`;
 					$('#fieldAppend').append(ptgProfile2 + separator);
 				}
+
+				$('.cart-button.mb-3.d-flex').on('click', '.reser', function() {
+					console.log('hey')
+					location.href=`/pay/reserList/${ptgId}`
+				
+				})
+
 			},
 			error: function(xhr, status, error) {
 				// Handle error response from server
@@ -89,11 +96,7 @@ $.ajax({
 });//해당작가정보
 //프로필 완.
 
-	$('.btn.btn-dark.me-3').on('click', function() {
-		console.log('hey')
-		//location.href=`/silhyun/ptgDetail/${ptgId}`
-		///pay/reserList/{ptgId}예약
-	})
+
 
 
 var ptgPortList = [];//포트폴리오 리스트중에 하나 봅아오는 거
@@ -239,13 +242,13 @@ $(document).ready(function() {
 		$('.menuButton-item button').click(function() { $('#goUpdatePort').submit(); })
 
 		///수정폼////////////////////////////
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		//해당 포트폴리오 번호에 맞는 내용 븥여주기(((3)))시작
 
 		//해당 포트폴리오 쓴 내용 붙이는 거.
