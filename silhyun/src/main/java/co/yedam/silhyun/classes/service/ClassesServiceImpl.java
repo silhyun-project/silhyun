@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import co.yedam.silhyun.classes.map.ClassesMapper;
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
+import co.yedam.silhyun.common.vo.ZzimVO;
 import javassist.ClassMap;
 
 @Service
@@ -22,6 +23,7 @@ public class ClassesServiceImpl implements ClassesService {
 }
 	@Override
 	public Map<String, Object> selectIV(String classNum, String inetNum, String id) {
+		System.out.println("서비스임플 확인용 selectTV"+classNum+' '+inetNum+' '+id);
 		return ClassesMapper.selectIV(classNum, inetNum, id);
 	}
 	@Override
@@ -93,5 +95,18 @@ public class ClassesServiceImpl implements ClassesService {
 		return ClassesMapper.myC1Ajax(classNum);
 	}
 
+	@Override  //찜 확인
+	public boolean cIsZzim(ZzimVO vo) {
+		int count = ClassesMapper.cFindZzim(vo);
+		return count > 0;
+	}
+	@Override  //찜 추가
+	public void cInsertZzim(ZzimVO vo) {
+		ClassesMapper.cInsertZzim(vo);
+	}
+	@Override //찜 삭제
+	public void cDelZzim(ZzimVO vo) {
+		ClassesMapper.cDelZzim(vo);
+	}
 
 }

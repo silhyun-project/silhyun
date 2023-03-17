@@ -512,6 +512,10 @@ table.cal-table {
         if (mm === init.today.getMonth() && yy === init.today.getFullYear()) {
           markToday = init.today.getDate();
         }
+        
+        //오늘 기준 월
+        //let
+
 
         document.querySelector('.cal-month').textContent = init.monList[mm];
         document.querySelector('.cal-year').textContent = yy;
@@ -566,8 +570,16 @@ table.cal-table {
       loadYYMM(init.today);
       loadDate(init.today.getDate(), init.today.getDay());
 
-      $btnNext.addEventListener('click', () => loadYYMM(init.nextMonth())); //다음 버튼 클릭하면 발생하는 이벤트
-      $btnPrev.addEventListener('click', () => loadYYMM(init.prevMonth())); //이전 버튼 클릭하면 발생하는 이벤트
+      $btnNext.addEventListener('click', () => {  //다음 버튼 클릭하면 발생하는 이벤트
+        
+        loadYYMM(init.nextMonth())
+        makeResultPtg()
+      
+      }); 
+      $btnPrev.addEventListener('click', () => {  //이전 버튼 클릭하면 발생하는 이벤트
+        loadYYMM(init.prevMonth())
+        makeResultPtg()
+      });
 
       $calBody.addEventListener('click', (e) => {  //날자 클릭하면 발생하는 event
         if (e.target.classList.contains('day')) {
@@ -592,46 +604,55 @@ table.cal-table {
 
       //ajax호출해서 근무 가능한 날짜 보여주기 , 날짜 누르면 하단에 작가 리스트 띄우기
       var stId = $("input[name='stId']").val();
-      $.ajax({
-        url: '/ajaxStdList/' + stId,
-        datatype: "json"
-      }).then(result => {
-        var workD = []
-        // console.log(result)
-        $(result).each(function (idx, item) {
-          // console.log(item.workDay.split(","))
-          let arr = item.workDay.split(",")
-          $(arr).each(function (a, b) {
-            workD.push(b)
-          })
-        })
-        let day = ($('.cal-table').find('th').text())
-        let setWorkD = [...new Set(workD)]; //중복 제거
-        $(setWorkD).each(function (idx, item) {
-          $('.week').find(`td[id=${item}]`).css('color', 'black').on('click', function (e) {
-            e.stopPropagation()
-            if ($('div.row.ptgList') != null) {
-              $('div.row.ptgList').children().remove()
-            }
-            $(result).each(function(a,b){
-              $('div.row.ptgList').append(
-                `<div class="col-lg-4">
-                <div class="position-relative hover-scale">
-                    <div class="hover-scale-in">
-                        <a href="/silhyun/ptgDetail/${b.id}"> <img class="w-100" src="${b.profile}" title="" alt="" style="width: 200px; height: 400px; padding: 10px;">
-                    ${b.name}</a>
-                    </div>
-                </div>
-            </div>`
-              )
-            })//end 근무 가능한 작가 list
-          }) //end 근무 가능한 요일에 검정색 주고 click이벤트 달기 
-        })  //end 작가가 지정한 근무가능 요일 반복문
+      $(function(){
+        makeResultPtg()
+      })
         
-     
-        //회색 글자 날짜 선택시 예약 가능한 작가 없다고 메시지 띄우기
+      function makeResultPtg(){  //근무 가능한 요일 받아와서 달력에 보여주기
+        $.ajax({
+          url: '/ajaxStdList/' + stId,
+          datatype: "json"
+        }).then(result => {
+          var workD = []
+          // console.log(result)
+          $(result).each(function (idx, item) {
+            // console.log(item.workDay.split(","))
+            let arr = item.workDay.split(",")
+            $(arr).each(function (a, b) {
+              workD.push(b)
+            })
+          })
+          let day = ($('.cal-table').find('th').text())
+          let setWorkD = [...new Set(workD)]; //중복 제거
+          $(setWorkD).each(function (idx, item) {
+            $('.week').find(`td[id=${item}]`).css('color', 'black').on('click', function (e) {
+              e.stopPropagation()
+              if ($('div.row.ptgList') != null) {
+                $('div.row.ptgList').children().remove()
+              }
+              $(result).each(function(a,b){
+                $('div.row.ptgList').append(
+                  `<div class="col-lg-4">
+                  <div class="position-relative hover-scale">
+                      <div class="hover-scale-in">
+                          <a href="/silhyun/ptgDetail/${b.id}"> <img class="w-100" src="${b.profile}" title="" alt="" style="width: 200px; height: 400px; padding: 10px;">
+                      ${b.name}</a>
+                      </div>
+                  </div>
+              </div>`
+                )
+              })//end 근무 가능한 작가 list
+            }) //end 근무 가능한 요일에 검정색 주고 click이벤트 달기 
+          })  //end 작가가 지정한 근무가능 요일 반복문
+          
+       
+          //회색 글자 날짜 선택시 예약 가능한 작가 없다고 메시지 띄우기
+  
+        }).then(error => console.log(error))
 
-      }).then(error => console.log(error))
+
+
+      }
     </script>
   </div>
 </body>

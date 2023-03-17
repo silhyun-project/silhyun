@@ -12,7 +12,8 @@
 <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
 <!-- title -->
 <title>silhyunHada</title>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css">
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 				
 </head>
@@ -82,12 +83,37 @@
 #btns{
 	float: right;
 }
+.slick-arrow::after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	border: 1px solid #b8b8b8;
+	border-width: 0 2px 2px 0;
+	margin-left: -2px;
+	padding: 10px;
+}
+.slick-prev::after {
+	left: 60%;
+	-webkit-transform: translate(-50%, -50%) rotate(135deg);
+	transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.slick-next::after {
+	-webkit-transform: translate(-50%, -50%) rotate(-45deg);
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+img{
+ width: 300px;
+}
 </style>
 <body>
 <div id="reviews">
 <script type="text/javascript" src="/js/review/reviewList.js"></script>
 <!-- 평균별찍기는 파일 처리 끝낸후 ! -->
-	<div class="container col-7">
+	<div class="container col-9">
 	            <div class="row align-items-end">
 	                <div class="col-sm-6">
 	                    <h5 class="m-0">Reviews</h5>
@@ -126,13 +152,13 @@
 					</form>
 				</div>
 				<th:block th:each="rev : ${list}">
-				<form action="/silhyun/reviewUpdate">
+				<form id="upFrm">
 				<input type="hidden" th:value="${rev.revNum}" class="revNum" name="revNum">
 	            <div class="d-flex review-box border-top mt-4 pt-4 reviewContent">
 	                <div class="col ps-3">
 	                    <h6>[[${rev.id}]]</h6>
 	                    <div id="btns">
-	                    <button type="submit" class="btn btn-sm btn-outline-secondary">수정</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary upBtn" th:onclick="upFrom([[${rev.revNum}]])">수정</button>
 	                    <button type="button" class="btn btn-sm btn-outline-secondary" id="delBtn">삭제</button>
 	                    </div>
 
@@ -169,7 +195,16 @@
 			 </div>
 			 
 </div>
-<script type="text/javascript">
+		<script th:inline="javascript">
+		
+		/*<![CDATA[*/   
+        var list = /*[[${list}]]*/
+       /*]]*/
+       console.log(list)
+       
+       
+       </script>
+       <script>
 $(function(){
 
 
@@ -181,8 +216,8 @@ $(function(){
 			 speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
 			 arrows : true,         // 옆으로 이동하는 화살표 표시 여부
 			 vertical : false,        // 세로 방향 슬라이드 옵션
-			 prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
-			 nextArrow : "<button type='button' class='slick-next'>Next</button>",
+			 prevArrow : "<button type='button' class='slick-next'>Next</button>",
+			 nextArrow : "<button type='button' class='slick-prev'>Prev</button>",
 			 responsive: [ // 반응형 웹 구현 옵션
 			   {  
 			     breakpoint: 960, //화면 사이즈 960px

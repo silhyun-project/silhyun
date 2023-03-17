@@ -64,14 +64,14 @@
     <i class="fi-shopping-cart"></i> 구입하기
 </button>
 
-<button th:if="${cmPlusInfo != null and cmPlusInfo.buyYN != null and cmPlusInfo.buyYN == 1}" class="btn btn-primary me-3" 
-th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.classNum}) }'|">
+<button type="button" th:if="${cmPlusInfo != null and cmPlusInfo.buyYN != null and cmPlusInfo.buyYN == 1}" class="btn btn-primary me-3" 
+th:onclick="|location.href='@{/silhyun/myPage/myClasses}'|">
     💖 내 학습방
 </button>                            
-                         
+                  
                          
                                     <button type="button" class="btn btn-outline-dark me-3">
-                                        <i class="fi-heart"></i> 찜
+                                        <i class="zzim-icon bi-person" style="font-size: 20px"></i> 찜
                                     </button>
                                            </div>
                             </div>
@@ -79,6 +79,7 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
                                              </div>
                     <input type="hidden" name="id" th:value="${session.id}">
                     <input type="hidden" name="ptgId" th:value="${cInfo.ptgId}">
+                    <input type="hidden" name="ctgrNum">
                     <input type="hidden" name="claTtl">
                     <input type="hidden" name="resPri">
                     <input type="hidden" name="classNum">
@@ -480,7 +481,7 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
                                             <a th:text="${random.STAR}"></a>
                                         </div>
                                         <h6 class="product-title">
-<a th:href="@{/silhyun/classes/classesInfo(classNum=${random.CNUM}, id='catLove')}" th:text="${random.TTL}"></a>
+<a th:href="@{/silhyun/classes/classesInfo(classNum=${random.CNUM})}" th:text="${random.TTL}"></a>
                                 </h6>
                                         <a th:text="${random.NAME}"> </a><br>
                          
@@ -534,8 +535,68 @@ th:onclick="|location.href='@{/silhyun/classes/myClassesVideos(classNum=${cInfo.
         let classNum = $('.h4.claTtl').attr('id')
         console.log(classNum)
         $('input[name="classNum"]').val(classNum)
+        $('input[name="ctgrNum"]').val(classNum)
+    	
+    }) 
     
-    })
+    //▶ 찜
+    //찜 호출 
+	let id = $('input[name="id"]').val()
+	let ctgrNum =$('.h4.claTtl').attr('id')
+	$(function(){
+	    
+	    $.ajax({
+	        url:`/silhyun/cIsZzim/${id}/${ctgrNum}`
+	    }).then(result => {
+	        console.log(result)
+	        if(result){ 
+	            if($('.zzim-icon').hasClass('bi-person')){
+	                $('.zzim-icon').removeClass('bi-person').addClass('bi-person-heart')
+	            }
+	       }else{
+               if($('.zzim-icon').hasClass('bi-person-heart')){
+                   $('.zzim-icon').removeClass('bi-person-heart').addClass('bi-person')
+               }
+	        }
+	    })
+	
+	})
+	
+	$('.btn.btn-outline-dark.me-3').on('click',function(){
+	    if($(this).children().hasClass('bi-person')){  //찜 추가
+	        $.ajax({
+	            url:'/silhyun/cInsertZzim',
+	            type:'post',
+	            data:JSON.stringify({
+	                id: id,
+	                ctgrNum : ctgrNum
+	            }),
+	            contentType: 'application/json'
+	        }).then(result=>{
+	            $(this).children().removeClass('bi-person').addClass('bi-person-heart')
+	
+	           // let countZzim = parseInt($('.product-wishlist').find('p').text())
+	           // $('.product-wishlist').find('p').text(countZzim + 1);
+	        })
+	    }else{  //찜 삭제
+	        $.ajax({
+	            url:'/silhyun/cDelZzim',
+	            type:'post',
+	            data:JSON.stringify({
+	                id: id,
+	                ctgrNum : ctgrNum
+	            }),
+	            contentType: 'application/json',
+				headers: {
+				        'X-HTTP-Method-Override': 'DELETE'
+				}
+	        }).then(result =>{
+	            $(this).children().removeClass('bi-person-heart').addClass('bi-person')
+	          //  let countZzim = parseInt($('.product-wishlist').find('p').text())
+	          //  $('.product-wishlist').find('p').text(countZzim - 1);
+	        })
+	    }
+	})
 </script>
 </div>
 </body>

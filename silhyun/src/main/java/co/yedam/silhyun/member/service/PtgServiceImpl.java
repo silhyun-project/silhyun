@@ -1,13 +1,10 @@
 package co.yedam.silhyun.member.service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.common.vo.ZzimVO;
 import co.yedam.silhyun.member.map.PtgMapper;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 @Service
@@ -51,6 +48,19 @@ public class PtgServiceImpl implements PtgService {
 	@Override
 	public List<PhotographerVO> getResTime(String ptgId, String redate) {
 		return ptgMapper.getResTime(ptgId,redate);
+	}
+	@Override  //찜 확인
+	public boolean isZzim(ZzimVO vo) {
+		int count = ptgMapper.findZzim(vo);
+		return count > 0;
+	}
+	@Override  //찜 추가
+	public void insertZzim(ZzimVO vo) {
+		ptgMapper.insertZzim(vo);
+	}
+	@Override //찜 삭제
+	public void delZzim(ZzimVO vo) {
+		ptgMapper.delZzim(vo);
 	}
 
 

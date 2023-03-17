@@ -209,7 +209,11 @@
 										</div>
 									</div>
 								</div>
+<<<<<<< HEAD
 
+=======
+							</div>
+>>>>>>> branch 'main' of https://github.com/silhyun-project/silhyun.git
 							</div>
 							<!-- End Product Gallery -->
 							<!-- Product Details -->
@@ -223,14 +227,14 @@
 											<h4 class="h4">[[${ptg[0].name}]]</h4>
 										</div>
 										<div class="product-wishlist">
-											<a href="#" class="btn"> <i class="fi-heart"></i>
-											</a>
-											<p>[[${ptg[0].zzims}]]</p>
+											<a class="btn zzim" style="width: 50px;height: 50px"> <i class="zzim-icon bi-person" style="font-size: 30px"></i>
+											</a><br>
+											<span class="text-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[${ptg[0].zzims}]]</span>
 										</div>
 									</div>
 									<div class="product-description">
 										<p style="height: 370px;">[[${ptg[0].itr}]]</p>
-										<p>인스타그램 [[${ptg[0].inst}]]</p>
+										 <i class="bi-instagram" style="font-size: 15px"></i><span>  인스타그램 [[${ptg[0].inst}]]</span>
 									</div>
 
 									<div class="product-detail-actions d-flex flex-wrap">
@@ -369,7 +373,6 @@
 												<div id="textBox"></div>
 												<br> <br>
 												<button id="new-post-btn">문의하기</button>
-
 												<!-- 문의 모달 -->
 												<div id="myModal" class="modal">
 													<!-- 모달 창 내용 -->
@@ -396,130 +399,138 @@
 									</div>
 								</div>
 
-								<!--후기-->
-								<div class="tab-pane fade" id="pd_reviews_02" role="tabpanel"
-									aria-labelledby="pd_reviews_tab_02">
-									<div id="reviews">
-										<div></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<!-- End Product Tabs -->
-			</main>
-			<!-- End Main -->
+                           <!--후기-->
+                            <div class="tab-pane fade" id="pd_reviews_02" role="tabpanel" aria-labelledby="pd_reviews_tab_02">
+                                <div id="reviews">
+      								<div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End Product Tabs -->
+        </main>
+        <!-- End Main -->
 
 
-			<script type="text/javascript">
-				$(function() {
-					$('#pd_reviews_tab_02')
-							.on(
-									'click',
-									function() {
-										ajaxReiew({
-											pageNum : 1,
-											amount : 5
-										})
+	<script th:inline="javascript">
+		
+		/*<![CDATA[*/   
+        var role = /*[[${session.role}]]*/
+        var name = /*[[${session.id}]]*/
+       /*]]*/
+       console.log(role[0].authority)
+       
+       console.log(name)
+    </script>
+       		
+<script>
 
-										window
-												.setTimeout(
-														function() {
+	
+		$(function(){
+			
+			$('#pd_reviews_tab_02').on('click', function(){
+				let ctgrNum = $('#ptgId').val()
+			     ajaxReiew({pageNum:1, amount:5})      ////일단 여기서 작가아이디랑 구분값 넘겨주기 (다른 아작스 페이지도 똑같이)
+			     
+			 window.setTimeout(function(){
 
-															$('.slider-wrap')
-																	.slick(
-																			{
-																				slide : 'div', //슬라이드 되어야 할 태그
-																				//infinite : true,     //무한 반복 옵션     
-																				slidesToShow : 4, // 한 화면에 보여질 컨텐츠 개수
-																				slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
-																				speed : 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-																				arrows : true, // 옆으로 이동하는 화살표 표시 여부
-																				vertical : false, // 세로 방향 슬라이드 옵션
-																				prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
-																				nextArrow : "<button type='button' class='slick-next'>Next</button>",
-																				responsive : [ // 반응형 웹 구현 옵션
-																						{
-																							breakpoint : 960, //화면 사이즈 960px
-																							settings : {
-																								slidesToShow : 4
-																							}
-																						},
-																						{
-																							breakpoint : 768, //화면 사이즈 768px
-																							settings : {
-																								slidesToShow : 5
-																							}
-																						} ]
+				$('.slider-wrap').slick({
+				 slide: 'div',        //슬라이드 되어야 할 태그
+				 //infinite : true,     //무한 반복 옵션     
+				 slidesToShow : 4,        // 한 화면에 보여질 컨텐츠 개수
+				 slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
+				 speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+				 arrows : true,         // 옆으로 이동하는 화살표 표시 여부
+				 vertical : false,        // 세로 방향 슬라이드 옵션
+				 prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
+				 nextArrow : "<button type='button' class='slick-next'>Next</button>",
+				 responsive: [ // 반응형 웹 구현 옵션
+				   {  
+				     breakpoint: 960, //화면 사이즈 960px
+				     settings: {
+				       slidesToShow: 4
+				     } 
+				   },
+				   { 
+				     breakpoint: 768, //화면 사이즈 768px
+				     settings: {    
+				       slidesToShow: 5
+				     } 
+				   }
+				 ]
+				
+				});
+				
+				},300)
+			})
 
-																			});
+		})
 
-														}, 300)
-									})
+		
+		function ajaxReiew(data){
+			$.ajax({
+				url: '/ajaxCall',
+				data: data,
+				success: function(res){
 
-				})
+					$('#reviews').replaceWith(res)
+					
 
-				function ajaxReiew(data) {
-					$.ajax({
-						url : '/ajaxCall',
-						data : data,
-						success : function(res) {
-
-							$('#reviews').replaceWith(res)
-
-						},
-						error : function(err) {
-							console.log(err)
-						}
-					})
+				}, 
+				error: function(err){
+					console.log(err)
 				}
-			</script>
-			<script src="/js/aoQst.js"></script>
+			})
+		}
 
-		</div>
-		<!-- 
+		</script>
+        <script src="/js/aoQst.js"></script>
+    </div>
+    <!-- 
     ========================
        End Wrapper 
     ========================
     -->
-		<!-- End script start -->
-		<script>
-			//    let ptgId = $("#pthVal").text();
-			//    console.log(ptgId);
+    <!-- End script start -->
+    <script>
+    //    let ptgId = $("#pthVal").text();
+    //    console.log(ptgId);
+       
+    //        $.ajax({
+    //            url:"/ptgDetail/"+ptgId
 
-			//        $.ajax({
-			//            url:"/ptgDetail/"+ptgId
+    //        })
+    //        .then(result =>{
+    //            console.log(result)
+    //        })
 
-			//        })
-			//        .then(result =>{
-			//            console.log(result)
-			//        })
-
-			//리뷰
-			// 	     function goReivew(){
-			// 	    	 ajaxReiew({pageNum: 1, amount: 5})
-			// 	     }
-
-			// 		ajaxReiew({pageNum: 1, amount: 5})
-
-			// 		function ajaxReiew(data){
-			// 			$.ajax({
-			// 				url: '/ajaxCall',
-			// 				data: data,
-			// 				success: function(res){
-			// 					console.log(res)
-			// 					$('#reviews').empty().append(res)
-			// 				},
-			// 				error: function(err){
-			// 					console.log(err)
-			// 				}
-			// 			})
-			// 		}
-		</script>
+    
+//리뷰
+// 	     function goReivew(){
+// 	    	 ajaxReiew({pageNum: 1, amount: 5})
+// 	     }
+		
+// 		ajaxReiew({pageNum: 1, amount: 5})
+		
+// 		function ajaxReiew(data){
+// 			$.ajax({
+// 				url: '/ajaxCall',
+// 				data: data,
+// 				success: function(res){
+// 					console.log(res)
+// 					$('#reviews').empty().append(res)
+// 				},
+// 				error: function(err){
+// 					console.log(err)
+// 				}
+// 			})
+// 		}
+    </script>
 
 
-	</div>
+    </div>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.classes.vo.InetClassesWtchVO;
+import co.yedam.silhyun.common.vo.ZzimVO;
 
 public interface ClassesMapper {
 
@@ -49,6 +50,10 @@ public interface ClassesMapper {
 
 	//내 수강강의 오프라인 세부 아작스 
 	Map<String, Object> myC1Ajax(String classNum);
+	
+	int cFindZzim(ZzimVO vo);  //찜 데이터 있는지 확인
+	void cInsertZzim(ZzimVO vo); // 찜 추가하기
+	void cDelZzim(ZzimVO vo); //찜 삭제하기
 	
 	
 }

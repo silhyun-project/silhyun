@@ -37,21 +37,6 @@
 
 	<div layout:fragment="content">
 		로그인 한 사람 : [[${id}]]<br>
-		<!-- Skippy & Prload -->
-		<!-- skippy -->
-
-		<!-- End skippy -->
-		<!-- Preload -->
-		<!-- <div id="loading" class="loading-preloader"> -->
-		<!--     <div class="spinner-border text-primary" role="status"> -->
-		<!--         <span class="visually-hidden">Loading...</span> -->
-		<!--     </div> -->
-		<!-- </div> -->
-		<!-- End Preload -->
-		<!-- Edn Skippy & Prload -->
-		<!-- Size Chart  -->
-
-
 		<!-- Main -->
 		<main>
 			<!-- Home Slider -->
@@ -104,8 +89,17 @@
 			</div>
 			<!-- End Home Slider -->
 
+
 			<!-- Deal section -->
 			<section class="section">
+				<div class="shop-top-bar d-flex pb-3" style="text-align: center; margin-left: 350px">
+					<div class="layout-change ms-2" th:each="tag:${fldList}">
+						<a class="btn btn-sm"  th:href="@{/shilhyun/ptgTag/{fdCd}(fdCd = ${tag.fdCd})}" align="center"> 
+						<i class=""
+							th:text="'# '+${tag.fldName}">#태그</i></a>
+					</div>
+				</div>
+
 				<div class="container">
 					<!-- 태그  -->
 					<div class="row">

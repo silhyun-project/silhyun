@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.common.vo.ZzimVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 
 public interface PtgService {
@@ -16,4 +17,8 @@ public interface PtgService {
 	
 	List<PhotographerVO> getReser(String ptgId);
 	List<PhotographerVO> getResTime(String ptgId,String redate);
+	
+	boolean isZzim(ZzimVO vo);  //찜 데이터 확인
+	void insertZzim(ZzimVO vo); // 찜 추가하기
+	void delZzim(ZzimVO vo); //찜 삭제하기
 }
