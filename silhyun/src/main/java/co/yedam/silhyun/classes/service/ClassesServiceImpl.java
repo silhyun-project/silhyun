@@ -22,6 +22,7 @@ public class ClassesServiceImpl implements ClassesService {
 }
 	@Override
 	public Map<String, Object> selectIV(String classNum, String inetNum, String id) {
+		System.out.println("서비스임플 확인용 selectTV"+classNum+' '+inetNum+' '+id);
 		return ClassesMapper.selectIV(classNum, inetNum, id);
 	}
 	@Override
