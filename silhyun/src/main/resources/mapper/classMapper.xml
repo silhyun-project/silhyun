@@ -519,7 +519,7 @@ ORDER BY i.inet_num
 SELECT i.inet_num, i.inet_ttl, i.inet_vdo, i.inet_desct, i.class_num, COALESCE(w.ew_time, '0') as ew_time,
 nvl(i.inet_note,0) as inet_note
 FROM inetclass i 
-LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num AND w.id = #{id}
+LEFT OUTER JOIN inetclass_wtch w ON i.inet_num = w.inet_num AND w.id = #{id} and w.class_num = #{classNum}
 WHERE i.class_num = #{classNum} AND i.inet_num = #{inetNum}
 </select>
 
@@ -528,7 +528,7 @@ WHERE i.class_num = #{classNum} AND i.inet_num = #{inetNum}
 <!-- 강의 보는 중에 정보 보내기.-->
 <insert id="insertWInfo" parameterType="co.yedam.silhyun.classes.vo.InetClassesWtchVO">
     <selectKey keyProperty="inetwtNum" resultType="int" order="BEFORE">
-    	SELECT CASE WHEN inetwt_num is null THEN (SELECT max(inetwt_num)+1 FROM inetclass_wtch) ELSE inetwt_num END
+    	SELECT CASE WHEN inetwt_num is null THEN (SELECT nvl(max(inetwt_num),0)+1 FROM inetclass_wtch) ELSE inetwt_num END
 		FROM inetclass_wtch RIGHT OUTER JOIN DUAL 
         ON inet_num = #{inetNum} AND class_num = #{classNum} AND id = #{id}
     </selectKey>

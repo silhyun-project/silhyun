@@ -143,6 +143,7 @@ public class ClassesController {
     @RequestMapping(value = "/silhyun/classes/insertWInfo", method = RequestMethod.POST)
     public InetClassesWtchVO insertWInfo(InetClassesWtchVO vo) {
 
+    	System.out.println("컨트롤러로 온 안내. 컨트롤러 자체는 왔음");
 		System.out.println("컨트롤러로 온 vo"+vo);
 		int n = ClassesService.insertWInfo(vo);
 		if (n != 0) {

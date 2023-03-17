@@ -105,7 +105,8 @@ where cfm_cd = 'O' and ptg_id = #{ptgId}
 <!-- ptg승인신청 승인 -->
 <update id="ptgAccept" parameterType="String">
 UPDATE Photographer
-SET cfm_cd = 'Y'
+SET cfm_cd = 'Y',
+accp_date = sysdate
 WHERE ptg_id = #{ptgId}
 </update>
 
@@ -115,6 +116,24 @@ UPDATE Photographer
 SET cfm_cd = 'N'
 WHERE ptg_id = #{ptgId}
 </update>
+
+<update id="eventAccept" parameterType="String">
+UPDATE EVENT
+SET cfm_cd = 'Y',
+accp_dt = sysdate
+WHERE event_num = #{eventNum}
+</update>
+
+<!-- ptgevent 반려 -->
+<update id="noEventAccept" parameterType="String">
+UPDATE EVENT
+SET cfm_cd = 'N'
+WHERE event_num = #{eventNum}
+</update>
+
+
+
+
 
 
 <!-- 리스트 보여주기 -->
@@ -480,6 +499,19 @@ FROM event e
 where e.cfm_cd = 'Y'
     ]]>
 </select>
+
+
+<select id="getEventOList" resultType="map">
+    <![CDATA[
+SELECT nvl(e.name,'이름없음') as "name", e.id as "id", nvl(e.term, '0')  as "term", 
+    e.start_date as "startDate", e.bnph_sta as "bnphSta", e.cpn_pub_sta as "cpnPubSta",
+    e.event_num as "eventNum", e.regi_dt as "regiDate", e.event_num as "eventNum",
+    e.regi_dt as "regiDate"
+FROM event e
+where e.cfm_cd = 'O'
+    ]]>
+</select>
+
 
 <!-- 이벤트관리페이지. 진행예정, 진행중 카운트 -->
 <select id="getEventCnt" resultType="map">

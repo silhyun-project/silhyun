@@ -376,7 +376,7 @@
   
   
   setInterval(function() {
-	  console.log("진행중")
+	  console.log("진행중. id="+myId)
 	   ewTime = Math.floor(player.getCurrentTime());
 	  
 	  $.ajax({
@@ -400,7 +400,7 @@
 	    	
 	  });
 	   	cumlwTime.innerText = "0";
-	}, 10000); // 10초 간격으로 호출
+	}, 5000); // 10초 간격으로 호출
   
   
 </script>
