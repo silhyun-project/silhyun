@@ -101,6 +101,7 @@ public class mypageAoController {
 		
 		return "mypageAo/resCalendarAo";
 	}
+
 	
 	@RequestMapping("/ajaxResInfo/{ptgId}/{redate}/{shotTime}")
 	@ResponseBody
