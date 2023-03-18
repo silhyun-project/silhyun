@@ -52,7 +52,6 @@
    
 	//수정버튼 이벤트 
 	function upFrom(num){
-		console.log(num)
 		$.ajax({
 			url: '/reviewUpform',
 			data: {revNum: num},
@@ -66,3 +65,18 @@
 		})
 	}
 	
+	//삭제버튼 이벤트
+	function delReview(num){
+		console.log(num)
+		$.ajax({
+			url:'/reviewDel',
+			data:{revNum: num},
+		     success: function(res){
+		    	console.log(res)
+		    	ajaxReiew({pageNum:1, amount:5})
+		    }, 
+		    error: function(err){
+		    	console.log(err)
+		    }
+		})
+	}

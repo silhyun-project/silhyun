@@ -159,7 +159,7 @@ img{
 	                    <h6>[[${rev.id}]]</h6>
 	                    <div id="btns">
 	                    <button type="button" class="btn btn-sm btn-outline-secondary upBtn" th:onclick="upFrom([[${rev.revNum}]])">수정</button>
-	                    <button type="button" class="btn btn-sm btn-outline-secondary" id="delBtn">삭제</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="delReview([[${rev.revNum}]])">삭제</button>
 	                    </div>
 
 					       <div class="star-ratings">

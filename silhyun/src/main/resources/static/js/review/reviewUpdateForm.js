@@ -189,7 +189,7 @@ function updateReview(){
 		success: function(res){
 			console.log(res.revNum)  
 			//location.href = "/silhyun/reviewList";
-			//ajaxReiew({pageNum:1, amount:5})
+			ajaxReiew({pageNum:1, amount:5})
 			
 		},
 		error: function(err){

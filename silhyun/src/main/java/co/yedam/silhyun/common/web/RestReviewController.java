@@ -71,4 +71,18 @@ public class RestReviewController {
 		pService.photoInsert(files, ctgrNum, ctgr);
 		return rvo;
 	}
+	
+	@GetMapping("/reviewDel")
+	public String reviewDelete(ReviewVO vo) {
+		//파일삭제
+		PhotoVO pvo = new PhotoVO();
+		pvo.setUsed("N");
+		pvo.setCtgr("R");
+		pvo.setCtgrNum(vo.getRevNum());
+	    pService.photoDelete(pvo);
+	    //리뷰삭제
+	    rService.reviewDelete(vo);
+		
+		return "del";
+	}
 }
