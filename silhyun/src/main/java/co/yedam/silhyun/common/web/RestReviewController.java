@@ -58,17 +58,17 @@ public class RestReviewController {
 		rService.reviewUpdate(rvo);
 		System.out.println("여기까지 오는거얌?");
 		//사진(uesed -> N/ phoNum 반복문 돌려서...)
-		//String[] ary = pvo.getPhoNum().split(",");
-		//System.out.println(ary);
-//		for(String id : ary) {
-//			pvo.setPhoNum(id);
-//			pvo.setUsed("N");
-//			pService.photoDelete(pvo);
-//		}
+		String[] ary = pvo.getPhoNum().split(",");
+		for(String id : ary) {
+			System.out.println(id);
+			pvo.setPhoNum(id);
+			pvo.setUsed("N");
+			pService.photoDelete(pvo);
+		}
 //		//사진 업댓
-//		String ctgrNum = rvo.getRevNum(); 
-//		String ctgr = "R";
-//		pService.photoInsert(files, ctgrNum, ctgr);
+		String ctgrNum = rvo.getRevNum(); 
+		String ctgr = "R";
+		pService.photoInsert(files, ctgrNum, ctgr);
 		return rvo;
 	}
 }
