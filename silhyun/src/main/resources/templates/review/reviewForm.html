@@ -73,7 +73,7 @@
 		<table class="table table-border">
 			<tr>
 				<td>
-					<textarea class="form-control" name="cntn" placeholder="내용을 입력해주세요" maxlength="2200"></textarea>
+					<textarea class="form-control" name="cntn" placeholder="2200자 이하 내용입력" maxlength="2200"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -86,10 +86,10 @@
 				</td>
 			</tr>
 		</table>
-		
-		<input type="hidden" name="id" th:text="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
-		<input type="hidden" name="ctgr" th:text="${ctgr}"> <!-- 섹션이나 시큐리티 아이디값 -->
-      	<input type="hidden" name="ctgrNum" th:text="${id}">  <!-- 이전 페이지 작가아이디 -->
+
+		<input type="hidden" name="id" th:value="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
+		<input type="hidden" name="ctgr" th:value="${ctgr}"> <!-- 섹션이나 시큐리티 아이디값 -->
+      	<input type="hidden" name="ctgrNum" th:value="${id}">  <!-- 이전 페이지 작가아이디 -->
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="insertReview()">작성</button>
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='/silhyun/reviewList'">뒤로가기</button> 

@@ -55,7 +55,7 @@
 <script type="text/javascript" src="/js/review/reviewUpdateForm.js"></script>
 <div class="container col-9">
 	<form class="mb-3" id="myform" action="/silhyun/review"> 
-	<input type="hidden" th:value="${revNum}" id="revNum">
+	<input type="hidden" th:value="${revNum}" id="revNum" name="revNum">
 		<div id="grey">
 				<span class="text-bold">별점을 선택해주세요</span><br>
 		<fieldset id="stars">
@@ -75,7 +75,7 @@
 		<table class="table table-border">
 			<tr>
 				<td>
-					<textarea class="form-control" id="cntn" name="cntn" placeholder="내용을 입력해주세요" maxlength="2200"></textarea>
+					<textarea class="form-control" id="cntn" name="cntn" placeholder="2200자이하 내용 입력" maxlength="2200"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -89,8 +89,7 @@
 			</tr>
 		</table>
 		
-		<input type="hidden" name="id" th:text="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
-      	<input type="hidden" name="ctgrNum" value="user24">  <!-- 이전 페이지 작가아이디 -->
+		<input type="hidden" name="id" th:value="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateReview()">작성</button>
 	      	<input type="hidden" name="phoNum" id="phoNums">

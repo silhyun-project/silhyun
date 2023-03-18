@@ -53,9 +53,22 @@ public class RestReviewController {
 	}
 	@PostMapping("/silhyun/update")
 	public ReviewVO updateReview(PhotoVO pvo, ReviewVO rvo, List<MultipartFile> files) {
-		System.out.println(pvo.getPhoNum());
-		System.out.println(rvo);
-		System.out.println(files);
+		//리뷰 업댓
+		System.out.println("reviewVodd"+rvo);
+		rService.reviewUpdate(rvo);
+		System.out.println("여기까지 오는거얌?");
+		//사진(uesed -> N/ phoNum 반복문 돌려서...)
+		//String[] ary = pvo.getPhoNum().split(",");
+		//System.out.println(ary);
+//		for(String id : ary) {
+//			pvo.setPhoNum(id);
+//			pvo.setUsed("N");
+//			pService.photoDelete(pvo);
+//		}
+//		//사진 업댓
+//		String ctgrNum = rvo.getRevNum(); 
+//		String ctgr = "R";
+//		pService.photoInsert(files, ctgrNum, ctgr);
 		return rvo;
 	}
 }

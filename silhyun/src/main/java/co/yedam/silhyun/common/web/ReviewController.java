@@ -49,7 +49,6 @@ public class ReviewController {
 	//리뷰 업데이트로 가는 아작스
 	@GetMapping("/reviewUpform")   
 	public String reviewUpform(ReviewVO vo, Model model) { 
-		System.out.println(vo.getRevNum() + "리뷰컨트롤러 수정폼가기아작스입니다아아아아아아아ㅏ아아앙");
 		model.addAttribute("revNum", vo.getRevNum());
 		return "review/reviewUpdateForm";
 	}

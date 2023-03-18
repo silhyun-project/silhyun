@@ -95,7 +95,7 @@ makeDiv = function(img, file){
     
 function insertReview(){
 	///차라리전부 아작스로 보내고 seccess 부분에서 location.href로 하기
-	var formData = new FormData($('#myform')[0])
+	var formData = new FormData($('#myform')[0])  //이거 나중에 자바스크립트로 바꾸기(아작스도패치로)
 	for(let i=0; i<selFiles.length; i++){
 		formData.append("files", selFiles[i])
 		}

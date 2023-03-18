@@ -20,9 +20,9 @@
 </insert>
 
 <delete id="photoDelete">
-	delete from photo
-	where ctgr = #{ctgr} 
-	and ctgr_num = #{ctgrNum}
+	update photo
+	set used = #{used}
+	where pho_num = #{phoNum}
 </delete>
 
 <insert id="ptgRegiInsert">
