@@ -66,4 +66,10 @@ SELECT count(count(r.rev_Num))
 	</set>
 	where rev_num = #{revNum}
 </update>
+
+<select id="isReciewCheck" resultType="int">
+	select case when count(*) > 0 then 1 else 0 end "reserIs"
+	from reser
+	where id = #{id} and ptg_id = #{ptgId}
+</select>
 </mapper>

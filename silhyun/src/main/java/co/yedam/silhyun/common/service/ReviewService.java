@@ -16,6 +16,7 @@ public interface ReviewService {
 	int reviewUpdate(ReviewVO vo); //리뷰수정
 	int reviewDelete(ReviewVO vo); //리뷰삭제
 	
+	int isReciewCheck(String id, String ptgId); //리뷰작성시 예약내역 체크
 	
 	//나중에 지은이꺼랑 합치기
 	PhotographerVO ptgStarAvg(String ctgr, String ctgrNum); //평균별점

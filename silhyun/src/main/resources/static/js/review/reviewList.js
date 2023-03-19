@@ -43,8 +43,18 @@ $('#phosort').on('click', function(){
   
 		
        //인써트 버튼 이벤트
-	function reviewInsertForm(){
+	function reviewInsertForm(id){
+		//리뷰 작성버튼 체크 ===> 프로미스, then 써보기
     	let ctgrNum = $('#ptgId').val()
+    	$.ajax({
+			url: '/insertChek',
+			data: {ptgId : ctgrNum,
+			       id : id},
+			success: function(res){
+				console.log(res)
+			}
+		})
+    	
 		$.ajax({
 			url: '/reviewform',
 			data: {ctgrNum: ctgrNum,
@@ -90,3 +100,5 @@ $('#phosort').on('click', function(){
 		    }
 		})
 	}
+
+	

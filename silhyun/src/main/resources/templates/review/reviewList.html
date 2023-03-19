@@ -132,7 +132,7 @@ img{
 						    </div>
 						</div>
 	                <div class="col-sm-6 text-sm-end">
-	                    <button type="button" onclick="reviewInsertForm()">리뷰작성하기</button>
+	                    <button type="button" th:onclick="reviewInsertForm([[${rev.revNum}]])">리뷰작성하기</button>
 	                </div>
 	            </div>
 	            <hr>
@@ -144,7 +144,7 @@ img{
 							<option value="s" th:selected="*{criteria.sort == 's'}">별점수</option>
 							<option value="d" th:selected="*{criteria.sort == 'd'}">최신수</option>
 						</select>
-					    <input type="checkbox" name="photo" value="y" id="phosort" th:checked="*{criteria.photo == 'y'}">포토리뷰 먼저보기
+					    <input type="checkbox" name="photo" value="y" id="phosort" th:checked="*{criteria.photo == 'y'}">포토리뷰 보기
 						<select name="type">
 							<option value="CW">전체</option>
 							<option value="C">내용</option>

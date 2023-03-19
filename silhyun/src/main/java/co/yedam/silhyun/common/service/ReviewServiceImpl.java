@@ -74,4 +74,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return mapper.reivewSelect(vo);
 	}
 
+	@Override
+	public int isReciewCheck(String id, String ptgId) {
+		// TODO Auto-generated method stub
+		return mapper.isReciewCheck(id, ptgId);
+	}
+
 }
