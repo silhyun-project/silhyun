@@ -139,6 +139,18 @@ public class MypageAoServiceImpl implements MypageAoService {
 		return mypageAoMapper.getResInfo(ptgId, redate, shotTime);
 	}
 
+	@Override
+	public List<MemberVO> clMemInfo(String classNum) {
+
+		return mypageAoMapper.clMemInfo(classNum);
+	}
+
+	@Override
+	public int uploadPhoto(ReserVO vo) {
+
+		return mypageAoMapper.uploadPhoto(vo);
+	}
+
 
 
 }

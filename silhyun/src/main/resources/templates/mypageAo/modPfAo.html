@@ -425,10 +425,10 @@
    const modal = document.getElementById("modal_add_profile");//modal이라는 상수를 만드는 코드
     const buttonAddProfile = document.getElementById("add_profile");
     buttonAddProfile.addEventListener("click", e => {
-        modal.style.display = "flex";		//none->flex
-
-        //document.body.style.overflowY = "hidden"; // 스크롤 없애기 필요는 없는데 일단 넣기
-        
+    	modal.style.top = window.pageYOffset + 'px'; // top을 이용해 시작 y위치를 바꿔줌 +px안넣으면 작동x
+    	modal.style.display = "flex";		//none->flex
+       document.body.style.overflowY = "hidden"; // 스크롤 없애기 필요는 없는데 일단 넣기
+  
        // console.log(window.pageYOffset + " 위치"); // 스크롤 위치 보기
     });
     

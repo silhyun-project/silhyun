@@ -258,7 +258,6 @@
 										<th class="fw-600">번호</th>
 										<th class="fw-600">강의명</th>
 										<th class="fw-600">강의내용</th>
-										<th class="fw-600">담당기록가</th>
 										<th class="fw-600">수강일수</th>
 										<th class="fw-600">구분</th>
 										<th class="fw-600 ">총정원</th>
@@ -270,13 +269,12 @@
 										<td class="p-3" th:text="${clM.classNum}" th:value="${clM.classNum}"></td>
 										<td class="p-3" th:text="${clM.claTtl}" th:value="${clM.claTtl}"></td>
 										<td class="p-3" th:text="${clM.claDesct}" ></td>
-										<td class="p-3" th:text="${clM.ptgId}" th:value="${clM.ptgId}"></td>
 										<td class="p-3" th:text="${clM.ydt}" ></td>
 										<td class="p-3" th:text="${clM.claCd}" th:value="${clM.claCd}"></td>
-										<td class="p-3 " th:text="${clM.ypsn}" ></td>
-										<td class="p-3 "><button class="btn btn-mini iqBtn" onclick="inquiryMem()">수강자 조회</button></td>
-											<!-- <td class="p-3 "><button class="btn btn-mini iqBtn" onclick="location.href='/classInquiry?classNum=${classNum}';">수강자 조회</button></td> -->
-
+										<td class="p-3" th:if="${clM.claCd == 'CL1'}" th:text="${clM.ypsn}"></td>
+										<td class="p-3" th:if="${clM.claCd == 'CL2'}">∞</td>
+										<!-- <td class="p-3"><button class="btn btn-mini iqBtn" th:onclick="|location.href='@{/silhyun/mypageAo/classInquiry(classNum=${clM.classNum})}'|">수강자 조회</button></td> -->
+										<td class="p-3"><a class="btn btn-mini iqBtn" th:href="@{/silhyun/mypageAo/classInquiry/{classNum}(classNum=${clM.classNum})}">수강자 조회</a></td>
 									</tr>
 
 								</tbody>
@@ -385,36 +383,12 @@ function applyForm(n){
 	
 }
  
- //수강자조회
- function inquiryMem(){
-	 let iqBtn= event.target.closest('.iqBtn')//선택한 버튼
+ /* let iqBtn= event.target.closest('.iqBtn')//선택한 버튼
 	// console.log(iqBtn);
 	 //두번째 부모의 1번째 자식
-
-	let classNum = iqBtn.parentNode.parentNode.querySelector('td:nth-child(1)').getAttribute('value');
-	console.log(classNum);
-	
-	  $.ajax({
-			url:"/classInquiry/"+classNum,
-			method:'post',
-			data:JSON.stringify({
-				classNum : classNum
-			}),
-			contentType: "application/json",
-			dataType:'json',
-			succes:function(result){
-				console.log(result);
-				alert("성공")
-				window.location.href = "/mypageAo/classInquiry?classNum=" + classNum;
-			},
-			error:function(reject){
-				console.log(reject)
-				alert("실패")
-			}
-		});  
-	
- }
+	let classNum = iqBtn.parentNode.parentNode.querySelector('td:nth-child(1)').getAttribute('value'); */
  
+
  
 </script>
 	</main>

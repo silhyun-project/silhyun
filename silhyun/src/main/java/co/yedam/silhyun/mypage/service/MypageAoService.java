@@ -44,6 +44,9 @@ public interface MypageAoService {
 	
 	//캘린더
 	List<PhotographerVO> getResInfo(String ptgId,String redate, String shotTime);
+	
+	List<MemberVO> clMemInfo(String classNum);	//클래스 수강조회 멤버 정보
+	int uploadPhoto(ReserVO vo);			//대표사진설정
 
 	
 }

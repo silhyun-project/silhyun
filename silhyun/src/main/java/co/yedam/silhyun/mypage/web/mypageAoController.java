@@ -34,6 +34,7 @@ import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.mypage.service.MypageAoService;
+import co.yedam.silhyun.order.vo.ReserVO;
 
 @Controller
 public class mypageAoController {
@@ -63,7 +64,38 @@ public class mypageAoController {
 
 		return "mypageAo/modPfAo";
 	}
+	
+	@PostMapping("/uploadPhoto")
+	@ResponseBody
+	public Map<String, Object> uploadPhoto(ReserVO vo, MultipartFile file) {
+		System.out.println("내가 볼려는거" + vo);
+		System.out.println("파일확인" + file);
+		Map<String, Object> map = new HashMap<>();
 
+		if (file != null && !file.isEmpty()) {
+			String saveImgPath = saveimg + "portfo";
+
+			String fileName = UUID.randomUUID().toString(); // UUID생성
+			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
+			File uploadFile = new File(saveImgPath, fileName);
+			try {
+				file.transferTo(uploadFile); // 파일저장
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			vo.setMainP("/saveImg/portfo/" + fileName);
+//			vo.setClassNum(vo.getPtgId() + key);
+			System.out.println("내가 볼려는거22" + vo);
+			System.out.println("넘어오니?"+vo.getMainP());	//옴
+			mypageAoService.uploadPhoto(vo); // db에 담음
+			map.put("vo", vo);
+			map.put("mainP", file);
+		}
+		return map;
+	}
+	
 	@RequestMapping("/photo/resManage")
 	public String resManage(Model model, HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -72,7 +104,8 @@ public class mypageAoController {
 
 		return "mypageAo/resManage";
 	}
-
+	
+	
 	@GetMapping("/photo/classManage")
 	public String classManage(Model model,HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -350,12 +383,12 @@ public class mypageAoController {
 		return "";
 	}
 	
-	@RequestMapping("/classInquiry/{classNum}")
-	@ResponseBody
-	private String classInquiry(@PathVariable String classNum, Model model) {
+	@RequestMapping("/silhyun/mypageAo/classInquiry/{classNum}")
+	private String classInquiry(@PathVariable("classNum") String classNum, Model model, HttpSession httpSession) {
+		String id = (String)httpSession.getAttribute("id");
 		model.addAttribute("classNum", classNum);
-		System.out.println("호출호출?########"+classNum);
-	
+		System.out.println("호출?########"+classNum);
+		model.addAttribute("memInfo",mypageAoService.clMemInfo(classNum));
 		return "mypageAo/classInquiry";
 	}
 

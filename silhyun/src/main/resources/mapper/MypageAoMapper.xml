@@ -6,7 +6,7 @@
 		SELECT *
 		FROM RESER
 		WHERE ptg_id=#{id}
-		ORDER BY res_num DESC
+		ORDER BY shot_date DESC
 	</select>
 	
 	<select id="selectWorkDay" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
@@ -92,15 +92,15 @@
 		VALUES(#{opNum},#{ptgId},#{ttl},#{cntn},#{pri})
 	</insert>
 	<!-- 작가 예약 시간 수정 -->
-	<update id="updateReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
+<!-- 	<update id="updateReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
 		UPDATE RESER_TIME 
 		<set> 
 		RES_TIME = #{resTime},
 		<if test="ptgId !=null and !ptgId.equals('')">PTG_ID = #{ptgId},</if> 
 		</set> WHERE PTG_ID = #{voList[0].ptgId}
-	</update> 
+	</update>  -->
 
-
+<!-- 작가 예약시간 수정  -->
 	<delete id="deleteReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
 		DELETE
 		FROM RESER_TIME
@@ -112,7 +112,7 @@
     VALUES (#{resTime},#{ptgId})
  
 </insert>
-
+<!-- 작가 정보 수정  -->
 	<update id="ptgInfoUpdate"
 		parameterType="co.yedam.silhyun.member.vo.MemberVO">
 		UPDATE Member
@@ -135,17 +135,38 @@
 	WHERE PTG_ID=#{ptgId}
 	</update>
 
+<!-- 예약 캘린더 확인  -->
 <select id="getResInfo" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-SELECT DISTINCT p.res_num, r.res_cd, r.regi_date, o.ttl, p.ord_date, m.id, m.name, m.email, m.tel
-FROM payment p, reser r, selected_op s, options o, member m, photographer ph
-WHERE p.res_num = r.res_num
-AND r.id = m.id
-AND p.id = m.id
-AND s.op_num = o.op_num
-AND r.ptg_id = ph.ptg_id
-AND ph.ptg_id = #{ptgId}
-AND r.shot_time = #{shotTime}
-AND r.shot_date =#{redate}
+	SELECT DISTINCT p.res_num, r.res_cd, r.regi_date, o.ttl, p.ord_date, m.id, m.name, m.email, m.tel
+	FROM payment p, reser r, selected_op s, options o, member m, photographer ph
+	WHERE p.res_num = r.res_num
+	AND r.id = m.id
+	AND p.id = m.id
+	AND s.op_num = o.op_num
+	AND r.ptg_id = ph.ptg_id
+	AND ph.ptg_id = #{ptgId}
+	AND r.shot_time = #{shotTime}
+	AND r.shot_date =#{redate}
 </select>
+
+<!-- 클래스 수강자 조회 -->
+<select id="clMemInfo" resultType="co.yedam.silhyun.member.vo.MemberVO">
+	SELECT  P.ID, M.NAME, M.EMAIL, M.TEL, C.CLA_TTL
+	FROM PAYMENT P ,MEMBER M, CLASS C
+	WHERE (P.ID = M.ID
+	AND P.CTGR='C')
+	AND P.CTGR_NUM= C.CLASS_NUM
+	AND CTGR_NUM = #{classNum}
+</select>
+
+<!-- 대표사진설정 -->
+<update id="uploadPhoto" parameterType="co.yedam.silhyun.order.vo.ReserVO">
+		UPDATE RESER
+		<set>
+			<if test="mainP != null and !mainP.equals('')">MAIN_P = #{mainP}</if>
+		</set>
+		WHERE RES_NUM = #{resNum}
+</update>
+
 
 </mapper>
