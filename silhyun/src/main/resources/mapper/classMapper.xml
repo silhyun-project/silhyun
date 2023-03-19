@@ -31,7 +31,7 @@
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
     LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-    WHERE c.cla_cd = 'CL1'
+    WHERE c.cla_cd = 'CL1' and c.cfm_cd = 'Y'
     GROUP BY 
     c.cla_cd, 
     c.cla_cnt, 
@@ -68,7 +68,7 @@ FROM class c
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-WHERE c.cla_cd = 'CL2'
+WHERE c.cla_cd = 'CL2'  and c.cfm_cd = 'Y'
 GROUP BY 
     c.cla_cd, 
     c.cla_cnt, 
@@ -111,7 +111,7 @@ GROUP BY
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
     LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-    WHERE c.cla_cd = 'CL1'
+    WHERE c.cla_cd = 'CL1'   and c.cfm_cd = 'Y'
     <if test="param1 == 6">and f.fd_cd = 'B6'</if>
 <if test="param1 == 7">and f.fd_cd = 'B7'</if>
 <if test="param1 == 9">and f.fd_cd = 'B9'</if>
@@ -150,7 +150,7 @@ FROM class c
 LEFT OUTER JOIN member m ON c.ptg_id = m.id
 LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
 LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-WHERE c.cla_cd = 'CL2'
+WHERE c.cla_cd = 'CL2' and c.cfm_cd = 'Y'
 <if test="param1 == 6">and f.fd_cd = 'B6'</if>
 <if test="param1 == 7">and f.fd_cd = 'B7'</if>
 <if test="param1 == 9">and f.fd_cd = 'B9'</if>
@@ -201,6 +201,7 @@ LEFT OUTER JOIN (
     FROM payment
     GROUP BY ctgr_num
 ) p ON c.class_num = p.ctgr_num
+where  c.cfm_cd = 'Y'
 GROUP BY 
     c.cla_cd, 
     c.cla_cnt, 
@@ -253,7 +254,7 @@ LEFT OUTER JOIN (
     FROM payment
     GROUP BY ctgr_num
 ) p ON c.class_num = p.ctgr_num
-WHERE c.cla_pri = '0'
+WHERE c.cla_pri = '0'  and c.cfm_cd = 'Y'
 GROUP BY 
     c.cla_cd, 
     c.cla_cnt, 
@@ -338,7 +339,7 @@ CASE
     LEFT OUTER JOIN member m ON c.ptg_id = m.id
     LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
     LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
-    WHERE c.class_num != #{classNum}
+    WHERE c.class_num != #{classNum}  and c.cfm_cd = 'Y'
     GROUP BY 
     c.cla_cd, 
     c.cla_cnt, 

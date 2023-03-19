@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import co.yedam.silhyun.member.vo.AdminCriteria;
-import co.yedam.silhyun.member.vo.AdminPageVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.AdminSercive;
+import co.yedam.silhyun.member.vo.AdminCriteria;
+import co.yedam.silhyun.member.vo.AdminPageVO;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.mypage.vo.QuitVO;
@@ -30,10 +31,11 @@ public class AdminController {
 	@Autowired
 	private AdminSercive adminService;
 	
+	   
 	
 	//이벤트관리
 	@GetMapping("/admin/eventManage")
-	public String eventManage(Model model) {
+	public String eventManage(Model model, AdminCriteria cri) {
 		List<Map<String,Object>> eList = adminService.getEventList();
 		model.addAttribute("eList", eList);
 		
@@ -54,6 +56,28 @@ public class AdminController {
 	    return adminService.getEventContent(eventNum);
 	}
 	
+	@PostMapping("/admin/addAdminEvent")
+	@ResponseBody
+	public EventVO addAdminEvent(EventVO vo, List<MultipartFile> files) {
+	    // 파일 저장하는 로직 추가
+	    // ...
+	    System.out.println("컨트롤러로 온 EventVO는 = " + vo);
+	    adminService.addAdminEvent(vo);
+	    return vo;
+		
+	}
+
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	//ptg 승인 상세======================================================
 	@RequestMapping("/admin/ptgSelect")
 	@ResponseBody
 	public Map<String, Object> ptgSelect(@RequestParam("ptgId") String ptgId){
@@ -81,7 +105,7 @@ public class AdminController {
 	}
 	
 	//ptg 승인요청 반려
-	@RequestMapping("/admin/noPtgAccept")
+	@RequestMapping("/admin/noAccept")
 	@ResponseBody
 	public String noPtgAccept(@RequestParam("ptgId") String ptgId){
 		 System.out.println("컨트롤러로 온 ptgId2는 = " + ptgId);
@@ -98,6 +122,99 @@ public class AdminController {
 		 System.out.println("컨트롤러 msg"+msg);
 		 return msg;
 	}
+	
+	//사진관 승인=======================================
+	@RequestMapping("/admin/stdSelect")
+	@ResponseBody
+	public Map<String, Object> stdSelect(@RequestParam("stId") String stId){
+		 System.out.println("컨트롤러로 온 stId는 = " + stId);
+		return adminService.stdSelect(stId);
+	}
+	
+	//사진관 승인요청 승인
+	@RequestMapping("/admin/stdAccept")
+	@ResponseBody
+	public String stdAccept(@RequestParam("stId") String stId){
+		 System.out.println("컨트롤러로 온 stId는 = " + stId);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.stdAccept(stId);
+		
+		 if (n!=0) {
+			 msg = stId+"님을 승인 완료했습니다.";
+		 }else {
+			 msg ="승인 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
+	
+	//사진관 승인요청 반려
+	@RequestMapping("/admin/noStdAccept")
+	@ResponseBody
+	public String noStdAccept(@RequestParam("stId") String stId){
+		 System.out.println("컨트롤러로 온 stId222222는 = " + stId);
+		 String msg="";
+		 int n;
+		 
+		 n = adminService.noStdAccept(stId);
+		
+		 if (n!=0) {
+			 msg = stId+"님을 승인 반려했습니다.";
+		 }else {
+			 msg ="반려 실패";
+		 }
+		 System.out.println("컨트롤러 msg"+msg);
+		 return msg;
+	}
+	
+	//클래스 승인 상세======================================================
+		@RequestMapping("/admin/classSelect")
+		@ResponseBody
+		public Map<String, Object> classSelect(@RequestParam("classNum") String classNum){
+			 System.out.println("컨트롤러로 온 classNum는 = " + classNum);
+			return adminService.classSelect(classNum);
+		}
+		
+		//클래스 승인요청 승인
+		@RequestMapping("/admin/classAccept")
+		@ResponseBody
+		public String classAccept(@RequestParam("classNum") String classNum){
+			 System.out.println("컨트롤러로 온 classNum는 = " + classNum);
+			 String msg="";
+			 int n;
+			 
+			 n = adminService.classAccept(classNum);
+			
+			 if (n!=0) {
+				 msg = classNum+"을 승인 완료했습니다.";
+			 }else {
+				 msg ="승인 실패";
+			 }
+			 System.out.println("컨트롤러 msg"+msg);
+			 return msg;
+		}
+		
+		//클래스 승인요청 반려
+		@RequestMapping("/admin/noClassAccept")
+		@ResponseBody
+		public String noClassAccept(@RequestParam("classNum") String classNum){
+			 System.out.println("컨트롤러로 온 classNum는 = " + classNum);
+			 String msg="";
+			 int n;
+			 
+			 n = adminService.noClassAccept(classNum);
+			
+			 if (n!=0) {
+				 msg = classNum+"님을 승인 반려했습니다.";
+			 }else {
+				 msg ="반려 실패";
+			 }
+			 System.out.println("컨트롤러 msg"+msg);
+			 return msg;
+		}
+	
 	
 	//event 승인요청 승인
 	@RequestMapping("/admin/eventAccept")
@@ -146,7 +263,14 @@ public class AdminController {
 	
 	@GetMapping("/admin/memberAccept")
 	public String memberAccept(String ptgId, Model model) {
+		
+		model.addAttribute("needCfm", adminService.countNeedCfm());
+		
 		model.addAttribute("ptgList", adminService.ptgCfmList());
+		
+		model.addAttribute("stdList", adminService.stdCfmList());
+		
+		model.addAttribute("classList", adminService.classCfmList());
 		
 		List<Map<String,Object>> eList = adminService.getEventOList();
 		model.addAttribute("eList", eList);
@@ -158,7 +282,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/memberManage")
-	public String memberManage(AdminCriteria cri, MemberVO vo, Model model) {
+	public String memberManage(AdminCriteria cri, AdminCriteria cri2, MemberVO vo, Model model) {
 		model.addAttribute("todayMem", adminService.todayMem());
 		model.addAttribute("todayPtg", adminService.todayPtg());
 		model.addAttribute("todayStd", adminService.todayStd());
@@ -175,9 +299,9 @@ public class AdminController {
 		model.addAttribute("page", new AdminPageVO(adminService.getTotalCount(cri), 10, cri));
 		
 		//작가리스트 페이징
-		cri.setAmount(5);
-		model.addAttribute("ptglist", adminService.getListPtg(cri));
-		model.addAttribute("ptgPage", new AdminPageVO(adminService.getTotalPtg(cri), 10, cri));
+		cri2.setAmount(5);
+		model.addAttribute("ptglist", adminService.getListPtg(cri2));
+		model.addAttribute("ptgPage", new AdminPageVO(adminService.getTotalPtg(cri2), 10, cri2));
 
 		return "/admin/memberManage";
 	}
@@ -201,22 +325,36 @@ public class AdminController {
 	
 	
 	
-	//멤버 삭제 단건
-	@RequestMapping("/deleteMember")
-	public String deleteMember(String id) {
+	//멤버 비활성화 단건
+	@RequestMapping("/disableMember")
+	public String disableMember(String id) {
 		System.out.println("내가 보려는 거 "+id);
 		
-		int n = adminService.deleteMember(id);
+		int n = adminService.disableMember(id);
 
 		if(n !=0) {
-			System.out.println(id+"삭제완료");
-			adminService.insertQuitMember(id);
-			System.out.println(id+"탈퇴등록완료");
+			System.out.println(id+"비활성화완료");
 		}else {
 		}
 		return "redirect:/admin/memberManage";
 		//test
 	}
+	
+	//멤버 활성화 단건
+	@RequestMapping("/ableMember")
+	public String ableMember(String id) {
+		System.out.println("내가 보려는 거 "+id);
+		
+		int n = adminService.ableMember(id);
+
+		if(n !=0) {
+			System.out.println(id+"비활성화완료");
+		}else {
+		}
+		return "redirect:/admin/memberManage";
+		//test
+	}
+	
 	
 	//관리자 정보 수정
 	@PostMapping("/updateAdmin")
@@ -276,32 +414,6 @@ public class AdminController {
 		return "/admin/quitManage";
 	}
 	
-	//탈퇴 삭제
-	@RequestMapping("/deleteQMember")
-	public String deleteQMember(String id) {
-		System.out.println("내가 보려는 거 "+id);
-		
-		int n = adminService.deleteQMember(id);
-
-		if(n !=0) {
-			System.out.println(id+"삭제완료");
-		}else {
-		}
-		return "redirect:/admin/quitManage";
-		//test
-	}
-	
-	@GetMapping("/admin/rankManage")
-	public String rankManage(Model model) {
-		
-		List<Map<String,String>> PGraph = adminService.ptgGraph();
-		model.addAttribute("PGraph",PGraph);
-		
-		model.addAttribute("ptgRank", adminService.ptgRank());
-		model.addAttribute("classRank", adminService.classRank());
-		
-		return "/admin/rankManage";
-	}
 	
 	@GetMapping("/admin/reportManage")
 	public String reportManagr() {
@@ -323,7 +435,14 @@ public class AdminController {
 		model.addAttribute("cfm", adminService.cfmCnt());
 		model.addAttribute("qst", adminService.qstCnt());
 		model.addAttribute("lastS", adminService.lastSales());
-		System.out.println("컨트롤러"+model);
+
+			List<Map<String,String>> PGraph = adminService.ptgGraph();
+			model.addAttribute("PGraph",PGraph);
+			
+			model.addAttribute("ptgRank", adminService.ptgRank());
+			model.addAttribute("classRank", adminService.classRank());
+			
+
 		return "/admin/dashBoard";
 	}
 	

@@ -33,7 +33,11 @@ public interface AdminSercive {
 	//최신 가입 5
 	List<MemberVO> recentJoin();
 	
-	//종합승인관리
+	//=======================종합승인관리
+	//승인신청 카운트
+	Map<String, Object> countNeedCfm();
+	
+	
 	//기록가 승인관리
 	List<Map<String, Object>> ptgCfmList();
 	
@@ -45,6 +49,39 @@ public interface AdminSercive {
 	
 	//기록가 승인신청 반려
 	int noPtgAccept(String ptgId);
+	
+	
+	//사진관 =========================================
+	//사진관 승인관리
+	List<Map<String, Object>> stdCfmList();
+	
+	//사진관 승인상세정보
+	Map<String, Object> stdSelect(String stId);
+	
+	//사진관 승인신청 승인
+	int stdAccept(String stId);
+	
+	//사진관 승인신청 반려
+	int noStdAccept(String stId);
+	
+	//클래스 =================================================
+	
+	//클래스 승인관리
+	List<Map<String, Object>> classCfmList();
+	
+	//클래스 승인상세정보
+	Map<String, Object> classSelect(String classNum);
+	
+	//클래스 승인신청 승인
+	int classAccept(String classNum);
+	
+	//클래스 승인신청 반려
+	int noClassAccept(String classNum);
+	
+	
+	//이벤트 ========================================================
+	
+	
 	
 	//이벤트 승인신청 승인
 	int eventAccept(String eventNum);
@@ -75,12 +112,10 @@ public interface AdminSercive {
 	
 	List<MemberVO> todayStd();
 	
-	int deleteMember(String id);
-	
+	int disableMember(String id);
 
-	//탈퇴
-	int insertQuitMember(String id);
-	
+	int ableMember(String id);
+
 	//그래프
 	
 	List<Map<String, String>> quitGraph();
@@ -97,8 +132,6 @@ public interface AdminSercive {
 	List<Map<String, Object>> getListQuit(AdminCriteria cri);
 	
 	int getTotalQuit(AdminCriteria cri);
-	
-	int deleteQMember(String id);
 	
 
 	//수정
@@ -129,5 +162,8 @@ public interface AdminSercive {
 	
 	//이벤트 상세정보
 	EventVO getEventContent(String eventNum);
+	
+	//이벤트추가
+	int addAdminEvent(EventVO vo);
 
 }

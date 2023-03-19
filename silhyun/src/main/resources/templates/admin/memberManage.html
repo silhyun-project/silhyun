@@ -41,7 +41,7 @@
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
                                     신규 회원: <code th:text="${todayMem.size}"></code> &nbsp; 총 회원: <code th:text="${memberList.size}"></code></p>
                                 <!-- 검색 -->
-                                <form id="searchFrm" action="/admin/memberManage" th:object="${page}" class="app-search d-none d-md-block me-3">
+                                <form id="searchFrm1" action="/admin/memberManage" th:object="${page}" class="app-search d-none d-md-block me-3">
 
                                     <ul style="list-style:none;float:right;">
                                         <li>
@@ -89,10 +89,10 @@
                             <hr>
                             <!-- 회원 관리 본문 -->
                             
-                                    <form id="memberFrm" method="post" action="/deleteMember">
+                                    <form id="memberFrm">
                             <div class="table-responsive">
                                 <!-- 회원 테이블 -->
-                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|deleteMemberAll()|">선택삭제</button>
+                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|disableMemberAll()|">선택비활성화</button>
                                 <table class="table text-nowrap">
                                     
                                     <thead>
@@ -110,12 +110,14 @@
                                             <th class="border-top-0">성별</th>
                                             <th class="border-top-0">포인트</th>
                                             <th class="border-top-0">멤버권한</th>
+                                             <th class="border-top-0">수정</th>
+                                              <th class="border-top-0">비활성화</th>
                                                                
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="mem,sts : ${list}" th:Class="${sts}">
-                                        
+                                        <tr th:each="mem,sts : ${list}" th:Class="${sts}"
+                                         th:classappend="${mem.memCd == 'M4'} ? 'bg-secondary' : ''">                                   
                                     	    <td><input type="checkbox" th:if="${#strings.equals(mem.memCd, 'M1')}" id="memberBox" ></td>
                                             <td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}"></td>
                                             <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
@@ -129,11 +131,12 @@
                                             <td th:text="${mem.memCd}" th:value="${mem.memCd}"></td>
                                             
                                             <td><button type="button" class="btn btn-success"  id ="updateMBtn"  data-bs-toggle="modal" data-bs-target="#updateMModal" style="color:white;" 
-                                            th:attr="onclick=|relayMId('${mem.id}')|">수정</button>
-                                            &nbsp;
-                                              
-                                            <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
-                                            style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|" id="delBtn">삭제</button></td>
+                                            th:attr="onclick=|relayMId('${mem.id}')|">수정</button></td>
+
+                                            <td><button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" 
+                                            style="color:white;" th:attr="onclick=|disableMember('${mem.id}')|" id="delBtn">비활성화</button>
+											<button th:if="${#strings.equals(mem.memCd, 'M4')}" type="button" class="btn btn-dark" 
+                                            style="color:white;" th:attr="onclick=|ableMember('${mem.id}')|" id="delBtn">활성화</button></td>
                                             
                                         
                                         </tr>
@@ -148,21 +151,22 @@
                             
                             
                             <!-- 회원리스트 페이징  -->
-                            <div align="center">
-                            
-   <div class="pagination">
+                         
+                            <div  align="center">
+   <div class="pagination" id="pagination1">
 		<a th:if="${page.prev}" th:href="${page.startPage-1}" style="color:black;float:left;padding:8px16px;text-decoration:none">&laquo;</a>
 		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
 		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
 		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
-	</div>
-	<form id="actionFrm" action="/admin/memberManage" th:object="${page}">
+	
+	<form id="actionFrm1" action="/admin/memberManage" th:object="${page}">
 		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
 		<input type="hidden" name="amount" th:value="*{criteria.amount}">
 		<input type="hidden" name="type" th:value="*{criteria.type}">
 		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
 	</form>
 </div>
+                            </div>
 
 <!-- 페이징 끝 -->
                             
@@ -186,7 +190,7 @@
 		<br>
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
                                     신규 기록가: <code th:text="${todayPtg.size}"></code> &nbsp; 총 기록가: <code th:text="${ptgList.size}"></code></p>
-                             <form id="searchFrmP" action="/admin/memberManage" th:object="${ptgPage}" class="app-search d-none d-md-block me-3">
+                             <form id="searchFrm2" action="/admin/memberManage" th:object="${ptgPage}" class="app-search d-none d-md-block me-3">
                
                             <ul style="list-style:none;float:right;">
 								<li>		
@@ -223,14 +227,11 @@
                                    <form id="ptgFrm" method="post" action="/deletePtg">
                             <div class="table-responsive">
                                 <!-- 작가 테이블 -->
-                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|deletePtgAll()|">선택삭제</button>
                                 <table class="table text-nowrap">
                                     
                                     <thead>
                                     
                                         <tr>
-                                        
-         									<th><input type="checkbox" id="chkPtgAllBox" th:attr="onclick=|chkPtgAll()|"></th>
                                                       <th class="border-top-0">#</th>
                                             <th class="border-top-0">작가아이디</th>
                                             <th class="border-top-0">사진관아이디</th>
@@ -239,14 +240,11 @@
                                             <th class="border-top-0">인스타주소</th>
                                             <th class="border-top-0">근무가능요일</th>
                                             <th class="border-top-0">소속여부</th>
-                                            <th class="border-top-0">등록일자</th>
-                                                               
+                                            <th class="border-top-0">등록일자</th>                                                             
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="ptg,sts : ${ptglist}" th:Class="${sts}">
-                                        
-                                    	    <td><input type="checkbox" id="memberBox" ></td>
                                             <td th:text="${ptgPage.total-(ptgPage.criteria.pageNum-1)*ptgPage.criteria.amount-sts.index}"></td>
                                             <td th:text="${ptg.ptgId}" th:value="${ptg.ptgId}" id="id" th:name="id"></td>
                                             <td th:text="${ptg.stId}" th:value="${ptg.stId}"></td>
@@ -256,14 +254,6 @@
                                             <td th:text="${ptg.workDay}" th:value="${ptg.workDay}"></td>
                                             <td th:text="${ptg.ptgCd}" th:value="${ptg.ptgCd}"></td>
                                             <td th:text="${#dates.format(ptg.accpDate,'yyyy/MM/dd')}" th:value="${ptg.accpDate}"></td>
-
-                                            <td><button type="button" class="btn btn-success"  id ="updatePBtn"  data-bs-toggle="modal" data-bs-target="#updatePModal" style="color:white;" 
-                                            th:attr="onclick=|relayPtgId('${ptg.ptgId}')|">수정</button>
-                                            &nbsp;
-                                              
-                                            <button type="button" class="btn btn-danger" 
-                                            style="color:white;" th:attr="onclick=|deletePtg('${ptg.ptgId}')|" id="delPtgBtn">삭제</button></td>
-                              
                                         </tr>
                                     </tbody>
                                 </table>
@@ -271,21 +261,22 @@
                             </form>
                             
                                                         <!-- 기록가리스트 페이징  -->
-                            <div align="center">
-                            
-   <div class="paginationP">
+                                                        
+                                                        <div align="center">
+   <div class="pagination" id="pagination2">
 		<a th:if="${ptgPage.prev}" th:href="${ptgPage.startPage-1}" style="color:black;float:left;padding:8px16px;text-decoration:none">&laquo;</a>
 		<a th:each="num : ${#numbers.sequence(ptgPage.getStartPage(), ptgPage.getEndPage())}" th:href="${num}"
 		    th:class="${ptgPage.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
 		<a th:if="${ptgPage.next}" th:href="${ptgPage.endPage+1}">&raquo;</a>
-	</div>
-	<form id="actionFrmP" action="/admin/memberManage" th:object="${ptgPage}">
+
+	<form id="actionFrm2" action="/admin/memberManage" th:object="${ptgPage}">
 		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
 		<input type="hidden" name="amount" th:value="*{criteria.amount}">
 		<input type="hidden" name="type" th:value="*{criteria.type}">
 		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
 	</form>
 </div>
+                                                        </div>
 
 <!-- 페이징 끝 -->
                             
@@ -334,11 +325,11 @@
 
                             <br>
                             <hr>
+                            
                             <div class="table-responsive">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
-                                            <!-- 보여줄 부분 -->
                                             <th class="border-top-0">#</th>
                                             <th class="border-top-0">사진관아이디</th>
                                             <th class="border-top-0">이름</th>
@@ -348,11 +339,12 @@
                                             <th class="border-top-0">주소</th>
                                             <th class="border-top-0">사업자등록번호</th>
                                             <th class="border-top-0">등록일자</th>
+                                              <th class="border-top-0">소속작가</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                           <tr th:each="std,sts : ${stdList}" th:Class="${sts}">                                
+                                           <tr th:each="std,sts : ${stdList}" th:Class="${sts}">      
                                             <td th:text="${sts.count}"></td>    
                                             <td th:text="${std.stId}"></td>
                                             <td th:text="${std.stName}"></td>
@@ -362,19 +354,9 @@
                                             <td th:text="${std.addr}"></td>
                                             <td th:text="${std.crn}"></td>
                                             <td th:text="${#dates.format(std.accpDate,'yyyy/MM/dd')}"></td>
-                                     
-                                            <td><button type="button" class="btn btn-success" style="color:white;">수정</button>
-                                            &nbsp;
-                                             
-                                             
-                                            <button type="button" class="btn btn-danger" th:if="${#strings.equals(std.stCd, 'S')}"
-                                            style="color:white;" id="delBtn">삭제</button>
+                                            <td>
                                             <button class="btn btn-secondary" th:if="${#strings.equals(std.stCd, 'G')}" style="color:white;" type="button" id ="updateBtn"  data-bs-toggle="modal" 
                                             data-bs-target="#StdsPtgList"  th:attr="onclick=|belongAjax('${std.stId}')|">소속작가</button>    
-                                            
-                                           
-                                            <!-- |location.href='@{belongPtg(stId=${std.stId})}' 
-                                            'belongAjax(${std.stId})"-->
                                             </td>
                                         </tr>
                                         <!-- 삭제할 것 -->
@@ -429,17 +411,6 @@
                             <label class="form-label" for="exampleInputPassword1">성별</label>
                             <input type="text" class="form-control"  id="genCd" name="genCd" placeholder="m 또는 f">
                         </div>
-                             <!-- 
-                                                <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">포인트</label>
-                            <input type="text" class="form-control" id="pointSum" name="pointSum" placeholder="숫자입력">
-                        </div>
-                              -->
-                                                <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">멤버권한</label>
-                            <input type="text" class="form-control"  id="memCd" name="memCd" placeholder="M*">
-                        </div>
-
                         
                         <div class="row align-items-center">
                             <div class="col-sm-4">
@@ -540,21 +511,22 @@
 	    };
 	
 	    
-//단건 삭제버튼. id값만 넘기면서 페이지 새로고침
-	    function deleteMember(id){
+//단건 비활성화버튼. id값만 넘기면서 페이지 새로고침
+	    function disableMember(id){
 	
 			var id= id;
-	    	if(confirm(id+"님을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
+	    	if(confirm(id+"님을 정말 비활성화하시겠습니까?")==true){
 		
-		location.replace('/deleteMember?id='+id); 
+		location.replace('/disableMember?id='+id); 
 		console.log("넘어감");
+		alert(id+"님을 비활성화하였습니다.");
 	    	}else{
 	    		alert("취소되었습니다.");
 	    	}
 
 	    };
 
-//다건 삭제버튼
+//다건 비활성화버튼
 
 		function chkMemAll(){
          if($("#chkMemAllBox").prop("checked")){
@@ -569,7 +541,7 @@
     
     
 
-    function deleteMemberAll(){
+    function disableMemberAll(){
     		 var ids = '';
     	let list = [];
     	
@@ -582,20 +554,18 @@
     		 ids+= id+"님 ";
 
     		 var obj = {};
-    		 //obj["id"] = id;
-    		 
-    		 //list.push(obj);
+
     		 list.push(id);
     		 
     	 });
- 	    	if(confirm(ids+"을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
+ 	    	if(confirm(ids+"을 정말 비활성화하시겠습니까?")==true){
  	   		
  	    		for (const value of list) {
- 	    		    console.log("삭제할거얌"+value);
- 	    		   location.replace('/deleteMember?id='+value);
+ 	    		    console.log("비활성화할거얌"+value);
+ 	    		   location.replace('/disableMember?id='+value);
  	    		} 
  
- 	    		alert("삭제 완료");
+ 	    		alert("비활성화 완료");
  	   	    	
  	    	}else{
  	   	    		alert("취소되었습니다.");
@@ -606,6 +576,23 @@
     
     
 
+    function ableMember(id){
+    	
+		var id= id;
+    	if(confirm(id+"님을 정말 활성화하시겠습니까?")==true){
+	
+	location.replace('/ableMember?id='+id); 
+	console.log("넘어감");
+	alert(id+"님을 활성화하였습니다.");
+    	}else{
+    		alert("취소되었습니다.");
+    	}
+
+    };
+    
+    
+    
+    
     function belongAjax(stId){
 
     var stId = stId;
@@ -643,23 +630,23 @@
 
 history.replaceState({}, null, location.pathname);
 
-$(".pagination a").on("click", function(e){
+$("#pagination1 a").on("click", function(e){
 	e.preventDefault();
-	console.log($("#actionFrm").find("input[name='pageNum']").val())
- 	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
+	console.log($("#actionFrm1").find("input[name='pageNum']").val())
+ 	$("#actionFrm1").find("input[name='pageNum']").val($(this).attr("href"));
 	
-	actionFrm.submit(); //폼태그값을 스트링으로 
+	actionFrm1.submit(); //폼태그값을 스트링으로 
 })
 
 	console.log($('input[type="checkbox"]:checked').val())
 	
-$('#searchFrm button').on("click", function(e){
+$('#searchFrm1 button').on("click", function(e){
 	console.log('click')
 	
 	
-	$('#searchFrm').find("input[name='pageNum']").val(1);
+	$('#searchFrm1').find("input[name='pageNum']").val(1);
 	e.preventDefault();
-	searchFrm.submit();
+	searchFrm1.submit();
 })
  
  
@@ -668,13 +655,13 @@ $('#searchFrm button').on("click", function(e){
 
 history.replaceState({}, null, location.pathname);
 
-$(".paginationP a").on("click", function(e){
+$("#pagination2 a").on("click", function(e){
 	e.preventDefault();
-	console.log($("#actionFrmP").find("input[name='pageNum']").val())
- 	$("#actionFrmP").find("input[name='pageNum']").val($(this).attr("href"));
+	console.log($("#actionFrm2").find("input[name='pageNum']").val())
+ 	$("#actionFrm2").find("input[name='pageNum']").val($(this).attr("href"));
 	
-	actionFrmP.submit(); //폼태그값을 스트링으로 
-})
+	actionFrm2.submit(); //폼태그값을 스트링으로 
+
 
 	console.log($('input[type="checkbox"]:checked').val())
 	
@@ -682,9 +669,10 @@ $('#searchPBtn').on("click", function(e){
 	console.log('click')
 	
 	
-	$('#searchFrmP').find("input[name='pageNum']").val(1);
+	$('#searchFrm2').find("input[name='pageNum']").val(1);
 	e.preventDefault();
-	searchFrmP.submit();
+	searchFrm2.submit();
+})
 });
 
 

@@ -62,13 +62,13 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public int deleteMember(String id) {
-		return adminMapper.deleteMember(id);
+	public int disableMember(String id) {
+		return adminMapper.disableMember(id);
 	}
 
 	@Override
-	public int insertQuitMember(String id) {
-		return adminMapper.insertQuitMember(id);
+	public int ableMember(String id) {
+		return adminMapper.ableMember(id);
 	}
 
 	@Override
@@ -114,10 +114,6 @@ public class AdminServiceImpl implements AdminSercive {
 		return adminMapper.getTotalQuit(cri);
 	}
 
-	@Override
-	public int deleteQMember(String id) {
-		return adminMapper.deleteQMember(id);
-	}
 
 	@Override
 	public List<PhotographerVO> getListPtg(AdminCriteria cri) {
@@ -212,6 +208,52 @@ public class AdminServiceImpl implements AdminSercive {
 	@Override
 	public int noPtgAccept(String ptgId) {
 		return adminMapper.noPtgAccept(ptgId);	}
+	
+	//사진관 승인 ================================
+	@Override
+	public List<Map<String, Object>> stdCfmList() {
+		return adminMapper.stdCfmList();
+	}
+
+	@Override
+	public Map<String, Object> stdSelect(String stId) {
+		return adminMapper.stdSelect(stId);
+	}
+
+	@Override
+	public int stdAccept(String stId) {
+		return adminMapper.stdAccept(stId);
+	}
+
+	@Override
+	public int noStdAccept(String stId) {
+		return adminMapper.noStdAccept(stId);
+	}
+	
+	//클래스 승인 ================================
+	@Override
+	public List<Map<String, Object>> classCfmList() {
+		return adminMapper.classCfmList();
+	}
+
+	@Override
+	public Map<String, Object> classSelect(String classNum) {
+		return adminMapper.classSelect(classNum);
+	}
+
+	@Override
+	public int classAccept(String classNum) {
+		return adminMapper.classAccept(classNum);
+	}
+
+	@Override
+	public int noClassAccept(String classNum) {
+		return adminMapper.noClassAccept(classNum);
+	}
+	
+	
+	
+	//이벤트 승인 ===========================================
 
 	@Override
 	public List<Map<String, Object>> getEventOList() {
@@ -226,5 +268,15 @@ public class AdminServiceImpl implements AdminSercive {
 	@Override
 	public int noEventAccept(String eventNum) {
 		return adminMapper.noEventAccept(eventNum);
+	}
+
+	@Override
+	public Map<String, Object> countNeedCfm() {
+		return adminMapper.countNeedCfm();
+	}
+
+	@Override
+	public int addAdminEvent(EventVO vo) {
+		return adminMapper.addAdminEvent(vo);
 	}
 }

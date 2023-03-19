@@ -71,14 +71,9 @@
 	<form id ="quitMFrm" method="post" action="/deleteQuitM">
 	  <div class="table-responsive">
                                 <!-- 회원 테이블 -->
-                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|deleteMemberAll()|">선택삭제</button>
                                 <table class="table text-nowrap">
-                                    
                                     <thead>
-                                    
                                         <tr>
-                                        
-         									<th align="center"><input type="checkbox" id="chkMemAllBox" th:attr="onclick=|chkMemAll()|"></th>
                                             <th class="border-top-0">#번호</th>
                                             <th class="border-top-0">멤버아이디</th>
                                             <th class="border-top-0">탈퇴일</th>
@@ -88,20 +83,11 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="mem,sts : ${list}" th:Class="${sts}">
-                                        
-                                    	    <td><input type="checkbox" id="memberBox" ></td>
                                             <td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}"></td>
                                             <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
                                             <td th:text="${#dates.format(mem.quitDate,'yyyy/MM/dd')}" th:value="${mem.quitDate}"></td>
                                             <td th:text="${mem.quitCd}" th:value="${mem.quitCd}"></td>
                                             <td th:text="${mem.detaResn}" th:value="${mem.detaResn}"></td>
-
-                                         
-
-                                            <td><button type="button" class="btn btn-danger" 
-                                            style="color:white;" th:attr="onclick=|deleteMember('${mem.id}')|" id="delBtn">삭제</button></td>
-                                            
-                                        
                                         </tr>
                                     </tbody>
                                 </table>
@@ -235,69 +221,7 @@ $('#searchFrm button').on("click", function(e){
 	searchFrm.submit();
 });
 
-//단건 삭제버튼. id값만 넘기면서 페이지 새로고침
-function deleteMember(id){
 
-	var id= id;
-	if(confirm(id+"님을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
-
-location.replace('/deleteQMember?id='+id); 
-	alert("삭제 완료");
-	}else{
-		alert("취소되었습니다.");
-	}
-
-};
-
-//다건 삭제버튼
-
-function chkMemAll(){
- if($("#chkMemAllBox").prop("checked")){
-	 console.log("클릭은 됨")
-    $("input[id*='memberBox']").prop("checked",true); 
-}else{
-    $("input[id*='memberBox']").prop("checked",false); 
-}
-};
-
-
-
-
-
-function deleteMemberAll(){
-	 var ids = '';
-let list = [];
-
- $("[id='memberBox']:checked").each(function(i, checkbox){
-	 var tr = $(checkbox).parent().parent();
-	 var td = $(tr).children();
-	 
-	 var id = td.eq(2).text();
-
-	 ids+= id+"님 ";
-
-	 var obj = {};
-	 //obj["id"] = id;
-	 
-	 //list.push(obj);
-	 list.push(id);
-	 
- });
- 	if(confirm(ids+"을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.")==true){
-		
- 		for (const value of list) {
- 		    console.log("삭제할거얌"+value);
- 		   location.replace('/deleteQMember?id='+value);
- 		} 
-
- 		alert("삭제 완료");
-	    	
- 	}else{
-	    		alert("취소되었습니다.");
-	    	}
-	 
-
-};
 </script>
 
 
