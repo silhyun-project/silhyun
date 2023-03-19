@@ -7,7 +7,7 @@ select * from( select rownum rn, a.* from(
 
 	SELECT r.rev_Num, r.ctgr, r.ctgr_num, r.id, r.star, r.cntn,  r.rev_date , count(p.pho_num) as "phoY"
 	    from photo p right outer join review r 
-	    on p.ctgr_num = r.rev_num and p.ctgr = 'R' 
+	    on p.ctgr_num = r.rev_num and p.ctgr = 'R' and p.used = 'Y'
 	    where r.ctgr = #{ctgr} and r.ctgr_num= #{ctgrNum}
 	    GROUP by r.rev_Num, r.ctgr, r.ctgr_num, r.star, r.cntn, r.id, r.rev_date
 	    <if test='cri.photo == "y"'>having count(p.pho_num)<![CDATA[ >  ]]>0</if>
@@ -37,13 +37,19 @@ SELECT count(count(r.rev_Num))
 </select>
 
 <insert id="reviewInsert">
+    begin
 		<selectKey keyProperty="revNum" resultType="String" order="BEFORE">
 			SELECT 
 				nvl(MAX(to_number(rev_num)), 0) + 1 AS "revNum"
 			FROM review
 		</selectKey>
 		insert into review
-		values(#{revNum}, #{ctgr}, #{ctgrNum}, #{id}, #{star}, #{cntn}, sysdate, 0)
+		values(#{revNum}, #{ctgr}, #{ctgrNum}, #{id}, #{star}, #{cntn}, sysdate, 0, #{ordNum});
+		
+		update payment
+		set rev_sta = 'Y'
+		where ord_num = #{ordNum};
+    end;
 </insert>
 
 <delete id="reviewDelete">
@@ -67,9 +73,58 @@ SELECT count(count(r.rev_Num))
 	where rev_num = #{revNum}
 </update>
 
-<select id="isReciewCheck" resultType="int">
-	select case when count(*) > 0 then 1 else 0 end "reserIs"
-	from reser
-	where id = #{id} and ptg_id = #{ptgId}
+<select id="isReviewCheck" resultType="int">
+	select case when count(*) > 0 then 1 else 0 end "paymentIs"
+	from payment
+	where ctgr = #{ctgr} and ctgr_num = #{ctgrNum} and id = #{id} and rev_sta = 'N' and ord_sta = 'Y'
+</select>
+
+<select id="selectPayInfo" resultType="co.yedam.silhyun.common.vo.ReviewVO">
+select
+<if test='ctgr == "A"'>
+p.ord_num, find_op(s.op_num) as "findOp", m.name, m.profile
+from payment p join selected_op s
+on p.res_num = s.res_num2
+join member m 
+on p.ctgr_num = m.id
+where p.ctgr = 'A' and p.ctgr_num = #{ctgrNum} and p.id = #{id} and p.rev_sta = 'N' and p.ord_sta = 'Y'
+<!-- 동저쿼리 수정 + 수정시 결제정보 뜨게.. -->
+<if test="ordNum != '' and ordNum != null">and p.ord_num = #{ordNum}</if>
+
+</if>
+<if test='ctgr == "C"'>
+p.ord_num, c.cla_ttl, c.ptg_id, c.thni
+from payment p join class c
+on p.ctgr_num = c.class_num
+where p.ctgr = 'C' and p.ctgr_num = #{ctgrNum} and p.id = #{id}  and p.rev_sta = 'N' and p.ord_sta = 'Y'
+<if test="ordNum != '' and ordNum != null">and p.ord_num = #{ordNum }</if>
+</if>
+</select>
+
+
+<select id="reviewAllList" resultType="co.yedam.silhyun.common.vo.ReviewVO">
+	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
+	
+		SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
+		FROM REVIEW R, PHOTO P,MEMBER M
+		WHERE R.REV_NUM = P.CTGR_NUM
+		AND PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))FROM  PHOTO WHERE CTGR ='R' GROUP BY CTGR_NUM)
+		AND R.ID = M.ID
+		AND UPPER(P.CTGR) ='R'
+		<if test='vo.ctgr == "A"'>AND UPPER(R.CTGR) ='A'</if>
+		<if test='vo.ctgr == "C"'>AND UPPER(R.CTGR) ='C'</if>
+		ORDER BY R.REV_DATE DESC
+		
+	<![CDATA[	
+	 	) a where rownum <= #{cri.pageNum} * #{cri.amount}) b where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	 ]]>
+</select>
+<select id="getAllTotal" resultType="int">
+		SELECT count(*)
+		FROM REVIEW
+		WHERE
+		<if test='ctgr == "A"'>UPPER(CTGR) ='A'</if>
+		<if test='ctgr == "C"'>UPPER(CTGR) ='C'</if>
+		ORDER BY REV_DATE DESC
 </select>
 </mapper>

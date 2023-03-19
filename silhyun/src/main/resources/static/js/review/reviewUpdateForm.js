@@ -29,13 +29,18 @@ function fileUpAction(){
 	
  $(function(){
 	let revNum = $('#revNum').val()
+	let ordNum = $('#ordNum').val()
 	$.ajax({
-		url:"/silhyun/reviewUpdate/"+revNum,
+		url:"/silhyun/reviewUpdate/",
+		data : {revNum : revNum,
+		        ordNum: ordNum},
 		success: function(res){
 			//별점
 			makeStar(res.rev.star)
 			//내용
 			$('#cntn').text(res.rev.cntn)
+			$('#ctgr').val(res.rev.ctgr)
+			$('#ctgrNum').val(res.rev.ctgrNum)
 			//사진
 			let photos = res.pho
 			$(photos).each(function(i,e){
@@ -44,6 +49,8 @@ function fileUpAction(){
 				attImg(e.thumbnail,e.phoNum)
 
 			})
+			//결제정보
+			console.log(res.ord)
 		
 		},
 		error: function(err){
@@ -170,6 +177,14 @@ function fileUpAction(){
 	  div.appendChild(btn)
 	  return div
 	}
+	
+	//뒤로가기 
+	backBtn.onclick= function(){
+		let ctgr = document.getElementById('ctgr').value
+		let ctgrNum = document.getElementById('ctgrNum').value
+		ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
+		
+	}
 
 })
 //리뷰 수정 컨트롤러 보내기
@@ -187,9 +202,12 @@ function updateReview(){
 		contentType: false,
 		processData: false, 
 		success: function(res){
-			console.log(res.revNum)  
+			console.log(res)
+			let ctgr = $('#ctgr').val()
+			let ctgrNum = $('#ctgrNum').val()
+			console.log(ctgr)
 			//location.href = "/silhyun/reviewList";
-         ajaxReiew({pageNum:1, amount:5, sort: 'n'}) 			
+             ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr}) 			
 		},
 		error: function(err){
 			console.log(err)

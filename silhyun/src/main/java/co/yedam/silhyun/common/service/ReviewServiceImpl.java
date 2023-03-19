@@ -12,6 +12,7 @@ import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.common.vo.ReviewVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
+import co.yedam.silhyun.order.vo.PaymentVO;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -75,9 +76,27 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int isReciewCheck(String id, String ptgId) {
+	public int isReviewCheck(PaymentVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.isReciewCheck(id, ptgId);
+		return mapper.isReviewCheck(vo);
+	}
+
+	@Override
+	public List<ReviewVO> selectPayInfo(PaymentVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.selectPayInfo(vo);
+	}
+
+	@Override
+	public List<ReviewVO> reviewAllList(ReviewVO vo, Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.reviewAllList(vo, cri);
+	}
+
+	@Override
+	public int getAllTotal(ReviewVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.getAllTotal(vo);
 	}
 
 }

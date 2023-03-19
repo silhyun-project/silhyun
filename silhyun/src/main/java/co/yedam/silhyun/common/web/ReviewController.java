@@ -16,6 +16,7 @@ import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
 import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.common.vo.ReviewVO;
+import co.yedam.silhyun.order.vo.PaymentVO;
 
 @Controller
 @CrossOrigin(value = "*")
@@ -39,10 +40,11 @@ public class ReviewController {
 	
 	//인써트 폼으로 가는 아작스
 	@GetMapping("/reviewform")   
-	public String reviewForm(ReviewVO vo, Model model) {
+	public String reviewForm(ReviewVO vo, Model model, PaymentVO pvo) {
 		///이걸로 리뷰폼 정보 변경하기  
 		model.addAttribute("id", vo.getCtgrNum());
 		model.addAttribute("ctgr", vo.getCtgr());
+		model.addAttribute("ord", rService.selectPayInfo(pvo));
 		return "review/reviewForm";
 	}
 
@@ -71,13 +73,28 @@ public class ReviewController {
 	
 	
 	@GetMapping("/ajaxCall")
-	public String ajaxCallReview(Model model, HttpSession httpSession, Criteria cri, PhotoVO pvo) {
+	public String ajaxCallReview(Model model, HttpSession httpSession, Criteria cri, PhotoVO pvo, String ctgrNum, String ctgr) {
 		cri.setAmount(5);
-		model.addAttribute("list", rService.reviewList(cri, "A", "user24"));
-		model.addAttribute("page", new PageVO(rService.getTotalCount(cri,"A", "user24"), 10, cri));
-		model.addAttribute("star", rService.ptgStarAvg("A", "user24"));
+		System.out.println(ctgrNum + ctgr + "리뷰컨트롤러 ajaxCall임니다====================");
+		model.addAttribute("list", rService.reviewList(cri, ctgr, ctgrNum));
+		model.addAttribute("page", new PageVO(rService.getTotalCount(cri, ctgr, ctgrNum), 10, cri));
+		model.addAttribute("star", rService.ptgStarAvg( ctgr, ctgrNum));
 
 		return "review/reviewList";
+	}
+	
+	
+	//리뷰 둘러보기 
+	@GetMapping("/silhyun/reviewAllList")
+	public String reviewAllList(Model model, ReviewVO vo, Criteria cri) {
+		cri.setAmount(3);
+		vo.setCtgr("A");
+		model.addAttribute("aReviews", rService.reviewAllList(vo, cri));
+		model.addAttribute("aPage", new PageVO(rService.getAllTotal(vo),10,cri));
+		vo.setCtgr("C");
+		model.addAttribute("cReviews", rService.reviewAllList(vo, cri));
+		model.addAttribute("cPage", new PageVO(rService.getAllTotal(vo),10,cri));
+		return "review/reviewAllList";
 	}
 	
 	

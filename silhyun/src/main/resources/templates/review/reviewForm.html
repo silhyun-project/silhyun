@@ -54,6 +54,12 @@
 <div id="reviews">
 <div class="container col-9">
 	<form class="mb-3" id="myform" action="/silhyun/review"> 
+		<select name="ordNum" class="form-select" id="ordList">
+			<option value="">결제정보 선택</option>
+			<option th:each="o : ${ord}" th:value="${o.ordNum}" th:if="${o.findOp} != null">[[${o.ordNum}]]) [[${o.findOp}]]</option>
+			<option th:each="o : ${ord}" th:value="${o.ordNum}" th:if="${o.claTtl} != null">[[${o.ordNum}]]) [[${o.claTtl}]]</option>
+		</select><br>
+		<div id="ordInfoZone"></div><br>
 		<div id="grey">
 				<span class="text-bold">별점을 선택해주세요</span><br>
 			<fieldset>
@@ -87,12 +93,12 @@
 			</tr>
 		</table>
 
-		<input type="hidden" name="id" th:value="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
-		<input type="hidden" name="ctgr" th:value="${ctgr}"> <!-- 섹션이나 시큐리티 아이디값 -->
-      	<input type="hidden" name="ctgrNum" th:value="${id}">  <!-- 이전 페이지 작가아이디 -->
+		<input type="hidden" name="id" id="userid" th:value="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
+		<input type="hidden" name="ctgr" id="revctgr" th:value="${ctgr}"> 
+      	<input type="hidden" name="ctgrNum" id="revctgrNum" th:value="${id}">  <!-- 이전 페이지 작가아이디 -->
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="insertReview()">작성</button>
-	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='/silhyun/reviewList'">뒤로가기</button> 
+	      	<button type="button" class="btn btn-outline-secondary btn-sm" id="backBtn">뒤로가기</button> 
       	</div>
 	</form>
 <script src="/js/review/filedrop.js"></script>

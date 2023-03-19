@@ -55,6 +55,7 @@
 <script type="text/javascript" src="/js/review/reviewUpdateForm.js"></script>
 <div class="container col-9">
 	<form class="mb-3" id="myform" action="/silhyun/review"> 
+	<input type=hidden th:value="${ordNum}" id="ordNum">
 	<input type="hidden" th:value="${revNum}" id="revNum" name="revNum">
 		<div id="grey">
 				<span class="text-bold">별점을 선택해주세요</span><br>
@@ -93,7 +94,9 @@
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateReview()">작성</button>
 	      	<input type="hidden" name="phoNum" id="phoNums">
-	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajaxReiew({pageNum:1, amount:5})">뒤로가기</button> 
+	      	<input type="hidden" id="ctgr">
+	      	<input type="hidden" id="ctgrNum">
+	      	<button type="button" class="btn btn-outline-secondary btn-sm" id="backBtn">뒤로가기</button> 
       	</div>
 	</form>
 </div>

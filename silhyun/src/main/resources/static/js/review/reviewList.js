@@ -46,27 +46,45 @@ $('#phosort').on('click', function(){
 	function reviewInsertForm(id){
 		//리뷰 작성버튼 체크 ===> 프로미스, then 써보기
     	let ctgrNum = $('#ptgId').val()
-    	$.ajax({
-			url: '/insertChek',
-			data: {ptgId : ctgrNum,
-			       id : id},
-			success: function(res){
-				console.log(res)
+    	let ctgr = $('#ctgr').val()
+    	
+    	new Promise((succ, fail)=>{
+		
+	    	$.ajax({
+				url: '/insertChek',
+				data: {ctgrNum : ctgrNum,
+					   ctgr : ctgr,
+				       id : id},
+				success: function(res){
+					console.log(res)
+					succ(res)
+					 
+				},
+				error:function(err){
+					fail(err)
+				}
+			})
+		}).then((succ)=>{
+			if(succ == 1){
+				$.ajax({
+					url: '/reviewform',
+					data: {ctgrNum: ctgrNum,
+						   ctgr : ctgr, 
+						   id: id},
+				    success: function(res){
+				    	$('#reviews').replaceWith(res)
+				    }, 
+				    error: function(err){
+				    	console.log(err)
+				    }
+					
+				})
+			}else{
+				alert('결제하신 정보가 없습니다.')
 			}
 		})
     	
-		$.ajax({
-			url: '/reviewform',
-			data: {ctgrNum: ctgrNum,
-				   ctgr : 'A'},
-		    success: function(res){
-		    	$('#reviews').replaceWith(res)
-		    }, 
-		    error: function(err){
-		    	console.log(err)
-		    }
-			
-		})
+
 	}
     
    
@@ -93,7 +111,7 @@ $('#phosort').on('click', function(){
 			data:{revNum: num},
 		     success: function(res){
 		    	console.log(res)
-		    	ajaxReiew({pageNum:1, amount:5, sort: 'n'}) 
+		    	ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
 		    }, 
 		    error: function(err){
 		    	console.log(err)

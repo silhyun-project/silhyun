@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import co.yedam.silhyun.common.service.PhotoService;
 import co.yedam.silhyun.common.service.ReviewService;
 import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.common.vo.ReviewVO;
+import co.yedam.silhyun.order.vo.PaymentVO;
 
 @RestController
 public class RestReviewController {
@@ -24,7 +27,6 @@ public class RestReviewController {
 	
 	@PostMapping("/silhyun/review")
 	public ReviewVO reviewInsert(ReviewVO vo, List<MultipartFile> files) {  //@RequestParam => 필수값임
-		vo.setCtgr("A");
 		String ctgrNum = rService.reviewInsert(vo);
 		String ctgr = "R";
 		pService.photoInsert(files, ctgrNum, ctgr);
@@ -39,15 +41,22 @@ public class RestReviewController {
 		return list;
 	}
 	
-	@GetMapping("/silhyun/reviewUpdate/{revNum}")
-	public Map<String, Object> selectReview(@PathVariable("revNum") String revNum, ReviewVO vo, PhotoVO pvo){
+	@GetMapping("/silhyun/reviewUpdate")
+	public Map<String, Object> selectReview(String revNum, ReviewVO vo, PhotoVO pvo){
 		vo.setRevNum(revNum);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("rev", rService.reivewSelect(vo));
+		vo = rService.reivewSelect(vo);
+		map.put("rev", vo);
 		pvo = new PhotoVO();
 		pvo.setCtgr("R");
 		pvo.setCtgrNum(vo.getRevNum());
 		map.put("pho", pService.photoList(pvo));
+		PaymentVO payVo = new PaymentVO();
+		payVo.setOrdNum(vo.getOrdNum());
+		payVo.setCtgr(vo.getCtgr());
+		payVo.setCtgrNum(vo.getCtgrNum());
+		payVo.setId(vo.getId());
+		map.put("ord", rService.selectPayInfo(payVo));
 		
 		return map;
 	}
@@ -84,5 +93,22 @@ public class RestReviewController {
 	    rService.reviewDelete(vo);
 		
 		return "del";
+	}
+	
+	//리뷰작성 체크
+	@GetMapping("/insertChek")
+	public int insertCheck(PaymentVO vo) {
+		int n = 0;
+		n = rService.isReviewCheck(vo);
+		
+		return n;
+	}
+	
+	//주문정보
+	@GetMapping("/ordInfoAtt")
+	public List<ReviewVO> ordInfoAtt(PaymentVO vo) {
+		List<ReviewVO> list = rService.selectPayInfo(vo);
+		
+		return list;
 	}
 }
