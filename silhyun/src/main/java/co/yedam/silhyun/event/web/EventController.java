@@ -16,11 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.event.service.EventService;
 import co.yedam.silhyun.mypage.vo.ChulcheckVO;
 
@@ -48,7 +48,7 @@ public class EventController {
 
 		return "event/eventForm";
 	}
-
+/*
 	@PostMapping("/silhyun/chulcheckEv")
 	@ResponseBody
 	public boolean chulcheckEv(@RequestParam String id, 
@@ -85,12 +85,50 @@ public class EventController {
 	       
 	    }
 	 	
-	 	
 		 return true;
+	}*/
+	
+	@PostMapping("/chulcheckEv")
+	@ResponseBody
+	public boolean chulcheckEv(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkDate) {
+	  String id = (String)session.getAttribute("id");
+	  System.out.println("들어오는감++++++++++++++++");
+	
+	  List<ChulcheckVO> cvo = eventService.chulIdSelect(id);	
+	  ChulcheckVO vo = new ChulcheckVO();
+	  vo.setId(id);
+	  if(cvo.size()!=0) {
+	    Date date = cvo.get(0).getCheckDate();	//db에 들어 가있는 시간
+	    System.out.println(date + "db값123123");
+
+	    System.out.println(checkDate + "들어오는 값 1111111111");
+
+	    if (checkDate.equals(date)) {		//오늘 지역 날짜 == db에 있는 날짜
+	      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+	      return false;
+	    } else {											//조회도 되고 날짜도 다르다면
+	    	vo.setCheckDate(checkDate);
+	    	System.out.println(vo.getCheckDate()+"kkkkkkkkkkkkk");
+	    	eventService.updateChulcheck(vo);
+
+	      System.out.println("rrrrrrrrrrrrrrr3333333333333333333rrrrr");
+	    }
+
+	  } else if (cvo.isEmpty()) {						//정보 조회가 안된다면
+	    System.out.println("rrrrrrrrrrrrrr2들어왔나?");
+	    vo.setCheckDate(checkDate);	//날짜 넣기
+	    eventService.insertChulcheck(vo);
+	  }
+	 
+	  return true;
 	}
+
+
+
 	
 	@RequestMapping("/silhyun/chulcheck")
-	public String chulchecck(Model model) {
+	public String chulchecck(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
 		//local Date생성
 		LocalDateTime now = LocalDateTime.now(); // 현재 시간 정보를 가진 LocalDateTime 객체
 		
