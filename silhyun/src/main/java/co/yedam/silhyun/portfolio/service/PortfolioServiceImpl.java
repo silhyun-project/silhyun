@@ -95,12 +95,13 @@ public class PortfolioServiceImpl implements PortfolioService {
 		// TODO Auto-generated method stub
 		return portfolioMapper.portfolioSelectOne(portNum);
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String updatePortfolio(PortfolioVO vo) {
+		// 포트폴리오 정보 update
+		portfolioMapper.portfolioUpdate(vo);
+		return vo.getPortNum();
+	}
 
 //	@Override
 //	public void updatePortfolio(PortfolioVO portfolioVO, List<MultipartFile> files) throws IOException {

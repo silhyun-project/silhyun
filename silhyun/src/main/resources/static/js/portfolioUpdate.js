@@ -34,6 +34,7 @@ $(function() {
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				var imgSrc = e.target.result;
+				console.log(e.target.result[0])
 				if (firstImage) {
 					var imgE = `<div class="swiper-slide">
           <div class="pd-gallery-slide">
@@ -169,27 +170,7 @@ $(function() {
 					console.log(result)
 					console.log('마이마이마이요네즈')
 
-					var firstImage = true;
-					for (i = 0; i < result.photos.length; i++) {
-						var photo = result.photos[i];
-							if (firstImage) {
-								var imgE = `<div class="swiper-slide">
-          										<div class="pd-gallery-slide">
-           									 		<img src="${photo.phoRt}" class="img-fluid" alt="${photo.ctgrNum}">
-         										 </div>
-       										 </div>`;
-								$(".photo-list-containerN1").empty();
-								$(".photo-list-containerN1").append(imgE);
-								firstImage = false;
-							} else {
-								var imgEl = `<div class="swiper-slide photo-list-item">
-          <div class="pd-gallery-slide-thumb">
-            <img src="${photo.phoRt}" class="img-fluid" alt="${photo.ctgrNum}">
-          </div>
-        </div>`;
-								$('.photo-list-container').append(imgEl);
-							}
-						};
+	
 						
 					//내용 붙이기.
 					$('#cntn').text(result.portfolio.cntn)

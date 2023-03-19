@@ -1,8 +1,11 @@
 package co.yedam.silhyun.portfolio.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +35,7 @@ public class PortfolioController {
 	private PhotoService photoService;
 
 	@GetMapping("/silhyun/portfolio/{ptgId}")
-	public String portfolio(Model model,PortfolioVO portfolioVO) {
+	public String portfolio(Model model, PortfolioVO portfolioVO) {
 		return "portfolio/portfolio";
 	}
 
@@ -101,13 +104,38 @@ public class PortfolioController {
 
 	@GetMapping("/silhyun/portfolioSelectOne") // 업데이트 위한 selectOne
 	@ResponseBody
-	public Map<String, Object> portfolioSelectOne(@RequestParam String portNum, Model model, PortfolioVO portfolioVO, PhotoVO photoVO) {
-	portfolioVO = portfolioService.portfolioSelectOne(portNum);
-	List<PhotoVO> photos = photoService.photoList(photoVO);
-	Map<String, Object> result = new HashMap<>();
-	result.put("portfolio", portfolioVO);
-	result.put("photos", photos);
-	return result;
+	public Map<String, Object> portfolioSelectOne(@RequestParam String portNum, Model model, PortfolioVO portfolioVO,
+			PhotoVO photoVO) {
+		portfolioVO = portfolioService.portfolioSelectOne(portNum);
+		List<PhotoVO> photos = photoService.photoList(photoVO);
+		Map<String, Object> result = new HashMap<>();
+		result.put("portfolio", portfolioVO);
+		result.put("photos", photos);
+		return result;
 	}
 
+	@PostMapping("/silhyun/updatePortfolio")
+	public ResponseEntity<?> updatePortfolio(@RequestParam(value = "files", required = false) List<MultipartFile> files,
+			@RequestParam("deletePhotos") List<String> deletePhotos, PortfolioVO portfolioVO) {
+		try {
+			if (files != null) {
+				String ctgrNum = portfolioService.updatePortfolio(portfolioVO);
+				photoService.photoInsert(files, ctgrNum, "P");
+			} else {
+				portfolioService.updatePortfolio(portfolioVO);
+			}
+
+			if (!deletePhotos.isEmpty()) {
+				for (String photoNum : deletePhotos) {
+					PhotoVO photoVO = new PhotoVO();
+					photoVO.setPhoNum(photoNum);
+					photoVO.setUsed("N");
+					photoService.photoDelete(photoVO);
+				}
+			}
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 }

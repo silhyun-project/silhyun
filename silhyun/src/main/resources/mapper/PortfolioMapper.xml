@@ -176,11 +176,8 @@
 
 	<update id="updatePortfolio"
 		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
-		UPDATE PORTFOLIO SET CNTN = #{cntn},
-		PORT_DATE =
-		#{portDate},
-		UP_STA = #{upSta}
-
+		UPDATE PORTFOLIO
+		SET CNTN = #{cntn}
 		WHERE PORT_NUM = #{portNum}
 	</update>
 
