@@ -5,19 +5,28 @@
 <select id="reviewList" resultType="co.yedam.silhyun.common.vo.ReviewVO">
 select * from( select rownum rn, a.* from( 
 
-	SELECT * 
-	FROM REVIEW
-	where ctgr = #{ctgr} and ctgr_num= #{ctgrNum}
-	ORDER by to_number(rev_num) desc
+	SELECT r.rev_Num, r.ctgr, r.ctgr_num, r.id, r.star, r.cntn,  r.rev_date , count(p.pho_num) as "phoY"
+	    from photo p right outer join review r 
+	    on p.ctgr_num = r.rev_num and p.ctgr = 'R' 
+	    where r.ctgr = #{ctgr} and r.ctgr_num= #{ctgrNum}
+	    GROUP by r.rev_Num, r.ctgr, r.ctgr_num, r.star, r.cntn, r.id, r.rev_date
+	    <if test='cri.photo == "y"'>having count(p.pho_num)<![CDATA[ >  ]]>0</if>
+	    <if test='cri.sort == "n"'>ORDER by to_number(r.rev_num) desc</if>
+	    <if test='cri.sort == "s"'>ORDER by to_number(r.star) desc, to_number(r.rev_num) desc</if>
+	    <if test='cri.sort == "d"'>ORDER by r.rev_date desc, to_number(r.rev_num) desc</if>
+	
 	
 <![CDATA[	
  	) a where rownum <= #{cri.pageNum} * #{cri.amount}) b where rn > (#{cri.pageNum}-1) * #{cri.amount}
  ]]>	
 </select>
 <select id="getTotalCount" resultType="int">
-	select count(*) 
-	from review
-    where ctgr = #{ctgr} and ctgr_num= #{ctgrNum}
+SELECT count(count(r.rev_Num))
+    from photo p right outer join review r 
+    on p.ctgr_num = r.rev_num and p.ctgr = 'R'
+    where r.ctgr = #{ctgr} and r.ctgr_num= #{ctgrNum}
+    GROUP by r.rev_Num
+   <if test='cri.photo == "y"'>having count(p.pho_num)<![CDATA[ >  ]]>0</if>
 
 </select>
 

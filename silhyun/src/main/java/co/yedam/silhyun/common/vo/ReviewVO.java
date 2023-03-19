@@ -21,6 +21,7 @@ public class ReviewVO{
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date revDate;
 	private int hit;
+	private String phoY;
 	private List<PhotoVO> photoList;
 	
 	private String phoRt;

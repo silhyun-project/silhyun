@@ -139,12 +139,17 @@ img{
 	            <!-- 검색 -->
 	            <div class="container">
 					<form id="searchFrm" action="reviewList" th:object="${page}">
+						<select name="sort" id="sort">
+							<option value="n" th:selected="*{criteria.sort == 'n'}">정렬</option>
+							<option value="s" th:selected="*{criteria.sort == 's'}">별점수</option>
+							<option value="d" th:selected="*{criteria.sort == 'd'}">최신수</option>
+						</select>
+					    <input type="checkbox" name="photo" value="y" id="phosort" th:checked="*{criteria.photo == 'y'}">포토리뷰 먼저보기
 						<select name="type">
 							<option value="CW">전체</option>
 							<option value="C">내용</option>
 							<option value="W">작성자</option>
 						</select>
-					    <input type="checkbox">포토리뷰 먼저보기
 						<input type="text" name="keyword">
 						<button class="btn btn-sm btn-outline-secondary" type="submit">검색</button>					    
 						<input type="hidden" name="pageNum" th:value="1">

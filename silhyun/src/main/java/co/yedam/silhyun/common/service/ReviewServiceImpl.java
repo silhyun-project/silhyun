@@ -56,9 +56,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int getTotalCount(String ctgr, String ctgrNum) {
+	public int getTotalCount(Criteria cri,String ctgr, String ctgrNum) {
 		// TODO Auto-generated method stub
-		return mapper.getTotalCount(ctgr,ctgrNum);
+		return mapper.getTotalCount(cri,ctgr,ctgrNum);
 	}
 
 	//나중에 합칠꺼

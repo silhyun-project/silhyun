@@ -8,7 +8,7 @@
 			
 			$('#pd_reviews_tab_02').on('click', function(){
 				let ctgrNum = $('#ptgId').val()
-			     ajaxReiew({pageNum:1, amount:5})      ////일단 여기서 작가아이디랑 구분값 넘겨주기 (다른 아작스 페이지도 똑같이)
+			     ajaxReiew({pageNum:1, amount:5, sort: 'n'})      ////일단 여기서 작가아이디랑 구분값 넘겨주기 (다른 아작스 페이지도 똑같이)
 			     
 			 window.setTimeout(function(){
 

@@ -13,6 +13,16 @@
     	//searchFrm.submit(); //폼태그값을 스트링으로 
     })
     
+    $('#sort').on('change', function(){
+    	
+    	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
+})
+
+$('#phosort').on('click', function(){
+
+    	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
+})
+    
 
     
      $('.star-ratings-fill').css('width', starPercent($('#starAvg').text()) + '%')	
@@ -73,7 +83,7 @@
 			data:{revNum: num},
 		     success: function(res){
 		    	console.log(res)
-		    	ajaxReiew({pageNum:1, amount:5})
+		    	ajaxReiew({pageNum:1, amount:5, sort: 'n'}) 
 		    }, 
 		    error: function(err){
 		    	console.log(err)
