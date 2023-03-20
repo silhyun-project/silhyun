@@ -9,7 +9,7 @@
 <!-- 테스트 중이라 null값인 데이터들이 있음. 처리했지만 추후 데이터 수정할 것 -->
 <select id="getC1List" resultType="map">
     SELECT c.cla_cd as cCd, c.thni as thni, trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+    to_char(c.cla_pri, 'FM999,999,999') as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
     case 
         when c.cla_time = '' then '시간미정'
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
@@ -46,7 +46,6 @@
     f.fd_cd, 
     c.class_num
 </select>
-
 
 
 <select id="getC2List" resultType="map">
