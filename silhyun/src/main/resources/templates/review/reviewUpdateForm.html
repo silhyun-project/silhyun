@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-  <link href="/css/star.css" rel="stylesheet"/>
+ <link href="/css/star.css" rel="stylesheet"/>
 <style>
   textarea {
     width: 100%;
@@ -55,7 +53,9 @@
 <script type="text/javascript" src="/js/review/reviewUpdateForm.js"></script>
 <div class="container col-9">
 	<form class="mb-3" id="myform" action="/silhyun/review"> 
-	<input type="hidden" th:value="${revNum}" id="revNum">
+	<input type=hidden th:value="${ordNum}" id="ordNum">
+	<input type="hidden" th:value="${revNum}" id="revNum" name="revNum">
+			<div id="ordInfoZone"></div><br>
 		<div id="grey">
 				<span class="text-bold">별점을 선택해주세요</span><br>
 		<fieldset id="stars">
@@ -75,7 +75,7 @@
 		<table class="table table-border">
 			<tr>
 				<td>
-					<textarea class="form-control" id="cntn" name="cntn" placeholder="내용을 입력해주세요" maxlength="2200"></textarea>
+					<textarea class="form-control" id="cntn" name="cntn" placeholder="2200자이하 내용 입력" maxlength="2200"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -89,12 +89,13 @@
 			</tr>
 		</table>
 		
-		<input type="hidden" name="id" th:text="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
-      	<input type="hidden" name="ctgrNum" value="user24">  <!-- 이전 페이지 작가아이디 -->
+		<input type="hidden" name="id" th:value="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateReview()">작성</button>
 	      	<input type="hidden" name="phoNum" id="phoNums">
-	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='/silhyun/reviewList'">뒤로가기</button> 
+	      	<input type="hidden" id="ctgr">
+	      	<input type="hidden" id="ctgrNum">
+	      	<button type="button" class="btn btn-outline-secondary btn-sm" id="backBtn">뒤로가기</button> 
       	</div>
 	</form>
 </div>

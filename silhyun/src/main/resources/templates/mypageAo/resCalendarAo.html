@@ -436,12 +436,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
           
           //
           
-           function reloadTodo(e) { //예약가능하지않은 날짜 클릭시 경고창 띄우기
+          /*  function reloadTodo(e) { //예약가능하지않은 날짜 클릭시 경고창 띄우기
 			
               //  alert("해당 날짜는 근무일이 아닙니다.")
                 $('.product-description.timeTable').children().remove()
               
-            }
+            } */
           
           //달력에 작가 예약 가능한 요일 까만색으로 만들기  -> 그 안에서 아작스 불러서 처리하기(예약 가능한 시간)
 			let ptgReYnDate = $("input[name='workDay']").val()
@@ -482,8 +482,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					//ajax호출해서 선택가능한 시간 , 날짜 누르면 달력 하단에 예약 가능시간 띄우기
 					const ptgId = $("input[name='ptgId']").val();
 					console.log(ptgId)
-					const redate =$(this).attr('data-fdate')					
-					console.log(redate);
+					var redate =$(this).attr('data-fdate')					
+					console.log(redate);						//얘는 정상작동
 					//작가가 등록한 시간 아작스 호출
 					$.ajax({
 						url: '/ajaxResTime/' + ptgId +"/"+ redate,
@@ -492,19 +492,10 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 						//console.log(result)
 						$(result).each(function(idx,item){
 							console.log(result)
-							//console.log(item.resyn)
-							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}" th:value="${item.resTime}" timeCD="${item.resTime}" >${item.rest}</button>`
+							//console.log(item.resyn) 예약이 잇으면 1/없으면 0
+							let cdNameBtn = `<button class="btn btn-primary timeList" id="${item.resyn}" th:value="${item.resTime}" timeCD="${item.resTime}" redate="${redate}" >${item.rest}</button>`
 							$('.card-body.time').append(cdNameBtn)
 								})
-							//console.log($('.btn.btn-primary.timeList'))		//예약한시간이면 버튼 비활성화
-							/* $('.btn.btn-primary.timeList').each(function(a,b){
-								//console.log($(b))	//replace(/[^0-9]/g,'')=>문자열에서 숫자가아닌 문자들을 ""빈문자로 변경하는 정규식
-								if($(b).attr('id').replace(/[^0-9]/g,'') == '1'){
-									$(b).prop("disabled", true)
-										//console.log('비활')
-									}
-								
-								}) */
 					}).then(error => console.log(error))
 					
 			//📌시간 클릭하면 예약자 리스트 나오기 
@@ -533,11 +524,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             	var timeBtn= event.target.closest('.timeList')//선택한 버튼 정보
 				console.log(timeBtn);
             	//리스트만들고싶다
+            	//그냥들고오면 리스트 없애면서 사라지는것 같아서 redate 다시 정의함(버튼에 redate 값 붙여놈)
+            	var redate=timeBtn.getAttribute('redate');			
 		  		var shotTime=timeBtn.getAttribute('timecd');
-            		const ptgId = $("input[name='ptgId']").val();
+            	const ptgId = $("input[name='ptgId']").val();
             	  console.log(shotTime+"==========");
-            	 // 숨겨놓은 id들고오기+ 만들어놓은 캘린더날짜(redate),shotTime(reser_time.resTime==reser.shotTime) 
-					console.log(redate+"rrrrrrrrrrr");	
+					console.log(redate+"rrrrrrrrrrr");				
             	  //ajax호출 예약자정보
             	    $.ajax({
             		   url:'/ajaxResInfo/'+ptgId+"/"+redate+"/"+shotTime,
@@ -549,12 +541,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             		   }),
             		   contentType: "application/json",
             		   datatype: "json"}).then(result=>{
-            			 if(result.length==0){		//근무일인데 예약이 없을경우
+            			 if(result.length==0){
             				 
             				 $('.card-body.reserInfo').append('<p>예약이 없습니다.</p>');
             			 }else{
             		  $(result).each(function(idx,item){
-            			   console.log(item);
+            			   console.log(item);	//표에 만들 정보들
             			   let reserInfoTable = ` 
             			 <div>
             			<table class="table table-bordered table-hover mb-0">

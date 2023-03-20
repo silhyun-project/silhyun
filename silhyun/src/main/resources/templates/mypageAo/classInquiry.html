@@ -13,35 +13,29 @@
 </head>
 <body>
 <main layout:fragment="content">
-<h1>실험</h1>
+
 <div class="container mt-3">
-  <h2>Hover Rows</h2>
-  <p>수강자 클래스번호 확인[[${classNum}]]</p>            
-  <table class="table table-hover">
+  <table class="table table-hover" style="text-align:center">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
+        <th>ID</th>
+        <th>이름</th>
         <th>Email</th>
+        <th>전화번호</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
+   <tbody>
+  <tr th:if="${#lists.isEmpty(memInfo)}">
+    <td colspan="4"><h1>수강신청 인원이 없습니다.</h1></td>
+  </tr>
+  <tr th:if="${not #lists.isEmpty(memInfo)}" th:each="mem : ${memInfo}">
+    <td th:text="${mem.id}"></td>
+    <td th:text="${mem.name}"></td>
+    <td th:text="${mem.email}"></td>
+    <td th:text="${mem.tel}"></td>
+  </tr>
+</tbody>
+
   </table>
 </div>
 </main>
