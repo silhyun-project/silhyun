@@ -18,7 +18,6 @@ import co.yedam.silhyun.common.vo.PageVO;
 import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.member.service.EmailService;
 
-@ContextConfiguration(classes = SchedulerApplication.class)
 @SpringBootTest
 public class TaekyeongTests {
 	@Autowired PageTestService service;
@@ -45,7 +44,7 @@ public class TaekyeongTests {
 		System.out.println("총갯수는?"  +service.getTotalCount(cri));
 	}
 	
-	@Test //=> 가입인증번호
+	//@Test //=> 가입인증번호
 	public void mailConfirm() {
 		String code = emailService.sendSimpleMessage("kkom_bom@naver.com", "join");
 		System.out.println("인증코드>>>>>>>>>>>"+code);
