@@ -771,7 +771,7 @@
 									<li><a href="#" sec:authorize="hasRole('ROLE_M2')">포트폴리오</a></li>
 									<li><a href="/photo/mypageAo" sec:authorize="hasRole('ROLE_M2')">작가마이페이지</a></li>
 									<li><a href="/mpg/mpgUser" sec:authorize="hasRole('ROLE_M1')">회원마이페이지</a></li>
-									<li><a href="사진관마이페이지링크" sec:authorize="hasRole('ROLE_M3')">사진관마이페이지</a></li>
+									<li><a href="/photo/mypageStd" sec:authorize="hasRole('ROLE_M3')">사진관마이페이지</a></li>
 									<li><a href="/silhyun/joinForm" th:if='${session.id} eq null'>회원가입</a></li>
 									<li><a href="/login" th:if='${session.id} eq null'>로그인</a> <a
 										href="/logout" th:if='${session.id} neq null'>로그아웃</a></li>

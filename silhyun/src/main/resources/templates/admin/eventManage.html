@@ -7,7 +7,7 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h3 class="page-title">이벤트 관리/등록</h3>
+                        <h3 class="page-title">이벤트 관리</h3>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
@@ -31,34 +31,10 @@
                         <div class="white-box">
                         <div>
                          <h5 class="page-title"><input type="checkbox" id="showAEvents" onchange="showAllEvents()">종료된 이벤트 포함
-                                                                       &nbsp; <button class="btn btn-dark" type="button" 
-                                           id ="addEventBtn"  data-bs-toggle="modal" data-bs-target="#addEvent">이벤트등록</button>
                           </h5>
                             <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;" ><code th:text="${eCnt.sysDate}"></code>
                             &emsp; 진행예정 이벤트: <code th:text="${eCnt.soon}"> </code>&nbsp;진행중인 이벤트: <code th:text="${eCnt.ing}"> </code>&nbsp;
                             </p>
-                                <form role="search" class="app-search d-none d-md-block me-3">
-               
-                            <ul style="list-style:none;float:right;">
-								<li>		
-                            <select style= "width:80px;height:30px;font-size:16px;border:none;">
-                               <option value="">전체</option>
-                               <option value="">이벤트명</option>
-                               <option value="">작가아이디</option>
-                               <option value="">진행일수</option>
-                               <option value="">시작일자</option>
-                               <option value="">배너표시여부</option>
-                               <option value="">쿠폰발행상태</option>
-                               <option value="">진행상태</option>
-                            </select>
-                                <input type="text" placeholder="Search..." class="form-control mt-0"
-                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-								</li>                            
-                            </ul>
-                            </form>
                         </div>
 	
 	               <br>
@@ -185,100 +161,6 @@
 </div>
 <!-- End Quick View  -->
 
-<!-- add Event  -->
-<div class="modal fade" id="addEvent">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <div class="modal-title p-3">
-                    <h5 class="m-0 text-white">이벤트 등록</h5>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="w-100 p-3">
-                    <!-- Form START -->
-                    <form action="/addEvent" method="post" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label class="form-label" for="exampleInputEmail1">이벤트명</label>
-                            <input type="text" class="form-control" id="name" name="name">
-                        </div>
-                                                <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">기간(일 단위)</label>
-                            <input type="text" class="form-control"  id="term" name="term">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">시작날짜</label>
-                            <input type="date" class="form-control"  id="pwd" name="pwd" >
-                        </div>
-                                                <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">이벤트내용</label>
-                            <textarea rows="20" cols="56" style="resize: none;"></textarea>
-                        </div>
-                                                <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">썸네일사진</label>
-                            <input type="file" class="form-control"  id="birthDate" name="birthDate">
-                        </div>
-                        
-                                                <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">배너표시상태</label>
-                                  <select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
-                                   
-                                             	<option value="all">선택</option>
-                                             	<option value="all">Y</option>
-                                             	<option value="all">N</option>
-                                   
-                                            </select>
-                        </div>
-                                                    <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">배너사진</label>
-                            <input type="file" class="form-control"  id="genCd" name="genCd" >
-                        </div>
-                                                                  <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">쿠폰발행상태</label>
-                                  <select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
-                                   
-                                             	<option value="all">선택</option>
-                                             	<option value="all">Y</option>
-                                             	<option value="all">N</option>
-                                   
-                                            </select>
-                        </div>
-                                          <div class="mb-3">
-                            <label class="form-label" for="exampleInputPassword1">지역</label>
-                 <select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
-                                   
-                                             	<option value="all">선택</option>
-                                             	<option value="all">서울</option>
-                                             	<option value="all">경기</option>
-                                             	<option value="all">인천</option>
-                                             	<option value="all">강원</option>
-                                             	<option value="all">대전/충정</option>
-                                             	<option value="all">대구</option>
-                                             	<option value="all">부산/울산</option>
-                                             	<option value="all">경산</option>
-                                             	<option value="all">광주/전라</option>
-                                             	<option value="all">제주</option>
-                                   
-                                            </select>
-                        </div>
-                        
-                        <div class="row align-items-center">
-                            <div class="col-sm-4">
-                             <button type="submit" class="btn btn-info" style="width: 440px; height:50px; color: white;"
-                                
-                                ><b>등록</b></button>  
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End addEvent -->
-
-
 
 
 
@@ -360,6 +242,18 @@ function selectAjax(eventNum){
 	
 	
 };
+
+
+
+
+
+	  
+	 
+
+
+
+
+
 </script>
                       
                       

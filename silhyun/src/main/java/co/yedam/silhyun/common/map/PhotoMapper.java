@@ -10,4 +10,7 @@ public interface PhotoMapper {
 	int photoDelete(PhotoVO vo);
 	
 	int ptgRegiInsert(PhotoVO vo);
+	
+	//찐으로 지우는거
+	int photoAllDelete();
 }

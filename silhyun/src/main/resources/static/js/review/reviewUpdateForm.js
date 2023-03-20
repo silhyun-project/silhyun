@@ -7,7 +7,6 @@ function fileUpAction(){
 	document.getElementById('fileBtn').click()
 }
 
- $(function(){
 	var attZone = document.getElementById('attZone');  //붙일곳
     var btnAtt = document.getElementById('fileBtn')  //파일버튼
     //보낼 파일 배열
@@ -28,14 +27,21 @@ function fileUpAction(){
                   + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
                   
 	
+ $(function(){
 	let revNum = $('#revNum').val()
+	let ordNum = $('#ordNum').val()
 	$.ajax({
-		url:"/silhyun/reviewUpdate/"+revNum,
+		url:"/silhyun/reviewUpdate/",
+		data : {revNum : revNum,
+		        ordNum: ordNum},
 		success: function(res){
 			//별점
 			makeStar(res.rev.star)
 			//내용
 			$('#cntn').text(res.rev.cntn)
+			$('#ctgr').val(res.rev.ctgr)
+			$('#ctgrNum').val(res.rev.ctgrNum)
+			
 			//사진
 			let photos = res.pho
 			$(photos).each(function(i,e){
@@ -44,12 +50,39 @@ function fileUpAction(){
 				attImg(e.thumbnail,e.phoNum)
 
 			})
+			//결제정보
+			payInfpatt(res.ord)
 		
 		},
 		error: function(err){
 			console.log(err)
 		}
 	})
+
+	//결제정보
+	function payInfpatt(ord){
+		console.log(ord)
+		ord.forEach(function(e){
+			console.log(e)
+			let div = document.getElementById('ordInfoZone')
+			if(e.findOp != null){
+				div.innerHTML = `
+				<div style="border: solid 1px #D8D8D8;">
+					<span><img class="rounded-3" style="width:100px; height:100px;" src="${e.profile}">
+					(${e.name})${e.findOp}</span>
+				</div>
+				`
+				
+			}else{
+				div.innerHTML = `
+				<div style="border: solid 1px #D8D8D8;">
+					<span><img class="rounded-3" style="width:100px; height:100px;" src="${e.thni}">
+					(${e.ptgId})${e.claTtl}</span>
+				</div>
+				`
+			}
+		})		
+	}
 	
 	//기존 파일 미리보기에 append
 	function attImg(thum, num){
@@ -171,9 +204,41 @@ function fileUpAction(){
 	  return div
 	}
 	
-
-//리뷰 수정 컨트롤러 보내기
-updateReview()
-
+	//뒤로가기 
+	backBtn.onclick= function(){
+		let ctgr = document.getElementById('ctgr').value
+		let ctgrNum = document.getElementById('ctgrNum').value
+		ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
+		
+	}
 
 })
+//리뷰 수정 컨트롤러 보내기
+function updateReview(){
+	//배열 폼에 담기
+	var formData = new FormData($('#myform')[0])
+	for(let i=0; i<selFiles.length; i++){  //멀티파트파일보낼꺼
+		formData.append("files", selFiles[i])
+		}
+
+		$.ajax({
+		url: "/silhyun/update",
+		type:"post",
+		data: formData,
+		contentType: false,
+		processData: false, 
+		success: function(res){
+			console.log(res)
+			let ctgr = $('#ctgr').val()
+			let ctgrNum = $('#ctgrNum').val()
+			console.log(ctgr)
+			//location.href = "/silhyun/reviewList";
+             ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr}) 			
+		},
+		error: function(err){
+			console.log(err)
+		}
+		
+	})
+	
+}

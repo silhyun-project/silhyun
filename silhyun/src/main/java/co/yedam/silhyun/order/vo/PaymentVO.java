@@ -21,6 +21,7 @@ public class PaymentVO {
 	Date ordDate;
 	int paymPri;
 	int ordPri;
+	String revSta;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")

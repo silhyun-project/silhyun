@@ -51,12 +51,11 @@
                                                     <span th:if="${fC.CCD== 'CL1'}" class="badge bg-danger">오프라인</span>
                                                        <span th:if="${fC.CCD== 'CL2'}"class="badge bg-info">온라인</span>
                                                 </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="btn btn-dark">
-                                                        <i class="fi-heart"></i>
-                                                    </a>
-    
-                                                </div>
+                                            <div class="product-action">
+                                         <a href="#" class="btn" style="background: none; border: none;">
+                                                <i class="fi-heart" style="color: pink;"></i>
+                                            </a>
+                                        </div>
                                                 <div class="product-media">
                                                     <a th:href="@{/silhyun/classes/classesInfo(classNum=${fC.CNUM})}">
                                                         <img class="img-fluid"
