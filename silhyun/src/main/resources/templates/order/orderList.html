@@ -30,23 +30,11 @@
             </div>
         </a>
         <!-- End skippy -->
-        <!-- Preload -->
-        <!-- <div id="loading" class="loading-preloader"> -->
-        <!--     <div class="spinner-border text-primary" role="status"> -->
-        <!--         <span class="visually-hidden">Loading...</span> -->
-        <!--     </div> -->
-        <!-- </div> -->
-        <!-- End Preload -->
-        <!-- Edn Skippy & Prload -->
-
         <!-- 
     ========================
         Wrapper 
     ========================
     -->
-[[${pointInfo}]]<br>
-[[${cpnInfo}]]<br>
-reserVO : [[${reserVO}]]
         <div class="wrapper">
             <!-- heder height -->
             <div class="header-height-bar"></div>
@@ -205,6 +193,7 @@ reserVO : [[${reserVO}]]
                             <input type="hidden" name="shotTime" th:value="${reserVO.shotTime}">
                             <input type="hidden" name="resPri" th:value="${reserVO.resPri}">
                             <input type="hidden" name="opNum" th:value="${selectedOpVO.opNum}">
+                            <input type="hidden" name="pname" th:value="${optionsVO.ttl}">
                         </form>
                     </div>
                 </div>
@@ -347,7 +336,7 @@ reserVO : [[${reserVO}]]
             let ptgId = $('input[name="ptgId"]').val()  //작가 아이디
             let shotTime = $('input[name="shotTime"]').val()   //촬영 시간 코드
             let opNum = $('input[name="opNum"]').val()  //옵션 번호 
-            let pname = $('.text-dark.fw-500.opTtl').text()  //상품 이름   
+            let pname = $('input[name="pname"]').val().replace(',','')  //상품 이름   
             let ordPri = Number($('.text-end.resPri').text().replace(/[^0-9]/g,''))  //주문 가격 (할인 적용전)
            // let savePo = parseInt(paymPri * 0.01)  // 정수만 추출해서 포인트로 적립하기 위해서 parseInt 사용  // Number()은 소수점 까지 전체를 반환함
             let usePo = uPoint
@@ -395,7 +384,6 @@ reserVO : [[${reserVO}]]
                             
                             imp_uid: rsp.imp_uid
                         }
-                        console.log(obj)
                     $.ajax({
                         url: "/pay/reserInsert",
                         method: "post",
@@ -417,8 +405,6 @@ reserVO : [[${reserVO}]]
 
                 });
             }
-            
-            
         </script>
     </div>
 </body>
