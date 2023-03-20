@@ -161,13 +161,15 @@
 								<!-- 모달해더 -->
 							</div>
 							<div class="menuButton">
+								<!--<div class="menuButton" th:if="${session.id == portfolioVO.ptgId}"> -->
 								<i class="bi-three-dots"></i>
 								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
 									<ul class="menuButtonlist">
-										<li style="display: none"><input type="hidden" name='portNum' value=""></li>
-										<li class="menuButton-item"><button type="button" class="menuButton-item">
-												수정하기</button></li>
-										<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
+										<li style="display: none"><input type="hidden"
+											name='portNum' value=""></li>
+										<li class="menuButton-item"><button type="button"
+												class="menuButton-item update">수정하기</button></li>
+										<li class="menuButton-item portDelBtn">삭제하기</li>
 									</ul>
 								</form>
 							</div>
@@ -205,10 +207,10 @@
 		<script th:inline="javascript">
 		
 		/*<![CDATA[*/
-			const portfolio = /*[[${portfolioList}]]*/
+				  /*[[${session.id}]]*/
+			const portfolio = /*[[${portfolioList}]]*/	
 			/*]]>*/
-			console.log('dkssudgktpdy')
-			console.log(portfolio);
+
 			var loginUserId = 'user2';
 			
 			
@@ -360,11 +362,102 @@
 									<div class="mTopSectionImgMaster">
 										<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
 										&nbsp;&nbsp; <i class="bi-dot"></i>
-										<button>follow</button>
+										<button><i class="zzim-icon bi-check2"></i></button>
 									</div>`	
 								$(".mTopSectionInfo").empty();
 								$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
+								
+								if (loginUserId !=='selectedPortfolio.ptgId'){$('.menuButton').css('display','none')}
+								
+								
+								
+								//찜 호출 
+								    $.ajax({  //해당 유저가 해당 작가를 찜 했는지
+								        url:`/silhyun/isZzim/${loginUserId}/${portNum}`
+								    }).then(result => {
+								        console.log(result)
+								        if(result){ 							  					           
+										  if ($('.zzim-icon').text('팔로우')) {
+											  $('.zzim-icon').text('');
+											  $('.zzim-icon').addclass('bi-check2')
+										  } 							         
+								        }else{
+							                if($('.zzim-icon').hasClass('bi-check2')){
+							                    $('.zzim-icon').removeClass('bi-check2').text('팔로우')
+							                }
+								        }
+								    })
+								
+								
+								
+								$('.zzim-icon').parent('button').on('click',function(){  //찜 버튼 클릭 이벤트
+								
+								    if($(this).children('.zzim-icon').hasClass('bi-check2')){  //찜이 되어있지 않으면 찜 추가
+								       	$.ajax({
+								    	    url: '/silhyun/delZzim',
+								    	    type: 'post',
+								    	    data: JSON.stringify({
+								    	        id: loginUserId,
+								    	        ctgrNum: portNum
+								    	    }),
+								               contentType: 'application/json',
+								               headers: {
+								                       'X-HTTP-Method-Override': 'DELETE'
+								               }
+								    	}).then(result => {
+								    		 $(this).children('.zzim-icon').removeClass('bi-check2').text('팔로우')
+								    	   
+								    	});
+								    	
+								    }else{  
+								    	$.ajax({
+								            url:'/silhyun/insertZzim',
+								            type:'post',
+								            data:JSON.stringify({
+								                id: loginUserId,
+								                ctgrNum : portNum
+								            }),
+								            contentType: 'application/json'
+								        }).then(result=>{
+								           
+								            $(this).children('.zzim-icon').addClass('bi-check2').text('');
+								        })
+								    }
+								})
+
+
 				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))끝
+				
+				
+						//////모달 내 삭제~
+
+		$('.menuButton-item.portDelBtn').on('click', function() {
+
+			//포트폴리오지우기
+			$.ajax({
+				url: `/silhyun/portfolioDelete/${portNum}`,
+				method: 'DELETE',
+				success: function(response) {
+					location.reload();
+
+				}.bind(this),
+				error: function() {
+					alert('서버와의 통신에 실패했습니다.');
+				}
+			});
+		})
+
+		//삭제끝
+
+					////////////////////////////////수정폼으로 데려가기~~~~
+		$('.menuButton i').click(function() {
+			$('.menuButton').find('input').val(portNum);//input에 portNum넣기
+			console.log('호호호호호호호호호호호호호')
+			console.log($('.menuButton').find('input').val())
+		})
+		$('.menuButton-item button').click(function() { $('#goUpdatePort').submit(); })
+
+		///수정폼////////////////////////////
 				
 				
 				
@@ -679,18 +772,17 @@
 				const portPhotoList = `<div class="col-sm-6 col-lg-3 modalButton">
 					<div class='portInfo' style='display:none'>${aa[i].portNum}</div>
 								<div class="product-card-1">
-									<div class="product-card-image">
-										<div class="badge-ribbon"></div>
+									<div class="product-card-image">										
 										<div class="product-action">
 										
 										</div>
 										<div class="product-media image-container">
-											<a href="#"> <img class="img-fluid"
+											<img class="img-fluid"
 												src="${aa[i].phoRt}" title="" alt="">
+											
 												<div class="overlay">
 													<div class="overlayText"><i class="bi bi-heart-fill">&nbsp;</i>${aa[i].likes}</div>
 												</div>
-											</a>
 										</div>
 									</div>
 								</div>

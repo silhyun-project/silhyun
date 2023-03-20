@@ -48,7 +48,6 @@
 
 		<!-- Main -->
 		<main>
-
 			<!-- Product Details -->
 			<section class="product-details py-6">
 				<div class="container">
@@ -62,16 +61,16 @@
 								<div class="ptg-inf">
 									<div class="ptg-inf-1">
 										<div class="products-brand pb-2">
-											<span>사진관~ 없으면 프리렌서${ptgInfo[0].stName}</span>
+											<span>사진관~ 없으면 프리렌서</span>
 										</div>
 										<div class="products-title mb-2">
-											<h4 class="h4">${ptgInfo[0].name}</h4>
+											<h4 class="h4">이름~</h4>
 										</div>
 									</div>
 									<div class="rating-star text small pb-4">
 										<i class="bi-heart-fill active"></i>
 										<p>
-											<small>${ptgInfo[0].zzims}</small>
+											<small>찜수~</small>
 										</p>
 									</div>
 
@@ -85,13 +84,17 @@
 								</div>
 								<div class="products-brand pb-2" id="fieldAppend"></div>
 								<div class="product-description">
-									<p>${ptgInfo[0].itr}</p>
+									<p>사진사스스로소개~</p>
 								</div>
 
 								<div class="product-detail-actions d-flex flex-wrap pt-3">
 									<div class="cart-button mb-3 d-flex">
+									<div class="hiddenloginId" style="display:none;">[[${session.id}]]</div>
+									<div class="hiddenptgId" style="display:none;">[[${portfolioVO.ptgId}]]</div>
 										<button class="btn btn-dark me-3 ShowReview">리뷰 보기</button>
-										<button class="btn btn-dark me-3 Reser">예약하러가기</button>
+
+										<button type="button" class="btn btn-dark me-3 Reser">예약하러가기</button>
+
 									</div>
 								</div>
 								<div class="product-info-buttons nav pt-4">
@@ -108,8 +111,9 @@
 						<!-- Product Gallery -->
 						<div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0">
 							<div class="product-info-buttons nav pt-4">
-								<a href="/silhyun/portfolioInsert" class="ms-auto">
+								<a th:onclick="|location.href='@{/silhyun/portfolioInsert?ptgId={ptgId}(ptgId=${portfolioVO.ptgId})}'|" class="ms-auto">
 									<button class="btn btn-port me-3">
+									<!--<div class="btn btn-port me-3" th:if="${session.id == portfolioVO.ptgId}"> -->
 										Portfolio<i class="bi-plus-lg"></i>
 									</button>
 								</a>
@@ -141,17 +145,20 @@
 								<div class="mTopSectionInfo">
 									<!-- 모달해더 -->
 								</div>
-							<div class="menuButton">
-								<i class="bi-three-dots"></i>
-								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
-									<ul class="menuButtonlist">
-										<li style="display: none"><input type="hidden" name='portNum' value=""></li>
-										<li class="menuButton-item"><button type="button" class="menuButton-item">
-												수정하기</button></li>
-										<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
-									</ul>
-								</form>
-							</div>
+								<div class="menuButton">
+									<!--<div class="menuButton" th:if="${session.id == portfolioVO.ptgId}"> -->
+									<i class="bi-three-dots"></i>
+									<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
+										<ul class="menuButtonlist">
+											<li style="display: none"><input type="hidden"
+												name='portNum' value=""><input type="hidden"
+												name='ptgId' value=""></li>
+											<li class="menuButton-item"><button type="button"
+													class="menuButton-item update">수정하기</button></li>
+											<li class="menuButton-item portDelBtn">삭제하기</li>
+										</ul>
+									</form>
+								</div>
 							</div>
 							<div class="modalMiddleSection">
 								<div class="scroll-box">
