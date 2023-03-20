@@ -9,7 +9,7 @@
 <!-- 테스트 중이라 null값인 데이터들이 있음. 처리했지만 추후 데이터 수정할 것 -->
 <select id="getC1List" resultType="map">
     SELECT c.cla_cd as cCd, c.thni as thni, trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+    to_char(c.cla_pri, 'FM999,999,999') as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
     case 
         when c.cla_time = '' then '시간미정'
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
@@ -48,10 +48,9 @@
 </select>
 
 
-
 <select id="getC2List" resultType="map">
 SELECT c.cla_cd as cCd, c.thni as thni,trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime,
+ to_char(c.cla_pri, 'FM999,999,999') as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime,
  CASE 
     WHEN f.fd_cd = 'B1' then '제품' 
    WHEN f.fd_cd = 'B2' then '음식' 
@@ -89,7 +88,7 @@ GROUP BY
 <!-- 메인에서 선택값 받아서 검색된 클래스 리스트. 아작스로 보낼 것-->
 <select id="cdtC1List" parameterType="int"  resultType="map">
     SELECT c.cla_cd as cCd, c.thni as thni, trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+     to_char(c.cla_pri, 'FM999,999,999') as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
     case 
         when c.cla_time = '' then '시간미정'
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
@@ -133,7 +132,7 @@ GROUP BY
 
 <select id="cdtC2List" parameterType="int"  resultType="map">
 SELECT c.cla_cd as cCd, c.thni as thni,trunc(AVG(NVL(r.star, 0)),1) AS star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name,  c.cla_cnt as cnt, 
-c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime,
+     to_char(c.cla_pri, 'FM999,999,999') as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, COALESCE(c.cla_time, '시간미정') as cTime,
  CASE 
     WHEN f.fd_cd = 'B1' then '제품' 
    WHEN f.fd_cd = 'B2' then '음식' 
@@ -181,7 +180,7 @@ SELECT
     c.cla_ttl AS ttl, 
     NVL(m.name, '익명') AS name, -- 수정된 부분
     to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
-    c.cla_pri AS cPri, 
+         to_char(c.cla_pri, 'FM999,999,999') AS cPri, 
     NVL(c.ypsn, 0) AS ypsn, 
     COALESCE(c.cla_place, '장소미정') AS cPlace, 
     case 
@@ -234,7 +233,7 @@ SELECT
     c.cla_ttl AS ttl, 
     COALESCE(m.name, '익명') AS name,
     to_char(c.cla_dt, 'YYYY"년" MM"월" DD"일"') AS cdt, 
-    c.cla_pri AS cPri, 
+         to_char(c.cla_pri, 'FM999,999,999') AS cPri, 
     NVL(c.ypsn, 0) AS ypsn, 
     COALESCE(c.cla_place, '장소미정') AS cPlace, 
     CASE 
@@ -317,7 +316,7 @@ from dual
 <!-- 강의 상세페이지에 함께 보낼 랜덤추천리스트. -->
 <select id="randomList" parameterType="String"  resultType="map">
     SELECT c.cla_cd as cCd, c.thni as thni, trunc(NVL(AVG(star), 0), 1) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-    c.cla_pri as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
+         to_char(c.cla_pri, 'FM999,999,999') as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
     case 
         when c.cla_time = '' then '시간미정'
         when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
