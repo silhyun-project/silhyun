@@ -37,29 +37,27 @@ public class MyStdController {
 	private MypageAoService mypagesAoService;
 
 	
-	@RequestMapping("/photo/mypageStd/{stId}")
-	private String mypageStd(Model model, StudioVO svo, @PathVariable String stId, HttpSession httpSession) {
-		SessionUser user = (SessionUser) httpSession.getAttribute("user");  //세션 담기
-		if(user != null) {  //세션
-			model.addAttribute("id",user.getId());
-			model.addAttribute("role",user.getRole());
-		}
-		model.addAttribute("stdInfo", stdService.stdlistget(stId));
+	@RequestMapping("/photo/mypageStd")
+	private String mypageStd(Model model, StudioVO svo, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("stdInfo", stdService.stdlistget(id));
 		return "mypageStd/mypageStd";
 	}
 	
-	@RequestMapping("/photo/modStd/{stId}")
-	public String modStd(Model model,@PathVariable String stId) {
-		model.addAttribute("stdInfo", stdService.stdlistget(stId));
+	@RequestMapping("/photo/modStd")
+	public String modStd(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("stdInfo", stdService.stdlistget(id));
 
 		return "mypageStd/modStd";
 	}
 	
-	@RequestMapping("/photo/stdManage/{stId}")
-	private String stdManage(Model model,@PathVariable String stId)
+	@RequestMapping("/photo/stdManage")
+	private String stdManage(Model model,HttpSession session)
 	{	
-		model.addAttribute("stdInfo", stdService.stdlistget(stId));
-		model.addAttribute("ptglist", stdService.ptgList(stId));
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("stdInfo", stdService.stdlistget(id));
+		model.addAttribute("ptglist", stdService.ptgList(id));
 		return "mypageStd/stdManage";
 	}
 	

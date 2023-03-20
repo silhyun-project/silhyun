@@ -14,4 +14,5 @@ public interface EventService {
 	int insertChulcheck(ChulcheckVO vo);		//출첵
 	List<ChulcheckVO> chulIdSelect(String id);	//했는지 한명씩 정보불러오기
 	int updateChulcheck(ChulcheckVO vo); 		//출쳌 업데이트
+	List<ChulcheckVO> recentlyDate(String id);	//제일 최근 날짜 가져오기
 }

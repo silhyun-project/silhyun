@@ -53,11 +53,11 @@
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/modStd/{stId}"> <i class="fi-user me-2"></i>사진관정보수정
+									href="/photo/modStd"> <i class="fi-user me-2"></i>사진관정보수정
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/resManage"> <i class="bi bi-card-checklist"></i>작가관리</a></li>
+									href="/photo/stdManage"> <i class="bi bi-card-checklist"></i>작가관리</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/mypageAoAsk"> <i class="bi-chat-square-dots me-2"></i>문의내역
@@ -65,10 +65,6 @@
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3"
 									href="/photo/mypageStatsAo"> <i class="bi bi-pie-chart-fill"></i>통계
-								</a></li>
-								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/reportFormAo"> <i class="bi bi-exclamation-diamond"></i>신고
 								</a></li>
 								<li class="border-bottom mb-0"><a
 									class="nav-link-style d-flex align-items-center p-3" href="#">
@@ -84,7 +80,6 @@
 						<div class="card mb-5">
 							<div class="card-header py-3">
 								<h5 class="m-0">Profile</h5>
-									로그인 한 사람 : [[${stdId}]]
 							</div>
 							<div class="card-body" th:each="std : ${stdInfo}">
 								<div class="row">

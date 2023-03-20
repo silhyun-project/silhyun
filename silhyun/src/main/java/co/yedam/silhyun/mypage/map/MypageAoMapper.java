@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import co.yedam.silhyun.classes.vo.ClassesVO;
+import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.vo.MemberVO;
@@ -14,8 +15,10 @@ import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.order.vo.ReserVO;
 
 public interface MypageAoMapper {
-	List<ReserVO> getReserList(String ptgId);//예약전체조회
-	List<ClassesVO> classList(String ptgId);//클래스 관리 정보 
+	int getReserList(String ptgId);//예약전체조회페이징
+	List<ReserVO> selectReserList(String ptgId, Criteria cri);//예약조회
+	int totalClassList(String ptgId);//클래스조회 페이징
+	List<ClassesVO> classList(String ptgId, Criteria cri);//클래스 관리 정보 
 	
 	List<MemberVO> getPhotoinfo(String id); //포토그래퍼 조회
 	MemberVO ptgSelect(MemberVO vo);//회원+작가 한명 조회
@@ -47,4 +50,7 @@ public interface MypageAoMapper {
 	//캘린더
 	List<PhotographerVO> getResInfo(String ptgId,String redate, String shotTime);
 	
+	List<MemberVO> clMemInfo(String classNum);	//클래스 수강조회 멤버 정보
+	
+	int uploadPhoto(ReserVO vo);			//대표사진설정
 }
