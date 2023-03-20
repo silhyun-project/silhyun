@@ -177,14 +177,16 @@
 	<update id="updatePortfolio"
 		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
 		UPDATE PORTFOLIO
-		SET CNTN = #{cntn}
-		WHERE PORT_NUM =
+		SET CNTN = #{cntn},
+		UP_STA= #{upSta}
+		WHERE
+		PORT_NUM =
 		#{portNum}
 	</update>
 	<select id="selectPortLike"
 		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"
 		parameterType="String">
-Select * FROM LIKE_PHOTO WHERE PORT_NUM = #{portNum}
+		Select * FROM LIKE_PHOTO WHERE PORT_NUM = #{portNum}
 	</select>
 
 

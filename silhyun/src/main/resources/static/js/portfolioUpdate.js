@@ -179,13 +179,26 @@ $(function() {
 					ctgrNum: portNum
 				},
 				success: function(result) {
-					console.log(result)
+					console.log(result.photos)
 					console.log('마이마이마이요네즈')
-
-
-
-					//내용 붙이기.
 					$('#cntn').text(result.portfolio.cntn)
+						var imgE1 = `<div class="swiper-slide">
+          <div class="pd-gallery-slide">
+            <img src="${result.photos[0].phoRt}" class="img-fluid" alt="">
+          </div>
+        </div>`;
+					$(".photo-list-containerN1").empty();
+					$(".photo-list-containerN1").append(imgE1);
+					for (i = 0; i < result.photos.length; i++) {
+						var imgEl1 = `<div class="swiper-slide photo-list-item">
+          <div class="pd-gallery-slide-thumb">
+            
+            <img src="${result.photos[i].phoRt}" class="img-fluid" alt="">
+          </div>
+        </div>`;
+						$('.photo-list-container').append(imgEl1);
+					}
+					//내용 붙이기.
 				}
 
 			})//수정폼만들기 끝
@@ -211,7 +224,7 @@ $(function() {
 
 	//포트폴리오 수정하기 버튼
 	$('.btn.btn-dark.me-3.submit').click(function(e) {
-		e.preventDefault();
+	e.preventDefault();
 
 
 		var upSta = 'Y';
@@ -249,16 +262,14 @@ $(function() {
 
 
 				formData.append('tagCntn', JSON.stringify(tagCntns));
-			$.ajax({
-					type: 'POST',
-					enctype: 'multipart/form-data',
-					url: '/silhyun/updatePortfolio',
+				$.ajax({
+					type: "POST",
+					url: "/silhyun/addPortfolio",
 					data: formData,
-					processData: false,
 					contentType: false,
-					cache: false,
-					success: function(response) {
-						console.log("Portfolio 수정완료");
+					processData: false,
+					success: function() {
+						console.log("Portfolio 등록완료");
 						location.href = `/silhyun/portfolio/${ptgId}`;
 
 					},

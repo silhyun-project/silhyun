@@ -2,7 +2,7 @@
  * portfolioInsert
  */
 console.log($('.insertId').text())
-var ptgId = 'user1';//$('.insertId').text()
+var ptgId =$('.insertId').text()
 
 
 
