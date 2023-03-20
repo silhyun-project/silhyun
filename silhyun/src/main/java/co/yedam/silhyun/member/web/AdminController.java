@@ -54,7 +54,7 @@ public class AdminController {
 		
 		
 		System.out.println(model);
-		return "/admin/eventManage";
+		return "admin/eventManage";
 	}
 	
 	//이벤트관리 아작스 
@@ -141,7 +141,7 @@ public class AdminController {
 	}
 	
 	//사진관 승인요청 승인
-	@RequestMapping("/admin/stdAccept")
+	@RequestMapping("admin/stdAccept")
 	@ResponseBody
 	public String stdAccept(@RequestParam("stId") String stId){
 		 System.out.println("컨트롤러로 온 stId는 = " + stId);
@@ -160,7 +160,7 @@ public class AdminController {
 	}
 	
 	//사진관 승인요청 반려
-	@RequestMapping("/admin/noStdAccept")
+	@RequestMapping("admin/noStdAccept")
 	@ResponseBody
 	public String noStdAccept(@RequestParam("stId") String stId){
 		 System.out.println("컨트롤러로 온 stId222222는 = " + stId);
@@ -287,7 +287,7 @@ public class AdminController {
 		
 		System.out.println(model);
 		
-		return "/admin/memberAccept";
+		return "admin/memberAccept";
 	}
 	
 	@RequestMapping("/admin/memberManage")
@@ -329,7 +329,7 @@ public class AdminController {
 		
 		System.out.println(model);
 
-		return "/admin/memberManage";
+		return "admin/memberManage";
 	}
 	
 	
@@ -362,7 +362,7 @@ public class AdminController {
 			System.out.println(id+"비활성화완료");
 		}else {
 		}
-		return "redirect:/admin/memberManage";
+		return "redirect:admin/memberManage";
 		//test
 	}
 	
@@ -377,7 +377,7 @@ public class AdminController {
 			System.out.println(id+"비활성화완료");
 		}else {
 		}
-		return "redirect:/admin/memberManage";
+		return "redirect:admin/memberManage";
 		//test
 	}
 	
@@ -394,7 +394,7 @@ public class AdminController {
 		}else {
 			System.out.println("수정실패");
 		}
-		return "redirect:/admin/adminManage";
+		return "redirect:admin/adminManage";
 	}
 	
 	//회원정보 수정
@@ -411,17 +411,17 @@ public class AdminController {
 		}else {
 			System.out.println("회원정보 수정실패");
 		}
-		return "redirect:/admin/memberManage";
+		return "redirect:admin/memberManage";
 	}
 	
 	@GetMapping("/admin/orderManage")
 	public String orderManage() {
-		return "/admin/orderManage";
+		return "admin/orderManage";
 	}
 	
 	@GetMapping("/admin/qstManage")
 	public String qstManage() {
-		return "/admin/qstManage";
+		return "admin/qstManage";
 	}
 	
 	//탈퇴관리
@@ -437,19 +437,19 @@ public class AdminController {
 		model.addAttribute("list", adminService.getListQuit(cri));
 		model.addAttribute("page", new AdminPageVO(adminService.getTotalQuit(cri), 10, cri));
 
-		return "/admin/quitManage";
+		return "admin/quitManage";
 	}
 	
 	
 	@GetMapping("/admin/reportManage")
 	public String reportManagr() {
-		return "/admin/reportManage";
+		return "admin/reportManage";
 	}
 	
 	@GetMapping("/admin/adminManage")
 	public String adminManage(Model model) {
 		model.addAttribute("adminInfo", adminService.adminInfo());
-		return "/admin/adminManage";
+		return "admin/adminManage";
 	}
 	
 	
@@ -469,7 +469,7 @@ public class AdminController {
 			model.addAttribute("classRank", adminService.classRank());
 			
 
-		return "/admin/dashBoard";
+		return "admin/dashBoard";
 	}
 	
 
