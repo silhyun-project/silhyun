@@ -194,7 +194,7 @@ select
 ptg_id as "ptgId", cla_ttl as "claTtl", class_num as "classNum",
  		CASE 
  		WHEN cla_cd = 'CL2' THEN '온라인' else '현장' end as "claCd", 
-cla_desct as "claDesct", cla_pri as "claPri", regi_date as "regiDate"
+cla_desct as "claDesct",  to_char(cla_pri, 'FM999,999,999') as "claPri", regi_date as "regiDate"
 from class
 where cfm_cd = 'O'
 </select>
@@ -205,7 +205,7 @@ where cfm_cd = 'O'
     ptg_id as "ptgId", cla_ttl as "claTtl", class_num as "classNum",
     CASE 
       WHEN cla_cd = 'CL2' THEN '온라인' else '현장' end as "claCd", 
-    cla_desct as "claDesct", cla_pri as "claPri", regi_date as "regiDate",
+    cla_desct as "claDesct",  to_char(cla_pri, 'FM999,999,999') as "claPri", regi_date as "regiDate",
     nvl(to_char(cla_dt, 'YYYY"년" MM"월" DD"일"'),'없음') as "claDt", 
     CASE
       WHEN cla_time = '' THEN '시간미정'
