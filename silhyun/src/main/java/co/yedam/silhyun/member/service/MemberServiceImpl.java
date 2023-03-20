@@ -42,6 +42,12 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return map.findid(vo);
 	}
+
+	@Override
+	public int isPwdChek(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return map.isPwdChek(vo);
+	}
 	
 
 }

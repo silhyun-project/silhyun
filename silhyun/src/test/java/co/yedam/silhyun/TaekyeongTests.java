@@ -47,7 +47,7 @@ public class TaekyeongTests {
 	
 	@Test //=> 가입인증번호
 	public void mailConfirm() {
-		String code = emailService.sendSimpleMessage("kkom_bom@naver.com");
+		String code = emailService.sendSimpleMessage("kkom_bom@naver.com", "join");
 		System.out.println("인증코드>>>>>>>>>>>"+code);
 	
 

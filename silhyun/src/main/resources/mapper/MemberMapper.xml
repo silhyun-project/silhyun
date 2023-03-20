@@ -59,5 +59,11 @@
 		from member
 		where name = #{name} and email = #{email}
 	</select>
+	
+	<select id="isPwdChek" resultType="int">
+		select count(pwd)
+		from member
+		where id = #{id} and email = #{email}
+	</select>
 
 </mapper>

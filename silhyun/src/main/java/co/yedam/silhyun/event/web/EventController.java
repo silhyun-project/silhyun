@@ -16,11 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.event.service.EventService;
 import co.yedam.silhyun.mypage.vo.ChulcheckVO;
 
@@ -49,48 +49,51 @@ public class EventController {
 		return "event/eventForm";
 	}
 
-	@PostMapping("/silhyun/chulcheckEv")
-	@ResponseBody
-	public boolean chulcheckEv(@RequestParam String id, 
-	                       @RequestParam  @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkDate,
-	                        Model model) {			//면 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)가 없으면 Localdate를 불러 올 수 없다
-		System.out.println("들어오는감++++++++++++++++");
-		
-		List<ChulcheckVO> cvo = eventService.chulIdSelect(id);	
-		ChulcheckVO vo = new ChulcheckVO();
-		vo.setId(id);
-	 	if(cvo.size()!=0) {
-		Date date= cvo.get(0).getCheckDate();	//db에 들어 가있는 시간
-		System.out.println(date+"db값123123");
 	
-		System.out.println(checkDate + "들어오는 값 1111111111");
+	@PostMapping("/chulcheckEv")
+	@ResponseBody
+	public boolean chulcheckEv(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkDate) {
+	  String id = (String)session.getAttribute("id");
+	  System.out.println("들어오는감++++++++++++++++");
+	
+	  List<ChulcheckVO> cvo = eventService.chulIdSelect(id);	
+	  List<ChulcheckVO> rvo = eventService.recentlyDate(id);
+	  ChulcheckVO vo = new ChulcheckVO();
+	  vo.setId(id);
+	  if(cvo.size()!=0) {	
+	   // Date date = cvo.get(0).getCheckDate();	//db에 들어 가있는 시간
+		  Date date = rvo.get(0).getCheckDate();	//그 id의 젤 최근 출석날짜
 		
+	    System.out.println(date + "db값123123");
+
+	    System.out.println(checkDate + "들어오는 값 1111111111");
 
 	    if (checkDate.equals(date)) {		//오늘 지역 날짜 == db에 있는 날짜
-	    
-	        System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+	      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr 출첵되어잇음");
+	      return false;
 	    } else {											//조회도 되고 날짜도 다르다면
-	    	//ChulcheckVO vo = new ChulcheckVO();
-	    	 eventService.updateChulcheck(vo);
-	
-	    	 System.out.println("rrrrrrrrrrrrrrr3333333333333333333rrrrr");
-	    	
+	    	vo.setCheckDate(checkDate);
+	    	System.out.println(vo.getCheckDate()+"확인용kkkkkkkkkkkkk");
+	    	eventService.insertChulcheck(vo);
+
+	      System.out.println("rrrrrrrrrrrrrrr3333333333333333333rrrrr");
 	    }
-	  
-	 	}else if (cvo.isEmpty()){						//정보 조회가 안된다면
-	    	//ChulcheckVO vo = new ChulcheckVO();
-	    	System.out.println("rrrrrrrrrrrrrr2들어왔나?");
-	    	vo.setCheckDate(checkDate);					//날짜 넣기
-	    	 eventService.insertChulcheck(vo);
-	       
-	    }
-	 	
-	 	
-		 return true;
+
+	  } else if (cvo.isEmpty()) {						//정보 조회가 안된다면
+	    System.out.println("rrrrrrrrrrrrrr2 정보조회 안됐을 때 insert");
+	    vo.setCheckDate(checkDate);	//날짜 넣기
+	    eventService.insertChulcheck(vo);
+	  }
+	 
+	  return true;
 	}
+
+
+
 	
 	@RequestMapping("/silhyun/chulcheck")
-	public String chulchecck(Model model) {
+	public String chulchecck(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
 		//local Date생성
 		LocalDateTime now = LocalDateTime.now(); // 현재 시간 정보를 가진 LocalDateTime 객체
 		
