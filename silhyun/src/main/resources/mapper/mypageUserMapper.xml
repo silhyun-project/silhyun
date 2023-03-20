@@ -5,7 +5,7 @@
 	<insert id="scheduleInsert" parameterType="scheduleVO">
 		<selectKey keyProperty="todoNum" resultType="String" order="BEFORE">
 			SELECT 
-				nvl(MAX(to_number(todo_num)), 0) + 1 AS "comNum"
+				nvl(MAX(to_number(todo_num)), 0) + 1 AS "todoNum"
 			FROM schedule
 		</selectKey>
 			insert into schedule(todo_num
@@ -13,7 +13,7 @@
 					  , cntn
 					  , todo_date)
 				values(#{todoNum}
-					  , 'catLove'
+					  , #{id}
 					  , #{cntn}
 					  , #{todoDate})
 	</insert>
@@ -21,7 +21,6 @@
 	<select id="getScheduleList" parameterType="scheduleVO" resultType="co.yedam.silhyun.mypage.vo.ScheduleVO">
 		select * from schedule
 		where id = 'catLove'
-		todo_date = #{todoDate}
 	</select>
 	
 	<select id="selectMyCoupon" resultType="co.yedam.silhyun.event.vo.CouponHistoryVO">
@@ -30,6 +29,10 @@
 		WHERE C.CPN_NUM = CH.CPN_NUM
 		AND CH.ID = #{id}
 	</select>
+	
+	<delete id="scheduleDelete">
+		delete from schedule where todo_num = #{todoNum}
+	</delete>
 
 </mapper>
 	
