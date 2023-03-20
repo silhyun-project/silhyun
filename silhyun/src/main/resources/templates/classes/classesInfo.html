@@ -3,7 +3,117 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{home/layout}">
       <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script> <!--제이쿼리-->
+<head>
+<style>
+		/* 스타일링 */
+		div.minimalistBlack {
+			width: 70%;
+			border-collapse: collapse;
+			text-align: left;
+		}
 
+		#attl {
+			padding-left: 15px;
+		}
+
+		.divTable.minimalistBlack .divTableCell,
+		.divTable.minimalistBlack .divTableHead {
+			padding: 5px 4px;
+		}
+
+		.divTable.minimalistBlack .divTableBody .divTableCell {
+			font-size: 13px;
+		}
+
+		.divTable.minimalistBlack .divTableHeading {
+			background: #CFCFCF;
+			background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+			background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+			background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+			border-bottom: 1px solid #000000;
+		}
+
+		.divTable.minimalistBlack .divTableHeading .divTableHead {
+			font-size: 15px;
+			font-weight: bold;
+			color: #000000;
+		}
+
+		.minimalistBlack .tableFootStyle {
+			font-size: 14px;
+		}
+
+		/* DivTable.com */
+		.divTable {
+			display: table;
+		}
+
+		.divTableRow {
+			display: table-row;
+		}
+
+		.divTableHeading {
+			display: table-header-group;
+			text-align: center;
+		}
+
+		.divTableCell,
+		.divTableHead {
+			display: table-cell;
+			text-align: center;
+		}
+
+		.divTableHeading {
+			display: table-header-group;
+		}
+
+		.divTableFoot {
+			display: table-footer-group;
+		}
+
+		.divTableBody {
+			display: table-row-group;
+		}
+
+		/* 모달 창 스타일링 */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			padding-top: 100px;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%;
+		}
+
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		
+
+	</style>
+</head>
 <body>
 <div>
     <div layout:fragment="content">
@@ -126,6 +236,11 @@ th:onclick="|location.href='@{/silhyun/myPage/myClasses}'|">
                             <a href="#" class="nav-link" id="pd_reviews_tab" data-bs-toggle="tab"
                                 data-bs-target="#pd_reviews" role="tab" aria-controls="pd_reviews"
                                 aria-selected="false">후기</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a href="#" class="nav-link" id="pd_qst_tab" data-bs-toggle="tab"
+                                data-bs-target="#px_qst" role="tab" aria-controls="px_qst"
+                                aria-selected="false">문의</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -424,6 +539,53 @@ th:onclick="|location.href='@{/silhyun/myPage/myClasses}'|">
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="px_qst" role="tabpanel"
+                            aria-labelledby="pd_qst_tab">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div align="center" class="ansArea" style="width: 1300px">
+												<div class="divTable minimalistBlack">
+													<div class="divTableHeading">
+														<div class="divTableRow">
+															<div class="divTableHead" style="width: 240px;">제목</div>
+															<div class="divTableHead" style="width: 100px;">작성자</div>
+															<div class="divTableHead" style="width: 50px;">작성날짜</div>
+															<div class="divTableHead" style="width: 70px;">답변상태</div>
+															<div class="divTableHead" style="width: 150px;"></div>
+														</div>
+													</div>
+													<div class="divTableBody qstArea"></div>
+												</div>
+												<div></div>
+												<div id="textBox"></div>
+												<br> <br>
+												<button id="new-post-btn">문의하기</button>
+
+												<!-- 문의 모달 -->
+												<div id="myModal" class="modal">
+													<!-- 모달 창 내용 -->
+													<div class="modal-content">
+														<span class="close">&times;</span>
+														<h2>상품 문의</h2>
+														<form>
+															<label for="title">제목:</label> <input type="text"
+																id="title" class="title" name="title"
+																placeholder="제목을 입력하세요..." style="width: 400px;">
+															<br> <br> <label for="content">내용:</label>
+															<textarea id="qstCntn" name="qstCntn" rows="5"
+																placeholder="내용을 입력하세요..." style="width: 400px;"></textarea>
+															<br> <input type="checkbox" class="secChk"
+																id="secChk" name="isSecret"> <label
+																for="isSecret">비밀글</label> <br> <br>
+															<button type="button" id="send">작성</button>
+															<button type="reset" id="cancel">취소</button>
+														</form>
+													</div>
+												</div>
+											</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -598,6 +760,7 @@ th:onclick="|location.href='@{/silhyun/myPage/myClasses}'|">
 	    }
 	})
 </script>
+<script src="/js/classQst.js"></script>
 </div>
 </body>
 
