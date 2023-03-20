@@ -26,6 +26,7 @@
 		) A WHERE ROWNUM <= 4) B WHERE RN >= 1
 		 ]]>
 	</select>
+	
 	<!-- 포트폴리오 랜덤 리스트 -->
 	<select id="getPtgPortfolioList" resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
 	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
@@ -52,6 +53,7 @@
 	) A WHERE ROWNUM <= 3) B WHERE RN >= 1
  	]]>
 	</select>
+	
 	<!-- 이벤트 배너 리스트 -->
 	<select id="getEventList" resultType="co.yedam.silhyun.event.vo.EventVO">
 		SELECT * FROM EVENT
