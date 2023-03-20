@@ -93,9 +93,14 @@
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateReview()">작성</button>
 	      	<input type="hidden" name="phoNum" id="phoNums">
-	      	<input type="hidden" id="ctgr">
-	      	<input type="hidden" id="ctgrNum">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" id="backBtn">뒤로가기</button> 
+      	</div>
+      	<div id="pageInfo">
+      		<input type="hidden" id="pageNum" name="pageNum" th:value="${cri.pageNum}">
+      		<input type="hidden" id="sort" name="sort" th:value="${cri.sort}">
+      		<input type="hidden" id="ctgrNum" name="ctgrNum" th:value="${rev.ctgrNum}">
+      		<input type="hidden" id="ctgr" name="ctgr" th:value="${rev.ctgr}">
+      		<input type="hidden" id="photo" name="photo" th:value="${cri.photo}">
       	</div>
 	</form>
 </div>
