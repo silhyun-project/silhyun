@@ -1,15 +1,18 @@
 <!doctype html>
-<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{home/layout}">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
 
 <head>
-    <!-- metas -->
+<!-- metas -->
 <meta charset="utf-8">
 <meta name="author" content="pxdraft" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
-<meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
+<meta name="description"
+	content="ShopApp - eCommerce Bootstrap 5 Template" />
 <!-- title -->
 <title>작가 디테일 페이지</title>
 <!-- Favicon -->
@@ -17,113 +20,108 @@
 <style>
 		/* 스타일링 */
 		div.minimalistBlack {
-			border: 1px solid #000000;
 			width: 70%;
 			border-collapse: collapse;
 			text-align: left;
 		}
 
-		#attl {
-			padding-left: 15px;
-		}
+#attl {
+	padding-left: 15px;
+}
 
-		.divTable.minimalistBlack .divTableCell,
-		.divTable.minimalistBlack .divTableHead {
-			padding: 5px 4px;
-		}
+.divTable.minimalistBlack .divTableCell, .divTable.minimalistBlack .divTableHead
+	{
+	padding: 5px 4px;
+}
 
-		.divTable.minimalistBlack .divTableBody .divTableCell {
-			font-size: 13px;
-		}
+.divTable.minimalistBlack .divTableBody .divTableCell {
+	font-size: 13px;
+}
 
-		.divTable.minimalistBlack .divTableHeading {
-			background: #CFCFCF;
-			background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-			background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-			background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-			border-bottom: 1px solid #000000;
-		}
+.divTable.minimalistBlack .divTableHeading {
+	background: #CFCFCF;
+	background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	border-bottom: 1px solid #000000;
+}
 
-		.divTable.minimalistBlack .divTableHeading .divTableHead {
-			font-size: 15px;
-			font-weight: bold;
-			color: #000000;
-		}
+.divTable.minimalistBlack .divTableHeading .divTableHead {
+	font-size: 15px;
+	font-weight: bold;
+	color: #000000;
+}
 
-		.minimalistBlack .tableFootStyle {
-			font-size: 14px;
-		}
+.minimalistBlack .tableFootStyle {
+	font-size: 14px;
+}
 
-		/* DivTable.com */
-		.divTable {
-			display: table;
-		}
+/* DivTable.com */
+.divTable {
+	display: table;
+}
 
-		.divTableRow {
-			display: table-row;
-		}
+.divTableRow {
+	display: table-row;
+}
 
-		.divTableHeading {
-			display: table-header-group;
-			text-align: center;
-		}
+.divTableHeading {
+	display: table-header-group;
+	text-align: center;
+}
 
-		.divTableCell,
-		.divTableHead {
-			display: table-cell;
-			text-align: center;
-		}
+.divTableCell, .divTableHead {
+	display: table-cell;
+	text-align: center;
+}
 
-		.divTableHeading {
-			display: table-header-group;
-		}
+.divTableHeading {
+	display: table-header-group;
+}
 
-		.divTableFoot {
-			display: table-footer-group;
-		}
+.divTableFoot {
+	display: table-footer-group;
+}
 
-		.divTableBody {
-			display: table-row-group;
-		}
+.divTableBody {
+	display: table-row-group;
+}
 
-		/* 모달 창 스타일링 */
-		.modal {
-			display: none;
-			position: fixed;
-			z-index: 1;
-			padding-top: 100px;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			overflow: auto;
-			background-color: rgba(0, 0, 0, 0.4);
-		}
+/* 모달 창 스타일링 */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
 
-		.modal-content {
-			background-color: #fefefe;
-			margin: auto;
-			padding: 20px;
-			border: 1px solid #888;
-			width: 50%;
-		}
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+}
 
-		.close {
-			color: #aaa;
-			float: right;
-			font-size: 28px;
-			font-weight: bold;
-		}
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
 
-		.close:hover,
-		.close:focus {
-			color: black;
-			text-decoration: none;
-			cursor: pointer;
-		}
-		
-
-	</style>
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
 </head>
 
 <body>
@@ -199,6 +197,7 @@
 											<i class="zzim-icon bi-person" style="font-size: 30px"></i>
 											</a><br>
 											<span class="text-primary" style="margin-left: 21px">[[${ptg[0].zzims}]]</span>
+
 										</div>
 									</div>
 									<div class="product-description itr" >
@@ -233,70 +232,90 @@
 						</div>
 					</div>
 				</section>
-        <!-- End 작가 상세보기 -->
-            <section class="product-detail-tab-02">
-                <div class="container">
-                    <div class="product-tabs">
-                        <ul class="nav product-nav-tabs-02" id="myTab_02" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link active" id="pd_description_tab_02" data-bs-toggle="tab" data-bs-target="#pd_description_02" role="tab" aria-controls="pd_description_02" aria-selected="true">Description</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pd_information_tab_02" data-bs-toggle="tab" data-bs-target="#px_information_02" role="tab" aria-controls="px_information_02" aria-selected="false">Portfolio</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pd_QA_tab_02" data-bs-toggle="tab" data-bs-target="#pd_QA_02" role="tab" aria-controls="pd_QA_02" aria-selected="false">Q&A</a>
+				<!-- End Product Details -->
+				<!-- Product Tabs -->
+				<section class="product-detail-tab-02">
+					<div class="container">
+						<div class="product-tabs">
+							<ul class="nav product-nav-tabs-02" id="myTab_02" role="tablist">
+								<li class="nav-item" role="presentation"><a href="#"
+									class="nav-link active" id="pd_description_tab_02"
+									data-bs-toggle="tab" data-bs-target="#pd_description_02"
+									role="tab" aria-controls="pd_description_02"
+									aria-selected="true">Description</a></li>
+								<li class="nav-item" role="presentation"><a href="#"
+									class="nav-link" id="pd_information_tab_02"
+									data-bs-toggle="tab" data-bs-target="#px_information_02"
+									role="tab" aria-controls="px_information_02"
+									aria-selected="false">Portfolio</a></li>
+								<li class="nav-item" role="presentation"><a href="#"
+									class="nav-link" id="pd_QA_tab_02" data-bs-toggle="tab"
+									data-bs-target="#pd_QA_02" role="tab" aria-controls="pd_QA_02"
+									aria-selected="false">Q&A</a></li>
+								<li class="nav-item" role="presentation"><a href="#"
+									class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab"
+									data-bs-target="#pd_reviews_02" role="tab"
+									aria-controls="pd_reviews_02" aria-selected="false">Reviews</a>
+								</li>
+							</ul>
 
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pd_reviews_tab_02" data-bs-toggle="tab" data-bs-target="#pd_reviews_02" role="tab" aria-controls="pd_reviews_02" aria-selected="false">Reviews</a>
-                            </li>
-                        </ul>
-                       
-                        <div class="tab-content" id="myTab_02Content">
-                            <div class="tab-pane fade show active" id="pd_description_02" role="tabpanel" aria-labelledby="pd_description_tab_02">
-                                <!--Description-->
-                                <div class="row">
-                                    <div class="col-lg-15">
-                                        <blockquote class="bg-gray-100 p-3 lead fw-400 mt-5 text-dark border-start border-primary border-5">
-                                             <ol class="list-type-01 list-unstyled pt-2 mb-4">
-                                            <li><h5>취소 및 환불 규정</h5></li>
-                                            가. 기본 환불 규정<br>
-                                            1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.<br>
-                                            2. 섭외, 대여 등 사전 준비 도중 청약 철회 시, 해당 비용을 공제한 금액을 환불 가능합니다.<br>
-                                            3. 촬영 또는 편집 작업 착수 이후 청약 철회 시, 진행된 작업량 또는 작업 일수를 산정한 금액을 공제한 금액을 환불 가능합니다.<br>
-                                            <br>
-                                            <li><h5>환불 가이드라인</h5></li>
-                                            (1) 기획 단계에서 청약 철회: 총 결제 금액의 최대 80%까지 환불 가능<br>
-                                            (2) 작업 착수 후 청약 철회: 총 결제 금액의 최대 20%까지 환불 가능<br>
-                                            (3) 작업 50% 완료 후 청약 철회: 총 결제 금액의 최대 10%까지 환불 가능<br>
-                                            (4) 작업 100% 완료 후 청약 철회 : 환불 불가<br>
-                                            <br>
-                                            나. 전문가 책임 사유<br>
-                                            1. 소비자 피해 보상 규정에 의거하여 촬영 원본의 멸실 및 재해로 인한 피해 발생 시, 전액 환불합니다.<br>
-                                            2. 작업 기간 미준수, 작업 태만 및 이에 상응하는 전문가 책임으로 인한 청약 철회 시, 환불 및 촬영 원본 제공이 가능합니다.<br>
-                                            <br>
-                                            다. 의뢰인 책임 사유<br>
-                                            작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
-                                            </ol>
-                                        </blockquote>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Portfolio-->
-                            <div class="tab-pane fade" id="px_information_02" role="tabpanel" aria-labelledby="pd_information_tab_02" style="text-align: center;">
-                                <div class="row">
-                                    <div class="col-lg-4" th:each="ptgd : ${ptg}">
-                                        <div class="position-relative hover-scale">
-                                            <div class="hover-scale-in">
-                                               <a href="#"> <img class="w-100" th:src="${ptgd.phoRt}" title="" alt="" style="width: 400px; height: 400px">
-                                            [[${ptgd.phoRt}]]</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><br>
-                                <a th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${ptg[0].ptgId})}"><button class="btn btn-primary" style="align-content: right;">더보러가기</button></a>
-                            </div>
+							<div class="tab-content" id="myTab_02Content">
+								<div class="tab-pane fade show active" id="pd_description_02"
+									role="tabpanel" aria-labelledby="pd_description_tab_02">
+									<!--Description-->
+									<div class="row">
+										<div class="col-lg-15">
+											<blockquote
+												class="bg-gray-100 p-3 lead fw-400 mt-5 text-dark border-start border-primary border-5">
+												<ol class="list-type-01 list-unstyled pt-2 mb-4">
+													<li><h5>취소 및 환불 규정</h5></li> 가. 기본 환불 규정
+													<br> 1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.
+													<br> 2. 섭외, 대여 등 사전 준비 도중 청약 철회 시, 해당 비용을 공제한 금액을 환불
+													가능합니다.
+													<br> 3. 촬영 또는 편집 작업 착수 이후 청약 철회 시, 진행된 작업량 또는 작업 일수를
+													산정한 금액을 공제한 금액을 환불 가능합니다.
+													<br>
+													<br>
+													<li><h5>환불 가이드라인</h5></li> (1) 기획 단계에서 청약 철회: 총 결제 금액의 최대
+													80%까지 환불 가능
+													<br> (2) 작업 착수 후 청약 철회: 총 결제 금액의 최대 20%까지 환불 가능
+													<br> (3) 작업 50% 완료 후 청약 철회: 총 결제 금액의 최대 10%까지 환불 가능
+													<br> (4) 작업 100% 완료 후 청약 철회 : 환불 불가
+													<br>
+													<br> 나. 전문가 책임 사유
+													<br> 1. 소비자 피해 보상 규정에 의거하여 촬영 원본의 멸실 및 재해로 인한 피해 발생 시,
+													전액 환불합니다.
+													<br> 2. 작업 기간 미준수, 작업 태만 및 이에 상응하는 전문가 책임으로 인한 청약 철회
+													시, 환불 및 촬영 원본 제공이 가능합니다.
+													<br>
+													<br> 다. 의뢰인 책임 사유
+													<br> 작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.
+													<br>
+												</ol>
+											</blockquote>
+										</div>
+									</div>
+								</div>
+								<!--Portfolio-->
+								<div class="tab-pane fade" id="px_information_02"
+									role="tabpanel" aria-labelledby="pd_information_tab_02"
+									style="text-align: center;">
+									<div class="row">
+										<div class="col-lg-4" th:each="ptgd : ${ptg}">
+											<div class="position-relative hover-scale">
+												<div class="hover-scale-in">
+													<a href="#"> <img class="w-100" th:src="${ptgd.phoRt}"
+														title="" alt="" style="width: 400px; height: 400px">
+														[[${ptgd.phoRt}]]
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br> <a
+										th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${ptg[0].ptgId})}"><button
+											class="btn btn-primary" style="align-content: right;">더보러가기</button></a>
+								</div>
 
 								<!--Q&A-->
 								<div class="tab-pane fade" id="pd_QA_02" role="tabpanel"
@@ -348,27 +367,28 @@
 									</div>
 								</div>
 
-                            <!--후기-->
-                            <div class="tab-pane fade" id="pd_reviews_02" role="tabpanel" aria-labelledby="pd_reviews_tab_02">
-                                <div id="reviews">
-      								<div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- End Product Tabs -->
-            <form>
-                <input type="hidden" name="id" th:value="${session.id}">
-                <input type="hidden" name="ctgrNum" th:value="${ptg[0].ptgId}">
-            </form>
-        </main>
-        <!-- End Main -->
+								<!--후기-->
+								<div class="tab-pane fade" id="pd_reviews_02" role="tabpanel"
+									aria-labelledby="pd_reviews_tab_02">
+									<div id="reviews">
+										<div></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- End Product Tabs -->
+				<form>
+					<input type="hidden" name="id" th:value="${session.id}"> <input
+						type="hidden" name="ctgrNum" th:value="${ptg[0].ptgId}">
+				</form>
+			</main>
+			<!-- End Main -->
 
 
 
-	<script th:inline="javascript">
+			<script th:inline="javascript">
 		
 		/*<![CDATA[*/   
         var role = /*[[${session.role}]]*/
@@ -378,78 +398,18 @@
        
        console.log(name)
     </script>
-       		
-<script>
 
-	
-		$(function(){
-			
-			$('#pd_reviews_tab_02').on('click', function(){
-				let ctgrNum = $('#ptgId').val()
-			     ajaxReiew({pageNum:1, amount:5})      ////일단 여기서 작가아이디랑 구분값 넘겨주기 (다른 아작스 페이지도 똑같이)
-			     
-			 window.setTimeout(function(){
+			<script src="/js/review/review.js"></script>
+			<script src="/js/aoQst.js"></script>
 
-				$('.slider-wrap').slick({
-				 slide: 'div',        //슬라이드 되어야 할 태그
-				 //infinite : true,     //무한 반복 옵션     
-				 slidesToShow : 4,        // 한 화면에 보여질 컨텐츠 개수
-				 slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
-				 speed : 500,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-				 arrows : true,         // 옆으로 이동하는 화살표 표시 여부
-				 vertical : false,        // 세로 방향 슬라이드 옵션
-				 prevArrow : "<button type='button' class='slick-prev'>Previous</button>",
-				 nextArrow : "<button type='button' class='slick-next'>Next</button>",
-				 responsive: [ // 반응형 웹 구현 옵션
-				   {  
-				     breakpoint: 960, //화면 사이즈 960px
-				     settings: {
-				       slidesToShow: 4
-				     } 
-				   },
-				   { 
-				     breakpoint: 768, //화면 사이즈 768px
-				     settings: {    
-				       slidesToShow: 5
-				     } 
-				   }
-				 ]
-				
-				});
-				
-				},300)
-			})
-
-		})
-
-		
-		function ajaxReiew(data){
-			$.ajax({
-				url: '/ajaxCall',
-				data: data,
-				success: function(res){
-
-					$('#reviews').replaceWith(res)
-					
-
-				}, 
-				error: function(err){
-					console.log(err)
-				}
-			})
-		}
-
-		</script>
-        <script src="/js/aoQst.js"></script>
-
-    </div>
-    <!-- 
+		</div>
+		<!-- 
     ========================
        End Wrapper 
     ========================
     -->
-    <!-- End script start -->
-    <script>
+		<!-- End script start -->
+		<script>
     //    let ptgId = $("#pthVal").text();
     //    console.log(ptgId);
        
@@ -550,8 +510,7 @@
 
     </script>
 
- 
-    </div>
+	</div>
 </body>
 
 </html>

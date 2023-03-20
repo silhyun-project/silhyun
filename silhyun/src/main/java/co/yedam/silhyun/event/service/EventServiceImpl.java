@@ -45,4 +45,10 @@ public class EventServiceImpl implements EventService{
 		return eventMapper.updateChulcheck(vo);
 	}
 
+	@Override
+	public List<ChulcheckVO> recentlyDate(String id) {
+
+		return eventMapper.recentlyDate(id);
+	}
+
 }

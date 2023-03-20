@@ -2,6 +2,22 @@
  *  reviewList.js
  */
  $(function(){
+	
+					
+		
+		  $(".content").moreLess({
+		
+		    wordsCount: 80,
+		    moreLabel:"..더보기",
+		    lessLabel:"..줄이기",
+			moreClass:"more-link",
+			lessClass:"less-link"
+
+
+		
+		  });
+		
+
 
     $(".pagination a").on("click", function(e){
     	e.preventDefault();
@@ -12,6 +28,16 @@
     	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
     	//searchFrm.submit(); //폼태그값을 스트링으로 
     })
+    
+    $('#sort').on('change', function(){
+    	
+    	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
+})
+
+$('#phosort').on('click', function(){
+
+    	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
+})
     
 
     
@@ -33,26 +59,53 @@
   
 		
        //인써트 버튼 이벤트
-	function reviewInsertForm(){
+	function reviewInsertForm(id){
+		//리뷰 작성버튼 체크 ===> 프로미스, then 써보기
     	let ctgrNum = $('#ptgId').val()
-		$.ajax({
-			url: '/reviewform',
-			data: {ctgrNum: ctgrNum,
-				   ctgr : 'A'},
-		    success: function(res){
-		    	$('#reviews').replaceWith(res)
-		    }, 
-		    error: function(err){
-		    	console.log(err)
-		    }
-			
+    	let ctgr = $('#ctgr').val()
+    	
+    	new Promise((succ, fail)=>{
+		
+	    	$.ajax({
+				url: '/insertChek',
+				data: {ctgrNum : ctgrNum,
+					   ctgr : ctgr,
+				       id : id},
+				success: function(res){
+					console.log(res)
+					succ(res)
+					 
+				},
+				error:function(err){
+					fail(err)
+				}
+			})
+		}).then((succ)=>{
+			if(succ == 1){
+				$.ajax({
+					url: '/reviewform',
+					data: {ctgrNum: ctgrNum,
+						   ctgr : ctgr, 
+						   id: id},
+				    success: function(res){
+				    	$('#reviews').replaceWith(res)
+				    }, 
+				    error: function(err){
+				    	console.log(err)
+				    }
+					
+				})
+			}else{
+				alert('결제하신 정보가 없습니다.')
+			}
 		})
+    	
+
 	}
     
    
 	//수정버튼 이벤트 
 	function upFrom(num){
-		console.log(num)
 		$.ajax({
 			url: '/reviewUpform',
 			data: {revNum: num},
@@ -65,4 +118,27 @@
 			
 		})
 	}
+	
+	//삭제버튼 이벤트
+	function delReview(num){
+		console.log(num)
+		$.ajax({
+			url:'/reviewDel',
+			data:{revNum: num},
+		     success: function(res){
+		    	console.log(res)
+		    	let ctgrNum = $('#ptgId').val()
+		    	let ctgr = $('#ctgr').val() 
+		    	let pageNum = $('a[class="active"]').attr('href')
+		    	let sort = $('#sort').val()
+		    	let phosort = $('#phosort').val()
+		    	console.log(pageNum)
+		    	ajaxReiew({pageNum:pageNum, amount:5, sort: sort, ctgrNum: ctgrNum, ctgr: ctgr, photo: phosort})
+		    }, 
+		    error: function(err){
+		    	console.log(err)
+		    }
+		})
+	}
+
 	

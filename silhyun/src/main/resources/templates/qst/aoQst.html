@@ -131,7 +131,9 @@
 					<div class="divTableHead" style="width: 150px;"></div>
 				</div>
 			</div>
-			<div class="divTableBody qstArea"></div>
+
+			<div class="divTableBody qstArea"></div> <!-- div붙이는곳 -->
+
 		</div>
 		<div></div>
 		<div id="textBox"></div>
@@ -274,8 +276,8 @@
 							}
 						} else {
 							str += '<p>비밀 문의글입니다.</p>'
+							str += '</div>'
 						}
-						str += '</div>'
 						str += '<div class="divTableCell qstId" id="id">' + aqst.id + '</div>'
 						str += '<div class="divTableCell qstDate" id="qstDate">' + aqst.qstDate + '</div>'
 						str += '<div class="divTableCell rplySta" id="rplySta">' + aqst.rplySta + '</div>'
@@ -294,9 +296,6 @@
 							}
 						}
 						str += '</div>'
-
-							
-
 						str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'
 							
 

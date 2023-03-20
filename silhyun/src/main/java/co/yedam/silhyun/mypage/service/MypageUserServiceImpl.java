@@ -22,13 +22,20 @@ public class MypageUserServiceImpl implements MypageUserService{
 	@Override
 	public int scheduleInsert(ScheduleVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.scheduleInsert();
+		return mapper.scheduleInsert(vo);
 	}
 
+	@Override
+	public int scheduleDelete(ScheduleVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.scheduleDelete(vo);
+	}
+	
 	@Override
 	public List<CouponHistoryVO> selectMyCoupon(String id) {
 		
 		return mapper.selectMyCoupon(id);
 	}
+
 
 }

@@ -132,6 +132,7 @@
 	margin-left: 10px;
 	border-radius: 5px;
 	border: solid 1px rgb(200, 200, 200);
+	width:60px;
 }
 /* 포트폴리오메뉴버튼 */
 .modalTopSection .menuButton {
@@ -346,3 +347,5 @@
 
 .reDelBtn{cursor: pointer;}
 .comDelBtn{cursor: pointer;}
+
+

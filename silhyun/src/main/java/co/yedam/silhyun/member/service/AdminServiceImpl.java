@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.map.AdminMapper;
 import co.yedam.silhyun.member.vo.AdminCriteria;
@@ -62,13 +61,13 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public int deleteMember(String id) {
-		return adminMapper.deleteMember(id);
+	public int disableMember(String id) {
+		return adminMapper.disableMember(id);
 	}
 
 	@Override
-	public int insertQuitMember(String id) {
-		return adminMapper.insertQuitMember(id);
+	public int ableMember(String id) {
+		return adminMapper.ableMember(id);
 	}
 
 	@Override
@@ -114,19 +113,38 @@ public class AdminServiceImpl implements AdminSercive {
 		return adminMapper.getTotalQuit(cri);
 	}
 
+
 	@Override
-	public int deleteQMember(String id) {
-		return adminMapper.deleteQMember(id);
+	public List<PhotographerVO> getListPtg(AdminCriteria cri2) {
+			return adminMapper.getListPtg(cri2);
 	}
 
 	@Override
-	public List<PhotographerVO> getListPtg(AdminCriteria cri) {
-			return adminMapper.getListPtg(cri);
+	public int getTotalPtg(AdminCriteria cri2) {
+			return adminMapper.getTotalPtg(cri2);
+	}
+	
+	//사진관리스트 페이징
+	@Override
+	public List<StudioVO> getListStd(AdminCriteria cri3) {
+		return adminMapper.getListStd(cri3);
 	}
 
 	@Override
-	public int getTotalPtg(AdminCriteria cri) {
-			return adminMapper.getTotalPtg(cri);
+	public int getTotalStd(AdminCriteria cri3) {
+		return adminMapper.getTotalStd(cri3);
+	}
+
+
+	//이벤트리스트 페이징
+	@Override
+	public List<EventVO> getListEvent(AdminCriteria cri) {
+		return adminMapper.getListEvent(cri);
+	}
+
+	@Override
+	public int getTotalEvent(AdminCriteria cri) {
+		return adminMapper.getTotalEvent(cri);
 	}
 
 	@Override
@@ -212,6 +230,52 @@ public class AdminServiceImpl implements AdminSercive {
 	@Override
 	public int noPtgAccept(String ptgId) {
 		return adminMapper.noPtgAccept(ptgId);	}
+	
+	//사진관 승인 ================================
+	@Override
+	public List<Map<String, Object>> stdCfmList() {
+		return adminMapper.stdCfmList();
+	}
+
+	@Override
+	public Map<String, Object> stdSelect(String stId) {
+		return adminMapper.stdSelect(stId);
+	}
+
+	@Override
+	public int stdAccept(String stId) {
+		return adminMapper.stdAccept(stId);
+	}
+
+	@Override
+	public int noStdAccept(String stId) {
+		return adminMapper.noStdAccept(stId);
+	}
+	
+	//클래스 승인 ================================
+	@Override
+	public List<Map<String, Object>> classCfmList() {
+		return adminMapper.classCfmList();
+	}
+
+	@Override
+	public Map<String, Object> classSelect(String classNum) {
+		return adminMapper.classSelect(classNum);
+	}
+
+	@Override
+	public int classAccept(String classNum) {
+		return adminMapper.classAccept(classNum);
+	}
+
+	@Override
+	public int noClassAccept(String classNum) {
+		return adminMapper.noClassAccept(classNum);
+	}
+	
+	
+	
+	//이벤트 승인 ===========================================
 
 	@Override
 	public List<Map<String, Object>> getEventOList() {
@@ -226,5 +290,15 @@ public class AdminServiceImpl implements AdminSercive {
 	@Override
 	public int noEventAccept(String eventNum) {
 		return adminMapper.noEventAccept(eventNum);
+	}
+
+	@Override
+	public Map<String, Object> countNeedCfm() {
+		return adminMapper.countNeedCfm();
+	}
+
+	@Override
+	public int addAdminEvent(EventVO vo) {
+		return adminMapper.addAdminEvent(vo);
 	}
 }
