@@ -138,7 +138,7 @@
                                         <div class="row align-items-center">
                                             <label class="form-label col" for="inst">인스타그램</label>
                                         </div>
-                                        <input type="text" class="form-control regi" id="inst" name="inst">
+                                        <input type="text" class="form-control regi" id="inst" name="inst" placeholder="">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="form-label col" for="crn">사업자등록번호<span
@@ -146,10 +146,11 @@
                                         <div class="d-flex">
                                             <input type="text" class="form-control regi" id="crn"
                                                 placeholder="-을 제외한 10자리 숫자를 적어주세요" name="crn">
-                                            <button type="button" class="btn btn-primary w-20 ms-2 crnBtn" id="btnId"
+                                                <button type="button" class="btn btn-primary w-20 ms-2 crnBtn" id="btnId"
                                                 value="No">사업자
                                                 인증</button>
-                                        </div>
+                                            </div>
+                                            <div class="text-danger error-msg"></div>
                                     </div>
                                     <label class="form-label col">활동 지역<span class="text-danger">*</span></label>
                                     <div class="dropdown btn btn-white border" style="size: 100px; text-align: left;">
@@ -388,6 +389,26 @@
                 })
                 return false;
             }
+            
+            //정규식 이용한 유효화검사
+        	const errMsg =  "-을 제외한 10자리 숫자를 적어주세요"
+        	let regi = "",
+        		isCrnValid = false
+        	let regiInput = $('#crn')
+        	console.log(regiInput.val())
+        	let ErrorMsgEl = $('.error-msg')
+        	$(regiInput).on('change', () => {
+        		let crnRegExp = /^(?=.*[0-9])[0-9]{10}$/
+        		regi = $(regiInput).val()
+        		if (crnRegExp.test(regi)) { // 정규식 조건 만족 O
+        			isCrnValid = true
+                    $(ErrorMsgEl).text('')
+        		} else { // 정규식 조건 만족 X
+        			isCrnValid = false
+        			$(regiInput).val('')
+        			$(ErrorMsgEl).text(errMsg)
+        		}
+        	})
         </script>
     </div>
 </body>

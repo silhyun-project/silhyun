@@ -2,7 +2,7 @@ package co.yedam.silhyun;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import co.yedam.silhyun.common.service.MainService;
 import co.yedam.silhyun.common.vo.ReviewVO;
 import co.yedam.silhyun.event.vo.EventVO;
-import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.vo.FieldVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.portfolio.vo.PortfolioVO;
@@ -27,7 +26,6 @@ public class MainController {
 
 	@GetMapping("/")
 	public String layoutTest(HttpSession session, Model model,PhotographerVO vo, PortfolioVO pvo,EventVO evo,ReviewVO rvo,FieldVO fvo) {
-		
 		model.addAttribute("id", session.getAttribute("id")); //세션
 		model.addAttribute("hotList",mainService.getHotPtg(vo));  //인기 작가
 		model.addAttribute("newList",mainService.getNewPtg(vo));  //최신 작가
@@ -41,7 +39,7 @@ public class MainController {
 	}
 	
 	//▶태그 클릭하면 이동하는 페이지
-	@RequestMapping("/shilhyun/ptgTag/{fdCd}")
+	@RequestMapping("/silhyun/ptgTag/{fdCd}")
 	public String ptgTag(Model model,@PathVariable String fdCd,FieldVO fvo) {
 		model.addAttribute("tagPtgList",mainService.getTagPtgList(fdCd));
 		return "home/ptgTag";
