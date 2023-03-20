@@ -18,7 +18,6 @@ import co.yedam.silhyun.common.vo.PageVO;
 import co.yedam.silhyun.common.vo.PhotoVO;
 import co.yedam.silhyun.member.service.EmailService;
 
-@ContextConfiguration(classes = SchedulerApplication.class)
 @SpringBootTest
 public class TaekyeongTests {
 	@Autowired PageTestService service;
