@@ -121,7 +121,7 @@ $(function() {
 		url: `/silhyun/imsiList/${ptgId}`,
 		success: function(result) {
 			console.log(result)
-			let th = `<tr><td width='20px'><input class="checkAll" type="checkbox"></td><th width='170px'>내용(${result.length})</th>
+			let th = `<tr><th width='170px'>내용(${result.length})</th>
 						   <th width='88px'>작성일</th><th width='40px'></th><td></td><td width="8px"></td><td class="imsiClose">X</td></tr>`
 			$('.imsi').append(th)
 			for (i = 0; i < result.length; i++) {
@@ -132,29 +132,24 @@ $(function() {
 					imsiCntn = result[i].cntn;
 				}
 
-				let imsilist = `<tr><td><input class="checkItem" type="checkbox"></td><td>${imsiCntn}</td> 
+				let imsilist = `<tr><td>${imsiCntn}</td> 
 					<td>${result[i].portDate}</td>
-					<td><input type="hidden" name="portNum" value='${result[i].portNum}'></td><td class="imsiupdateBtn">수정 <td>
+					<td><input type="hidden" name="portNum" value='${result[i].portNum}'><input type="hidden" name="ptgId" value='${result[i].ptgId}'></td><td class="imsiupdateBtn">수정 <td>
 					<td> 삭제</td></tr>`
 				$('.imsi').append(imsilist)
 			}
-			$('.imsi').append(`<div class="imsiDelBtn">
-									<button class="imsiSelDel">선택삭제</button>
-									<button class="imsiAllDel">전체삭제</button>
-							  </div>`)
-			//다 체크하기.
-			$('.checkAll').click(function() {
-				$('.checkItem').prop('checked', this.checked);
-			});
+
+
 			//X버튼 체크 같이 풀기		  
 			$('.imsiClose').click(function() {
 				$('.imsi').toggle();
-				$('input:checked').prop('checked', false);
+
 			})
 			//임시리스트 수정버튼
 			$('.imsi').on('click', '.imsiupdateBtn', function() {
-				portNum = $(this).closest('tr').find('input[type="hidden"]').val();//해당포트폴리오번호
-				console.log(portNum)
+				portNum = $(this).closest('tr').find('input[type="hidden"][name="portNum"]').val();//해당포트폴리오번호
+				ptgId=$(this).closest('tr').find('input[type="hidden"][name="ptgId"]').val();
+				window.location.href = `/silhyun/portfolioUpdate?portNum=${portNum}&ptgId=${ptgId}`;
 			})
 
 			// 수정폼 끝
@@ -170,12 +165,12 @@ $(function() {
 					console.log(result)
 					console.log('마이마이마이요네즈')
 
-	
-						
+
+
 					//내용 붙이기.
 					$('#cntn').text(result.portfolio.cntn)
-					}
-				
+				}
+
 			})//수정폼만들기 끝
 
 
@@ -197,7 +192,7 @@ $(function() {
 
 
 
-	//포트폴리오 등록하기 버튼
+	//포트폴리오 수정하기 버튼
 	$('.btn.btn-dark.me-3.submit').click(function(e) {
 		e.preventDefault();
 
@@ -297,13 +292,17 @@ $(function() {
 
 				formData.append('tagCntn', JSON.stringify(tagCntns));
 				$.ajax({
-					type: "POST",
-					url: "/silhyun/addPortfolio",
+					type: 'POST',
+					enctype: 'multipart/form-data',
+					url: '/silhyun/updatePortfolio',
 					data: formData,
-					contentType: false,
 					processData: false,
-					success: function() {
+					contentType: false,
+					cache: false,
+					success: function(response) {
+
 						console.log("Portfolio 임시저장 완료");
+						window.location.href = `/silhyun/portfolioUpdate?portNum=${portNum}`;
 
 					},
 					error: function(xhr, status, error) {

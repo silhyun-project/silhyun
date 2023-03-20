@@ -178,10 +178,21 @@
 		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
 		UPDATE PORTFOLIO
 		SET CNTN = #{cntn}
-		WHERE PORT_NUM = #{portNum}
+		WHERE PORT_NUM =
+		#{portNum}
 	</update>
+	<select id="selectPortLike"
+		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"
+		parameterType="String">
+Select * FROM LIKE_PHOTO WHERE PORT_NUM = #{portNum}
+	</select>
 
 
-
+	<delete id="deletePortfolio">
+		DELETE FROM PORTFOLIO WHERE PORT_NUM = #{portNum}
+	</delete>
+	<delete id="deletePortLike">
+		DELETE FROM LIKE_PHOTO WHERE PORT_NUM = #{portNum}
+	</delete>
 
 </mapper>

@@ -36,4 +36,11 @@ public interface PortfolioMapper {
 	PortfolioVO portfolioSelectOne(String portNum);//포트폴리오selectOne
 
 	void portfolioUpdate(PortfolioVO vo);//포트폴리오 업데이트
+
+	int deletePortLike(String portNum);//걸려잇는like지우기.
+	void deletePortfolio(String portNum);
+
+	List<PortfolioVO> selectPortLike(String portNum);
+
+
 }

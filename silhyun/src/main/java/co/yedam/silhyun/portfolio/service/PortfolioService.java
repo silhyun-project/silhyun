@@ -34,4 +34,8 @@ public interface PortfolioService {
 	PortfolioVO portfolioSelectOne(String portNum);
 
 	String updatePortfolio(PortfolioVO portfolioVO);
+
+	
+	void deletePortfolio(String portNum);//포트폴리오 지우기
+
 }

@@ -89,6 +89,8 @@
 
 								<div class="product-detail-actions d-flex flex-wrap pt-3">
 									<div class="cart-button mb-3 d-flex">
+									<div class="hiddenloginId" style="display:none;">[[${session.id}]]</div>
+									<div class="hiddenptgId" style="display:none;">[[${portfolioVO.ptgId}]]</div>
 										<button class="btn btn-dark me-3 ShowReview">리뷰 보기</button>
 
 										<button type="button" class="btn btn-dark me-3 Reser">예약하러가기</button>
@@ -109,10 +111,10 @@
 						<!-- Product Gallery -->
 						<div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0">
 							<div class="product-info-buttons nav pt-4">
-								<a href="/silhyun/portfolioInsert" class="ms-auto">
+								<a th:onclick="|location.href='@{/silhyun/portfolioInsert?ptgId={ptgId}(ptgId=${portfolioVO.ptgId})}'|" class="ms-auto">
 									<button class="btn btn-port me-3">
+									<!--<div class="btn btn-port me-3" th:if="${session.id == portfolioVO.ptgId}"> -->
 										Portfolio<i class="bi-plus-lg"></i>
-										[[${portfolioVO.ptgId}]]
 									</button>
 								</a>
 							</div>
@@ -143,17 +145,20 @@
 								<div class="mTopSectionInfo">
 									<!-- 모달해더 -->
 								</div>
-							<div class="menuButton">
-								<i class="bi-three-dots"></i>
-								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
-									<ul class="menuButtonlist">
-										<li style="display: none"><input type="hidden" name='portNum' value=""></li>
-										<li class="menuButton-item"><button type="button" class="menuButton-item">
-												수정하기</button></li>
-										<li class="menuButton-item portfolioRemoveBtn">삭제하기</li>
-									</ul>
-								</form>
-							</div>
+								<div class="menuButton">
+									<!--<div class="menuButton" th:if="${session.id == portfolioVO.ptgId}"> -->
+									<i class="bi-three-dots"></i>
+									<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
+										<ul class="menuButtonlist">
+											<li style="display: none"><input type="hidden"
+												name='portNum' value=""><input type="hidden"
+												name='ptgId' value=""></li>
+											<li class="menuButton-item"><button type="button"
+													class="menuButton-item update">수정하기</button></li>
+											<li class="menuButton-item portDelBtn">삭제하기</li>
+										</ul>
+									</form>
+								</div>
 							</div>
 							<div class="modalMiddleSection">
 								<div class="scroll-box">

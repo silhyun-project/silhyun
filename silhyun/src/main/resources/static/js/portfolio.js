@@ -1,8 +1,15 @@
 /**
  * portfolio.js
  */
+
+	console.log('wlswwkk.,,,,,')
+	console.log($('.hiddenloginId').text())
+	console.log($('.hiddenptgId').text())
 var ptgId = 'user1';
-var loginUserId = 'user2';
+var loginUserId = 'user2';			
+	
+
+
 
 console.log('호출우우우루');
 
@@ -77,8 +84,8 @@ $.ajax({
 
 				$('.cart-button.mb-3.d-flex').on('click', '.reser', function() {
 					console.log('hey')
-					location.href=`/pay/reserList/${ptgId}`
-				
+					location.href = `/pay/reserList/${ptgId}`
+
 				})
 
 			},
@@ -111,13 +118,13 @@ $.ajax({
 		for (i = 0; i < ptgPortList.length; i++) {
 			var ptgPort = `<div class="col-6 image-container modalButton">
 								<div class='portInfo' style='display:none'>${ptgPortList[i].portNum}</div>
-									<a class="gallery-link" href="#"> <img
+									<img
 										src="${ptgPortList[i].phoRt}" class="img-fluid"
 										title="" alt="">
 										<div class="overlay">
 													<div class="overlayText"><i class="bi bi-heart-fill">&nbsp;</i>${ptgPortList[i].likes}</div>
 												</div>
-									</a>
+									
 								</div>`;
 			$('#ptgPortList').append(ptgPort);//포트폴리오 붙이기)
 		}//포트폴리오 리스트 붙이기 끝 화면구성 끝~
@@ -223,14 +230,85 @@ $(document).ready(function() {
 									<div class="mTopSectionImgMaster">
 										<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
 										&nbsp;&nbsp; <i class="bi-dot"></i>
-										<button>follow</button>
+										<button><i class="zzim-icon bi-check2"></i></button>
 									</div>`
 		$(".mTopSectionInfo").empty();
 		$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
 		//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))끝
+		//찜 호출 
+		$.ajax({  //해당 유저가 해당 작가를 찜 했는지
+			url: `/silhyun/isZzim/${loginUserId}/${portNum}`
+		}).then(result => {
+			console.log(result)
+			if (result) {
+				if ($('.zzim-icon').text('팔로우')) {
+					$('.zzim-icon').text('');
+					$('.zzim-icon').addclass('bi-check2')
+				}
+			} else {
+				if ($('.zzim-icon').hasClass('bi-check2')) {
+					$('.zzim-icon').removeClass('bi-check2').text('팔로우')
+				}
+			}
+		})
 
 
 
+		$('.zzim-icon').parent('button').on('click', function() {  //찜 버튼 클릭 이벤트
+
+			if ($(this).children('.zzim-icon').hasClass('bi-check2')) {  //찜이 되어있지 않으면 찜 추가
+				$.ajax({
+					url: '/silhyun/delZzim',
+					type: 'post',
+					data: JSON.stringify({
+						id: loginUserId,
+						ctgrNum: portNum
+					}),
+					contentType: 'application/json',
+					headers: {
+						'X-HTTP-Method-Override': 'DELETE'
+					}
+				}).then(result => {
+					$(this).children('.zzim-icon').removeClass('bi-check2').text('팔로우')
+
+				});
+
+			} else {
+				$.ajax({
+					url: '/silhyun/insertZzim',
+					type: 'post',
+					data: JSON.stringify({
+						id: loginUserId,
+						ctgrNum: portNum
+					}),
+					contentType: 'application/json'
+				}).then(result => {
+
+					$(this).children('.zzim-icon').addClass('bi-check2').text('');
+				})
+			}
+		})
+
+		//////모달 내 삭제~
+
+		$('.menuButton-item.portDelBtn').on('click', function() {
+
+			//포트폴리오지우기
+			$.ajax({
+				url: `/silhyun/portfolioDelete/${portNum}`,
+				method: 'DELETE',
+				success: function(response) {
+					location.reload();
+
+
+				}.bind(this),
+				error: function() {
+					alert('서버와의 통신에 실패했습니다.');
+				}
+			});
+		})
+
+		//삭제끝
 
 
 		////////////////////////////////수정폼으로 데려가기~~~~
@@ -238,10 +316,15 @@ $(document).ready(function() {
 			$('.menuButton').find('input').val(portNum);//input에 portNum넣기
 			console.log('호호호호호호호호호호호호호')
 			console.log($('.menuButton').find('input').val())
-		})
-		$('.menuButton-item button').click(function() { $('#goUpdatePort').submit(); })
 
-		///수정폼////////////////////////////
+		})
+
+		$('.menuButton-item button').on('click', function() {
+			$('#goUpdatePort').submit();
+		})
+
+		///수정폼 데려가기////////////////////////////
+
 
 
 
@@ -399,7 +482,7 @@ $(document).ready(function() {
 					}
 				});
 			} else {
-				//값 지우는 아작스
+				//하트지우기
 				$.ajax({
 					url: '/silhyun/deleteLike',
 					type: 'POST',
@@ -554,6 +637,7 @@ $(document).ready(function() {
 			}
 		});
 	}
+
 
 
 	console.log('모오오오달~~~');
