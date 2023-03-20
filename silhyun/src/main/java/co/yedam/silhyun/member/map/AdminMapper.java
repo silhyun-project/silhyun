@@ -34,6 +34,9 @@ public interface AdminMapper {
 	
 	
 	//종합승인관리
+	//승인신청 카운트
+	Map<String, Object> countNeedCfm();
+	
 	//기록가 승인관리
 	List<Map<String, Object>> ptgCfmList();
 	
@@ -45,6 +48,42 @@ public interface AdminMapper {
 	
 	//기록가 승인신청 반려
 	int noPtgAccept(String ptgId);
+	
+	
+	//사진관 =========================================
+	//사진관 승인관리
+	List<Map<String, Object>> stdCfmList();
+	
+	//사진관 승인상세정보
+	Map<String, Object> stdSelect(String stId);
+	
+	//사진관 승인신청 승인
+	int stdAccept(String stId);
+	
+	//사진관 승인신청 반려
+	int noStdAccept(String stId);
+	
+	//클래스 =================================================
+	
+	//클래스 승인관리
+	List<Map<String, Object>> classCfmList();
+	
+	//클래스 승인상세정보
+	Map<String, Object> classSelect(String classNum);
+	
+	//클래스 승인신청 승인
+	int classAccept(String classNum);
+	
+	//클래스 승인신청 반려
+	int noClassAccept(String classNum);
+	
+	
+	
+	
+	
+	
+	//이벤트 ==================================================
+	
 	
 	//이벤트 승인신청 승인
 	int eventAccept(String eventNum);
@@ -71,7 +110,9 @@ public interface AdminMapper {
 	
 	List<MemberVO> todayStd();
 	
-	int deleteMember(String id);
+	int disableMember(String id);
+	
+	int ableMember(String id);
 
 	int insertQuitMember(String id);
 	
@@ -92,8 +133,6 @@ public interface AdminMapper {
 	
 	//
 	
-	int deleteQMember(String id);
-	
 	List<Map<String, Object>> getListQuit(AdminCriteria cri);
 	
 	int getTotalQuit(AdminCriteria cri);
@@ -111,10 +150,19 @@ public interface AdminMapper {
 	int getTotalCount(AdminCriteria cri);
 
 	//작가리스트 페이징
-	List<PhotographerVO> getListPtg(AdminCriteria cri);
+	List<PhotographerVO> getListPtg(AdminCriteria cri2);
 	
-	int getTotalPtg(AdminCriteria cri);
+	int getTotalPtg(AdminCriteria cri2);
 	
+	//사진관리스트 페이징
+	List<StudioVO> getListStd(AdminCriteria cri3);
+	
+	int getTotalStd(AdminCriteria cri3);
+
+	//이벤트리스트 페이징
+	List<EventVO> getListEvent(AdminCriteria cri);
+	
+	int getTotalEvent(AdminCriteria cri);
 	
 	//이벤트리스트
 	List<Map<String, Object>>getEventList();
@@ -129,4 +177,7 @@ public interface AdminMapper {
 	
 	//이벤트 상세정보
 	EventVO getEventContent(String eventNum);
+
+	//이벤트추가
+	int addAdminEvent(EventVO vo);
 }

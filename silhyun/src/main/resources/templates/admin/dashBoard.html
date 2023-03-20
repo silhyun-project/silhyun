@@ -135,9 +135,8 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
-                            <a class="profile-pic" href="#">
-                                <img src="/manage/plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">ADMIN</span></a>
+                            <a class="profile-pic" href="/admin/adminManage">
+                                  <i class="fa fa-heart" aria-hidden="true"></i><span class="text-white font-medium">&nbsp;ADMIN</span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -180,27 +179,11 @@
                                 <span class="hide-menu">종합 승인 관리</span>
                             </a>
                         </li>
-                        <!-- 
-                          <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/qstManage}"
-                                aria-expanded="false">
-                                <i class="fas fa-question" aria-hidden="true"></i>
-                                <span class="hide-menu">문의 관리</span>
-                            </a>
-                        </li>
-                         -->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/eventManage}"
                                 aria-expanded="false">
                                 <i class="fas fa-star" aria-hidden="true"></i>
-                                <span class="hide-menu">이벤트 관리/등록</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/rankManage}"
-                                aria-expanded="false">
-                                <i class="fas fa-heart" aria-hidden="true"></i>
-                                <span class="hide-menu">랭킹</span>
+                                <span class="hide-menu">이벤트 관리</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -250,69 +233,16 @@
                             </ol>
                             <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
                                 class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white"
-                                th:text="${cfm.sysDate}+' 오늘의 할 일 : '+ (${cfm.ptgCf}+${cfm.stdCf}+${cfm.eventCf}+${qst})">
-                                2023/03/03 오늘의 할 일: 5</a>
+                                th:text="${cfm.sysDate}+' 대기중인 승인 : '+ (${cfm.ptgCf}+${cfm.stdCf}+${cfm.classCf}+${cfm.eventCf}+'건')">
+                                </a>
                         </div>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
+
                 <!-- ============================================================== -->
-                <!-- Three charts -->
-                <!-- ============================================================== -->
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">대기중인 승인</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-success" th:text="${cfm.ptgCf}+${cfm.stdCf}+${cfm.eventCf}"></span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">대기중인 문의</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash2"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-purple" th:text="${qst}"></span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">대기중인 신고</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash3"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-info">911</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                     -->
-                </div>
-                <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
+                <!-- PRODUCTS 2WEEKS SALES -->
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -326,6 +256,64 @@
                         </div>
                     </div>
                 </div>
+                <!-- ============================================================== -->
+                <!-- RANK -->
+                <!-- ============================================================== -->
+                
+                <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">기록가 랭킹</h3>
+                            <table>
+                            <tr th:each="ptgRank,sts : ${ptgRank}" th:Class="${sts}" align="center">
+                            	<td th:text="${sts.count}"></td>
+                            	<td><div class="p-2"><img th:src="${ptgRank.PROFILE}" alt="user" width="50" class="rounded-circle"></div></td>
+                            	<td style="padding-right: 100px"><h5 class="font-medium" th:text="${ptgRank.ctgrNum}+'님'"></h5></td>
+                            	<td><h5 align="right" th:text="${ptgRank.CNT} + '건'"></h5></td>
+                            </tr>
+                            
+                            </table>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-lg-6 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">클래스 랭킹</h3>
+                           <table>
+                           <tr th:each="classRank,sts2 : ${classRank}" th:Class="${sts2}" align="center">
+                            	<td th:text="${sts2.count}"></td>
+                            	<td><div class="p-2"><img th:src="${classRank.profile}" alt="user" width="50"></div></td>
+                            	<td><h5 class="font-medium" style="padding-right: 100px" th:text="${classRank.ptgId}+'님'"></h5></td>
+                            	<td style="padding-right: 50px"><h5 class="font-medium" th:text="${classRank.classTitle}"></h5></td>
+                            	<td><h5 align="right" th:text="${classRank.count} + '건'"></h5></td>
+                            </tr>
+                            
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box" align="center">
+                        <div align="left">
+                            <h3 class="box-title">작가 분야 통계</h3>
+                        </div>
+
+<br>
+<br>
+<div style="width: 1000px">
+  <canvas id="myChart2"></canvas>
+</div>
+
+                        </div>
+                    </div>
+     </div>
+</div>
+
                 <!-- ============================================================== -->
                 <!-- RECENT SALES -->
                 <!-- ============================================================== -->
@@ -461,6 +449,74 @@
     document.getElementById('myChart'),
     config
   );
+  
+  
+  
+
+
+  var pList = /*[[${PGraph}]]*/ []; // 컨트롤러에서 가져온 List<Map<String,String>> list 값
+
+      // labels와 data 배열 초기화
+      var pLabels = [];
+      var pData = [];
+
+      // list의 각 Map에서 key와 value를 labels와 data 배열에 추가
+      pList.forEach(function(map) {
+          for (var key in map) {
+              pLabels.push(key);
+              pData.push(map[key]);
+          }
+      });
+
+
+      const ctx2 = document.getElementById('myChart2');
+
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: pLabels,
+          datasets: [{
+           // label: '# 누적 판매량(예약/클래스 통합)',
+            label: '# 작가 등록',
+            data: pData,
+            backgroundColor: [
+          	  'rgba(245, 50, 168, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(0, 0, 128, 0.2)',
+                'rgba(153, 102, 255, 0.2)',   
+                'rgba(100, 100, 100, 0.2)',
+              ],
+            borderColor: [
+          	  'rgba(245, 154, 168)',
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgba(0, 0, 128, 0.5)',
+                'rgb(153, 102, 255)',      
+                'rgba(25, 25, 25, 0.5)',
+              ],
+              borderWidth: 2
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+                ticks: {
+                    stepSize: 1,
+                    min: 0
+                       },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+  
 </script>
 
 
