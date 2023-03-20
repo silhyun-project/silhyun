@@ -19,5 +19,15 @@ public class RestLoginController {
 		return id;
 		
 	}
+	
+	@PostMapping("/findPwd")
+	public String findPwd(MemberVO vo) {
+		String msg = "";
+		//pwd여부 int값 체크 
+		
+		//0보다 크면 임시 비번 이메일 발송후 코드 값을 암호화 해서 멤버정보 수정
+		
+		return msg;
+	}
 
 }
