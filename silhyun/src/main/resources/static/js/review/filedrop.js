@@ -42,8 +42,8 @@ function fileUpAction(){
     
     	//뒤로가기 
 	backBtn.onclick= function(){
-		let ctgr = document.getElementById('ctgr').value
-		let ctgrNum = document.getElementById('ctgrNum').value
+		let ctgr = document.getElementById('revctgr').value
+		let ctgrNum = document.getElementById('revctgrNum').value
 		ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
 		
 	}

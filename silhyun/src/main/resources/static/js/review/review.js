@@ -5,7 +5,7 @@
  
 	
 		$(function(){
-			
+						
 			$('#pd_reviews_tab_02').on('click', function(){
 				let ctgrNum = $('#ptgId').val()
 				let ctgr = $('#ctgr').val()
@@ -41,11 +41,11 @@
 				
 				});
 				
-				},100)
+				},200)
 			})
 
 		})
-
+		
 		
 		function ajaxReiew(data){
 			$.ajax({
@@ -54,7 +54,7 @@
 				success: function(res){
 
 					$('#reviews').replaceWith(res)
-			 window.setTimeout(function(){
+		/*	 window.setTimeout(function(){
 
 				$('.slider-wrap').slick({
 				 slide: 'div',        //슬라이드 되어야 할 태그
@@ -83,7 +83,7 @@
 				
 				});
 				
-				},100)
+				},100)  */
 
 				}, 
 				error: function(err){

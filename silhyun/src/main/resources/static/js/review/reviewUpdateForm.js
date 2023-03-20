@@ -41,6 +41,7 @@ function fileUpAction(){
 			$('#cntn').text(res.rev.cntn)
 			$('#ctgr').val(res.rev.ctgr)
 			$('#ctgrNum').val(res.rev.ctgrNum)
+			
 			//사진
 			let photos = res.pho
 			$(photos).each(function(i,e){
@@ -50,13 +51,38 @@ function fileUpAction(){
 
 			})
 			//결제정보
-			console.log(res.ord)
+			payInfpatt(res.ord)
 		
 		},
 		error: function(err){
 			console.log(err)
 		}
 	})
+
+	//결제정보
+	function payInfpatt(ord){
+		console.log(ord)
+		ord.forEach(function(e){
+			console.log(e)
+			let div = document.getElementById('ordInfoZone')
+			if(e.findOp != null){
+				div.innerHTML = `
+				<div style="border: solid 1px #D8D8D8;">
+					<span><img class="rounded-3" style="width:100px; height:100px;" src="${e.profile}">
+					(${e.name})${e.findOp}</span>
+				</div>
+				`
+				
+			}else{
+				div.innerHTML = `
+				<div style="border: solid 1px #D8D8D8;">
+					<span><img class="rounded-3" style="width:100px; height:100px;" src="${e.thni}">
+					(${e.ptgId})${e.claTtl}</span>
+				</div>
+				`
+			}
+		})		
+	}
 	
 	//기존 파일 미리보기에 append
 	function attImg(thum, num){

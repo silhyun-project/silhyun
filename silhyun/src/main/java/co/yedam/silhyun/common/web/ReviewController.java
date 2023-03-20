@@ -84,7 +84,7 @@ public class ReviewController {
 	}
 	
 	
-	//리뷰 둘러보기 
+	//리뷰 둘러보기 (수정필요)
 	@GetMapping("/silhyun/reviewAllList")
 	public String reviewAllList(Model model, ReviewVO vo, Criteria cri) {
 		cri.setAmount(3);
