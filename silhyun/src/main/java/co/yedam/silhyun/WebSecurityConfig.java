@@ -47,6 +47,7 @@ public class WebSecurityConfig{
 		http.csrf().disable() //토근을 무조건 넘겨야하는데 안넘기면 오류난다.
 			.authorizeHttpRequests()
 				.antMatchers("/", "/home", "/silhyun/**", "/img/**","/css/**", "/fonts/**", "/js/**", "/saveImg/**", "/vendor/**", "/scss/**", "/manage/**").permitAll() //모든권한
+				.antMatchers("/pay/**", "/shin/**", "/zzim/**").authenticated()
 				//.anyRequest().authenticated() //나머지 모든 요청은 로그인(세세한 권한은 회원가입 리뷰 마무리때쯤)
 			.and()
 			.rememberMe()

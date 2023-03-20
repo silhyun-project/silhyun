@@ -23,7 +23,8 @@ public class RestjoinController {
 	
 	@GetMapping("/silhyun/emailCk")
 	public String emailCk(String email){
-		String code = emailService.sendSimpleMessage(email);
+		String n = "join";
+		String code = emailService.sendSimpleMessage(email, n);
 		
 		return code;
 	}

@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
   <link href="/css/star.css" rel="stylesheet"/>
 <style>
@@ -54,6 +52,12 @@
 <div id="reviews">
 <div class="container col-9">
 	<form class="mb-3" id="myform" action="/silhyun/review"> 
+		<select name="ordNum" class="form-select" id="ordList">
+			<option value="">결제정보 선택</option>
+			<option th:each="o : ${ord}" th:value="${o.ordNum}" th:if="${o.findOp} != null">[[${o.ordNum}]]) [[${o.findOp}]]</option>
+			<option th:each="o : ${ord}" th:value="${o.ordNum}" th:if="${o.claTtl} != null">[[${o.ordNum}]]) [[${o.claTtl}]]</option>
+		</select><br>
+		<div id="ordInfoZone"></div><br>
 		<div id="grey">
 				<span class="text-bold">별점을 선택해주세요</span><br>
 			<fieldset>
@@ -73,7 +77,7 @@
 		<table class="table table-border">
 			<tr>
 				<td>
-					<textarea class="form-control" name="cntn" placeholder="내용을 입력해주세요" maxlength="2200"></textarea>
+					<textarea class="form-control" name="cntn" placeholder="2200자 이하 내용입력" maxlength="2200"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -86,13 +90,13 @@
 				</td>
 			</tr>
 		</table>
-		
-		<input type="hidden" name="id" th:text="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
-		<input type="hidden" name="ctgr" th:text="${ctgr}"> <!-- 섹션이나 시큐리티 아이디값 -->
-      	<input type="hidden" name="ctgrNum" th:text="${id}">  <!-- 이전 페이지 작가아이디 -->
+
+		<input type="hidden" name="id" id="userid" th:value="${session.id}"> <!-- 섹션이나 시큐리티 아이디값 -->
+		<input type="hidden" name="ctgr" id="revctgr" th:value="${ctgr}"> 
+      	<input type="hidden" name="ctgrNum" id="revctgrNum" th:value="${id}">  <!-- 이전 페이지 작가아이디 -->
       	<div id="btn">
 	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="insertReview()">작성</button>
-	      	<button type="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='/silhyun/reviewList'">뒤로가기</button> 
+	      	<button type="button" class="btn btn-outline-secondary btn-sm" id="backBtn">뒤로가기</button> 
       	</div>
 	</form>
 <script src="/js/review/filedrop.js"></script>

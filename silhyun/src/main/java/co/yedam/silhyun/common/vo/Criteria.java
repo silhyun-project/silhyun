@@ -12,6 +12,8 @@ public class Criteria {
 	private int amount; //페이지당 출력할 개수
 	private String keyword; //검색키워드
 	private String type; //검색 유형(전체, 제목, 내용, 작성자 등..)
+	private String sort; //리뷰 정렬  ===== 이 부분은 나중에 리뷰 보로 옮기기
+	private String photo; // 포토리뷰 먼저보기
 	
 	//기본으로 보여주는것
 	public Criteria() {

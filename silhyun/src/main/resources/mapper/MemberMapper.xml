@@ -39,7 +39,10 @@
 	                               else 1 
 	       end as id
 	from member
-	where id = #{id}
+	<where>
+		<if test="id != null and id != ''">id = #{id}</if>
+		<if test="email != null and email != ''">email = #{email}</if>
+	</where>
 </select>
 
 <!-- 프사바꾸기 -->
@@ -49,5 +52,18 @@
 		SET PROFILE = #{profile}
 		WHERE ID = #{id}
 	</update>
+	
+   <!-- 아이디 비번 찾기  -->
+   <select id="findid" resultType="String">
+		select id
+		from member
+		where name = #{name} and email = #{email}
+	</select>
+	
+	<select id="isPwdChek" resultType="int">
+		select count(pwd)
+		from member
+		where id = #{id} and email = #{email}
+	</select>
 
 </mapper>
