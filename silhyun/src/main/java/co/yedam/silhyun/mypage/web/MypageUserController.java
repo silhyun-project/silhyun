@@ -90,9 +90,12 @@ public class MypageUserController {
    }
    
    @DeleteMapping("/scheduleDelete")
-   public String scheduleDelete(ScheduleVO vo) {
-       mpgService.scheduleDelete(vo);
-       return "mypageUser/mpgCalendar";
+   @ResponseBody
+   public Boolean scheduleDelete(@RequestBody ScheduleVO vo) {
+	   System.out.println(vo);
+	   System.out.println("sahfkjesadhfjkhasdjkfhjkadslfh");
+	   int n = mpgService.scheduleDelete(vo);
+       return n==1?true:false;
    }
    
    @GetMapping("/mpg/mpgQuit/{id}")
