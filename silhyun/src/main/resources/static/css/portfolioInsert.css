@@ -42,6 +42,14 @@ textarea {
 	margin: 0;
 	border: 1px solid rgb(220, 220, 220, 0.9);
 }
+/* 사진 */
+/* 첫번째사진 */
+.photo-list-containerN1 img {
+	max-width: 1000px;
+	max-height: 1000px;
+	width: auto;
+	height: auto;
+}
 /* 임시 */
 .imsi {
 	border: 1px solid rgb(220, 220, 220, 0.9);
@@ -49,8 +57,12 @@ textarea {
 	background-color: rgb(253, 253, 253);
 	z-index: 10;
 	position: absolute;
-	top:50%;
+	top: 50%;
 	left: 38%;
+}
+
+.imsiupdateBtn {
+	cursor: pointer;
 }
 
 .imsiClose {

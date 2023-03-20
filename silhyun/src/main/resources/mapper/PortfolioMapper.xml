@@ -124,7 +124,8 @@
 			SELECT NVL(MAX(TO_NUMBER(pho_num)), 0) + 1
 			AS
 			pho_num
-			FROM photo
+			FROM
+			photo
 		</selectKey>
 		INSERT INTO photo (pho_num, ctgr, ctgr_num, pho_rt)
 		VALUES (#{phoNum},
@@ -167,16 +168,31 @@
 		ORDER BY P.PORT_DATE DESC
 	</select>
 
+	<select id="portfolioSelectOne"
+		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"
+		parameterType="String">
+		SELECT *FROM PORTFOLIO WHERE PORT_NUM = #{portNum}
+	</select>
+
 	<update id="updatePortfolio"
 		parameterType="co.yedam.silhyun.portfolio.vo.PortfolioVO">
-		UPDATE PORTFOLIO SET CNTN = #{cntn},
-		PORT_DATE = #{portDate},
-		UP_STA = #{upSta}
-
-		WHERE PORT_NUM = #{portNum}
+		UPDATE PORTFOLIO
+		SET CNTN = #{cntn}
+		WHERE PORT_NUM =
+		#{portNum}
 	</update>
-	
-	
+	<select id="selectPortLike"
+		resultType="co.yedam.silhyun.portfolio.vo.PortfolioVO"
+		parameterType="String">
+Select * FROM LIKE_PHOTO WHERE PORT_NUM = #{portNum}
+	</select>
 
+
+	<delete id="deletePortfolio">
+		DELETE FROM PORTFOLIO WHERE PORT_NUM = #{portNum}
+	</delete>
+	<delete id="deletePortLike">
+		DELETE FROM LIKE_PHOTO WHERE PORT_NUM = #{portNum}
+	</delete>
 
 </mapper>
