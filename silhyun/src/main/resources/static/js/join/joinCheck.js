@@ -52,7 +52,7 @@
 			$('#idMsg').text("아이디에 빈칸이 있습니다.")
 			           .css("color", "red")
 			$('#idCk').val("false")
-		}else if (idLength>10) {
+		}else if (id.Length>10) {
 			$('#idMsg').text("아이디는 1~10자 입력 가능합니다.")
 			           .css("color", "red")
 			$('#idCk').val("false")
