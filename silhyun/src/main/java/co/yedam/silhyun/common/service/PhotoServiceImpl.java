@@ -128,4 +128,10 @@ public class PhotoServiceImpl implements PhotoService {
 		return n;
 	}
 
+	@Override
+	public int photoAllDelete() {
+		// TODO Auto-generated method stub
+		return map.photoAllDelete();
+	}
+
 }
