@@ -16,7 +16,6 @@
 <!-- title -->
 <title>작가 디테일 페이지</title>
 <!-- Favicon -->
-<!-- <link rel="shortcut icon" href="/img/favicon.ico"> -->
 <!-- CSS Template -->
 <style>
 		/* 스타일링 */
@@ -124,76 +123,53 @@
 }
 </style>
 </head>
-<!-- 사진 크기가 먹히지않는다 -->
 
 <body>
-	<div layout:fragment="content">
-		<!-- Skippy & Prload -->
-		<!-- skippy -->
-		<!-- <input id="pthVal" type="hidden" th:text="__${ptgId}__"> -->
-		<a id="skippy"
-			class="skippy visually-hidden-focusable overflow-hidden"
-			href="#content">
-			<div class="container">
-				<span class="u-skiplink-text">Skip to main content</span>
-			</div>
-		</a>
-		<!-- End skippy -->
-		<!-- Preload -->
-		<!-- <div id="loading" class="loading-preloader"> -->
-		<!--     <div class="spinner-border text-primary" role="status"> -->
-		<!--         <span class="visually-hidden">Loading...</span> -->
-		<!--     </div> -->
-		<!-- </div> -->
-		<!-- End Preload -->
-		<!-- Edn Skippy & Prload -->
-
-
-		<!-- End Size Chart  -->
-		<!-- 
+    <div layout:fragment="content">
+    <!-- Skippy & Prload -->
+    <!-- skippy -->
+<a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
+    <div class="container">
+        <span class="u-skiplink-text">Skip to main content</span>
+    </div>
+</a>
+<!-- End skippy -->
+    <!-- 
     ========================
         Wrapper 
     ========================
     -->
-		<div class="wrapper">
-			<!-- Main -->
-			<main>
-				<!-- Page Title -->
-				<div class="bg-no-repeat bg-cover bg-right-center position-relative">
-					<div
-						class="position-absolute top-0 end-0 start-0 bottom-0 opacity-3 bg-dark"></div>
-					<!-- Header Height Bar -->
-					<div class="header-height-bar border-bottom opacity-3"></div>
-					<div class="container py-6 position-relative">
-						<div class="row align-items-center">
-							<div class="col-lg-6 my-2">
-								<h1 class="m-0 h4 text-center text-lg-start text-white">🍓
-									[[${ptg[0].name}]] 🍓</h1>
-								<input type="hidden" id="ptgId" th:value="${ptg[0].ptgId}">
-								<input type="hidden" id="ctgr" value="A">
-							</div>
-							<div class="col-lg-6 my-2">
-								<ol
-									class="breadcrumb breadcrumb-light m-0 small justify-content-center justify-content-lg-end">
-									<li class="breadcrumb-item"><a class="text-nowrap"
-										href="/">Home</a></li>
-									<li class="breadcrumb-item text-nowrap active"
-										aria-current="page">예약하기</li>
-									<li class="breadcrumb-item text-nowrap active"
-										aria-current="page">작가</li>
-								</ol>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- End Page Title -->
-				<!-- Product Details -->
-				<section class="product-details-02 py-6">
-					<div class="container">
-						<div class="row">
-							<!-- Product Gallery -->
+    <div class="wrapper">
+        <!-- Main -->
+        <main>
+            <!-- Page Title -->
+            <div class="bg-no-repeat bg-cover bg-right-center position-relative">
+                <div class="position-absolute top-0 end-0 start-0 bottom-0 opacity-3 bg-dark"></div>
+                <!-- Header Height Bar -->
+                <div class="header-height-bar border-bottom opacity-3"></div>
+                <div class="container py-6 position-relative">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 my-2" >
+                            <h1 class="m-0 h4 text-center text-lg-start text-white">🍓 [[${ptg[0].name}]] 🍓</h1>
+                            <input type="hidden" id="ptgId" th:value="${ptg[0].ptgId}">
+                        </div>
+                        <div class="col-lg-6 my-2">
+                            <ol class="breadcrumb breadcrumb-light m-0 small justify-content-center justify-content-lg-end">
+                                <li class="breadcrumb-item"><a class="text-nowrap" href="/">Home</a></li>
+                                <li class="breadcrumb-item text-nowrap active" aria-current="page">예약하기</li>
+                                <li class="breadcrumb-item text-nowrap active" aria-current="page">작가</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Page Title -->
+           <!-- 작가 상세보기 -->
+            <section class="product-details-02 py-6">
+				<div class="container">
+					<div class="row">
+						<!-- 작가사진 -->
 							<div class="col-lg-7 lightbox-gallery product-gallery">
-								<!--큰 사진-->
 								<div class="swiper swiper_gallery_v">
 									<div class="swiper-wrapper">
 										<div class="swiper-slide">
@@ -205,8 +181,8 @@
 									</div>
 								</div>
 							</div>
-							<!-- End Product Gallery -->
-							<!-- Product Details -->
+							<!-- End 작가사진 -->
+							
 							<div class="col-lg-5 ps-lg-5">
 								<div class="product-detail pt-4 pt-lg-0">
 									<div class="products-title-box">
@@ -216,16 +192,17 @@
 											<h6 th:if="${ptg[0].stName} == null">프리랜서</h6>
 											<h4 class="h4">[[${ptg[0].name}]]</h4>
 										</div>
-										<div class="product-wishlist">
-											<a class="btn zzim" style="width: 50px; height: 50px"> <i
-												class="zzim-icon bi-person" style="font-size: 30px"></i>
-											</a><br> <span class="text-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[${ptg[0].zzims}]]</span>
+										<div class="product-wishlist" >
+											<a class="btn zzim" style="width: 50px;height: 50px;margin-right: 50px"> 
+											<i class="zzim-icon bi-person" style="font-size: 30px"></i>
+											</a><br>
+											<span class="text-primary" style="margin-left: 21px">[[${ptg[0].zzims}]]</span>
+
 										</div>
 									</div>
-									<div class="product-description">
-										<p style="height: 370px;">[[${ptg[0].itr}]]</p>
-										<i class="bi-instagram" style="font-size: 15px"></i><span>
-											인스타그램 [[${ptg[0].inst}]]</span>
+									<div class="product-description itr" >
+										<pre><p style="height: 300px;">[[${ptg[0].itr}]]</p></pre>
+										 <i class="bi-instagram" style="font-size: 15px"></i><span>  인스타그램 [[${ptg[0].inst}]]</span>
 									</div>
 
 									<div class="product-detail-actions d-flex flex-wrap">
@@ -252,7 +229,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- End Product Details -->
 						</div>
 					</div>
 				</section>
@@ -424,7 +400,6 @@
     </script>
 
 			<script src="/js/review/review.js"></script>
-
 			<script src="/js/aoQst.js"></script>
 
 		</div>
@@ -468,12 +443,10 @@
 // 			})
 // 		}
 
-	//찜 호출 
+	//📌찜 호출 
 	let id = $('input[name="id"]').val()
 	let ctgrNum = $('input[name="ctgrNum"]').val()
 	$(document).ready(function(){
-	    
-	console.log(id)
 	    $.ajax({  //해당 유저가 해당 작가를 찜 했는지
 	        url:`/silhyun/isZzim/${id}/${ctgrNum}`
 	    }).then(result => {
@@ -490,8 +463,8 @@
 	    })
 	
 	})
-	
-	$('.zzim-icon').on('click',function(){  //찜 버튼 클릭 이벤트
+	//찜 버튼 클릭 이벤트
+	$('.zzim-icon').on('click',function(){  
 	
 	    if($(this).hasClass('bi-person')){  //찜이 되어있지 않으면 찜 추가
 	        $.ajax({
@@ -531,8 +504,11 @@
 	    }
 	})
 
-    </script>
+// 	$('.product-description.itr').find('p').text()
+// 	let enterItr = $('.product-description.itr').find('p').text().replace("\r\n","<br>")
+// 	console.log(enterItr)
 
+    </script>
 
 	</div>
 </body>

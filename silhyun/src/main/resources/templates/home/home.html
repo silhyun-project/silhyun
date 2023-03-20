@@ -28,15 +28,10 @@
 	width: 140px;
 	height: 55px;
 }
-
-
 </style>
 </head>
-
 <body>
-
 	<div layout:fragment="content">
-		로그인 한 사람 : [[${id}]]<br>
 		<!-- Main -->
 		<main>
 			<!-- Home Slider -->
@@ -92,15 +87,16 @@
 
 			<!-- Deal section -->
 			<section class="section">
-				<div class="shop-top-bar d-flex pb-3" style="text-align: center; margin-left: 350px">
+			
+
+				<div class="container">
+				<div class="shop-top-bar d-flex pb-3" style="text-align: center;">
 					<div class="layout-change ms-2" th:each="tag:${fldList}">
-						<a class="btn btn-sm"  th:href="@{/shilhyun/ptgTag/{fdCd}(fdCd = ${tag.fdCd})}" align="center"> 
+						<a class="btn btn-sm"  th:href="@{/silhyun/ptgTag/{fdCd}(fdCd = ${tag.fdCd})}" align="center"> 
 						<i class=""
 							th:text="'# '+${tag.fldName}">#태그</i></a>
 					</div>
 				</div>
-
-				<div class="container">
 					<!-- 태그  -->
 					<div class="row">
 						<div class="col-lg-4 my-2">
@@ -190,7 +186,7 @@
 					<div class="row justify-content-center section-heading">
 						<div class="row justify-content-center section-heading">
 							<div class="col-lg-6 text-center">
-								<h2 class="h3 m-0 sm-title-01">핫 작가</h2>
+								<h2 class="h3 m-0 sm-title-01">HOT 작가</h2>
 							</div>
 						</div>
 					</div>
@@ -230,7 +226,7 @@
 					<div class="row justify-content-center section-heading">
 						<div class="row justify-content-center section-heading">
 							<div class="col-lg-6 text-center">
-								<h2 class="h3 m-0 sm-title-01">응애 작가</h2>
+								<h2 class="h3 m-0 sm-title-01">NEW 작가</h2>
 							</div>
 						</div>
 					</div>
