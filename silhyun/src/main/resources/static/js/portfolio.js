@@ -14,8 +14,6 @@ console.log('호출우우우루');
 
 
 //포트폴리오 해당 작가 정보(프로필)
-
-
 $.ajax({
 	type: 'GET',
 	url: '/silhyun/portfolioptg/' + ptgId,

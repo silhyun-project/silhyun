@@ -211,8 +211,7 @@
 			/*]]>*/
 
 			
-			
-			
+					
 		$("div#rowg-3").children().remove();//먼저 깔끔희~
 		StandLine(portfolio);//첫페이지 포트폴리오 리스트
 		recentStand(portfolio);//최신순
@@ -237,8 +236,8 @@
          });
 		
 		//만든 태그 버튼에 그룹이벤트 주기.
-		$('div .layout-change').on('click','a',function(){//layout-change의 a태그에만 click펑션을 주기.//그룹이벤트
-			$('div .layout-change .active').removeClass('active');//active클래스만 없애기.
+		$('div .layout-change').on('click','a',function(){
+			$('div .layout-change .active').removeClass('active');
 			$(this).addClass('active')
 			var tagCntn=$(this).children().text();		
 			//해당태그포트폴리오가져오기
@@ -270,8 +269,7 @@
 		$('.row.g-3').on('click','.col-sm-6.col-lg-3',function(){
 		//$("div .col-sm-6.col-lg-3").click(function() {	
 			var portNum = $(this).children('div .portInfo').text(); 
-			console.log('안녕하세용~~~~~~~~~~~~~~')
-			console.log(portNum)
+			
 		// 해당 번호 가진 배열 찾기
 			var selectedPortfolio = portfolio.find(function(findPortfolio) {
 				return findPortfolio.portNum === portNum;
@@ -280,21 +278,20 @@
 		
 		
 		/////
-		//화면 구성한 모달에 경우에 따른 하트 출력
+		//해당포트폴리오 하트 출력
 		$.ajax({
 			url: `/silhyun/isLiked/${loginUserId}/${portNum}`,
 		}).then(heart => {
-			//(처음화면)값이 있으면 찬하트
-			if (heart) {//값이 있으면 //첨에는 찬 하트 출력
+			if (heart) {
 				if ($(".heart-icon").hasClass("bi-heart")) {
 					$(".heart-icon").removeClass("bi-heart").addClass("bi-heart-fill");
 				}
-			} else {//(값이 없으면) //첨에는 빈 하트 출력
+			} else {
 				if ($(".heart-icon").hasClass("bi-heart-fill")) {
 					$(".heart-icon").removeClass("bi-heart-fill").addClass("bi-heart");
 				}
-			}//else끝나는 구간
-		});//조아요 대잇나 확인 완.
+			}
+		});
 		////////////////////////////기본모달 구성 완료
 		
 		
@@ -355,21 +352,23 @@
 				
 				
 				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))시작	
-								var modalheader=`<div class="mTopSectionInfoImg">
-									<img src="${selectedPortfolio.profile}" alt="이미지">
-									</div>
-									<div class="mTopSectionImgMaster">
-										<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
-										&nbsp;&nbsp; <i class="bi-dot"></i>
-										<button><i class="zzim-icon bi-check2"></i></button>
-									</div>`	
-								$(".mTopSectionInfo").empty();
-								$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
-								
-								if (loginUserId !=='selectedPortfolio.ptgId'){$('.menuButton').hide()
-									}else{{$('.menuButton').show()}
-								}
-								
+				var modalheader=`<div class="mTopSectionInfoImg">
+					<img src="${selectedPortfolio.profile}" alt="이미지">
+					</div>
+					<div class="mTopSectionImgMaster">
+						<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
+						&nbsp;&nbsp; <i class="bi-dot"></i>
+						<button><i class="zzim-icon bi-check2"></i></button>
+					</div>`	
+				$(".mTopSectionInfo").empty();
+				$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
+				
+				
+				
+				if (loginUserId == selectedPortfolio.ptgId){$('.menuButton').show()
+					}else{{$('.menuButton').hide()}
+				}
+				
 								
 								
 								//찜 호출 
@@ -434,7 +433,6 @@
 						//////모달 내 삭제~
 
 		$('.menuButton-item.portDelBtn').on('click', function() {
-
 			//포트폴리오지우기
 			$.ajax({
 				url: `/silhyun/portfolioDelete/${portNum}`,
@@ -448,14 +446,9 @@
 				}
 			});
 		})
-
-		//삭제끝
-
-					////////////////////////////////수정폼으로 데려가기~~~~
+		//수정
 		$('.menuButton i').click(function() {
 			$('.menuButton').find('input').val(portNum);//input에 portNum넣기
-			console.log('호호호호호호호호호호호호호')
-			console.log($('.menuButton').find('input').val())
 		})
 		$('.menuButton-item button').click(function() { $('#goUpdatePort').submit(); })
 
@@ -587,13 +580,10 @@
 				
 				//모달안에서 기능 ==1==하트 시작
 				
-				//모달 하트눌렀을 때 생기는 이벤트
+				//모달 하트눌렀을 때
 				$(".heart-icon").click(function() {
-					//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
-					var thisHeart = $(this);
-
-					if (thisHeart.hasClass("bi-heart")) {
-						//값 넣는 아작스
+					var thisHeart = $(this)
+					if (thisHeart.hasClass("bi-heart")) {//좋아요+
 						$.ajax({
 							type: 'POST',
 							url: '/silhyun/addLike',
@@ -601,7 +591,6 @@
 							contentType: 'application/json',
 							success: function(result) {
 								thisHeart.removeClass("bi-heart").addClass("bi-heart-fill");//찬하트로바꾸기
-
 								//하트 숫자 올리기.
 								var likeCount = parseInt($('.modalHeartInfo').find('span').text());
 									$('.modalHeartInfo').find('span').text(likeCount+1);
@@ -611,8 +600,7 @@
 								alert('좋아요 실패~');
 							}
 						});
-					} else {
-						//값 지우는 아작스
+					} else {//좋아요-
 						$.ajax({
 							url: '/silhyun/deleteLike',
 							type: 'POST',
@@ -632,7 +620,7 @@
 								alert('조아요 삭제 실패~');
 							}
 						});
-					}//else부분
+					}
 				});//모달 하트눌렀을 때 생기는 이벤트
 				
 				//모달안에서 기능 ==1==하트 끝
@@ -767,7 +755,7 @@
 		}
 			
 
-	//포트폴리오 사진 리스트 불러오기~함수+포트폴리오 번호
+	    //포트폴리오 사진 리스트 불러오기
 		function StandLine(aa){
 			for(i=0; i<aa.length; i++){
 				
@@ -821,16 +809,7 @@
 		}
 		
 	
-		
-// 		// 사용자가 입력한 텍스트에서 해시태그(#)를 찾아서 해시태그에 a링크 걸기.
-// 		const text = $('#text').html();
-// 		const regex = /#(\S+)/g;
-// 		const replaced = text.replace(regex, `<a href="/hashtag/$1">#$1</a>`);
 
-// 		// 대체된 텍스트로 교체합니다.
-// 		$('#text').html(replaced);
-		
-	
 	
 
 		</script>
