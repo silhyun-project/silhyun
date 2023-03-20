@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.classes.vo.ClassesVO;
+import co.yedam.silhyun.common.vo.Criteria;
+import co.yedam.silhyun.common.vo.PageVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.MemberService;
@@ -35,6 +37,16 @@ import co.yedam.silhyun.member.vo.PhotographerVO;
 import co.yedam.silhyun.member.vo.ReserTimeVO;
 import co.yedam.silhyun.mypage.service.MypageAoService;
 import co.yedam.silhyun.order.vo.ReserVO;
+
+
+/* 작성자		:
+ * 작성일자 	:
+ * 작성내용	:
+ * 수정자		:
+ * 수정일자	:
+ * 수정내용 	:
+ * 
+ * */
 
 @Controller
 public class mypageAoController {
@@ -73,7 +85,7 @@ public class mypageAoController {
 		Map<String, Object> map = new HashMap<>();
 
 		if (file != null && !file.isEmpty()) {
-			String saveImgPath = saveimg + "portfo";
+			String saveImgPath = saveimg + "portfolio";
 
 			String fileName = UUID.randomUUID().toString(); // UUID생성
 			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
@@ -85,34 +97,40 @@ public class mypageAoController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			vo.setMainP("/saveImg/portfo/" + fileName);
+			vo.setMainP("/saveImg/portfolio/" + fileName);
 //			vo.setClassNum(vo.getPtgId() + key);
 			System.out.println("내가 볼려는거22" + vo);
 			System.out.println("넘어오니?"+vo.getMainP());	//옴
 			mypageAoService.uploadPhoto(vo); // db에 담음
 			map.put("vo", vo);
-			map.put("mainP", file);
+			map.put("file", file);
 		}
 		return map;
 	}
 	
 	@RequestMapping("/photo/resManage")
-	public String resManage(Model model, HttpSession session) {
+	public String resManage(Model model, HttpSession session, Criteria cri) {
 		String id = (String)session.getAttribute("id");
+		System.out.println(id + "ddddddddddddddddddddddddddddd");
+		cri.setAmount(6);
+
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
-		model.addAttribute("resList", mypageAoService.getReserList(id));
+		model.addAttribute("seReslist",mypageAoService.selectReserList(id, cri));
+		System.out.println(model+"123123");
+		model.addAttribute("page", new PageVO(mypageAoService.getReserList(id), 10, cri));
 
 		return "mypageAo/resManage";
 	}
 	
 	
 	@GetMapping("/photo/classManage")
-	public String classManage(Model model,HttpSession session) {
+	public String classManage(Model model,HttpSession session, Criteria cri) {
 		String id = (String)session.getAttribute("id");
+		cri.setAmount(6);
 	
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
-		model.addAttribute("clManage", mypageAoService.classList(id));
-
+		model.addAttribute("clManage", mypageAoService.classList(id,cri));
+		model.addAttribute("page", new PageVO(mypageAoService.totalClassList(id), 10, cri));
 		return "mypageAo/classManage";
 	}
 

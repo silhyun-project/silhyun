@@ -215,59 +215,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 			</form>
 		</div>
 <script>
-	/*function chulcheckAj() {
-		var formData = new FormData($("#chulcheckFrm")[0]);
-
-		for(let key of formData.keys()){
-			 console.log(key+"--------------------키")
-		 }
-		 for(let value of formData.values()){
-			 console.log(value+"************value")
-		 }
-			
-		$.ajax({
-			url : '/silhyun/chulcheckEv',
-			method : 'POST',
-			data : JSON.stringify(formData),
-			contentType: "application/json",
-			dataType : 'json',
-			success : function(result) {
-				console.log(result);
-				alert("출석 체크 완료🎉");
-			},
-			error : function(xhr, status, error) {
-				 console.log(xhr.responseText);
-			        console.log(status);
-			        console.log(error);
-				alert("이미 출석하였습니다.");
-			}
-
-		});
-
-	}*/
 	
-	var id=$('input[name=id]').val();
-	var checkDate=$('input[name=checkDate]').val();
-	$(function() {
-	  $('#chulcheck-button').click(function() {
-	    $.ajax({
-	      url: '/chulcheckEv',
-	      method: 'POST',
-	      data: { id: id, checkDate: checkDate },
-	      success: function(result) {
-	    	  if(result === true) {
-	    	      alert('출석체크가 완료되었습니다.');
-	    	    } else {
-	    	      alert('이미 출석하였습니다.');
-	    	    }
-	      },
-	      error: function(reject) {
-	        alert('출석체크에 실패하였습니다.');
-	      }
-	    });
-	  });
-	});
-
 	
 	//캘린더
 	const init = {
@@ -382,6 +330,37 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 
       
       
+  	var id=$('input[name=id]').val();
+	var checkDate=$('input[name=checkDate]').val();
+	var todayCells = document.querySelectorAll(".cal-table td.today");
+	$(function() {
+	  $('#chulcheck-button').click(function() {
+	    $.ajax({
+	      url: '/chulcheckEv',
+	      method: 'POST',
+	      data: { id: id, checkDate: checkDate },
+	      success: function(result) {
+	    	  if(result === true) {
+	    	      alert("출석 체크 완료🎉");
+	    	      $('.cal-table td.today').css({
+	    	    	    'background-color': "#B96F4A",
+	    	    	    'color': '#fff',
+	    	    	    'border-radius': '0%',
+	    	    	    'opacity': '0.7'
+	    	    	  });
+	    	    } else {
+	    	      alert('이미 출석하였습니다.');
+	    	      
+	    	    }
+	      },
+	      error: function(reject) {
+	    	window.location.href="/login"
+	        alert('로그인 후 이용해주세요');
+	      }
+	    });
+	  });
+	});
+
 </script>
 
 	</main>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.classes.vo.ClassesVO;
+import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.vo.MemberVO;
@@ -22,7 +23,7 @@ public class MypageAoServiceImpl implements MypageAoService {
 	private MypageAoMapper mypageAoMapper;
 	
 	@Override
-	public List<ReserVO> getReserList(String ptgId){
+	public int getReserList(String ptgId){
 		
 		return mypageAoMapper.getReserList(ptgId);
 	}
@@ -97,9 +98,9 @@ public class MypageAoServiceImpl implements MypageAoService {
 	}
 
 	@Override
-	public List<ClassesVO> classList(String ptgId) {
+	public List<ClassesVO> classList(String ptgId, Criteria cri) {
 
-		return mypageAoMapper.classList(ptgId);
+		return mypageAoMapper.classList(ptgId,cri);
 
 	}
 
@@ -150,6 +151,19 @@ public class MypageAoServiceImpl implements MypageAoService {
 
 		return mypageAoMapper.uploadPhoto(vo);
 	}
+
+	@Override
+	public List<ReserVO> selectReserList(String ptgId, Criteria cri) {
+		
+		return mypageAoMapper.selectReserList(ptgId, cri);
+	}
+
+	@Override
+	public int totalClassList(String ptgId) {
+		return mypageAoMapper.totalClassList(ptgId);
+	}
+
+	
 
 
 

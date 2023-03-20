@@ -22,6 +22,33 @@
 <!-- modal -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.pagination {
+	display: inline-block;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.pagination a.active {
+	background-color: grey;
+	color: white;
+	border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+	border-radius: 5px;
+}
+
+.container {
+	text-align: center;
+}
+</style>
 </head>
 
 
@@ -202,9 +229,9 @@
 											<th class="fw-600 ">대표사진</th>
 										</tr>
 									</thead>
-									<tbody th:each="resL : ${resList}">
+									<tbody th:each="resL : ${seReslist}">
 										<tr>
-											<td class="p-3" th:text="${resL.id}" />
+											<td class="p-3" th:text="${resL.id}"/>
 											<td class="p-3" th:text="${resL.resCd}" />
 											<td class="p-3"
 												th:text="${#dates.format(resL.regiDate,'yyyy/MM/dd')}" />
@@ -219,8 +246,8 @@
 												<form class="upload-form" name="uploadP"
 													enctype="multipart/form-data">
 													<div th:unless="${resL.mainP}">
-													 <input type="file" name="file"> <input type="hidden"
-															name="resNum" th:value="${resL.resNum}">
+														<input type="file" name="file"> <input
+															type="hidden" name="resNum" th:value="${resL.resNum}">
 														<button type="button" class="upload-button">업로드</button>
 													</div>
 												</form>
@@ -231,20 +258,21 @@
 								</table>
 							</div>
 						</div>
-						<div class="d-flex align-items-center mt-3">
-
+						<div class="container" style="text-align: center;">
 							<div class="ms-lg-auto">
-								<ul class="pagination m-0">
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Previous"> <span aria-hidden="true">«</span>
-									</a></li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Next"> <span aria-hidden="true">»</span>
-									</a></li>
-								</ul>
+								<div class="pagination">
+									<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
+									<a
+										th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}"
+										th:href="${num}"
+										th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+									<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+								</div>
+									<form id="searchFrm" action="/photo/resManage" th:object="${page}">
+
+										<input type="hidden" name="pageNum" th:value="1">
+										<input type="hidden" name="amount" th:value="*{criteria.amount}">
+									</form>
 							</div>
 						</div>
 					</div>
@@ -356,17 +384,32 @@
 						method : 'POST',
 						enctype : 'multipart/form-data',
 						data : formData,
-						processData : false,
-						contentType : false,
+						processData: false,
+						contentType: false,
 						success : function(result) {
 							alert('제출이 성공적으로 되었습니다.');
 						},
 						error : function(reject) {
-							alert('전송이 실패하였습니다.');
+							//alert('전송이 실패하였습니다.');
+							location.reload();
 						}
 					});
 				});
 			});
+			
+			//페이징
+			history.replaceState({}, null, location.pathname);
+
+			$(".pagination a").on("click", function(e){
+				e.preventDefault();
+			 	$("#searchFrm").find("input[name='pageNum']").val($(this).attr("href"));
+				//console.log($("#searchFrm").find("input[name='pageNum']").val())
+				
+				//apage($('#searchFrm').seralize()) //form안에있는 name이랑 value값을 들고온다.
+				searchFrm.submit(); //폼태그값을 스트링으로 
+			})
+			
+			
 		</script>
 	</main>
 

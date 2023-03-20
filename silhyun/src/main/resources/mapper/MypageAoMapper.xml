@@ -2,11 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.mypage.map.MypageAoMapper">
 	<select id="getReserList"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM RESER
+		WHERE ptg_id=#{ptgId}
+		ORDER BY shot_date DESC
+	</select>
+	<select id="selectReserList"
 		resultType="co.yedam.silhyun.order.vo.ReserVO">
+	   select * from( select rownum rn, a.* from( 
+			 
 		SELECT *
 		FROM RESER
-		WHERE ptg_id=#{id}
+		WHERE ptg_id=#{ptgId}
 		ORDER BY shot_date DESC
+		
+		<![CDATA[	
+	 	) a where rownum <= #{cri.pageNum} * #{cri.amount}) b where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	 ]]>
 	</select>
 	
 	<select id="selectWorkDay" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
@@ -25,11 +38,22 @@
 		ORDER BY REST
 	</select>
 	
+	<select id="totalClassList" resultType="int">
+		SELECT COUNT(*)
+		FROM CLASS
+		WHERE PTG_ID = #{ptgId}
+		ORDER BY ACCP_DT DESC
+		
+	</select>
 	<select id="classList" resultType="co.yedam.silhyun.classes.vo.ClassesVO">
+		select * from( select rownum rn, a.* from( 
 		SELECT *
 		FROM CLASS
 		WHERE PTG_ID = #{ptgId}
 		ORDER BY ACCP_DT DESC
+		<![CDATA[	
+	 	) a where rownum <= #{cri.pageNum} * #{cri.amount}) b where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	 ]]>
 		
 	</select>
 		
