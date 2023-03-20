@@ -13,4 +13,7 @@ public interface MemberService {
 	
 	//아이디 찾기 
 	String findid(MemberVO vo);
+	
+	//비번찾기
+	int isPwdChek(MemberVO vo);
 }
