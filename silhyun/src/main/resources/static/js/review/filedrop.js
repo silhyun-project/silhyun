@@ -40,6 +40,14 @@ function fileUpAction(){
 
     }  
     
+    	//뒤로가기 
+	backBtn.onclick= function(){
+		let ctgr = document.getElementById('ctgr').value
+		let ctgrNum = document.getElementById('ctgrNum').value
+		ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
+		
+	}
+    
     /*첨부된 이미리즐을 배열에 넣고 미리보기 */
     imageLoader = function(file){
       selFiles.push(file);
@@ -92,10 +100,42 @@ makeDiv = function(img, file){
   div.appendChild(btn)
   return div
 }
+
+document.getElementById('ordList').onchange = function(e){
+	console.log(e.target.value)
+	let ctgr = document.getElementById('revctgr').value
+	let ctgrNum = document.getElementById('revctgrNum').value
+	let id = document.getElementById('userid').value
+	fetch("/ordInfoAtt?ordNum="+e.target.value+"&ctgr="+ctgr+"&ctgrNum="+ctgrNum+"&id="+id)
+	.then (res => res.json())
+	.then(data=>{
+		console.log(data)
+		data.forEach(function(e){
+			console.log(e)
+			let div = document.getElementById('ordInfoZone')
+			if(e.findOp != null){
+				div.innerHTML = `
+				<div style="border: solid 1px #D8D8D8;">
+					<span><img class="rounded-3" style="width:100px; height:100px;" src="${e.profile}">
+					(${e.name})${e.findOp}</span>
+				</div>
+				`
+				
+			}else{
+				div.innerHTML = `
+				<div style="border: solid 1px #D8D8D8;">
+					<span><img class="rounded-3" style="width:100px; height:100px;" src="${e.thni}">
+					(${e.ptgId})${e.claTtl}</span>
+				</div>
+				`
+			}
+		})
+	})
+}
     
 function insertReview(){
 	///차라리전부 아작스로 보내고 seccess 부분에서 location.href로 하기
-	var formData = new FormData($('#myform')[0])
+	var formData = new FormData($('#myform')[0])  //이거 나중에 자바스크립트로 바꾸기(아작스도패치로)
 	for(let i=0; i<selFiles.length; i++){
 		formData.append("files", selFiles[i])
 		}
@@ -110,7 +150,7 @@ function insertReview(){
 		success: function(res){
 			console.log(res.revNum)  
 			//location.href = "/silhyun/reviewList";
-			ajaxReiew({pageNum:1, amount:5})
+			ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: res.ctgrNum, ctgr: res.ctgr})
 			
 		},
 		error: function(err){

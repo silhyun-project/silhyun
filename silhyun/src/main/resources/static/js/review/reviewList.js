@@ -13,6 +13,16 @@
     	//searchFrm.submit(); //폼태그값을 스트링으로 
     })
     
+    $('#sort').on('change', function(){
+    	
+    	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
+})
+
+$('#phosort').on('click', function(){
+
+    	ajaxReiew($('#searchFrm').serialize()) //form안에있는 name이랑 value값을 들고온다.
+})
+    
 
     
      $('.star-ratings-fill').css('width', starPercent($('#starAvg').text()) + '%')	
@@ -33,26 +43,53 @@
   
 		
        //인써트 버튼 이벤트
-	function reviewInsertForm(){
+	function reviewInsertForm(id){
+		//리뷰 작성버튼 체크 ===> 프로미스, then 써보기
     	let ctgrNum = $('#ptgId').val()
-		$.ajax({
-			url: '/reviewform',
-			data: {ctgrNum: ctgrNum,
-				   ctgr : 'A'},
-		    success: function(res){
-		    	$('#reviews').replaceWith(res)
-		    }, 
-		    error: function(err){
-		    	console.log(err)
-		    }
-			
+    	let ctgr = $('#ctgr').val()
+    	
+    	new Promise((succ, fail)=>{
+		
+	    	$.ajax({
+				url: '/insertChek',
+				data: {ctgrNum : ctgrNum,
+					   ctgr : ctgr,
+				       id : id},
+				success: function(res){
+					console.log(res)
+					succ(res)
+					 
+				},
+				error:function(err){
+					fail(err)
+				}
+			})
+		}).then((succ)=>{
+			if(succ == 1){
+				$.ajax({
+					url: '/reviewform',
+					data: {ctgrNum: ctgrNum,
+						   ctgr : ctgr, 
+						   id: id},
+				    success: function(res){
+				    	$('#reviews').replaceWith(res)
+				    }, 
+				    error: function(err){
+				    	console.log(err)
+				    }
+					
+				})
+			}else{
+				alert('결제하신 정보가 없습니다.')
+			}
 		})
+    	
+
 	}
     
    
 	//수정버튼 이벤트 
 	function upFrom(num){
-		console.log(num)
 		$.ajax({
 			url: '/reviewUpform',
 			data: {revNum: num},
@@ -65,4 +102,21 @@
 			
 		})
 	}
+	
+	//삭제버튼 이벤트
+	function delReview(num){
+		console.log(num)
+		$.ajax({
+			url:'/reviewDel',
+			data:{revNum: num},
+		     success: function(res){
+		    	console.log(res)
+		    	ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
+		    }, 
+		    error: function(err){
+		    	console.log(err)
+		    }
+		})
+	}
+
 	
