@@ -302,12 +302,11 @@
 									role="tabpanel" aria-labelledby="pd_information_tab_02"
 									style="text-align: center;">
 									<div class="row">
-										<div class="col-lg-4" th:each="ptgd : ${ptg}">
+										<div class="col-lg-4 mb-3" th:each="ptgd : ${ptg}">
 											<div class="position-relative hover-scale">
 												<div class="hover-scale-in">
 													<a href="#"> <img class="w-100" th:src="${ptgd.phoRt}"
 														title="" alt="" style="width: 400px; height: 400px">
-														[[${ptgd.phoRt}]]
 													</a>
 												</div>
 											</div>
