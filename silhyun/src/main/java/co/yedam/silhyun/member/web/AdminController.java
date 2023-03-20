@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.runners.Parameterized.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +33,12 @@ public class AdminController {
 	@Autowired
 	private AdminSercive adminService;
 	
+	
+	/*
+	 * 작성자:
+	 * 작성일자:
+	 * 작성내용:
+	 */
 	   
 	
 	//이벤트관리
@@ -43,6 +51,8 @@ public class AdminController {
 		model.addAttribute("eAList", eAList);
 
 		model.addAttribute("eCnt", adminService.getEventCnt());
+		
+		
 		
 		System.out.println(model);
 		return "/admin/eventManage";
@@ -282,7 +292,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/memberManage")
-	public String memberManage(AdminCriteria cri, AdminCriteria cri2, MemberVO vo, Model model) {
+	public String memberManage(@ModelAttribute("cri") AdminCriteria cri, @ModelAttribute("cri2") AdminCriteria cri2,  @ModelAttribute("cri3") AdminCriteria cri3, 
+			MemberVO vo, Model model, 
+			@RequestParam(value = "pageNum2", required = false, defaultValue = "1") int pageNum2,
+			@RequestParam(value = "keyword2", required = false) String keyword2,
+			@RequestParam(value = "pageNum3", required = false, defaultValue = "1") int pageNum3,
+			@RequestParam(value = "keyword3", required = false) String keyword3) {
+		
+		cri2.setPageNum(pageNum2);
+		cri2.setKeyword(keyword2);
+		cri3.setPageNum(pageNum3);
+		cri3.setKeyword(keyword3);
 		model.addAttribute("todayMem", adminService.todayMem());
 		model.addAttribute("todayPtg", adminService.todayPtg());
 		model.addAttribute("todayStd", adminService.todayStd());
@@ -302,6 +322,13 @@ public class AdminController {
 		cri2.setAmount(5);
 		model.addAttribute("ptglist", adminService.getListPtg(cri2));
 		model.addAttribute("ptgPage", new AdminPageVO(adminService.getTotalPtg(cri2), 10, cri2));
+		
+		//작가리스트 페이징
+		cri3.setAmount(5);
+		model.addAttribute("stdList", adminService.getListStd(cri3));
+		model.addAttribute("stdPage", new AdminPageVO(adminService.getTotalStd(cri3), 10, cri3));
+		
+		System.out.println(model);
 
 		return "/admin/memberManage";
 	}

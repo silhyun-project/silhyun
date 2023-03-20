@@ -150,10 +150,19 @@ public interface AdminMapper {
 	int getTotalCount(AdminCriteria cri);
 
 	//작가리스트 페이징
-	List<PhotographerVO> getListPtg(AdminCriteria cri);
+	List<PhotographerVO> getListPtg(AdminCriteria cri2);
 	
-	int getTotalPtg(AdminCriteria cri);
+	int getTotalPtg(AdminCriteria cri2);
 	
+	//사진관리스트 페이징
+	List<StudioVO> getListStd(AdminCriteria cri3);
+	
+	int getTotalStd(AdminCriteria cri3);
+
+	//이벤트리스트 페이징
+	List<EventVO> getListEvent(AdminCriteria cri);
+	
+	int getTotalEvent(AdminCriteria cri);
 	
 	//이벤트리스트
 	List<Map<String, Object>>getEventList();

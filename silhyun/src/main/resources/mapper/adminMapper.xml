@@ -469,7 +469,7 @@ FETCH FIRST 5 ROWS ONLY
 	<if test="type == 'tel'">WHERE tel LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'joinDate'">WHERE join_date LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'birthDate'">WHERE birth_date LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'genCd'">WHERE gen_cd '%'||#{keyword }||'%'</if>
+	<if test="type == 'genCd'">WHERE gen_cd LIKE '%'||#{keyword}||'%'</if>
 	<if test="type == 'pointSum'">WHERE point_sum >= #{keyword } order by point_sum DESC</if>
 	<if test="type == 'memCd'">WHERE mem_cd LIKE '%'||#{keyword }||'%'</if>
 
@@ -488,11 +488,12 @@ FETCH FIRST 5 ROWS ONLY
 	<if test="type == 'tel'">WHERE tel LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'joinDate'">WHERE join_date LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'birthDate'">WHERE birth_date LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'genCd'">WHERE gen_cd '%'||#{keyword }||'%'</if>
+	<if test="type == 'genCd'">WHERE gen_cd LIKE '%'||#{keyword}||'%'</if>
 	<if test="type == 'pointSum'">WHERE point_sum >= #{keyword } order by point_sum DESC</if>
 	<if test="type == 'memCd'">WHERE mem_cd LIKE '%'||#{keyword }||'%'</if>
 
 </select>
+
 <!-- 기록가리스트 페이징 -->
 <select id="getListPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 	 select * from( select rownum rn, a.* from( 
@@ -503,11 +504,11 @@ FETCH FIRST 5 ROWS ONLY
 	<if test="type == 'ptgId'">WHERE ptg_id LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'stId'">WHERE st_id LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'regionCd'">WHERE region_cd LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'crn'">WHERE ern LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'crn'">WHERE crn LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'inst'">WHERE inst LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'workDay'">WHERE work_day LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'accpDate'">WHERE accp_date LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'ptgCd'">WHERE ptg_cd '%'||#{keyword }||'%'</if>
+	<if test="type == 'ptgCd'">WHERE ptg_cd LIKE '%'||#{keyword }||'%'</if>
 
 	<![CDATA[	
 	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
@@ -521,13 +522,85 @@ FETCH FIRST 5 ROWS ONLY
 	<if test="type == 'ptgId'">WHERE ptg_id LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'stId'">WHERE st_id LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'regionCd'">WHERE region_cd LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'crn'">WHERE ern LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'crn'">WHERE crn LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'inst'">WHERE inst LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'workDay'">WHERE work_day LIKE '%'||#{keyword }||'%'</if>
 	<if test="type == 'accpDate'">WHERE accp_date LIKE '%'||#{keyword }||'%'</if>
-	<if test="type == 'ptgCd'">WHERE ptg_cd '%'||#{keyword }||'%'</if>
+	<if test="type == 'ptgCd'">WHERE ptg_cd LIKE '%'||#{keyword }||'%'</if>
 
 </select>
+
+
+<!-- 사진관리스트 페이징 -->
+<select id="getListStd" resultType="co.yedam.silhyun.member.vo.StudioVO">
+	 select * from( select rownum rn, a.* from( 
+ 
+ 			select * 
+ 			from studio 
+ 			where cfm_cd = 'Y'	
+	<if test="type == 'all'">and 1 = 1</if>
+	<if test="type == 'stId'">and st_id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'stName'">and st_name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'ceoName'">and ceo_name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'tel'">and tel LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'regionCd'">and region_cd LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'addr'">and addr LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'crn'">and crn LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'regiDate'">and regi_date LIKE '%'||#{keyword }||'%'</if>
+
+	<![CDATA[	
+	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
+	 ]]>
+</select>
+
+<select id="getTotalStd" resultType="int">
+	select count(*) 
+ 			from studio 
+ 			where cfm_cd = 'Y'	
+	<if test="type == 'all'">and 1 = 1</if>
+	<if test="type == 'stId'">and st_id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'stName'">and st_name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'ceoName'">and ceo_name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'tel'">and tel LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'regionCd'">and region_cd LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'addr'">and addr LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'crn'">and crn LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'regiDate'">and regi_date LIKE '%'||#{keyword }||'%'</if>
+
+</select>
+
+<!-- 이벤트리스트 페이징 -->
+<select id="getListEvent" resultType="co.yedam.silhyun.event.vo.EventVO">
+	 select * from( select rownum rn, a.* from( 
+ 			select * 
+ 			from event 
+	<if test="type == 'all'">where 1 = 1</if>
+	<if test="type == 'name'">where name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'id'">where id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'term'">where term LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'startDate'">where start_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'bnphSta'">where bnph_sta LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'cpnPubSta'">where cpn_pub_sta LIKE '%'||#{keyword }||'%'</if>
+
+	<![CDATA[	
+	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
+	 ]]>
+</select>
+
+<select id="getTotalEvent" resultType="int">
+	select count(*) 
+ 			from event 
+	<if test="type == 'all'">where 1 = 1</if>
+	<if test="type == 'name'">where name LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'id'">where id LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'term'">where term LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'startDate'">where start_date LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'bnphSta'">where bnph_sta LIKE '%'||#{keyword }||'%'</if>
+	<if test="type == 'cpnPubSta'">where cpn_pub_sta LIKE '%'||#{keyword }||'%'</if>
+</select>
+
+
+
 
 <!-- 탈퇴리스트 페이징 -->
 

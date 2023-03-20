@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.map.AdminMapper;
 import co.yedam.silhyun.member.vo.AdminCriteria;
@@ -116,13 +115,36 @@ public class AdminServiceImpl implements AdminSercive {
 
 
 	@Override
-	public List<PhotographerVO> getListPtg(AdminCriteria cri) {
-			return adminMapper.getListPtg(cri);
+	public List<PhotographerVO> getListPtg(AdminCriteria cri2) {
+			return adminMapper.getListPtg(cri2);
 	}
 
 	@Override
-	public int getTotalPtg(AdminCriteria cri) {
-			return adminMapper.getTotalPtg(cri);
+	public int getTotalPtg(AdminCriteria cri2) {
+			return adminMapper.getTotalPtg(cri2);
+	}
+	
+	//사진관리스트 페이징
+	@Override
+	public List<StudioVO> getListStd(AdminCriteria cri3) {
+		return adminMapper.getListStd(cri3);
+	}
+
+	@Override
+	public int getTotalStd(AdminCriteria cri3) {
+		return adminMapper.getTotalStd(cri3);
+	}
+
+
+	//이벤트리스트 페이징
+	@Override
+	public List<EventVO> getListEvent(AdminCriteria cri) {
+		return adminMapper.getListEvent(cri);
+	}
+
+	@Override
+	public int getTotalEvent(AdminCriteria cri) {
+		return adminMapper.getTotalEvent(cri);
 	}
 
 	@Override
