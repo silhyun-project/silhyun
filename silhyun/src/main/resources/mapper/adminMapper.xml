@@ -23,7 +23,7 @@ select count(*)
 from qst
 where rply_sta = 'N'
 </select>
-
+ 
 <!-- 지난 2주간 매출 -->
 <select id="lastSales" resultType="map">
 SELECT
@@ -49,7 +49,7 @@ ORDER BY
       CASE WHEN p.ctgr = 'A' THEN p.ctgr_num ELSE 
       (SELECT c.ptg_id FROM class c WHERE c.class_num = p.ctgr_num) END AS "ctgrNum", 
       p.id AS "id", 
-      p.paym_pri AS "pri", 
+          to_char(p.paym_pri, 'FM999,999,999') AS "pri", 
       TO_CHAR(p.ord_date,'YYYY/MM/DD') AS "date"
     FROM payment p
     ORDER BY p.ord_date DESC

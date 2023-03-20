@@ -162,7 +162,7 @@
                             </div>
 
                             <div class="product-price fs-3 fw-500 mb-2">
-                                <span class="text-primary claPri" th:text="${cInfo.claPri}+'원(VAT포함가)'"></span>
+                                <span class="text-primary" data-th-text="${#numbers.formatInteger(cInfo.claPri, 1, 'COMMA') + '원(VAT포함가)'}"></span>
                             </div>
                             <br>
                             
