@@ -140,7 +140,7 @@ white-space: pre-wrap ;
 						    </div>
 						</div>
 	                <div class="col-sm-6 text-sm-end">
-	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="reviewInsertForm([[${session.id}]])">리뷰작성하기</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="reviewInsertForm([[${session.id}]])"  th:if='${session.id} neq null'>리뷰작성하기</button>
 	                </div>
 	            </div>
 	            <hr>
@@ -175,8 +175,8 @@ white-space: pre-wrap ;
 	                <div class="col ps-3">
 	                    <h6>[[${rev.id}]]</h6>
 	                    <div id="btns">
-	                    <button type="button" class="btn btn-sm btn-outline-secondary upBtn" th:onclick="upFrom([[${rev.revNum}]])">수정</button>
-	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="delReview([[${rev.revNum}]])">삭제</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary upBtn" th:onclick="upFrom([[${rev.revNum}]])"  th:if='${session.id} eq ${rev.Id}'>수정</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="delReview([[${rev.revNum}]])" th:if='${session.id} eq ${rev.Id}'>삭제</button>
 	                    </div>
 
 					       <div class="star-ratings">

@@ -10,4 +10,7 @@ public interface MemberService {
 	boolean isidCheck(MemberVO vo); //중복검사 
 	
 	int updateProfileImage(MemberVO vo);//프사 바꾸기
+	
+	//아이디 찾기 
+	String findid(MemberVO vo);
 }

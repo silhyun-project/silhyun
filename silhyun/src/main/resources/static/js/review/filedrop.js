@@ -134,30 +134,38 @@ document.getElementById('ordList').onchange = function(e){
 }
     
 function insertReview(){
-	///차라리전부 아작스로 보내고 seccess 부분에서 location.href로 하기
-	var formData = new FormData($('#myform')[0])  //이거 나중에 자바스크립트로 바꾸기(아작스도패치로)
-	for(let i=0; i<selFiles.length; i++){
-		formData.append("files", selFiles[i])
-		}
+	let ordInfo = $('#ordList').val()
+	console.log(ordInfo)
+	if(ordInfo == ''){
+		alert('리뷰를 입력할 결제정보를 선택해 주세요')
+	}else{
 		
-		
-	$.ajax({
-		url: "/silhyun/review",
-		type:"post",
-		data: formData,
-		contentType: false,
-		processData: false, 
-		success: function(res){
-			console.log(res.revNum)  
-			//location.href = "/silhyun/reviewList";
-			ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: res.ctgrNum, ctgr: res.ctgr})
+		///차라리전부 아작스로 보내고 seccess 부분에서 location.href로 하기
+		var formData = new FormData($('#myform')[0])  //이거 나중에 자바스크립트로 바꾸기(아작스도패치로)
+		for(let i=0; i<selFiles.length; i++){
+			formData.append("files", selFiles[i])
+			}
 			
-		},
-		error: function(err){
-			console.log(err)
-		}
-		
-	})
+			
+		$.ajax({
+			url: "/silhyun/review",
+			type:"post",
+			data: formData,
+			contentType: false,
+			processData: false, 
+			success: function(res){
+				console.log(res.revNum)  
+				//location.href = "/silhyun/reviewList";
+				ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: res.ctgrNum, ctgr: res.ctgr})
+				
+			},
+			error: function(err){
+				console.log(err)
+			}
+			
+		})
+	}
+	
 	return false;
 	
 }
