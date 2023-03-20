@@ -54,8 +54,6 @@ public class RestReviewController {
 		PaymentVO payVo = new PaymentVO();
 		payVo.setOrdNum(vo.getOrdNum());
 		payVo.setCtgr(vo.getCtgr());
-		payVo.setCtgrNum(vo.getCtgrNum());
-		payVo.setId(vo.getId());
 		map.put("ord", rService.selectPayInfo(payVo));
 		
 		return map;
@@ -67,12 +65,18 @@ public class RestReviewController {
 		rService.reviewUpdate(rvo);
 		System.out.println("여기까지 오는거얌?");
 		//사진(uesed -> N/ phoNum 반복문 돌려서...)
-		String[] ary = pvo.getPhoNum().split(",");
-		for(String id : ary) {
-			System.out.println(id);
-			pvo.setPhoNum(id);
-			pvo.setUsed("N");
-			pService.photoDelete(pvo);
+			
+			System.out.println("레스트리뷰컨트롤러의 업데이트입니다아아아.;;;;;넘어오냐ㅏ요????"
+					+pvo.getPhoNum().length());
+			if(pvo.getPhoNum().length()>0) {
+				String[] ary = pvo.getPhoNum().split(",");
+				for(String id : ary) {
+					System.out.println(id);
+					pvo.setPhoNum(id);
+					pService.photoDelete(pvo);
+				
+			}
+			
 		}
 //		//사진 업댓
 		String ctgrNum = rvo.getRevNum(); 
@@ -85,9 +89,9 @@ public class RestReviewController {
 	public String reviewDelete(ReviewVO vo) {
 		//파일삭제
 		PhotoVO pvo = new PhotoVO();
-		pvo.setUsed("N");
 		pvo.setCtgr("R");
 		pvo.setCtgrNum(vo.getRevNum());
+		System.out.println(pvo);
 	    pService.photoDelete(pvo);
 	    //리뷰삭제
 	    rService.reviewDelete(vo);

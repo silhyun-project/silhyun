@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css">
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-				
+<script src="/js/review/moreless.js"></script>				
 </head>
 <style>
 
@@ -108,6 +108,14 @@
 img{
  width: 300px;
 }
+#right{
+ float: right;
+}
+.content{
+white-space: pre-wrap ;
+
+}
+
 </style>
 <body>
 <div id="reviews">
@@ -132,7 +140,7 @@ img{
 						    </div>
 						</div>
 	                <div class="col-sm-6 text-sm-end">
-	                    <button type="button" th:onclick="reviewInsertForm([[${session.id}]])">리뷰작성하기</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="reviewInsertForm([[${session.id}]])"  th:if='${session.id} neq null'>리뷰작성하기</button>
 	                </div>
 	            </div>
 	            <hr>
@@ -145,13 +153,15 @@ img{
 							<option value="d" th:selected="*{criteria.sort == 'd'}">최신수</option>
 						</select>
 					    <input type="checkbox" name="photo" value="y" id="phosort" th:checked="*{criteria.photo == 'y'}">포토리뷰 보기
+					    <div id="right">
 						<select name="type">
 							<option value="CW">전체</option>
 							<option value="C">내용</option>
 							<option value="W">작성자</option>
 						</select>
 						<input type="text" name="keyword">
-						<button class="btn btn-sm btn-outline-secondary" type="submit">검색</button>					    
+						<button class="btn btn-sm btn-outline-secondary" type="submit">검색</button>	
+						</div>				    
 						<input type="hidden" name="pageNum" th:value="1">
 						<input type="hidden" name="amount" th:value="*{criteria.amount}">
 						<input type="hidden" name="ctgr" th:value="${list[0].ctgr}">
@@ -165,8 +175,8 @@ img{
 	                <div class="col ps-3">
 	                    <h6>[[${rev.id}]]</h6>
 	                    <div id="btns">
-	                    <button type="button" class="btn btn-sm btn-outline-secondary upBtn" th:onclick="upFrom([[${rev.revNum}]])">수정</button>
-	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="delReview([[${rev.revNum}]])">삭제</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary upBtn" th:onclick="upFrom([[${rev.revNum}]])"  th:if='${session.id} eq ${rev.Id}'>수정</button>
+	                    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="delReview([[${rev.revNum}]])" th:if='${session.id} eq ${rev.Id}'>삭제</button>
 	                    </div>
 
 					       <div class="star-ratings">
@@ -179,9 +189,7 @@ img{
 						    </div>
 	                        <span>[[${#dates.format(rev.revDate, 'yyyy-MM-dd')}]]</span><br><br>
 	                <div>
-						<div id="middle">
-						 <pre>[[${rev.cntn}]]</pre>
-						</div>
+						<div class="content">[[${rev.cntn}]]</div>
 	                </div>
 	                </div>
 	            </div>

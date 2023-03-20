@@ -2,6 +2,22 @@
  *  reviewList.js
  */
  $(function(){
+	
+					
+		
+		  $(".content").moreLess({
+		
+		    wordsCount: 80,
+		    moreLabel:"..더보기",
+		    lessLabel:"..줄이기",
+			moreClass:"more-link",
+			lessClass:"less-link"
+
+
+		
+		  });
+		
+
 
     $(".pagination a").on("click", function(e){
     	e.preventDefault();
@@ -111,7 +127,13 @@ $('#phosort').on('click', function(){
 			data:{revNum: num},
 		     success: function(res){
 		    	console.log(res)
-		    	ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
+		    	let ctgrNum = $('#ptgId').val()
+		    	let ctgr = $('#ctgr').val() 
+		    	let pageNum = $('a[class="active"]').attr('href')
+		    	let sort = $('#sort').val()
+		    	let phosort = $('#phosort').val()
+		    	console.log(pageNum)
+		    	ajaxReiew({pageNum:pageNum, amount:5, sort: sort, ctgrNum: ctgrNum, ctgr: ctgr, photo: phosort})
 		    }, 
 		    error: function(err){
 		    	console.log(err)

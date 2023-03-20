@@ -8,7 +8,7 @@
 	<if test="ctgrNum != null and ctgrNum != ''">ctgr = #{ctgr} 
 													and ctgr_num = #{ctgrNum}
 													and used = 'Y'</if>
-	<if test="ctgrNum == null and ctgrNum == ''">used = 'N'</if>
+	<if test="ctgrNum == null">used = 'N'</if>
 	</where>
 </select>
 
@@ -24,10 +24,10 @@
 
 <delete id="photoDelete">
 	update photo
-	set used = #{used}
+	set used = 'N'
 	<where>
 	<if test="phoNum != null and phoNum != ''">pho_num = #{phoNum}</if>
-	<if test="ctgrNum != null and ctgrNum != ''">ctgr = #{ctgr} and ctgr_num = #{ctgrNum}</if>
+	<if test="phoNum == null">ctgr = #{ctgr} and ctgr_num = #{ctgrNum}</if>
 	</where> 
 	
 </delete>
