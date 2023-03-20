@@ -57,7 +57,7 @@ textarea {
 	background-color: rgb(253, 253, 253);
 	z-index: 10;
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	left: 38%;
 }
 
@@ -72,9 +72,6 @@ textarea {
 
 .imsiDelBtn {
 	text-align: center;
+	cursor: pointer;
 }
 
-.imsiDelBtn button {
-	border: 1px solid rgb(220, 220, 220, 0.9);
-	margin: 18px 0 8px 8px;
-}

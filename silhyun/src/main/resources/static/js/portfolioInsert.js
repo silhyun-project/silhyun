@@ -131,23 +131,41 @@ $(function() {
 				let imsilist = `<tr><td>${imsiCntn}</td> 
 					<td>${result[i].portDate}</td>
 					<td><input type="hidden" name="portNum" value='${result[i].portNum}'><input type="hidden" name="ptgId" value='${result[i].ptgId}'></td><td class="imsiupdateBtn">수정 <td>
-					<td class=> 삭제</td></tr>`
+					<td class="imsiDelBtn"> 삭제</td></tr>`
 				$('.imsi').append(imsilist)
 			}
-			
-	
+
+
 			//X버튼	  
 			$('.imsiClose').click(function() {
-				$('.imsi').toggle();		
+				$('.imsi').toggle();
 			})//X버튼
-			
+
 			//임시리스트 수정버튼
 			$('.imsi').on('click', '.imsiupdateBtn', function() {
 				console.log('ggggg')
 				var portNum = $(this).closest('tr').find('input[type="hidden"][name="portNum"]').val();
-				ptgId=$(this).closest('tr').find('input[type="hidden"][name="ptgId"]').val();
+				ptgId = $(this).closest('tr').find('input[type="hidden"][name="ptgId"]').val();
 				window.location.href = `/silhyun/portfolioUpdate?portNum=${portNum}&ptgId=${ptgId}`;
 			})
+			//임시리스트 삭제버튼
+			$('.imsi').on('click', '.imsiDelBtn', function() {
+				portNum = $(this).closest('tr').find('input[type="hidden"][name="portNum"]').val();//해당포트폴리오번호
+				//포트폴리오지우기
+				$.ajax({
+					url: `/silhyun/portfolioDelete/${portNum}`,
+					method: 'DELETE',
+					success: function(response) {
+						location.reload();
+
+
+					}.bind(this),
+					error: function() {
+						alert('서버와의 통신에 실패했습니다.');
+					}
+				});
+			})
+
 		}//아작스
 	})
 
@@ -155,8 +173,8 @@ $(function() {
 	$('.btn.btn-outline-dark.me-3.imsiList').click(function() {
 		$('.imsi').toggle();
 	})//임시리스트 토글
-	
-	
+
+
 
 
 
