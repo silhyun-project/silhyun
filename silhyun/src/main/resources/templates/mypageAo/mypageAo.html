@@ -72,7 +72,7 @@
 									href="/photo/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
 								</a></li>
 								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3" href="/silhyun/portfolio/${session.id}">
+									class="nav-link-style d-flex align-items-center p-3" th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${session.id})}">
 										<i class="bi-person-bounding-box me-2"></i>포토폴리오
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -92,8 +92,8 @@
 						<div class="card mb-5">
 							<div class="card-header py-3">
 								<h5 class="m-0">Profile</h5>
-									로그인 한 사람 : [[${id}]]
-									모델들어오는값[[${ptg.id}]]
+							<!-- 		로그인 한 사람 : [[${id}]]
+									모델들어오는값[[${ptg.id}]] -->
 							</div>
 							<div class="card-body" th:each="ptg : ${ptgInfo}">
 								<div class="row">
