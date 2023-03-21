@@ -162,7 +162,7 @@
                             </div>
 
                             <div class="product-price fs-3 fw-500 mb-2">
-                                <span class="text-primary" data-th-text="${#numbers.formatInteger(cInfo.claPri, 1, 'COMMA') + '원(VAT포함가)'}"></span>
+                                <span class="text-primary claPri" data-th-text="${#numbers.formatInteger(cInfo.claPri, 1, 'COMMA') + '원(VAT포함가)'}"></span>
                             </div>
                             <br>
                             
@@ -170,7 +170,7 @@
                                 <div class="cart-button mb-3 d-flex">
                                     
 
-<button th:if="${cmPlusInfo == null || cmPlusInfo.buyYN == null || cmPlusInfo.buyYN == 0}" class="btn btn-dark me-3">
+<button th:if="${cmPlusInfo == null || cmPlusInfo.buyYN == null || cmPlusInfo.buyYN == 0}" type="submit" class="btn btn-dark me-3">
     <i class="fi-shopping-cart"></i> 구입하기
 </button>
 
