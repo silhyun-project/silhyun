@@ -592,6 +592,7 @@ else '제주' end as "regionCd",
 
 
 
+
 <!-- 사진관리스트 페이징 -->
 <select id="getListStd" resultType="map">
 	 select 
