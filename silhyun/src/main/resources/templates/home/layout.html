@@ -857,12 +857,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6 col-lg-3">
+						<div class="col-sm-6 col-lg-3" sec:authorize="hasAnyRole('ROLE_M1','ROLE_M2')">
 							<div class="d-flex px-3 py-1 align-items-center border border-white-light">
 								<div class="fs-1 text-white">
 									<i class="bi bi-camera"></i>
 								</div>
-								<a href="/shin/stdRegister">
+								<a href="/shin/stdRegister" >
 									<div class="col ps-3">
 										<h6 class="mb-1 text-white">사진관 입점하기</h6>
 									</div>
@@ -870,7 +870,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-sm-6 col-lg-3">
+						<div class="col-sm-6 col-lg-3"  sec:authorize="hasRole('ROLE_M1')">
 							<div
 								class="d-flex px-3 py-1 align-items-center border border-white-light">
 								<div class="fs-1 text-white">
@@ -932,8 +932,8 @@
 						<div class="col-6 col-lg-3 my-3">
 							<h6 class="text-uppercase mb-5">Register</h6>
 							<ul class="list-unstyled dark-link footer-link-1 m-0">
-								<li class="pb-2"><a href="/shin/stdRegister">사진관 입점</a></li>
-								<li class="pb-2"><a href="/shin/ptgRegister">작가 등록</a></li>
+								<li class="pb-2"><a href="/shin/stdRegister" sec:authorize="hasAnyRole('ROLE_M1','ROLE_M2')">사진관 입점</a></li>
+								<li class="pb-2"><a href="/shin/ptgRegister" sec:authorize="hasRole('ROLE_M1')">작가 등록</a></li>
 							</ul>
 						</div>
 						<div class="col-sm-6 col-lg-3 my-3">

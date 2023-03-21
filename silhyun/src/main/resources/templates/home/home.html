@@ -272,7 +272,8 @@
 						<div class="col-lg-4 my-3" th:each="port : ${portList}">
 							<div class="hover-scale text-center">
 								<div class="hover-scale-in position-relative">
-									<a href="#"> <img class="img-fluid" th:src="${port.phoRt}"
+									<a th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${port.ptgId})}"> 
+									<img class="img-fluid" th:src="${port.phoRt}"
 										title="" alt="사진 없음" style="width: 390px;height: 300px">
 									</a>
 								</div>

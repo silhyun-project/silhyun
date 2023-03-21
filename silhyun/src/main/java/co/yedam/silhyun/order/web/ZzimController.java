@@ -46,11 +46,11 @@ public class ZzimController {
 	//클래스 찜 있는지 확인
 	@RequestMapping("/silhyun/cIsZzim/{id}/{ctgrNum}")
 	@ResponseBody
-	public ResponseEntity<Boolean> cIsZzim(ZzimVO zvo,@PathVariable String id,@PathVariable String ctgrNum){
+	public Boolean cIsZzim(ZzimVO zvo,@PathVariable String id,@PathVariable String ctgrNum){
 		zvo.setId(id);
 		zvo.setCtgrNum(ctgrNum);
 		boolean isZzim = classesService.cIsZzim(zvo);
-		return ResponseEntity.ok(isZzim);
+		return isZzim;
 	}
 	
 	//클래스 찜 추가하기
