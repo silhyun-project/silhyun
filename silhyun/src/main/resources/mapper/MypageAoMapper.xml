@@ -90,8 +90,8 @@
 		parameterType="co.yedam.silhyun.event.vo.EventVO">
 		<!-- <selectKey keyProperty="eventNum" resultType="String"> select dbms_random.string('A', 
 			5) as eventNum from dual </selectKey> -->
-		INSERT INTO EVENT (event_num, Id, start_date, cntn,term, bnph, bnph_sta,region_cd)
-		VALUES (#{eventNum}, #{id}, #{startDate}, #{cntn}, #{term},#{bnph},#{bnphSta},
+		INSERT INTO EVENT (event_num, Id,name, start_date, cntn,term, bnph, bnph_sta,region_cd)
+		VALUES (#{eventNum}, #{id},#{name} ,#{startDate}, #{cntn}, #{term},#{bnph},#{bnphSta},
 		#{regionCd})
 	</insert>
 	<insert id="applyECoupon"

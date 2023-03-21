@@ -43,6 +43,6 @@
 		JOIN PAYMENT PM
 		ON PM.RES_NUM = R.RES_NUM
 		WHERE R.ID = #{id}
-		ORDER BY R.RES_NUM DESC
+		ORDER BY TO_NUMBER(R.RES_NUM) DESC
 	</select>
 </mapper>

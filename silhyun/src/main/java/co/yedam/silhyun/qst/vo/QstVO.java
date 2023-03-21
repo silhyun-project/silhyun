@@ -17,8 +17,8 @@ public class QstVO {
 	private String id;
 	private String cntn;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date qstDate;
 	private String rplySta;
 	private String secretSta;

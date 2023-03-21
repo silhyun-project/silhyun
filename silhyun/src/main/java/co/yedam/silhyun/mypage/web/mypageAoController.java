@@ -61,7 +61,7 @@ public class mypageAoController {
 	
 
 	@RequestMapping("/photo/mypageAo")
-	public String mypageAo(Model model,PhotographerVO pvo,  HttpSession session) {
+	public String mypageAo(Model model, PhotographerVO pvo,  HttpSession session) {
         String id = (String)session.getAttribute("id");
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 		
@@ -314,7 +314,7 @@ public class mypageAoController {
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getId() + key);
-			vo.setName(vo.getId()+"님의 이벤트");
+		//	vo.setName(vo.getId()+"님의 이벤트");
 			
 
 			mypageAoService.applyEvent(vo); // db에 담음

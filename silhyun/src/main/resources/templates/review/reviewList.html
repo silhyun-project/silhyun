@@ -105,7 +105,7 @@
 	-webkit-transform: translate(-50%, -50%) rotate(-45deg);
 	transform: translate(-50%, -50%) rotate(-45deg);
 }
-img{
+.imgSlider{
  width: 200px;
  height: 200px;
 }
@@ -190,13 +190,13 @@ white-space: pre-wrap ;
 						    </div>
 	                        <span>[[${#dates.format(rev.revDate, 'yyyy-MM-dd')}]]</span><br><br>
 	                <div>
-						<div class="content">[[${rev.cntn}]]</div>
+					    <div class="content">[[${rev.cntn}]]</div>
 	                </div>
 	                </div>
 	            </div>
 	            <div class="photo" th:if="${rev.photoList != null}">
 		            <div class="slider-wrap">
-		            	<div class="cont" th:each="pho : ${rev.photoList}"><img th:src="${pho.thumbnail}"></div>
+		            	<div class="cont" th:each="pho : ${rev.photoList}"><img class="imgSlider" th:src="${pho.thumbnail}"></div>
 					</div>
 				</div>
 				</form>

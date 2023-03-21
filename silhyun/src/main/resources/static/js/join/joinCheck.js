@@ -227,7 +227,7 @@
 		return false
 	}
 	
-	$('input[name="tel"]').val($('#telf').val()+$('#tels').val()+$('#telt').val())
+	$('input[name="tel"]').val($('#telf').val()+'-'+$('#tels').val()+'-'+$('#telt').val())
 	$('input[name="email"]').val($('#emailId').val()+'@'+$('#emailDomain').val())
 	if($('#year').val() != ''){	
 	$('#birthDate').val($('#year').val()+'-'+$('#month').val()+'-'+$('#day').val())
@@ -240,7 +240,7 @@
 				success : function(res){
 					console.log(res)
 					if(res){
-						alert("없는 아이디 입니다.")						
+						alert("추천인란에 아이디 입니다.")						
 					}else{
 						alert("추천인"+$('#rcomr').val()+"님과 함께 1000포인트 증정되었습니다.")
 					
@@ -253,7 +253,7 @@
 		
 	
 	}
-	//joinFrm.submit()
+	joinFrm.submit()
 	
 	
 	}

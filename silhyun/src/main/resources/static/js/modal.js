@@ -19,7 +19,7 @@ function isModalOn() {
 	return modal.css("display") === "block";
 }
 
-function modalOff() {//모달끄는거
+function modalOff() {
 	modal.css("display", "none");
 }
 
