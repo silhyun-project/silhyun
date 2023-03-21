@@ -418,9 +418,7 @@
 	 	  });
 	 	});
 	 	console.log(oData);
-	
-
-	//formData.append('oData',JSON.stringify(oData))	    
+		    
 	    $.ajax({
 	        url: '/upWorkTime',
 	        method: "POST",
@@ -440,7 +438,7 @@
     buttonAddProfile.addEventListener("click", e => {
     	modal.style.top = window.pageYOffset + 'px'; // top을 이용해 시작 y위치를 바꿔줌 +px안넣으면 작동x
     	modal.style.display = "flex";		//none->flex
-       document.body.style.overflowY = "hidden"; // 스크롤 없애기 필요는 없는데 일단 넣기
+       document.body.style.overflowY = "hidden"; // 스크롤 없애기
   
        // console.log(window.pageYOffset + " 위치"); // 스크롤 위치 보기
     });
@@ -482,17 +480,12 @@
         e.preventDefault();
         
         console.log('drop');
-        console.log(  e.originalEvent.dataTransfer+"11111111111111111111111111111111");		//object어쩌구
-       
         
         e.dataTransfer = e.originalEvent.dataTransfer; 		//파일가져오기
         files =  e.dataTransfer.files;					//list형식
         //event.preventDefault();
-        console.log(JSON.stringify(e.originalEvent.dataTransfer));//값이없다
-        console.log(event.dataTransfer.files[0]);	//값이 나옴??? => 고유 오류라고한다
-//추가
-    /*     const file = files[0];
-        const blobUrl = window.URL.createObjectURL(file);	//파일을 blob로 */
+        console.log(JSON.stringify(e.originalEvent.dataTransfer));
+        console.log(event.dataTransfer.files[0]);																			//값이 나옴??? => 고유 오류라고한다
         
         if (files.length > 1) {
             alert('하나만 가능합니다');
@@ -500,7 +493,6 @@
         }
        										// window.URL.createObjectURL 윈도우가 사라지면 사라진다  e.target.css==undfiend
         if (files[0].type.match(/image.*/)) {
-        	//$('.modal_image_upload_pr')
      //화면에 놓은 사진 보이게함   	
             $(e.target).css({
                 "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
@@ -510,26 +502,15 @@
             alert('이미지가 아닙니다.');
             return;
         }
-        	//	alert((e.target).css);
-     // extract the blob URL
-  	//const urlObject = new URL(blobUrl);
-	//const blobPath = urlObject.pathname; 		// remove the first "/" character
-	//console.log(blobPath);
-
 
     }
     $('#button_update_profile').on('click', ()=>{
-        //const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
         const id = document.getElementById("hidPhoto").value;
 		
-        
-        const file = files[0];//// 여기까지 값이 들어옴
+        const file = files[0];
 
-        var fd = new FormData();	//fd 가 값이 xxx
+        var fd = new FormData();	
 
-       // fd.append('profile', file);
-
-       // fd.append('image', image);
         fd.append('id', id);
         fd.append('file',files[0]);
 
@@ -559,7 +540,6 @@
             },
             complete: function() {
                 console.log("무조건실행");
-                //closeModal();
                 location.reload();
             }
         })
