@@ -297,57 +297,58 @@
 		
 		
 		//해당 포트폴리오번호에 맞는 사진 리스트 가져와서 넣어주기 (((1)))시작
-			$.ajax({
-				url: `/silhyun/detailPortfolioPhoto/${portNum}`,
-				dataType: 'json',
-			})
-				.then(dataModalPhoto => {
-					$(".modalSlider").empty();
-					var firstImg=true;
-					for (let i = 0; i < dataModalPhoto.length; i++) {
-						if(firstImg){
-						var modalPhoto = `<img class='active' src="${dataModalPhoto[i].phoRt}" alt="img${i+1}">`
+		$.ajax({
+			url: `/silhyun/detailPortfolioPhoto/${portNum}`,
+			dataType: 'json',
+		})
+			.then(dataModalPhoto => {
+				console.log(dataModalPhoto)//0
+				$(".modalSlider").empty();
+				var firstImg = true;
+				for (let i = 0; i < dataModalPhoto.length; i++) {
+					if (firstImg) {
+						var modalPhoto = `<img class='active' src="${dataModalPhoto[i].phoRt}" alt="img${i + 1}">`
 						$(".modalSlider").append(modalPhoto);//만든사진 붙이기
-						firstImg=false;
-						}else{
-							var modalPhoto2 = `<img src="${dataModalPhoto[i].phoRt}" alt="img${i+1}">`
-								$(".modalSlider").append(modalPhoto2);//만든사진 붙이기
-						}
-				var images = $('.modalSlider img');
-				
-				let imgIndex = images.filter('.active').index();//이미지 인덱스 찾기.
-				if (imgIndex === 0) {
-					$('.modalprev').css("display", "none"); //처음화면이전 버튼 비활성화
-				}
-				$('.modalNext').on('click', function() {
-					if (imgIndex === images.length - 1) {
-						$('.modalNext').css("display", "none"); // 다음 버튼 비활성화
+						firstImg = false;
 					} else {
-						$('.modalprev').css("display", "block");
+						var modalPhoto2 = `<img src="${dataModalPhoto[i].phoRt}" alt="img${i + 1}">`
+						$(".modalSlider").append(modalPhoto2);//만든사진 붙이기
 					}
-					images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
-					imgIndex++;//인덱스 추가.
-					if (imgIndex === images.length - 1) {
-						$('.modalNext').css("display", "none");
-					}
-					images.eq(imgIndex).addClass('active');//다음이미지에 active추가
-				});
+					var images = $('.modalSlider img');
 
-				// 다시 이전 버튼을 클릭하면 다음 버튼을 다시 활성화
-				$('.modalprev').on('click', function() {
-					if (imgIndex === images.length - 1) {
-						$('.modalNext').css("display", "block"); // 다음 버튼 활성화
-					}
-					images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
-					imgIndex--;//인덱스 추가.
-					images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+					let imgIndex = images.filter('.active').index();//이미지 인덱스 찾기.
 					if (imgIndex === 0) {
-						$('.modalprev').css("display", "none"); // 다음 버튼 활성화
+						$('.modalprev').css("display", "none"); //처음화면이전 버튼 비활성화
 					}
-				});
-					}	
-				});//해당 포트폴리오번호에 맞는 사진 리스트(((1)))끝
-				//다음버튼누르기
+					$('.modalNext').on('click', function() {
+						if (imgIndex === images.length - 1) {
+							$('.modalNext').css("display", "none"); // 다음 버튼 비활성화
+						} else {
+							$('.modalprev').css("display", "block");
+						}
+						images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
+						imgIndex++;//인덱스 추가.
+						if (imgIndex === images.length - 1) {
+							$('.modalNext').css("display", "none");
+						}
+						images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+					});
+
+					// 다시 이전 버튼을 클릭하면 다음 버튼을 다시 활성화
+					$('.modalprev').off('click').on('click', function() {
+						if (imgIndex === images.length - 1) {
+							$('.modalNext').css("display", "block"); // 다음 버튼 활성화
+						}
+						images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
+						imgIndex--;//인덱스 추가.
+						images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+						if (imgIndex === 0) {
+							$('.modalprev').css("display", "none"); // 다음 버튼 활성화
+						}
+					});
+				}
+			});//해당 포트폴리오번호에 맞는 사진 리스트(((1)))끝
+		//다음버튼누르기
 				
 				
 				
