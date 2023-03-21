@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.member.map.PtgMapper">
+	<!-- 작가 예약시간 ajax -->
 	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 		SELECT DISTINCT P.*,RT.*,M.NAME,FIND_CD(RES_TIME) REST,
 		(SELECT COUNT(*) FROM RESER R WHERE R.SHOT_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.SHOT_TIME AND R.PTG_ID = P.PTG_ID) RESYN
@@ -10,6 +11,8 @@
 		AND P.PTG_ID = #{ptgId}	
 		ORDER BY REST
 	</select>
+	
+	<!-- 예약 페이지 옵셥, 작가 정보 조회 -->
 	<select id="getReser" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
 		SELECT DISTINCT O.*, P.*, M.*
 		FROM OPTIONS O, PHOTOGRAPHER P, MEMBER M
@@ -18,7 +21,8 @@
 		AND P.PTG_ID = #{ptgId}
 		ORDER BY O.PRI 
 	</select>
-
+	
+	<!-- 작가 상세 페이지 조회 -->
 	<select id="getPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
 			SELECT DISTINCT NVL(Z.ZZIMSS,0) ZZIMS,P.*, M.*,S.ST_NAME,A.PHO_RT, A.PHO_NUM,PT.UP_STA,PT.PORT_DATE,PT.PORT_NUM
@@ -43,6 +47,7 @@
 	 	 ]]>
 	</select>
 	
+	<!-- 작가페이지 다중검색 -->
 	<select id="getPtgLsit" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 	 SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
 		SELECT DISTINCT NVL(Z.ZZIMSS,0) ZZIMS,P.*,M.*
@@ -65,7 +70,6 @@
 	       	<if test="vo.searchWord != null and vo.searchWord.length>0">
 	       			AND M.NAME LIKE '%'||#{vo.searchWord}||'%'
 	       	</if>
-	
 	    <choose>
 	    	<when test="'new'.equals(vo.searchType)"> ORDER BY P.REGI_DATE DESC</when>
 	    	<when test="'name'.equals(vo.searchType)"> ORDER BY M.NAME</when>
@@ -76,6 +80,7 @@
 	 ]]>
 	</select>
 	
+	<!-- 작가 리스트 페이지 페이징 -->
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(DISTINCT P.PTG_ID) 
 	    FROM PHOTOGRAPHER P, MEMBER M,(SELECT CTGR_NUM,COUNT(*) ZZIMS FROM ZZIM GROUP BY CTGR_NUM ORDER BY 2 DESC) Z, FIELD F
@@ -98,7 +103,7 @@
 	       			AND M.NAME LIKE '%'||#{vo.searchWord}||'%'
 	       	</if>
 	</select>
-	
+	<!-- 다중검색 ajax시도  =>지금은 사용X -->
 	<select id="ptgSearchList" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
 		 

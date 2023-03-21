@@ -205,6 +205,8 @@
 		<script src="/js/theme.js"></script>
 		<!-- End script start -->
 		<script>
+		
+			//작가 프로필 사진 클릭하면 작가 상세보기로 이동
 			$('.font-alt.h4').on('click', function () {
 				let ptgId = $(this).children().attr('id')
 				$.ajax({
@@ -228,7 +230,7 @@
 						)
 						$('.btn.btn-primary').on('click',function(){
 							location.href = "/silhyun/ptgDetail/"+ item.ptgId
-												})		
+						})		
 					})
 
 

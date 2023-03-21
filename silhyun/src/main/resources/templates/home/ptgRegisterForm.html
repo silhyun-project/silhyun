@@ -254,6 +254,7 @@
         <script src="/js/theme.js"></script>
         <!-- End script start -->
         <script>
+
             //📌사업자등록전보 진위확인 및 상태조회 서비스
             $('.btn.btn-primary.w-20.ms-2.crnBtn').on('click', function () {
                 let b_no = $('input[name="crn"]').val()
@@ -359,6 +360,8 @@
                 return div
             }
 
+
+            //📌신청버튼을 눌렀을때 onclick이벤트
             function insertPtgRegi() {
                 let btnCk = $('.btn.btn-primary.w-20.ms-2.crnBtn').val()
                 var formData = new FormData($('#ptgRegiFrm')[0])
@@ -390,7 +393,7 @@
                 return false;
             }
             
-            //정규식 이용한 유효화검사
+            //정규식 이용한 유효화 검사
         	const errMsg =  "-을 제외한 10자리 숫자를 적어주세요"
         	let regi = "",
         		isCrnValid = false
