@@ -20,23 +20,19 @@ public class CouponController {
 	@Autowired
 	private CouponService couponService;
 
+	//쿠폰페이지
 	@RequestMapping("/silhyun/eventCoupon")
 	public String eventCoupon(Model model) {
 		model.addAttribute("couponList", couponService.couponSelectList());
 		return "coupon/eventCoupon";
 	}
 	
-	@GetMapping("/myCoupon")
-	public String myCoupon(Model model) {
-		
-		return "coupon/myCoupon";
-	}
-	
+	//쿠폰 얻기
 	@PostMapping("/silhyun/getCoupon")
 	@ResponseBody
 	public boolean getCoupon(CouponHistoryVO hvo,Model model ,HttpSession session) {
-		model.addAttribute("id",session.getAttribute("id"));
 		String id = (String) session.getAttribute("id");
+		hvo.setId(id);
 		couponService.insertCoupon(hvo);
 	
 		return true;
