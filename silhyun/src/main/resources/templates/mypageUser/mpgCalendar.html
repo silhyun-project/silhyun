@@ -42,64 +42,7 @@ body {
 <body>
 	<div layout:fragment="content">
 		<!-- Skippy & Prload -->
-		<!-- skippy -->
-		<a id="skippy"
-			class="skippy visually-hidden-focusable overflow-hidden"
-			href="#content">
-			<div class="container">
-				<span class="u-skiplink-text">Skip to main content</span>
-			</div>
-		</a>
-		<!-- End skippy -->
-		<!-- Preload -->
-		<!--<div id="loading" class="loading-preloader">
-     <div class="spinner-border text-primary" role="status"> 
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>-->
-		<!-- End Preload -->
-		<!-- Edn Skippy & Prload -->
-		<!-- Size Chart  -->
-		<!-- Ask Form -->
-
-		<!-- End Ask Form -->
-
-		<!-- Header Search -->
-
-		<!-- End Header Search -->
-
-
-		<!-- Header Side Search -->
-
-		<!-- End Header Side Search -->
-
-		<!-- Login Popup  -->
-
-		<!-- End Login Popup  -->
-
-		<!-- Mini Cart  -->
-
-		<!-- End Mini Cart  -->
-
-		<!-- Quick View  -->
-
-		<!-- End Quick View  -->
-
-
-		<!-- Sipping Popup  -->
-
-		<!-- End Sipping Popup  -->
-
-
-		<!-- Size Chart  -->
-
-		<!-- End Size Chart  -->
-		<!-- End Size Chart  -->
-		<!-- 
-    ========================
-        Wrapper 
-    ========================
-    -->
+		
 		<div class="wrapper">
 			<!-- heder height -->
 			<div class="header-height-bar"></div>
@@ -135,18 +78,18 @@ body {
 				<!-- Table -->
 				<div class="py-6">
 					<div class="container">
-						<div class="row">
+						<div class="row" th:each="mem : ${memberInfo}">
 							<!-- Profile Menu -->
 							<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 								<div class="bg-white border border-bottom-0 shadow-lg">
 									<div class="d-flex p-3 align-items-center">
 										<div class="avatar avatar-lg rounded-circle">
-											<img src="../../assets/img/avatar/1000x1000.jpg" title=""
+											<img th:src="${mem.profile}" title=""
 												alt="">
 										</div>
 										<div class="col ps-3">
-											<h6 class="m-0">닉네임</h6>
-											<small><a href="#">이름</a></small>
+											<h6 class="m-0" th:text="${mem.id}">닉네임</h6>
+											<small><a href="#" th:text="${mem.name}">이름</a></small>
 										</div>
 									</div>
 									<ul class="list-unstyled mb-0 theme-link">
@@ -265,8 +208,21 @@ body {
 		<script src="../../assets/js/theme.js"></script>
 
 		<!-- Fullcalendar -->
+		<script th:inline="javascript">
+		
+		/*<![CDATA[*/   
+        var role = /*[[${session.role}]]*/
+        var name = /*[[${session.id}]]*/
+       /*]]*/
+       console.log(role[0].authority)
+       
+       console.log(name)
+    </script>
+		
 		<script>
+		
 			document.addEventListener('DOMContentLoaded',function() {
+				
 				var calendarEl = document.getElementById('calendar');	
 				var calendar = new FullCalendar.Calendar(			
 					calendarEl,{	
@@ -282,9 +238,11 @@ body {
 						selectMirror : true,
 
 						select : function(arg) {
+							
 							let cntn = prompt('일정 제목을 입력해주세요:');
 							if (cntn) {
-								let id = 'catLove';
+								
+								let id = name;
 								let todoDate = arg.startStr;
 								let eventData = {
 									id : id,

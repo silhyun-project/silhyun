@@ -5,12 +5,15 @@
 	<meta charset="UTF-8">
 	<title>작가문의 게시판</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
 	<style>
 		/* 스타일링 */
 		div.minimalistBlack {
-			border: 1px solid #000000;
-			width: 55%;
+			width: 70%;
 			border-collapse: collapse;
 			text-align: left;
 		}
@@ -29,10 +32,7 @@
 		}
 
 		.divTable.minimalistBlack .divTableHeading {
-			background: #CFCFCF;
-			background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-			background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-			background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+			background: #B96F4A;
 			border-bottom: 1px solid #000000;
 		}
 
@@ -49,11 +49,11 @@
 		/* DivTable.com */
 		.divTable {
 			display: table;
-			width: 100%;
 		}
 
 		.divTableRow {
 			display: table-row;
+			border-bottom: 1px solid steelblue;
 		}
 
 		.divTableHeading {
@@ -65,7 +65,6 @@
 		.divTableHead {
 			display: table-cell;
 			text-align: center;
-			padding: 3px 10px;
 		}
 
 		.divTableHeading {
@@ -115,27 +114,22 @@
 			text-decoration: none;
 			cursor: pointer;
 		}
-		
-		.ansBox {
-		  display: none;
-		  margin-top: 10px;
-		  margin-bottom: 10px;
-		  background-color: #f9f9f9;
-		  border: 1px solid #ccc;
-		  padding: 10px;
-		  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-		  /* Change the display property from "inline-block" to "block" */
-		  display: block;
+
+		.ansBox{
+			padding-left: 10px;
+
 		}
-		
-		button {
-			margin-left: 10px;
-		}
-		
-		a {
+		a{
 			text-decoration-line: none;
 		}
+		button {
+			margin-left: 10px;
+			
+		}
+
 		
+		
+
 	</style>
 
 </head>
@@ -145,11 +139,11 @@
 		<div class="divTable minimalistBlack" >
 			<div class="divTableHeading">
 				<div class="divTableRow">
-					<div class="divTableHead" style="width: 100px;">제목</div>
+					<div class="divTableHead" style="width: 240px;">제목</div>
 					<div class="divTableHead" style="width: 50px;">작성자</div>
 					<div class="divTableHead" style="width: 50px;">작성날짜</div>
 					<div class="divTableHead" style="width: 70px;">답변상태</div>
-					<div class="divTableHead" style="width: 100px;"></div>
+					<div class="divTableHead" style="width: 150px;"></div>
 				</div>
 			</div>
 
@@ -159,7 +153,7 @@
 		<div></div>
 		<div id="textBox"></div>
 		<br> <br>
-		<button id="new-post-btn">문의하기</button>
+		<button id="new-post-btn" class="btn btn-outline-secondary btn-sm">문의하기</button>
 
 		<!-- 문의 모달 -->
 		<div id="myModal" class="modal">
@@ -175,8 +169,8 @@
 						style="width: 400px;"></textarea>
 					<br> <input type="checkbox" class="secChk" id="secChk" name="isSecret">
 					<label for="isSecret">비밀글</label> <br> <br>
-					<button id="send">작성</button>
-					<button type="reset" id="cancel">취소</button>
+					<button id="send" class="btn btn-outline-secondary btn-sm">작성</button>
+					<button type="reset" id="cancel" class="btn btn-outline-secondary btn-sm">취소</button>
 				</form>
 			</div>
 		</div>
@@ -258,7 +252,6 @@
 		});
 
 
-
 		function getAoQstList() {
 
 			let qstArea = $(".qstArea");
@@ -269,41 +262,44 @@
 					let str = '';
 					$(result).each(function (q, aqst) {
 						str += '<div class="divTableRow">'
-						str += '<a href="#" class="ttlBtn">' + aqst.ttl + '</a>'
-						str += '<div class="divTableCell qstId" id="id">' + aqst.id + '</div>'
-						str += '<div class="divTableCell qstDate" id="qstDate">' + aqst.qstDate + '</div>'
-						str += '<div class="divTableCell rplySta" id="rplySta">' + aqst.rplySta + '</div>'
-						str += '<div class="divTableCell qstBtn">'
-											
-						str += '<button class="qstModi">수정</button>'
-						str += '<button class="qstDel">삭제</button>'
-						str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
-												
-						str += '<button class="ansBtn">답변</button>'
-						str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
-						
-						str += '</div>'				
-						str += '<div class="ansBox" style="display:none; width:100px;">'
-
-						str += '<p id="qCntn">' + aqst.cntn + '<p>'
-
-						str += '<div class="div-title-wrap"><hr>'
-						str += '<h5 class="div-title">"Answer"</h5>'
-						str += '<div class="div-sep-wrap">'
-						str += '<div class="div-sep sep-thin"></div>'
-						str += '</div></div>'
-						str += '<div class="media-ans img-resize">'
-						str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
-						str += '</div>'
-
-						str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
-						str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst.comNum + '">'
-						str += '<button class="ansModi">수정</button>'
-						str += '<button class="ansDel">삭제</button>'
-						str += '</div>'
-
-						str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'
-						
+							str += '<div class="divTableHead" id="ttlName" class="ttlName" style="width: 250px; display:inline-block;">'
+								
+								str += '<a href="#" class="ttlBtn">' + aqst.ttl + '</a>'
+							str += '</div>'
+								// 문의내용, 답변내용 숨김(제목a태그 클릭시 펼쳐짐)					
+							str += '<div class="ansBox" style="display: none;">'
+								// 비밀글 여부 확인 내용 비공개 ----처음----- 비밀글상태이면 비밀글입니다.
+								str += '<p id="qCntn">' + aqst.cntn + '<p>'
+													
+								str += '<div class="div-title-wrap"><hr>'
+									str += '<h5 class="div-title">"Answer"</h5>'
+									str += '<div class="div-sep-wrap">'
+										str += '<div class="div-sep sep-thin"></div>'
+								str += '</div></div>'
+								// 답변이 없을경우 출력안되는곳
+								str += '<div class="media-ans img-resize">'
+									str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
+								str += '</div>'
+								str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
+								str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst.comNum + '">'
+								//출력 됬을 경우 작성자에게는 수정,삭제 해당 작가는 삭제만 
+								str += '<button class="ansModi btn btn-outline-secondary btn-sm" style="margin-bottom: 10px;">수정</button>'
+								str += '<button class="ansDel btn btn-outline-secondary btn-sm" style="margin-bottom: 10px;">삭제</button>'
+							str += '</div>'
+								// 비밀글 여부 내용 공개 비공개 -----끝------
+								// 작성자 아이디 작성일자 답변여부상태 수정,삭제,답변버튼 					
+							str += '<div class="divTableCell qstId" id="id">' + aqst.id + '</div>'
+							str += '<div class="divTableCell qstDate" id="qstDate">' + aqst.qstDate + '</div>'
+							str += '<div class="divTableCell rplySta" id="rplySta">' + aqst.rplySta + '</div>'
+							str += '<div class="divTableCell qstBtn">'
+								// 수정,삭제 → 작성자 || 삭제,답변 → 해당작가
+								str += '<button class="qstModi btn btn-outline-secondary btn-sm">수정</button>'
+								str += '<button class="qstDel btn btn-outline-secondary btn-sm">삭제</button>'
+								str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
+								str += '<button class="ansBtn btn btn-outline-secondary btn-sm">답변</button>'
+													
+							str += '</div>'
+							str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'		
 						str += '</div>'
 					})
 					qstArea.html(str);
@@ -311,11 +307,11 @@
 			})
 		}
 
-		// 제목 클릭시 내용 나오는 이벤트 
+		//제목 클릭시 내용 나오는 이벤트 
 		$(".qstArea").on('click', '.ttlBtn', function () {
-		    var qstContainer = $(this).closest('.divTableRow');
-		    qstContainer.find('.ansBox').toggle();
-		});
+			var qstContainer = $(this).closest('.divTableRow');
+			qstContainer.find('.ansBox').toggle();
+		})
 		
 		//문의글 삭제(답변있는경우 답변도 삭제)
 		$(".qstArea").on('click', '.qstDel', function () {
@@ -360,13 +356,13 @@
 			if($(this).parent().prev().text()=="답변대기") {
 				$('.txtArea').remove();
 
-				var ansCancel = $('<button type="reset" id="cancel" class="ansCancelBtn">취소</button>');
+				var ansCancel = $('<button type="reset" id="cancel" class="ansCancelBtn btn btn-outline-secondary btn-sm">취소</button>');
 				ansCancel.on('click', function() {
 					$('.txtArea').remove(); // "답변내용" textarea와 버튼들 숨기기
 				});
 
 				$('<div class="txtArea">').append('<label for="answer" class="ansLabel">답변내용 : </label><textarea class="ansZone" id="ansZone" name="ansZone" rows="5" style="width: 400px;"></textarea>')
-										  .append('<button id="ansSend" class="ansSend">작성</button>')
+										  .append('<button id="ansSend" class="ansSend btn btn-outline-secondary btn-sm">작성</button>')
 										  .append(ansCancel)
 										  .appendTo($('#textBox'))
 
@@ -424,7 +420,7 @@
 
 			$('.qstModiArea').remove();
 
-			var qstModiCancel = $('<button type="reset" id="qstCancelBtn">취소</button>');
+			var qstModiCancel = $('<button type="reset" id="qstCancelBtn" class="btn btn-outline-secondary btn-sm">취소</button>');
 
 			qstModiCancel.on('click', function() {
 				$('.qstModiArea').remove(); // "답변내용" textarea와 버튼들 숨기기
@@ -432,13 +428,13 @@
 			
 			// 수정할 문의의 제목, 내용 가지고옴
 			let qstTitle = $(this).parent().parent().find('a').text();
-    		let qstContent = $(this).parent().parent().find('.ansBox').text();
+    		let qstContent = $(this).parent().parent().find('#qCntn').text();
 
-			$('<div class="qstModiArea">').append('<label for="title" id="modiTitle">제목 : </label><input type="text" class="qstModiTitle" id="qstModiTitle" name="qstModiTitle" style="width: 400px;"> ')
-				.append('<label for="answer" id="modiCon">수정내용 : </label><textarea class="qstModiZone" id="qstModiZone" name="qstModiZone" rows="5" style="width: 400px;"></textarea>')
-				.append('<button id="qstModiBtn" class="qstModiBtn">수정하기</button>')
-				.append(qstModiCancel)
-				.appendTo($('#textBox'))
+			$('<div class="qstModiArea">').append('<br><label for="title" id="modiTitle">제목 : </label><input type="text" class="qstModiTitle" id="qstModiTitle" name="qstModiTitle" style="width: 400px display: block; margin-bottom: 10px;;"><br>')
+										  .append('<label for="answer" id="modiCon">수정내용 : </label><textarea class="qstModiZone" id="qstModiZone" name="qstModiZone" rows="5" style="width: 400px; display: block; margin-bottom: 10px;"></textarea>')
+										  .append('<button id="qstModiBtn" class="qstModiBtn btn btn-outline-secondary btn-sm">수정하기</button>')
+										  .append(qstModiCancel)
+										  .appendTo($('#textBox'))
 
 			console.log($(this).parent().find('input').val());
 			let qstNo = $(this).parent().find('input').val();
@@ -450,11 +446,6 @@
 			$('#qstModiZone').val(qstContent);
 			
 		});
-		
-		
-		
-		
-		
 		
 
 		$(".ansArea").on('click', '#qstModiBtn', function(){
@@ -502,7 +493,7 @@
 
 				$('.ansModiArea').remove();
 
-				var ansModiCancel = $('<button type="reset" id="ansCancelBtn" class="ansCancelBtn">취소</button>');
+				var ansModiCancel = $('<button type="reset" id="ansCancelBtn" class="ansCancelBtn btn btn-outline-secondary btn-sm">취소</button>');
 
 				ansModiCancel.on('click', function() {
 					$('.ansModiArea').remove(); // "답변내용" textarea와 버튼들 숨기기
@@ -512,7 +503,7 @@
 				let ansContent = $(this).parent().children().find('p').text();
 
 				$('<div class="ansModiArea">').append('<label for="answer" id="qstLabel">수정내용 : </label><textarea class="ansModiZone" id="ansModiZone" name="ansModiZone" rows="5" style="width: 400px;"></textarea>')
-											  .append('<button id="ansModiBtn" class="ansModiBtn">수정하기</button>')
+											  .append('<button id="ansModiBtn" class="ansModiBtn btn btn-outline-secondary btn-sm">수정하기</button>')
 											  .append(ansModiCancel)
 											  .appendTo($('#textBox'))
 					

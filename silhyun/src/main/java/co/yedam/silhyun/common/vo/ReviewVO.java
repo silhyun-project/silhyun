@@ -37,4 +37,5 @@ public class ReviewVO{
 	private String claTtl;
 	private String ptgId;
 	private String thni;
+	private String classNum;
 }

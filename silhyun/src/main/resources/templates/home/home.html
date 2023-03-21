@@ -103,13 +103,13 @@
 							<h5 class="mb-4"  style="text-align: center;">실시간 작가 리뷰</h5>
 							<div class="product-card-4" th:each="rev : ${revList}">
 								<div class="product-card-image" >
-									<a href="#"> 
+									<a th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${rev.ptgId})}"> 
 									<img th:src="${rev.phoRt}" title="" alt="" style="width: 120px;height: 140px">
 									</a>
 								</div>
 								<div class="product-card-info">
 									<h6 class="product-title">
-										<a href="#" tabindex="0">[[${rev.id}]]</a>
+										<a th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${rev.ptgId})}" tabindex="0">[[${rev.id}]]</a>
 									</h6>
 									<div class="product-price">
 										<div class="rating-star text">
@@ -126,12 +126,12 @@
 							<div class="product-card-4" th:each="clas : ${clasList}"
 								style="width: 100%;">
 								<div class="product-card-image">
-									<a href="#"> <img th:src="${clas.phoRt}" title="" alt="" style="width: 120px;height: 140px">
+									<a th:href="@{/silhyun/classes/classesInfo(classNum=${clas.classNum})}"> <img th:src="${clas.phoRt}" title="" alt="" style="width: 120px;height: 140px">
 									</a>
 								</div>
 								<div class="product-card-info">
 									<h6 class="product-title">
-										<a href="#" tabindex="0">[[${clas.id}]]</a>
+										<a th:href="@{/silhyun/classes/classesInfo(classNum=${clas.classNum})}" tabindex="0">[[${clas.id}]]</a>  
 									</h6>
 									<div class="product-price">
 										<div class="rating-star text">
@@ -153,14 +153,14 @@
 										<span class="badge bg-danger">BEST</span>
 									</div>
 									<div class="product-media">
-										<a href="#"> <img th:src="${best.phoRt}" title="" alt=""
+										<a th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${best.ptgId})}"> <img th:src="${best.phoRt}" title="" alt=""
 											style="width: 120px; height: 140px">
 										</a>
 									</div>
 									</div>
 								<div class="product-card-info">
 									<h6 class="product-title">
-										<a href="#" tabindex="0">[[${best.id}]]</a>
+										<a th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${best.ptgId})}" tabindex="0">[[${best.id}]]</a>
 									</h6>
 									<div class="product-price">
 										<div class="rating-star text">

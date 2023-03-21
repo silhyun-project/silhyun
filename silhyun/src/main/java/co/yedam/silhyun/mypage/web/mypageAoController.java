@@ -59,7 +59,7 @@ public class mypageAoController {
 	
 	//마이페이지(작가)
 	@RequestMapping("/photo/mypageAo")
-	public String mypageAo(Model model,PhotographerVO pvo,  HttpSession session) {
+	public String mypageAo(Model model, PhotographerVO pvo,  HttpSession session) {
         String id = (String)session.getAttribute("id");
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 		

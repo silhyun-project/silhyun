@@ -66,7 +66,7 @@
 	<!-- 리뷰 리스트 (작가)-->
 	<select id="getReviewA" resultType="co.yedam.silhyun.common.vo.ReviewVO">
 	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-		SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
+		SELECT R.CTGR_NUM as "ptgId", R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
 		FROM REVIEW R, PHOTO P,MEMBER M
 		WHERE R.REV_NUM = P.CTGR_NUM
 		AND PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))FROM  PHOTO WHERE CTGR ='R' GROUP BY CTGR_NUM)
@@ -81,7 +81,7 @@
 		<!-- 리뷰 리스트 (클래스)-->
 	<select id="getReviewC" resultType="co.yedam.silhyun.common.vo.ReviewVO">
 	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-		SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
+		SELECT R.CTGR_NUM as "classNum", R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
 		FROM REVIEW R, PHOTO P,MEMBER M
 		WHERE R.REV_NUM = P.CTGR_NUM
 		AND PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))FROM  PHOTO WHERE CTGR ='R' GROUP BY CTGR_NUM)
@@ -96,7 +96,7 @@
 	<!-- 리뷰 리스트 (별점)-->
 	<select id="getReview" resultType="co.yedam.silhyun.common.vo.ReviewVO">
 	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-		SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
+		SELECT R.CTGR_NUM as "ptgId", R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
 		FROM REVIEW R, PHOTO P,MEMBER M
 		WHERE R.REV_NUM = P.CTGR_NUM
 		AND PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))FROM  PHOTO WHERE CTGR ='R' GROUP BY CTGR_NUM)

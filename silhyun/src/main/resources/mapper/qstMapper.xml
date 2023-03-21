@@ -69,10 +69,10 @@
 	<delete id="aoQstDelete">
 		
 		begin
+		  delete from qst where qst_num = #{qstNum};
+		  
 		  delete from commment where ctgr_num = #{qstNum} 
 		  and not exists (select 1 from qst where qst_num = #{qstNum});
-		  
-		  delete from qst where qst_num = #{qstNum};
 		end;
 		
 	</delete>
