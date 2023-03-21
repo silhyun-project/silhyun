@@ -2,7 +2,7 @@
  * around.js
  */
 console.log('around.js열리나요');
-var loginUserId = $('.hiddenIdlogin').text();
+
 
 $(document).ready(function() {
 
@@ -24,7 +24,6 @@ $(document).ready(function() {
 					var tags = result.tags;
 					var tagList = [];
 					for (var i = 0; i < tags.length; i++) {
-
 						if (i >= 5) {
 							tagList.push('<li id="moree">...</li>');
 							break;
@@ -48,16 +47,13 @@ $(document).ready(function() {
 
 	//태그리스트 선택하면 해당 태그 적힌 포트폴리오 리스트 출력
 	$('#aroundTagList').on('click', 'li', function() {
-		var selectedTag = $(this).text();
-		
+		var selectedTag = $(this).text();	
 		var inputText = $('#aroundTagSearch').val();
-		
 		if (inputText.length > 0) {
 			var newText = inputText.substring(0, inputText.length -1) + selectedTag;
 			$('#aroundTagSearch').val(newText);
 		}
 		$('#aroundTagList').html('');
-		
 		
 		$.ajax({
 			type: 'GET',
