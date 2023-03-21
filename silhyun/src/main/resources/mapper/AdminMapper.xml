@@ -97,17 +97,7 @@ SELECT
 
 <!-- ptg승인신청 리스트 -->
 <select id="ptgCfmList" resultType="map">
-select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  		CASE 
- 		WHEN region_cd = '01' THEN '서울'
-		WHEN region_cd = '02' THEN '경기'
-		WHEN region_cd = '03' THEN '인천'
-		WHEN region_cd = '04' THEN '강원'
-		WHEN region_cd = '05' THEN '대전/충청'
-		WHEN region_cd = '06' THEN '대구'
-		WHEN region_cd = '07' THEN '부산/울산'
-		WHEN region_cd = '08' THEN '경상'
-		WHEN region_cd = '09' THEN '광주/전라'										
-else '제주' end as "regionCd", regi_date as "regiDate", crn as "crn", 
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  find_cd(region_cd) as "regionCd", regi_date as "regiDate", crn as "crn", 
 nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay"
 from photographer
 where cfm_cd = 'O'
@@ -116,17 +106,7 @@ where cfm_cd = 'O'
 <!--ptg승인신청 select-->
 <select id="ptgSelect" parameterType="String" resultType="map">
 select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  		
-CASE WHEN region_cd = '01' THEN '서울'
-			WHEN region_cd = '02' THEN '경기'
-				WHEN region_cd = '03' THEN '인천'
-					WHEN region_cd = '04' THEN '강원'
-						WHEN region_cd = '05' THEN '대전/충청'
-							WHEN region_cd = '06' THEN '대구'
-								WHEN region_cd = '07' THEN '부산/울산'
-									WHEN region_cd = '08' THEN '경상'
-										WHEN region_cd = '09' THEN '광주/전라'
-										
-else '제주' end as "regionCd", 
+find_cd(region_cd) as "regionCd", 
 nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay",
 (select nvl(profile,'프로필없음') from member where id = ptg_id) as "profile"
 from photographer
@@ -153,18 +133,7 @@ WHERE ptg_id = #{ptgId}
 <select id="stdCfmList" resultType="map">
 select  
 st_id as "stId", st_name as "stName",
- 		CASE 
- 		WHEN region_cd = '01' THEN '서울'
-			WHEN region_cd = '02' THEN '경기'
-				WHEN region_cd = '03' THEN '인천'
-					WHEN region_cd = '04' THEN '강원'
-						WHEN region_cd = '05' THEN '대전/충청'
-							WHEN region_cd = '06' THEN '대구'
-								WHEN region_cd = '07' THEN '부산/울산'
-									WHEN region_cd = '08' THEN '경상'
-										WHEN region_cd = '09' THEN '광주/전라'
-										
-else '제주' end as "regionCd", crn as "crn", addr as "addr", det_addr as "detAddr",
+find_cd(region_cd) as "regionCd",  crn as "crn", addr as "addr", det_addr as "detAddr",
 st_itr as "stItr", nvl(tel,'연락처없음') as "tel", regi_date as "regiDate"
 from Studio
 where cfm_cd = 'O'
@@ -174,18 +143,7 @@ where cfm_cd = 'O'
 <select id="stdSelect" parameterType="String" resultType="map">
 select  
 st_id as "stId", st_name as "stName",
- 		CASE 
- 		WHEN region_cd = '01' THEN '서울'
-			WHEN region_cd = '02' THEN '경기'
-				WHEN region_cd = '03' THEN '인천'
-					WHEN region_cd = '04' THEN '강원'
-						WHEN region_cd = '05' THEN '대전/충청'
-							WHEN region_cd = '06' THEN '대구'
-								WHEN region_cd = '07' THEN '부산/울산'
-									WHEN region_cd = '08' THEN '경상'
-										WHEN region_cd = '09' THEN '광주/전라'
-										
-else '제주' end as "regionCd", crn as "crn", addr as "addr", det_addr as "detAddr",
+find_cd(region_cd) as "regionCd", crn as "crn", addr as "addr", det_addr as "detAddr",
 st_itr as "stItr", nvl(tel,'연락처없음') as "tel", regi_date as "regiDate", st_profile as "profile"
 from Studio
 where st_id = #{stId}
@@ -290,17 +248,7 @@ WHERE event_num = #{eventNum}
 
 	<select id="ptgList" parameterType="PhotographerVO" resultType="map">
 		select ptg_id as "ptgId", st_id as "stId", 
-CASE WHEN region_cd = '01' THEN '서울'
-			WHEN region_cd = '02' THEN '경기'
-				WHEN region_cd = '03' THEN '인천'
-					WHEN region_cd = '04' THEN '강원'
-						WHEN region_cd = '05' THEN '대전/충청'
-							WHEN region_cd = '06' THEN '대구'
-								WHEN region_cd = '07' THEN '부산/울산'
-									WHEN region_cd = '08' THEN '경상'
-										WHEN region_cd = '09' THEN '광주/전라'
-										
-else '제주' end as "regionCd", 
+find_cd(region_cd) as "regionCd", 
         crn as "crn", nvl(inst,'인스타없음') as "inst",
         work_day as "workDay", case when ptg_cd ='S' then 'X' else 'O' end as "ptgCd", accp_date as "accpDate"
 		from photographer
@@ -551,17 +499,7 @@ FETCH FIRST 5 ROWS ONLY
 <!-- 기록가리스트 페이징 -->
 <select id="getListPtg" resultType="map">
 		select ptg_id as "ptgId", nvl(st_id,'없음') as "stId", 
-CASE WHEN region_cd = '01' THEN '서울'
-			WHEN region_cd = '02' THEN '경기'
-				WHEN region_cd = '03' THEN '인천'
-					WHEN region_cd = '04' THEN '강원'
-						WHEN region_cd = '05' THEN '대전/충청'
-							WHEN region_cd = '06' THEN '대구'
-								WHEN region_cd = '07' THEN '부산/울산'
-									WHEN region_cd = '08' THEN '경상'
-										WHEN region_cd = '09' THEN '광주/전라'
-										
-else '제주' end as "regionCd", 
+find_cd(region_cd) as "regionCd", 
         crn as "crn", nvl(inst,'인스타없음') as "inst",
         work_day as "workDay", case when ptg_cd ='S' then 'X' else 'O' end as "ptgCd", accp_date as "accpDate"
 
