@@ -2,7 +2,7 @@
  * portfolioInsert
  */
 console.log('호출됏니')
-var ptgId = 'user1';
+var ptgId = $('.updateptgId').text()
 var portNum = $('.updateInfo').text()
 console.log(portNum)
 
@@ -135,7 +135,7 @@ $(function() {
 				let imsilist = `<tr><td>${imsiCntn}</td> 
 					<td>${result[i].portDate}</td>
 					<td><input type="hidden" name="portNum" value='${result[i].portNum}'><input type="hidden" name="ptgId" value='${result[i].ptgId}'></td><td class="imsiupdateBtn">수정 <td>
-					<td> 삭제</td></tr>`
+					<td class="imsiDelBtn"> 삭제</td></tr>`
 				$('.imsi').append(imsilist)
 			}
 
@@ -148,8 +148,25 @@ $(function() {
 			//임시리스트 수정버튼
 			$('.imsi').on('click', '.imsiupdateBtn', function() {
 				portNum = $(this).closest('tr').find('input[type="hidden"][name="portNum"]').val();//해당포트폴리오번호
-				ptgId=$(this).closest('tr').find('input[type="hidden"][name="ptgId"]').val();
+				ptgId = $(this).closest('tr').find('input[type="hidden"][name="ptgId"]').val();
 				window.location.href = `/silhyun/portfolioUpdate?portNum=${portNum}&ptgId=${ptgId}`;
+			})
+			//임시리스트 삭제버튼
+			$('.imsi').on('click', '.imsiDelBtn', function() {
+				portNum = $(this).closest('tr').find('input[type="hidden"][name="portNum"]').val();//해당포트폴리오번호
+				//포트폴리오지우기
+				$.ajax({
+					url: `/silhyun/portfolioDelete/${portNum}`,
+					method: 'DELETE',
+					success: function(response) {
+						location.reload();
+
+
+					}.bind(this),
+					error: function() {
+						alert('서버와의 통신에 실패했습니다.');
+					}
+				});
 			})
 
 			// 수정폼 끝
@@ -162,13 +179,26 @@ $(function() {
 					ctgrNum: portNum
 				},
 				success: function(result) {
-					console.log(result)
+					console.log(result.photos)
 					console.log('마이마이마이요네즈')
-
-
-
-					//내용 붙이기.
 					$('#cntn').text(result.portfolio.cntn)
+						var imgE1 = `<div class="swiper-slide">
+          <div class="pd-gallery-slide">
+            <img src="${result.photos[0].phoRt}" class="img-fluid" alt="">
+          </div>
+        </div>`;
+					$(".photo-list-containerN1").empty();
+					$(".photo-list-containerN1").append(imgE1);
+					for (i = 0; i < result.photos.length; i++) {
+						var imgEl1 = `<div class="swiper-slide photo-list-item">
+          <div class="pd-gallery-slide-thumb">
+            
+            <img src="${result.photos[i].phoRt}" class="img-fluid" alt="">
+          </div>
+        </div>`;
+						$('.photo-list-container').append(imgEl1);
+					}
+					//내용 붙이기.
 				}
 
 			})//수정폼만들기 끝
@@ -194,7 +224,7 @@ $(function() {
 
 	//포트폴리오 수정하기 버튼
 	$('.btn.btn-dark.me-3.submit').click(function(e) {
-		e.preventDefault();
+	e.preventDefault();
 
 
 		var upSta = 'Y';

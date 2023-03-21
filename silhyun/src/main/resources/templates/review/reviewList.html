@@ -128,7 +128,8 @@ white-space: pre-wrap ;
 	                    <br>
 	                    	<!-- 평균별점 -->
 	                    	<div>
-						  	<span>총 별점 <span id="starAvg">[[${star.star}]]</span>점 </span>
+						  	<span>총 별점 <span id="starAvg" th:if='${star.star} neq null'>[[${star.star}]]</span>
+						  	            <span id="starAvg" th:else='${star.star} neq null'>0.0</span>점 </span>
 					       <div class="star-ratings">
 						        <div class="star-ratings-fill">
 						            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -168,7 +169,7 @@ white-space: pre-wrap ;
 						<input type="hidden" name="ctgrNum" th:value="${list[0].ctgrNum}">
 					</form>
 				</div>
-				<th:block th:each="rev : ${list}">
+				<th:block th:if='${list} != null' th:each="rev : ${list}">
 				<form id="upFrm">
 				<input type="hidden" th:value="${rev.revNum}" class="revNum" name="revNum">
 	            <div class="d-flex review-box border-top mt-4 pt-4 reviewContent">

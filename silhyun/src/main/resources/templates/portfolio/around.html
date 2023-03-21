@@ -72,8 +72,7 @@
 									<ul class="nav flex-column">
 										<li class="nav-item"><a href="#" class="nav-link active">둘러보기</a>
 										</li>
-										<li class="nav-item"><a href="#" class="nav-link">후기
-												모음</a></li>
+										<li class="hiddenIdlogin" style="display: none">[[${session.id}]]</li>
 									</ul>
 								</div>
 							</div>
@@ -207,11 +206,11 @@
 		<script th:inline="javascript">
 		
 		/*<![CDATA[*/
-				  /*[[${session.id}]]*/
-			const portfolio = /*[[${portfolioList}]]*/	
+			var loginUserId =/*[[${session.id}]]*/
+			var portfolio = /*[[${portfolioList}]]*/	
 			/*]]>*/
 
-			var loginUserId = 'user2';
+			
 			
 			
 		$("div#rowg-3").children().remove();//먼저 깔끔희~
@@ -367,7 +366,9 @@
 								$(".mTopSectionInfo").empty();
 								$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
 								
-								if (loginUserId !=='selectedPortfolio.ptgId'){$('.menuButton').css('display','none')}
+								if (loginUserId !=='selectedPortfolio.ptgId'){$('.menuButton').hide()
+									}else{{$('.menuButton').show()}
+								}
 								
 								
 								
@@ -427,6 +428,7 @@
 
 
 				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))끝
+							
 				
 				
 						//////모달 내 삭제~

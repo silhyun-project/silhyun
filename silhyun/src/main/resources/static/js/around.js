@@ -2,7 +2,7 @@
  * around.js
  */
 console.log('around.js열리나요');
-var loginUserId = 'user2';
+var loginUserId = $('.hiddenIdlogin').text();
 
 $(document).ready(function() {
 
