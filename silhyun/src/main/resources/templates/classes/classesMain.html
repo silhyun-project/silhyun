@@ -220,34 +220,36 @@
             data: { param1: param1 },
             dataType: "json",
             }).then((result) => {
+            
+           	//컨트롤러에서 model에 받은 리스트 분리
             var cdtC1List = result.cdtC1List;
             var cdtC2List = result.cdtC2List;
 
-            //기존 요소 div 지우고
+            //기존 요소 div 지우기
             var offHere = document.getElementById("offHere");
             offHere.innerHTML = "";
 
             //날짜 형태 변환
             var options = { year: "numeric", month: "long", day: "numeric" };
 
+            //클래스 없을 시 준비중 알림
             if (cdtC1List.length === 0) {
                 document.getElementById("offEmptyMsg");
                 offEmptyMsg.text = "준비중입니다.";
             } else {
                 offEmptyMsg.text = "";
 
-                // 별점 평균값과 개수 계산
-                function drawStar(rating, count) {
+                // 별점 그리기
+                function drawStar(rating) {
                 var star = "";
-                var color = "";
-
+                
                 for (var i = 1; i <= 5; i++) {
                     if (rating >= i) {
-                    star += '<i class="bi bi-star-fill active"></i>'; // 별 채우기
+                    star += '<i class="bi bi-star-fill active"></i>';
                     } else if (rating >= i - 0.5) {
-                    star += '<i class="bi bi-star-half active"></i>'; // 반 개 채우기
+                    star += '<i class="bi bi-star-half active"></i>'; 
                     } else {
-                    star += '<i class="bi bi-star"></i>'; // 빈 별
+                    star += '<i class="bi bi-star"></i>';
                     }
                 }
 
@@ -260,9 +262,8 @@
 
                 // 별점 평균값과 개수 계산
                 var rating = cdtC1.STAR;
-                var count = Math.round(rating); // 반올림
 
-                //새 요소 생성
+                //새 div 생성
                 var appendOff = `
 
                     <div class="col-6 col-lg-3" style="float: left; height: 485px;">
@@ -290,7 +291,7 @@
                         </div>
                         <div class="product-card-info">
                         <div class="rating-star text">
-                            ${drawStar(rating, count)}
+                            ${drawStar(rating)}
                         <a id="cdt1Star">${cdtC1.STAR}</a>
                     </div>         
                     <h6 class="product-title">
@@ -325,7 +326,6 @@
             // 별점 평균값과 개수 계산
             function drawStar(rating, count) {
             var star = "";
-            var color = "";
 
             for (var i = 1; i <= 5; i++) {
                 if (rating >= i) {
