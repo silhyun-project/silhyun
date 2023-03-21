@@ -23,7 +23,7 @@ select count(*)
 from qst
 where rply_sta = 'N'
 </select>
-
+ 
 <!-- 지난 2주간 매출 -->
 <select id="lastSales" resultType="map">
 SELECT
@@ -32,7 +32,7 @@ SELECT
 FROM
   payment
 WHERE
-  ord_date BETWEEN sysdate-14 AND sysdate
+  ord_date BETWEEN sysdate-13 AND sysdate+1
 GROUP BY
   to_char(ord_date, 'yyyy-MM-dd')
 ORDER BY
@@ -49,7 +49,7 @@ ORDER BY
       CASE WHEN p.ctgr = 'A' THEN p.ctgr_num ELSE 
       (SELECT c.ptg_id FROM class c WHERE c.class_num = p.ctgr_num) END AS "ctgrNum", 
       p.id AS "id", 
-      p.paym_pri AS "pri", 
+          to_char(p.paym_pri, 'FM999,999,999') AS "pri", 
       TO_CHAR(p.ord_date,'YYYY/MM/DD') AS "date"
     FROM payment p
     ORDER BY p.ord_date DESC
@@ -99,7 +99,18 @@ SELECT
 
 <!-- ptg승인신청 리스트 -->
 <select id="ptgCfmList" resultType="map">
-select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId", region_cd as "regionCd", regi_date as "regiDate", crn as "crn", 
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  		CASE 
+ 		WHEN region_cd = '01' THEN '서울'
+			WHEN region_cd = '02' THEN '경기'
+				WHEN region_cd = '03' THEN '인천'
+					WHEN region_cd = '04' THEN '강원'
+						WHEN region_cd = '05' THEN '대전/충청'
+							WHEN region_cd = '06' THEN '대구'
+								WHEN region_cd = '07' THEN '부산/울산'
+									WHEN region_cd = '08' THEN '경상'
+										WHEN region_cd = '09' THEN '광주/전라'
+										
+else '제주' end as "regionCd", regi_date as "regiDate", crn as "crn", 
 nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay"
 from photographer
 where cfm_cd = 'O'
@@ -107,7 +118,18 @@ where cfm_cd = 'O'
 
 <!--ptg승인신청 select-->
 <select id="ptgSelect" parameterType="String" resultType="map">
-select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId", region_cd as "regionCd", 
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  		CASE 
+ 		WHEN region_cd = '01' THEN '서울'
+			WHEN region_cd = '02' THEN '경기'
+				WHEN region_cd = '03' THEN '인천'
+					WHEN region_cd = '04' THEN '강원'
+						WHEN region_cd = '05' THEN '대전/충청'
+							WHEN region_cd = '06' THEN '대구'
+								WHEN region_cd = '07' THEN '부산/울산'
+									WHEN region_cd = '08' THEN '경상'
+										WHEN region_cd = '09' THEN '광주/전라'
+										
+else '제주' end as "regionCd", 
 nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay",
 (select nvl(profile,'프로필없음') from member where id = ptg_id) as "profile"
 from photographer
@@ -151,7 +173,7 @@ from Studio
 where cfm_cd = 'O'
 </select>
 
-<!--ptg승인신청 select-->
+<!--std승인신청 select-->
 <select id="stdSelect" parameterType="String" resultType="map">
 select  
 st_id as "stId", st_name as "stName",
@@ -194,7 +216,14 @@ select
 ptg_id as "ptgId", cla_ttl as "claTtl", class_num as "classNum",
  		CASE 
  		WHEN cla_cd = 'CL2' THEN '온라인' else '현장' end as "claCd", 
-cla_desct as "claDesct", cla_pri as "claPri", regi_date as "regiDate"
+ 		    nvl(to_char(cla_dt, 'YYYY"년" MM"월" DD"일"'),'없음') as "claDt", 
+    CASE
+      WHEN cla_time = '' THEN '시간미정'
+      WHEN cla_time  <![CDATA[ < ]]>=12 THEN '오전 '|| cla_time || '시'
+      ELSE '오후 '|| to_char(to_number(cla_time)-12) || '시'
+    END AS "claTime", 
+    nvl(cla_place,'없음') as "claPlace",
+ to_char(cla_pri, 'FM999,999,999') as "claPri", regi_date as "regiDate"
 from class
 where cfm_cd = 'O'
 </select>
@@ -205,14 +234,14 @@ where cfm_cd = 'O'
     ptg_id as "ptgId", cla_ttl as "claTtl", class_num as "classNum",
     CASE 
       WHEN cla_cd = 'CL2' THEN '온라인' else '현장' end as "claCd", 
-    cla_desct as "claDesct", cla_pri as "claPri", regi_date as "regiDate",
+    cla_desct as "claDesct",  to_char(cla_pri, 'FM999,999,999') as "claPri", regi_date as "regiDate",
     nvl(to_char(cla_dt, 'YYYY"년" MM"월" DD"일"'),'없음') as "claDt", 
     CASE
       WHEN cla_time = '' THEN '시간미정'
       WHEN cla_time  <![CDATA[ < ]]>=12 THEN '오전 '|| cla_time || '시'
       ELSE '오후 '|| to_char(to_number(cla_time)-12) || '시'
     END AS "claTime", 
-    nvl(cla_place,'없음') as "claPlace", 
+    nvl(cla_place,'없음') as "claPlace", cla_desct as "claDesct", 
     nvl(ydt,'0') as "ydt", nvl(ypsn,'0') as "ypsn", nvl(rcnt,'0') as "rcnt", nvl(cla_cnt,'0') as "claCnt",
     thni as "thni", ot as "ot" 
   from class
@@ -259,19 +288,19 @@ WHERE event_num = #{eventNum}
 	<select id="memberList" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
 		select * 
 		from member
-		order by join_date
+		order by join_date desc
 	</select>
 
 	<select id="ptgList" parameterType="PhotographerVO" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-		select *
+		select 
 		from photographer
-		order by regi_date
+		order by accp_date desc
 	</select>
 
 	<select id="stdList" parameterType="StudioVO" resultType="co.yedam.silhyun.member.vo.StudioVO">
 		select *
 		from studio
-		order by regi_date
+		order by accp_date desc
 	</select>
 
 	<select id="adminInfo" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
@@ -476,6 +505,7 @@ FETCH FIRST 5 ROWS ONLY
 	<![CDATA[	
 	 	) a where rownum <= #{pageNum} * #{amount}) b where rn > (#{pageNum}-1) * #{amount}
 	 ]]>
+	 order by join_date desc
 </select>
 
 <select id="getTotalCount" resultType="int">

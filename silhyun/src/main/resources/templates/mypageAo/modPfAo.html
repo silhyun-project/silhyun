@@ -123,9 +123,7 @@
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
 									<small><a href="/photo/mypageAo" th:text="${ptg.name}"></a></small>
 								</div>
-								<div>
-									<button>회원변경</button>
-								</div>
+							
 							</div>
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
@@ -152,12 +150,7 @@
 									href="/photo/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
 								</a></li>
 								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i
-										class="bi bi-pie-chart-fill"></i>통계
-								</a></li>
-								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3" href="/silhyun/portfolio">
+									class="nav-link-style d-flex align-items-center p-3" href="/silhyun/portfolio/${session.id}">
 										<i class="bi-person-bounding-box me-2"></i>포토폴리오
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -252,9 +245,29 @@
 									</div>
 									
 									
-									<div th:each="wd:${workDay}">
-									<label>현재 근무요일</label><br>
-									<label th:text="${wd.workDay}"></label>
+									<div th:each="wd:${workDay}" >
+									<label>현재 근무요일 : </label>&emsp;&emsp;	<label th:text="${wd.workDay}"></label>
+									<br>
+									<label>근무 시간</label>
+									&emsp;&emsp;&emsp;&emsp;&nbsp;
+									<span th:each="rt:${resTime}">
+									  <label th:switch="${rt.resTime}">
+										  <label th:case="'A'">오전 10:00</label>
+										  <label th:case="'B'">오전 10:30</label>
+										  <label th:case="'C'">오전 11:00</label>
+										  <label th:case="'D'">오전 11:30</label>
+										  <label th:case="'E'">오후 2:00</label>
+										  <label th:case="'F'">오후 2:30</label>
+										  <label th:case="'G'">오후 3:00</label>
+										  <label th:case="'H'">오후 3:30</label>
+										  <label th:case="'I'">오후 4:00</label>
+										  <label th:case="'J'">오후 4:30</label>
+										  <label th:case="'K'">오후 5:00</label>
+										  <label th:case="'L'">오후 5:30</label>
+										  <label th:case="'M'">오후 6:00</label>
+										  <label th:case="'N'">오후 6:30</label>
+									  </label>						
+									</span>
 									</div>
 									<div class="col-sm-12 mb-3">근무 가능 요일</div>
 									<div class="col-sm-12 mb-3">
