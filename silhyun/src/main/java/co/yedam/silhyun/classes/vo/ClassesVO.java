@@ -15,7 +15,6 @@ public class ClassesVO {
 	private String ptgId;
 	private String claTtl;
 	private String claCd;
-
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date claDt;	
@@ -30,8 +29,7 @@ public class ClassesVO {
 	private int claPri;
 	private String cfmSta;
 	private String ot;
-	private int rati;
-	
+	private int rati;	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date accpDt;
