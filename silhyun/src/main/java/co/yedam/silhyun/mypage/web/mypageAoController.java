@@ -153,8 +153,8 @@ public class mypageAoController {
 	@RequestMapping("/ajaxResInfo/{ptgId}/{redate}/{shotTime}")
 	@ResponseBody
 	public List<PhotographerVO> ajaxResInfo(Model model,
-			                               @PathVariable String redate,
 			                               @PathVariable String ptgId,
+			                               @PathVariable String redate,
 			                               @PathVariable String shotTime){
 		return mypageAoService.getResInfo(ptgId, redate, shotTime);
 	}
