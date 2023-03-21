@@ -1,5 +1,6 @@
 package co.yedam.silhyun.mypage.web;
 
+import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,18 +20,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.classes.vo.ClassesVO;
 import co.yedam.silhyun.common.vo.Criteria;
 import co.yedam.silhyun.common.vo.PageVO;
 import co.yedam.silhyun.event.vo.CouponVO;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.member.service.MemberService;
-import co.yedam.silhyun.member.service.PtgService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.member.vo.OptionsVO;
 import co.yedam.silhyun.member.vo.PhotographerVO;
@@ -59,7 +57,7 @@ public class mypageAoController {
 	@Autowired
 	private MemberService memberService;
 	
-
+	//마이페이지(작가)
 	@RequestMapping("/photo/mypageAo")
 	public String mypageAo(Model model,PhotographerVO pvo,  HttpSession session) {
         String id = (String)session.getAttribute("id");
@@ -68,6 +66,7 @@ public class mypageAoController {
 		return "mypageAo/mypageAo";
 	}
 
+	//작가 정보 수정
 	@RequestMapping("/photo/modPfAo")
 	public String modpfAo(Model model,  HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -77,11 +76,10 @@ public class mypageAoController {
 		return "mypageAo/modPfAo";
 	}
 	
+	//대표사진 업로드
 	@PostMapping("/uploadPhoto")
 	@ResponseBody
 	public Map<String, Object> uploadPhoto(ReserVO vo, MultipartFile file) {
-		System.out.println("내가 볼려는거" + vo);
-		System.out.println("파일확인" + file);
 		Map<String, Object> map = new HashMap<>();
 
 		if (file != null && !file.isEmpty()) {
@@ -98,20 +96,16 @@ public class mypageAoController {
 				e.printStackTrace();
 			}
 			vo.setMainP("/saveImg/portfolio/" + fileName);
-//			vo.setClassNum(vo.getPtgId() + key);
-			System.out.println("내가 볼려는거22" + vo);
-			System.out.println("넘어오니?"+vo.getMainP());	//옴
 			mypageAoService.uploadPhoto(vo); // db에 담음
 			map.put("vo", vo);
-			map.put("file", file);
+
 		}
 		return map;
 	}
-	
+	//예약관리
 	@RequestMapping("/photo/resManage")
 	public String resManage(Model model, HttpSession session, Criteria cri) {
 		String id = (String)session.getAttribute("id");
-		System.out.println(id + "ddddddddddddddddddddddddddddd");
 		cri.setAmount(6);
 
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
@@ -122,7 +116,7 @@ public class mypageAoController {
 		return "mypageAo/resManage";
 	}
 	
-	
+	//운영중인 클래스 관리
 	@GetMapping("/photo/classManage")
 	public String classManage(Model model,HttpSession session, Criteria cri) {
 		String id = (String)session.getAttribute("id");
@@ -133,7 +127,8 @@ public class mypageAoController {
 		model.addAttribute("page", new PageVO(mypageAoService.totalClassList(id), 10, cri));
 		return "mypageAo/classManage";
 	}
-
+	
+	//문의사항(x) 
 	@GetMapping("/photo/mypageAoAsk")
 	public String mypageAoAsk(Model model, HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -143,6 +138,7 @@ public class mypageAoController {
 		return "mypageAo/mypageAoAsk";
 	}
 
+	//예약스케쥴(캘린더)
 	@GetMapping("/photo/resCalendarAo")
 	public String resCalendarAo(Model model,HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -153,29 +149,18 @@ public class mypageAoController {
 		return "mypageAo/resCalendarAo";
 	}
 
-	
+	//예약스케쥴(캘린더) 시간 선택->예약 정보 나타나기
 	@RequestMapping("/ajaxResInfo/{ptgId}/{redate}/{shotTime}")
 	@ResponseBody
-	public List<PhotographerVO> ajaxResInfo(Model model,@PathVariable String redate,@PathVariable String ptgId,@PathVariable String shotTime){
-		System.out.println("호출호출?");
-		System.out.println("redate====="+redate);
-		System.out.println("ptgId--------------"+ptgId);
-		System.out.println("shotTime++++++++++++"+shotTime);
-		
-		
+	public List<PhotographerVO> ajaxResInfo(Model model,
+			                               @PathVariable String redate,
+			                               @PathVariable String ptgId,
+			                               @PathVariable String shotTime){
 		return mypageAoService.getResInfo(ptgId, redate, shotTime);
 	}
 	
-	/*
-	 * @RequestMapping("/ajaxResTime/{ptgId}/{redate}") //작가가 등록한 시간 아작스 호출
-	 * 
-	 * @ResponseBody public List<PhotographerVO> ajaxResTime(Model
-	 * model,@PathVariable String redate,@PathVariable String ptgId){
-	 * System.out.println("호출 되었니"); System.out.println("redate====="+redate);
-	 * return mypageAoService.getResTime(ptgId,redate); }
-	 */
 	
-
+	//통계X
 	@GetMapping("/photo/mypageStatsAo")
 	public String mypageStatsAo(Model model ,HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -183,7 +168,7 @@ public class mypageAoController {
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 		return "mypageAo/mypageStatsAo";
 	}
-
+	//신고
 	@GetMapping("/photo/reportFormAo")
 	public String reportAo(Model model,HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -193,48 +178,36 @@ public class mypageAoController {
 	}
 
 	// 작가 정보수정
-	   @PostMapping("/updateMyPg")
-	   public String updateMyPg(MemberVO vo ,PhotographerVO pvo) {
-	      System.out.println(pvo.getPtgId()+"dddddddddddddd");
-	   //    int updatedPvo = mypageAoService.ptgInfoUpdate(vo);
-	      vo.setId(pvo.getPtgId());
-	      System.out.println(vo.getId()+"daaaaaaaaaaa");
-	      mypageAoService.ptgInfoUpdate(vo);
-	      mypageAoService.updateWorkday(pvo);
-	    //   mypageAoService.updateWorkday(updatedPvo);
-	      return "redirect:/photo/modPfAo";
-	   }
+   @PostMapping("/updateMyPg")
+   public String updateMyPg(MemberVO vo ,PhotographerVO pvo) {
+      vo.setId(pvo.getPtgId());
+      mypageAoService.ptgInfoUpdate(vo);
+      mypageAoService.updateWorkday(pvo);
+      return "redirect:/photo/modPfAo";
+   }
 
 
 	// 작가 예약 시간 정보 수정
-
 	@PostMapping("/upWorkTime")
 	@ResponseBody
 	public String upWorkTime(@RequestBody List<ReserTimeVO> reserTimeList) {
-		//ReserTimeVO vo = new ReserTimeVO();
-		// ptg_id 는 null값으로 보낼까??
-		System.out.println("kkkkkkkkkkkk"+reserTimeList.toString());
-		//mypageAoService.deleteReserTime();
-		//VO 객체를 반복문을 통해 insertReserTime 메서드로 전달
-		System.out.println(reserTimeList.get(0).getPtgId());
+		// ptg_id 는 null값으로 보냄
+		//리스트 속 아이디는 다 같으므로 첫번째거 들고 옴
 		String ptgId = reserTimeList.get(0).getPtgId();
 		mypageAoService.deleteReserTime(ptgId);
 		int n = 0;
 	
+		//VO 객체를 반복문을 통해 insertReserTime 메서드로 전달
 		for (ReserTimeVO vo : reserTimeList) {
-			System.out.println(vo + "보입니다 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
 			n = mypageAoService.insertReserTime(vo);
-
-
 		}
 		
 		if(n>0) {
 			return "성공";
-		}else {
 			
+		}else {			
 			return "실패";
 		}
-	
 
 	}
 
@@ -262,26 +235,20 @@ public class mypageAoController {
 			}
 			vo.setProfile("/saveImg/profil/" + fileName);
 			memberService.updateProfileImage(vo);
-			map.put("vo", vo);
-			map.put("profile", file);
-		
+			map.put("vo", vo);		
 		}
 		
 		return map;
 	}
 
-
+	//이벤트요청
 	@PostMapping("/applyEvent")
 	@ResponseBody
 	public Map<String, Object> applyEvent(EventVO vo, CouponVO cvo, MultipartFile file) {
-		System.out.println("내가 볼려는거" + vo);
-		System.out.println("쿠폰" + cvo);
-		System.out.println("파일확인" + file);
 		Map<String, Object> map = new HashMap<>();
 
 		if (file != null && !file.isEmpty()) {
 			String saveImgPath = saveimg + "banner";
-
 			String fileName = UUID.randomUUID().toString(); // UUID생성
 			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
 			File uploadFile = new File(saveImgPath, fileName);
@@ -303,8 +270,7 @@ public class mypageAoController {
 					break;
 				}
 			}
-//			 System.out.println(key+"========================");
-//			 System.out.println(uploadFile+"0000000000000");
+
 			try {
 				file.transferTo(uploadFile); // 파일저장
 			} catch (IllegalStateException e) {
@@ -314,32 +280,24 @@ public class mypageAoController {
 			}
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getId() + key);
-		//	vo.setName(vo.getId()+"님의 이벤트");
-			
 
 			mypageAoService.applyEvent(vo); // db에 담음
-//			 System.out.println("넘어오니?"+vo.getEventNum());
-//			 System.out.println("파일 오나?"+vo.getBnph());
-//			 System.out.println("아ㅣ이디는?"+vo.getId());
 			cvo.setEventNum(vo.getEventNum()); // vo에 담긴 eventNum을 들고오기
 			cvo.setCpnNum(vo.getEventNum()); // eventNum이랑 값 같게
 			cvo.setCtgrNum(vo.getId());
-			cvo.setCpnCd("C1");	//개인인지 공통인지 작가는 c1(개인)만
+			cvo.setCpnCd("C1");				//개인인지 공통인지 작가는 c1(개인)만
 			mypageAoService.applyECoupon(cvo);
 
 			map.put("vo", vo);
 			map.put("cvo", cvo);
-			map.put("file", file);
-
 		}
 		return map;
 	}
-
+	
+	//클래스 요청
 	@PostMapping("/applyClass")
 	@ResponseBody
 	public Map<String, Object> applyEvent(ClassesVO vo, MultipartFile file) {
-		System.out.println("내가 볼려는거" + vo);
-		System.out.println("파일확인" + file);
 		Map<String, Object> map = new HashMap<>();
 
 		if (file != null && !file.isEmpty()) {
@@ -348,25 +306,7 @@ public class mypageAoController {
 			String fileName = UUID.randomUUID().toString(); // UUID생성
 			fileName = fileName + "_" + file.getOriginalFilename(); // 유니크한 아이디
 			File uploadFile = new File(saveImgPath, fileName);
-			// 클래스 번호 난수 생성
-//			StringBuffer key = new StringBuffer();
-//			Random rnd = new Random();
-//
-//			for (int i = 0; i < 6; i++) {
-//				int index = rnd.nextInt(3);
-//				switch (index) {
-//				case 0:
-//					key.append((char) ((rnd.nextInt(26)) + 97));
-//					break;
-//				case 1:
-//					key.append((char) ((rnd.nextInt(26)) + 65));
-//					break;
-//				case 2:
-//					key.append((rnd.nextInt(10)));
-//					break;
-//				}
-//			}
-			// System.out.println(key+"========================");
+
 			try {
 				file.transferTo(uploadFile); // 파일저장
 			} catch (IllegalStateException e) {
@@ -375,16 +315,13 @@ public class mypageAoController {
 				e.printStackTrace();
 			}
 			vo.setThni("/saveImg/thum/" + fileName);
-//			vo.setClassNum(vo.getPtgId() + key);
 			mypageAoService.applyClass(vo); // db에 담음
-			// System.out.println("넘어오니?"+vo.getEventNum());
 			map.put("vo", vo);
-			map.put("file", file);
-
 		}
 		return map;
 	}
-
+	
+	//옵션 설정
 	@PostMapping("/photo/insertOption")
 	@ResponseBody
 	public String insertOption(@RequestBody List<OptionsVO> options,Model model,HttpSession session) {
@@ -393,19 +330,15 @@ public class mypageAoController {
 		// OptionsVO 객체를 반복문을 통해 insertOption 메서드로 전달
 		for (OptionsVO vo : options) {
 			vo.setPtgId(id);
-//	        vo.setOpNum(vo.getPtgId() + key.toString());
-			System.out.println("+++~~~~~~" + vo);
 			mypageAoService.insertOption(vo);
 		}
 
 		return "";
 	}
 	
+	//수강자 조회
 	@RequestMapping("/silhyun/mypageAo/classInquiry/{classNum}")
 	private String classInquiry(@PathVariable("classNum") String classNum, Model model, HttpSession httpSession) {
-		String id = (String)httpSession.getAttribute("id");
-		model.addAttribute("classNum", classNum);
-		System.out.println("호출?########"+classNum);
 		model.addAttribute("memInfo",mypageAoService.clMemInfo(classNum));
 		return "mypageAo/classInquiry";
 	}
