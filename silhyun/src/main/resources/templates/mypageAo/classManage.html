@@ -337,20 +337,12 @@ function applyForm(n){
 	}
 } 
 
+//이벤트신청
  function uploadEvent(){
-		//let sel=document.getElementById('regionCd').value;
-	//const bnInput = $("#uploadEv")[0];
+	
 	var formData = new FormData($("#uploadEv")[0]);
 	
-
-	//formData.append('file',$("#bnph"));
-	
-	//const formData = new FormData();
-	//formData.append("banner", bnInput)
-	//formData.append("bnph",$("#bnph")[0].files[0]);
-	
-	/*  var files= inputFile[0].files;
-	 console.log(files); */
+	//들어오는거 확인
 	 for(let key of formData.keys()){
 		 console.log(key+"--------------------키")
 	 }
@@ -379,14 +371,6 @@ function applyForm(n){
  function uploadClass(){
 	
 	var formData = new FormData($("#uploadCl")[0]);
-	
-	for(let key of formData.keys()){
-		 console.log(key+"/////키")
-	 }
-	 for(let value of formData.values()){
-		 console.log(value+"+_+_+_value")
-	 }
-	
 	 
 	$.ajax({
 		url:'/applyClass',

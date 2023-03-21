@@ -26,22 +26,15 @@
 		WHERE ID=#{id}
 	</select>
 	
-	<!-- 제일 최근 날짜  -->
-<!-- 	<select id="recentlyDate" resultType="co.yedam.silhyun.mypage.vo.ChulcheckVO">
-		SELECT ID, MAX(TO_CHAR(CHECK_DATE, 'YYYY-MM-DD')) AS CHECK_DATE
-		FROM CHULCHECK
-		WHERE ID = #{id}
-		GROUP BY ID
-	</select> -->
 
 <!-- 제일 최근 날짜  -->
 <select id="recentlyDate" resultType="co.yedam.silhyun.mypage.vo.ChulcheckVO">	
-	select id, check_date
-	from(
-	    select *
-	    from chulcheck
-	    where id = #{id}
-	    order by check_date desc
+	SELECT id, check_date
+	FROM(
+	    SELECT *
+	      FROM chulcheck
+	      WHERE id = #{id}
+	      ORDER BY check_date desc
 	    )
 	where ROWNUM =1
 </select>
