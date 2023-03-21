@@ -227,7 +227,7 @@
 		return false
 	}
 	
-	$('input[name="tel"]').val($('#telf').val()+$('#tels').val()+$('#telt').val())
+	$('input[name="tel"]').val($('#telf').val()+'-'+$('#tels').val()+'-'+$('#telt').val())
 	$('input[name="email"]').val($('#emailId').val()+'@'+$('#emailDomain').val())
 	if($('#year').val() != ''){	
 	$('#birthDate').val($('#year').val()+'-'+$('#month').val()+'-'+$('#day').val())
