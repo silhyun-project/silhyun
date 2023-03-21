@@ -11,4 +11,5 @@ public class InetClassesVO {
 	private String inetTime;
 	private String inetDesct;
 	private String inetVdo;
+	
 }
