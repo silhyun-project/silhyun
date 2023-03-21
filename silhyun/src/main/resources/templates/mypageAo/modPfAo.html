@@ -246,9 +246,10 @@
 									
 									
 									<div th:each="wd:${workDay}" >
-									<label>현재 근무요일</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-									<label>근무 시간</label><br>
-									<label th:text="${wd.workDay}"></label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+									<label>현재 근무요일 : </label>&emsp;&emsp;	<label th:text="${wd.workDay}"></label>
+									<br>
+									<label>근무 시간</label>
+									&emsp;&emsp;&emsp;&emsp;&nbsp;
 									<span th:each="rt:${resTime}">
 									  <label th:switch="${rt.resTime}">
 										  <label th:case="'A'">오전 10:00</label>
