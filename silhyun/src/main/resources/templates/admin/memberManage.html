@@ -238,7 +238,7 @@
                                                                
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> //test
                                         <tr th:each="ptg,sts : ${ptglist}" th:Class="${sts}">
                                             <td th:text="${ptgPage.total-(ptgPage.criteria.pageNum-1)*ptgPage.criteria.amount-sts.index}"></td>
                                             <td th:text="${ptg.ptgId}" th:value="${ptg.ptgId}" id="id" th:name="id"></td>
