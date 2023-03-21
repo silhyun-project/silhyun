@@ -197,7 +197,7 @@ public class AdminController {
 			 n = adminService.classAccept(classNum);
 			
 			 if (n!=0) {
-				 msg = classNum+"을 승인 완료했습니다.";
+				 msg = "승인완료했습니다.";
 			 }else {
 				 msg ="승인 실패";
 			 }

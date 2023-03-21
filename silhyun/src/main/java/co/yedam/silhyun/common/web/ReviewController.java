@@ -50,8 +50,10 @@ public class ReviewController {
 
 	//리뷰 업데이트로 가는 아작스
 	@GetMapping("/reviewUpform")   
-	public String reviewUpform(ReviewVO vo, Model model) { 
+	public String reviewUpform(ReviewVO vo, Model model, Criteria cri) { 
 		model.addAttribute("revNum", vo.getRevNum());
+		model.addAttribute("cri", cri);
+		model.addAttribute("rev", vo);
 		return "review/reviewUpdateForm";
 	}
 	

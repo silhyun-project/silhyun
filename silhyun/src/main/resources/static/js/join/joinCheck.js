@@ -141,6 +141,16 @@
 	})
 	
 	//연락처 입력
+	$('#emailId').on("focus", function(){
+		if($('#telf').val() == '' || $('#tels').val() == '' || $('#telt').val() == ''){
+			$('#telMgs').text("연락처를 입력해주세요")
+				        .css("color","red")
+	        $('#tel').val('false')
+		}else{
+			$('#telMgs').text("")
+	        $('#tel').val('true')			
+		}
+	})
    
 
     //이메일 인증
@@ -219,8 +229,31 @@
 	
 	$('input[name="tel"]').val($('#telf').val()+$('#tels').val()+$('#telt').val())
 	$('input[name="email"]').val($('#emailId').val()+'@'+$('#emailDomain').val())
+	if($('#year').val() != ''){	
 	$('#birthDate').val($('#year').val()+'-'+$('#month').val()+'-'+$('#day').val())
-	joinFrm.submit()
+	}
+	console.log($('#birthDate').val())
+	if($('#rcomr').val() != ''){
+		$.ajax({
+				url:"/silhyun/idCk?id="+ $('#rcomr').val(),
+				type: "post",
+				success : function(res){
+					console.log(res)
+					if(res){
+						alert("없는 아이디 입니다.")						
+					}else{
+						alert("추천인"+$('#rcomr').val()+"님과 함께 1000포인트 증정되었습니다.")
+					
+					}
+				},
+				error : function(err){
+					console.log(err)
+				}
+			})
+		
+	
+	}
+	//joinFrm.submit()
 	
 	
 	}

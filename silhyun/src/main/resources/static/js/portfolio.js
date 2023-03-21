@@ -2,11 +2,9 @@
  * portfolio.js
  */
 
-	console.log('wlswwkk.,,,,,')
-	console.log($('.hiddenloginId').text())
-	console.log($('.hiddenptgId').text())
-var ptgId = 'user1';
-var loginUserId = 'user2';			
+
+var ptgId = $('.hiddenptgId').text();
+var loginUserId = $('.hiddenloginId').text();			
 	
 
 

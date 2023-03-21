@@ -75,6 +75,14 @@
 			AND pwd = #{pwd }
 		</if> -->
 	</select>
+	<!-- 근무 시간  -->
+	<select id="ptgRestime" resultType="co.yedam.silhyun.member.vo.ReserTimeVO">
+		select r.res_time
+		from photographer p , reser_time r
+		where p.ptg_id = r.ptg_id
+		and r.ptg_id = #{ptgId}
+		
+	</select>
 	
 
 	<!-- INSERT INTO EVENT VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
@@ -168,7 +176,7 @@
 	AND p.id = m.id
 	AND s.op_num = o.op_num
 	AND r.ptg_id = ph.ptg_id
-	AND ph.ptg_id = #{ptgId}
+	AND o.ptg_id = #{ptgId}
 	AND r.shot_time = #{shotTime}
 	AND r.shot_date =#{redate}
 </select>

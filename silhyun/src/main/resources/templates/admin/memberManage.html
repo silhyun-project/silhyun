@@ -125,7 +125,7 @@
     <td th:text="${mem.tel}" th:value="${mem.tel}"></td>
     <td th:text="${#dates.format(mem.joinDate,'yyyy/MM/dd')}" th:value="${mem.joinDate}"></td>
     <td th:text="${#dates.format(mem.birthDate,'yyyy/MM/dd')}"></td>
-    <td th:text="${mem.genCd}" th:value="${mem.genCd}"></td>
+    <td th:text="${mem.genCd == 'f' ? '여성' : '남성'}" th:value="${mem.genCd}"></td>
     <td th:text="${mem.pointSum}" th:value="${mem.pointSum}"></td>
     <td th:text="${mem.memCd}" th:value="${mem.memCd}"></td>
     <td><button th:unless="${#strings.equals(mem.memCd, 'M4')}" type="button" class="btn btn-success"  id ="updateMBtn"  data-bs-toggle="modal" data-bs-target="#updateMModal" style="color:white;" th:attr="onclick=|relayMId('${mem.id}')|">수정</button></td>

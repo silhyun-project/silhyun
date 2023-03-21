@@ -162,7 +162,7 @@
                             </div>
 
                             <div class="product-price fs-3 fw-500 mb-2">
-                                <span class="text-primary claPri" th:text="${cInfo.claPri}+'원(VAT포함가)'"></span>
+                                <span class="text-primary" data-th-text="${#numbers.formatInteger(cInfo.claPri, 1, 'COMMA') + '원(VAT포함가)'}"></span>
                             </div>
                             <br>
                             
@@ -226,11 +226,6 @@ th:onclick="|location.href='@{/silhyun/myPage/myClasses}'|">
                             <a href="#" class="nav-link active" id="pd_description_tab" data-bs-toggle="tab"
                                 data-bs-target="#pd_description" role="tab" aria-controls="pd_description"
                                 aria-selected="true">강의 소개</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a href="#" class="nav-link" id="pd_information_tab" data-bs-toggle="tab"
-                                data-bs-target="#px_information" role="tab" aria-controls="px_information"
-                                aria-selected="false">커리큘럼</a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a href="#" class="nav-link" id="pd_reviews_tab" data-bs-toggle="tab"

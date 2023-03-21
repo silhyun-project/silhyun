@@ -112,8 +112,8 @@
 						<div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0">
 							<div class="product-info-buttons nav pt-4">
 								<a th:onclick="|location.href='@{/silhyun/portfolioInsert?ptgId={ptgId}(ptgId=${portfolioVO.ptgId})}'|" class="ms-auto">
-									<button class="btn btn-port me-3">
-									<!--<div class="btn btn-port me-3" th:if="${session.id == portfolioVO.ptgId}"> -->
+									
+									<button class="btn btn-port me-3" th:if="${session.id == portfolioVO.ptgId}">
 										Portfolio<i class="bi-plus-lg"></i>
 									</button>
 								</a>
@@ -145,8 +145,7 @@
 								<div class="mTopSectionInfo">
 									<!-- 모달해더 -->
 								</div>
-								<div class="menuButton">
-									<!--<div class="menuButton" th:if="${session.id == portfolioVO.ptgId}"> -->
+									<div class="menuButton" th:if="${session.id == portfolioVO.ptgId}">
 									<i class="bi-three-dots"></i>
 									<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
 										<ul class="menuButtonlist">

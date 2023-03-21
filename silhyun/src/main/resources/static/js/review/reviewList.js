@@ -2,7 +2,10 @@
  *  reviewList.js
  */
  $(function(){
-	
+          $('#searchFrm').find('input[name="ctgr"]').val($('#ctgr').val())
+          $('#searchFrm').find('input[name="ctgrNum"]').val($('#ctgrNum').val())
+          
+          
 					
 		
 		  $(".content").moreLess({
@@ -61,7 +64,7 @@ $('#phosort').on('click', function(){
        //인써트 버튼 이벤트
 	function reviewInsertForm(id){
 		//리뷰 작성버튼 체크 ===> 프로미스, then 써보기
-    	let ctgrNum = $('#ptgId').val()
+    	let ctgrNum = $('#ctgrNum').val()
     	let ctgr = $('#ctgr').val()
     	
     	new Promise((succ, fail)=>{
@@ -106,9 +109,24 @@ $('#phosort').on('click', function(){
    
 	//수정버튼 이벤트 
 	function upFrom(num){
+    	let ctgrNum = $('#ctgrNum').val()
+    	let ctgr = $('#ctgr').val() 
+    	let pageNum = $('a[class="active"]').attr('href')
+    	let sort = $('#sort').val()
+    	let phosort = '';
+    	if($('#phosort').is(":checked")){
+			phosort = 'y'
+			}else{
+			phosort = ''
+			}
 		$.ajax({
 			url: '/reviewUpform',
-			data: {revNum: num},
+				data: {revNum: num, 
+						pageNum:pageNum,  
+						sort: sort, 
+						ctgrNum:ctgrNum, 
+						ctgr: ctgr, 
+						photo: phosort},
 		    success: function(res){
 		    	$('#reviews').replaceWith(res)
 		    }, 
@@ -127,12 +145,16 @@ $('#phosort').on('click', function(){
 			data:{revNum: num},
 		     success: function(res){
 		    	console.log(res)
-		    	let ctgrNum = $('#ptgId').val()
+		    	let ctgrNum = $('#ctgrNum').val()
 		    	let ctgr = $('#ctgr').val() 
 		    	let pageNum = $('a[class="active"]').attr('href')
 		    	let sort = $('#sort').val()
-		    	let phosort = $('#phosort').val()
-		    	console.log(pageNum)
+		    	let phosort = '';
+		    	if($('#phosort').is(":checked")){
+					phosort = 'y'
+				}else{
+					phosort = ''
+				}
 		    	ajaxReiew({pageNum:pageNum, amount:5, sort: sort, ctgrNum: ctgrNum, ctgr: ctgr, photo: phosort})
 		    }, 
 		    error: function(err){
