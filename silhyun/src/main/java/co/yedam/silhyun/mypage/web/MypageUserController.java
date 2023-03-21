@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import co.yedam.silhyun.SessionUser;
 import co.yedam.silhyun.member.service.MemberService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.mypage.service.MypageUserService;
@@ -56,6 +56,9 @@ public class MypageUserController {
    public String mpgUser(Model model,MemberVO vo,HttpSession session) {
       String id = (String)session.getAttribute("id");
       model.addAttribute("memberInfo",	mpgService.getMemberInfo(id));
+      vo.setId(id);
+	   model.addAttribute("sta", memberService.memeberSelect(vo));
+
       return "mypageUser/mpgUser";
    }
 
