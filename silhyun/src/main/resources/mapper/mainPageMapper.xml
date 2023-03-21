@@ -56,6 +56,8 @@
 	<select id="getEventList" resultType="co.yedam.silhyun.event.vo.EventVO">
 		SELECT * FROM EVENT
 		WHERE UPPER(BNPH_STA) ='Y'
+		AND
+		CFM_CD ='Y'
 		ORDER BY START_DATE DESC
 	</select>
 	
