@@ -7,6 +7,7 @@ import lombok.Data;
 @Component
 @Data
 public class AdminPageVO {
+	
 	private int pageCount; //페이지 사이즈(1~10)
 	private int startPage; //시작페이지(1)
 	private int endPage; //끝페이지(10)
@@ -38,4 +39,5 @@ public class AdminPageVO {
 		prev = startPage > 1;
 		next = endPage < realEnd;
 	}
+	
 }

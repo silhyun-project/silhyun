@@ -29,4 +29,8 @@ public class MemberVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date joinDate;
+	
+	private String loginCdNm;
+	private String genCdNm;
+	private String memCdNm;
 }
