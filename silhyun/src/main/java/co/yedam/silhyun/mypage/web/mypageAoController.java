@@ -73,7 +73,7 @@ public class mypageAoController {
 		String id = (String)session.getAttribute("id");
 		model.addAttribute("ptgInfo", mypageAoService.getPhotoinfo(id));
 		model.addAttribute("workDay",mypageAoService.selectWorkDay(id));
-
+		model.addAttribute("resTime", mypageAoService.ptgRestime(id));
 		return "mypageAo/modPfAo";
 	}
 	
