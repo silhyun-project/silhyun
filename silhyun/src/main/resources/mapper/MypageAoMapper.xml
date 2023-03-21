@@ -240,7 +240,7 @@
 	   AND r.ptg_id = ph.ptg_id
 	   AND o.ptg_id = #{ptgId}
 	   AND r.shot_time = #{shotTime}
-	   AND r.shot_date =#{redate}
+	   AND r.shot_date =to_date(#{redate},'yyyy/MM/dd')
 </select>
 
 <!-- 클래스 수강자 조회 -->
