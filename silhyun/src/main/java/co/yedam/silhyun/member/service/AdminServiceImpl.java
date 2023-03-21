@@ -21,167 +21,19 @@ public class AdminServiceImpl implements AdminSercive {
 	@Autowired
 	private AdminMapper adminMapper;
 	
+	
+	
+	//대시보드 =========================================
 	@Override
-	public List<MemberVO> memberList(){
-		return adminMapper.memberList();
+	public Map<String, Object> cfmCnt() {
+		return adminMapper.cfmCnt();
 	}
 
 	@Override
-	public List<PhotographerVO> ptgList() {
-		return adminMapper.ptgList();
-	}
-
-	@Override
-	public List<StudioVO> stdList() {
-		return adminMapper.stdList();
-	}
-
-	@Override
-	public MemberVO adminInfo() {
-		return adminMapper.adminInfo();
+	public List<Map<String, Object>> lastSales() {
+		return adminMapper.lastSales();
 	}
 	
-	public List<QuitVO> qtList() {
-		return adminMapper.qtList();
-	}
-
-	@Override
-	public List<MemberVO> todayMem() {
-		return adminMapper.todayMem();
-	}
-
-	@Override
-	public List<MemberVO> todayPtg() {
-		return adminMapper.todayPtg();
-	}
-
-	@Override
-	public List<MemberVO> todayStd() {
-		return adminMapper.todayStd();
-	}
-
-	@Override
-	public int disableMember(String id) {
-		return adminMapper.disableMember(id);
-	}
-
-	@Override
-	public int ableMember(String id) {
-		return adminMapper.ableMember(id);
-	}
-
-	@Override
-	public int updateAdmin(MemberVO vo) {
-		return adminMapper.updateAdmin(vo);
-	}
-
-	@Override
-	public List<PhotographerVO> belongPtg(String stId) {
-		return adminMapper.belongPtg(stId);
-	}
-
-	
-	//회원리스트 페이징
-	@Override
-	public List<MemberVO> getListMember(AdminCriteria cri) {
-		return adminMapper.getListMember(cri);
-	}
-
-	@Override
-	public int getTotalCount(AdminCriteria cri) {
-		return adminMapper.getTotalCount(cri);
-	}
-
-	@Override
-	public int updateMember(MemberVO vo) {
-		return adminMapper.updateMember(vo);
-	}
-
-	@Override
-	public List<Map<String, String>> quitGraph() {
-		return adminMapper.quitGraph();
-	}
-
-	@Override
-	public List<Map<String, Object>> getListQuit(AdminCriteria cri) {
-		return adminMapper.getListQuit(cri);
-		}
-	
-
-	@Override
-	public int getTotalQuit(AdminCriteria cri) {
-		return adminMapper.getTotalQuit(cri);
-	}
-
-
-	@Override
-	public List<PhotographerVO> getListPtg(AdminCriteria cri2) {
-			return adminMapper.getListPtg(cri2);
-	}
-
-	@Override
-	public int getTotalPtg(AdminCriteria cri2) {
-			return adminMapper.getTotalPtg(cri2);
-	}
-	
-	//사진관리스트 페이징
-	@Override
-	public List<StudioVO> getListStd(AdminCriteria cri3) {
-		return adminMapper.getListStd(cri3);
-	}
-
-	@Override
-	public int getTotalStd(AdminCriteria cri3) {
-		return adminMapper.getTotalStd(cri3);
-	}
-
-
-	//이벤트리스트 페이징
-	@Override
-	public List<EventVO> getListEvent(AdminCriteria cri) {
-		return adminMapper.getListEvent(cri);
-	}
-
-	@Override
-	public int getTotalEvent(AdminCriteria cri) {
-		return adminMapper.getTotalEvent(cri);
-	}
-
-	@Override
-	public List<Map<String, String>> ptgGraph() {
-		return adminMapper.ptgGraph();
-	}
-
-	@Override
-	public List<Map<String, Object>> ptgRank() {
-			return adminMapper.ptgRank();
-	}
-
-	@Override
-	public List<Map<String, Object>> classRank() {
-		return adminMapper.classRank();
-	}
-
-	@Override
-	public List<Map<String, Object>> getEventList() {
-		return adminMapper.getEventList();
-	}
-
-	@Override
-	public EventVO getEventContent(String eventNum) {
-		return adminMapper.getEventContent(eventNum);
-	}
-
-	@Override
-	public List<Map<String, Object>> getEventAllList() {
-		return adminMapper.getEventAllList();
-	}
-
-	@Override
-	public Map<String, String> getEventCnt() {
-		return adminMapper.getEventCnt();
-	}
-
 	@Override
 	public List<Map<String, Object>> recentCom() {
 		return adminMapper.recentCom();
@@ -198,20 +50,76 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public Map<String, Object> cfmCnt() {
-		return adminMapper.cfmCnt();
+	public List<Map<String, String>> ptgGraph() {
+		return adminMapper.ptgGraph();
+	}
+	
+	@Override
+	public List<Map<String, Object>> ptgRank() {
+			return adminMapper.ptgRank();
 	}
 
 	@Override
-	public int qstCnt() {
-		return adminMapper.qstCnt();
+	public List<Map<String, Object>> classRank() {
+		return adminMapper.classRank();
+	}
+	
+	
+	
+	//전체 회원관리 =========================================
+	@Override
+	public List<MemberVO> memberList(){
+		return adminMapper.memberList();
+	}
+	
+	@Override
+	public int updateMember(MemberVO vo) {
+		return adminMapper.updateMember(vo);
 	}
 
 	@Override
-	public List<Map<String, Object>> lastSales() {
-		return adminMapper.lastSales();
+	public List<Map<String, Object>> ptgList() {
+		return adminMapper.ptgList();
 	}
 
+	@Override
+	public List<StudioVO> stdList() {
+		return adminMapper.stdList();
+	}
+	
+	@Override
+	public List<PhotographerVO> belongPtg(String stId) {
+		return adminMapper.belongPtg(stId);
+	}
+
+	@Override
+	public List<MemberVO> todayMem() {
+		return adminMapper.todayMem();
+	}
+
+	@Override
+	public List<MemberVO> todayPtg() {
+		return adminMapper.todayPtg();
+	}
+
+	@Override
+	public List<MemberVO> todayStd() {
+		return adminMapper.todayStd();
+	}
+	
+	@Override
+	public int disableMember(String id) {
+		return adminMapper.disableMember(id);
+	}
+
+	@Override
+	public int ableMember(String id) {
+		return adminMapper.ableMember(id);
+	}
+	
+
+
+	//종합승인관리 =========================================
 	@Override
 	public List<Map<String, Object>> ptgCfmList() {
 		return adminMapper.ptgCfmList();
@@ -229,9 +137,9 @@ public class AdminServiceImpl implements AdminSercive {
 
 	@Override
 	public int noPtgAccept(String ptgId) {
-		return adminMapper.noPtgAccept(ptgId);	}
+		return adminMapper.noPtgAccept(ptgId);
+	}
 	
-	//사진관 승인 ================================
 	@Override
 	public List<Map<String, Object>> stdCfmList() {
 		return adminMapper.stdCfmList();
@@ -252,7 +160,6 @@ public class AdminServiceImpl implements AdminSercive {
 		return adminMapper.noStdAccept(stId);
 	}
 	
-	//클래스 승인 ================================
 	@Override
 	public List<Map<String, Object>> classCfmList() {
 		return adminMapper.classCfmList();
@@ -272,10 +179,6 @@ public class AdminServiceImpl implements AdminSercive {
 	public int noClassAccept(String classNum) {
 		return adminMapper.noClassAccept(classNum);
 	}
-	
-	
-	
-	//이벤트 승인 ===========================================
 
 	@Override
 	public List<Map<String, Object>> getEventOList() {
@@ -296,9 +199,100 @@ public class AdminServiceImpl implements AdminSercive {
 	public Map<String, Object> countNeedCfm() {
 		return adminMapper.countNeedCfm();
 	}
+	
+	
+
+	//이벤트관리
+	@Override
+	public List<Map<String, Object>> getEventList() {
+		return adminMapper.getEventList();
+	}
 
 	@Override
-	public int addAdminEvent(EventVO vo) {
-		return adminMapper.addAdminEvent(vo);
+	public EventVO getEventContent(String eventNum) {
+		return adminMapper.getEventContent(eventNum);
 	}
+
+	@Override
+	public List<Map<String, Object>> getEventAllList() {
+		return adminMapper.getEventAllList();
+	}
+
+	@Override
+	public Map<String, String> getEventCnt() {
+		return adminMapper.getEventCnt();
+	}
+
+	
+	
+	//관리자계정관리 =========================================
+	@Override
+	public MemberVO adminInfo() {
+		return adminMapper.adminInfo();
+	}
+	
+	@Override
+	public int updateAdmin(MemberVO vo) {
+		return adminMapper.updateAdmin(vo);
+	}
+	
+	
+	
+	//탈퇴관리 =========================================
+	public List<QuitVO> qtList() {
+		return adminMapper.qtList();
+	}
+
+	@Override
+	public List<Map<String, Object>> getListQuit(AdminCriteria cri) {
+		return adminMapper.getListQuit(cri);
+		}
+
+	@Override
+	public int getTotalQuit(AdminCriteria cri) {
+		return adminMapper.getTotalQuit(cri);
+	}
+	
+	@Override
+	public List<Map<String, String>> quitGraph() {
+		return adminMapper.quitGraph();
+	}
+
+
+	
+	//페이징
+	@Override
+	public List<MemberVO> getListMember(AdminCriteria cri) {
+		return adminMapper.getListMember(cri);
+	}
+
+	@Override
+	public int getTotalCount(AdminCriteria cri) {
+		return adminMapper.getTotalCount(cri);
+	}
+
+	@Override
+	public List<Map<String, Object>> getListPtg(AdminCriteria cri2) {
+			return adminMapper.getListPtg(cri2);
+	}
+
+	@Override
+	public int getTotalPtg(AdminCriteria cri2) {
+			return adminMapper.getTotalPtg(cri2);
+	}
+	
+	
+	//사진관리스트 페이징
+	@Override
+	public List<Map<String, Object>> getListStd(AdminCriteria cri3) {
+		return adminMapper.getListStd(cri3);
+	}
+
+	@Override
+	public int getTotalStd(AdminCriteria cri3) {
+		return adminMapper.getTotalStd(cri3);
+	}
+
+
+
 }

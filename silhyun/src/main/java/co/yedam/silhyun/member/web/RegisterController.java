@@ -38,7 +38,7 @@ public class RegisterController {
 	@PostMapping("/shin/ptgRegiInsert")
 	@ResponseBody
 	public PhotographerVO ptgRegiInsert(PhotographerVO pvo, List<MultipartFile> files, FieldVO fvo) {
-		String ptgId = registerService.ptgRegiInsert(pvo);
+		String ptgId = registerService.ptgRegiInsert(pvo); //photographer 테이블
 		String ctgrNum = ptgId;
 		
 		photoService.ptgRegiInsert(files, ctgrNum, "A"); //photo 테이블 - 작가 포트폴리오 사진 등록
@@ -61,6 +61,6 @@ public class RegisterController {
 	@ResponseBody
 	public String stdRegiste(StudioVO vo,Model model) {
 		registerService.stdRegiInsert(vo);
-		return "home/home";
+		return "true";
 	}
 }

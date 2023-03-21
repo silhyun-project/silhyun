@@ -142,7 +142,7 @@
 													<div class="swiper-slide" th:each="ptg :${tagPtgList}" style="width: 300px;height: 300px;text-align: center;">
 														<div class="category-card-01" style="width: 300px;height: 300px;">
 															<div class="category-card-img">
-																<a href="#">
+																<a th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${ptg.ptgId})}">
 																	<img th:src="${ptg.profile}" title="" alt="사진 없음" style="width: 300px;height: 300px;">
 																</a>
 															</div>
@@ -205,6 +205,8 @@
 		<script src="/js/theme.js"></script>
 		<!-- End script start -->
 		<script>
+		
+			//작가 프로필 사진 클릭하면 작가 상세보기로 이동
 			$('.font-alt.h4').on('click', function () {
 				let ptgId = $(this).children().attr('id')
 				$.ajax({
@@ -228,7 +230,7 @@
 						)
 						$('.btn.btn-primary').on('click',function(){
 							location.href = "/silhyun/ptgDetail/"+ item.ptgId
-												})		
+						})		
 					})
 
 

@@ -42,64 +42,7 @@ body {
 <body>
 	<div layout:fragment="content">
 		<!-- Skippy & Prload -->
-		<!-- skippy -->
-		<a id="skippy"
-			class="skippy visually-hidden-focusable overflow-hidden"
-			href="#content">
-			<div class="container">
-				<span class="u-skiplink-text">Skip to main content</span>
-			</div>
-		</a>
-		<!-- End skippy -->
-		<!-- Preload -->
-		<!--<div id="loading" class="loading-preloader">
-     <div class="spinner-border text-primary" role="status"> 
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>-->
-		<!-- End Preload -->
-		<!-- Edn Skippy & Prload -->
-		<!-- Size Chart  -->
-		<!-- Ask Form -->
-
-		<!-- End Ask Form -->
-
-		<!-- Header Search -->
-
-		<!-- End Header Search -->
-
-
-		<!-- Header Side Search -->
-
-		<!-- End Header Side Search -->
-
-		<!-- Login Popup  -->
-
-		<!-- End Login Popup  -->
-
-		<!-- Mini Cart  -->
-
-		<!-- End Mini Cart  -->
-
-		<!-- Quick View  -->
-
-		<!-- End Quick View  -->
-
-
-		<!-- Sipping Popup  -->
-
-		<!-- End Sipping Popup  -->
-
-
-		<!-- Size Chart  -->
-
-		<!-- End Size Chart  -->
-		<!-- End Size Chart  -->
-		<!-- 
-    ========================
-        Wrapper 
-    ========================
-    -->
+		
 		<div class="wrapper">
 			<!-- heder height -->
 			<div class="header-height-bar"></div>
@@ -135,21 +78,18 @@ body {
 				<!-- Table -->
 				<div class="py-6">
 					<div class="container">
-						<div class="row">
+						<div class="row" th:each="mem : ${memberInfo}">
 							<!-- Profile Menu -->
 							<div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
 								<div class="bg-white border border-bottom-0 shadow-lg">
 									<div class="d-flex p-3 align-items-center">
 										<div class="avatar avatar-lg rounded-circle">
-											<img src="../../assets/img/avatar/1000x1000.jpg" title=""
+											<img th:src="${mem.profile}" title=""
 												alt="">
 										</div>
 										<div class="col ps-3">
-											<h6 class="m-0">닉네임</h6>
-											<small><a href="#">이름</a></small>
-										</div>
-										<div>
-											<button>작가변경</button>
+											<h6 class="m-0" th:text="${mem.id}">닉네임</h6>
+											<small><a href="#" th:text="${mem.name}">이름</a></small>
 										</div>
 									</div>
 									<ul class="list-unstyled mb-0 theme-link">
@@ -268,99 +208,128 @@ body {
 		<script src="../../assets/js/theme.js"></script>
 
 		<!-- Fullcalendar -->
+		<script th:inline="javascript">
+		
+		/*<![CDATA[*/   
+        var role = /*[[${session.role}]]*/
+        var name = /*[[${session.id}]]*/
+       /*]]*/
+       console.log(role[0].authority)
+       
+       console.log(name)
+    </script>
+		
 		<script>
-		document.addEventListener('DOMContentLoaded',function() {
-		    var calendarEl = document.getElementById('calendar');
-		                        
-		    var calendar = new FullCalendar.Calendar(
-		        calendarEl,
-		        {
-		            locale : 'ko',
-		            headerToolbar : {
-		                left : 'prev,next today',
-		                center : 'title',
-		                right : 'dayGridMonth'
-		            },
-		            initialDate : '2023-03-01',
-		            navLinks : true,
-		            selectable : true,
-		            selectMirror : true,
+		
+			document.addEventListener('DOMContentLoaded',function() {
+				
+				var calendarEl = document.getElementById('calendar');	
+				var calendar = new FullCalendar.Calendar(			
+					calendarEl,{	
+						locale : 'ko',
+						headerToolbar : {
+							left : 'prev,next today',
+							center : 'title',
+							right : 'dayGridMonth'
+						},
+						initialDate : '2023-03-01',
+						navLinks : true,
+						selectable : true,
+						selectMirror : true,
 
-		            select : function(arg) {
-		                let cntn = prompt('일정 제목을 입력해주세요:');
-		                if (cntn) {
-		                    let id = 'catLove';
-		                    let todoDate = arg.startStr;
-		                    let eventData = {
-		                        id : id,
-		                        cntn : cntn,
-		                        todoDate : todoDate
-		                    };
-		                    $.ajax({
-		                        type : 'post',
-		                        url : '/scheduleInsert',
-		                        contentType : 'application/json; charset=utf-8',
-		                        data : JSON.stringify(eventData),
-		                        success : function(response) {
-		                            if (response.res > 0) {
-		                                calendar.addEvent({
-		                                            title : response.todo.cntn,
-		                                            start : response.todo.todoDate,
-		                                            extendedProps : { todoNum : response.todo.todoNum }
-		                                        });
-		                                alert('일정이 추가되었습니다.');
-		                                console.log(eventData)
-		                            } else {
-		                                alert('일정 추가에 실패했습니다.');
-		                            }
-		                        },
-		                        error : function() {
-		                            alert('서버 오류가 발생했습니다.');
-		                        }
-		                    });
-		                }
-		                calendar.unselect();
-		            },
-		            eventClick : function(arg) {
-		                var todoNum = arg.event.extendedProps.todoNum;
-		                $.ajax({
-		                    url : '/scheduleDelete',
-		                    method : 'POST',
-		                    contentType : 'application/json',
-		                    data : {
-		                        todoNum : todoNum
-		                    },
-		                    success : function(response) {
-		                        console.log(response);
-		                    },
-		                    error : function(error) {
-		                        console.log(error);
-		                    }
-		                });
-		            },
-		            editable : false,
-		            dayMaxEvents : true,
-		            events : [ 
-		                $.ajax({
-		                    url : '/getScheduleList',
-		                    method : 'GET',
-		                    success : function(response) {
-		                        let tList = response.tList
-		                        for ( let i in tList) {
-		                            console.log(tList[i])
-		                            calendar.addEvent({
-		                                title : tList[i].cntn,
-		                                start : tList[i].todoDate,
-		                                end : tList[i].todoDate,
-		                                extendedProps : { todoNum : tList[i].todoNum }
-		                            });
-		                        }
-		                    }
-		                }) ]
-		        });
+						select : function(arg) {
+							
+							let cntn = prompt('일정 제목을 입력해주세요:');
+							if (cntn) {
+								
+								let id = name;
+								let todoDate = arg.startStr;
+								let eventData = {
+									id : id,
+									cntn : cntn,
+									todoDate : todoDate
+								};
+								$.ajax({
+									type : 'post',
+									url : '/scheduleInsert',
+									contentType : 'application/json; charset=utf-8',
+									data : JSON.stringify(eventData),
+									success : function(response) {
+										if (response.res > 0) {
+												calendar.addEvent({
+												title : response.todo.cntn,
+												start : response.todo.todoDate,
+												extendedProps : {
+													todoNum : response.todo.todoNum
+												}
+											});
+													
+											alert('일정이 추가되었습니다.');
+											console.log(eventData)
+													
+										} else {
+											alert('일정 추가에 실패했습니다.');
+										}
+									},
+									error : function() {
+										alert('서버 오류가 발생했습니다.');
+									}
+								});
+							}
+							calendar.unselect();
+						},
+						eventClick : function(arg) {
+							var todoNum = arg.event.extendedProps.todoNum;
 
-		    calendar.render();
-		});
+							console.log(todoNum);
+							let cc = confirm("일정을 삭제 하시겠습니까?")
+							if (!cc)
+								return;
+							$.ajax({
+								url : '/scheduleDelete',
+								method : 'DELETE',
+								contentType : 'application/json',
+								data : {
+									todoNum : todoNum
+								},
+								success : function(
+										response) {
+									console.log(response);
+								},
+								error : function(
+										error) {
+									console.log(error);
+								}
+							});
+						},
+						editable : false,
+						dayMaxEvents : true,
+						events : [],
+						loading : function(bool) {
+							if (bool) {
+								$.ajax({
+									url : '/getScheduleList',
+									method : 'GET',
+									success : function(response) {
+												console.log(response);
+										for ( let i in response) {
+											calendar.addEvent({
+												title : response[i].cntn,
+												start : response[i].todoDate,
+												extendedProps : {
+													todoNum : response[i].todoNum
+												}
+											});
+										}
+									}
+								})
+							}
+						},
+
+					});
+
+				calendar.render();
+			});
 		</script>
 
 		<!-- End script start -->

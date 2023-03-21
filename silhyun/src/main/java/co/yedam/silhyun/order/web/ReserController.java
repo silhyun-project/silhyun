@@ -55,6 +55,7 @@ public class ReserController {
 		model.addAttribute("page", new PageVO(ptgService.getTotalCount(cri, vo), 10, cri)); // 페이징
 		return "reser/ptgList";
 	}
+	
 //  //▶지역, 분야 검색 
 //	@RequestMapping("/silhyun/searchPtgList") 
 //	@ResponseBody
@@ -120,7 +121,9 @@ public class ReserController {
 	//▶ 작가가 등록한 시간 Ajax (작가)
 	@RequestMapping("/ajaxResTime/{ptgId}/{redate}")
 	@ResponseBody
-	public List<PhotographerVO> ajaxResTime(Model model, @PathVariable String redate, @PathVariable String ptgId) {
+	public List<PhotographerVO> ajaxResTime(Model model, 
+			                                @PathVariable String redate, 
+			                                @PathVariable String ptgId) {
 		return ptgService.getResTime(ptgId, redate);
 	}
 

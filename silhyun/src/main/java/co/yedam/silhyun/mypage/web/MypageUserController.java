@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
 import co.yedam.silhyun.SessionUser;
+=======
+>>>>>>> refs/remotes/origin/taekyeong
 import co.yedam.silhyun.member.service.MemberService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.mypage.service.MypageUserService;
@@ -54,12 +57,12 @@ public class MypageUserController {
    }
 
    @GetMapping("/mpg/mpgUser")
-   public String mpgUser(HttpSession session, Model model) {
-	   MemberVO vo = new MemberVO();
-	   String id = (String) session.getAttribute("id");
-	   vo.setId(id);
+   public String mpgUser(Model model,MemberVO vo,HttpSession session) {
+      String id = (String)session.getAttribute("id");
+      model.addAttribute("memberInfo",	mpgService.getMemberInfo(id));
+      vo.setId(id);
 	   model.addAttribute("sta", memberService.memeberSelect(vo));
-      
+
       return "mypageUser/mpgUser";
    }
 
@@ -70,15 +73,20 @@ public class MypageUserController {
    }
    
    @GetMapping("/mpg/mpgCalendar")
-   public String mpgCalendar(Model model) {
-      
+   public String mpgCalendar(Model model,HttpSession session) {
+      String id= (String)session.getAttribute("id");
+	   System.out.println(id + "여깅ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+	   model.addAttribute("memberInfo",mpgService.getMemberInfo(id));
+       model.addAttribute("todoList", mpgService.getScheduleList(id));
       return "mypageUser/mpgCalendar";	
    }
    
    @GetMapping("/getScheduleList")
    @ResponseBody
-   List<ScheduleVO> getScheduleList() {
-	   List<ScheduleVO> getScheduleList = mpgService.getScheduleList();
+   List<ScheduleVO> getScheduleList(Model model,ScheduleVO svo,HttpSession session) {
+	   String id= (String)session.getAttribute("id");
+	   
+	   List<ScheduleVO> getScheduleList = mpgService.getScheduleList(id);
 	   System.out.println(getScheduleList+"dddddddddddddddddddddddddd");
 	   return getScheduleList;
    }
@@ -98,9 +106,12 @@ public class MypageUserController {
    }
    
    @DeleteMapping("/scheduleDelete")
-   public String scheduleDelete(ScheduleVO vo) {
-       mpgService.scheduleDelete(vo);
-       return "mypageUser/mpgCalendar";
+   @ResponseBody
+   public Boolean scheduleDelete(@RequestBody ScheduleVO vo) {
+	   System.out.println(vo);
+	   System.out.println("sahfkjesadhfjkhasdjkfhjkadslfh");
+	   int n = mpgService.scheduleDelete(vo);
+       return n==1? true:false;
    }
    
    @GetMapping("/mpg/mpgQuit/{id}")
@@ -120,7 +131,5 @@ public class MypageUserController {
 	   
 	   return "mypageUser/quitComplete";
    }
-   
-   
    
 }

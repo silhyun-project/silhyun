@@ -30,4 +30,8 @@ public class MemberVO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date joinDate;
 	private int coupon;
+	private String loginCdNm;
+	private String genCdNm;
+	private String memCdNm;
+
 }

@@ -9,13 +9,15 @@
 	
 	<insert id="insertCoupon" parameterType="co.yedam.silhyun.event.vo.CouponHistoryVO">
 		INSERT INTO COUPONHISTORY
-		VALUES(#{id},#{cpnNum},'N')
+		VALUES(#{id},
+			   #{cpnNum},
+			   'N')
 	</insert>
 	
 	<update id="updateCoupon" parameterType="co.yedam.silhyun.event.vo.CouponHistoryVO">
 		UPDATE COUPONHISTORY 
-		SET CPN_STA ='Y' 
-		WHERE ID = #{id}
-		AND CPN_NUM = #{cpnNum}
+		   SET CPN_STA ='Y' 
+		 WHERE ID = #{id}
+		   AND CPN_NUM = #{cpnNum}
 	</update>
 </mapper>

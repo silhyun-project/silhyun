@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.yedam.silhyun.event.vo.CouponHistoryVO;
+import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.mypage.map.MypageUserMapper;
 import co.yedam.silhyun.mypage.vo.ScheduleVO;
 
@@ -14,9 +15,9 @@ public class MypageUserServiceImpl implements MypageUserService{
 	@Autowired MypageUserMapper mapper;
 	
 	@Override
-	public List<ScheduleVO> getScheduleList() {
+	public List<ScheduleVO> getScheduleList(String id) {
 		// TODO Auto-generated method stub
-		return mapper.getScheduleList();
+		return mapper.getScheduleList(id);
 	}
 
 	@Override
@@ -35,6 +36,12 @@ public class MypageUserServiceImpl implements MypageUserService{
 	public List<CouponHistoryVO> selectMyCoupon(String id) {
 		
 		return mapper.selectMyCoupon(id);
+	}
+
+	@Override
+	public List<MemberVO> getMemberInfo(String id) {
+		// TODO Auto-generated method stub
+		return mapper.getMemberInfo(id);
 	}
 
 
