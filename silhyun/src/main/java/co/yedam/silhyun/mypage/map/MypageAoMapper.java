@@ -25,6 +25,7 @@ public interface MypageAoMapper {
 	List<PhotographerVO> getPtg(String ptgId);//작가에서만 한명
 	
 	PhotographerVO selectWorkDay(String ptgId);	//workday출력용
+	List<ReserTimeVO> ptgRestime(String ptgId) ;//근무 시간 출력용
 	
 	int ptgInfoUpdate(MemberVO vo);	//정보 업데이트
 	int updateWorkday(PhotographerVO vo);	//정보중 근무요일 업데이트

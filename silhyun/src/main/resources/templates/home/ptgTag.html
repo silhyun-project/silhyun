@@ -142,7 +142,7 @@
 													<div class="swiper-slide" th:each="ptg :${tagPtgList}" style="width: 300px;height: 300px;text-align: center;">
 														<div class="category-card-01" style="width: 300px;height: 300px;">
 															<div class="category-card-img">
-																<a href="#">
+																<a th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${ptg.ptgId})}">
 																	<img th:src="${ptg.profile}" title="" alt="사진 없음" style="width: 300px;height: 300px;">
 																</a>
 															</div>

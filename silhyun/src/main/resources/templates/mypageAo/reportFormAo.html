@@ -31,9 +31,7 @@
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
 									<small><a href="/photo/mypageAo" th:text="${ptg.name}">이름</a></small>
 								</div>
-								<div>
-									<button>회원변경</button>
-								</div>
+							
 							</div>
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
@@ -60,12 +58,7 @@
 									href="/photo/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
 								</a></li>
 								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i
-										class="bi bi-pie-chart-fill"></i>통계
-								</a></li>
-								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3" href="#">
+									class="nav-link-style d-flex align-items-center p-3" th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${session.id})}">
 										<i class="bi-person-bounding-box me-2"></i>포토폴리오
 								</a></li>
 								<li class="border-bottom mb-0"><a

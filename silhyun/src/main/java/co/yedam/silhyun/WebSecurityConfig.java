@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -24,6 +26,9 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig{
 	
 	private final OAuthUserService userService;  //로그인 api디비 연결
+	private final AuthenticationFailureHandler failureHandler;
+	
+
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -62,6 +67,7 @@ public class WebSecurityConfig{
 			.formLogin()
 				.loginPage("/login")
 				.successHandler(new CustomLoginSuccessHandler())
+				.failureHandler(failureHandler)
 				.permitAll()
 			.and()
 			.oauth2Login()

@@ -18,7 +18,7 @@
 <!-- Favicon -->
 <link rel="shortcut icon" href="/img/favicon.ico">
 <!-- CSS Template -->
-<link href="/css/theme.css" rel="stylesheet">
+<!-- <link href="/css/theme.css" rel="stylesheet"> -->
 <link href="/css/around.css" rel="stylesheet">
 
 <!-- 자체어쩌구-->
@@ -165,7 +165,8 @@
 								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
 									<ul class="menuButtonlist">
 										<li style="display: none"><input type="hidden"
-											name='portNum' value=""></li>
+											name='portNum' value=""><input type="hidden"
+											name='ptgId' value=""></li>
 										<li class="menuButton-item"><button type="button"
 												class="menuButton-item update">수정하기</button></li>
 										<li class="menuButton-item portDelBtn">삭제하기</li>
@@ -211,8 +212,7 @@
 			/*]]>*/
 
 			
-			
-			
+					
 		$("div#rowg-3").children().remove();//먼저 깔끔희~
 		StandLine(portfolio);//첫페이지 포트폴리오 리스트
 		recentStand(portfolio);//최신순
@@ -237,8 +237,8 @@
          });
 		
 		//만든 태그 버튼에 그룹이벤트 주기.
-		$('div .layout-change').on('click','a',function(){//layout-change의 a태그에만 click펑션을 주기.//그룹이벤트
-			$('div .layout-change .active').removeClass('active');//active클래스만 없애기.
+		$('div .layout-change').on('click','a',function(){
+			$('div .layout-change .active').removeClass('active');
 			$(this).addClass('active')
 			var tagCntn=$(this).children().text();		
 			//해당태그포트폴리오가져오기
@@ -270,8 +270,7 @@
 		$('.row.g-3').on('click','.col-sm-6.col-lg-3',function(){
 		//$("div .col-sm-6.col-lg-3").click(function() {	
 			var portNum = $(this).children('div .portInfo').text(); 
-			console.log('안녕하세용~~~~~~~~~~~~~~')
-			console.log(portNum)
+			
 		// 해당 번호 가진 배열 찾기
 			var selectedPortfolio = portfolio.find(function(findPortfolio) {
 				return findPortfolio.portNum === portNum;
@@ -280,96 +279,101 @@
 		
 		
 		/////
-		//화면 구성한 모달에 경우에 따른 하트 출력
+		//해당포트폴리오 하트 출력
 		$.ajax({
 			url: `/silhyun/isLiked/${loginUserId}/${portNum}`,
 		}).then(heart => {
-			//(처음화면)값이 있으면 찬하트
-			if (heart) {//값이 있으면 //첨에는 찬 하트 출력
+			if (heart) {
 				if ($(".heart-icon").hasClass("bi-heart")) {
 					$(".heart-icon").removeClass("bi-heart").addClass("bi-heart-fill");
 				}
-			} else {//(값이 없으면) //첨에는 빈 하트 출력
+			} else {
 				if ($(".heart-icon").hasClass("bi-heart-fill")) {
 					$(".heart-icon").removeClass("bi-heart-fill").addClass("bi-heart");
 				}
-			}//else끝나는 구간
-		});//조아요 대잇나 확인 완.
+			}
+		});
 		////////////////////////////기본모달 구성 완료
 		
 		
 		
 		//해당 포트폴리오번호에 맞는 사진 리스트 가져와서 넣어주기 (((1)))시작
-			$.ajax({
-				url: `/silhyun/detailPortfolioPhoto/${portNum}`,
-				dataType: 'json',
-			})
-				.then(dataModalPhoto => {
-					$(".modalSlider").empty();
-					var firstImg=true;
-					for (let i = 0; i < dataModalPhoto.length; i++) {
-						if(firstImg){
-						var modalPhoto = `<img class='active' src="${dataModalPhoto[i].phoRt}" alt="img${i+1}">`
+		$.ajax({
+			url: `/silhyun/detailPortfolioPhoto/${portNum}`,
+			dataType: 'json',
+		})
+			.then(dataModalPhoto => {
+				console.log(dataModalPhoto)//0
+				$(".modalSlider").empty();
+				var firstImg = true;
+				for (let i = 0; i < dataModalPhoto.length; i++) {
+					if (firstImg) {
+						var modalPhoto = `<img class='active' src="${dataModalPhoto[i].phoRt}" alt="img${i + 1}">`
 						$(".modalSlider").append(modalPhoto);//만든사진 붙이기
-						firstImg=false;
-						}else{
-							var modalPhoto2 = `<img src="${dataModalPhoto[i].phoRt}" alt="img${i+1}">`
-								$(".modalSlider").append(modalPhoto2);//만든사진 붙이기
-						}
-				var images = $('.modalSlider img');
-				
-				let imgIndex = images.filter('.active').index();//이미지 인덱스 찾기.
-				if (imgIndex === 0) {
-					$('.modalprev').css("display", "none"); //처음화면이전 버튼 비활성화
-				}
-				$('.modalNext').on('click', function() {
-					if (imgIndex === images.length - 1) {
-						$('.modalNext').css("display", "none"); // 다음 버튼 비활성화
+						firstImg = false;
 					} else {
-						$('.modalprev').css("display", "block");
+						var modalPhoto2 = `<img src="${dataModalPhoto[i].phoRt}" alt="img${i + 1}">`
+						$(".modalSlider").append(modalPhoto2);//만든사진 붙이기
 					}
-					images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
-					imgIndex++;//인덱스 추가.
-					if (imgIndex === images.length - 1) {
-						$('.modalNext').css("display", "none");
-					}
-					images.eq(imgIndex).addClass('active');//다음이미지에 active추가
-				});
+					var images = $('.modalSlider img');
 
-				// 다시 이전 버튼을 클릭하면 다음 버튼을 다시 활성화
-				$('.modalprev').on('click', function() {
-					if (imgIndex === images.length - 1) {
-						$('.modalNext').css("display", "block"); // 다음 버튼 활성화
-					}
-					images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
-					imgIndex--;//인덱스 추가.
-					images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+					let imgIndex = images.filter('.active').index();//이미지 인덱스 찾기.
 					if (imgIndex === 0) {
-						$('.modalprev').css("display", "none"); // 다음 버튼 활성화
+						$('.modalprev').css("display", "none"); //처음화면이전 버튼 비활성화
 					}
-				});
-					}	
-				});//해당 포트폴리오번호에 맞는 사진 리스트(((1)))끝
-				//다음버튼누르기
+					$('.modalNext').on('click', function() {
+						if (imgIndex === images.length - 1) {
+							$('.modalNext').css("display", "none"); // 다음 버튼 비활성화
+						} else {
+							$('.modalprev').css("display", "block");
+						}
+						images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
+						imgIndex++;//인덱스 추가.
+						if (imgIndex === images.length - 1) {
+							$('.modalNext').css("display", "none");
+						}
+						images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+					});
+
+					// 다시 이전 버튼을 클릭하면 다음 버튼을 다시 활성화
+					$('.modalprev').off('click').on('click', function() {
+						if (imgIndex === images.length - 1) {
+							$('.modalNext').css("display", "block"); // 다음 버튼 활성화
+						}
+						images.eq(imgIndex).removeClass('active');//현재이미지에 active빼기
+						imgIndex--;//인덱스 추가.
+						images.eq(imgIndex).addClass('active');//다음이미지에 active추가
+						if (imgIndex === 0) {
+							$('.modalprev').css("display", "none"); // 다음 버튼 활성화
+						}
+					});
+				}
+			});//해당 포트폴리오번호에 맞는 사진 리스트(((1)))끝
+		//다음버튼누르기
 				
 				
 				
 				//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))시작	
-								var modalheader=`<div class="mTopSectionInfoImg">
-									<img src="${selectedPortfolio.profile}" alt="이미지">
-									</div>
-									<div class="mTopSectionImgMaster">
-										<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
-										&nbsp;&nbsp; <i class="bi-dot"></i>
-										<button><i class="zzim-icon bi-check2"></i></button>
-									</div>`	
-								$(".mTopSectionInfo").empty();
-								$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
-								
-								if (loginUserId !=='selectedPortfolio.ptgId'){$('.menuButton').hide()
-									}else{{$('.menuButton').show()}
-								}
-								
+
+				var modalheader=`<div class="mTopSectionInfoImg">
+					<img src="${selectedPortfolio.profile}" alt="이미지">
+					</div>
+					<div class="mTopSectionImgMaster">
+						<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
+						&nbsp;&nbsp; <i class="bi-dot"></i>
+						<button><i class="zzim-icon bi-check2"></i></button>
+					</div>`	
+				$(".mTopSectionInfo").empty();
+				$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
+				
+				
+				
+				if (loginUserId == selectedPortfolio.ptgId){$('.menuButton').show()
+					}else{{$('.menuButton').hide()}
+				}
+				$('.modalMasterId').click(function(){
+					location.href = `/silhyun/portfolio/${selectedPortfolio.ptgId}`})
+				
 								
 								
 								//찜 호출 
@@ -434,7 +438,6 @@
 						//////모달 내 삭제~
 
 		$('.menuButton-item.portDelBtn').on('click', function() {
-
 			//포트폴리오지우기
 			$.ajax({
 				url: `/silhyun/portfolioDelete/${portNum}`,
@@ -448,14 +451,11 @@
 				}
 			});
 		})
-
-		//삭제끝
-
-					////////////////////////////////수정폼으로 데려가기~~~~
+		//수정
 		$('.menuButton i').click(function() {
-			$('.menuButton').find('input').val(portNum);//input에 portNum넣기
-			console.log('호호호호호호호호호호호호호')
-			console.log($('.menuButton').find('input').val())
+			$('.menuButton').find('input[type="hidden"][name="portNum"]').val(portNum);//input에 portNum넣기
+			$('.menuButton').find('input[type="hidden"][name="ptgId"]').val(selectedPortfolio.ptgId);//input에 ptgId넣기
+			
 		})
 		$('.menuButton-item button').click(function() { $('#goUpdatePort').submit(); })
 
@@ -587,13 +587,10 @@
 				
 				//모달안에서 기능 ==1==하트 시작
 				
-				//모달 하트눌렀을 때 생기는 이벤트
+				//모달 하트눌렀을 때
 				$(".heart-icon").click(function() {
-					//안찬하트라면 눌럿을 때 insert 넣고 성공하면 찬 하트로 바꾸기. 아니면은 실패 메시지.
-					var thisHeart = $(this);
-
-					if (thisHeart.hasClass("bi-heart")) {
-						//값 넣는 아작스
+					var thisHeart = $(this)
+					if (thisHeart.hasClass("bi-heart")) {//좋아요+
 						$.ajax({
 							type: 'POST',
 							url: '/silhyun/addLike',
@@ -601,7 +598,6 @@
 							contentType: 'application/json',
 							success: function(result) {
 								thisHeart.removeClass("bi-heart").addClass("bi-heart-fill");//찬하트로바꾸기
-
 								//하트 숫자 올리기.
 								var likeCount = parseInt($('.modalHeartInfo').find('span').text());
 									$('.modalHeartInfo').find('span').text(likeCount+1);
@@ -611,8 +607,7 @@
 								alert('좋아요 실패~');
 							}
 						});
-					} else {
-						//값 지우는 아작스
+					} else {//좋아요-
 						$.ajax({
 							url: '/silhyun/deleteLike',
 							type: 'POST',
@@ -632,7 +627,7 @@
 								alert('조아요 삭제 실패~');
 							}
 						});
-					}//else부분
+					}
 				});//모달 하트눌렀을 때 생기는 이벤트
 				
 				//모달안에서 기능 ==1==하트 끝
@@ -716,7 +711,7 @@
 		}
 		
 		function commentInsertt(portNum) {
-			console.log('ㅎㅎㅎㅎ')
+		
 
 			let contactMessage = $("#contact-message").val(); //댓글내용
 			let dep = $("dep").val(); //깊이(댓글,대댓글) 구분
@@ -767,7 +762,7 @@
 		}
 			
 
-	//포트폴리오 사진 리스트 불러오기~함수+포트폴리오 번호
+	    //포트폴리오 사진 리스트 불러오기
 		function StandLine(aa){
 			for(i=0; i<aa.length; i++){
 				
@@ -821,16 +816,7 @@
 		}
 		
 	
-		
-// 		// 사용자가 입력한 텍스트에서 해시태그(#)를 찾아서 해시태그에 a링크 걸기.
-// 		const text = $('#text').html();
-// 		const regex = /#(\S+)/g;
-// 		const replaced = text.replace(regex, `<a href="/hashtag/$1">#$1</a>`);
 
-// 		// 대체된 텍스트로 교체합니다.
-// 		$('#text').html(replaced);
-		
-	
 	
 
 		</script>

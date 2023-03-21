@@ -7,9 +7,10 @@ console.log('모오오오달~~~');
 const modal = $(".modalBlacklayer");
 
 
-	$('.row.g-3').on('click','.col-sm-6.col-lg-3',function(){
+$('.row.g-3').on('click', '.col-sm-6.col-lg-3', function() {
 	modal.css("display", "block");
 });
+
 
 
 
@@ -21,6 +22,7 @@ function isModalOn() {
 
 function modalOff() {//모달끄는거
 	modal.css("display", "none");
+	imgIndex = 0;
 }
 
 $('.modalCloseButton').on('click', function() {
@@ -39,7 +41,6 @@ $(window).on("keyup", function(e) {
 		modalOff();
 	}
 });
-
 ////////////////////모달실행~~~
 
 //모달메뉴

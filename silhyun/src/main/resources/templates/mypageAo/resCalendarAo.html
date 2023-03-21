@@ -184,9 +184,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
 									<small><a href="/photo/mypageAo" th:text="${ptg.name}">이름</a></small>
 								</div>
-								<div>
-									<button>회원변경</button>
-								</div>
+							
 							</div>
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
@@ -213,12 +211,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 									href="/photo/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
 								</a></li>
 								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i
-										class="bi bi-pie-chart-fill"></i>통계
-								</a></li>
-								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3" href="#">
+									class="nav-link-style d-flex align-items-center p-3" th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${session.id})}">
 										<i class="bi-person-bounding-box me-2"></i>포토폴리오
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -434,14 +427,6 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             }
           });
           
-          //
-          
-          /*  function reloadTodo(e) { //예약가능하지않은 날짜 클릭시 경고창 띄우기
-			
-              //  alert("해당 날짜는 근무일이 아닙니다.")
-                $('.product-description.timeTable').children().remove()
-              
-            } */
           
           //달력에 작가 예약 가능한 요일 까만색으로 만들기  -> 그 안에서 아작스 불러서 처리하기(예약 가능한 시간)
 			let ptgReYnDate = $("input[name='workDay']").val()

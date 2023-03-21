@@ -49,48 +49,32 @@ public class EventController {
 		return "event/eventForm";
 	}
 
-	
+	//출첵이벤트
 	@PostMapping("/chulcheckEv")
 	@ResponseBody
 	public boolean chulcheckEv(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkDate) {
 	  String id = (String)session.getAttribute("id");
-	  System.out.println("들어오는감++++++++++++++++");
-	
-	  List<ChulcheckVO> cvo = eventService.chulIdSelect(id);	
+	  
+	  //오늘 출결확인
 	  List<ChulcheckVO> rvo = eventService.recentlyDate(id);
+	  if(rvo.size()!=0) {	
+		  Date date = rvo.get(0).getCheckDate();	//그 id의 젤 최근 출석날짜
+	    if (checkDate.equals(date)) {		//오늘 지역 날짜 == db에 있는 날짜
+	      return false;
+	    }
+	  }
+	  //정보조회 안됐을 때 insert
 	  ChulcheckVO vo = new ChulcheckVO();
 	  vo.setId(id);
-	  if(cvo.size()!=0) {	
-	   // Date date = cvo.get(0).getCheckDate();	//db에 들어 가있는 시간
-		  Date date = rvo.get(0).getCheckDate();	//그 id의 젤 최근 출석날짜
-		
-	    System.out.println(date + "db값123123");
-
-	    System.out.println(checkDate + "들어오는 값 1111111111");
-
-	    if (checkDate.equals(date)) {		//오늘 지역 날짜 == db에 있는 날짜
-	      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr 출첵되어잇음");
-	      return false;
-	    } else {											//조회도 되고 날짜도 다르다면
-	    	vo.setCheckDate(checkDate);
-	    	System.out.println(vo.getCheckDate()+"확인용kkkkkkkkkkkkk");
-	    	eventService.insertChulcheck(vo);
-
-	      System.out.println("rrrrrrrrrrrrrrr3333333333333333333rrrrr");
-	    }
-
-	  } else if (cvo.isEmpty()) {						//정보 조회가 안된다면
-	    System.out.println("rrrrrrrrrrrrrr2 정보조회 안됐을 때 insert");
-	    vo.setCheckDate(checkDate);	//날짜 넣기
-	    eventService.insertChulcheck(vo);
-	  }
-	 
+	  vo.setCheckDate(checkDate);	//날짜 넣기
+	  eventService.insertChulcheck(vo);
+	  	 
 	  return true;
 	}
 
 
 
-	
+	//출첵페이지
 	@RequestMapping("/silhyun/chulcheck")
 	public String chulchecck(Model model,HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -106,7 +90,6 @@ public class EventController {
 		String dateString = dateFormat.format(date);
 		
 		model.addAttribute("date", dateString);
-		//model.addAttribute("time", time);
 		
 		
 		return "event/chulcheck";

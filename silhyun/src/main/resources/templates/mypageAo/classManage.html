@@ -75,9 +75,7 @@
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
 									<small><a href="/photo/mypageAo"th:text="${ptg.name}">이름</a></small>
 								</div>
-								<div>
-									<button>회원변경</button>
-								</div>
+								
 							</div>
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
@@ -104,12 +102,7 @@
 									href="/photo/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
 								</a></li>
 								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i
-										class="bi bi-pie-chart-fill"></i>통계
-								</a></li>
-								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3" href="#">
+									class="nav-link-style d-flex align-items-center p-3" th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${session.id})}">
 										<i class="bi-person-bounding-box me-2"></i>포토폴리오
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -217,6 +210,9 @@
 														</select>&nbsp;
 													</div>
 													<div class="mb-3">
+													<label class="form-label" for="claTtl">이벤트 타이틀 
+														<input type="text" class="form-control" id="name" name="name"
+															style="width: 430px; height: 35px;"></label>
 														<label class="form-label" for="Eventcntn">이벤트 내용</label>
 														<textarea cols="40" rows="2" class="form-control"
 															id="Eventcntn" name="cntn"></textarea>
@@ -225,7 +221,7 @@
 														<label class="form-label" for="cntn">쿠폰 내용 <input
 															type="text" class="form-control" id="couponCntn"
 															name="couponCntn" style="width: 300px; height: 30px;"
-															placeholder="ex)5명"></label> &nbsp; <label
+															></label> &nbsp; <label
 															class="form-label" for="discount">할인율 <input
 															type="text" class="form-control" id="discount"
 															name="discount" style="width: 100px; height: 30px;"></label><br>
@@ -341,20 +337,12 @@ function applyForm(n){
 	}
 } 
 
+//이벤트신청
  function uploadEvent(){
-		//let sel=document.getElementById('regionCd').value;
-	//const bnInput = $("#uploadEv")[0];
+	
 	var formData = new FormData($("#uploadEv")[0]);
 	
-
-	//formData.append('file',$("#bnph"));
-	
-	//const formData = new FormData();
-	//formData.append("banner", bnInput)
-	//formData.append("bnph",$("#bnph")[0].files[0]);
-	
-	/*  var files= inputFile[0].files;
-	 console.log(files); */
+	//들어오는거 확인
 	 for(let key of formData.keys()){
 		 console.log(key+"--------------------키")
 	 }
@@ -383,14 +371,6 @@ function applyForm(n){
  function uploadClass(){
 	
 	var formData = new FormData($("#uploadCl")[0]);
-	
-	for(let key of formData.keys()){
-		 console.log(key+"/////키")
-	 }
-	 for(let value of formData.values()){
-		 console.log(value+"+_+_+_value")
-	 }
-	
 	 
 	$.ajax({
 		url:'/applyClass',

@@ -7,7 +7,7 @@
 		$(function(){
 						
 			$('#pd_reviews_tab_02').on('click', function(){
-				let ctgrNum = $('#ptgId').val()
+				let ctgrNum = $('#ctgrNum').val()
 				let ctgr = $('#ctgr').val()
 				console.log(ctgrNum, ctgr)
 			     ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})      ////일단 여기서 작가아이디랑 구분값 넘겨주기 (다른 아작스 페이지도 똑같이)
@@ -41,7 +41,7 @@
 				
 				});
 				
-				},300)
+				},450)
 			})
 
 		})

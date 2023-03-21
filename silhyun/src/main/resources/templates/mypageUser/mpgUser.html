@@ -20,63 +20,8 @@
 
 <body>
 <div layout:fragment="content">
-    <!-- Skippy & Prload -->
-    <!-- skippy -->
-<a id="skippy" class="skippy visually-hidden-focusable overflow-hidden" href="#content">
-    <div class="container">
-        <span class="u-skiplink-text">Skip to main content</span>
-    </div>
-</a>
-<!-- End skippy -->
-<!-- Preload -->
-<!--<div id="loading" class="loading-preloader">
-     <div class="spinner-border text-primary" role="status"> 
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>-->
-<!-- End Preload -->
-    <!-- Edn Skippy & Prload -->
-    <!-- Size Chart  -->
-    <!-- Ask Form -->
+ 
 
-<!-- End Ask Form -->
-
-<!-- Header Search -->
-
-<!-- End Header Search -->
-
-
-<!-- Header Side Search -->
-
-<!-- End Header Side Search -->
-
-<!-- Login Popup  -->
-
-<!-- End Login Popup  -->
-
-<!-- Mini Cart  -->
-
-<!-- End Mini Cart  -->
-
-<!-- Quick View  -->
-
-<!-- End Quick View  -->
-
-
-<!-- Sipping Popup  -->
-
-<!-- End Sipping Popup  -->
-
-
-<!-- Size Chart  -->
-
-<!-- End Size Chart  -->
-    <!-- End Size Chart  -->
-    <!-- 
-    ========================
-        Wrapper 
-    ========================
-    -->
     <div class="wrapper">
         <!-- heder height -->
         <div class="header-height-bar"></div>
@@ -108,20 +53,17 @@
             <!-- Table -->
             <div class="py-6">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" th:each="mem : ${memberInfo}">
                         <!-- Profile Menu -->
                         <div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
                             <div class="bg-white border border-bottom-0 shadow-lg">
                                 <div class="d-flex p-3 align-items-center">
                                     <div class="avatar avatar-lg rounded-circle">
-                                        <img src="../../assets/img/avatar/1000x1000.jpg" title="" alt="">
+                                        <img th:src="${mem.profile}" title="" alt="">
                                     </div>
                                     <div class="col ps-3">
-                                        <h6 class="m-0">닉네임</h6>
-                                        <small><a href="#">이름</a></small>
-                                    </div>
-                                    <div>
-                                    	<button>작가변경</button>
+                                        <h6 class="m-0" th:text="${mem.id}">닉네임</h6>
+                                        <small><a href="/mpg/mypageUser" th:text="${mem.name}">이름</a></small>
                                     </div>
                                 </div>
                                 <ul class="list-unstyled mb-0 theme-link">
@@ -200,19 +142,23 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6 mb-3">
-										<img class="img-fluid border" src="/img/fashion/dog.jpg"
-										 style="width:300px;height:300px" alt="...">
+										<img class="img-fluid border" th:src="${mem.profile}"
+										 style="width:300px;height:300px" alt="..."><br>
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label" >아이디</label> 
 											<input type="text"
-											class="form-control" readonly>
+											class="form-control" th:value="${mem.id}" readonly>
 										<label class="form-label">이름</label> 
 											<input type="text"
-											class="form-control" readonly>
+											class="form-control" th:value="${mem.name}" readonly>
 										<label class="form-label">Email</label> 
-											<input type="email"
-											class="form-control" id="exampleInputEmail3" readonly>
+											<input type="email" class="form-control" id="exampleInputEmail3" th:value="${mem.email}" readonly>
+										<br><div>
+										<span>포인트 합계: &nbsp;&nbsp;[[${sta.pointSum}]]p</span>&emsp;&emsp;&emsp;
+										<span>보유쿠폰: &nbsp;&nbsp;[[${sta.coupon}]]개</span>
+										</div>
+
 									</div>
 									
 								</div>

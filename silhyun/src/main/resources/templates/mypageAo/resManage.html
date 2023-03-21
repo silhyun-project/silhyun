@@ -92,9 +92,6 @@
 									<h6 class="m-0" th:text="${ptg.Id}"></h6>
 									<small><a href="/photo/mypageAo" th:text="${ptg.name}"></a></small>
 								</div>
-								<div>
-									<button>회원변경</button>
-								</div>
 							</div>
 							<ul class="list-unstyled mb-0 theme-link">
 								<li class="border-bottom mb-0"><a
@@ -123,12 +120,7 @@
 									href="/photo/resCalendarAo"> <i class="bi-calendar me-2"></i>캘린더
 								</a></li>
 								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3"
-									href="/photo/mypageStatsAo"> <i
-										class="bi bi-pie-chart-fill"></i>통계
-								</a></li>
-								<li class="border-bottom mb-0"><a
-									class="nav-link-style d-flex align-items-center p-3" href="#">
+									class="nav-link-style d-flex align-items-center p-3" th:href="@{/silhyun/portfolio/{ptgId}(ptgId=${session.id})}">
 										<i class="bi-person-bounding-box me-2"></i>포토폴리오
 								</a></li>
 								<li class="border-bottom mb-0"><a
@@ -248,7 +240,7 @@
 													<div th:unless="${resL.mainP}">
 														<input type="file" name="file"> <input
 															type="hidden" name="resNum" th:value="${resL.resNum}">
-														<button type="button" class="upload-button">업로드</button>
+														<button type="button" class="upload-button btn btn-dark">업로드</button>
 													</div>
 												</form>
 											</td>
@@ -388,6 +380,7 @@
 						contentType: false,
 						success : function(result) {
 							alert('제출이 성공적으로 되었습니다.');
+							location.reload();
 						},
 						error : function(reject) {
 							//alert('전송이 실패하였습니다.');

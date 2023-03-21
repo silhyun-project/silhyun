@@ -4,8 +4,8 @@
 
 
 var ptgId = $('.hiddenptgId').text();
-var loginUserId = $('.hiddenloginId').text();			
-	
+var loginUserId = $('.hiddenloginId').text();
+
 
 
 
@@ -14,8 +14,6 @@ console.log('호출우우우루');
 
 
 //포트폴리오 해당 작가 정보(프로필)
-
-
 $.ajax({
 	type: 'GET',
 	url: '/silhyun/portfolioptg/' + ptgId,
@@ -30,7 +28,9 @@ $.ajax({
 			success: function(fieldData) {
 				console.log(fieldData);
 				//for문 돌려서 분야 태그 별로 다시 만들기===========================
-				var profile = ptgInfo[0].stName == null ? '프리랜서' : 'ptgInfo[0].stName';
+				var profile = ptgInfo[0].stName == null ? '프리랜서' : ptgInfo[0].stName;
+				console.log(profile)
+
 				var ptgProfile = `	<div class="ptg-inf">
 									<div class="ptg-inf-1">
 										<div class="products-brand pb-2">
@@ -223,12 +223,12 @@ $(document).ready(function() {
 
 		//해당 포트폴리오 번호에 맞는 헤더 붙여주기(((2)))시작	
 		var modalheader = `<div class="mTopSectionInfoImg">
-									<img src="${selectedPortfolio.profile}" alt="이미지">
+									<img src="${ptgInfo.profile}" alt="이미지">
 									</div>
 									<div class="mTopSectionImgMaster">
 										<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
 										&nbsp;&nbsp; <i class="bi-dot"></i>
-										<button><i class="zzim-icon bi-check2"></i></button>
+										<button><i class="zzim-icon">팔로우</i></button>
 									</div>`
 		$(".mTopSectionInfo").empty();
 		$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.

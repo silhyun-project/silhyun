@@ -767,12 +767,12 @@
 								<!-- Nav User-->
 								<ul class="list-unstyled link-list-style-02 m-0" id="smMenu">
 									<li><a href="#"></a></li>
-									<li><a href="/admin/dashBoard" sec:authorize="hasRole('ROLE_M0')">관리자</a></li>
 									<li><a href="#" sec:authorize="hasRole('ROLE_M2')">포트폴리오</a></li>
-									<li><a href="/photo/mypageAo" sec:authorize="hasRole('ROLE_M2')">작가마이페이지</a></li>
-									<li><a href="/mpg/mpgUser" sec:authorize="hasRole('ROLE_M1')">회원마이페이지</a></li>
-									<li><a href="/photo/mypageStd" sec:authorize="hasRole('ROLE_M3')">사진관마이페이지</a></li>
-									<li><a href="/silhyun/joinForm" th:if='${session.id} eq null'>회원가입</a></li>
+									<li><a href="/photo/mypageAo" sec:authorize="hasRole('ROLE_M2')">작가마이페이지</a>
+									<a href="/mpg/mpgUser" sec:authorize="hasRole('ROLE_M1')">회원마이페이지</a>
+									<a href="/photo/mypageStd" sec:authorize="hasRole('ROLE_M3')">사진관마이페이지</a>
+									<a href="/admin/dashBoard" sec:authorize="hasRole('ROLE_M0')">관리자</a>
+									<a href="/silhyun/joinForm" th:if='${session.id} eq null'>회원가입</a></li>
 									<li><a href="/login" th:if='${session.id} eq null'>로그인</a> <a
 										href="/logout" th:if='${session.id} neq null'>로그아웃</a></li>
 								</ul>
@@ -857,12 +857,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6 col-lg-3">
+						<div class="col-sm-6 col-lg-3" sec:authorize="hasAnyRole('ROLE_M1','ROLE_M2')">
 							<div class="d-flex px-3 py-1 align-items-center border border-white-light">
 								<div class="fs-1 text-white">
 									<i class="bi bi-camera"></i>
 								</div>
-								<a href="/shin/stdRegister">
+								<a href="/shin/stdRegister" >
 									<div class="col ps-3">
 										<h6 class="mb-1 text-white">사진관 입점하기</h6>
 									</div>
@@ -870,7 +870,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-sm-6 col-lg-3">
+						<div class="col-sm-6 col-lg-3"  sec:authorize="hasRole('ROLE_M1')">
 							<div
 								class="d-flex px-3 py-1 align-items-center border border-white-light">
 								<div class="fs-1 text-white">
@@ -896,10 +896,10 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-6 col-lg-3 my-3">
+						<div class="col-sm-6 col-lg-3">
 							<div class="pb-3">
 								<!-- 로고 사진 들어가는 곳 -->
-								<img src="#" title="" alt="" style="width: 250px;height: 100px;text-align: center;">
+								<img src="/img/silhyunlogoSmall.png" title="" alt="" style="width: 200px;height: 70px;text-align: center;">
 							</div>
 							<address class="dark-link mb-4">
 								<p class="mb-2">
@@ -932,8 +932,8 @@
 						<div class="col-6 col-lg-3 my-3">
 							<h6 class="text-uppercase mb-5">Register</h6>
 							<ul class="list-unstyled dark-link footer-link-1 m-0">
-								<li class="pb-2"><a href="/shin/stdRegister">사진관 입점</a></li>
-								<li class="pb-2"><a href="/shin/ptgRegister">작가 등록</a></li>
+								<li class="pb-2"><a href="/shin/stdRegister" sec:authorize="hasAnyRole('ROLE_M1','ROLE_M2')">사진관 입점</a></li>
+								<li class="pb-2"><a href="/shin/ptgRegister" sec:authorize="hasRole('ROLE_M1')">작가 등록</a></li>
 							</ul>
 						</div>
 						<div class="col-sm-6 col-lg-3 my-3">

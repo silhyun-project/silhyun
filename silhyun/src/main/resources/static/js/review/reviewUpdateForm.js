@@ -23,8 +23,8 @@ function fileUpAction(){
     // 미리보기 이미지 속성
     var imgStyle = 'width:100%;height:100%;z-index:none';
     // 이미지안에 표시되는 체크박스의 속성
-    var chkStyle = 'width:30px;height:30px;position:absolute;font-size:10px;'
-                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+    var chkStyle = 'width:30px;height:30px;position:absolute;font-size:10px;border:none;'
+                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(051,051,051,0.3);color:#f00';
                   
 	
  $(function(){
@@ -208,7 +208,11 @@ function fileUpAction(){
 	backBtn.onclick= function(){
 		let ctgr = document.getElementById('ctgr').value
 		let ctgrNum = document.getElementById('ctgrNum').value
-		ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
+		let pageNum = document.getElementById('pageNum').value
+    	let sort = document.getElementById('sort').value
+    	let phosort = document.getElementById('photo').value
+    	console.log(phosort)
+		ajaxReiew({pageNum:pageNum, amount:5, sort: sort, ctgrNum: ctgrNum, ctgr: ctgr, photo :phosort }) 			
 		
 	}
 
@@ -231,9 +235,12 @@ function updateReview(){
 			console.log(res)
 			let ctgr = $('#ctgr').val()
 			let ctgrNum = $('#ctgrNum').val()
+			let pageNum = $('#pageNum').val()
+    	    let sort = $('#sort').val()
+    	     let phosort = $('#photo').val()
 			console.log(ctgr)
 			//location.href = "/silhyun/reviewList";
-             ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr}) 			
+             ajaxReiew({pageNum:pageNum, amount:5, sort: sort, ctgrNum: ctgrNum, ctgr: ctgr, photo :phosort }) 			
 		},
 		error: function(err){
 			console.log(err)

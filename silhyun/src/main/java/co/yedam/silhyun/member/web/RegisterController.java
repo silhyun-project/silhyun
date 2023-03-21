@@ -61,6 +61,6 @@ public class RegisterController {
 	@ResponseBody
 	public String stdRegiste(StudioVO vo,Model model) {
 		registerService.stdRegiInsert(vo);
-		return "home/home";
+		return "true";
 	}
 }

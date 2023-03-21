@@ -19,17 +19,20 @@
 </head>
 <style>
 
-*{
-	text-align: left;
+#review{
+	text-align: letf;
 }
 
 .pagination {
-  display: inline-block;
+    display: block; 
+    text-align: center;
+
+  
 }
 
 .pagination a {
   color: black;
-  float: left;
+  float: none;
   padding: 8px 16px;
   text-decoration: none;
 }
@@ -43,10 +46,6 @@
 .pagination a:hover:not(.active) {
   background-color: #ddd;
   border-radius: 5px;
-}
-
-.container {
- text-align: center;
 }
 .star-ratings {
   color: #d3d3d3; 
@@ -105,15 +104,12 @@
 	-webkit-transform: translate(-50%, -50%) rotate(-45deg);
 	transform: translate(-50%, -50%) rotate(-45deg);
 }
-img{
- width: 300px;
+.imgSlider{
+ width: 200px;
+ height: 200px;
 }
 #right{
  float: right;
-}
-.content{
-white-space: pre-wrap ;
-
 }
 
 </style>
@@ -128,8 +124,7 @@ white-space: pre-wrap ;
 	                    <br>
 	                    	<!-- 평균별점 -->
 	                    	<div>
-						  	<span>총 별점 <span id="starAvg" th:if='${star.star} neq null'>[[${star.star}]]</span>
-						  	            <span id="starAvg" th:else='${star.star} neq null'>0.0</span>점 </span>
+						  	<span>총 별점 <span id="starAvg">[[${star?.star}]]</span>점 </span>
 					       <div class="star-ratings">
 						        <div class="star-ratings-fill">
 						            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -165,11 +160,11 @@ white-space: pre-wrap ;
 						</div>				    
 						<input type="hidden" name="pageNum" th:value="1">
 						<input type="hidden" name="amount" th:value="*{criteria.amount}">
-						<input type="hidden" name="ctgr" th:value="${list[0].ctgr}">
-						<input type="hidden" name="ctgrNum" th:value="${list[0].ctgrNum}">
+						<input type="hidden" name="ctgr" >
+						<input type="hidden" name="ctgrNum" >
 					</form>
 				</div>
-				<th:block th:if='${list} != null' th:each="rev : ${list}">
+				<th:block th:each="rev : ${list}">
 				<form id="upFrm">
 				<input type="hidden" th:value="${rev.revNum}" class="revNum" name="revNum">
 	            <div class="d-flex review-box border-top mt-4 pt-4 reviewContent">
@@ -190,17 +185,18 @@ white-space: pre-wrap ;
 						    </div>
 	                        <span>[[${#dates.format(rev.revDate, 'yyyy-MM-dd')}]]</span><br><br>
 	                <div>
-						<div class="content">[[${rev.cntn}]]</div>
+					    <div class="content">[[${rev.cntn}]]</div>
 	                </div>
 	                </div>
 	            </div>
 	            <div class="photo" th:if="${rev.photoList != null}">
 		            <div class="slider-wrap">
-		            	<div class="cont" th:each="pho : ${rev.photoList}"><img th:src="${pho.thumbnail}"></div>
+		            	<div class="cont" th:each="pho : ${rev.photoList}"><img class="imgSlider" th:src="${pho.thumbnail}"></div>
 					</div>
 				</div>
 				</form>
 				</th:block>
+	
 				<!-- 페이지네이션 -->
 				<div class="pagination">
 					<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
