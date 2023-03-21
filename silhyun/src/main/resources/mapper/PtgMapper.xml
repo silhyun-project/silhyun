@@ -3,12 +3,15 @@
 <mapper namespace="co.yedam.silhyun.member.map.PtgMapper">
 	<!-- 작가 예약시간 ajax -->
 	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-		SELECT DISTINCT P.*,RT.*,M.NAME,FIND_CD(RES_TIME) REST,
-		(SELECT COUNT(*) FROM RESER R WHERE R.SHOT_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.SHOT_TIME AND R.PTG_ID = P.PTG_ID) RESYN
-		FROM PHOTOGRAPHER P, RESER_TIME RT, MEMBER M
+		SELECT DISTINCT P.*,
+		       RT.*,
+		       M.NAME,
+		       FIND_CD(RES_TIME) REST,
+			   (SELECT COUNT(*) FROM RESER R WHERE R.SHOT_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.SHOT_TIME AND R.PTG_ID = P.PTG_ID) RESYN
+		 FROM PHOTOGRAPHER P, RESER_TIME RT, MEMBER M
 		WHERE M.ID = P.PTG_ID
-		AND P.PTG_ID ＝ RT.PTG_ID
-		AND P.PTG_ID = #{ptgId}	
+		  AND P.PTG_ID ＝ RT.PTG_ID
+		  AND P.PTG_ID = #{ptgId}	
 		ORDER BY REST
 	</select>
 	
@@ -25,15 +28,28 @@
 	<!-- 작가 상세 페이지 조회 -->
 	<select id="getPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO" parameterType="String">
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-			SELECT DISTINCT NVL(Z.ZZIMSS,0) ZZIMS,P.*, M.*,S.ST_NAME,A.PHO_RT, A.PHO_NUM,PT.UP_STA,PT.PORT_DATE,PT.PORT_NUM
-			FROM PHOTOGRAPHER P, MEMBER M,STUDIO S,(SELECT CTGR_NUM,COUNT(*) ZZIMSS FROM ZZIM GROUP BY CTGR_NUM) Z,
-	        (SELECT PHO_RT, PHO_NUM, CTGR_NUM
-			FROM PHOTO
-			WHERE PHO_NUM IN (SELECT MIN(TO_NUMBER(PHO_NUM))
-			FROM PHOTO
-			WHERE UPPER(CTGR) = 'P'
-			GROUP BY CTGR_NUM)
-			ORDER BY PHO_NUM) A, PORTFOLIO PT
+			SELECT DISTINCT 
+			       NVL(Z.ZZIMSS,0) ZZIMS,
+			       P.*, 
+			       M.*,
+			       S.ST_NAME,
+			       A.PHO_RT, 
+			       A.PHO_NUM,
+			       PT.UP_STA,
+			       PT.PORT_DATE,
+			       PT.PORT_NUM
+			FROM PHOTOGRAPHER P, 
+			     MEMBER M,
+			     STUDIO S,
+			     (SELECT CTGR_NUM,COUNT(*) ZZIMSS FROM ZZIM GROUP BY CTGR_NUM) Z,
+	             (SELECT PHO_RT, PHO_NUM, CTGR_NUM
+					FROM PHOTO
+				   WHERE PHO_NUM IN (  SELECT MIN(TO_NUMBER(PHO_NUM))
+										 FROM PHOTO
+										WHERE UPPER(CTGR) = 'P'
+										GROUP BY CTGR_NUM)
+			       ORDER BY PHO_NUM) A, 
+			       PORTFOLIO PT
 			WHERE P.PTG_ID = M.ID
 	        AND PT.PTG_ID = P.PTG_ID
 	        AND A.CTGR_NUM = PT.PORT_NUM
@@ -89,9 +105,7 @@
         AND P.PTG_ID = F.PTG_ID
           AND UPPER(P.CFM_CD) = 'Y'
         	<if test="vo.chkArray != null and vo.chkArray.length>0">
-					AND P.REGION_CD in <foreach item="vo.region" collection="vo.chkArray" open="(" close=")" separator="," >
-						#{vo.region}
-					</foreach>
+					AND P.REGION_CD in <foreach item="vo.region" collection="vo.chkArray" open="(" close=")" separator="," >	#{vo.region}</foreach>
 			</if>
 			<if test="vo.chkfldArray != null and vo.chkfldArray.length>0">
 					AND F.FD_CD in <foreach item="vo.field" collection="vo.chkfldArray" open="(" close=")" separator="," >
