@@ -182,8 +182,6 @@ $(function() {
 	//포트폴리오 등록하기 버튼
 	$('.btn.btn-dark.me-3.submit').click(function(e) {
 		e.preventDefault();
-
-
 		var upSta = 'Y';
 		//사진
 		//태그
@@ -200,8 +198,6 @@ $(function() {
 		formData.append('cntn', cntn);
 		formData.append('upSta', upSta);
 
-
-
 		$.ajax({
 			url: "/silhyun/tagList",
 			type: "GET",
@@ -212,11 +208,6 @@ $(function() {
 					.map(item => item.tagCntn)
 					.filter(tag => !response.map(item => item.tagCntn).includes(tag));
 				var tagCntns = vsTags.map(tag => ({ tagCntn: tag }));
-
-
-				console.log(selectTag);
-				console.log(tagCntns)
-
 
 				formData.append('tagCntn', JSON.stringify(tagCntns));
 				$.ajax({
