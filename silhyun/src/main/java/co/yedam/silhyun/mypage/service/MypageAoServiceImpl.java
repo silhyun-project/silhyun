@@ -163,6 +163,13 @@ public class MypageAoServiceImpl implements MypageAoService {
 		return mypageAoMapper.totalClassList(ptgId);
 	}
 
+	@Override
+	public List<ReserTimeVO> ptgRestime(String ptgId) {
+
+		return mypageAoMapper.ptgRestime(ptgId);
+	}
+
+
 	
 
 
