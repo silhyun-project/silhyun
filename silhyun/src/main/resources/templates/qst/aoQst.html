@@ -131,6 +131,11 @@
 		button {
 			margin-left: 10px;
 		}
+		
+		a {
+			text-decoration-line: none;
+		}
+		
 	</style>
 
 </head>
@@ -140,7 +145,7 @@
 		<div class="divTable minimalistBlack" >
 			<div class="divTableHeading">
 				<div class="divTableRow">
-					<div class="divTableHead" style="width: 200px;">제목</div>
+					<div class="divTableHead" style="width: 100px;">제목</div>
 					<div class="divTableHead" style="width: 50px;">작성자</div>
 					<div class="divTableHead" style="width: 50px;">작성날짜</div>
 					<div class="divTableHead" style="width: 70px;">답변상태</div>
@@ -264,7 +269,6 @@
 					let str = '';
 					$(result).each(function (q, aqst) {
 						str += '<div class="divTableRow">'
-												
 						str += '<a href="#" class="ttlBtn">' + aqst.ttl + '</a>'
 						str += '<div class="divTableCell qstId" id="id">' + aqst.id + '</div>'
 						str += '<div class="divTableCell qstDate" id="qstDate">' + aqst.qstDate + '</div>'
@@ -278,10 +282,8 @@
 						str += '<button class="ansBtn">답변</button>'
 						str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
 						
-						str += '</div>'
-						
-												
-						str += '<div class="ansBox" style="display:none;">'
+						str += '</div>'				
+						str += '<div class="ansBox" style="display:none; width:100px;">'
 
 						str += '<p id="qCntn">' + aqst.cntn + '<p>'
 
@@ -301,7 +303,7 @@
 						str += '</div>'
 
 						str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'
-							
+						
 						str += '</div>'
 					})
 					qstArea.html(str);
