@@ -62,7 +62,6 @@
                                             <th class="border-top-0">지역</th>
                                             <th class="border-top-0">사업자등록번호</th>
                                             <th class="border-top-0">촬영장소</th>
-                                            <th class="border-top-0">자기소개</th>
                                             <th class="border-top-0">인스타주소</th>
                                             <th class="border-top-0">근무가능요일</th>
                                             <th class="border-top-0" style="width: 150px">승인신청일자</th>
@@ -77,7 +76,6 @@
                                             <td th:text="${ptg.regionCd}"></td>
                                             <td th:text="${ptg.crn}"></td>
                                             <td th:text="${ptg.shotPlace}"></td>
-                                            <td th:text="${ptg.itr}"></td>
                                             <td th:text="${ptg.inst}"></td>
                                             <td th:text="${ptg.workDay}"></td>
                                             <td th:text="${#dates.format(ptg.regiDate,'yyyy/MM/dd')}"></td>
@@ -181,20 +179,22 @@
                                             <th class="border-top-0" style="width: 50px">#</th>
                                             <th class="border-top-0" style="width: 150px">작가아이디</th>
                                             <th class="border-top-0">클래스제목</th>
+                                            <th class="border-top-0">클래스장소</th>
+                                            <th class="border-top-0">클래스일시</th>
                                             <th class="border-top-0">클래스구분</th>
-                                            <th class="border-top-0">클래스설명</th>
                                             <th class="border-top-0">클래스금액</th>
                                             <th class="border-top-0" style="width: 150px">승인신청일자</th>
                                             <th class="border-top-0" style="width: 80px">승인처리</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="c, sts3: ${classList}" th:Class="${sts3}">
+						                <tr th:each="c, sts3: ${classList}" th:Class="${sts3}">
                                             <td th:text="${sts3.count}"></td>
                                             <td th:text="${c.ptgId}"></td>
                                             <td th:text="${c.claTtl}"></td>
+                                            <td th:text="${c.claPlace}"></td>
+                                            <td th:text="${c.claDt}+'/'+${c.claTime}"></td>
                                             <td th:text="${c.claCd}"></td>
-                                            <td th:text="${c.claDesct}"></td>
                                             <td th:text="${c.claPri}+'원'"></td>
                                             <td th:text="${#dates.format(c.regiDate,'yyyy/MM/dd')}"></td>
                                             <td><button type="button" class="btn btn-info"  id ="classAcceptBtn"  data-bs-toggle="modal" data-bs-target="#classAcceptModal" style="color:white;" 
@@ -600,6 +600,10 @@
                               <b>클래스제목</b>
                               <p>${classSelect.claTtl}</p>
                           </div>  
+                          <div class="mb-3">
+                          <b>클래스제목</b>
+                          <p>${classSelect.claDesct}</p>
+                      </div>  
                   <div class="mb-3">
                   <b>OT영상 주소</b>
                   <p>${classSelect.ot}</p>
