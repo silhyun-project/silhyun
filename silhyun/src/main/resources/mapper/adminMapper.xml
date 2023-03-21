@@ -292,15 +292,15 @@ WHERE event_num = #{eventNum}
 	</select>
 
 	<select id="ptgList" parameterType="PhotographerVO" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-		select *
+		select 
 		from photographer
-		order by regi_date
+		order by accp_date desc
 	</select>
 
 	<select id="stdList" parameterType="StudioVO" resultType="co.yedam.silhyun.member.vo.StudioVO">
 		select *
 		from studio
-		order by regi_date
+		order by accp_date desc
 	</select>
 
 	<select id="adminInfo" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
