@@ -6,19 +6,20 @@
           $('#searchFrm').find('input[name="ctgrNum"]').val($('#ctgrNum').val())
           
           
-					
-		
-		  $(".content").moreLess({
-		
-		    wordsCount: 40,
-		    moreLabel:"..더보기",
-		    lessLabel:"..줄이기",
-			moreClass:"more-link",
-			lessClass:"less-link"
-
-
-		
-		  });
+		let row = $('.content').text().split('\n').length
+		if(row > 2){
+			$('.content').css('white-space', 'pre-wrap')
+			  $(".content").moreLess({
+			    wordsCount: 40,
+			    moreLabel:"..더보기",
+			    lessLabel:"..줄이기",
+				moreClass:"more-link",
+				lessClass:"less-link"
+			  });
+			
+		}else{
+			$('.content').css('white-space', 'pre')
+		}
 		
 
 
