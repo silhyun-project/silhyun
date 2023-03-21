@@ -228,7 +228,7 @@ $(document).ready(function() {
 									<div class="mTopSectionImgMaster">
 										<div class="modalMasterId">${selectedPortfolio.ptgId}</div>
 										&nbsp;&nbsp; <i class="bi-dot"></i>
-										<button><i class="zzim-icon bi-check2"></i></button>
+										<button><i class="zzim-icon">팔로우</i></button>
 									</div>`
 		$(".mTopSectionInfo").empty();
 		$(".mTopSectionInfo").append(modalheader); //헤더는 다 붙여줌 화면구성을 하자.
