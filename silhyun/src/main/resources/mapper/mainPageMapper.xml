@@ -111,7 +111,11 @@
 	
 	<!-- 작가 등록된 필드가지고와서 태그로만들기 -->
 	<select id="getFeildList" resultType="co.yedam.silhyun.member.vo.FieldVO">
+	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
 		SELECT DISTINCT FD_CD,FIND_CD(FD_CD) fldName FROM FIELD
+	<![CDATA[	
+	 	) A WHERE ROWNUM <= 8) B WHERE RN >= 1
+	 	 ]]>
 	</select>
 	
 	<!-- 등록된 필드의 작가 리스트 가지고오기 -->
