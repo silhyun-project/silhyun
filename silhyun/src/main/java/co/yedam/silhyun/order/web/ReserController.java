@@ -55,6 +55,7 @@ public class ReserController {
 		model.addAttribute("page", new PageVO(ptgService.getTotalCount(cri, vo), 10, cri)); // 페이징
 		return "reser/ptgList";
 	}
+	
 //  //▶지역, 분야 검색 
 //	@RequestMapping("/silhyun/searchPtgList") 
 //	@ResponseBody

@@ -118,8 +118,8 @@ where cfm_cd = 'O'
 
 <!--ptg승인신청 select-->
 <select id="ptgSelect" parameterType="String" resultType="map">
-select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  		CASE 
- 		WHEN region_cd = '01' THEN '서울'
+select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  		
+CASE WHEN region_cd = '01' THEN '서울'
 			WHEN region_cd = '02' THEN '경기'
 				WHEN region_cd = '03' THEN '인천'
 					WHEN region_cd = '04' THEN '강원'
@@ -291,8 +291,21 @@ WHERE event_num = #{eventNum}
 		order by join_date desc
 	</select>
 
-	<select id="ptgList" parameterType="PhotographerVO" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-		select 
+	<select id="ptgList" parameterType="PhotographerVO" resultType="map">
+		select ptg_id as "ptgId", st_id as "stId", 
+CASE WHEN region_cd = '01' THEN '서울'
+			WHEN region_cd = '02' THEN '경기'
+				WHEN region_cd = '03' THEN '인천'
+					WHEN region_cd = '04' THEN '강원'
+						WHEN region_cd = '05' THEN '대전/충청'
+							WHEN region_cd = '06' THEN '대구'
+								WHEN region_cd = '07' THEN '부산/울산'
+									WHEN region_cd = '08' THEN '경상'
+										WHEN region_cd = '09' THEN '광주/전라'
+										
+else '제주' end as "regionCd", 
+        crn as "crn", inst as "inst",
+        work_day as "workDay", case when ptg_cd ='S' then 'X' else 'O' end as "ptgCd", accp_date as "accpDate"
 		from photographer
 		order by accp_date desc
 	</select>
@@ -525,8 +538,24 @@ FETCH FIRST 5 ROWS ONLY
 </select>
 
 <!-- 기록가리스트 페이징 -->
-<select id="getListPtg" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
-	 select * from( select rownum rn, a.* from( 
+<select id="getListPtg" resultType="map">
+		select ptg_id as "ptgId", nvl(st_id,'없음') as "stId", 
+CASE WHEN region_cd = '01' THEN '서울'
+			WHEN region_cd = '02' THEN '경기'
+				WHEN region_cd = '03' THEN '인천'
+					WHEN region_cd = '04' THEN '강원'
+						WHEN region_cd = '05' THEN '대전/충청'
+							WHEN region_cd = '06' THEN '대구'
+								WHEN region_cd = '07' THEN '부산/울산'
+									WHEN region_cd = '08' THEN '경상'
+										WHEN region_cd = '09' THEN '광주/전라'
+										
+else '제주' end as "regionCd", 
+        crn as "crn", inst as "inst",
+        work_day as "workDay", case when ptg_cd ='S' then 'X' else 'O' end as "ptgCd", accp_date as "accpDate"
+
+	 
+	 from( select rownum rn, a.* from( 
  
  			select * 
  			from photographer	
@@ -562,8 +591,22 @@ FETCH FIRST 5 ROWS ONLY
 
 
 <!-- 사진관리스트 페이징 -->
-<select id="getListStd" resultType="co.yedam.silhyun.member.vo.StudioVO">
-	 select * from( select rownum rn, a.* from( 
+<select id="getListStd" resultType="map">
+	 select 
+	 st_id as "stId", st_name as "stName", ceo_name as "ceoName", tel as "tel", addr as "addr",
+	 CASE WHEN region_cd = '01' THEN '서울'
+			WHEN region_cd = '02' THEN '경기'
+				WHEN region_cd = '03' THEN '인천'
+					WHEN region_cd = '04' THEN '강원'
+						WHEN region_cd = '05' THEN '대전/충청'
+							WHEN region_cd = '06' THEN '대구'
+								WHEN region_cd = '07' THEN '부산/울산'
+									WHEN region_cd = '08' THEN '경상'
+										WHEN region_cd = '09' THEN '광주/전라'
+										
+else '제주' end as "regionCd", addr as "addr ", crn as "crn", accp_date as "accpDate", st_cd as "stCd"
+	 
+	 from( select rownum rn, a.* from( 
  
  			select * 
  			from studio 

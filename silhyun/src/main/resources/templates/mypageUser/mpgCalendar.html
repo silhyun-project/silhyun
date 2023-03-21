@@ -148,9 +148,6 @@ body {
 											<h6 class="m-0">닉네임</h6>
 											<small><a href="#">이름</a></small>
 										</div>
-										<div>
-											<button>작가변경</button>
-										</div>
 									</div>
 									<ul class="list-unstyled mb-0 theme-link">
 										<li class="border-bottom mb-0"><a
@@ -269,98 +266,112 @@ body {
 
 		<!-- Fullcalendar -->
 		<script>
-		document.addEventListener('DOMContentLoaded',function() {
-		    var calendarEl = document.getElementById('calendar');
-		                        
-		    var calendar = new FullCalendar.Calendar(
-		        calendarEl,
-		        {
-		            locale : 'ko',
-		            headerToolbar : {
-		                left : 'prev,next today',
-		                center : 'title',
-		                right : 'dayGridMonth'
-		            },
-		            initialDate : '2023-03-01',
-		            navLinks : true,
-		            selectable : true,
-		            selectMirror : true,
+			document.addEventListener('DOMContentLoaded',function() {
+				var calendarEl = document.getElementById('calendar');	
+				var calendar = new FullCalendar.Calendar(			
+					calendarEl,{	
+						locale : 'ko',
+						headerToolbar : {
+							left : 'prev,next today',
+							center : 'title',
+							right : 'dayGridMonth'
+						},
+						initialDate : '2023-03-01',
+						navLinks : true,
+						selectable : true,
+						selectMirror : true,
 
-		            select : function(arg) {
-		                let cntn = prompt('일정 제목을 입력해주세요:');
-		                if (cntn) {
-		                    let id = 'catLove';
-		                    let todoDate = arg.startStr;
-		                    let eventData = {
-		                        id : id,
-		                        cntn : cntn,
-		                        todoDate : todoDate
-		                    };
-		                    $.ajax({
-		                        type : 'post',
-		                        url : '/scheduleInsert',
-		                        contentType : 'application/json; charset=utf-8',
-		                        data : JSON.stringify(eventData),
-		                        success : function(response) {
-		                            if (response.res > 0) {
-		                                calendar.addEvent({
-		                                            title : response.todo.cntn,
-		                                            start : response.todo.todoDate,
-		                                            extendedProps : { todoNum : response.todo.todoNum }
-		                                        });
-		                                alert('일정이 추가되었습니다.');
-		                                console.log(eventData)
-		                            } else {
-		                                alert('일정 추가에 실패했습니다.');
-		                            }
-		                        },
-		                        error : function() {
-		                            alert('서버 오류가 발생했습니다.');
-		                        }
-		                    });
-		                }
-		                calendar.unselect();
-		            },
-		            eventClick : function(arg) {
-		                var todoNum = arg.event.extendedProps.todoNum;
-		                $.ajax({
-		                    url : '/scheduleDelete',
-		                    method : 'POST',
-		                    contentType : 'application/json',
-		                    data : {
-		                        todoNum : todoNum
-		                    },
-		                    success : function(response) {
-		                        console.log(response);
-		                    },
-		                    error : function(error) {
-		                        console.log(error);
-		                    }
-		                });
-		            },
-		            editable : false,
-		            dayMaxEvents : true,
-		            events : [ 
-		                $.ajax({
-		                    url : '/getScheduleList',
-		                    method : 'GET',
-		                    success : function(response) {
-		                        let tList = response.tList
-		                        for ( let i in tList) {
-		                            console.log(tList[i])
-		                            calendar.addEvent({
-		                                title : tList[i].cntn,
-		                                start : tList[i].todoDate,
-		                                end : tList[i].todoDate,
-		                                extendedProps : { todoNum : tList[i].todoNum }
-		                            });
-		                        }
-		                    }
-		                }) ]
-		        });
+						select : function(arg) {
+							let cntn = prompt('일정 제목을 입력해주세요:');
+							if (cntn) {
+								let id = 'catLove';
+								let todoDate = arg.startStr;
+								let eventData = {
+									id : id,
+									cntn : cntn,
+									todoDate : todoDate
+								};
+								$.ajax({
+									type : 'post',
+									url : '/scheduleInsert',
+									contentType : 'application/json; charset=utf-8',
+									data : JSON.stringify(eventData),
+									success : function(response) {
+										if (response.res > 0) {
+												calendar.addEvent({
+												title : response.todo.cntn,
+												start : response.todo.todoDate,
+												extendedProps : {
+													todoNum : response.todo.todoNum
+												}
+											});
+													
+											alert('일정이 추가되었습니다.');
+											console.log(eventData)
+													
+										} else {
+											alert('일정 추가에 실패했습니다.');
+										}
+									},
+									error : function() {
+										alert('서버 오류가 발생했습니다.');
+									}
+								});
+							}
+							calendar.unselect();
+						},
+						eventClick : function(arg) {
+							var todoNum = arg.event.extendedProps.todoNum;
 
-		    calendar.render();
-		});
+							console.log(todoNum);
+							let cc = confirm("일정을 삭제 하시겠습니까?")
+							if (!cc)
+								return;
+							$.ajax({
+								url : '/scheduleDelete',
+								method : 'DELETE',
+								contentType : 'application/json',
+								data : {
+									todoNum : todoNum
+								},
+								success : function(
+										response) {
+									console.log(response);
+								},
+								error : function(
+										error) {
+									console.log(error);
+								}
+							});
+						},
+						editable : false,
+						dayMaxEvents : true,
+						events : [],
+						loading : function(bool) {
+							if (bool) {
+								$.ajax({
+									url : '/getScheduleList',
+									method : 'GET',
+									success : function(response) {
+												console.log(response);
+										for ( let i in response) {
+											calendar.addEvent({
+												title : response[i].cntn,
+												start : response[i].todoDate,
+												extendedProps : {
+													todoNum : response[i].todoNum
+												}
+											});
+										}
+									}
+								})
+							}
+						},
+
+					});
+
+				calendar.render();
+			});
 		</script>
 
 		<!-- End script start -->

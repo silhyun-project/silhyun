@@ -297,7 +297,6 @@ public class AdminController {
 			@RequestParam(value = "keyword2", required = false) String keyword2,
 			@RequestParam(value = "pageNum3", required = false, defaultValue = "1") int pageNum3,
 			@RequestParam(value = "keyword3", required = false) String keyword3) {
-		
 		cri2.setPageNum(pageNum2);
 		cri2.setKeyword(keyword2);
 		cri3.setPageNum(pageNum3);
@@ -308,8 +307,7 @@ public class AdminController {
 		
 		model.addAttribute("memberList", adminService.memberList());
 		model.addAttribute("ptgList",adminService.ptgList());
-		model.addAttribute("stdList",adminService.stdList());
-		
+		model.addAttribute("stdList",adminService.stdList());	
 		
 		
 		//회원전체리스트 페이징 
@@ -328,6 +326,8 @@ public class AdminController {
 		model.addAttribute("stdPage", new AdminPageVO(adminService.getTotalStd(cri3), 10, cri3));
 		
 		System.out.println(model);
+		
+		System.out.println("컨트 "+model.getAttribute("ptglist"));
 
 		return "admin/memberManage";
 	}
