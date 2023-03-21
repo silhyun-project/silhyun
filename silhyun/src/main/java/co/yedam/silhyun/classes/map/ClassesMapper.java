@@ -9,18 +9,25 @@ import co.yedam.silhyun.common.vo.ZzimVO;
 
 public interface ClassesMapper {
 
+
 	
+	//클래스의 해당 인강정보
 	List<Map<String, Object>> getClassIVInfo(String id, String classNum); 
 
+	//인강 상세정보
 	Map<String, Object> selectIV(String classNum, String inetNum, String id);
 	
+	//인강 시청기록삽입
 	int insertWInfo(InetClassesWtchVO vo);
 
+	
+	//인강리스트 
 	List<Map<String, Object>> getC1List(); 
 	
+	//현강리스트
 	List<Map<String, Object>> getC2List(); 
 	
-	//조건에 맞는 페이지
+	//조건에 맞는 인강리스트 아작스 
 	List<Map<String, Object>> cdtC1List(int param1); 
 	
 	List<Map<String, Object>> cdtC2List(int param1);
@@ -51,6 +58,8 @@ public interface ClassesMapper {
 	//내 수강강의 오프라인 세부 아작스 
 	Map<String, Object> myC1Ajax(String classNum);
 	
+	
+	//찜
 	int cFindZzim(ZzimVO vo);  //찜 데이터 있는지 확인
 	void cInsertZzim(ZzimVO vo); // 찜 추가하기
 	void cDelZzim(ZzimVO vo); //찜 삭제하기
