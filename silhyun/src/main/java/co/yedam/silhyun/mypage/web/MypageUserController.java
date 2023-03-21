@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.SessionUser;
+import co.yedam.silhyun.member.service.MemberService;
+import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.mypage.service.MypageUserService;
 import co.yedam.silhyun.mypage.vo.ScheduleVO;
 
@@ -26,6 +28,8 @@ public class MypageUserController {
 	
 	@Autowired
 	private MypageUserService mpgService;
+	@Autowired
+	private MemberService memberService;
    
    @GetMapping("/mpg/mpgOrderList")
    public String mpgOrderList() {
@@ -50,7 +54,11 @@ public class MypageUserController {
    }
 
    @GetMapping("/mpg/mpgUser")
-   public String mpgUser() {
+   public String mpgUser(HttpSession session, Model model) {
+	   MemberVO vo = new MemberVO();
+	   String id = (String) session.getAttribute("id");
+	   vo.setId(id);
+	   model.addAttribute("sta", memberService.memeberSelect(vo));
       
       return "mypageUser/mpgUser";
    }
