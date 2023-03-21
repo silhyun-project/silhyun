@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-<<<<<<< HEAD
 import co.yedam.silhyun.SessionUser;
-=======
->>>>>>> refs/remotes/origin/taekyeong
 import co.yedam.silhyun.member.service.MemberService;
 import co.yedam.silhyun.member.vo.MemberVO;
 import co.yedam.silhyun.mypage.service.MypageUserService;
