@@ -41,31 +41,24 @@ public class joinConrtroller {
     	//인써트
     	mService.memberInsert(vo);
     	//추천인 아이디가 있음 둘다 인써트 
-    	if(vo.getRcomr() != "") {    		
-    		PointVO pvo = new PointVO();
-    		pvo.setSavePo(1000);
-    		pvo.setId(vo.getId());
-    		pService.pointInsert(pvo);
-    		pvo.setId(vo.getRcomr());
-    		pService.pointInsert(pvo);
+    	if(vo.getRcomr() != "") {
+    		MemberVO mvo = new MemberVO();
+    		mvo.setId(vo.getRcomr());
+    		boolean n = mService.isidCheck(mvo);
+    		if(!n) {
+    			PointVO pvo = new PointVO();
+    			pvo.setSavePo(1000);
+    			pvo.setId(vo.getId());
+    			pService.pointInsert(pvo);
+    			pvo.setId(vo.getRcomr());
+    			pService.pointInsert(pvo);
+    		}
     	}
 		//쿠폰인써트 
 		CouponHistoryVO cvo = new CouponHistoryVO();
 		cvo.setCpnNum("1");
 		cvo.setId(vo.getId());
 		cService.insertCoupon(cvo);
-		
-    	//자동로그인 
-		UserVO uvo = new UserVO();
-		uvo.setId(vo.getId());
-		uvo.setMemCd("M1");
-		uvo.setPwd(result);
-		try {
-			request.login(uvo.getUsername(), uvo.getPassword());
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 				
 		
     	return "redirect:/silhyun/joinCompl";

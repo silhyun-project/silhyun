@@ -240,7 +240,7 @@
 				success : function(res){
 					console.log(res)
 					if(res){
-						alert("추천인란에 아이디 입니다.")						
+						alert("입력하신 추천아이디는 없는 아이디 입니다.")						
 					}else{
 						alert("추천인"+$('#rcomr').val()+"님과 함께 1000포인트 증정되었습니다.")
 					

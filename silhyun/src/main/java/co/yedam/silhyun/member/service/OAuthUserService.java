@@ -35,22 +35,20 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(oAuth2UserRequest);
         
-        // 현재 진행중인 서비스를 구분하기 위해 문자열로 받음. oAuth2UserRequest.getClientRegistration().getRegistrationId()에 값이 들어있다. {registrationId='naver'} 이런식으로
+        // 현재 진행중인 서비스를 구분('naver', 'kakao')
         String registrationId = oAuth2UserRequest.getClientRegistration().getRegistrationId();
 
-        // OAuth2 로그인 시 키 값이 된다. 구글은 키 값이 "sub"이고, 네이버는 "response"이고, 카카오는 "id"이다. 각각 다르므로 이렇게 따로 변수로 받아서 넣어줘야함.
+        // OAuth2 로그인 시 키 값(네이버 "response", 카카오는 "id")
         String userNameAttributeName = oAuth2UserRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-	// OAuth2 로그인을 통해 가져온 OAuth2User의 attribute를 담아주는 of 메소드.
+	    //로그인을 통해 가져온 OAuth2User의 attribute 담기
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
    
-        //밑의 함수에 담기
+        //로그인 정보를 db저장/시큐리티 vo에 담기
 		UserVO user = saveOrUpdate(attributes);
 		
 		//세션보에 담기
-		//httpSession.setAttribute("user", new SessionUser(user));
 		httpSession.setAttribute("id", attributes.getId());
-		//httpSession.setAttribute("so", );
 		httpSession.setAttribute("role", Collections.singleton(new SimpleGrantedAuthority(user.getMemCd())));
 		
 		
