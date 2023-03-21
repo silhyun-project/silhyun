@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.silhyun.mypage.map.MypageAoMapper">
+<!-- 페이징  -->		
 	<select id="getReserList"
 		resultType="int">
 		SELECT COUNT(*)
@@ -8,6 +9,7 @@
 		WHERE ptg_id=#{ptgId}
 		ORDER BY shot_date DESC
 	</select>
+	
 	<select id="selectReserList"
 		resultType="co.yedam.silhyun.order.vo.ReserVO">
 	   select * from( select rownum rn, a.* from( 
@@ -21,13 +23,13 @@
 	 	) a where rownum <= #{cri.pageNum} * #{cri.amount}) b where rn > (#{cri.pageNum}-1) * #{cri.amount}
 	 ]]>
 	</select>
-	
+<!-- 근무요일 들고오기용  -->
 	<select id="selectWorkDay" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 	 select *
 	 from photographer
 	 where ptg_id= #{id}
 	</select>
-	
+<!-- 일하는시간 들고오기  -->	
 	<select id="getResTime" resultType="co.yedam.silhyun.member.vo.PhotographerVO">
 		SELECT DISTINCT P.*,RT.*,M.NAME,FIND_CD(RES_TIME) REST,
 		(SELECT COUNT(*) FROM RESER R WHERE R.SHOT_DATE = TO_DATE(#{redate},'yyyy-mm-dd') AND RT.RES_TIME =R.SHOT_TIME AND R.PTG_ID = P.PTG_ID) RESYN
@@ -38,6 +40,7 @@
 		ORDER BY REST
 	</select>
 	
+<!-- 페이징  -->	
 	<select id="totalClassList" resultType="int">
 		SELECT COUNT(*)
 		FROM CLASS
@@ -45,6 +48,7 @@
 		ORDER BY ACCP_DT DESC
 		
 	</select>
+
 	<select id="classList" resultType="co.yedam.silhyun.classes.vo.ClassesVO">
 		select * from( select rownum rn, a.* from( 
 		SELECT *
@@ -65,17 +69,16 @@
 		INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
 		WHERE m.id = #{id}
 	</select>
-
+	
+<!-- ptg정보 들고오기  -->
 	<select id="ptgSelect" resultType="co.yedam.silhyun.member.vo.MemberVO">
 		SELECT *
 		FROM MEMBER m
 		INNER JOIN PHOTOGRAPHER p ON m.id = p.ptg_id
 		WHERE m.id = #{ptgId}
-	<!-- 	<if test="pwd != null">
-			AND pwd = #{pwd }
-		</if> -->
+
 	</select>
-	<!-- 근무 시간  -->
+<!-- 근무 시간  -->
 	<select id="ptgRestime" resultType="co.yedam.silhyun.member.vo.ReserTimeVO">
 		select r.res_time
 		from photographer p , reser_time r
@@ -84,8 +87,7 @@
 		
 	</select>
 	
-
-	<!-- INSERT INTO EVENT VALUES(#{eventNum},#{ptgId},#{name},#{term},#{startDate},#{cntn},#{thni},#{bnph},#{bnphSta},#{cfmCd},#{cpnPubSta},#{regionCd},#{accpDt}) -->
+<!-- 이벤트 요청 -->	
 	<insert id="applyEvent"
 		parameterType="co.yedam.silhyun.event.vo.EventVO">
 		<!-- <selectKey keyProperty="eventNum" resultType="String"> select dbms_random.string('A', 
@@ -94,13 +96,14 @@
 		VALUES (#{eventNum}, #{id},#{name} ,#{startDate}, #{cntn}, #{term},#{bnph},#{bnphSta},
 		#{regionCd})
 	</insert>
+	
 	<insert id="applyECoupon"
 		parameterType="co.yedam.silhyun.event.vo.CouponVO">
 		INSERT INTO COUPON(ctgr, cntn, discount, start_date,
 		end_date, event_num,cpn_num,ctgr_num,cpn_cd)
 		VALUES(#{ctgr},#{cntn},#{discount},#{startDate},#{endDate},#{eventNum},#{cpnNum},#{ctgrNum},#{cpnCd})
 	</insert>
-
+<!-- 클래스 요청 -->	
 	<insert id="applyClass"
 		parameterType="co.yedam.silhyun.classes.vo.ClassesVO">
 		<selectKey keyProperty="classNum" resultType="String" order="BEFORE">
@@ -123,14 +126,6 @@
 		INSERT INTO OPTIONS(op_num, ptg_id, ttl, cntn,pri)
 		VALUES(#{opNum},#{ptgId},#{ttl},#{cntn},#{pri})
 	</insert>
-	<!-- 작가 예약 시간 수정 -->
-<!-- 	<update id="updateReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO"> 
-		UPDATE RESER_TIME 
-		<set> 
-		RES_TIME = #{resTime},
-		<if test="ptgId !=null and !ptgId.equals('')">PTG_ID = #{ptgId},</if> 
-		</set> WHERE PTG_ID = #{voList[0].ptgId}
-	</update>  -->
 
 <!-- 작가 예약시간 수정  -->
 	<delete id="deleteReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
@@ -138,7 +133,7 @@
 		FROM RESER_TIME
 		WHERE PTG_ID= #{id}
 	</delete>
-	
+<!-- 작가 예약시간 수정  -->
 <insert id="insertReserTime" parameterType="co.yedam.silhyun.member.vo.ReserTimeVO">
     INSERT INTO RESER_TIME(res_time,ptg_id)
     VALUES (#{resTime},#{ptgId})
