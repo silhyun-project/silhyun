@@ -111,11 +111,11 @@
             text-decoration: none;
             cursor: pointer;
         }
-        
     </style>
 </head>
 
 <body>
+
     <div layout:fragment="content">
         <section class="product-details py-6">
             <div class="container">
@@ -354,11 +354,14 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pd_reviews" role="tabpanel" aria-labelledby="pd_reviews_tab_02">
-                            <!-- 리뷰 들어오는곳 -->
-									<div id="reviews">
-										<div></div>
-									</div>
+                           
+                                <!-- 리뷰 들어오는곳 -->
+                            <div id="reviews">
+                                <div></div>
+                            </div>
+
                         </div>
+                        
                         <div class="tab-pane fade" id="px_qst" role="tabpanel"
                             aria-labelledby="pd_qst_tab">
                             <div class="row">
@@ -404,65 +407,62 @@
 												</div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-
-            <section class="section bg-gray-100">
-                <div class="container" align="center">
-                    <div class="row justify-content-center mb-4 mb-lg-6">
-                        <div class="col-lg-6 text-center">
+        <section class="section bg-gray-100">
+            <div class="container" align="center">
+                <div class="row justify-content-center mb-4 mb-lg-6">
+                    <div class="col-lg-6 text-center">
                         <h3 class="h2 mb-2">이런 강의는 어떠세요?</h3>
                         <p class="fs-6 m-0">새로운 강의들을 확인해보세요.</p>
-                        </div>
                     </div>
-
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" th:each="random, sts : ${randomList}" th:Class="${sts}">
-                        <div class="product-card-1" style="width:324px;height:460px;">
-                            <div class="product-card-image">
-                                <div class="badge-ribbon">
-                                    <span class="badge bg-warning">new</span>
-                                </div>
-                                <div class="product-media">
-                                    <a href="#">
-                                        <img class="img-fluid" th:src="${random.THNI}" title="" alt="">
+                </div>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" th:each="random, sts : ${randomList}" th:Class="${sts}">
+                    <div class="product-card-1" style="width:324px;height:460px;">
+                        <div class="product-card-image">
+                            <div class="badge-ribbon">
+                                <span class="badge bg-warning">new</span>
+                            </div>
+                            <div class="product-media">
+                                <a href="#">
+                                    <img class="img-fluid" th:src="${random.THNI}" title="" alt="">
+                                </a>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-eye"></i>
+                                        상세 보기
                                     </a>
-                                    <div class="product-cart-btn">
-                                        <a href="#" class="btn btn-primary btn-sm w-100">
-                                            <i class="fi-eye"></i>
-                                            상세 보기
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="product-card-info">
-                                <div class="product-meta small">
-                                    <a href="#" th:text="${random.FCD}"></a>
-                                </div>
-                                <div class="rating-star text">
-                                    <span th:each="star : ${#numbers.sequence(1, 5)}">
-                                        <i th:if="${random.STAR >= star}" class="bi bi-star-fill active"></i>
-                                        <i th:if="${random.STAR >= star - 0.5 && random.STAR < star}" class="bi bi-star-half active"></i>
-                                        <i th:if="${random.STAR < star - 0.5}" class="bi bi-star"></i>
-                                    </span>
-                                        <a th:text="${random.STAR}"></a>
-                                </div>
-                                <h6 class="product-title">
-                                    <a th:href="@{/silhyun/classes/classesInfo(classNum=${random.CNUM})}" th:text="${random.TTL}"></a>
-                                </h6>
-                                     <a th:text="${random.NAME}"> </a><br>
-                         
+                        </div>
+                        <div class="product-card-info">
+                            <div class="product-meta small">
+                                <a href="#" th:text="${random.FCD}"></a>
                             </div>
+                            <div class="rating-star text">
+                                <span th:each="star : ${#numbers.sequence(1, 5)}">
+                                    <i th:if="${random.STAR >= star}" class="bi bi-star-fill active"></i>
+                                    <i th:if="${random.STAR >= star - 0.5 && random.STAR < star}" class="bi bi-star-half active"></i>
+                                    <i th:if="${random.STAR < star - 0.5}" class="bi bi-star"></i>
+                                </span>
+                                    <a th:text="${random.STAR}"></a>
+                            </div>
+                            <h6 class="product-title">
+                                <a th:href="@{/silhyun/classes/classesInfo(classNum=${random.CNUM})}" th:text="${random.TTL}"></a>
+                            </h6>
+                                <a th:text="${random.NAME}"> </a><br>                  
                         </div>
                     </div>
                 </div>
-                </div>
-            </section>
+            </div>
+        </div>
+    </section>
                 
 <script src="/js/review/review.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -471,6 +471,7 @@
   var player;
   var interval;
 
+  //강의 소개의 ot영상
   function onPlayerReady(event) {
     console.log("onReady");
   }
@@ -480,7 +481,9 @@
     var youtubeId = youtubeUrl.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/)[7];
 
     if (player) {
+
       player.loadVideoById(youtubeId);
+      
     } else {
       player = new YT.Player('player', {
         height: '315px',
@@ -570,8 +573,8 @@
 	    }
 	})
 
-        </script>
-        <script src="/js/classQst.js"></script>
-        </div>
-    </body>
+</script>
+<script src="/js/classQst.js"></script>
+</div>
+</body>
 </html>
