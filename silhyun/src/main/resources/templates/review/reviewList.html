@@ -19,22 +19,20 @@
 </head>
 <style>
 
-#reviews .container{
-	text-align: center;
-}
-
-#textLeft{
+#review{
 	text-align: letf;
 }
 
 .pagination {
-  display: inline-block;
-  text-align: center;
+    display: block; 
+    text-align: center;
+
+  
 }
 
 .pagination a {
   color: black;
-  float: left;
+  float: none;
   padding: 8px 16px;
   text-decoration: none;
 }
@@ -124,7 +122,6 @@ white-space: pre-wrap ;
 <script type="text/javascript" src="/js/review/reviewList.js"></script>
 <!-- 평균별찍기는 파일 처리 끝낸후 ! -->
 	<div class="container col-9">
-			<div id="textLeft">
 	            <div class="row align-items-end">
 	                <div class="col-sm-6">
 	                    <h5 class="m-0">Reviews</h5>
@@ -203,7 +200,7 @@ white-space: pre-wrap ;
 				</div>
 				</form>
 				</th:block>
-				</div>
+	
 				<!-- 페이지네이션 -->
 				<div class="pagination">
 					<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
