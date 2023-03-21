@@ -61,7 +61,7 @@
 	</select>
 	
 	<select id="isPwdChek" resultType="int">
-		select count(pwd)
+		select count(*)
 		from member
 		where id = #{id} and email = #{email}
 	</select>
