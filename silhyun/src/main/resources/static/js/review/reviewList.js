@@ -10,7 +10,7 @@
 		
 		  $(".content").moreLess({
 		
-		    wordsCount: 80,
+		    wordsCount: 40,
 		    moreLabel:"..더보기",
 		    lessLabel:"..줄이기",
 			moreClass:"more-link",
