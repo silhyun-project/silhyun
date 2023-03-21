@@ -9,9 +9,8 @@
                                               end as rply_sta  , c.cntn as ansCntn , c.com_num as comNum                                                                                                                                     
 		from qst q left join (select * from commment where ctgr= 'A') c  
         on q.qst_num = c.ctgr_num
-		where q.ctgr = 'A' <!-- 해당 작가 id 같아야함 -->
+		where q.ctgr = 'A' <!-- and q.ctgr_num = #{ptgId} -->
 		order by qst_num desc
-	
 	</select>
 
 	<insert id="aoQstInsert">
@@ -31,9 +30,9 @@
                     , secret_sta)
             values(#{qstNum}
                     , 'A'
-                    , 'user1'
+                    , #{ctgrNum}
                     , #{ttl}
-                    , 'catLove'
+                    , #{id}
                     , #{cntn}
                     , sysdate
                     , 'N'
@@ -57,7 +56,7 @@
 								values(#{comNum}
 									   ,'A'	
 									   ,#{ctgrNum}
-									   ,'catLove'
+									   ,#{id}
 									   ,#{cntn}
 									   ,sysdate);
 					update qst set rply_sta = 'Y' 
