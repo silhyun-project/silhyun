@@ -19,17 +19,20 @@
 </head>
 <style>
 
-#reviews .container{
-	text-align: left;
+#review{
+	text-align: letf;
 }
 
 .pagination {
-  display: inline-block;
+    display: block; 
+    text-align: center;
+
+  
 }
 
 .pagination a {
   color: black;
-  float: left;
+  float: none;
   padding: 8px 16px;
   text-decoration: none;
 }
@@ -43,10 +46,6 @@
 .pagination a:hover:not(.active) {
   background-color: #ddd;
   border-radius: 5px;
-}
-
-.container {
- text-align: center;
 }
 .star-ratings {
   color: #d3d3d3; 
@@ -201,6 +200,7 @@ white-space: pre-wrap ;
 				</div>
 				</form>
 				</th:block>
+	
 				<!-- 페이지네이션 -->
 				<div class="pagination">
 					<a th:if="${page.prev}" th:href="${page.startPage-1}">&laquo;</a>
