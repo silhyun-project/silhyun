@@ -27,7 +27,7 @@ public class AdminServiceImpl implements AdminSercive {
 	}
 
 	@Override
-	public List<PhotographerVO> ptgList() {
+	public List<Map<String, Object>> ptgList() {
 		return adminMapper.ptgList();
 	}
 
@@ -115,7 +115,7 @@ public class AdminServiceImpl implements AdminSercive {
 
 
 	@Override
-	public List<PhotographerVO> getListPtg(AdminCriteria cri2) {
+	public List<Map<String, Object>> getListPtg(AdminCriteria cri2) {
 			return adminMapper.getListPtg(cri2);
 	}
 
@@ -126,7 +126,7 @@ public class AdminServiceImpl implements AdminSercive {
 	
 	//사진관리스트 페이징
 	@Override
-	public List<StudioVO> getListStd(AdminCriteria cri3) {
+	public List<Map<String, Object>> getListStd(AdminCriteria cri3) {
 		return adminMapper.getListStd(cri3);
 	}
 

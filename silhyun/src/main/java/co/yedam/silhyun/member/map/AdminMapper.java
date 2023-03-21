@@ -94,7 +94,7 @@ public interface AdminMapper {
 	
 	List<MemberVO> memberList();
 	 
-	List<PhotographerVO> ptgList();
+	List<Map<String, Object>> ptgList();
 	
 	List<StudioVO> stdList();
 
@@ -150,12 +150,12 @@ public interface AdminMapper {
 	int getTotalCount(AdminCriteria cri);
 
 	//작가리스트 페이징
-	List<PhotographerVO> getListPtg(AdminCriteria cri2);
+	List<Map<String, Object>> getListPtg(AdminCriteria cri2);
 	
 	int getTotalPtg(AdminCriteria cri2);
 	
 	//사진관리스트 페이징
-	List<StudioVO> getListStd(AdminCriteria cri3);
+	List<Map<String, Object>> getListStd(AdminCriteria cri3);
 	
 	int getTotalStd(AdminCriteria cri3);
 
