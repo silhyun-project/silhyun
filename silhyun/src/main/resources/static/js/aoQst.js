@@ -25,6 +25,7 @@
 
 		});
 
+		// 작성자 id, 작가id = ctgr_num 
 		$("#send").click(function () { //문의글 등록
 			let qstNum = $(".qstNum").val(); //문의글번호
 			let ctgr = 'A' //카테고리
@@ -34,6 +35,11 @@
 			let qstCntn = $("#qstCntn").val(); //문의내용
 			let rplySta = 'N'; // 답변유무상태
 			let secretSta = $("#secChk").val(); //비밀댓글
+			
+			//작가아이디
+			let ptgId = $('#ctgrNum').val()
+			let id = $('input[name="id"]').val()
+			console.log(ptgId + '/' +id)
 
 			if ($("#secChk").is(':checked')) {
 				secretSta = 'Y';
