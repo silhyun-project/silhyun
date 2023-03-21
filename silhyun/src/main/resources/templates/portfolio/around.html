@@ -165,7 +165,8 @@
 								<form id="goUpdatePort" action="/silhyun/portfolioUpdate">
 									<ul class="menuButtonlist">
 										<li style="display: none"><input type="hidden"
-											name='portNum' value=""></li>
+											name='portNum' value=""><input type="hidden"
+											name='ptgId' value=""></li>
 										<li class="menuButton-item"><button type="button"
 												class="menuButton-item update">수정하기</button></li>
 										<li class="menuButton-item portDelBtn">삭제하기</li>
@@ -452,7 +453,9 @@
 		})
 		//수정
 		$('.menuButton i').click(function() {
-			$('.menuButton').find('input').val(portNum);//input에 portNum넣기
+			$('.menuButton').find('input[type="hidden"][name="portNum"]').val(portNum);//input에 portNum넣기
+			$('.menuButton').find('input[type="hidden"][name="ptgId"]').val(selectedPortfolio.ptgId);//input에 ptgId넣기
+			
 		})
 		$('.menuButton-item button').click(function() { $('#goUpdatePort').submit(); })
 
