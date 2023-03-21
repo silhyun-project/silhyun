@@ -30,7 +30,7 @@
 		AND CH.ID = #{id}
 	</select>
 	
-	<delete id="scheduleDelete">
+	<delete id="scheduleDelete" parameterType="scheduleVO">
 		delete from schedule where todo_num = #{todoNum}
 	</delete>
 
