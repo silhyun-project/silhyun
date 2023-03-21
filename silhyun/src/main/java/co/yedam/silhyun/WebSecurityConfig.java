@@ -47,22 +47,22 @@ public class WebSecurityConfig{
 	
 	
 	//페이지 권한 설정
-	@Bean //<bean id="" class="">
+	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable() //토근을 무조건 넘겨야하는데 안넘기면 오류난다.
+		http.csrf().disable() 
 			.authorizeHttpRequests()
-				.antMatchers("/", "/home", "/silhyun/**", "/img/**","/css/**", "/fonts/**", "/js/**", "/saveImg/**", "/vendor/**", "/scss/**", "/manage/**").permitAll() //모든권한
-				.antMatchers("/pay/**", "/shin/**", "/zzim/**").authenticated()
-				//.anyRequest().authenticated() //나머지 모든 요청은 로그인(세세한 권한은 회원가입 리뷰 마무리때쯤)
+				.antMatchers("/", "/home", "/silhyun/**", "/img/**","/css/**", "/fonts/**"
+						, "/js/**", "/saveImg/**", "/vendor/**", "/scss/**", "/manage/**").permitAll() //모든권한
+				.antMatchers("/pay/**", "/shin/**", "/zzim/**").authenticated() //로그인 필요 페이지
 			.and()
-			.rememberMe()
+			.rememberMe() //자동로그인
 				.tokenValiditySeconds(86400 + 43200) //토큰 유효시간 36시간
 				.rememberMeParameter("remember-me")
 				.tokenRepository(persistentTokenRepository())
 			.and()
 			.logout()
 				.logoutSuccessUrl("/")
-				.deleteCookies("JSESSIONID", "remember-me")
+				.deleteCookies("JSESSIONID", "remember-me") //로그아웃시 자동로그인 삭제
 			.and()
 			.formLogin()
 				.loginPage("/login")
@@ -70,7 +70,7 @@ public class WebSecurityConfig{
 				.failureHandler(failureHandler)
 				.permitAll()
 			.and()
-			.oauth2Login()
+			.oauth2Login() //소셜로그인
 			     .loginPage("/login/oauth")
 				.permitAll()
 				.userInfoEndpoint()
