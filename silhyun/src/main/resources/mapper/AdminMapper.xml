@@ -3,8 +3,6 @@
 <mapper namespace="co.yedam.silhyun.member.map.AdminMapper">
 
 
-
-
 <!-- 대쉬보드 -->
 <!-- 승인 대기 count-->
 <select id="cfmCnt" resultType="map">
