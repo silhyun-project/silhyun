@@ -208,7 +208,11 @@ function fileUpAction(){
 	backBtn.onclick= function(){
 		let ctgr = document.getElementById('ctgr').value
 		let ctgrNum = document.getElementById('ctgrNum').value
-		ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr})
+		let pageNum = document.getElementById('pageNum').value
+    	let sort = document.getElementById('sort').value
+    	let phosort = document.getElementById('photo').value
+    	console.log(phosort)
+		ajaxReiew({pageNum:pageNum, amount:5, sort: sort, ctgrNum: ctgrNum, ctgr: ctgr, photo :phosort }) 			
 		
 	}
 
@@ -231,9 +235,12 @@ function updateReview(){
 			console.log(res)
 			let ctgr = $('#ctgr').val()
 			let ctgrNum = $('#ctgrNum').val()
+			let pageNum = $('#pageNum').val()
+    	    let sort = $('#sort').val()
+    	     let phosort = $('#photo').val()
 			console.log(ctgr)
 			//location.href = "/silhyun/reviewList";
-             ajaxReiew({pageNum:1, amount:5, sort: 'n', ctgrNum: ctgrNum, ctgr: ctgr}) 			
+             ajaxReiew({pageNum:pageNum, amount:5, sort: sort, ctgrNum: ctgrNum, ctgr: ctgr, photo :phosort }) 			
 		},
 		error: function(err){
 			console.log(err)

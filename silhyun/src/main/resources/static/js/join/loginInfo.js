@@ -24,6 +24,24 @@ $(function(){
 		})		
 	)
 	
+	$('#pDomain').append(
+		$('<option>',{
+			value: 'naver.com', text: 'naver.com'
+		}),
+		$('<option>',{
+			value: 'google.com', text: 'google.com'
+		}),
+		$('<option>',{
+			value:'hanmail.net', text: 'hanmail.net'
+		}),
+		$('<option>',{
+			value: 'nate.com', text: 'nate.com'
+		}),
+		$('<option>',{
+			value: 'kakao.com', text: 'kakao.com'
+		})		
+	)
+	
 	//이메일 선택시 비활성화
 	$('#domain').on('change', function(e){
 		if(e.target.value != ''){	
@@ -34,7 +52,19 @@ $(function(){
 			$('#emailDomain').attr('disabled', false);
 		}
 	}) 
+		//이메일 선택시 비활성화
+	$('#pDomain').on('change', function(e){
+		if(e.target.value != ''){	
+			$('#pEmailDomain').val($(e.target).val())
+			$('#pEmailDomain').attr('disabled', true);
+		}else{
+			$('#pEmailDomain').val('')
+			$('#pEmailDomain').attr('disabled', false);
+		}
+	})
 	
+	
+	//아이디 출력
 	$('#idInfoBtn').on('click', function(){
 		$('#email').val($('#emailId').val()+'@'+$('#emailDomain').val())
 		//아이디 찾기 
@@ -65,10 +95,24 @@ $(function(){
 				console.log(err)
 			}
 		})
-		
-		
-		
-
+	})
+	
+	
+	//비번출력
+	$('#pwdBtn').on('click', function(){
+		$('#pEmail').val($('#pEmailId').val()+'@'+$('#pEmailDomain').val())
+		console.log($('#pEmail').val())
+		$.ajax({
+			url: "/findPwd",
+			type: 'post',
+			data: $('#pwdFrm').serialize(),
+			success: function(res){
+				console.log(res)
+			},
+			error: function(err){
+				console.log(err)
+			}
+		})		
 	})
 	
 	
