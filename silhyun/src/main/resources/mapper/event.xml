@@ -53,5 +53,13 @@
 		#{id}
 
 	</update>
+<!-- <update id="updatePoint">
+UPDATE POINT
+<set>
+ 	save_po =#{savePo}
+ 	save_date = sysdate
+</set>
+where id = #{id}
 
+</update> -->
 </mapper>
