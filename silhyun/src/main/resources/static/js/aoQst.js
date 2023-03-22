@@ -86,46 +86,46 @@
 
 					let str = '';
 					$(result).each(function (q, aqst) {
-						str += '<div class="divTableRow">'
-							str += '<div class="divTableHead" id="ttlName" class="ttlName" style="width: 250px; display:inline-block;">'
-								
-								str += '<a href="javascript:void(0);" class="ttlBtn">' + aqst.ttl + '</a>'
-							str += '</div>'
-								// 문의내용, 답변내용 숨김(제목a태그 클릭시 펼쳐짐)					
-							str += '<div class="ansBox" style="display: none;">'
-								// 비밀글 여부 확인 내용 비공개 ----처음----- 비밀글상태이면 비밀글입니다.
-								str += '<p id="qCntn">' + aqst.cntn + '<p>'
-													
-								str += '<div class="div-title-wrap"><hr>'
-									str += '<h5 class="div-title">"Answer"</h5>'
-									str += '<div class="div-sep-wrap">'
-										str += '<div class="div-sep sep-thin"></div>'
-								str += '</div></div>'
-								// 답변이 없을경우 출력안되는곳
-								str += '<div class="media-ans img-resize">'
-									str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
+							str += '<div class="divTableRow">'
+								str += '<div class="divTableHead" id="ttlName" class="ttlName" style="width: 250px; display:inline-block;">'
+									
+									str += '<a href="javascript:void(0);" class="ttlBtn">' + aqst.ttl + '</a>'
 								str += '</div>'
-								str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
-								str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst.comNum + '">'
-								//출력 됬을 경우 작성자에게는 수정,삭제 해당 작가는 삭제만 
-								str += '<button class="ansModi btn btn-outline-secondary btn-sm" style="margin-bottom: 10px;">수정</button>'
-								str += '<button class="ansDel btn btn-outline-secondary btn-sm" style="margin-bottom: 10px;">삭제</button>'
+									// 문의내용, 답변내용 숨김					
+								str += '<div class="ansBox" style="display: none;">'
+									// 비밀글 여부 확인 내용 비공개 ----처음----- 비밀글상태이면 비밀글입니다.
+									str += '<p id="qCntn">' + aqst.cntn + '<p>'
+														
+									str += '<div class="div-title-wrap"><hr>'
+										str += '<h5 class="div-title">"Answer"</h5>'
+										str += '<div class="div-sep-wrap">'
+											str += '<div class="div-sep sep-thin"></div>'
+									str += '</div></div>'
+									// 답변이 없을경우 출력안되는곳
+									str += '<div class="media-ans img-resize">'
+										str += '<p id="ansCntn">' + aqst.ansCntn + '</p>'
+									str += '</div>'
+									str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
+									str += '<input type="hidden" class="comNum" id="comNum" value="' + aqst.comNum + '">'
+									//출력 됬을 경우 작성자에게는 수정,삭제 해당 작가는 삭제만 
+									str += '<button class="ansModi btn btn-outline-secondary btn-sm" style="margin-bottom: 10px;">수정</button>'
+									str += '<button class="ansDel btn btn-outline-secondary btn-sm" style="margin-bottom: 10px;">삭제</button>'
+								str += '</div>'
+									// 비밀글 여부 내용 공개 비공개 -----끝------
+									// 작성자 아이디 작성일자 답변여부상태 수정,삭제,답변버튼 					
+								str += '<div class="divTableCell qstId" id="id">' + aqst.id + '</div>'
+								str += '<div class="divTableCell qstDate" id="qstDate">' + aqst.qstDate + '</div>'
+								str += '<div class="divTableCell rplySta" id="rplySta">' + aqst.rplySta + '</div>'
+								str += '<div class="divTableCell qstBtn">'
+									// 수정,삭제 → 작성자 || 삭제,답변 → 해당작가
+									str += '<button class="qstModi btn btn-outline-secondary btn-sm">수정</button>'
+									str += '<button class="qstDel btn btn-outline-secondary btn-sm">삭제</button>'
+									str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
+									str += '<button class="ansBtn btn btn-outline-secondary btn-sm">답변</button>'
+														
+								str += '</div>'
+								str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'		
 							str += '</div>'
-								// 비밀글 여부 내용 공개 비공개 -----끝------
-								// 작성자 아이디 작성일자 답변여부상태 수정,삭제,답변버튼 					
-							str += '<div class="divTableCell qstId" id="id">' + aqst.id + '</div>'
-							str += '<div class="divTableCell qstDate" id="qstDate">' + aqst.qstDate + '</div>'
-							str += '<div class="divTableCell rplySta" id="rplySta">' + aqst.rplySta + '</div>'
-							str += '<div class="divTableCell qstBtn">'
-								// 수정,삭제 → 작성자 || 삭제,답변 → 해당작가
-								str += '<button class="qstModi btn btn-outline-secondary btn-sm">수정</button>'
-								str += '<button class="qstDel btn btn-outline-secondary btn-sm">삭제</button>'
-								str += '<input type="hidden" class="qstNum" id="qstNum" value="' + aqst.qstNum + '">'
-								str += '<button class="ansBtn btn btn-outline-secondary btn-sm">답변</button>'
-													
-							str += '</div>'
-							str += '<input type="hidden" class="ctgrNum" id="ctgrNum" value="' + aqst.ctgrNum + '">'		
-						str += '</div>'
 					})
 					qstArea.html(str);
 				}
