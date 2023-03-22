@@ -246,10 +246,10 @@ table.cal-table {
                   </div>
                   <div class="product-description">
                     <pre><p style="height: 400px;">[[${std[0].stItr}]]</p></pre>
-                    
-                  </div>
                     <h7>[[${std[0].addr}]] [[${std[0].detAddr}]]</h7>
                     <h6>Tel. [[${std[0].tel}]]</h6>
+                    
+                  </div>
 
                   <div class="product-detail-actions d-flex flex-wrap">
                     <div class="cart-button">
@@ -602,18 +602,16 @@ table.cal-table {
           datatype: "json"
         }).then(result => {
           var workD = []
-          // console.log(result)
           $(result).each(function (idx, item) {
-            // console.log(item.workDay.split(","))
-            let arr = item.workDay.split(",")
+            let arr = item.workDay.split(",")  //db의 값 , 를 기준으로 자르고 배열에 담아주기
             $(arr).each(function (a, b) {
               workD.push(b)
             })
           })
           let day = ($('.cal-table').find('th').text())
-          let setWorkD = [...new Set(workD)]; //중복 제거
+          let setWorkD = [...new Set(workD)]; // 배열 값 중복 제거
           $(setWorkD).each(function (idx, item) {
-            $('.week').find(`td[id=${item}]`).css('color', 'black').on('click', function (e) {
+            $('.week').find(`td[id=${item}]`).css('color', 'black').on('click', function (e) {  
               e.stopPropagation()
               if ($('div.row.ptgList') != null) {
                 $('div.row.ptgList').children().remove()
@@ -632,14 +630,8 @@ table.cal-table {
               })//end 근무 가능한 작가 list
             }) //end 근무 가능한 요일에 검정색 주고 click이벤트 달기 
           })  //end 작가가 지정한 근무가능 요일 반복문
-          
-       
           //회색 글자 날짜 선택시 예약 가능한 작가 없다고 메시지 띄우기
-  
         }).then(error => console.log(error))
-
-
-
       }
     </script>
   </div>
