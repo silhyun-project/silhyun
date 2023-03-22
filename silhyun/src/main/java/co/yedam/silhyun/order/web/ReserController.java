@@ -139,10 +139,9 @@ public class ReserController {
 	@PostMapping("/pay/reserInsert")
 	@ResponseBody
 	public ReserVO reserInsert(ReserVO rvo, PaymentVO pvo, SelectedOpVO svo, PointVO ptvo, UsedPointVO upvo,
-			CouponHistoryVO chvo) {// @RequestBody
+			CouponHistoryVO chvo) {
 		String resNum = orderService.reserInsert(rvo);
-		System.out.println("여기는 예약 insert resNum=>" + resNum); // 정상적으로 넘어옴
-		System.out.println("rvo에 담겼니 =>" + rvo);
+		System.out.println("insert resNum=>" + resNum);
 
 		// 예약시 paymentInsert 테이블에 추가
 		pvo.setResNum(rvo.getResNum());
@@ -154,7 +153,6 @@ public class ReserController {
 
 		// 결제시 결제 금액의 10% 포인트로 지급
 		ptvo.setSaveNum(pvo.getOrdNum()); // 포인트vo에 pvo에 주문번호 넣어주기(결제금액의 10%)
-		System.out.println("pvo.getOrdNum() ========>>" + pvo.getOrdNum());
 		pointService.pointInsert(ptvo); // 결제하면 멤버 테이블에 pointSum에 증가
 
 		// 결제시 사용한 포인트가 있으면!
@@ -198,7 +196,6 @@ public class ReserController {
 
 		// 결제시 결제 금액의 10% 포인트로 지급
 		ptvo.setSaveNum(pvo.getOrdNum()); // 포인트vo에 pvo에 주문번호 넣어주기(결제금액의 10%)
-		System.out.println("pvo.getOrdNum() ========>>" + pvo.getOrdNum());
 		pointService.pointInsert(ptvo); // 결제하면 멤버 테이블에 pointSum에 증가
 
 		// 결제시 사용한 포인트가 있으면!
