@@ -162,6 +162,11 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
         background-color: green;
         color: white;
       }
+/* db에 있는 날짜의 색을 바꿈 */      
+.selected {
+  background-color: green;
+  color: white;
+}
 </style>
 
 <meta charset="UTF-8">
@@ -328,6 +333,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
       $btnNext.addEventListener('click', () => loadYYMM(init.nextMonth())); //다음 버튼 클릭하면 발생하는 이벤트
       $btnPrev.addEventListener('click', () => loadYYMM(init.prevMonth())); //이전 버튼 클릭하면 발생하는 이벤트
 
+      
+      //추가
       
       
   	var id=$('input[name=id]').val();

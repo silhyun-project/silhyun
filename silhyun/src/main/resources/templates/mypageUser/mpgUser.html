@@ -142,8 +142,8 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6 mb-3">
-										<img class="img-fluid border" src="/img/fashion/dog.jpg"
-										 style="width:300px;height:300px" alt="...">
+										<img class="img-fluid border" th:src="${mem.profile}"
+										 style="width:300px;height:300px" alt="..."><br>
 									</div>
 									<div class="col-sm-6 mb-3">
 										<label class="form-label" >아이디</label> 
@@ -153,8 +153,12 @@
 											<input type="text"
 											class="form-control" th:value="${mem.name}" readonly>
 										<label class="form-label">Email</label> 
-											<input type="email"
-											class="form-control" id="exampleInputEmail3" th:value="${mem.email}" readonly>
+											<input type="email" class="form-control" id="exampleInputEmail3" th:value="${mem.email}" readonly>
+										<br><div>
+										<span>포인트 합계: &nbsp;&nbsp;[[${sta.pointSum}]]p</span>&emsp;&emsp;&emsp;
+										<span>보유쿠폰: &nbsp;&nbsp;[[${sta.coupon}]]개</span>
+										</div>
+
 									</div>
 									
 								</div>
