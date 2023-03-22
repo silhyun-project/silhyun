@@ -374,10 +374,9 @@ find_cd(f.fd_cd) AS fCd, c.cla_desct as desct
   <result column="ittl" property="ittl"/>
   <result column="itime" property="itime"/>
   <result column="icount" property="icount"/>
-  <result column="iVrate" property="iVrate"/>
   <result column="i_state" property="iState"/>
-   <result column="iBack" property="iBack"/>
-      <result column="classNum" property="classNum"/>
+  <result column="iBack" property="iBack"/>
+  <result column="classNum" property="classNum"/>
 </resultMap>
 
 <select id="getClassIVInfo" parameterType="java.util.Map" resultMap="IVlist">
@@ -387,7 +386,6 @@ SELECT
     nvl(i.inet_ttl,'준비중') as ittl, 
     nvl(i.inet_time,'준비중') as itime, 
     (SELECT COUNT(*) FROM inetclass WHERE class_num = #{classNum}) AS icount,
-    nvl(ROUND((w.ew_time/(i.inet_time*60)), 3) * 100,0) AS "iVrate",
     nvl(ROUND((w.cumlw_time/(i.inet_time*60)), 3) * 100,0) AS "i_state",
     (SELECT COUNT(*) FROM inetclass_wtch w2 JOIN inetclass i2 ON i2.class_num = 
     w2.class_num AND i2.inet_num = w2.inet_num WHERE w2.id = #{id} 

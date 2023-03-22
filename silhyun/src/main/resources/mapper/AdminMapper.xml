@@ -37,8 +37,6 @@ ORDER BY
   to_char(ord_date, 'yyyy-MM-dd') ASC
 </select>
 
-
-
 <!-- 최신 결제내역 5 -->
 <select id="recentBuy" resultType="map">
   <![CDATA[
@@ -54,7 +52,6 @@ ORDER BY
     FETCH FIRST 5 ROWS ONLY
   ]]>
 </select>
-
 
 <!-- 최신 댓글 3-->
 <select id="recentCom" resultType="map">
@@ -95,7 +92,7 @@ SELECT
     from dual
 </select>
 
-<!-- ptg승인신청 리스트 -->
+<!-- 기록가 승인신청 리스트 -->
 <select id="ptgCfmList" resultType="map">
 select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  find_cd(region_cd) as "regionCd", regi_date as "regiDate", crn as "crn", 
 nvl(shot_place,'장소미정')as "shotPlace", nvl(itr,'소개미정') as "itr", nvl(inst,'인스타없음') as "inst", nvl(work_day,'근무일미정')as "workDay"
@@ -103,7 +100,7 @@ from photographer
 where cfm_cd = 'O'
 </select>
 
-<!--ptg승인신청 select-->
+<!--기록가 승인신청 select-->
 <select id="ptgSelect" parameterType="String" resultType="map">
 select  ptg_id as "ptgId", nvl(st_id,'소속없음')as "stId",  		
 find_cd(region_cd) as "regionCd", 
@@ -113,7 +110,7 @@ from photographer
 where cfm_cd = 'O' and ptg_id = #{ptgId}
 </select>
 
-<!-- ptg승인신청 승인 -->
+<!-- 기록가 승인신청 승인 -->
 <update id="ptgAccept" parameterType="String">
 UPDATE Photographer
 SET cfm_cd = 'Y',
@@ -121,15 +118,14 @@ accp_date = sysdate
 WHERE ptg_id = #{ptgId}
 </update>
 
-<!-- ptg승인신청 반려 -->
+<!-- 기록가 승인신청 반려 -->
 <update id="noPtgAccept" parameterType="String">
 UPDATE Photographer
 SET cfm_cd = 'N'
 WHERE ptg_id = #{ptgId}
 </update>
 
-<!-- ==============사진관 승인============== -->
-
+<!-- 사진관 승인신청 리스트 -->
 <select id="stdCfmList" resultType="map">
 select  
 st_id as "stId", st_name as "stName",
@@ -139,7 +135,7 @@ from Studio
 where cfm_cd = 'O'
 </select>
 
-<!--std승인신청 select-->
+<!--사진관 승인신청 select-->
 <select id="stdSelect" parameterType="String" resultType="map">
 select  
 st_id as "stId", st_name as "stName",
@@ -149,7 +145,7 @@ from Studio
 where st_id = #{stId}
 </select>
 
-<!-- std승인신청 승인 -->
+<!-- 사진관 승인신청 승인 -->
 <update id="stdAccept" parameterType="String">
 UPDATE Studio
 SET cfm_cd = 'Y',
@@ -157,7 +153,7 @@ accp_date = sysdate
 WHERE st_id = #{stId}
 </update>
 
-<!-- std승인신청 반려 -->
+<!-- 사진관 승인신청 반려 -->
 <update id="noStdAccept" parameterType="String">
 UPDATE Studio
 SET cfm_cd = 'N'
@@ -165,7 +161,7 @@ WHERE st_id = #{stId}
 </update>
 
 
-<!-- ======================클래스승인============================= -->
+<!-- 클래스 승인신청 리스트 -->
 <select id="classCfmList" resultType="map">
 select  
 ptg_id as "ptgId", cla_ttl as "claTtl", class_num as "classNum",
@@ -183,7 +179,7 @@ from class
 where cfm_cd = 'O'
 </select>
 
-<!--class승인신청 select-->
+<!--클래스 승인신청 select-->
 <select id="classSelect" parameterType="String" resultType="map">
   select  
     ptg_id as "ptgId", cla_ttl as "claTtl", class_num as "classNum",
@@ -203,7 +199,7 @@ where cfm_cd = 'O'
   WHERE class_num = #{classNum}
 </select>
 
-<!-- class승인신청 승인 -->
+<!-- 클래스 승인신청 승인 -->
 <update id="classAccept" parameterType="String">
 UPDATE class
 SET cfm_cd = 'Y',
@@ -211,15 +207,26 @@ accp_dt = sysdate
 WHERE class_num = #{classNum}
 </update>
 
-<!-- class승인신청 반려 -->
+<!-- 클래스 승인신청 반려 -->
 <update id="noClassAccept" parameterType="String">
 UPDATE class
 SET cfm_cd = 'N'
 WHERE class_num = #{classNum}
 </update>
 
-<!-- =====================이벤트승인============================== -->
+<!-- 이벤트 승인신청 리스트 -->
+<select id="getEventOList" resultType="map">
+    <![CDATA[
+SELECT nvl(e.name,'이름없음') as "name", e.id as "id", nvl(e.term, '0')  as "term", 
+    e.start_date as "startDate", e.bnph_sta as "bnphSta", e.cpn_pub_sta as "cpnPubSta",
+    e.event_num as "eventNum", e.regi_dt as "regiDate", e.event_num as "eventNum",
+    e.regi_dt as "regiDate"
+FROM event e
+where e.cfm_cd = 'O'
+    ]]>
+</select>
 
+<!-- 이벤트 승인신청 승인 -->
 <update id="eventAccept" parameterType="String">
 UPDATE EVENT
 SET cfm_cd = 'Y',
@@ -227,7 +234,7 @@ accp_dt = sysdate
 WHERE event_num = #{eventNum}
 </update>
 
-<!-- ptgevent 반려 -->
+<!-- 이벤트 승인신청 반려 -->
 <update id="noEventAccept" parameterType="String">
 UPDATE EVENT
 SET cfm_cd = 'N'
@@ -239,7 +246,8 @@ WHERE event_num = #{eventNum}
 
 
 
-<!-- 리스트 보여주기 -->
+<!-- 회원전체관리 -->
+<!-- 회원 리스트 -->
 	<select id="memberList" parameterType="MemberVO" resultType="co.yedam.silhyun.member.vo.MemberVO">
 		select * 
 		from member
@@ -301,19 +309,6 @@ find_cd(region_cd) as "regionCd",
 	</select>
 
 
-
-	<!-- 등록 -->
-	
-	<insert id="insertQuitMember" parameterType="String">
-		insert into quit
-		values(#{id }, to_char(SYSDATE,'YY/MM/DD'), 'T0', '')
-	</insert>
-
-
-
-
-
-
 <!-- 비활성화 -->
 <!-- 회원 비활성화 -->
 	<update id="disableMember">
@@ -371,8 +366,9 @@ find_cd(region_cd) as "regionCd",
 
 
 <!-- 그래프 -->
-<!-- 탈퇴그래프 -->
 
+
+<!-- 탈퇴그래프 -->
 <select id="quitGraph" resultType="HashMap">
   SELECT 
     COUNT(CASE WHEN quit_cd = 'T0' THEN 1 END) AS "운영자에 의한 강제퇴장",
@@ -544,17 +540,7 @@ find_cd(region_cd) as "regionCd",
 <select id="getListStd" resultType="map">
 	 select 
 	 st_id as "stId", st_name as "stName", ceo_name as "ceoName", nvl(tel,'연락처없음') as "tel", addr as "addr",
-	 CASE WHEN region_cd = '01' THEN '서울'
-			WHEN region_cd = '02' THEN '경기'
-				WHEN region_cd = '03' THEN '인천'
-					WHEN region_cd = '04' THEN '강원'
-						WHEN region_cd = '05' THEN '대전/충청'
-							WHEN region_cd = '06' THEN '대구'
-								WHEN region_cd = '07' THEN '부산/울산'
-									WHEN region_cd = '08' THEN '경상'
-										WHEN region_cd = '09' THEN '광주/전라'
-										
-else '제주' end as "regionCd", addr as "addr ", crn as "crn", accp_date as "accpDate", st_cd as "stCd"
+		find_cd(region_cd) as "regionCd", addr as "addr ", crn as "crn", accp_date as "accpDate", st_cd as "stCd"
 	 
 	 from( select rownum rn, a.* from( 
  
@@ -629,13 +615,7 @@ else '제주' end as "regionCd", addr as "addr ", crn as "crn", accp_date as "ac
 
 <select id="getListQuit" resultType="map">
  			select id as "id", quit_date as "quitDate", 
- 		CASE WHEN quit_cd = 'T0' THEN '운영자에 의한 강제퇴장'
- 		 WHEN quit_cd = 'T1' THEN '기록삭제' 
- 		 WHEN quit_cd = 'T2' THEN '이용장애'
-   WHEN quit_cd = 'T3' THEN '타사이트 선호'
-WHEN quit_cd = 'T4' THEN  '사용빈도 낮음'
- WHEN quit_cd = 'T5' THEN  '콘텐츠불만'
-else '기타' end as "quitCd", nvl(deta_resn,'없음') as "detaResn"
+ 		find_cd(quit_cd) as "quitCd", nvl(deta_resn,'없음') as "detaResn"
 	 from( select rownum rn, a.* from( 
  
  			select * 
@@ -720,18 +700,6 @@ where e.cfm_cd = 'Y'
 </select>
 
 
-<select id="getEventOList" resultType="map">
-    <![CDATA[
-SELECT nvl(e.name,'이름없음') as "name", e.id as "id", nvl(e.term, '0')  as "term", 
-    e.start_date as "startDate", e.bnph_sta as "bnphSta", e.cpn_pub_sta as "cpnPubSta",
-    e.event_num as "eventNum", e.regi_dt as "regiDate", e.event_num as "eventNum",
-    e.regi_dt as "regiDate"
-FROM event e
-where e.cfm_cd = 'O'
-    ]]>
-</select>
-
-
 <!-- 이벤트관리페이지. 진행예정, 진행중 카운트 -->
 <select id="getEventCnt" resultType="map">
   <![CDATA[
@@ -751,22 +719,6 @@ select *
 from event 
 where event_num = #{eventNum}
 </select>
-
-
-
-<!-- 이벤트관리페이지. 이벤트추가 -->
-<insert id="addAdminEvent" parameterType="co.yedam.silhyun.event.vo.EventVO">
-insert into event
-values((select max(event_num)+1 from event), 'admin', #{name}, #{term}, #{startDate}, 
-#{cntn}, #{thni}, #{bnph}, #{bnphSta}, 'Y', #{cpnPubSta}, #{regionCd}, sysdate, sysdate);
-</insert>
-
-
-
-
-
-
-
 
 
 

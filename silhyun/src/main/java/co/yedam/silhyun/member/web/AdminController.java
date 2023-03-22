@@ -230,7 +230,7 @@ public class AdminController {
 		 n = adminService.noClassAccept(classNum);
 		
 		 if (n!=0) {
-			 msg = classNum+"님을 승인 반려했습니다.";
+			 msg = "승인 반려했습니다.";
 		 }else {
 			 msg ="반려 실패";
 		 }
@@ -249,7 +249,7 @@ public class AdminController {
 		 n = adminService.eventAccept(eventNum);
 		
 		 if (n!=0) {
-			 msg = "이벤트를 승인 완료했습니다.";
+			 msg = "승인 완료했습니다.";
 		 }else {
 			 msg ="승인 실패";
 		 }
@@ -397,6 +397,8 @@ public class AdminController {
 		}
 		return "redirect:admin/adminManage";
 	}
+	
+	
 
 	
 	//탈퇴 관리페이지========================================
