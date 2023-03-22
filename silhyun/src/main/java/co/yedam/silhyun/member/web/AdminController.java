@@ -54,7 +54,7 @@ public class AdminController {
 			model.addAttribute("ptgRank", adminService.ptgRank());
 			model.addAttribute("classRank", adminService.classRank());
 			
-
+			System.out.println(model);
 		return "admin/dashBoard";
 	}
 	

@@ -638,15 +638,15 @@
           </div>
 
                         <div class="row align-items-center">
-	                          <button type="submit" class="btn btn-info" style="width: 220px;color: white;"
-	                        	    onclick="classAcceptAjax('${classSelect.classNum}')">승인</button>  	                                  
-                                <button type="submit" class="btn btn-dark" style="width: 220px"
-                              	  onclick="noClassAcceptAjax('${classSelect.classNum}')">반려</button>
-                              	  </div>
-	                      </form>
-	                  </div>
-	              </div>
-	    
+                          <button type="submit" class="btn btn-info" style="width: 220px;color: white;"
+                          onclick="classAcceptAjax('${classSelect.classNum}')">승인</button>  	                                  
+                          <button type="submit" class="btn btn-dark" style="width: 220px"
+                           onclick="noClassAcceptAjax('${classSelect.classNum}')">반려</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+  
 	      	  `;
 	      	  
 	      	  
@@ -657,7 +657,6 @@
 	      };
 	      
 	      function classAcceptAjax(classNum){
-	    	  console.log("html에 있는 아작스"+classNum)
 	    	  $.ajax({
 	    	    url: "/admin/classAccept",
 	    	    type: "POST",
@@ -665,13 +664,11 @@
 	    	    dataType: 'text'
 	    	  }).then(msg =>{
 	    	    alert(msg);
-	    	    console.log(msg)
 	    	    
 	    	  });
 	    	};
 	    	
 	      function noClassAcceptAjax(classNum){
-	    	  console.log("html에 있는 no아작스"+classNum)
 	    	  $.ajax({
 	    	    url: "/admin/noClassAccept",
 	    	    type: "POST",
@@ -679,7 +676,6 @@
 	    	    dataType: 'text'
 	    	  }).then(msg =>{
 	    	    alert(msg);
-	    	    console.log(msg)
 	    	    
 	    	  });
 	    	};

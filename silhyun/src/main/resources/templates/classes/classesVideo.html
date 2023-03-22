@@ -231,45 +231,6 @@
              
                     </section>
 
-                    <!-- note  style="display:none"-->
-          
-
-                    <div layout:fragment="note">
-                        <div align="right">
-                            <div id="mySidenav" class="sidenav" align="left">
-
-                                <a th:if="${IV.inetNote!='0'}" th:text="${IV.inetNote}" style="color: white;"></a>
-                                <a th:if="${IV.inetNote=='0'}">아직 등록된 기록이 없습니다.</a>
-                                <!-- 
-                     <a href="javascript:void(0)" class="closebtn" th:onclick="|closeNav()|">&times;</a>
-                                 -->
-                            </div>
-
-                            <h2>노트 보기</h2>
-                            <span style="font-size:30px;cursor:pointer"
-                                th:attr="onclick=|openCloseNav()|">&#9776;</span>
-                        </div>
-
-                        <script th:inline="javascript">
-                            function openNav() {
-                                document.getElementById("mySidenav").style.width = "250px";
-                            }
-
-                            function closeNav() {
-                                document.getElementById("mySidenav").style.width = "0";
-                            }
-
-                            function openCloseNav() {
-                                const nav = document.getElementById("mySidenav");
-
-                                if (nav.style.width != "250px") {
-                                    nav.style.width = "250px";
-                                } else if (nav.style.width == "250px") {
-                                    nav.style.width = 0;
-                                }
-                            }
-                        </script>
-                    </div>
 
                 </div>
             </div>

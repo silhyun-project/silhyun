@@ -260,33 +260,40 @@ from dual
 
 <!-- 강의 상세페이지에 함께 보낼 랜덤추천리스트. -->
 <select id="randomList" parameterType="String"  resultType="map">
-    SELECT c.cla_cd as cCd, c.thni as thni, trunc(NVL(AVG(star), 0), 1) as star, c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, c.cla_dt as cDt,
-         to_char(c.cla_pri, 'FM999,999,999') as cPri, nvl(c.ypsn, 0) as ypsn, COALESCE(c.cla_place, '장소미정') as cPlace, 
-    case 
-        when c.cla_time = '' then '시간미정'
-        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
-        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
-    end as cTime, 
-find_cd(f.fd_cd) AS fCd, c.class_num as cNum
+    SELECT  c.cla_cd as cCd, 
+    		c.thni as thni, 
+    		trunc(NVL(AVG(star), 0), 1) as star, 
+    		c.cla_ttl as ttl, COALESCE(m.name, '익명') as name, 
+    		c.cla_dt as cDt,
+         	to_char(c.cla_pri, 'FM999,999,999') as cPri, 
+         	nvl(c.ypsn, 0) as ypsn, 
+         	COALESCE(c.cla_place, '장소미정') as cPlace, 
+	    	case 
+	        when c.cla_time = '' then '시간미정'
+	        when c.cla_time <![CDATA[ < ]]>=12 then '오전 '|| c.cla_time || '시'
+	        else '오후 '|| to_char(to_number(c.cla_time)-12) || '시'
+	  		end as cTime, 
+			find_cd(f.fd_cd) AS fCd, 
+			c.class_num as cNum
     FROM class c 
-    LEFT OUTER JOIN member m ON c.ptg_id = m.id
-    LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
-    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
+		    LEFT OUTER JOIN member m ON c.ptg_id = m.id
+		    LEFT OUTER JOIN field f ON c.ptg_id = f.ptg_id
+		    LEFT OUTER JOIN review r ON c.class_num = r.ctgr_num AND r.ctgr = 'C'
     WHERE c.class_num != #{classNum}  and c.cfm_cd = 'Y'
-    GROUP BY 
-    c.cla_cd, 
-    c.cla_cnt, 
-    c.thni, 
-    c.cla_ttl, 
-    m.name, 
-    c.cla_dt, 
-    c.cla_pri, 
-    c.ypsn, 
-    c.cla_place, 
-    c.cla_time, 
-    f.fd_cd, 
-    c.class_num
-     ORDER BY DBMS_RANDOM.VALUE
+		    GROUP BY 
+		    c.cla_cd, 
+		    c.cla_cnt, 
+		    c.thni, 
+		    c.cla_ttl, 
+		    m.name, 
+		    c.cla_dt, 
+		    c.cla_pri, 
+		    c.ypsn, 
+		    c.cla_place, 
+		    c.cla_time, 
+		    f.fd_cd, 
+		    c.class_num
+    ORDER BY DBMS_RANDOM.VALUE
 	FETCH FIRST 4 ROWS ONLY 
 </select>
 
