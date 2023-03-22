@@ -281,11 +281,11 @@ public class mypageAoController {
 			vo.setBnph("/saveImg/banner/" + fileName);
 			vo.setEventNum(vo.getId() + key);
 
-			mypageAoService.applyEvent(vo); // db에 담음
 			cvo.setEventNum(vo.getEventNum()); // vo에 담긴 eventNum을 들고오기
 			cvo.setCpnNum(vo.getEventNum()); // eventNum이랑 값 같게
 			cvo.setCtgrNum(vo.getId());
 			cvo.setCpnCd("C1");				//개인인지 공통인지 작가는 c1(개인)만
+			mypageAoService.applyEvent(vo); // db에 담음
 			mypageAoService.applyECoupon(cvo);
 
 			map.put("vo", vo);

@@ -24,7 +24,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		    request.getSession().setAttribute("id", authentication.getName());
 			request.getSession().setAttribute("role", authentication.getAuthorities());
 
-		System.out.println(authentication.getPrincipal() +"뭐라고 저장???????????????????");
 		response.sendRedirect("/");
 
 	}

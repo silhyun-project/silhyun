@@ -23,8 +23,8 @@ public class PhotoScheduler {
 		List<PhotoVO> list = pService.photoList(vo);
 		for(PhotoVO pvo : list) {
 			//파일삭제
-			File file = new File("c:" + pvo.getPhoRt());
-			File thum = new File("c:" + pvo.getThumbnail());
+			File file = new File("/home/ubuntu" + pvo.getPhoRt());
+			File thum = new File("/home/ubuntu" + pvo.getThumbnail());
 			if(file.exists()) {
 				file.delete();
 				thum.delete();
