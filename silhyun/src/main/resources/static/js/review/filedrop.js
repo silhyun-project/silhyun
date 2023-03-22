@@ -30,7 +30,7 @@ function fileUpAction(){
       for(f of fileArr){
         imageLoader(f);
       }
-      if(selFiles.length > 6){   //이게 제대로 되나???
+      if(selFiles.length > 6){   
       
 		alert("6장 이하의 파일만 업로드 됩니다.")
 		
