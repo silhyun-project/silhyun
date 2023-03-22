@@ -53,6 +53,15 @@
 		#{id}
 
 	</update>
+	
+<!-- 출첵 포인트 근데 insert해야하는디  -->
+	<update id="updatePointChul" parameterType="co.yedam.silhyun.mypage.vo.PointVO">
+		update point
+		<set>save_po = save_po+100
+			
+		</set>
+		where id= #{id}
+	</update>
 <!-- <update id="updatePoint">
 UPDATE POINT
 <set>

@@ -18,6 +18,8 @@
  		  object-fit: cover;
 		}
 </style>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="/css/theme.css" rel="stylesheet">
 <title>Insert title here</title>
 </head>
@@ -64,13 +66,7 @@
                         <div class="bg-no-repeat bg-cover bg-center" th:style="'background-image: url(' + ${banner.bnph} + ')'">
                             <div class="container">
                                 <div class="row min-vh-65 align-items-center justify-content-center py-12">
-                                    <div class="col-lg-8 text-center">
-                                        <h6 class="fw-300 text-uppercase text-white mb-3 letter-spacing-6" >You're Looking Good</h6>
-                                        <h1 class="display-1 fw-300 text-white letter-spacing-6 text-uppercase">New LookBook</h1>
-                                        <div class="pt-3">
-                                            <a class="btn btn-outline-white" href="#">Discover More</a>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>    
@@ -83,8 +79,7 @@
             <!--slide끝  -->
            <br>
              <div style="float: right;">
-             	<input type="radio" id="event" name="event" value="c" onchange="classEvent('c')"><label class="m-0 ">클래스</label> &nbsp;&nbsp;
-				<input type="radio" id="event" name="event" value="e" onchange="usEvent('e')"><label class="m-0 ">이벤트</label>
+             <button type="button"  class="btn btn-mini iqBtn" onclick="location.href='/silhyun/chulcheck'"> 출석체크</button>
              </div>
        
             <!-- End Breadcrumb -->

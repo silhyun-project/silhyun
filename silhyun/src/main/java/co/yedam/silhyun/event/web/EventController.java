@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.silhyun.event.service.EventService;
 import co.yedam.silhyun.mypage.vo.ChulcheckVO;
+import co.yedam.silhyun.mypage.vo.PointVO;
 
 @Controller
 public class EventController {
@@ -65,9 +66,13 @@ public class EventController {
 	  }
 	  //정보조회 안됐을 때 insert
 	  ChulcheckVO vo = new ChulcheckVO();
+	  //PointVO pvo = new PointVO();
 	  vo.setId(id);
+	  //pvo.setId(vo.getId());
 	  vo.setCheckDate(checkDate);	//날짜 넣기
+	//  pvo.setSaveDate(vo.getCheckDate());
 	  eventService.insertChulcheck(vo);
+	  //eventService.updatePointChul(pvo);
 	  	 
 	  return true;
 	}

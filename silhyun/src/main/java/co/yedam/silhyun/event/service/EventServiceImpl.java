@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import co.yedam.silhyun.event.map.EventMapper;
 import co.yedam.silhyun.event.vo.EventVO;
 import co.yedam.silhyun.mypage.vo.ChulcheckVO;
+import co.yedam.silhyun.mypage.vo.PointVO;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -49,6 +50,12 @@ public class EventServiceImpl implements EventService{
 	public List<ChulcheckVO> recentlyDate(String id) {
 
 		return eventMapper.recentlyDate(id);
+	}
+
+	@Override
+	public int updatePointChul(PointVO vo) {
+
+		return eventMapper.updatePointChul(vo);
 	}
 
 }
