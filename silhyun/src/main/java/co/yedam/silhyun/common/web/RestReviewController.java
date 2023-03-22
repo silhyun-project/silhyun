@@ -61,10 +61,9 @@ public class RestReviewController {
 	@PostMapping("/silhyun/update")
 	public ReviewVO updateReview(PhotoVO pvo, ReviewVO rvo, List<MultipartFile> files) {
 		//리뷰 업댓
-		System.out.println("reviewVodd"+rvo);
+
 		rService.reviewUpdate(rvo);
-		System.out.println("여기까지 오는거얌?");
-		//삭제할 사진 				+pvo.getPhoNum().length());
+		//삭제할 사진 	
 		if(pvo.getPhoNum().length()>0) {
 			String[] ary = pvo.getPhoNum().split(",");
 			for(String id : ary) {
