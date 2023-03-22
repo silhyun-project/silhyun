@@ -153,14 +153,18 @@
 										<span class="badge bg-danger">BEST</span>
 									</div>
 									<div class="product-media">
-										<a th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${best.ptgId})}"> <img th:src="${best.phoRt}" title="" alt=""
+										<a th:if="${best.ctgr} == 'A'" th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${best.ptgId})}"> <img th:src="${best.phoRt}" title="" alt=""
+											style="width: 120px; height: 140px">
+										</a>
+										<a th:if="${best.ctgr} == 'C'" th:href="@{/silhyun/classes/classesInfo(classNum=${best.ptgId})}" > <img th:src="${best.phoRt}" title="" alt=""
 											style="width: 120px; height: 140px">
 										</a>
 									</div>
 									</div>
 								<div class="product-card-info">
 									<h6 class="product-title">
-										<a th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${best.ptgId})}" tabindex="0">[[${best.id}]]</a>
+										<a th:if="${best.ctgr} == 'A'" th:href="@{/silhyun/ptgDetail/{ptgId}(ptgId=${best.ptgId})}" tabindex="0">[[${best.id}]]</a>
+										<a th:if="${best.ctgr} == 'C'" th:href="@{/silhyun/classes/classesInfo(classNum=${best.ptgId})}" tabindex="0">[[${best.id}]]</a>
 									</h6>
 									<div class="product-price">
 										<div class="rating-star text">

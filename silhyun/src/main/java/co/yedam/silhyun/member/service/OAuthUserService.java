@@ -39,7 +39,8 @@ public class OAuthUserService implements OAuth2UserService<OAuth2UserRequest, OA
         String registrationId = oAuth2UserRequest.getClientRegistration().getRegistrationId();
 
         // OAuth2 로그인 시 키 값(네이버 "response", 카카오는 "id")
-        String userNameAttributeName = oAuth2UserRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+        String userNameAttributeName = oAuth2UserRequest.getClientRegistration()
+        		.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
 	    //로그인을 통해 가져온 OAuth2User의 attribute 담기
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
