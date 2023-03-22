@@ -286,12 +286,12 @@ body {
 							if (!cc)
 								return;
 							$.ajax({
-								url : '/scheduleDelete',
-								method : 'DELETE',
-								contentType : 'application/json',
-								data : {
-									todoNum : todoNum
-								},
+								url : '/scheduleDelete/'+todoNum,
+								//method : 'DELETE',
+								//contentType : 'application/json',
+								//data : {
+								//	num : todoNum
+								//},
 								success : function(
 										response) {
 									console.log(response);
