@@ -64,21 +64,16 @@ public class RestReviewController {
 		System.out.println("reviewVodd"+rvo);
 		rService.reviewUpdate(rvo);
 		System.out.println("여기까지 오는거얌?");
-		//사진(uesed -> N/ phoNum 반복문 돌려서...)
-			
-			System.out.println("레스트리뷰컨트롤러의 업데이트입니다아아아.;;;;;넘어오냐ㅏ요????"
-					+pvo.getPhoNum().length());
-			if(pvo.getPhoNum().length()>0) {
-				String[] ary = pvo.getPhoNum().split(",");
-				for(String id : ary) {
-					System.out.println(id);
-					pvo.setPhoNum(id);
-					pService.photoDelete(pvo);
-				
-			}
-			
+		//삭제할 사진 				+pvo.getPhoNum().length());
+		if(pvo.getPhoNum().length()>0) {
+			String[] ary = pvo.getPhoNum().split(",");
+			for(String id : ary) {
+				System.out.println(id);
+				pvo.setPhoNum(id);
+				pService.photoDelete(pvo);	
+			}	
 		}
-//		//사진 업댓
+		//사진 업댓
 		String ctgrNum = rvo.getRevNum(); 
 		String ctgr = "R";
 		pService.photoInsert(files, ctgrNum, ctgr);
