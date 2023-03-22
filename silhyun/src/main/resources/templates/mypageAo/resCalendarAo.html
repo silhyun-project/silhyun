@@ -162,6 +162,13 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 	font-size: larger;
 	font-weight: bolder;
 }
+
+td.reser {
+  width: 100px; /* 너비를 고정할 크기로 지정 */
+  height: 50px; /* 높이를 고정할 크기로 지정 */
+  padding: 10px; /* 셀 내부 여백 설정 */
+}
+
 </style>
 
 <meta charset="UTF-8">
@@ -484,8 +491,8 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
 					}).then(error => console.log(error))
 					
 			//📌시간 클릭하면 예약자 리스트 나오기 
-            $('.product-description.timeTable').on('click','.timeList',function(){  //그룹이벤트 써야함!!
-            	// '.card' 요소가 이미 추가되어 있는 경우, 추가하지 않음
+            $('.product-description.timeTable').on('click','.timeList',function(){ 
+            	// '.card' 요소가 이미 추가되어 있는 경우, 추가X
             	  if ($('.reserList').find('.card').length > 0) {
             	    return;
             	  }
@@ -507,14 +514,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
                   }
             	  
             	var timeBtn= event.target.closest('.timeList')//선택한 버튼 정보
-				console.log(timeBtn);
-            	//리스트만들고싶다
+			
             	//그냥들고오면 리스트 없애면서 사라지는것 같아서 redate 다시 정의함(버튼에 redate 값 붙여놈)
             	var redate=timeBtn.getAttribute('redate');			
 		  		var shotTime=timeBtn.getAttribute('timecd');
             	const ptgId = $("input[name='ptgId']").val();
-            	  console.log(shotTime+"==========");
-					console.log(redate+"rrrrrrrrrrr");				
+            			
             	  //ajax호출 예약자정보
             	    $.ajax({
             		   url:'/ajaxResInfo/'+ptgId+"/"+redate+"/"+shotTime,
@@ -528,7 +533,7 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             		   datatype: "json"}).then(result=>{
             			 if(result.length==0){
             				 
-            				 $('.card-body.reserInfo').append('<p>예약이 없습니다.</p>');
+            			  $('.card-body.reserInfo').append('<p>예약이 없습니다.</p>');
             			 }else{
             		  $(result).each(function(idx,item){
             			   console.log(item);	//표에 만들 정보들
@@ -547,12 +552,12 @@ https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
             			 </thead>
             			 <tbody>
             			 <tr>
-            		        <td class="p-3">${item.id}</td>
-            		        <td class="p-3">${item.name}</td>
-            		        <td class="p-3">${item.ttl}</td>
-            		        <td class="p-3">${item.regiDate}</td>
-            		        <td class="p-3">${item.email}</td>
-            		        <td class="p-3">${item.tel}</td>
+            		        <td class="p-3 reser">${item.id}</td>
+            		        <td class="p-3 reser">${item.name}</td>
+            		        <td class="p-3 reser">${item.ttl}</td>
+            		        <td class="p-3 reser">${item.regiDate}</td>
+            		        <td class="p-3 reser">${item.email}</td>
+            		        <td class="p-3 reser">${item.tel}</td>
             		      </tr>
             		      </tbody>
             		  	</table>
