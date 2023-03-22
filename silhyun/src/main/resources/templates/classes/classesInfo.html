@@ -176,9 +176,10 @@
                                     <br>                     
                                     <div class="product-detail-actions d-flex flex-wrap pt-3">
                                         <div class="cart-button mb-3 d-flex">
-                                            <button th:if="${cmPlusInfo == null || cmPlusInfo.buyYN == null || cmPlusInfo.buyYN == 0}" type="submit" class="btn btn-dark me-3">
-                                                <i class="fi-shopping-cart"></i> 구입하기</button>
-                                            <button type="button" th:if="${cmPlusInfo != null and cmPlusInfo.buyYN != null and cmPlusInfo.buyYN == 1}" class="btn btn-primary me-3" 
+                                            <button th:if="${cmPlusInfo == null || cmPlusInfo.buyYN == null || cmPlusInfo.buyYN == 0}" 
+                                            type="submit" class="btn btn-dark me-3"><i class="fi-shopping-cart"></i> 구입하기</button>
+                                            <button type="button" th:if="${cmPlusInfo != null and cmPlusInfo.buyYN != null and
+                                             cmPlusInfo.buyYN == 1}" class="btn btn-primary me-3" 
                                             th:onclick="|location.href='@{/silhyun/myPage/myClasses}'|">💖 내 학습방</button>                            
                                             <button type="button" class="btn btn-outline-dark me-3">
                                                 <i class="zzim-icon bi-person" style="font-size: 20px"></i>찜</button>
