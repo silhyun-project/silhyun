@@ -24,9 +24,7 @@ public class ReviewServiceImpl implements ReviewService {
 		List<ReviewVO> list = new ArrayList<ReviewVO>();
 		List<ReviewVO> rList = new ArrayList<ReviewVO>();
 		list = mapper.reviewList(cri, ctgr, ctgrNum);
-		System.out.println(list+"eeeeeeeeeeeeeeeeeeeeee");
 		for(ReviewVO vo : list) {
-			System.out.println(vo+"배열임다아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
 			PhotoVO pvo = new PhotoVO();
 			pvo.setCtgr("R");
 			pvo.setCtgrNum(vo.getRevNum());

@@ -108,9 +108,11 @@ $(function(){
 			data: $('#pwdFrm').serialize(),
 			success: function(res){
 				console.log(res)
+				alert(res+" 아이디와 이메일을 다시 확인해 주세요")
 			},
 			error: function(err){
 				console.log(err)
+				alert(res)
 			}
 		})		
 	})

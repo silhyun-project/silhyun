@@ -118,7 +118,6 @@ where
 
 <select id="reviewAllList" resultType="co.yedam.silhyun.common.vo.ReviewVO">
 	SELECT * FROM( SELECT ROWNUM RN, A.* FROM( 
-	<!-- 수정필요 -->
 		SELECT R.CNTN,R.STAR,P.*,M.ID,M.PROFILE
 		FROM REVIEW R, PHOTO P,MEMBER M
 		WHERE R.REV_NUM = P.CTGR_NUM

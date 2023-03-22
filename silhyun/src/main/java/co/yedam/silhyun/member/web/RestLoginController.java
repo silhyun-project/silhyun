@@ -41,6 +41,7 @@ public class RestLoginController {
 			BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(10);
 			String result = bcrypt.encode(code);
 			vo.setPwd(result);
+			//비밀번호를 발송한 임시비밀번호로 변경
 			mAoService.ptgInfoUpdate(vo);
 			msg ="임시비밀번호가 이메일로 발송되었습니다.";
 			
