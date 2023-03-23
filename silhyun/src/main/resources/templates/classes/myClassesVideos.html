@@ -3,33 +3,21 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home/layout}">
 
 <head>
-    <!-- metas -->
     <meta charset="utf-8">
     <meta name="author" content="pxdraft" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template" />
     <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template" />
-    <!-- title -->
     <title>ShopApp - eCommerce Bootstrap 5 Template</title>
-    <!-- Favicon -->
     <link rel="shortcut icon" href="/img/favicon.ico">
-    <!-- CSS Template -->
     <link href="/css/theme.css" rel="stylesheet">
 </head>
 
 <body>
 
-
-
-    <!-- Main -->
     <div layout:fragment="content">
 
-        <!-- Table -->
-        <!-- End Header -->
-        <!-- Main -->
-        <main>
-            <!-- Breadcrumb -->
             <div class="py-3 bg-gray-100">
                 <div class="container">
                     <div class="row align-items-center">
@@ -46,12 +34,10 @@
                     </div>
                 </div>
             </div>
-            <!-- End Breadcrumb -->
-            <!-- Table -->
+
             <div class="py-6">
                 <div class="container">
                     <div class="row">
-                        <!-- Profile Menu -->
                         <div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
                             <div class="bg-white border border-bottom-0 shadow-lg">
                                 <div class="d-flex p-3 align-items-center">
@@ -155,10 +141,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- End Profile Menu -->
-                        <!-- Content -->
                         <div class="col-lg-8 col-xxl-9">
-
 
                             <div>
                                 <section>
@@ -176,7 +159,8 @@
                             </div>
 
                             <div class="table-responsive fs-md mb-4">
-                                <h5 align="right" th:text="'진도율: '+ ${IVInfo[0].iBack}+'강 / '+${IVInfo[0].icount}+'강'"></h5>
+                                <h5 align="right" th:text="'진도율: '+ ${IVInfo[0].iBack}+'강 / '+${IVInfo[0].icount}+'강'">
+                                </h5>
                             </div>
                             <div align="right">
                                 <a>*강의 시간의 70%이상을 시청하시면 학습완료가 됩니다.</a>
@@ -196,7 +180,8 @@
                                         <td class="p-3" align="center" th:text="${iV.inetNum}"></td>
                                         <td class="p-3"><span class="fw-600" th:text="${iV.ittl}"></span></td>
                                         <td class="p-3" align="center" th:text="${iV.itime}+'분'"></td>
-                                        <td class="p-3" align="center" th:text="${iV.iState}>100? 100+'%':${iV.iState} +'%'"></td>
+                                        <td class="p-3" align="center"
+                                            th:text="${iV.iState}>100? 100+'%':${iV.iState} +'%'"></td>
                                         <td class="p" align="center">
                                             <button class="btn btn-danger m-0" style="width: 130px" th:if="${#strings.equals(iV.iState, '0')}"
                                             th:onclick="|location.href='@{/silhyun/classes/classesVideo(classNum=${iV.classNum},inetNum=${iV.inetNum})}'|">
@@ -240,7 +225,7 @@
     <!-- Theme Js -->
     <script src="/js/custom.js"></script>
     <script src="/js/theme.js"></script>
-    <!-- End script start -->
+
 </body>
 
 </html>

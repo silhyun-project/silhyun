@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
+
 <body>
-  
-
-
 
     <div layout:fragment="content">
 
@@ -31,114 +27,95 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div>
-                                <!-- 분류 이름 -->
                                 <h3 class="box-title">회원</h3>
-                                
 
-  
-  
-                                <!-- 통계 정보 -->
                                 <p class="text-muted" style="float:left; font-size:16px; margin-top:3px;">
-                                    신규 회원: <code th:text="${todayMem.size}"></code> &nbsp; 총 회원: <code th:text="${memberList.size}"></code></p>
+                                    신규 회원: <code th:text="${todayMem.size}"></code> &nbsp; 총 회원: <code
+                                        th:text="${memberList.size}"></code></p>
                                 <!-- 검색 -->
-                                <form id="searchM" action="/admin/memberManage" th:object="${cri}" class="app-search d-none d-md-block me-3">
+                                <form id="searchM" action="/admin/memberManage" th:object="${cri}"
+                                    class="app-search d-none d-md-block me-3">
 
                                     <ul style="list-style:none;float:right;">
                                         <li>
                                             생년월일<input type="date" name="birthDate" th:value="*{birthDate}">|
                                             멤버권한
                                             <select name="memCd">
-                                            	<option value="" th:selected="*{memCd == 'all'}">선택</option>
-                                            	<option value="M0" th:selected="*{memCd == 'all'}">관리자</option>
-                                            	<option value="M1" th:selected="*{memCd == 'all'}">일반</option>
-                                            	<option value="M2" th:selected="*{memCd == 'all'}">작가</option>
-                                            	<option value="M3" th:selected="*{memCd == 'all'}">사진관</option>               
+                                                <option value="" th:selected="*{memCd == 'all'}">선택</option>
+                                                <option value="M0" th:selected="*{memCd == 'all'}">관리자</option>
+                                                <option value="M1" th:selected="*{memCd == 'all'}">일반</option>
+                                                <option value="M2" th:selected="*{memCd == 'all'}">작가</option>
+                                                <option value="M3" th:selected="*{memCd == 'all'}">사진관</option>
                                             </select>|
                                             성별
                                             <input type="radio" name="genCd" value="">선택
                                             <input type="radio" name="genCd" value="m">남
                                             <input type="radio" name="genCd" value="f">여|
-                                            
-                                                                                        <select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
-                                   
-                                             	<option value="all" th:selected="*{type == 'all'}">전체</option>                                  
+
+                                            <select name="type"
+                                                style="width:120px;height:30px;font-size:16px;border:none;">
+                                                <option value="all" th:selected="*{type == 'all'}">전체</option>
                                                 <option value="id" th:selected="*{type == 'id'}">아이디</option>
                                                 <option value="name" th:selected="*{type == 'name'}">이름</option>
                                                 <option value="email" th:selected="*{type == 'email'}">이메일</option>
                                                 <option value="tel" th:selected="*{type == 'tel'}">휴대전화</option>
-                                                <option value="joinDate" th:selected="*{type == 'joinDate'}">가입날짜</option>                                                
-                                                <option value="pointSum" th:selected="*{type == 'pointSum'}">포인트</option>                                        
+                                                <option value="joinDate" th:selected="*{type == 'joinDate'}">가입날짜
+                                                </option>
+                                                <option value="pointSum" th:selected="*{type == 'pointSum'}">포인트
+                                                </option>
                                             </select>
-                                            <input type="text" name="keyword" th:value="*{keyword}" placeholder="Search..." class="form-control mt-0"
+                                            <input type="text" name="keyword" th:value="*{keyword}"
+                                                placeholder="Search..." class="form-control mt-0"
                                                 style="display:inline-block;width:300px;height:30px;font-size:16px;">
-											<input type="hidden" name="pageNum" th:value="*{pageNum}">
-											<input type="hidden" name="amount" th:value="*{amount}">
-											<button class="btn btn-dark" id="searchMBtn">검색</button>
+                                            <input type="hidden" name="pageNum" th:value="*{pageNum}">
+                                            <input type="hidden" name="amount" th:value="*{amount}">
+                                            <button class="btn btn-dark" id="searchMBtn">검색</button>
                                         </li>
                                     </ul>
                                 </form>
-                                
-                                
-                              
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
                             </div>
                             <br>
                             <hr>
-                            <!-- 회원 관리 본문 -->
-                            
-                                    <form id="memberFrm" method="post" action="/deleteMember">
-                            <div class="table-responsive">
-                                <!-- 회원 테이블 -->
-                           <button type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|disableMemberAll()|">선택 비활성화</button>
-                                <table class="table text-nowrap">
-                                    
-                                    <thead>
-                                    
-                                        <tr>
-                                        
-         									<th><input type="checkbox" id="chkMemAllBox" th:attr="onclick=|chkMemAll()|"></th>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">아이디</th>
-                                            <th class="border-top-0">이름</th>
-                                            <th class="border-top-0">이메일</th>
-                                            <th class="border-top-0">휴대전화</th>
-                                            <th class="border-top-0">가입날짜</th>
-                                            <th class="border-top-0">생년월일</th>
-                                            <th class="border-top-0">성별</th>
-                                            <th class="border-top-0">포인트</th>
-                                            <th class="border-top-0">멤버권한</th>
-                                            <th class="border-top-0">수정</th>
-                                            <th class="border-top-0">비활성화</th>
-                                                               
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-<tr th:each="mem,sts : ${list}" th:Class="${sts}" th:classappend="${mem.memCd == 'M4'} ? 'bg-secondary' : ''">
-    <td><input type="checkbox" th:if="${#strings.equals(mem.memCd, 'M1')}" id="memberBox" ></td>
-    <td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}"></td>
-    <td th:text="${mem.id}" id="id" th:name="id"></td>
-    <td th:text="${mem.name}"></td>
-    <td th:text="${mem.email}"></td>
-    <td th:text="${mem.tel}" ></td>
-    <td th:text="${#dates.format(mem.joinDate,'yyyy/MM/dd')}" th:value="${mem.joinDate}"></td>
-    <td th:text="${#dates.format(mem.birthDate,'yyyy/MM/dd')}"></td>
-    <td th:text="${mem.genCdNm}" ></td>
-    <td th:text="${mem.pointSum}"></td>
-    <td th:text="${mem.memCdNm}"></td>
-    <td><button th:unless="${#strings.equals(mem.memCd, 'M4')}" type="button" class="btn btn-success"  id ="updateMBtn"  data-bs-toggle="modal" data-bs-target="#updateMModal" style="color:white;" th:attr="onclick=|relayMId('${mem.id}')|">수정</button></td>
-    <td>
+
+                            <form id="memberFrm" method="post" action="/deleteMember">
+                                <div class="table-responsive">
+                                    <button type="button" class="btn btn-danger" style="color:white;"
+                                        th:attr="onclick=|disableMemberAll()|">선택 비활성화</button>
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" id="chkMemAllBox"
+                                                        th:attr="onclick=|chkMemAll()|"></th>
+                                                <th class="border-top-0">#</th>
+                                                <th class="border-top-0">아이디</th>
+                                                <th class="border-top-0">이름</th>
+                                                <th class="border-top-0">이메일</th>
+                                                <th class="border-top-0">휴대전화</th>
+                                                <th class="border-top-0">가입날짜</th>
+                                                <th class="border-top-0">생년월일</th>
+                                                <th class="border-top-0">성별</th>
+                                                <th class="border-top-0">포인트</th>
+                                                <th class="border-top-0">멤버권한</th>
+                                                <th class="border-top-0">수정</th>
+                                                <th class="border-top-0">비활성화</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="mem,sts : ${list}" th:Class="${sts}"
+                                                th:classappend="${mem.memCd == 'M4'} ? 'bg-secondary' : ''">
+                                                <td><input type="checkbox" th:if="${#strings.equals(mem.memCd, 'M1')}" id="memberBox" ></td>
+                                                <td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}"></td>
+                                                <td th:text="${mem.id}" id="id" th:name="id"></td>
+                                                <td th:text="${mem.name}"></td>
+                                                <td th:text="${mem.email}"></td>
+                                                <td th:text="${mem.tel}" ></td>
+                                                <td th:text="${#dates.format(mem.joinDate,'yyyy/MM/dd')}" th:value="${mem.joinDate}"></td>
+                                                <td th:text="${#dates.format(mem.birthDate,'yyyy/MM/dd')}"></td>
+                                                <td th:text="${mem.genCdNm}" ></td>
+                                                <td th:text="${mem.pointSum}"></td>
+                                                <td th:text="${mem.memCdNm}"></td>
+                                                <td><button th:unless="${#strings.equals(mem.memCd, 'M4')}" type="button" class="btn btn-success"  id ="updateMBtn"  data-bs-toggle="modal" data-bs-target="#updateMModal" style="color:white;" th:attr="onclick=|relayMId('${mem.id}')|">수정</button></td>
+                                                <td>
         <button th:if="${#strings.equals(mem.memCd, 'M1')}" type="button" class="btn btn-danger" style="color:white;" th:attr="onclick=|disableMember('${mem.id}')|" id="disableBtn">비활성화</button>
         <button th:if="${#strings.equals(mem.memCd, 'M4')}" type="button" class="btn btn-dark" style="color:white;" th:attr="onclick=|ableMember('${mem.id}')|" id="albeBtn">확성화</button>
     </td>

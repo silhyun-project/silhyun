@@ -1,8 +1,6 @@
 package co.yedam.silhyun.member.web;
 
 
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +32,7 @@ public class AdminController {
 	
 	/*
 	 * 작성자: 박소혜
-	 * 작성일자: 20230321
+	 * 작성일자: 20230323
 	 * 작성내용: 코드 정리중 
 	 */
 	   

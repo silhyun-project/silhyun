@@ -58,8 +58,8 @@ ORDER BY
 SELECT 
   c.id as "id", 
   CASE 
-    WHEN c.ctgr = 'A' THEN '예약',
-    when c.ctgr = 'P' THEN '포트폴리오',
+    WHEN c.ctgr = 'A' THEN '예약'
+    WHEN c.ctgr = 'P' THEN '포트폴리오'
     ELSE '클래스'
   END AS "ctgr", 
   c.cntn as "cntn", 

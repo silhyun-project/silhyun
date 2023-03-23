@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="zxx" xmlns:th="http://www.thymeleaf.org"  
-                 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,55 +13,54 @@
     <title>Ample Admin Lite Template by WrapPixel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <link rel="icon" type="image/png" sizes="16x16" href="/manage/plugins/images/favicon.png">
-   <link href="/manage/css/style.min.css" rel="stylesheet">
+    <link href="/manage/css/style.min.css" rel="stylesheet">
 
 
-<style>
-.pagination {
-  display: inline-block;
-}
+    <style>
+        .pagination {
+            display: inline-block;
+        }
 
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-}
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
 
-.pagination a.active {
-  background-color: grey;
-  color: white;
-  border-radius: 5px;
-}
+        .pagination a.active {
+            background-color: grey;
+            color: white;
+            border-radius: 5px;
+        }
 
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-  border-radius: 5px;
-}
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            border-radius: 5px;
+        }
 
-.paginationP {
-  display: inline-block;
-}
+        .paginationP {
+            display: inline-block;
+        }
 
-.paginationP a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-}
+        .paginationP a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
 
-.paginationP a.active {
-  background-color: grey;
-  color: white;
-  border-radius: 5px;
-}
+        .paginationP a.active {
+            background-color: grey;
+            color: white;
+            border-radius: 5px;
+        }
 
-.paginationP a:hover:not(.active) {
-  background-color: #ddd;
-  border-radius: 5px;
-}
-
-</style>
+        .paginationP a:hover:not(.active) {
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+    </style>
 
 
 
@@ -82,7 +81,7 @@
                     <a class="navbar-brand" href="/">
                         <b class="logo-icon">
                             <img src="/img/silhyunLogoSmall.JPG" alt="homepage" style="width: 180px" />
-                  </b>
+                        </b>
                     </a>
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
@@ -97,7 +96,8 @@
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <li>
                             <a class="profile-pic" href="/admin/adminManage">
-                                  <i class="fa fa-key" aria-hidden="true"></i><span class="text-white font-medium">&nbsp;ADMIN</span></a>
+                                <i class="fa fa-key" aria-hidden="true"></i><span
+                                    class="text-white font-medium">&nbsp;ADMIN</span></a>
                         </li>
                     </ul>
                 </div>
@@ -115,15 +115,15 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/memberManage}"
-                                aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                th:href="@{/admin/memberManage}" aria-expanded="false">
                                 <i class="fa fa-users" aria-hidden="true"></i>
                                 <span class="hide-menu">회원 관리</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/memberAccept}"
-                                aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                th:href="@{/admin/memberAccept}" aria-expanded="false">
                                 <i class="fas fa-user-plus" aria-hidden="true"></i>
                                 <span class="hide-menu">종합 승인 관리</span>
                             </a>
@@ -142,7 +142,7 @@
                                 <span class="hide-menu">탈퇴 관리</span>
                             </a>
                         </li>
-                                                <li class="sidebar-item">
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/adminManage}"
                                 aria-expanded="false">
                                 <i class="far fa-smile" aria-hidden="true"></i>
@@ -156,92 +156,109 @@
             </div>
         </aside>
         <div class="page-wrapper">
-                <div layout:fragment="content">
-            <div class="page-breadcrumb bg-white">
-            
-                
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h3 class="page-title">대시보드</h3>
-                    </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                          
-                            </ol>
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white"
-                                th:text="${cfm.sysDate}+' 대기중인 승인 : '+ (${cfm.ptgCf}+${cfm.stdCf}+${cfm.classCf}+${cfm.eventCf}+'건')">
+            <div layout:fragment="content">
+                <div class="page-breadcrumb bg-white">
+
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h3 class="page-title">대시보드</h3>
+                        </div>
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                            <div class="d-md-flex">
+                                <ol class="breadcrumb ms-auto">
+
+                                </ol>
+                                <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
+                                    class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white"
+                                    th:text="${cfm.sysDate}+' 대기중인 승인 : '+ (${cfm.ptgCf}+${cfm.stdCf}+${cfm.classCf}+${cfm.eventCf}+'건')">
                                 </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="white-box">
                             <h3 class="box-title">지난 2주간 매출액</h3>
                             <div id="ct-visits" style="height: 405px;" align="center">
-                            <div style="width: 1200px;height: 400px">
-                                          <canvas id="myChart"></canvas>
-              </div>
+                                <div style="width: 1200px;height: 400px">
+                                    <canvas id="myChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">기록가 랭킹</h3>
-                            <table>
-                            <tr th:each="ptgRank,sts : ${ptgRank}" th:Class="${sts}" align="center">
-                            	<td th:text="${sts.count}"></td>
-                            	<td><div class="p-2"><img th:src="${ptgRank.PROFILE}" alt="user" width="50" class="rounded-circle"></div></td>
-                            	<td style="padding-right: 100px"><h5 class="font-medium" th:text="${ptgRank.ctgrNum}+'님'"></h5></td>
-                            	<td><h5 align="right" th:text="${ptgRank.CNT} + '건'"></h5></td>
-                            </tr>
-                            
-                            </table>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="white-box analytics-info">
+                                <h3 class="box-title">기록가 랭킹</h3>
+                                <table>
+                                    <tr th:each="ptgRank,sts : ${ptgRank}" th:Class="${sts}" align="center">
+                                        <td th:text="${sts.count}"></td>
+                                        <td>
+                                            <div class="p-2"><img th:src="${ptgRank.PROFILE}" alt="user" width="50"
+                                                    class="rounded-circle"></div>
+                                        </td>
+                                        <td style="padding-right: 100px">
+                                            <h5 class="font-medium" th:text="${ptgRank.ctgrNum}+'님'"></h5>
+                                        </td>
+                                        <td>
+                                            <h5 align="right" th:text="${ptgRank.CNT} + '건'"></h5>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-12">
+                            <div class="white-box analytics-info">
+                                <h3 class="box-title">클래스 랭킹</h3>
+                                <table>
+                                    <tr th:each="classRank,sts2 : ${classRank}" th:Class="${sts2}" align="center">
+                                        <td th:text="${sts2.count}"></td>
+                                        <td>
+                                            <div class="p-2"><img th:src="${classRank.profile}" alt="user" width="50">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5 class="font-medium" style="padding-right: 100px"
+                                                th:text="${classRank.ptgId}+'님'"></h5>
+                                        </td>
+                                        <td style="padding-right: 50px">
+                                            <h5 class="font-medium" th:text="${classRank.classTitle}"></h5>
+                                        </td>
+                                        <td>
+                                            <h5 align="right" th:text="${classRank.count} + '건'"></h5>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    
-                    
-                    <div class="col-lg-6 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">클래스 랭킹</h3>
-                           <table>
-                           <tr th:each="classRank,sts2 : ${classRank}" th:Class="${sts2}" align="center">
-                            	<td th:text="${sts2.count}"></td>
-                            	<td><div class="p-2"><img th:src="${classRank.profile}" alt="user" width="50"></div></td>
-                            	<td><h5 class="font-medium" style="padding-right: 100px" th:text="${classRank.ptgId}+'님'"></h5></td>
-                            	<td style="padding-right: 50px"><h5 class="font-medium" th:text="${classRank.classTitle}"></h5></td>
-                            	<td><h5 align="right" th:text="${classRank.count} + '건'"></h5></td>
-                            </tr>
-                            
-                            </table>
+
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <div class="white-box" align="center">
+                                <div align="left">
+                                    <h3 class="box-title">작가 분야 통계</h3>
+                                </div>
+
+                                <br>
+                                <br>
+                                <div style="width: 1000px">
+                                    <canvas id="myChart2"></canvas>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                        <div class="white-box" align="center">
-                        <div align="left">
-                            <h3 class="box-title">작가 분야 통계</h3>
-                        </div>
-
-<br>
-<br>
-<div style="width: 1000px">
-  <canvas id="myChart2"></canvas>
-</div>
-
-                        </div>
-                    </div>
-     </div>
-</div>
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="white-box">
@@ -267,7 +284,7 @@
                                             <td th:text="${buy.ctgrNum}+'님'"></td>
                                             <td class="txt-oflo" th:text="${buy.id}+'님'"></td>
                                             <td><span class="text-success" th:text="${buy.pri}+'원'"></span></td>
-											<td class="txt-oflo" th:text="${buy.date}"></td>
+                                            <td class="txt-oflo" th:text="${buy.date}"></td>
                                         </tr>
 
                                     </tbody>
@@ -284,15 +301,21 @@
                             </div>
                             <div class="comment-widgets">
                                 <div class="d-flex flex-row comment-row p-3 mt-0" th:each="com : ${com}">
-                                    <div class="p-2"><img th:src="${com.cProfile}" alt="user" width="50" class="rounded-circle"></div>
+                                    <div class="p-2"><img th:src="${com.cProfile}" alt="user" width="50"
+                                            class="rounded-circle"></div>
                                     <div class="comment-text ps-2 ps-md-3 w-100">
                                         <h5 class="font-medium" th:text="${com.id}+'님'"></h5>
                                         <span class="mb-3 d-block" th:text="${com.cntn}"></span>
                                         <div class="comment-footer d-md-flex align-items-center">
-                                             <span class="badge bg-danger rounded" th:if="${com.ctgr=='예약'}" th:text="${com.ctgr}"></span>
-                                                  <span class="badge bg-primary rounded" th:if="${com.ctgr=='클래스'}" th:text="${com.ctgr}"></span>
-                                             
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0" th:text="${com.comDate}"></div>
+                                            <span class="badge bg-danger rounded" th:if="${com.ctgr=='예약'}"
+                                                th:text="${com.ctgr}"></span>
+                                            <span class="badge bg-primary rounded" th:if="${com.ctgr=='클래스'}"
+                                                th:text="${com.ctgr}"></span>
+                                            <span class="badge bg-info rounded" th:if="${com.ctgr=='포트폴리오'}"
+                                                th:text="${com.ctgr}"></span>
+
+                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0" th:text="${com.comDate}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -309,12 +332,10 @@
                                     <li th:each="join : ${join}">
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
                                                 th:src="${join.profile}" alt="user-img" class="img-circle">
-<span>
+                                            <span>
                                                 <span class="text-dark" th:text="${join.id+'님'}">
-                                                        </span>
-                                                <small
-                                                        class="d-block text-success d-block" 
-                                                        th:text="${#dates.format(join.joinDate,'yyyy/MM/dd')}">
+                                                </span>
+                                                <small class="d-block text-success d-block" th:text="${#dates.format(join.joinDate,'yyyy/MM/dd')}">
                                                         </small>
 </span>                                      
 
@@ -448,7 +469,6 @@
 
         </div>
 
-    </div>
 
     <script src="/manage/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->

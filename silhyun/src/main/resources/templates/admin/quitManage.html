@@ -1,76 +1,62 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
-   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<body>
-<div layout:fragment="content">
-   
-               <div class="page-breadcrumb bg-white">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h3 class="page-title">탈퇴 관리</h3>
-                    </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                          <li><a> </a></li>
-                            </ol>
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/dashBoard}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-                        </div>
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="page-breadcrumb bg-white">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h3 class="page-title">탈퇴 관리</h3>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <div class="d-md-flex">
+                        <ol class="breadcrumb ms-auto">
+                            <li><a> </a></li>
+                        </ol>
+
                     </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row" id="memberList">
-                    <div class="col-sm-12">
-                        <div class="white-box">
+        </div>
+        <div class="container-fluid">
+            <div class="row" id="memberList">
+                <div class="col-sm-12">
+                    <div class="white-box">
                         <div>
                             <h3 class="box-title">탈퇴 회원</h3>
-                            
-                            
-                             <form id="searchFrm" action="/admin/quitManage" th:object="${page}" class="app-search d-none d-md-block me-3">
-               
-                            <ul style="list-style:none;float:right;">
-								<li>		
-  									<select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
-  
-                                              	<option value="all" th:selected="*{criteria.type == 'all'}">전체</option>
-                                   
-                                   
-                                                <option value="id" th:selected="*{criteria.type == 'id'}">아이디</option>
-                                                <option value="quitDate" th:selected="*{criteria.type == 'quitDate'}">탈퇴일</option>
-                                                <option value="quitCd" th:selected="*{criteria.type == 'quitCd'}">탈퇴사유</option>
-                                                <option value="detaResn" th:selected="*{criteria.type == 'detaResn'}">상세사유</option>
-
-                                            </select>
-                                            <input type="text" name="keyword" th:value="*{criteria.keyword}" placeholder="Search..." class="form-control mt-0"
-                                                style="display:inline-block;width:300px;height:30px;font-size:16px;">
-											<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
-											<input type="hidden" name="amount" th:value="*{criteria.amount}">
-											<button class="btn btn-dark">검색</button>
-                                        </li>
-                                    </ul>
-                                </form>
-                                
-                            
-                            
+                            <form id="searchFrm" action="/admin/quitManage" th:object="${page}"
+                                class="app-search d-none d-md-block me-3">
+                                <ul style="list-style:none;float:right;">
+                                    <li>
+                                        <select name="type" style="width:120px;height:30px;font-size:16px;border:none;">
+                                            <option value="all" th:selected="*{criteria.type == 'all'}">전체</option>
+                                            <option value="id" th:selected="*{criteria.type == 'id'}">아이디</option>
+                                            <option value="quitDate" th:selected="*{criteria.type == 'quitDate'}">탈퇴일
+                                            </option>
+                                            <option value="quitCd" th:selected="*{criteria.type == 'quitCd'}">탈퇴사유
+                                            </option>
+                                            <option value="detaResn" th:selected="*{criteria.type == 'detaResn'}">상세사유
+                                            </option>
+                                        </select>
+                                        <input type="text" name="keyword" th:value="*{criteria.keyword}"
+                                            placeholder="Search..." class="form-control mt-0"
+                                            style="display:inline-block;width:300px;height:30px;font-size:16px;">
+                                        <input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+                                        <input type="hidden" name="amount" th:value="*{criteria.amount}">
+                                        <button class="btn btn-dark">검색</button>
+                                    </li>
+                                </ul>
+                            </form>
                         </div>
-	
-	               <br>
-					<hr>
-	<form id ="quitMFrm" method="post" action="/deleteQuitM">
-	  <div class="table-responsive">
-                                <!-- 회원 테이블 -->
+
+                        <br>
+                        <hr>
+                        <form id="quitMFrm" method="post" action="/deleteQuitM">
+                            <div class="table-responsive">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
@@ -83,7 +69,9 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="mem,sts : ${list}" th:Class="${sts}">
-                                            <td th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}"></td>
+                                            <td
+                                                th:text="${page.total-(page.criteria.pageNum-1)*page.criteria.amount-sts.index}">
+                                            </td>
                                             <td th:text="${mem.id}" th:value="${mem.id}" id="id" th:name="id"></td>
                                             <td th:text="${#dates.format(mem.quitDate,'yyyy/MM/dd')}" th:value="${mem.quitDate}"></td>
                                             <td th:text="${mem.quitCd}" th:value="${mem.quitCd}"></td>
@@ -92,58 +80,38 @@
                                     </tbody>
                                 </table>
                             </div>
-</form>
+                        </form>
 	
-	                            
-                            <!-- 회원리스트 페이징  -->
-                            <div align="center">
-                            
-   <div class="pagination">
-		<a th:if="${page.prev}" th:href="${page.startPage-1}" style="color:black;float:left;padding:8px16px;text-decoration:none">&laquo;</a>
-		<a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
-		    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
-		<a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
-	</div>
-	<form id="actionFrm" action="/admin/quitManage" th:object="${page}">
-		<input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
-		<input type="hidden" name="amount" th:value="*{criteria.amount}">
-		<input type="hidden" name="type" th:value="*{criteria.type}">
-		<input type="hidden" name="keyword" th:value="*{criteria.keyword}">
-	</form>
-</div>
-
-<!-- 페이징 끝 -->
-
-                
-                
+                        <div align="center">
+                             <div class="pagination">
+                                <a th:if="${page.prev}" th:href="${page.startPage-1}" style="color:black;float:left;padding:8px16px;text-decoration:none">&laquo;</a>
+                                <a th:each="num : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}" th:href="${num}"
+                                    th:class="${page.criteria.pageNum==num} ? 'active'">[[${num}]]</a>
+                                <a th:if="${page.next}" th:href="${page.endPage+1}">&raquo;</a>
+                            </div>
+                            <form id="actionFrm" action="/admin/quitManage" th:object="${page}">
+                                <input type="hidden" name="pageNum" th:value="*{criteria.pageNum}">
+                                <input type="hidden" name="amount" th:value="*{criteria.amount}">
+                                <input type="hidden" name="type" th:value="*{criteria.type}">
+                                <input type="hidden" name="keyword" th:value="*{criteria.keyword}">
+                            </form>
+                        </div>
                       </div>
-                                      <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                        <div class="white-box">
-                            <h3 class="box-title">탈퇴 사유 통계</h3>
-          <div align="center">
-<canvas id="myChart" width="1200" height="400"></canvas>
-          </div>
-        
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <div class="white-box">
+                                <h3 class="box-title">탈퇴 사유 통계</h3>
+                            <div align="center">
+                                <canvas id="myChart" width="1200" height="400"></canvas>
+                            </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                
-                
-                
-                
-                
                 
                 
                 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
 <script th:inline="javascript">
-
 var list = /*[[${gtGraph}]]*/ []; // 컨트롤러에서 가져온 List<Map<String,String>> list 값
 
     // labels와 data 배열 초기화
@@ -191,12 +159,8 @@ var list = /*[[${gtGraph}]]*/ []; // 컨트롤러에서 가져온 List<Map<Strin
             responsive: false,
         }
     });
-    
-   
+      
 </script>
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>        
 <script th:inline="javascript">
@@ -207,7 +171,7 @@ $(".pagination a").on("click", function(e){
 	console.log($("#actionFrm").find("input[name='pageNum']").val())
  	$("#actionFrm").find("input[name='pageNum']").val($(this).attr("href"));
 	
-	actionFrm.submit(); //폼태그값을 스트링으로 
+	actionFrm.submit();
 })
 
 	console.log($('input[type="checkbox"]:checked').val())
@@ -223,8 +187,6 @@ $('#searchFrm button').on("click", function(e){
 
 
 </script>
-
-
 </div>
 </div>
 </div>
