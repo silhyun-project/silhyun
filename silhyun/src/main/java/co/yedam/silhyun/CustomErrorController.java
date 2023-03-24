@@ -11,7 +11,7 @@ public class CustomErrorController implements ErrorController {
 	
     @GetMapping(ERROR_PATH)
     public String redirectRoot(){
-        return "home/err";
+        return "home/home";
     }
     
     @GetMapping("/silhyun/err")
