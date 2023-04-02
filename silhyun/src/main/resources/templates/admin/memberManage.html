@@ -416,7 +416,8 @@
                         
                         <div class="row align-items-center">
                             <div class="col-sm-4">
-                                <button type="submit" class="btn btn-dark">수정완료</button>
+                                <button type="button" class="btn btn-dark" 
+                                onclick="return validationFrm()">수정완료</button>
                             </div>
                         </div>
                     </form>
@@ -484,11 +485,38 @@
     </div>
 </div>
 <!-- End Login Popup  -->
-   
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>   
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>        
 <script th:inline="javascript">
 
 
+function validationFrm() {
+	  const updateMFrm = document.getElementById("updateMFrm");
+
+	  if (
+	    updateMFrm.name.value == "" &&
+	    updateMFrm.email.value == "" &&
+	    updateMFrm.tel.value == "" &&
+	    updateMFrm.birthDate.value == "" &&
+	    updateMFrm.genCd.value == ""
+	  ) {
+	    swal("수정 실패", "수정할 정보를 입력해주세요.", "warning");
+	    return false;
+	  } else {
+	    swal({
+	      title: "수정 성공",
+	      icon: "success",
+	      buttons: "확인",
+	    }).then(function (willSubmit) {
+	      if (willSubmit) {
+	        updateMFrm.submit();
+	      }
+	    });
+	  }
+	}
+
+	
 	function relayMId(id){
 		var id = id;
   	  $("#updateMId").text(id+"님의 정보 변경");

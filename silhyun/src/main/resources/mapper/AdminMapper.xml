@@ -353,12 +353,7 @@ find_cd(region_cd) as "regionCd",
 	<if test="tel!=null and !tel.equals('')">tel = #{tel },</if>
 	<if test="birthDate!=null and !birthDate.equals('')">birth_date = #{birthDate },</if>
 	<if test="genCd!=null and !genCd.equals('')">gen_cd = #{genCd },</if>
-	 
-	 <!-- 
-	<if test="pointSum!=null and !pointSum.equals('')">point_sum = #{pointSum },</if>
-	  -->
-	 
-	<if test="memCd!=null and !memCd.equals('')">mem_cd = #{memCd }</if>
+	<if test="memCd!=null and !memCd.equals('')">mem_cd = #{memCd },</if>
 	</set>
 	WHERE id = #{id } 
 
