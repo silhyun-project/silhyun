@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -385,6 +386,11 @@ public class AdminController {
 	//관리자 정보수정
 	@PostMapping("/updateAdmin")
 	public String updateAdmin(MemberVO vo) {		
+		
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(10);
+		String pwd = bcrypt.encode(vo.getPwd());
+		vo.setPwd(pwd);
+		
 		int n = adminService.updateAdmin(vo);
 
 		if(n!=0) {

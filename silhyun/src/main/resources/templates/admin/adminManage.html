@@ -60,13 +60,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label class="col-md-12 p-0"><b>비밀번호</b></label>
-                                    <div class="col-md-12 border-bottom p-0">
-                                        <input type="password" value="password" class="form-control p-0 border-0"
-                                            data-th-value="${adminInfo.pwd }" th:name="pwd" th:readonly="true" />
-                                    </div>
-                                </div>
-                                <div class="form-group mb-4">
                                     <label class="col-md-12 p-0"><b>TEL</b></label>
                                     <div class="col-md-12 border-bottom p-0">
                                         <input type="text" class="form-control p-0 border-0"
@@ -123,7 +116,7 @@
               </div>
               <div class="modal-body">
                 <div class="w-100 p-3">
-                  <form method="post" action="/updateAdmin">
+                  <form id="updateAFrm" method="post" action="/updateAdmin">
                     <div class="mb-3">
                       <label class="form-label" for="exampleInputEmail1">이름</label>
                       <input type="text" class="form-control"
@@ -155,7 +148,7 @@
                     </div>
                     <div class="row align-items-center">
                       <div class="col-sm-4">
-                        <button type="submit" class="btn btn-dark">
+                        <button type="button" class="btn btn-dark" onclick="validationAFrm()">
                           수정완료
                         </button>
                       </div>
@@ -167,6 +160,38 @@
           </div>
         </div>
       </div>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>   
+      <script src="https://code.jquery.com/jquery-3.4.1.js"></script>        
+      <script th:inline="javascript">
+
+
+      function validationAFrm() {
+      	  const updateAFrm = document.getElementById("updateAFrm");
+
+      	  if (
+   			updateAFrm.name.value == "" &&
+   			updateAFrm.email.value == "" &&
+   			updateAFrm.pwd.value == "" &&
+   			updateAFrm.tel.value == "" &&
+   			updateAFrm.birthDate.value == "" &&
+   			updateAFrm.genCd.value == ""
+      	  ) {
+      	    swal("수정 실패", "수정할 정보를 입력해주세요.", "warning");
+      	    return false;
+      	  } else {
+      	    swal({
+      	      title: "수정 성공",
+      	      icon: "success",
+      	      buttons: "확인",
+      	    }).then(function (willSubmit) {
+      	      if (willSubmit) {
+      	        updateAFrm.submit();
+      	      }
+      	    });
+      	  }
+      	}
+      
+      </script>
     </div>
   </body>
 </html>

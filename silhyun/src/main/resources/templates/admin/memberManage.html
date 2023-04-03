@@ -339,7 +339,8 @@
                                             <td th:text="${#dates.format(std.accpDate,'yyyy/MM/dd')}"></td>
                                             <td>
                                             <button class="btn btn-secondary" th:if="${#strings.equals(std.stCd, 'G')}" style="color:white;" type="button" id ="updateBtn"  data-bs-toggle="modal" 
-                                            data-bs-target="#StdsPtgList"  th:attr="onclick=|belongAjax('${std.stId}')|">소속작가</button>    
+                                            data-bs-target="#StdsPtgList"  th:attr="onclick=|belongAjax('${std.stId}')|">소속작가</button>
+                                            <span th:unless="${#strings.equals(std.stCd, 'G')}">X</span>                            
                                             </td>
                                         </tr>
                                         <!-- 비활성화할 것 -->
