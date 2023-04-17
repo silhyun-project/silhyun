@@ -221,7 +221,7 @@
 		
 
 		$(document).ready()
-		//태그 5개만 가져오긔~~~~~~
+		//태그 가져와 버튼 만들기
 		$.ajax({
             url: "/silhyun/tagList",
              type: "get",
@@ -235,8 +235,7 @@
         	$('div .layout-change').append(taag);
    			}
          });
-		
-		//만든 태그 버튼에 그룹이벤트 주기.
+		//태그 버튼에 그룹이벤트
 		$('div .layout-change').on('click','a',function(){
 			$('div .layout-change .active').removeClass('active');
 			$(this).addClass('active')
