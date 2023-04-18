@@ -32,7 +32,7 @@ $(document).ready(function() {
 					}
 					$('#aroundTagList').html(tagList.join(''));
 					$('#moree').click(function() {
-						$(this).remove(); // ... 제거 안되노...
+						$(this).remove();
 						for (var i = 5; i < tags.length; i++) {
 							tagList.push(`<li>${tags[i]}</li>`);
 						}
